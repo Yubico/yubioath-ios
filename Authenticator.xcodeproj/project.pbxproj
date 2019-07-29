@@ -1,0 +1,646 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
+		818866BB22DFD729006BC0A8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866BA22DFD729006BC0A8 /* SettingsViewController.swift */; };
+		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
+		818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818866BF22DFD72C006BC0A8 /* Assets.xcassets */; };
+		818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */; };
+		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
+		818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */; };
+		818866E922E18134006BC0A8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* MainViewController.swift */; };
+		818866EE22E1845B006BC0A8 /* libYubiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 818866ED22E1845B006BC0A8 /* libYubiKit.a */; };
+		818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F422E23D9F006BC0A8 /* AddCredentialController.swift */; };
+		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
+		818866FA22E96B47006BC0A8 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* CircularProgressBar.swift */; };
+		81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */; };
+		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		818866CA22DFD72C006BC0A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 818866B222DFD729006BC0A8;
+			remoteInfo = Authenticator;
+		};
+		818866D522DFD72C006BC0A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 818866B222DFD729006BC0A8;
+			remoteInfo = Authenticator;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		818866BA22DFD729006BC0A8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		818866BD22DFD729006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		818866BF22DFD72C006BC0A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		818866C222DFD72C006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		818866C422DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorTests.swift; sourceTree = "<group>"; };
+		818866CF22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorUITests.swift; sourceTree = "<group>"; };
+		818866DA22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		818866E822E18134006BC0A8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		818866ED22E1845B006BC0A8 /* libYubiKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYubiKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Authenticator-Bridging-Header.h"; sourceTree = "<group>"; };
+		818866F422E23D9F006BC0A8 /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
+		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
+		818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialTableViewCell.swift; sourceTree = "<group>"; };
+		818866F922E96B47006BC0A8 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
+		81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubikitManagerModel.swift; sourceTree = "<group>"; };
+		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		818866B022DFD729006BC0A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				818866EE22E1845B006BC0A8 /* libYubiKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866C622DFD72C006BC0A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866D122DFD72C006BC0A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		818866AA22DFD729006BC0A8 = {
+			isa = PBXGroup;
+			children = (
+				818866B522DFD729006BC0A8 /* Authenticator */,
+				818866CC22DFD72C006BC0A8 /* AuthenticatorTests */,
+				818866D722DFD72C006BC0A8 /* AuthenticatorUITests */,
+				818866B422DFD729006BC0A8 /* Products */,
+				818866EC22E1845B006BC0A8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		818866B422DFD729006BC0A8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				818866B322DFD729006BC0A8 /* Authenticator.app */,
+				818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */,
+				818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		818866B522DFD729006BC0A8 /* Authenticator */ = {
+			isa = PBXGroup;
+			children = (
+				818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */,
+				818866F622E7A877006BC0A8 /* Authenticator.entitlements */,
+				818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */,
+				818866B622DFD729006BC0A8 /* AppDelegate.swift */,
+				818866BA22DFD729006BC0A8 /* SettingsViewController.swift */,
+				818866BC22DFD729006BC0A8 /* Main.storyboard */,
+				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
+				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
+				818866C422DFD72C006BC0A8 /* Info.plist */,
+				818866E822E18134006BC0A8 /* MainViewController.swift */,
+				818866F422E23D9F006BC0A8 /* AddCredentialController.swift */,
+				818866F922E96B47006BC0A8 /* CircularProgressBar.swift */,
+				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
+				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
+			);
+			path = Authenticator;
+			sourceTree = "<group>";
+		};
+		818866CC22DFD72C006BC0A8 /* AuthenticatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */,
+				818866CF22DFD72C006BC0A8 /* Info.plist */,
+			);
+			path = AuthenticatorTests;
+			sourceTree = "<group>";
+		};
+		818866D722DFD72C006BC0A8 /* AuthenticatorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */,
+				818866DA22DFD72C006BC0A8 /* Info.plist */,
+			);
+			path = AuthenticatorUITests;
+			sourceTree = "<group>";
+		};
+		818866EC22E1845B006BC0A8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				818866ED22E1845B006BC0A8 /* libYubiKit.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		818866B222DFD729006BC0A8 /* Authenticator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 818866DD22DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "Authenticator" */;
+			buildPhases = (
+				818866AF22DFD729006BC0A8 /* Sources */,
+				818866B022DFD729006BC0A8 /* Frameworks */,
+				818866B122DFD729006BC0A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Authenticator;
+			productName = Authenticator;
+			productReference = 818866B322DFD729006BC0A8 /* Authenticator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		818866C822DFD72C006BC0A8 /* AuthenticatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 818866E022DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorTests" */;
+			buildPhases = (
+				818866C522DFD72C006BC0A8 /* Sources */,
+				818866C622DFD72C006BC0A8 /* Frameworks */,
+				818866C722DFD72C006BC0A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				818866CB22DFD72C006BC0A8 /* PBXTargetDependency */,
+			);
+			name = AuthenticatorTests;
+			productName = AuthenticatorTests;
+			productReference = 818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		818866D322DFD72C006BC0A8 /* AuthenticatorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 818866E322DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorUITests" */;
+			buildPhases = (
+				818866D022DFD72C006BC0A8 /* Sources */,
+				818866D122DFD72C006BC0A8 /* Frameworks */,
+				818866D222DFD72C006BC0A8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				818866D622DFD72C006BC0A8 /* PBXTargetDependency */,
+			);
+			name = AuthenticatorUITests;
+			productName = AuthenticatorUITests;
+			productReference = 818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		818866AB22DFD729006BC0A8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Irina Makhalova";
+				TargetAttributes = {
+					818866B222DFD729006BC0A8 = {
+						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.NearFieldCommunicationTagReading = {
+								enabled = 1;
+							};
+						};
+					};
+					818866C822DFD72C006BC0A8 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 818866B222DFD729006BC0A8;
+					};
+					818866D322DFD72C006BC0A8 = {
+						CreatedOnToolsVersion = 10.2.1;
+						TestTargetID = 818866B222DFD729006BC0A8;
+					};
+				};
+			};
+			buildConfigurationList = 818866AE22DFD729006BC0A8 /* Build configuration list for PBXProject "Authenticator" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 818866AA22DFD729006BC0A8;
+			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				818866B222DFD729006BC0A8 /* Authenticator */,
+				818866C822DFD72C006BC0A8 /* AuthenticatorTests */,
+				818866D322DFD72C006BC0A8 /* AuthenticatorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		818866B122DFD729006BC0A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
+				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
+				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866C722DFD72C006BC0A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866D222DFD72C006BC0A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		818866AF22DFD729006BC0A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
+				818866BB22DFD729006BC0A8 /* SettingsViewController.swift in Sources */,
+				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
+				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
+				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
+				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
+				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
+				818866FA22E96B47006BC0A8 /* CircularProgressBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866C522DFD72C006BC0A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		818866D022DFD72C006BC0A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		818866CB22DFD72C006BC0A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 818866B222DFD729006BC0A8 /* Authenticator */;
+			targetProxy = 818866CA22DFD72C006BC0A8 /* PBXContainerItemProxy */;
+		};
+		818866D622DFD72C006BC0A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 818866B222DFD729006BC0A8 /* Authenticator */;
+			targetProxy = 818866D522DFD72C006BC0A8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		818866BC22DFD729006BC0A8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				818866BD22DFD729006BC0A8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				818866C222DFD72C006BC0A8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		818866DB22DFD72C006BC0A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		818866DC22DFD72C006BC0A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		818866DE22DFD72C006BC0A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
+				INFOPLIST_FILE = Authenticator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = YubiKit/debug_universal;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		818866DF22DFD72C006BC0A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
+				INFOPLIST_FILE = Authenticator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = YubiKit/release;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		818866E122DFD72C006BC0A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Authenticator.app/Authenticator";
+			};
+			name = Debug;
+		};
+		818866E222DFD72C006BC0A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Authenticator.app/Authenticator";
+			};
+			name = Release;
+		};
+		818866E422DFD72C006BC0A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = AuthenticatorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Authenticator;
+			};
+			name = Debug;
+		};
+		818866E522DFD72C006BC0A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = AuthenticatorUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Authenticator;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		818866AE22DFD729006BC0A8 /* Build configuration list for PBXProject "Authenticator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				818866DB22DFD72C006BC0A8 /* Debug */,
+				818866DC22DFD72C006BC0A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		818866DD22DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "Authenticator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				818866DE22DFD72C006BC0A8 /* Debug */,
+				818866DF22DFD72C006BC0A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		818866E022DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				818866E122DFD72C006BC0A8 /* Debug */,
+				818866E222DFD72C006BC0A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		818866E322DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				818866E422DFD72C006BC0A8 /* Debug */,
+				818866E522DFD72C006BC0A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 818866AB22DFD729006BC0A8 /* Project object */;
+}

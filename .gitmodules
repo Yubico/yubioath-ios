@@ -1,0 +1,3 @@
+[submodule "Submodules/YubiKit"]
+	path = Submodules/YubiKit
+	url = git@gitlab.in.yubico.org:engineering/YubiKit.git
