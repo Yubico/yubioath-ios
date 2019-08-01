@@ -17,6 +17,9 @@ class AddCredentialController: UITableViewController {
     @IBOutlet weak var issuerScannedText: UITextField!
     @IBOutlet weak var accountScannedText: UITextField!
     @IBOutlet weak var addManualButton: UIButton!
+    @IBOutlet weak var issuerManualText: UITextField!
+    @IBOutlet weak var accountManualText: UITextField!
+    @IBOutlet weak var secretManualText: UITextField!
     
     private var url: URL?
     private var manualEntryExpanded: Bool = false
@@ -60,7 +63,7 @@ class AddCredentialController: UITableViewController {
             if manualEntryExpanded {
                 return 300
             } else {
-                return 80
+                return 70
             }
         }
         return 80
@@ -107,25 +110,39 @@ class AddCredentialController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-/*        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("The save button was not pressed, cancelling")
+        if let button = sender as? UIBarButtonItem, button === saveButton {
+            let oathUrlString = "otpauth://totp/Yubico:example@yubico.com?secret=UOA6FJYR76R7IRZBGDJKLYICL3MUR7QH&issuer=Yubico&algorithm=SHA1&digits=6&period=30";
+            self.credential = YKFOATHCredential(url: URL(string: oathUrlString)!)
             return
         }
-  */
-        if (self.url != nil) {
+ 
+        if let button = sender as? UIButton, button == addScannedButton, self.url != nil {
             // Create the credential from the URL using the convenience initializer.
             guard let credential = YKFOATHCredential(url: self.url!) else {
                 print("Invalid URI format")
                 return
             }
-
+            
             // Set the credential to be passed to MainViewController after the unwind segue.
             credential.issuer = self.issuerScannedText.text ?? ""
             credential.account = self.accountScannedText.text ?? ""
             
             self.credential = credential
+        } else if let button = sender as? UIButton, button == addManualButton {
+            // Create the credential from manual input
+            let credential = YKFOATHCredential()
+            
+            // Set the credential to be passed to MainViewController after the unwind segue.
+            credential.issuer = self.issuerManualText.text ?? ""
+            credential.account = self.accountScannedText.text ?? ""
+            
+            // TODO: make 32 decoder instead of 64
+            let encoded = self.secretManualText.text ?? ""
+            credential.secret = Data(base64Encoded: encoded) ?? Data()
+            self.credential = credential
+        } else {
+            print("The save button was not pressed, cancelling")
         }
-        
         //            self!.performSegue(withIdentifier: "SuccessfulScan", sender: self)
 
     }

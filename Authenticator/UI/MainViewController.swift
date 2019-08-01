@@ -10,10 +10,7 @@ import UIKit
 
 class MainViewController: UITableViewController, CredentialViewModelDelegate {
 
-//    var credentials = [YKFOATHCredential : String]()
     let viewModel = YubikitManagerModel()
-
-//    var credentials = NSArray();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +77,7 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
         cell.name.text = credential.account
         
         if (credential.type == .TOTP && !credential.code.isEmpty) {
-            cell.progress.setProgress(to: 100, duration: credential.validity.end.timeIntervalSinceNow ,step: 1.0) {
+            cell.progress.setProgress(to: 100, duration: Double(credential.period) ,step: 1.0) {
                 self.viewModel.calculate(oathService: YubiKitManager.shared.keySession.oathService, credential: credential)
             }
         } else {    
