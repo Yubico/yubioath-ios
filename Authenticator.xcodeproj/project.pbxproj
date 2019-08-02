@@ -19,6 +19,7 @@
 		818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F422E23D9F006BC0A8 /* AddCredentialController.swift */; };
 		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
 		818866FA22E96B47006BC0A8 /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* CircularProgressBar.swift */; };
+		818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818BE8DE22F39A9000061026 /* GlobalTimer.swift */; };
 		81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */; };
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
 		818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CredentialTableViewCell.swift; path = Authenticator/UI/CredentialTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		818866F922E96B47006BC0A8 /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CircularProgressBar.swift; path = Authenticator/UI/CircularProgressBar.swift; sourceTree = SOURCE_ROOT; };
+		818BE8DE22F39A9000061026 /* GlobalTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTimer.swift; sourceTree = "<group>"; };
 		81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubikitManagerModel.swift; sourceTree = "<group>"; };
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +171,7 @@
 		818BE8DB22F3486500061026 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 			);
@@ -319,6 +322,7 @@
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* CircularProgressBar.swift in Sources */,
+				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

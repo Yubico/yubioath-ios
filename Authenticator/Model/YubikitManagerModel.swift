@@ -10,6 +10,7 @@ import Foundation
 
 protocol CredentialViewModelDelegate: class {
     func onUpdated()
+    func onError(error: Error)
 }
 
 class YubikitManagerModel {
@@ -80,6 +81,5 @@ class YubikitManagerModel {
             self.delegate?.onUpdated()
         }
     }
-    
 
 }
