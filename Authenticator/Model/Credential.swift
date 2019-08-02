@@ -50,6 +50,12 @@ class Credential: NSObject {
         period = credential.period
         code = otp
         validity = valid
+
+        super.init()
+        if (type == .TOTP && !code.isEmpty) {
+            // set up timer to get notified about expiration (by watching global timer changes)
+            self.setupTimerObservation()
+        }
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -60,6 +66,11 @@ class Credential: NSObject {
         
         code = credential.otp ?? ""
         validity = credential.validity
+        
+        super.init()
+        if (type == .TOTP && !code.isEmpty) {
+            self.setupTimerObservation()
+        }
     }
     
     var uniqueId: String {
@@ -101,14 +112,23 @@ class Credential: NSObject {
     // MARK: - Observation
     
     func setupTimerObservation() {
-        timerObservation = observe(\.globalTimer.seconds, options: [], changeHandler: { [weak self] (object, change) in
+        timerObservation = observe(\.globalTimer.tick, options: [], changeHandler: { [weak self] (object, change) in
             guard let self = self else {
                 return
             }
-            let remainingTime = UInt(self.validity.end.timeIntervalSince(Date()))
-            if remainingTime == 0 {
+            if (self.timerObservation == nil) {
+                // timer should
+                return
+            }
+            let remainingTime = self.validity.end.timeIntervalSince(Date())
+            if remainingTime <= 0 {
                 self.delegate?.calculateResultDidExpire(self)
+                self.removeTimerObservation()
             }
         })
+    }
+    
+    func removeTimerObservation() {
+        timerObservation = nil
     }
 }

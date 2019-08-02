@@ -6,19 +6,23 @@
 //  Copyright © 2019 Yubico. All rights reserved.
 //
 
-class GlobalTimer: NSObject {
+@objc class GlobalTimer: NSObject {
 
     private var timer: Timer!
     
     // Observe to get ticks
-    @objc dynamic private(set) var seconds: UInt = 0
+    @objc dynamic private(set) var tick: UInt8 = 0
     
     static var shared: GlobalTimer = GlobalTimer()
     
     override init() {
         super.init()
         timer = Timer(timeInterval: 1.0, repeats: true, block: { [weak self] (timer) in
-            self?.seconds += 1
+            guard let self = self else {
+                return
+            }
+
+            self.tick = ~self.tick
         })
         RunLoop.main.add(timer, forMode: .common)
     }

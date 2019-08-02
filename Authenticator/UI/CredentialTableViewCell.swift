@@ -38,7 +38,6 @@ class CredentialTableViewCell: UITableViewCell {
         name.text = credential.account
         
         if (credential.type == .TOTP && !credential.code.isEmpty) {
-            // set up progress timer by watchin global timer changes
             refreshProgress()
         } else {
             progress.isHidden = true

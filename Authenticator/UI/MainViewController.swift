@@ -155,7 +155,7 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     
     // MARK: - State Observation
     func setupTimerObservation() {
-        timerObservation = observe(\.globalTimer.seconds, options: [], changeHandler: { [weak self] (object, change) in
+        timerObservation = observe(\.globalTimer.tick, options: [], changeHandler: { [weak self] (object, change) in
             guard let self = self else {
                 return
             }
