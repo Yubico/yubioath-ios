@@ -10,6 +10,7 @@ import Foundation
 
 protocol CredentialViewModelDelegate: class {
     func onUpdated()
+    func onError(error: Error)
 }
 
 class YubikitManagerModel {
@@ -28,18 +29,14 @@ class YubikitManagerModel {
                 return
             }
             // If the error is nil the response cannot be empty.
-            guard response != nil else {
-                fatalError()
+            guard let response = response else {
+                return
             }
             
-            let credentialResponse = response!.credentials as NSArray;
-            var calculatedAll = Set<Credential>()
-            for credentialResponseRecord in credentialResponse {
-                let calculated = Credential(fromYKFOATHCredentialCalculateResult:
-                    credentialResponseRecord as! YKFOATHCredentialCalculateResult )
-                calculatedAll.insert(calculated)
-            }
-            self.credentials = calculatedAll
+            self.credentials = Set<Credential>(response.credentials.map {
+                let result = Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
+                return result
+            })
             self.delegate?.onUpdated()
         }
 
@@ -55,7 +52,7 @@ class YubikitManagerModel {
                 return
             }
             let calculated = Credential(fromYKFOATHCredential: credential, otp: response!.otp, valid: response!.validity)
-            self.credentials.insert(calculated)
+            self.credentials.update(with:calculated)
             self.delegate?.onUpdated()
         }
     }
@@ -80,6 +77,5 @@ class YubikitManagerModel {
             self.delegate?.onUpdated()
         }
     }
-    
 
 }

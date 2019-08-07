@@ -8,13 +8,12 @@
 
 import UIKit
 
-class MainViewController: UITableViewController, CredentialViewModelDelegate {
+class MainViewController: UITableViewController, CredentialViewModelDelegate, CredentialExpirationDelegate {
 
-//    var credentials = [YKFOATHCredential : String]()
     let viewModel = YubikitManagerModel()
+    private var timerObservation: NSKeyValueObservation?
+    @objc dynamic private var globalTimer = GlobalTimer.shared
 
-//    var credentials = NSArray();
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
@@ -46,12 +45,22 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
                 otp: "333 444",
                 valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30))))
 
+            credentialResult.account = "account4"
+            credentialResult.period = 40
+            credentialResult.type = YKFOATHCredentialType.TOTP;
+            viewModel.credentials.insert(Credential(
+                fromYKFOATHCredential: credentialResult,
+                otp: "555 444",
+                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(10))))
+
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        setupTimerObservation()
     }
     
     // MARK: - CredentialViewModelDelegate
@@ -59,6 +68,15 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
+    }
+    
+    func onError(error: Error) {
+        // TODO: show error (dialog, snackbar, alert?)
+    }
+
+    // MARK: - CredentialExpirationDelegate
+    func calculateResultDidExpire(_ credential: Credential) {
+        viewModel.calculate(oathService: YubiKitManager.shared.keySession.oathService, credential: credential)
     }
 
     // MARK: - Table view data source
@@ -74,18 +92,10 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
-        let credential = viewModel.credentialsArray[indexPath.row]
-        cell.code.text = credential.code
-        cell.issuer.text = credential.issuer
-        cell.name.text = credential.account
         
-        if (credential.type == .TOTP && !credential.code.isEmpty) {
-            cell.progress.setProgress(to: 100, duration: credential.validity.end.timeIntervalSinceNow ,step: 1.0) {
-                self.viewModel.calculate(oathService: YubiKitManager.shared.keySession.oathService, credential: credential)
-            }
-        } else {    
-            cell.progress.isHidden = true
-        }
+        let credential = viewModel.credentialsArray[indexPath.row]
+        credential.delegate = self
+        cell.updateView(credential: credential)
         return cell
     }
     
@@ -103,7 +113,6 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-//            tableView.deleteRows(at: [indexPath], with: .fade)
             viewModel.deleteCredential(oathService: YubiKitManager.shared.keySession.oathService,
                                        credential: viewModel.credentialsArray[indexPath.row])
         } else if editingStyle == .insert {
@@ -143,7 +152,22 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate {
         }
     }
     
+    
     // MARK: - State Observation
+    func setupTimerObservation() {
+        timerObservation = observe(\.globalTimer.tick, options: [], changeHandler: { [weak self] (object, change) in
+            guard let self = self else {
+                return
+            }
+            let indexPathsArray = self.tableView.indexPathsForVisibleRows
+            for indexPath in indexPathsArray! {
+                let cell = self.tableView.cellForRow(at: indexPath) as! CredentialTableViewCell
+                cell.refreshProgress()
+            }
+        })
+    }
+    
+    
     private static var observationContext = 0
     private var isObservingSessionStateUpdates = false
     

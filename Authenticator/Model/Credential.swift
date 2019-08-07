@@ -8,7 +8,11 @@
 
 import Foundation
 
-class Credential: Hashable {
+protocol CredentialExpirationDelegate: NSObjectProtocol {
+    func calculateResultDidExpire(_ credential: Credential)
+}
+
+class Credential: NSObject {
     /*!
      The credential type (HOTP or TOTP).
      */
@@ -33,8 +37,12 @@ class Credential: Hashable {
     let account: String;
     
     let validity : DateInterval
-    var code: String
+    let code: String
     
+    weak var delegate: CredentialExpirationDelegate?
+    private var timerObservation: NSKeyValueObservation?
+    @objc dynamic private var globalTimer = GlobalTimer.shared
+
     init(fromYKFOATHCredential credential:YKFOATHCredential, otp: String, valid: DateInterval) {
         type = credential.type
         account = credential.account
@@ -42,6 +50,12 @@ class Credential: Hashable {
         period = credential.period
         code = otp
         validity = valid
+
+        super.init()
+        if (type == .TOTP && !code.isEmpty) {
+            // set up timer to get notified about expiration (by watching global timer changes)
+            self.setupTimerObservation()
+        }
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -52,6 +66,11 @@ class Credential: Hashable {
         
         code = credential.otp ?? ""
         validity = credential.validity
+        
+        super.init()
+        if (type == .TOTP && !code.isEmpty) {
+            self.setupTimerObservation()
+        }
     }
     
     var uniqueId: String {
@@ -70,15 +89,46 @@ class Credential: Hashable {
         credential.type = type
         credential.issuer = issuer
         credential.period = period
+        credential.label = "\(credential.issuer):\(credential.account)"
         credential.label = String(format:"%@:%@", issuer, account)
         return credential
     }
     
+    // MARK: - NSObjectProtocol for using within Set
     static func == (lhs: Credential, rhs: Credential) -> Bool {
         return lhs.uniqueId == rhs.uniqueId
     }
     
-    func hash(into hasher: inout Hasher) {
-        return hasher.combine(uniqueId.hashValue)
+    override func isEqual(_ object: Any?) -> Bool {
+        if let rhs = object as? Credential {
+            return self == rhs
+        }
+        return false
+        
+    }
+    override public var hash: Int { return uniqueId.hashValue }
+    
+    
+    // MARK: - Observation
+    
+    func setupTimerObservation() {
+        timerObservation = observe(\.globalTimer.tick, options: [], changeHandler: { [weak self] (object, change) in
+            guard let self = self else {
+                return
+            }
+            if (self.timerObservation == nil) {
+                // timer should
+                return
+            }
+            let remainingTime = self.validity.end.timeIntervalSince(Date())
+            if remainingTime <= 0 {
+                self.delegate?.calculateResultDidExpire(self)
+                self.removeTimerObservation()
+            }
+        })
+    }
+    
+    func removeTimerObservation() {
+        timerObservation = nil
     }
 }
