@@ -26,41 +26,40 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
             credentialResult.account = "account1"
             credentialResult.issuer = "issuer1"
             credentialResult.type = YKFOATHCredentialType.TOTP;
-            viewModel.credentials.insert(Credential(
+            var credential = Credential(
                 fromYKFOATHCredential: credentialResult,
                 otp: "111 222",
-                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30))))
+                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
+            credential.setupTimerObservation()
+            viewModel.credentials.insert(credential)
 
             credentialResult.account = "account2"
             credentialResult.issuer = "issuer2"
-            viewModel.credentials.insert(Credential(
+            credentialResult.period = 40
+
+            credential = Credential(
                 fromYKFOATHCredential: credentialResult,
-                otp: "",
-                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30))))
+                otp: "333 444",
+                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(20)))
+            credential.setupTimerObservation()
+            viewModel.credentials.insert(credential)
 
             credentialResult.account = "account3"
             credentialResult.type = YKFOATHCredentialType.HOTP;
-            viewModel.credentials.insert(Credential(
+            credential = Credential(
                 fromYKFOATHCredential: credentialResult,
-                otp: "333 444",
-                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30))))
-
-            credentialResult.account = "account4"
-            credentialResult.period = 40
-            credentialResult.type = YKFOATHCredentialType.TOTP;
-            viewModel.credentials.insert(Credential(
-                fromYKFOATHCredential: credentialResult,
-                otp: "555 444",
-                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(10))))
-
+                otp: "555 666",
+                valid: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
+            credential.setupTimerObservation()
+            viewModel.credentials.insert(credential)
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        setupTimerObservation()
+//        setupTimerObservation()
     }
     
     // MARK: - CredentialViewModelDelegate
@@ -71,18 +70,54 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     }
     
     func onError(error: Error) {
-        // TODO: show error (dialog, snackbar, alert?)
+        DispatchQueue.main.async { [weak self] in
+            print("\(error)")
+
+            if (error is YKFKeyOATHError) {
+                switch((error as! YKFKeyOATHError).code) {
+                case 0x000105://YKFKeyOATHErrorCodeAuthenticationRequired:
+                    self?.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  (password) -> Void in
+                        self?.viewModel.validate(password: password)
+                    }), animated: true)
+                default:
+                    self?.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
+                }
+            // TODO: learn how to detect YK error
+            // TODO: show error (dialog, snackbar, alert?)
+            }
+        }
     }
 
     // MARK: - CredentialExpirationDelegate
     func calculateResultDidExpire(_ credential: Credential) {
-        viewModel.calculate(oathService: YubiKitManager.shared.keySession.oathService, credential: credential)
+        viewModel.calculate(credential: credential)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if (viewModel.credentials.count > 0) {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+            return 1
+        } else {
+            // Display a message when the table is empty
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            messageLabel.textAlignment = NSTextAlignment.center
+            messageLabel.numberOfLines = 5
+            
+            if YubiKitManager.shared.keySession.sessionState == .closed {
+                messageLabel.text = "Insert your YubiKey"
+            } else {
+                messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
+            }
+            messageLabel.textColor = UIColor.black;
+            messageLabel.sizeToFit()
+            
+            self.tableView.backgroundView = messageLabel;
+            self.tableView.separatorStyle = .none
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -113,8 +148,7 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            viewModel.deleteCredential(oathService: YubiKitManager.shared.keySession.oathService,
-                                       credential: viewModel.credentialsArray[indexPath.row])
+            viewModel.deleteCredential(credential: viewModel.credentialsArray[indexPath.row])
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -148,7 +182,7 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     @IBAction func unwindToMainViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? AddCredentialController, let credential = sourceViewController.credential {
             // Add a new credentail to table.
-            viewModel.addCredential(oathService: YubiKitManager.shared.keySession.oathService, credential: credential)
+            viewModel.addCredential(credential: credential)
         }
     }
     
@@ -211,15 +245,12 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     func keySessionStateDidChange() {
         let sessionState = YubiKitManager.shared.keySession.sessionState
         print("Key session state: \(String(describing: sessionState.rawValue))")
+
         if (sessionState == YKFKeySessionState.open) {
-            guard let oathService = YubiKitManager.shared.keySession.oathService else {
-                return
-            }
-            viewModel.calculateAll(oathService: oathService as! YKFKeyOATHService)
+            viewModel.calculateAll()
         } else {
-            // if YubiKey is unplugged do not how any OTP codes
-            viewModel.credentials.removeAll()
-            onUpdated()
+            // if YubiKey is unplugged do not show any OTP codes
+            viewModel.cleanUp()
         }
     }
 }

@@ -14,8 +14,10 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var code: UILabel!
     @IBOutlet weak var progress: CircularProgressBar!
+    @IBOutlet weak var touch: UIImageView!
     
-    weak var credential: Credential?
+    @objc dynamic private var credential: Credential?
+    private var timerObservation: NSKeyValueObservation?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,11 +40,28 @@ class CredentialTableViewCell: UITableViewCell {
         name.text = credential.account
         
         if (credential.type == .TOTP && !credential.code.isEmpty) {
+            touch.isHidden = true
             refreshProgress()
-        } else {
+            setupModelObservation()
+        } else if(credential.requiresTouch) {
+            
             progress.isHidden = true
         }
     }
+    
+    // MARK: - Model Observation
+    
+    private func setupModelObservation() {
+        timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { [weak self] (object, change) in
+            guard let self = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.refreshProgress()
+            }
+        })
+    }
+
 
     // MARK: - Refresh
     func refreshProgress() {
@@ -50,9 +69,8 @@ class CredentialTableViewCell: UITableViewCell {
             return
         }
         if (credential.type == .TOTP && !credential.code.isEmpty) {
-            let remainingTime = credential.validity.end.timeIntervalSince(Date())
-            if (remainingTime > 0) {
-                self.progress.setProgress(to: Double(remainingTime) / Double(credential.period), duration: 0.0, withAnimation: false)
+            if (credential.remainingTime > 0) {
+                self.progress.setProgress(to: credential.remainingTime / Double(credential.period), duration: 0.0, withAnimation: false)
             } else {
                 self.progress.setProgress(to: Double(0.0), duration: 0.0, withAnimation: false)
             }

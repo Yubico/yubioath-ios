@@ -39,8 +39,12 @@ class Credential: NSObject {
     let validity : DateInterval
     let code: String
     
+    let requiresTouch: Bool
+    
     weak var delegate: CredentialExpirationDelegate?
     private var timerObservation: NSKeyValueObservation?
+    @objc dynamic var remainingTime : Double
+
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
     init(fromYKFOATHCredential credential:YKFOATHCredential, otp: String, valid: DateInterval) {
@@ -50,12 +54,8 @@ class Credential: NSObject {
         period = credential.period
         code = otp
         validity = valid
-
-        super.init()
-        if (type == .TOTP && !code.isEmpty) {
-            // set up timer to get notified about expiration (by watching global timer changes)
-            self.setupTimerObservation()
-        }
+        remainingTime = validity.end.timeIntervalSince(Date())
+        requiresTouch = false
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -66,11 +66,8 @@ class Credential: NSObject {
         
         code = credential.otp ?? ""
         validity = credential.validity
-        
-        super.init()
-        if (type == .TOTP && !code.isEmpty) {
-            self.setupTimerObservation()
-        }
+        remainingTime = validity.end.timeIntervalSince(Date())
+        requiresTouch = credential.requiresTouch
     }
     
     var uniqueId: String {
@@ -111,17 +108,21 @@ class Credential: NSObject {
     
     // MARK: - Observation
     
+    // set up timer to get notified about expiration (by watching global timer changes)
     func setupTimerObservation() {
-        timerObservation = observe(\.globalTimer.tick, options: [], changeHandler: { [weak self] (object, change) in
+        if (self.type != .TOTP || self.code.isEmpty) {
+            return
+        }
+        timerObservation = observe(\.globalTimer.tick, options: [.initial], changeHandler: { [weak self] (object, change) in
             guard let self = self else {
                 return
             }
             if (self.timerObservation == nil) {
-                // timer should
+                // timer is ignored
                 return
             }
-            let remainingTime = self.validity.end.timeIntervalSince(Date())
-            if remainingTime <= 0 {
+            self.remainingTime = self.validity.end.timeIntervalSince(Date())
+            if self.remainingTime <= 0 {
                 self.delegate?.calculateResultDidExpire(self)
                 self.removeTimerObservation()
             }

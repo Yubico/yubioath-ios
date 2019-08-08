@@ -61,7 +61,7 @@ class AddCredentialController: UITableViewController {
         }
         if indexPath.section == 1 && indexPath.row == 0 {
             if manualEntryExpanded {
-                return 300
+                return 350
             } else {
                 return 70
             }
@@ -134,11 +134,16 @@ class AddCredentialController: UITableViewController {
             
             // Set the credential to be passed to MainViewController after the unwind segue.
             credential.issuer = self.issuerManualText.text ?? ""
-            credential.account = self.accountScannedText.text ?? ""
+            credential.account = self.accountManualText.text ?? ""
             
-            // TODO: make 32 decoder instead of 64
-            let encoded = self.secretManualText.text ?? ""
-            credential.secret = Data(base64Encoded: encoded) ?? Data()
+            if let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") {
+                // use the base32DecodeData (of type Data) and set it on the credential:
+                credential.secret = base32DecodedSecret
+                self.credential = credential
+            } else {
+                // TODO: validate it before unwind segue and prevent user from adding it
+                print("Invalid Base32 encoded string")
+            }
             self.credential = credential
         } else {
             print("The save button was not pressed, cancelling")
