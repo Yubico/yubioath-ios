@@ -78,7 +78,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
-            cell.textLabel?.text = keyPluggedIn ? YubiKitManager.shared.keySession.oathService?.description : "No device found"
+            let description = YubiKitManager.shared.keySession.keyDescription;
+            cell.textLabel?.text = keyPluggedIn ?
+                "\(description?.name ?? "YubiKey") (\(description?.serialNumber ?? "000000"))" : "No device found"
             return cell
         }
         return super.tableView(tableView, cellForRowAt: indexPath)

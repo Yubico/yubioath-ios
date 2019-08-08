@@ -21,6 +21,8 @@ class CredentialTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        touch.isHidden = true
+        progress.isHidden = true
         // Initialization code
     }
 
@@ -41,11 +43,12 @@ class CredentialTableViewCell: UITableViewCell {
         
         if (credential.type == .TOTP && !credential.code.isEmpty) {
             touch.isHidden = true
+            progress.isHidden = false
             refreshProgress()
             setupModelObservation()
-        } else if(credential.requiresTouch) {
-            
+        } else {
             progress.isHidden = true
+            touch.isHidden = !credential.requiresTouch
         }
     }
     
