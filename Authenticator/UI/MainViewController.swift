@@ -31,12 +31,12 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
             credential.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
             credential.setupTimerObservation()
             viewModel.credentials.append(credential)
-            let credential2 = credential.copy() as! Credential
+            let credential2 = Credential(fromYKFOATHCredential: credentialResult)
             credential2.code = "444555"
             credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(20)))
             credential2.setupTimerObservation()
             viewModel.credentials.append(credential2)
-            let credential3 = credential.copy() as! Credential
+            let credential3 = Credential(fromYKFOATHCredential: credentialResult)
             credential3.code = "999888"
             credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
             credential3.setupTimerObservation()
