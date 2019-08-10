@@ -93,8 +93,6 @@ class Credential: NSObject {
         credential.type = type
         credential.issuer = issuer
         credential.period = period
-//        credential.label = "\(credential.issuer):\(credential.account)"
-//        credential.label = String(format:"%@:%@", issuer, account)
         return credential
     }
     

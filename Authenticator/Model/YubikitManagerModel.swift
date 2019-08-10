@@ -15,133 +15,130 @@ protocol CredentialViewModelDelegate: class {
 
 class YubikitManagerModel {
     weak var delegate: CredentialViewModelDelegate?
-    var credentials = Array<Credential>()
+    var filter: String?
+    
+    private var _credentials = Array<Credential>()
+    var credentials: Array<Credential> {
+        get {
+            if (self.filter == nil || self.filter!.isEmpty) {
+                return _credentials
+            }
+            return _credentials.filter {
+                $0.issuer.contains(self.filter!) || $0.account.contains(self.filter!)
+            }
+        }
+    }
     
     public func calculateAll() {
+        let operationName = "calculate all"
+
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
 
-        oathService.executeCalculateAllRequest() { (response, error) in
+        oathService.executeCalculateAllRequest() { [weak self] (response, error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The calculate request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
             // If the error is nil the response cannot be empty.
             guard let response = response else {
-                self.delegate?.onError(error: KeySessionError.noResponse)
+                self?.operationFailed(operation: operationName, error: KeySessionError.noResponse)
                 return
             }
             
-            self.credentials.forEach {
+            self?.credentials.forEach {
                 $0.removeTimerObservation()
             }
             
-            self.credentials = response.credentials.map {
+            self?._credentials = response.credentials.map {
                 let result = Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
                 if (result.type == .HOTP) {
-                    self.calculate(credential: result)
+                    self?.calculate(credential: result)
                 } else {
                     result.setupTimerObservation()
                 }
                 return result
             }
-            
-            print("The calculateAll request succeeded")
-            self.delegate?.onUpdated()
+            self?.operationSucceeded(operation: operationName)
         }
 
     }
     public func calculate(credential: Credential) {
+        let operationName = "calculate"
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
 
         credential.removeTimerObservation()
-        oathService.execute(YKFKeyOATHCalculateRequest(credential: credential.ykCredential)!) { (response, error) in
+        oathService.execute(YKFKeyOATHCalculateRequest(credential: credential.ykCredential)!) { [weak self] (response, error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The calculate request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
             guard let response = response else {
-                self.delegate?.onError(error: KeySessionError.noResponse)
+                self?.operationFailed(operation: operationName, error: KeySessionError.noResponse)
                 return
             }
             credential.code = response.otp
             credential.setValidity(validity: response.validity)
             credential.setupTimerObservation()
-            self.delegate?.onUpdated()
+            self?.operationSucceeded(operation: operationName)
         }
     }
 
     public func addCredential(credential: YKFOATHCredential) {
+        let operationName = "put"
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
 
         let newCredential = Credential(fromYKFOATHCredential: credential)
 
-        oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) { (error) in
+        oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) {  [weak self] (error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The put request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
-            
+
             // The request was successful. The credential was added to the key.
+            self?.operationSucceeded(operation: operationName)
+
             // calculate it TOTP
-            oathService.execute(YKFKeyOATHCalculateRequest(credential: credential)!) { (response, error) in
-                guard error == nil else {
-                    self.delegate?.onError(error: error!)
-                    print("The calculate request ended in error \(error!.localizedDescription)")
-                    return
-                }
-                guard let response = response else {
-                    self.delegate?.onError(error: KeySessionError.noResponse)
-                    return
-                }
-                
-                newCredential.code = response.otp
-                newCredential.setValidity(validity: response.validity)
-                newCredential.setupTimerObservation()
-                self.credentials.append(newCredential)
-                self.delegate?.onUpdated()
-            }
+            self?.calculate(credential: newCredential)
         }
     }
     
     public func deleteCredential(index: Int) {
+        let operationName = "delete"
         let credential = self.credentials[index]
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
-        oathService.execute(YKFKeyOATHDeleteRequest(credential: credential.ykCredential)!) { (error) in
+        oathService.execute(YKFKeyOATHDeleteRequest(credential: credential.ykCredential)!) { [weak self] (error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The delete request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
             credential.removeTimerObservation()
-            self.credentials.remove(at:index)
-            self.delegate?.onUpdated()
+            self?._credentials.remove(at:index)
+            self?.operationSucceeded(operation: operationName)
         }
     }
     
     public func setCode(password: String) {
+        let operationName = "set code"
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
-        oathService.execute(YKFKeyOATHSetCodeRequest(password: password)!) { (error) in
+        oathService.execute(YKFKeyOATHSetCodeRequest(password: password)!) { [weak self] (error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The set code request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
             
@@ -152,19 +149,19 @@ class YubikitManagerModel {
     
     public func validate(password: String) {
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.delegate?.onError(error: KeySessionError.noOathService)
+            self.operationFailed(operation: "validate", error: KeySessionError.noOathService)
             return
         }
-        oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { (error) in
+        oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { [weak self] (error) in
             guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The validate request ended in error \(error!.localizedDescription)")
+                self?.operationFailed(operation: "validate", error: error!)
                 return
             }
+
             print("The validate request succeeded")
             
             // TODO: add something that will repeat failed request
-            self.calculateAll()
+            self?.calculateAll()
         }
     }
     
@@ -173,26 +170,65 @@ class YubikitManagerModel {
             credential.removeTimerObservation()
         }
 
-        credentials.removeAll()
-        self.delegate?.onUpdated()
+        _credentials.removeAll()
+        operationSucceeded(operation: "CleanUp")
     }
-    /*
-    private func calculate(oathService: YKFKeyOATHServiceProtocol, credential: YKFOATHCredential) {
-        oathService.execute(YKFKeyOATHCalculateRequest(credential: credential)!) { (response, error) in
-            guard error == nil else {
-                self.delegate?.onError(error: error!)
-                print("The calculate request ended in error \(error!.localizedDescription)")
-                return
-            }
-            guard let response = response else {
-                self.delegate?.onError(error: KeySessionError.noResponse)
-                return
-            }
+    
+    public func applyFilter(filter: String?) {
+        self.filter = filter
+        delegate?.onUpdated()
+    }
+    
+    public func emulateSomeRecords() {
+        let credentialResult = YKFOATHCredential()
+        credentialResult.account = "account1"
+        credentialResult.issuer = "issuer1"
+        credentialResult.type = YKFOATHCredentialType.TOTP;
+        let credential = Credential(fromYKFOATHCredential: credentialResult)
+        credential.code = "111222"
+        credential.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
+        credential.setupTimerObservation()
+        self._credentials.append(credential)
+        let credential2 = Credential(fromYKFOATHCredential: credentialResult)
+        credential2.code = "444555"
+        credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(5)))
+        credential2.setupTimerObservation()
+        self._credentials.append(credential2)
+        let credential3 = Credential(fromYKFOATHCredential: credentialResult)
+        credential3.code = "999888"
+        credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
+        credential3.setupTimerObservation()
+        self._credentials.append(credential3)
+        delegate?.onUpdated()
+    }
+    
+    func operationSucceeded(operation:String) {
+        DispatchQueue.main.async { [weak self] in
+            print("The \(operation) request succeeded")
 
-            let calculated = Credential(fromYKFOATHCredential: credential, otp: response.otp, valid: response.validity)
-            calculated.setupTimerObservation()
-            self.credentials.update(with:calculated)
-            self.delegate?.onUpdated()
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+            
+            delegate.onUpdated()
         }
-    }*/
+    }
+    
+    func operationFailed(operation:String, error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            print("The \(operation) request ended in error \(error.localizedDescription) ")
+
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+            
+            delegate.onError(error: error)
+        }
+    }
 }

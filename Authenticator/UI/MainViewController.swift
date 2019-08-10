@@ -8,40 +8,23 @@
 
 import UIKit
 
-class MainViewController: UITableViewController, CredentialViewModelDelegate, CredentialExpirationDelegate {
+class MainViewController: UITableViewController {
 
     let viewModel = YubikitManagerModel()
-    private var timerObservation: NSKeyValueObservation?
-    @objc dynamic private var globalTimer = GlobalTimer.shared
+    private var credentialsSearchController: UISearchController!
+    private var keySessionObserver: KeySessionObserver!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
-            observeSessionStateUpdates = true
-        } else {
+        
+        keySessionObserver = KeySessionObserver(delegate: self)
+        setupCredentialsSearchController()
+        
+        if (!YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
             // TODO: notify user that it's not supported on this device
-            // emulation
-            let credentialResult = YKFOATHCredential()
-            credentialResult.account = "account1"
-            credentialResult.issuer = "issuer1"
-            credentialResult.type = YKFOATHCredentialType.TOTP;
-            let credential = Credential(fromYKFOATHCredential: credentialResult)
-            credential.code = "111222"
-            credential.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
-            credential.setupTimerObservation()
-            viewModel.credentials.append(credential)
-            let credential2 = Credential(fromYKFOATHCredential: credentialResult)
-            credential2.code = "444555"
-            credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(20)))
-            credential2.setupTimerObservation()
-            viewModel.credentials.append(credential2)
-            let credential3 = Credential(fromYKFOATHCredential: credentialResult)
-            credential3.code = "999888"
-            credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
-            credential3.setupTimerObservation()
-            viewModel.credentials.append(credential3)
         }
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -51,40 +34,20 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        refreshUI()
+        refreshCredentials()
     }
     
-    // MARK: - CredentialViewModelDelegate
-    func onUpdated() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-        }
+    // MARK: - UI Setup
+    
+    private func setupCredentialsSearchController() {
+        credentialsSearchController = UISearchController(searchResultsController: nil)
+        credentialsSearchController.searchResultsUpdater = self
+        credentialsSearchController.obscuresBackgroundDuringPresentation = false
+        credentialsSearchController.searchBar.placeholder = "Search Credentials"
+        definesPresentationContext = true
     }
     
-    func onError(error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            print("\(error)")
-            if let oathError = error as? YKFKeyOATHError {
-                if (oathError.code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
-                    self?.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  (password) -> Void in
-                        self?.viewModel.validate(password: password)
-                    }), animated: true)
-                } else {
-                    self?.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
-                }
-            } else {
-                self?.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
-            }
-        }
-    }
-
-    // MARK: - CredentialExpirationDelegate
-    func calculateResultDidExpire(_ credential: Credential) {
-        viewModel.calculate(credential: credential)
-    }
-
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         if (viewModel.credentials.count > 0) {
             self.tableView.backgroundView = nil
@@ -113,26 +76,20 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.credentials.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
-        
         let credential = viewModel.credentials[indexPath.row]
         credential.delegate = self
         cell.updateView(credential: credential)
         return cell
     }
     
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
- 
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -143,23 +100,6 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
@@ -176,59 +116,93 @@ class MainViewController: UITableViewController, CredentialViewModelDelegate, Cr
         }
     }
     
-    
-    // MARK: - State Observation
-    
-    private static var observationContext = 0
-    private var isObservingSessionStateUpdates = false
-    
-    var observeSessionStateUpdates: Bool {
-        get {
-            return isObservingSessionStateUpdates
-        }
-        set {
-            guard newValue != isObservingSessionStateUpdates else {
-                return
-            }
-            isObservingSessionStateUpdates = newValue
+    private func refreshCredentials() {
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
+            let sessionState = YubiKitManager.shared.keySession.sessionState
+            print("Key session state: \(String(describing: sessionState.rawValue))")
             
-            let keySession = YubiKitManager.shared.keySession as AnyObject
-            let keyPath = #keyPath(YKFKeySession.sessionState)
-            
-            if isObservingSessionStateUpdates {
-                keySession.addObserver(self, forKeyPath: keyPath, options: [], context: &MainViewController.observationContext)
+            if (sessionState == YKFKeySessionState.open) {
+                viewModel.calculateAll()
             } else {
-                keySession.removeObserver(self, forKeyPath: keyPath)
+                // if YubiKey is unplugged do not show any OTP codes
+                viewModel.cleanUp()
             }
-        }
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard context == &MainViewController.observationContext else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-            return
-        }
-        
-        switch keyPath {
-        case #keyPath(YKFKeySession.sessionState):
-            DispatchQueue.main.async { [weak self] in
-                self?.refreshUI()
-            }
-        default:
-            fatalError()
-        }
-    }
-    
-    
-    private func refreshUI() {
-        let sessionState = YubiKitManager.shared.keySession.sessionState
-        print("Key session state: \(String(describing: sessionState.rawValue))")
-        
-        if (sessionState == YKFKeySessionState.open) {
-            viewModel.calculateAll()
         } else {
-            // if YubiKey is unplugged do not show any OTP codes
-            viewModel.cleanUp()
+            // TODO: remove before release
+            viewModel.emulateSomeRecords()
         }
+    }
+    
+    private func refreshUIOnKeyStateUpdate() {
+        if YubiKitManager.shared.keySession.sessionState == .closed {
+            navigationItem.searchController = nil
+            navigationItem.hidesSearchBarWhenScrolling = true
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            navigationItem.searchController = credentialsSearchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            
+        }
+        refreshCredentials()
+        view.setNeedsLayout()
+    }
+    
+}
+
+// MARK: - CredentialViewModelDelegate
+extension MainViewController:  CredentialViewModelDelegate {
+    func onUpdated() {
+        self.tableView.reloadData()
+    }
+    
+    func onError(error: Error) {
+        // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
+        print("\(error)")
+        if let oathError = error as? YKFKeyOATHError {
+            // TODO: add queue of requests and in case of authentication error be able to retry what was requested
+            if (oathError.code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
+                self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  (password) -> Void in
+                    self.viewModel.validate(password: password)
+                }), animated: true)
+            } else {
+                self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
+            }
+        } else {
+            // TODO: add localizedDescription to KeySessionError
+            self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
+        }
+    }
+}
+
+//
+// MARK: - CredentialExpirationDelegate
+//
+extension MainViewController:  CredentialExpirationDelegate {
+
+    func calculateResultDidExpire(_ credential: Credential) {
+        viewModel.calculate(credential: credential)
+    }
+
+}
+
+//
+// MARK: - Key Session Observer
+//
+extension  MainViewController: KeySessionObserverDelegate {
+    
+    func keySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFKeySessionState) {
+        refreshUIOnKeyStateUpdate()
+    }
+}
+
+//
+// MARK: - Search Results Extension
+//
+
+extension MainViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let filter = searchController.searchBar.text
+        viewModel.applyFilter(filter: filter)
     }
 }

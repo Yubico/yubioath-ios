@@ -56,21 +56,6 @@ class CircularProgressBar: UIView {
         }
     }
     
-    public func setProgress(to progressConstant: Double, duration: Double, step: Double, completionHandler:(() -> Void)?) {
-        var currentTime:Double = 0
-        let timer = Timer.scheduledTimer(withTimeInterval: step, repeats: true) { (timer) in
-            if currentTime >= duration {
-                timer.invalidate()
-                completionHandler?()
-            } else {
-                currentTime += step
-                let progress = (duration - currentTime) / duration
-                self.foregroundLayer.strokeEnd = CGFloat(progress)
-            }
-        }
-        timer.fire()
-    }
-    
     //MARK: Private
     private var label = UILabel()
     private let foregroundLayer = CAShapeLayer()

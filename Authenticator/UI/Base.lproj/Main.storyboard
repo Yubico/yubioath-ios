@@ -186,11 +186,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2s-Fg-S66">
-                                                    <rect key="frame" x="20" y="296" width="51" height="31"/>
-                                                </switch>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdX-bB-NP0">
-                                                    <rect key="frame" x="314" y="296" width="80" height="31"/>
+                                                    <rect key="frame" x="314" y="296" width="80" height="30"/>
                                                     <color key="backgroundColor" red="0.60500001910000001" green="0.79299998279999995" blue="0.23600000139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Add"/>
@@ -208,7 +205,6 @@
                                                 <constraint firstItem="t9p-mK-lua" firstAttribute="width" secondItem="qdX-bB-NP0" secondAttribute="width" id="Dla-9S-zRB"/>
                                                 <constraint firstItem="t9p-mK-lua" firstAttribute="top" secondItem="hcs-fq-GYH" secondAttribute="bottom" constant="11" id="Dz5-Ut-5Sd"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="Zbm-nc-BM3" secondAttribute="leadingMargin" id="GMs-fX-1r6"/>
-                                                <constraint firstItem="qdX-bB-NP0" firstAttribute="top" secondItem="O2s-Fg-S66" secondAttribute="top" id="GaD-Ws-BGg"/>
                                                 <constraint firstItem="oP1-3v-EIw" firstAttribute="leading" secondItem="BqD-jH-PVL" secondAttribute="leading" id="HhZ-Fv-lRr"/>
                                                 <constraint firstItem="erH-Zh-Cf2" firstAttribute="trailing" secondItem="cGQ-YW-m6h" secondAttribute="trailing" id="I65-tF-97l"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="trailing" secondItem="hcs-fq-GYH" secondAttribute="trailing" id="KI7-IZ-Kx5"/>
@@ -217,24 +213,20 @@
                                                 <constraint firstItem="oP1-3v-EIw" firstAttribute="top" secondItem="BqD-jH-PVL" secondAttribute="bottom" constant="8" symbolic="YES" id="UVL-Gr-kJO"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="top" secondItem="Zbm-nc-BM3" secondAttribute="top" constant="160" id="VP0-xS-a1d"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="trailing" secondItem="t9p-mK-lua" secondAttribute="trailing" id="ala-8u-xVP"/>
-                                                <constraint firstItem="qdX-bB-NP0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O2s-Fg-S66" secondAttribute="trailing" constant="8" symbolic="YES" id="bAu-b0-cd2"/>
                                                 <constraint firstItem="erH-Zh-Cf2" firstAttribute="leading" secondItem="cGQ-YW-m6h" secondAttribute="leading" id="bCC-1m-E64"/>
                                                 <constraint firstItem="qdX-bB-NP0" firstAttribute="top" secondItem="cGQ-YW-m6h" secondAttribute="bottom" constant="53" id="brc-ZN-404"/>
                                                 <constraint firstItem="hcs-fq-GYH" firstAttribute="top" secondItem="ald-Gu-iwd" secondAttribute="bottom" constant="8" id="c8t-Gy-jwx"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="top" secondItem="t9p-mK-lua" secondAttribute="bottom" constant="23" id="cfM-wT-bDN"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="trailing" secondItem="cGQ-YW-m6h" secondAttribute="trailing" id="fA5-4j-e5O"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="cGQ-YW-m6h" secondAttribute="leading" id="fub-Sh-0I5"/>
-                                                <constraint firstItem="O2s-Fg-S66" firstAttribute="top" secondItem="qdX-bB-NP0" secondAttribute="top" id="hJF-C7-kbU"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="ald-Gu-iwd" secondAttribute="leading" id="jPQ-FO-BsU"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="erH-Zh-Cf2" secondAttribute="leading" id="kY9-XG-2Ac"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="BqD-jH-PVL" secondAttribute="leading" id="oTJ-zP-RVy"/>
                                                 <constraint firstItem="erH-Zh-Cf2" firstAttribute="top" secondItem="cGQ-YW-m6h" secondAttribute="bottom" constant="6" id="ob4-gU-hIM"/>
                                                 <constraint firstItem="BqD-jH-PVL" firstAttribute="trailing" secondItem="LNM-6h-D8c" secondAttribute="trailing" id="q5a-y9-q4x"/>
-                                                <constraint firstItem="qdX-bB-NP0" firstAttribute="bottom" secondItem="O2s-Fg-S66" secondAttribute="bottom" id="rht-fo-CNm"/>
                                                 <constraint firstItem="hcs-fq-GYH" firstAttribute="top" secondItem="ald-Gu-iwd" secondAttribute="bottom" constant="8" symbolic="YES" id="tFB-c1-RpG"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="oP1-3v-EIw" secondAttribute="leading" id="tZ5-7n-fMV"/>
                                                 <constraint firstItem="cGQ-YW-m6h" firstAttribute="top" secondItem="oP1-3v-EIw" secondAttribute="bottom" constant="15" id="v8a-DF-0fy"/>
-                                                <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="O2s-Fg-S66" secondAttribute="leading" id="vKf-Nf-uzT"/>
                                                 <constraint firstItem="LNM-6h-D8c" firstAttribute="leading" secondItem="hcs-fq-GYH" secondAttribute="leading" id="xPP-xq-r5T"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -448,7 +440,6 @@
                                 <action selector="cancel:" destination="ecV-Ar-E7R" id="Q3v-KX-ANy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="NVd-pc-03r"/>
                     </navigationItem>
                     <connections>
                         <outlet property="accountManualText" destination="c8v-2O-WNT" id="QcC-eu-kiV"/>
@@ -462,7 +453,6 @@
                         <outlet property="issuerManualText" destination="l9N-fU-JqA" id="3Gn-sB-QzW"/>
                         <outlet property="issuerScannedText" destination="oP1-3v-EIw" id="NH5-Nq-63h"/>
                         <outlet property="periodManualText" destination="uNh-ID-INu" id="Bxc-zf-OkV"/>
-                        <outlet property="saveButton" destination="NVd-pc-03r" id="KXJ-L2-Gn6"/>
                         <outlet property="scanButton" destination="t9p-mK-lua" id="whS-pu-TkC"/>
                         <outlet property="secretManualText" destination="8vc-eK-iPo" id="kxF-rZ-EO1"/>
                         <outlet property="secretValidationLabel" destination="uTz-GY-c5g" id="Rpn-cz-lYT"/>

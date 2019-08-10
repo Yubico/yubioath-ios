@@ -11,7 +11,8 @@ import UIKit
 class SettingsViewController: UITableViewController {
     // TODO: observe state changes and update keyPluggedIn property
     private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
-    
+    private var keySessionObserver: KeySessionObserver!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +22,8 @@ class SettingsViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LabelCell")
-        
+     
+        keySessionObserver = KeySessionObserver(delegate: self)
     }
 
     // MARK: - Table view data source
@@ -105,4 +107,15 @@ class SettingsViewController: UITableViewController {
     }
     */
 
+}
+
+//
+// MARK: - Key Session Observer
+//
+extension  SettingsViewController: KeySessionObserverDelegate {
+    
+    func keySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFKeySessionState) {
+        self.keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
+        self.tableView.reloadData()
+    }
 }

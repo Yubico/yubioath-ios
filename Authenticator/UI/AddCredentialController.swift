@@ -11,7 +11,6 @@ import UIKit
 class AddCredentialController: UITableViewController {
 
     @IBOutlet weak var scanButton: UIButton!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var addScannedButton: UIButton!
     @IBOutlet weak var issuerScannedText: UITextField!
@@ -130,15 +129,11 @@ class AddCredentialController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let button = sender as? UIBarButtonItem, button === saveButton {
-            let oathUrlString = "otpauth://totp/Yubico:example@yubico.com?secret=UOA6FJYR76R7IRZBGDJKLYICL3MUR7QH&issuer=Yubico&algorithm=SHA1&digits=6&period=30";
-            self.credential = YKFOATHCredential(url: URL(string: oathUrlString)!)
-            return
-        }
- 
+        
         if let button = sender as? UIButton, button == addScannedButton, self.url != nil {
             // Create the credential from the URL using the convenience initializer.
             guard let credential = YKFOATHCredential(url: self.url!) else {
+                // TODO: notify with error alert
                 print("Invalid URI format")
                 return
             }
@@ -159,6 +154,7 @@ class AddCredentialController: UITableViewController {
             // use the base32DecodeData (of type Data) and set it on the credential:
             guard let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") else {
                 // we already validated input before enabling action button, so this should never happen
+                // TODO: but better to notify with error alert
                 print("Invalid Base32 encoded string")
                 return
             }
@@ -238,6 +234,7 @@ class AddCredentialController: UITableViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension AddCredentialController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -273,6 +270,7 @@ extension AddCredentialController: UITextFieldDelegate {
     }
 }
 
+// MARK: - UIPickerViewDelegate
 extension AddCredentialController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

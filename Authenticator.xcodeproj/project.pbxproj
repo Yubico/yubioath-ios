@@ -24,6 +24,7 @@
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43B22F94620003AFBB8 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43A22F94620003AFBB8 /* UIAlertController.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
+		81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E009C222FF44B100E7715B /* KeySessionObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43A22F94620003AFBB8 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
+		81E009C222FF44B100E7715B /* KeySessionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySessionObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		818BE8DB22F3486500061026 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				81E009C222FF44B100E7715B /* KeySessionObserver.swift */,
 				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
@@ -328,6 +331,7 @@
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
+				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* CircularProgressBar.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
