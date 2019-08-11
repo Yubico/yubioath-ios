@@ -171,7 +171,7 @@ class YubikitManagerModel {
         }
 
         _credentials.removeAll()
-        operationSucceeded(operation: "CleanUp")
+        delegate?.onUpdated()
     }
     
     public func applyFilter(filter: String?) {

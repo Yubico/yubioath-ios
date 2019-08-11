@@ -34,7 +34,7 @@ class MainViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        refreshCredentials()
+        refreshUIOnKeyStateUpdate()
     }
     
     // MARK: - UI Setup
@@ -134,17 +134,18 @@ class MainViewController: UITableViewController {
     }
     
     private func refreshUIOnKeyStateUpdate() {
+        refreshCredentials()
+        
         if YubiKitManager.shared.keySession.sessionState == .closed {
             navigationItem.searchController = nil
             navigationItem.hidesSearchBarWhenScrolling = true
-            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItems?[1].isEnabled = false
         } else {
             navigationItem.searchController = credentialsSearchController
             navigationItem.hidesSearchBarWhenScrolling = false
-            navigationItem.rightBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItems?[1].isEnabled = true
             
         }
-        refreshCredentials()
         view.setNeedsLayout()
     }
     
