@@ -47,11 +47,16 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 0 {
-            self.present(UIAlertController.setPassword(title: "Set password", message: "", inputHandler: {  (password) -> Void in
+        if indexPath.section == 1 {
+            if (indexPath.row == 0) {
+                self.present(UIAlertController.setPassword(title: "Set password", message: "", inputHandler: {  (password) -> Void in
+                    let viewModel = YubikitManagerModel()
+                    viewModel.setCode(password: password)
+                }), animated: true)
+            } else if (indexPath.row == 1) {
                 let viewModel = YubikitManagerModel()
-                viewModel.setCode(password: password)
-            }), animated: true)
+                viewModel.reset()
+            }
         }
     }
     

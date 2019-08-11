@@ -13,7 +13,7 @@ protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
 }
 
-class YubikitManagerModel {
+class YubikitManagerModel : NSObject {
     weak var delegate: CredentialViewModelDelegate?
     var filter: String?
     
@@ -58,6 +58,7 @@ class YubikitManagerModel {
                     self?.calculate(credential: result)
                 } else {
                     result.setupTimerObservation()
+                    result.delegate = self
                 }
                 return result
             }
@@ -96,8 +97,8 @@ class YubikitManagerModel {
             return
         }
 
-        let newCredential = Credential(fromYKFOATHCredential: credential)
-
+//        let newCredential = Credential(fromYKFOATHCredential: credential)
+//        newCredential.delegate = self
         oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) {  [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(operation: operationName, error: error!)
@@ -108,7 +109,8 @@ class YubikitManagerModel {
             self?.operationSucceeded(operation: operationName)
 
             // calculate it TOTP
-            self?.calculate(credential: newCredential)
+            // TODO: ask Conrad why it causes issues (multithreading?)
+//            self?.calculate(credential: newCredential)
         }
     }
     
@@ -148,13 +150,14 @@ class YubikitManagerModel {
     }
     
     public func validate(password: String) {
+        let operationName = "validate"
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: "validate", error: KeySessionError.noOathService)
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
         }
         oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { [weak self] (error) in
             guard error == nil else {
-                self?.operationFailed(operation: "validate", error: error!)
+                self?.operationFailed(operation: operationName, error: error!)
                 return
             }
 
@@ -165,13 +168,30 @@ class YubikitManagerModel {
         }
     }
     
+    public func reset() {
+        let operationName = "reset"
+        guard let oathService = YubiKitManager.shared.keySession.oathService else {
+            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
+            return
+        }
+        oathService.executeResetRequest { [weak self] (error) in
+            guard error == nil else {
+                self?.operationFailed(operation: operationName, error: error!)
+                return
+            }
+            
+            print("The reset request succeeded")
+            self?.cleanUp()
+        }
+    }
+    
     public func cleanUp() {
         credentials.forEach { credential in
             credential.removeTimerObservation()
         }
 
         _credentials.removeAll()
-        delegate?.onUpdated()
+        operationSucceeded(operation: "clean up")
     }
     
     public func applyFilter(filter: String?) {
@@ -231,4 +251,15 @@ class YubikitManagerModel {
             delegate.onError(error: error)
         }
     }
+}
+
+//
+// MARK: - CredentialExpirationDelegate
+//
+extension YubikitManagerModel:  CredentialExpirationDelegate {
+    
+    func calculateResultDidExpire(_ credential: Credential) {
+        self.calculate(credential: credential)
+    }
+    
 }

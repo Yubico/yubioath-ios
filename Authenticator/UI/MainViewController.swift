@@ -80,7 +80,6 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         let credential = viewModel.credentials[indexPath.row]
-        credential.delegate = self
         cell.updateView(credential: credential)
         return cell
     }
@@ -174,17 +173,6 @@ extension MainViewController:  CredentialViewModelDelegate {
             self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
         }
     }
-}
-
-//
-// MARK: - CredentialExpirationDelegate
-//
-extension MainViewController:  CredentialExpirationDelegate {
-
-    func calculateResultDidExpire(_ credential: Credential) {
-        viewModel.calculate(credential: credential)
-    }
-
 }
 
 //
