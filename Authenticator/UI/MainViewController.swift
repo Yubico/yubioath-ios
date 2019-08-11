@@ -84,6 +84,19 @@ class MainViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let credential = viewModel.credentials[indexPath.row]
+            if (credential.code.isEmpty) {
+                viewModel.calculate(credential: credential)
+            } else {
+                // copy to clipbboard
+                UIPasteboard.general.string = credential.code
+                // notify user
+            }
+        }
+    }
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.

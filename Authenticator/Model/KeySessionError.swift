@@ -9,7 +9,6 @@
 import Foundation
 
 enum KeySessionError : Error {
-    case notPluggedIn
     case noOathService
     case noResponse
 }
@@ -17,10 +16,8 @@ enum KeySessionError : Error {
 extension KeySessionError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .notPluggedIn:
-            return NSLocalizedString("Plug-in your YubiKey for that operation", comment: "No key present")
         case .noOathService:
-            return NSLocalizedString("Make sure that OATH is enabled for this key", comment: "No OATH")
+            return NSLocalizedString("Plug-in your YubiKey for that operation", comment: "No service found")
         case .noResponse:
             return NSLocalizedString("Something went wrong and key doesn't respond", comment: "No response")
         }
