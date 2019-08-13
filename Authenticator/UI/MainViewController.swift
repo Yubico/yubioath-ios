@@ -178,15 +178,11 @@ extension MainViewController:  CredentialViewModelDelegate {
     func onError(error: Error) {
         // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
         print("\(error)")
-        if let oathError = error as? YKFKeyOATHError {
             // TODO: add queue of requests and in case of authentication error be able to retry what was requested
-            if (oathError.code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
-                self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
-                    self?.viewModel.validate(password: password)
-                }), animated: true)
-            } else {
-                self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
-            }
+        if ((error as NSError).code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
+            self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
+                self?.viewModel.validate(password: password)
+            }), animated: true)
         } else {
             // TODO: think about better error dialog for case when no connection (future NFC support - ask to tap over NFC)
             self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)

@@ -41,7 +41,7 @@ extension UIAlertController {
             return
         }
         
-        let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width/2.0, height: 50.0))
+        let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width*3.0/4.0, height: 50.0))
         toastView.text = message;
         toastView.textAlignment = .center;
         toastView.layer.cornerRadius = 10;
