@@ -14,11 +14,17 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var code: UILabel!
     @IBOutlet weak var progress: CircularProgressBar!
+    @IBOutlet weak var actionIcon: UIImageView!
     
-    weak var credential: Credential?
-
+    @objc dynamic private var credential: Credential?
+    private var timerObservation: NSKeyValueObservation?
+    private var otpObservation: NSKeyValueObservation?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        actionIcon.tintColor = UIColor.green
+        actionIcon.isHidden = true
+        progress.isHidden = true
         // Initialization code
     }
 
@@ -38,11 +44,39 @@ class CredentialTableViewCell: UITableViewCell {
         name.text = credential.account
         
         if (credential.type == .TOTP && !credential.code.isEmpty) {
+            actionIcon.isHidden = true
+            progress.isHidden = false
             refreshProgress()
         } else {
             progress.isHidden = true
+            actionIcon.isHidden = !credential.requiresTouch
+            actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
         }
+        setupModelObservation()
     }
+    
+    // MARK: - Model Observation
+    
+    private func setupModelObservation() {
+        timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { [weak self] (object, change) in
+            guard let self = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.refreshProgress()
+            }
+        })
+        otpObservation = observe(\.credential?.code, options: [], changeHandler: { [weak self] (object, change) in
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.refreshProgress()
+            }
+        })
+    }
+
 
     // MARK: - Refresh
     func refreshProgress() {
@@ -50,13 +84,14 @@ class CredentialTableViewCell: UITableViewCell {
             return
         }
         if (credential.type == .TOTP && !credential.code.isEmpty) {
-            let remainingTime = credential.validity.end.timeIntervalSince(Date())
-            if (remainingTime > 0) {
-                self.progress.setProgress(to: Double(remainingTime) / Double(credential.period), duration: 0.0, withAnimation: false)
+            if (credential.remainingTime > 0) {
+                self.progress.setProgress(to: credential.remainingTime / Double(credential.period), duration: 0.0, withAnimation: false)
             } else {
                 self.progress.setProgress(to: Double(0.0), duration: 0.0, withAnimation: false)
             }
                 // TODO: add logic of changing color or timout expiration
+        } else if (credential.type == .HOTP) {
+            actionIcon.isHidden = credential.activeTime < 5 || credential.code.isEmpty
         }
     }
 }
