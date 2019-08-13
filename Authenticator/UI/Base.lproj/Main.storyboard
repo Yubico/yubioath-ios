@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CredentialCell" rowHeight="100" id="GKO-4h-cU9" customClass="CredentialTableViewCell" customModule="Authenticator" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CredentialCell" rowHeight="100" id="GKO-4h-cU9" customClass="CredentialTableViewCell" customModule="Authenticator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GKO-4h-cU9" id="xsC-d5-U8J">
@@ -47,8 +47,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touch" translatesAutoresizingMaskIntoConstraints="NO" id="4WS-8i-Uyp">
-                                            <rect key="frame" x="355" y="18" width="30" height="30"/>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="touch" translatesAutoresizingMaskIntoConstraints="NO" id="4WS-8i-Uyp">
+                                            <rect key="frame" x="358" y="38" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="0.60392156860000001" green="0.79215686269999996" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </imageView>
@@ -69,18 +69,13 @@
                                         <constraint firstItem="8el-ru-Cbt" firstAttribute="trailing" secondItem="xsC-d5-U8J" secondAttribute="trailingMargin" id="jmA-9D-drh"/>
                                         <constraint firstItem="8el-ru-Cbt" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="352" id="q2h-qD-r6g"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="4WS-8i-Uyp"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="actionIcon" destination="4WS-8i-Uyp" id="eLv-T7-LSg"/>
                                     <outlet property="code" destination="8KS-av-uoB" id="1qE-ia-43d"/>
                                     <outlet property="issuer" destination="kIw-q7-Tat" id="lJ5-Wb-adN"/>
                                     <outlet property="name" destination="ocK-d8-Mjy" id="ksH-mE-exz"/>
                                     <outlet property="progress" destination="8el-ru-Cbt" id="WVN-6C-REt"/>
-                                    <outlet property="touch" destination="4WS-8i-Uyp" id="eLv-T7-LSg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

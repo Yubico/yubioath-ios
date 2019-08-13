@@ -36,4 +36,24 @@ extension UIAlertController {
         return alertController
     }
 
+    static func displayToast(message: String) {
+        guard let keyWindow = UIApplication.shared.keyWindow else {
+            return
+        }
+        
+        let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width/2.0, height: 50.0))
+        toastView.text = message;
+        toastView.textAlignment = .center;
+        toastView.layer.cornerRadius = 10;
+        toastView.layer.masksToBounds = true;
+        toastView.backgroundColor = UIColor.lightGray
+        toastView.center = keyWindow.center;
+
+        keyWindow.addSubview(toastView)
+        UIView.animate(withDuration: 3.0, animations: {
+            toastView.alpha = 0.0
+        }) { (finished) -> Void in
+            toastView.removeFromSuperview()
+        }
+    }
 }

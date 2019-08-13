@@ -13,6 +13,8 @@ class SettingsViewController: UITableViewController {
     private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
     private var keySessionObserver: KeySessionObserver!
 
+    private let viewModel = YubikitManagerModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,13 +51,11 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if (indexPath.row == 0) {
-                self.present(UIAlertController.setPassword(title: "Set password", message: "", inputHandler: {  (password) -> Void in
-                    let viewModel = YubikitManagerModel()
-                    viewModel.setCode(password: password)
+                self.present(UIAlertController.setPassword(title: "Set password", message: "", inputHandler: {  [weak self] (password) -> Void in
+                    self?.viewModel.setCode(password: password)
                 }), animated: true)
             } else if (indexPath.row == 1) {
-                let viewModel = YubikitManagerModel()
-                viewModel.reset()
+                self.viewModel.reset()
             }
         }
     }

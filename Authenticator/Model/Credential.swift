@@ -45,6 +45,7 @@ class Credential: NSObject {
 
     @objc dynamic var code: String
     @objc dynamic var remainingTime : Double
+    @objc dynamic var activeTime : Double
 
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
@@ -57,7 +58,8 @@ class Credential: NSObject {
         code = ""
         validity = DateInterval()
         remainingTime = 0
-        requiresTouch = false
+        activeTime = 0
+        requiresTouch = credential.requiresTouch
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -69,6 +71,7 @@ class Credential: NSObject {
         code = credential.otp ?? ""
         validity = credential.validity
         remainingTime = credential.validity.end.timeIntervalSince(Date())
+        activeTime = 0
         requiresTouch = credential.requiresTouch
     }
     
@@ -85,6 +88,7 @@ class Credential: NSObject {
     func setValidity(validity : DateInterval) {
         self.validity = validity
         remainingTime = validity.end.timeIntervalSince(Date())
+        activeTime = 0
     }
     
     var ykCredential : YKFOATHCredential {
@@ -115,7 +119,7 @@ class Credential: NSObject {
     
     // set up timer to get notified about expiration (by watching global timer changes)
     func setupTimerObservation() {
-        if (self.type != .TOTP || self.code.isEmpty) {
+        if (self.code.isEmpty) {
             return
         }
         timerObservation = observe(\.globalTimer.tick, options: [.initial], changeHandler: { [weak self] (object, change) in
@@ -131,6 +135,8 @@ class Credential: NSObject {
                 self.delegate?.calculateResultDidExpire(self)
                 self.removeTimerObservation()
             }
+            
+            self.activeTime += 1;
         })
     }
     

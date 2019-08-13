@@ -22,7 +22,8 @@ class MainViewController: UITableViewController {
         setupCredentialsSearchController()
         
         if (!YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
-            // TODO: notify user that it's not supported on this device
+            let error = KeySessionError.notSupported
+            self.present(UIAlertController.errorDialog(title: "", message: error.localizedDescription), animated: true)
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -87,12 +88,17 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let credential = viewModel.credentials[indexPath.row]
-            if (credential.code.isEmpty) {
+            if (credential.type == .HOTP && credential.activeTime > 5) {
+                // refresh HOTP on touch
+                print("\(credential.activeTime)")
+                viewModel.calculate(credential: credential)
+            } else if (credential.code.isEmpty || credential.remainingTime <= 0) {
+                // refresh items that require touch
                 viewModel.calculate(credential: credential)
             } else {
                 // copy to clipbboard
                 UIPasteboard.general.string = credential.code
-                // notify user
+                UIAlertController.displayToast(message: "Copied to clipboard!")
             }
         }
     }
@@ -165,7 +171,7 @@ class MainViewController: UITableViewController {
 
 // MARK: - CredentialViewModelDelegate
 extension MainViewController:  CredentialViewModelDelegate {
-    func onUpdated() {
+    func onCredentialsUpdated() {
         self.tableView.reloadData()
     }
     
@@ -175,16 +181,20 @@ extension MainViewController:  CredentialViewModelDelegate {
         if let oathError = error as? YKFKeyOATHError {
             // TODO: add queue of requests and in case of authentication error be able to retry what was requested
             if (oathError.code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
-                self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  (password) -> Void in
-                    self.viewModel.validate(password: password)
+                self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
+                    self?.viewModel.validate(password: password)
                 }), animated: true)
             } else {
                 self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
             }
         } else {
-            // TODO: add localizedDescription to KeySessionError
+            // TODO: think about better error dialog for case when no connection (future NFC support - ask to tap over NFC)
             self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
         }
+    }
+    
+    func onOperationCompleted(operation: String) {
+        UIAlertController.displayToast(message: operation)
     }
 }
 

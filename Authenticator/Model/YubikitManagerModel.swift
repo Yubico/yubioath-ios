@@ -9,7 +9,8 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: class {
-    func onUpdated()
+    func onOperationCompleted(operation: String)
+    func onCredentialsUpdated()
     func onError(error: Error)
 }
 
@@ -30,7 +31,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func calculateAll() {
-        let operationName = "calculate all"
+        let operationName = Operation.calculateAll
 
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
@@ -54,12 +55,8 @@ class YubikitManagerModel : NSObject {
             
             self?._credentials = response.credentials.map {
                 let result = Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
-                if (result.type == .HOTP) {
-                    self?.calculate(credential: result)
-                } else {
-                    result.setupTimerObservation()
-                    result.delegate = self
-                }
+                result.setupTimerObservation()
+                result.delegate = self
                 return result
             }
             self?.operationSucceeded(operation: operationName)
@@ -67,7 +64,7 @@ class YubikitManagerModel : NSObject {
 
     }
     public func calculate(credential: Credential) {
-        let operationName = "calculate"
+        let operationName = Operation.calculate
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
@@ -91,7 +88,7 @@ class YubikitManagerModel : NSObject {
     }
 
     public func addCredential(credential: YKFOATHCredential) {
-        let operationName = "put"
+        let operationName = Operation.put
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
@@ -115,7 +112,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func deleteCredential(index: Int) {
-        let operationName = "delete"
+        let operationName = Operation.delete
         let credential = self.credentials[index]
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
@@ -133,7 +130,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func setCode(password: String) {
-        let operationName = "set code"
+        let operationName = Operation.setCode
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
@@ -144,13 +141,12 @@ class YubikitManagerModel : NSObject {
                 return
             }
             
-            print("The set code request succeeded")
-            // TODO: add something that will notify that password set
+            self?.operationSucceeded(operation: operationName)
         }
     }
     
     public func validate(password: String) {
-        let operationName = "validate"
+        let operationName = Operation.validate
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
@@ -169,7 +165,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func reset() {
-        let operationName = "reset"
+        let operationName = Operation.reset
         guard let oathService = YubiKitManager.shared.keySession.oathService else {
             self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
             return
@@ -180,8 +176,7 @@ class YubikitManagerModel : NSObject {
                 return
             }
             
-            print("The reset request succeeded")
-            self?.cleanUp()
+            self?.operationSucceeded(operation: operationName)
         }
     }
     
@@ -191,12 +186,12 @@ class YubikitManagerModel : NSObject {
         }
 
         _credentials.removeAll()
-        operationSucceeded(operation: "clean up")
+        delegate?.onCredentialsUpdated()
     }
     
     public func applyFilter(filter: String?) {
         self.filter = filter
-        delegate?.onUpdated()
+        delegate?.onCredentialsUpdated()
     }
     
     public func emulateSomeRecords() {
@@ -219,10 +214,10 @@ class YubikitManagerModel : NSObject {
         credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
-        delegate?.onUpdated()
+        delegate?.onCredentialsUpdated()
     }
     
-    func operationSucceeded(operation:String) {
+    func operationSucceeded(operation:Operation) {
         DispatchQueue.main.async { [weak self] in
             print("The \(operation) request succeeded")
 
@@ -233,11 +228,18 @@ class YubikitManagerModel : NSObject {
                 return
             }
             
-            delegate.onUpdated()
+            switch(operation) {
+            case .setCode:
+                delegate.onOperationCompleted(operation: "The \(operation) request succeeded")
+            case .reset:
+                delegate.onOperationCompleted(operation: "The \(operation) request succeeded")
+            default:
+                delegate.onCredentialsUpdated()
+            }
         }
     }
     
-    func operationFailed(operation:String, error: Error) {
+    func operationFailed(operation:Operation, error: Error) {
         DispatchQueue.main.async { [weak self] in
             print("The \(operation) request ended in error \(error.localizedDescription) ")
 
@@ -262,4 +264,14 @@ extension YubikitManagerModel:  CredentialExpirationDelegate {
         self.calculate(credential: credential)
     }
     
+}
+
+enum Operation : String {
+    case put = "put"
+    case calculate = "calculate"
+    case calculateAll = "calculate all"
+    case delete = "delete"
+    case setCode = "set code"
+    case validate = "validate"
+    case reset = "reset"
 }
