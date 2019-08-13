@@ -36,26 +36,30 @@ class Credential: NSObject {
      */
     let account: String;
     
-    let validity : DateInterval
-    let code: String
     
     let requiresTouch: Bool
-    
+
+    private var validity : DateInterval
     weak var delegate: CredentialExpirationDelegate?
     private var timerObservation: NSKeyValueObservation?
+
+    @objc dynamic var code: String
     @objc dynamic var remainingTime : Double
+    @objc dynamic var activeTime : Double
 
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(fromYKFOATHCredential credential:YKFOATHCredential, otp: String, valid: DateInterval) {
+    init(fromYKFOATHCredential credential:YKFOATHCredential) {
         type = credential.type
         account = credential.account
         issuer = credential.issuer
         period = credential.period
-        code = otp
-        validity = valid
-        remainingTime = validity.end.timeIntervalSince(Date())
-        requiresTouch = false
+        
+        code = ""
+        validity = DateInterval()
+        remainingTime = 0
+        activeTime = 0
+        requiresTouch = credential.requiresTouch
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -66,7 +70,8 @@ class Credential: NSObject {
         
         code = credential.otp ?? ""
         validity = credential.validity
-        remainingTime = validity.end.timeIntervalSince(Date())
+        remainingTime = credential.validity.end.timeIntervalSince(Date())
+        activeTime = 0
         requiresTouch = credential.requiresTouch
     }
     
@@ -80,14 +85,18 @@ class Credential: NSObject {
         }
     }
     
+    func setValidity(validity : DateInterval) {
+        self.validity = validity
+        remainingTime = validity.end.timeIntervalSince(Date())
+        activeTime = 0
+    }
+    
     var ykCredential : YKFOATHCredential {
         let credential = YKFOATHCredential()
         credential.account = account
         credential.type = type
         credential.issuer = issuer
         credential.period = period
-        credential.label = "\(credential.issuer):\(credential.account)"
-        credential.label = String(format:"%@:%@", issuer, account)
         return credential
     }
     
@@ -110,7 +119,7 @@ class Credential: NSObject {
     
     // set up timer to get notified about expiration (by watching global timer changes)
     func setupTimerObservation() {
-        if (self.type != .TOTP || self.code.isEmpty) {
+        if (self.code.isEmpty) {
             return
         }
         timerObservation = observe(\.globalTimer.tick, options: [.initial], changeHandler: { [weak self] (object, change) in
@@ -126,6 +135,8 @@ class Credential: NSObject {
                 self.delegate?.calculateResultDidExpire(self)
                 self.removeTimerObservation()
             }
+            
+            self.activeTime += 1;
         })
     }
     
