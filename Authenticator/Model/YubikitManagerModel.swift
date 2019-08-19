@@ -84,6 +84,8 @@ class YubikitManagerModel : NSObject {
             credential.setValidity(validity: response.validity)
             credential.setupTimerObservation()
             self?.operationSucceeded(operation: operationName)
+            print("Issuer \(credential.issuer) Account \(credential.account)")
+
         }
     }
 
@@ -209,8 +211,9 @@ class YubikitManagerModel : NSObject {
         credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(5)))
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
+        credentialResult.requiresTouch = true
         let credential3 = Credential(fromYKFOATHCredential: credentialResult)
-        credential3.code = "999888"
+        credential3.code = ""
         credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)

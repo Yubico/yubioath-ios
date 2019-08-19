@@ -15,11 +15,13 @@ class AddCredentialController: UITableViewController {
     @IBOutlet weak var addScannedButton: UIButton!
     @IBOutlet weak var issuerScannedText: UITextField!
     @IBOutlet weak var accountScannedText: UITextField!
+    @IBOutlet weak var requireTouchScanned: UISwitch!
     @IBOutlet weak var addManualButton: UIButton!
     @IBOutlet weak var issuerManualText: UITextField!
     @IBOutlet weak var accountManualText: UITextField!
     @IBOutlet weak var secretManualText: UITextField!
     @IBOutlet weak var secretValidationLabel: UILabel!
+    @IBOutlet weak var requireTouchManual: UISwitch!
     @IBOutlet var allManualTextFields: [UITextField]!
     var advancedSettingsPicker: UIPickerView! = UIPickerView()
     @IBOutlet weak var periodManualText: UITextField!
@@ -54,29 +56,20 @@ class AddCredentialController: UITableViewController {
     }
     
     // MARK: - Table view cell sizes
-/*
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 0 {
-            manualEntryExpanded = !manualEntryExpanded
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-    }
-  */
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
             if (url == nil) {
                 // first cell collapsed 140
-                return 160
+                return 140
             } else {
                 return 340
             }
         }
         if indexPath.section == 1 && indexPath.row == 0 {
             if manualEntryExpanded {
-                return 700
+                return 600
             } else {
-                return 350
+                return 360
             }
         }
         return 80
@@ -141,7 +134,7 @@ class AddCredentialController: UITableViewController {
             // Set the credential to be passed to MainViewController after the unwind segue.
             credential.issuer = self.issuerScannedText.text ?? ""
             credential.account = self.accountScannedText.text ?? ""
-            
+            credential.requiresTouch = self.requireTouchScanned.isOn
             self.credential = credential
         } else if let button = sender as? UIButton, button == addManualButton {
             // Create the credential from manual input
@@ -150,7 +143,8 @@ class AddCredentialController: UITableViewController {
             // Set the credential to be passed to MainViewController after the unwind segue.
             credential.issuer = self.issuerManualText.text ?? ""
             credential.account = self.accountManualText.text ?? ""
-            
+            credential.requiresTouch = self.requireTouchManual.isOn
+
             // use the base32DecodeData (of type Data) and set it on the credential:
             guard let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") else {
                 // we already validated input before enabling action button, so this should never happen
@@ -173,8 +167,9 @@ class AddCredentialController: UITableViewController {
         }
     }
     
+    //
     // MARK: - Helper Methods
-    
+    //
     fileprivate func setupAddManualView() {
         // configure each edit text for validation
         issuerManualText.delegate = self

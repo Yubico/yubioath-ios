@@ -42,15 +42,13 @@ class CredentialTableViewCell: UITableViewCell {
         code.text = otp
         issuer.text = credential.issuer
         name.text = credential.account
-        
+        actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
+
         if (credential.type == .TOTP && !credential.code.isEmpty) {
-            actionIcon.isHidden = true
-            progress.isHidden = false
             refreshProgress()
         } else {
             progress.isHidden = true
-            actionIcon.isHidden = !credential.requiresTouch
-            actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
+            actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         }
         setupModelObservation()
     }
@@ -87,11 +85,14 @@ class CredentialTableViewCell: UITableViewCell {
             if (credential.remainingTime > 0) {
                 self.progress.setProgress(to: credential.remainingTime / Double(credential.period), duration: 0.0, withAnimation: false)
             } else {
+                self.code.text = "*** ***"
                 self.progress.setProgress(to: Double(0.0), duration: 0.0, withAnimation: false)
             }
+            self.progress.isHidden = credential.remainingTime <= 0
+            self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
                 // TODO: add logic of changing color or timout expiration
         } else if (credential.type == .HOTP) {
-            actionIcon.isHidden = credential.activeTime < 5 || credential.code.isEmpty
+            actionIcon.isHidden = credential.activeTime < 5 && !credential.code.isEmpty
         }
     }
 }
