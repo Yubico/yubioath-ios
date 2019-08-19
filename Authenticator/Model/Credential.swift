@@ -130,13 +130,20 @@ class Credential: NSObject {
                 // timer is ignored
                 return
             }
-            self.remainingTime = self.validity.end.timeIntervalSince(Date())
-            if self.remainingTime <= 0 {
-                self.delegate?.calculateResultDidExpire(self)
-                self.removeTimerObservation()
-            }
             
             self.activeTime += 1;
+            if (self.type == .HOTP) {
+                return
+            }
+
+            self.remainingTime = self.validity.end.timeIntervalSince(Date())
+            if self.remainingTime <= 0 {
+                // we don't update automatically credentials that require touch
+                if (!self.requiresTouch) {
+                    self.delegate?.calculateResultDidExpire(self)
+                }
+                self.removeTimerObservation()
+            }
         })
     }
     

@@ -17,8 +17,7 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        
-        keySessionObserver = KeySessionObserver(delegate: self)
+
         setupCredentialsSearchController()
         
         if (!YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
@@ -35,11 +34,17 @@ class MainViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keySessionObserver = KeySessionObserver(delegate: self)
         refreshUIOnKeyStateUpdate()
     }
     
-    // MARK: - UI Setup
+    override func viewWillDisappear(_ animated: Bool) {
+        keySessionObserver.observeSessionState = false
+    }
     
+    //
+    // MARK: - UI Setup
+    //
     private func setupCredentialsSearchController() {
         credentialsSearchController = UISearchController(searchResultsController: nil)
         credentialsSearchController.searchResultsUpdater = self
@@ -48,7 +53,9 @@ class MainViewController: UITableViewController {
         definesPresentationContext = true
     }
     
+    //
     // MARK: - Table view data source
+    //
     override func numberOfSections(in tableView: UITableView) -> Int {
         if (viewModel.credentials.count > 0) {
             self.tableView.backgroundView = nil
@@ -56,7 +63,7 @@ class MainViewController: UITableViewController {
             return 1
         } else {
             // Display a message when the table is empty
-            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width - 20, height: self.view.bounds.size.height - 20))
             messageLabel.textAlignment = NSTextAlignment.center
             messageLabel.numberOfLines = 5
             
@@ -65,6 +72,8 @@ class MainViewController: UITableViewController {
             } else {
                 messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
             }
+            
+            messageLabel.center = self.view.center
             messageLabel.textColor = UIColor.black;
             messageLabel.sizeToFit()
             
@@ -90,10 +99,16 @@ class MainViewController: UITableViewController {
             let credential = viewModel.credentials[indexPath.row]
             if (credential.type == .HOTP && credential.activeTime > 5) {
                 // refresh HOTP on touch
-                print("\(credential.activeTime)")
+                print("HOTP active for \(String(format:"%f", credential.activeTime)) seconds")
+                if (credential.requiresTouch) {
+                    UIAlertController.displayToast(message: "Touch your YubiKey")
+                }
                 viewModel.calculate(credential: credential)
             } else if (credential.code.isEmpty || credential.remainingTime <= 0) {
                 // refresh items that require touch
+                if (credential.requiresTouch) {
+                    UIAlertController.displayToast(message: "Touch your YubiKey")
+                }
                 viewModel.calculate(credential: credential)
             } else {
                 // copy to clipbboard
@@ -109,7 +124,6 @@ class MainViewController: UITableViewController {
         return true
     }
     
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -120,13 +134,6 @@ class MainViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    
     @IBAction func unwindToMainViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? AddCredentialController, let credential = sourceViewController.credential {
             // Add a new credentail to table.
@@ -169,7 +176,9 @@ class MainViewController: UITableViewController {
     
 }
 
+//
 // MARK: - CredentialViewModelDelegate
+//
 extension MainViewController:  CredentialViewModelDelegate {
     func onCredentialsUpdated() {
         self.tableView.reloadData()
