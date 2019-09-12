@@ -10,9 +10,11 @@ import UIKit
 
 class MainViewController: UITableViewController {
 
-    let viewModel = YubikitManagerModel()
+    private let viewModel = YubikitManagerModel()
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
+    
+    private var credentailToAdd: YKFOATHCredential?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class MainViewController: UITableViewController {
         
         if (!YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
             let error = KeySessionError.notSupported
-            self.present(UIAlertController.errorDialog(title: "", message: error.localizedDescription), animated: true)
+            self.showAlertDialog(title: "", message: error.localizedDescription)
         }
 
         // Uncomment the following line to preserve selection between presentations
@@ -43,14 +45,31 @@ class MainViewController: UITableViewController {
     }
     
     //
-    // MARK: - UI Setup
+    // MARK: - Add cedential
     //
-    private func setupCredentialsSearchController() {
-        credentialsSearchController = UISearchController(searchResultsController: nil)
-        credentialsSearchController.searchResultsUpdater = self
-        credentialsSearchController.obscuresBackgroundDuringPresentation = false
-        credentialsSearchController.searchBar.placeholder = "Search Credentials"
-        definesPresentationContext = true
+    @IBAction func onAddCredentialClick(_ sender: Any) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        if (YubiKitDeviceCapabilities.supportsQRCodeScanning) {
+            // if QR codes are anavailable on device disable option
+            actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
+                self?.scanQR()
+            })
+        }
+        actionSheet.addAction(UIAlertAction(title: "Enter manually", style: .default) { [weak self]  (action) in
+            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+        })
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
+            self?.dismiss(animated: true, completion: nil)
+        })
+        
+        // The action sheet requires a presentation popover on iPad.
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            actionSheet.modalPresentationStyle = .popover
+            actionSheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItems?[1]
+        }
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     //
@@ -100,20 +119,14 @@ class MainViewController: UITableViewController {
             if (credential.type == .HOTP && credential.activeTime > 5) {
                 // refresh HOTP on touch
                 print("HOTP active for \(String(format:"%f", credential.activeTime)) seconds")
-                if (credential.requiresTouch) {
-                    UIAlertController.displayToast(message: "Touch your YubiKey")
-                }
                 viewModel.calculate(credential: credential)
             } else if (credential.code.isEmpty || credential.remainingTime <= 0) {
                 // refresh items that require touch
-                if (credential.requiresTouch) {
-                    UIAlertController.displayToast(message: "Touch your YubiKey")
-                }
                 viewModel.calculate(credential: credential)
             } else {
                 // copy to clipbboard
                 UIPasteboard.general.string = credential.code
-                UIAlertController.displayToast(message: "Copied to clipboard!")
+                self.displayToast(message: "Copied to clipboard!")
             }
         }
     }
@@ -134,13 +147,52 @@ class MainViewController: UITableViewController {
     }
     
     // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == .addCredentialSequeID {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let addViewController = destinationNavigationController.topViewController as? AddCredentialController, let credential = credentailToAdd {
+                    addViewController.displayCredential(details: credential)
+                }
+            credentailToAdd = nil
+        }
+    }
+    
     @IBAction func unwindToMainViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? AddCredentialController, let credential = sourceViewController.credential {
-            // Add a new credentail to table.
+            // Add a new credential to table.
             viewModel.addCredential(credential: credential)
         }
     }
     
+    // MARK: - private methods
+    
+    private func scanQR() {
+        YubiKitManager.shared.qrReaderSession.scanQrCode(withPresenter: self) {
+            [weak self] (payload, error) in
+            guard self != nil else {
+                return
+            }
+            guard error == nil else {
+                self?.onError(operation: .scan, error: error!)
+                return
+            }
+            
+            // This is an URL conforming to Key URI Format specs.
+            guard let url = URL(string: payload!) else {
+                self?.onError(operation: .scan, error: KeySessionError.invalidUri)
+                return
+            }
+            
+            guard let credential = YKFOATHCredential(url: url) else {
+                self?.onError(operation: .scan, error: KeySessionError.invalidCredentialUri)
+                return
+            }
+            
+            self?.credentailToAdd = credential
+            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+        }
+    }
+
     private func refreshCredentials() {
         if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
             let sessionState = YubiKitManager.shared.keySession.sessionState
@@ -158,48 +210,66 @@ class MainViewController: UITableViewController {
         }
     }
     
+    
+    //
+    // MARK: - UI Setup
+    //
+    private func setupCredentialsSearchController() {
+        credentialsSearchController = UISearchController(searchResultsController: nil)
+        credentialsSearchController.searchResultsUpdater = self
+        credentialsSearchController.obscuresBackgroundDuringPresentation = false
+        credentialsSearchController.searchBar.placeholder = "Quick Find"
+        definesPresentationContext = true
+    }
+
     private func refreshUIOnKeyStateUpdate() {
         refreshCredentials()
         
         if YubiKitManager.shared.keySession.sessionState == .closed {
             navigationItem.searchController = nil
-            navigationItem.hidesSearchBarWhenScrolling = true
-            navigationItem.rightBarButtonItems?[1].isEnabled = false
+            
+            // allow to see add option on emulator
+            // TODO: remove before release
+            navigationItem.rightBarButtonItems?[1].isEnabled = !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
         } else {
             navigationItem.searchController = credentialsSearchController
-            navigationItem.hidesSearchBarWhenScrolling = false
             navigationItem.rightBarButtonItems?[1].isEnabled = true
             
         }
         view.setNeedsLayout()
     }
-    
+}
+
+extension String {
+    fileprivate static let addCredentialSequeID = "AddCredentialSequeID"
 }
 
 //
 // MARK: - CredentialViewModelDelegate
 //
 extension MainViewController:  CredentialViewModelDelegate {
-    func onCredentialsUpdated() {
+    func onOperationCompleted(operation: Operation) {
         self.tableView.reloadData()
     }
     
-    func onError(error: Error) {
+    func onError(operation: Operation, error: Error) {
         // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
         print("\(error)")
             // TODO: add queue of requests and in case of authentication error be able to retry what was requested
         if ((error as NSError).code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
-            self.present(UIAlertController.setPassword(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
+            self.showPasswordPrompt(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
                 self?.viewModel.validate(password: password)
-            }), animated: true)
+            })
         } else {
+            // TODO: for validation error we should notify that password is incorrect and prompt for it again
+            
             // TODO: think about better error dialog for case when no connection (future NFC support - ask to tap over NFC)
-            self.present(UIAlertController.errorDialog(title: "Error occured", message: error.localizedDescription), animated: true)
+            self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
         }
     }
     
-    func onOperationCompleted(operation: String) {
-        UIAlertController.displayToast(message: operation)
+    func onTouchRequired() {
+        self.displayToast(message: "Touch your YubiKey")
     }
 }
 

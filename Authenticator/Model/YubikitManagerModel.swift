@@ -9,9 +9,20 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: class {
-    func onOperationCompleted(operation: String)
-    func onCredentialsUpdated()
-    func onError(error: Error)
+    func onError(operation: Operation, error: Error)
+    func onOperationCompleted(operation: Operation)
+    func onTouchRequired()
+
+}
+
+// optional delegate methods
+extension CredentialViewModelDelegate {
+    func onOperationCompleted(operation: Operation) {
+        
+    }
+    func onTouchRequired() {
+        
+    }
 }
 
 class YubikitManagerModel : NSObject {
@@ -25,7 +36,7 @@ class YubikitManagerModel : NSObject {
                 return _credentials
             }
             return _credentials.filter {
-                $0.issuer.contains(self.filter!) || $0.account.contains(self.filter!)
+                $0.issuer.lowercased().contains(self.filter!) || $0.account.lowercased().contains(self.filter!)
             }
         }
     }
@@ -70,7 +81,16 @@ class YubikitManagerModel : NSObject {
             return
         }
 
+        if (credential.requiresTouch) {
+            delegate?.onTouchRequired()
+        }
+
         credential.removeTimerObservation()
+        
+        // TODO: set timer and invoke
+        // delegate?.onTouchRequired() if operation is not completed within 2 seconds
+        // to workaround HOTP credentials that don't have requiresTouch flag
+
         oathService.execute(YKFKeyOATHCalculateRequest(credential: credential.ykCredential)!) { [weak self] (response, error) in
             guard error == nil else {
                 self?.operationFailed(operation: operationName, error: error!)
@@ -188,18 +208,18 @@ class YubikitManagerModel : NSObject {
         }
 
         _credentials.removeAll()
-        delegate?.onCredentialsUpdated()
+        delegate?.onOperationCompleted(operation: .cleanup)
     }
     
     public func applyFilter(filter: String?) {
-        self.filter = filter
-        delegate?.onCredentialsUpdated()
+        self.filter = filter?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        delegate?.onOperationCompleted(operation: .filter)
     }
     
     public func emulateSomeRecords() {
         let credentialResult = YKFOATHCredential()
-        credentialResult.account = "account1"
-        credentialResult.issuer = "issuer1"
+        credentialResult.account = "test@yubico.com"
+        credentialResult.issuer = "Yubico"
         credentialResult.type = YKFOATHCredentialType.TOTP;
         let credential = Credential(fromYKFOATHCredential: credentialResult)
         credential.code = "111222"
@@ -217,7 +237,7 @@ class YubikitManagerModel : NSObject {
         credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
-        delegate?.onCredentialsUpdated()
+        delegate?.onOperationCompleted(operation: .put)
     }
     
     func operationSucceeded(operation:Operation) {
@@ -231,14 +251,7 @@ class YubikitManagerModel : NSObject {
                 return
             }
             
-            switch(operation) {
-            case .setCode:
-                delegate.onOperationCompleted(operation: "The \(operation) request succeeded")
-            case .reset:
-                delegate.onOperationCompleted(operation: "The \(operation) request succeeded")
-            default:
-                delegate.onCredentialsUpdated()
-            }
+            delegate.onOperationCompleted(operation: operation)
         }
     }
     
@@ -253,7 +266,7 @@ class YubikitManagerModel : NSObject {
                 return
             }
             
-            delegate.onError(error: error)
+            delegate.onError(operation: operation, error: error)
         }
     }
 }
@@ -277,4 +290,7 @@ enum Operation : String {
     case setCode = "set code"
     case validate = "validate"
     case reset = "reset"
+    case cleanup = "cleanup"
+    case filter = "filter"
+    case scan = "scan"
 }
