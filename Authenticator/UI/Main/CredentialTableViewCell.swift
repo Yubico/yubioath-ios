@@ -10,10 +10,9 @@ import UIKit
 
 class CredentialTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var issuer: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var code: UILabel!
-    @IBOutlet weak var progress: CircularProgressBar!
+    @IBOutlet weak var progress: PieProgressBar!
     @IBOutlet weak var actionIcon: UIImageView!
     
     @objc dynamic private var credential: Credential?
@@ -22,10 +21,9 @@ class CredentialTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        actionIcon.tintColor = UIColor.green
+        // Initialization code
         actionIcon.isHidden = true
         progress.isHidden = true
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,8 +38,7 @@ class CredentialTableViewCell: UITableViewCell {
         // make it pretty by splitting in halves
         otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
         code.text = otp
-        issuer.text = credential.issuer
-        name.text = credential.account
+        name.text = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
         actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
 
         if (credential.type == .TOTP && !credential.code.isEmpty) {
@@ -83,10 +80,10 @@ class CredentialTableViewCell: UITableViewCell {
         }
         if (credential.type == .TOTP && !credential.code.isEmpty) {
             if (credential.remainingTime > 0) {
-                self.progress.setProgress(to: credential.remainingTime / Double(credential.period), duration: 0.0, withAnimation: false)
+                self.progress.setProgress(to: credential.remainingTime / Double(credential.period))
             } else {
                 self.code.text = "*** ***"
-                self.progress.setProgress(to: Double(0.0), duration: 0.0, withAnimation: false)
+                self.progress.setProgress(to: Double(0.0))
             }
             self.progress.isHidden = credential.remainingTime <= 0
             self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)

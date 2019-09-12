@@ -12,7 +12,10 @@ enum KeySessionError : Error {
     case notSupported
     case noOathService
     case noResponse
+    case invalidUri
+    case invalidCredentialUri
 }
+
 
 extension KeySessionError: LocalizedError {
     public var errorDescription: String? {
@@ -23,6 +26,10 @@ extension KeySessionError: LocalizedError {
             return NSLocalizedString("Plug-in your YubiKey for that operation", comment: "No service found")
         case .noResponse:
             return NSLocalizedString("Something went wrong and key doesn't respond", comment: "No response")
+        case .invalidUri:
+            return NSLocalizedString("This is an URL conforming to Key URI Format specs", comment: "Invalid Uri")
+        case .invalidCredentialUri:
+            return NSLocalizedString("Invalid URI format", comment: "Invalid Uri")
         }
     }
 }
