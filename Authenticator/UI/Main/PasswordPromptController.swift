@@ -10,16 +10,18 @@ import Foundation
 
 extension UIViewController {
     
-    func showPasswordPrompt(title: String, message: String, inputHandler: ((String) -> Void)? = nil) {
+    func showPasswordPrompt(title: String, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
         
         var inputTextField: UITextField?
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             // Do whatever you want with inputTextField?.text
-            inputHandler?(inputTextField!.text!)
+            inputHandler?(inputTextField?.text ?? "")
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            cancelHandler?()
+        }
         alertController.addTextField { (textField) -> Void in
             // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
             inputTextField = textField

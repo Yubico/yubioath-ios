@@ -8,9 +8,8 @@
 
 import UIKit
 
-class MainViewController: UITableViewController {
+class MainViewController: BaseOATHVIewController {
 
-    private let viewModel = YubikitManagerModel()
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
     
@@ -18,7 +17,6 @@ class MainViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
 
         setupCredentialsSearchController()
         
@@ -42,6 +40,7 @@ class MainViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         keySessionObserver.observeSessionState = false
+        super.viewWillDisappear(animated)
     }
     
     //
@@ -89,7 +88,16 @@ class MainViewController: UITableViewController {
             if YubiKitManager.shared.keySession.sessionState == .closed {
                 messageLabel.text = "Insert your YubiKey"
             } else {
-                messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
+                switch viewModel.state {
+                case .idle:
+                    messageLabel.text = "Insert your YubiKey"
+                case .loading:
+                    messageLabel.text = "Loading..."
+                case .locked:
+                    messageLabel.text = "Authentication is required"
+                default:
+                    messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
+                }
             }
             
             messageLabel.center = self.view.center
@@ -242,35 +250,6 @@ class MainViewController: UITableViewController {
 
 extension String {
     fileprivate static let addCredentialSequeID = "AddCredentialSequeID"
-}
-
-//
-// MARK: - CredentialViewModelDelegate
-//
-extension MainViewController:  CredentialViewModelDelegate {
-    func onOperationCompleted(operation: Operation) {
-        self.tableView.reloadData()
-    }
-    
-    func onError(operation: Operation, error: Error) {
-        // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
-        print("\(error)")
-            // TODO: add queue of requests and in case of authentication error be able to retry what was requested
-        if ((error as NSError).code == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
-            self.showPasswordPrompt(title: "Unlock YubiKey", message: "To prevent anauthorized access YubiKey is protected with a password", inputHandler: {  [weak self] (password) -> Void in
-                self?.viewModel.validate(password: password)
-            })
-        } else {
-            // TODO: for validation error we should notify that password is incorrect and prompt for it again
-            
-            // TODO: think about better error dialog for case when no connection (future NFC support - ask to tap over NFC)
-            self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
-        }
-    }
-    
-    func onTouchRequired() {
-        self.displayToast(message: "Touch your YubiKey")
-    }
 }
 
 //

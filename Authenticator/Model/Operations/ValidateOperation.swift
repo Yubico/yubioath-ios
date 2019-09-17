@@ -1,0 +1,48 @@
+//
+//  ValidateOperation.swift
+//  Authenticator
+//
+//  Created by Irina Makhalova on 9/11/19.
+//  Copyright © 2019 Irina Makhalova. All rights reserved.
+//
+
+import UIKit
+
+class ValidateOperation: BaseOATHOperation {
+    
+    private let password: String
+    
+    override var operationName: OperationName {
+        return OperationName.validate
+    }
+    
+    override var replacable: Bool {
+        return true
+    }
+
+    init(password: String) {
+        self.password = password
+    }
+    
+    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+        if (password.isEmpty) {
+            // SDK doesn't handle empty values
+            self.operationFailed(error: NSError(domain: "", code: Int(YKFKeyOATHErrorCode.wrongPassword.rawValue), userInfo: nil))
+            return
+        }
+        oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { [weak self] (error) in
+            guard error == nil else {
+                self?.operationFailed(error: error!)
+                return
+            }
+            
+            self?.operationSucceeded()
+        }
+    }
+    
+    override func retryOperation() -> BaseOATHOperation {
+        let retryOperation = ValidateOperation(password: self.password)
+        retryOperation.queuePriority = .high
+        return retryOperation
+    }
+}

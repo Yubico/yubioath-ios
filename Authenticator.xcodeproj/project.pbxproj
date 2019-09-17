@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
+		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
+		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
+		815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4B2329520100F2478F /* DeleteOperation.swift */; };
+		815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4D2329557300F2478F /* SetCodeOperation.swift */; };
+		816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816BF3D42325835C00D2F44A /* CalculateAllOperation.swift */; };
 		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
 		818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818866BF22DFD72C006BC0A8 /* Assets.xcassets */; };
@@ -20,10 +25,15 @@
 		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
 		818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* PieProgressBar.swift */; };
 		818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818BE8DE22F39A9000061026 /* GlobalTimer.swift */; };
+		81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C26232975AA00C60E1D /* ResetOperation.swift */; };
+		81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */; };
+		81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */; };
 		81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */; };
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
 		81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E009C222FF44B100E7715B /* KeySessionObserver.swift */; };
+		81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */; };
+		81E8D4E0231FF9A9004B6F9E /* BaseOATHOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8D4DF231FF9A9004B6F9E /* BaseOATHOperation.swift */; };
 		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* PasswordPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* PasswordPromptController.swift */; };
@@ -48,6 +58,11 @@
 
 /* Begin PBXFileReference section */
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
+		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
+		815E0A4B2329520100F2478F /* DeleteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOperation.swift; sourceTree = "<group>"; };
+		815E0A4D2329557300F2478F /* SetCodeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCodeOperation.swift; sourceTree = "<group>"; };
+		816BF3D42325835C00D2F44A /* CalculateAllOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateAllOperation.swift; sourceTree = "<group>"; };
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		818866BD22DFD729006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,10 +83,15 @@
 		818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CredentialTableViewCell.swift; path = Authenticator/UI/Main/CredentialTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		818866F922E96B47006BC0A8 /* PieProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PieProgressBar.swift; path = Authenticator/UI/Main/PieProgressBar.swift; sourceTree = SOURCE_ROOT; };
 		818BE8DE22F39A9000061026 /* GlobalTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTimer.swift; sourceTree = "<group>"; };
+		81BE0C26232975AA00C60E1D /* ResetOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOperation.swift; sourceTree = "<group>"; };
+		81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOATHVIewController.swift; sourceTree = "<group>"; };
+		81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueOperationQueue.swift; sourceTree = "<group>"; };
 		81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubikitManagerModel.swift; sourceTree = "<group>"; };
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
 		81E009C222FF44B100E7715B /* KeySessionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySessionObserver.swift; sourceTree = "<group>"; };
+		81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateOperation.swift; sourceTree = "<group>"; };
+		81E8D4DF231FF9A9004B6F9E /* BaseOATHOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOATHOperation.swift; sourceTree = "<group>"; };
 		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* PasswordPromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordPromptController.swift; sourceTree = "<group>"; };
@@ -179,13 +199,30 @@
 		818BE8DB22F3486500061026 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				81E8D4DE231FF68E004B6F9E /* Operations */,
 				81E009C222FF44B100E7715B /* KeySessionObserver.swift */,
 				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
+				81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		81E8D4DE231FF68E004B6F9E /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */,
+				81E8D4DF231FF9A9004B6F9E /* BaseOATHOperation.swift */,
+				816BF3D42325835C00D2F44A /* CalculateAllOperation.swift */,
+				815E0A4723293A0A00F2478F /* ValidateOperation.swift */,
+				815E0A4923294DEA00F2478F /* PutOperation.swift */,
+				815E0A4B2329520100F2478F /* DeleteOperation.swift */,
+				815E0A4D2329557300F2478F /* SetCodeOperation.swift */,
+				81BE0C26232975AA00C60E1D /* ResetOperation.swift */,
+			);
+			path = Operations;
 			sourceTree = "<group>";
 		};
 		81FA3C2B2319839B009C22AB /* AddCredential */ = {
@@ -209,6 +246,7 @@
 		81FA3C35231AF33E009C22AB /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */,
 				818866F922E96B47006BC0A8 /* PieProgressBar.swift */,
 				818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */,
 				818866E822E18134006BC0A8 /* MainViewController.swift */,
@@ -353,7 +391,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
+				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
 				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
@@ -362,10 +402,18 @@
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
+				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
+				81E8D4E0231FF9A9004B6F9E /* BaseOATHOperation.swift in Sources */,
+				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
+				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
+				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
+				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
+				81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */,
+				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* PasswordPromptController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,7 +520,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -527,7 +575,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -551,6 +599,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -574,6 +623,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
