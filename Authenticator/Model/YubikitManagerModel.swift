@@ -9,25 +9,36 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: class {
-    func onError(operation: Operation, error: Error)
-    func onOperationCompleted(operation: Operation)
+    func onError(operation: OperationName, error: Error)
+    func onOperationCompleted(operation: OperationName)
     func onTouchRequired()
-
 }
 
-// optional delegate methods
-extension CredentialViewModelDelegate {
-    func onOperationCompleted(operation: Operation) {
-        
-    }
-    func onTouchRequired() {
-        
-    }
+protocol OperationQueueDelegate: class {
+    func onTouchRequired()
+    func onError(operation: BaseOATHOperation, error: Error)
+    func onCompleted(operation: BaseOATHOperation)
+    func onUpdate(credentials: Array<Credential>)
+    func onUpdate(credential: Credential)
 }
 
 class YubikitManagerModel : NSObject {
+    
+    /*!
+    * The OperationQueueDelegate delegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
+    */
+    let operationQueue: UniqueOperationQueue = UniqueOperationQueue()
     weak var delegate: CredentialViewModelDelegate?
     var filter: String?
+    
+    /*!
+     * Allows to pause calculation of expired credentials in background
+     */
+    var isPaused: Bool = false
+    /*!
+     * Allows to detect whether credentials list empty because device doesn't have any credentials or it's not loaded from device yet
+     */
+    var state: State = .idle
     
     private var _credentials = Array<Credential>()
     var credentials: Array<Credential> {
@@ -41,173 +52,71 @@ class YubikitManagerModel : NSObject {
         }
     }
     
-    public func calculateAll() {
-        let operationName = Operation.calculateAll
-
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-
-        oathService.executeCalculateAllRequest() { [weak self] (response, error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-            // If the error is nil the response cannot be empty.
-            guard let response = response else {
-                self?.operationFailed(operation: operationName, error: KeySessionError.noResponse)
-                return
-            }
-            
-            self?.credentials.forEach {
-                $0.removeTimerObservation()
-            }
-            
-            self?._credentials = response.credentials.map {
-                let result = Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
-                result.setupTimerObservation()
-                result.delegate = self
-                return result
-            }
-            self?.operationSucceeded(operation: operationName)
-        }
-
+    
+    override init() {
+        super.init()
+        // create sequensial queue for all operations, so we don't execute multiple at once
+        operationQueue.maxConcurrentOperationCount = 1
     }
+    
+    public func calculateAll() {
+        state = .loading
+        addOperation(operation: CalculateAllOperation())
+    }
+    
     public func calculate(credential: Credential) {
-        let operationName = Operation.calculate
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-
-        if (credential.requiresTouch) {
-            delegate?.onTouchRequired()
-        }
-
-        credential.removeTimerObservation()
-        
-        // TODO: set timer and invoke
-        // delegate?.onTouchRequired() if operation is not completed within 2 seconds
-        // to workaround HOTP credentials that don't have requiresTouch flag
-
-        oathService.execute(YKFKeyOATHCalculateRequest(credential: credential.ykCredential)!) { [weak self] (response, error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-            guard let response = response else {
-                self?.operationFailed(operation: operationName, error: KeySessionError.noResponse)
-                return
-            }
-            credential.code = response.otp
-            credential.setValidity(validity: response.validity)
-            credential.setupTimerObservation()
-            self?.operationSucceeded(operation: operationName)
-            print("Issuer \(credential.issuer) Account \(credential.account)")
-
-        }
+        let operation = CalculateOperation(credential: credential)
+        addOperation(operation: operation)
     }
 
     public func addCredential(credential: YKFOATHCredential) {
-        let operationName = Operation.put
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-
-//        let newCredential = Credential(fromYKFOATHCredential: credential)
-//        newCredential.delegate = self
-        oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) {  [weak self] (error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-
-            // The request was successful. The credential was added to the key.
-            self?.operationSucceeded(operation: operationName)
-
-            // calculate it TOTP
-            // TODO: ask Conrad why it causes issues (multithreading?)
-//            self?.calculate(credential: newCredential)
-        }
+        addOperation(operation: PutOperation(credential: credential))
     }
     
     public func deleteCredential(index: Int) {
-        let operationName = Operation.delete
+        // remove from the list so it will be reflected in UI
+        // the actual removal might happen later (for example when user tapped key over NFC)
+        // in case of error it will be back with refresh credentials call
         let credential = self.credentials[index]
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-        oathService.execute(YKFKeyOATHDeleteRequest(credential: credential.ykCredential)!) { [weak self] (error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-            credential.removeTimerObservation()
-            self?._credentials.remove(at:index)
-            self?.operationSucceeded(operation: operationName)
-        }
+        credential.removeTimerObservation()
+        _credentials.remove(at:index)
+        
+        addOperation(operation: DeleteOperation(credential: credential))
     }
     
     public func setCode(password: String) {
-        let operationName = Operation.setCode
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-        oathService.execute(YKFKeyOATHSetCodeRequest(password: password)!) { [weak self] (error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-            
-            self?.operationSucceeded(operation: operationName)
-        }
+        addOperation(operation: SetCodeOperation(password: password))
     }
     
     public func validate(password: String) {
-        let operationName = Operation.validate
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-        oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { [weak self] (error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-
-            print("The validate request succeeded")
-            
-            // TODO: add something that will repeat failed request
-            self?.calculateAll()
-        }
+        let operation = ValidateOperation(password: password)
+        operation.queuePriority = .high
+        addOperation(operation: operation)
     }
     
     public func reset() {
-        let operationName = Operation.reset
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(operation: operationName, error: KeySessionError.noOathService)
-            return
-        }
-        oathService.executeResetRequest { [weak self] (error) in
-            guard error == nil else {
-                self?.operationFailed(operation: operationName, error: error!)
-                return
-            }
-            
-            self?.operationSucceeded(operation: operationName)
-        }
+        addOperation(operation: ResetOperation())
     }
     
+    public func pause() {
+        isPaused = true
+        operationQueue.isSuspended = isPaused
+    }
+
+    public func resume() {
+        isPaused = false
+        operationQueue.isSuspended = isPaused
+    }
+
     public func cleanUp() {
         credentials.forEach { credential in
             credential.removeTimerObservation()
         }
 
         _credentials.removeAll()
+        state = .loading
+
+        operationQueue.cancelAllOperations()
         delegate?.onOperationCompleted(operation: .cleanup)
     }
     
@@ -238,37 +147,7 @@ class YubikitManagerModel : NSObject {
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         delegate?.onOperationCompleted(operation: .put)
-    }
-    
-    func operationSucceeded(operation:Operation) {
-        DispatchQueue.main.async { [weak self] in
-            print("The \(operation) request succeeded")
-
-            guard let self = self else {
-                return
-            }
-            guard let delegate = self.delegate else {
-                return
-            }
-            
-            delegate.onOperationCompleted(operation: operation)
-        }
-    }
-    
-    func operationFailed(operation:Operation, error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            print("The \(operation) request ended in error \(error.localizedDescription) ")
-
-            guard let self = self else {
-                return
-            }
-            guard let delegate = self.delegate else {
-                return
-            }
-            
-            delegate.onError(operation: operation, error: error)
-        }
-    }
+    }    
 }
 
 //
@@ -277,12 +156,164 @@ class YubikitManagerModel : NSObject {
 extension YubikitManagerModel:  CredentialExpirationDelegate {
     
     func calculateResultDidExpire(_ credential: Credential) {
-        self.calculate(credential: credential)
+        if (!self.isPaused) {
+            self.calculate(credential: credential)
+        }
     }
     
 }
 
-enum Operation : String {
+//
+// MARK: - CredentialExpirationDelegate
+//
+extension YubikitManagerModel: OperationQueueDelegate {
+    
+    func onTouchRequired() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+            
+            // only if key is attached require touch
+            if (YubiKitManager.shared.keySession.isKeyConnected) {
+                delegate.onTouchRequired()
+            }
+        }
+    }
+    
+    func onError(operation: BaseOATHOperation, error: Error) {
+        switch error {
+        case KeySessionError.noOathService:
+            self.onRetry(operation: operation)
+            state = .idle
+        default:
+            // do nothing
+            break;
+        }
+        
+        let errorCode = (error as NSError).code;
+        // in case of authentication error supend queue but retry what was requested after resuming
+        if (errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
+            self.onRetry(operation: operation)
+            state = .locked
+        }
+        
+        if (errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue) {
+            // wait for another successful validation
+            operationQueue.isSuspended = true
+        }
+               
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.onError(operation: operation.operationName, error: error)
+        }
+    }
+    
+    func onCompleted(operation: BaseOATHOperation) {
+        if (operation.operationName == .validate) {
+            state = .loading
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.onOperationCompleted(operation: operation.operationName)
+        }
+    }
+    
+    func onUpdate(credentials: Array<Credential>) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+
+            // timer observers better to set up on main thread to avoid
+            // thread racing between operations
+
+            self._credentials.forEach {
+                $0.removeTimerObservation()
+            }
+            
+            // using dictionary with uinique id as a key for quick search of existing credential object
+            let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.map{ ($0.uniqueId, $0) })
+            self._credentials = credentials.map {
+                if ($0.requiresTouch || $0.type == .HOTP) {
+                    // make update smarter and update only those that need to be updated
+                    // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
+                    if let oldCredential = oldCredentials[$0.uniqueId] {
+                        oldCredential.setupTimerObservation()
+                        return oldCredential
+                    }
+                }
+                
+                $0.setupTimerObservation()
+                $0.delegate = self
+                return $0
+            }
+            
+            self.state = .loaded
+            delegate.onOperationCompleted(operation: .calculateAll)
+        }
+    }
+    
+    func onUpdate(credential: Credential) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+            
+            // timer observers better to set up on main thread to avoid
+            // thread racing between operations
+            // making sure that credential was not removed or updated with calculate all operation
+            if (self._credentials.contains(credential)) {
+                credential.setupTimerObservation()
+            }
+            
+            delegate.onOperationCompleted(operation: .calculate)
+        }
+    }
+    
+    func onRetry(operation: BaseOATHOperation) {
+        let retryOperation = operation.retryOperation()
+        // operating on main thread with operation queue bcz there is no internal syncronized block
+        // TODO: hide syncronization in operation queue class with DispatchQueue
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            // recreate operation that is not finished and remove finished one from queue, so it isn't considered as duplicated operation
+            self.operationQueue.removeOperation(operation)
+            self.addOperation(operation: retryOperation, suspendQueue: true)
+        }
+    }
+    
+    func addOperation(operation: BaseOATHOperation, suspendQueue: Bool = false) {
+        // TODO: make sure that this operation in not in a queue already
+        // otherwise user might click button multiple times and invoke the same operation
+        operation.delegate = self
+        
+        // if queue needs to be resumed than we add operation first and then resume queue
+        // to allow operation queue to pick higher priority operation before resuming operation
+        // if queus needs to be suspended than we suspend queue before adding retried operation
+        // otherwise queue might restart operations right away
+        if (suspendQueue) {
+            operationQueue.isSuspended = suspendQueue
+            operationQueue.addOperation(operation)
+        } else {
+            operationQueue.addOperation(operation)
+            // make sure that queue is not blocked if new operation request coming
+            operationQueue.isSuspended = suspendQueue
+        }
+    }
+}
+
+enum OperationName : String {
     case put = "put"
     case calculate = "calculate"
     case calculateAll = "calculate all"
@@ -293,4 +324,11 @@ enum Operation : String {
     case cleanup = "cleanup"
     case filter = "filter"
     case scan = "scan"
+}
+
+enum State {
+    case idle
+    case loading
+    case locked
+    case loaded
 }

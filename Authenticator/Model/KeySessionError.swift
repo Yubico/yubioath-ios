@@ -12,6 +12,7 @@ enum KeySessionError : Error {
     case notSupported
     case noOathService
     case noResponse
+    case timeout
     case invalidUri
     case invalidCredentialUri
 }
@@ -28,6 +29,8 @@ extension KeySessionError: LocalizedError {
             return NSLocalizedString("Something went wrong and key doesn't respond", comment: "No response")
         case .invalidUri:
             return NSLocalizedString("This is an URL conforming to Key URI Format specs", comment: "Invalid Uri")
+        case .timeout:
+            return NSLocalizedString("This operation got timed out", comment: "Invalid Uri")
         case .invalidCredentialUri:
             return NSLocalizedString("Invalid URI format", comment: "Invalid Uri")
         }
