@@ -8,19 +8,10 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: BaseOATHVIewController {
     // TODO: observe state changes and update keyPluggedIn property
     private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
     private var keySessionObserver: KeySessionObserver!
-
-    private let viewModel = YubikitManagerModel()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // register cell identifiers
-        viewModel.delegate = self
-     
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         keySessionObserver = KeySessionObserver(delegate: self)
@@ -82,16 +73,6 @@ class SettingsViewController: UITableViewController {
         self.present(alertController, animated: false)
     }
 
-}
-
-//
-// MARK: - CredentialViewModelDelegate
-//
-extension SettingsViewController:  CredentialViewModelDelegate {
-    func onError(operation: Operation, error: Error) {
-        // If error happened during reset operation
-        self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
-    }
 }
 
 //

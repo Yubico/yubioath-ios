@@ -39,7 +39,7 @@ class Credential: NSObject {
     
     let requiresTouch: Bool
 
-    private var validity : DateInterval
+    var validity : DateInterval
     weak var delegate: CredentialExpirationDelegate?
     private var timerObservation: NSKeyValueObservation?
 
@@ -52,7 +52,7 @@ class Credential: NSObject {
     init(fromYKFOATHCredential credential:YKFOATHCredential) {
         type = credential.type
         account = credential.account
-        issuer = credential.issuer
+        issuer = credential.issuer ?? ""
         period = credential.period
         
         code = ""
@@ -132,6 +132,8 @@ class Credential: NSObject {
             }
             
             self.activeTime += 1;
+            
+            // HOTP credential track only active time and no remaining time
             if (self.type == .HOTP) {
                 return
             }
