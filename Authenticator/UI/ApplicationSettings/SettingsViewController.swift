@@ -40,6 +40,9 @@ class SettingsViewController: BaseOATHVIewController {
             let description = YubiKitManager.shared.keySession.keyDescription;
             cell.textLabel?.text = keyPluggedIn ?
                 "\(description?.name ?? "YubiKey") (\(description?.serialNumber ?? "000000"))" : "No device found"
+        } else if (indexPath.section == 1 && indexPath.row == 0) {
+            let versionNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+            cell.textLabel?.text = "Yubico Authenticator \(versionNumber)"
         }
         return cell
     }

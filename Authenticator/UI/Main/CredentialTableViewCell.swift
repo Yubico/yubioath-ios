@@ -18,17 +18,6 @@ class CredentialTableViewCell: UITableViewCell {
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
     private var otpObservation: NSKeyValueObservation?
-    private var otpText: String {
-        get {
-            var otp = credential?.code ?? "******"
-            if (otp.isEmpty) {
-                otp = "******"
-            }
-            // make it pretty by splitting in halves
-            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
-            return otp
-        }
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,16 +34,14 @@ class CredentialTableViewCell: UITableViewCell {
     
     func updateView(credential: Credential) {
         self.credential = credential
-        code.text = otpText
         name.text = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
         actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
+        actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
+        progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
 
-        if (credential.type == .TOTP && !credential.code.isEmpty) {
-            refreshProgress()
-        } else {
-            progress.isHidden = true
-            actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
-        }
+        refreshCode()
+        refreshProgress()
+
         setupModelObservation()
     }
     
@@ -62,31 +49,21 @@ class CredentialTableViewCell: UITableViewCell {
     
     private func setupModelObservation() {
         if (credential?.type == .TOTP) {
-            timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { [weak self] (object, change) in
-                guard let self = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.refreshProgress()
+            timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { (object, change) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.refreshProgress()
                 }
             })
         } else {
-            timerObservation = observe(\.credential?.activeTime, options: [], changeHandler: { [weak self] (object, change) in
-                guard let self = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.refreshProgress()
+            timerObservation = observe(\.credential?.activeTime, options: [], changeHandler: { (object, change) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.refreshProgress()
                 }
             })
         }
-        otpObservation = observe(\.credential?.code, options: [], changeHandler: { [weak self] (object, change) in
-            guard let self = self else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.refreshProgress()
+        otpObservation = observe(\.credential?.code, options: [], changeHandler: { (object, change) in
+            DispatchQueue.main.async { [weak self] in
+                self?.refreshCode()
             }
         })
     }
@@ -100,7 +77,6 @@ class CredentialTableViewCell: UITableViewCell {
         if (credential.type == .TOTP && !credential.code.isEmpty) {
             if (credential.remainingTime > 0) {
                 self.progress.setProgress(to: credential.remainingTime / Double(credential.period))
-                self.code.text = otpText
             } else {
                 // keeping old value of code on screen even if it's expired already
                 self.progress.setProgress(to: Double(0.0))
@@ -111,5 +87,17 @@ class CredentialTableViewCell: UITableViewCell {
         } else if (credential.type == .HOTP) {
             actionIcon.isHidden = credential.activeTime < 5 && !credential.code.isEmpty
         }
+    }
+    
+    func refreshCode() {
+        guard let credential = self.credential else {
+            return
+        }
+
+        var otp = credential.code.isEmpty ? "******" : credential.code
+
+        // make it pretty by splitting in halves
+        otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))        
+        self.code.text = otp
     }
 }

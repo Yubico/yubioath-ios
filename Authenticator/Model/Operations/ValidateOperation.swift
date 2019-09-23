@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ValidateOperation: BaseOATHOperation {
+class ValidateOperation: OATHOperation {
     
     private let password: String
     
@@ -16,7 +16,7 @@ class ValidateOperation: BaseOATHOperation {
         return OperationName.validate
     }
     
-    override var replacable: Bool {
+    override var replicable: Bool {
         return true
     }
 
@@ -40,7 +40,7 @@ class ValidateOperation: BaseOATHOperation {
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         let retryOperation = ValidateOperation(password: self.password)
         retryOperation.queuePriority = .high
         return retryOperation

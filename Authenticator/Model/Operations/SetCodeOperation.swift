@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SetCodeOperation: BaseOATHOperation {
+class SetCodeOperation: OATHOperation {
     
     private let password: String
     
@@ -16,7 +16,7 @@ class SetCodeOperation: BaseOATHOperation {
         return OperationName.setCode
     }
     
-    override var replacable: Bool {
+    override var replicable: Bool {
         return true
     }
 
@@ -35,7 +35,7 @@ class SetCodeOperation: BaseOATHOperation {
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return SetCodeOperation(password: self.password)
     }
 }
