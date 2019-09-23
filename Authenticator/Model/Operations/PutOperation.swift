@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PutOperation: BaseOATHOperation {
+class PutOperation: OATHOperation {
     private let credential: YKFOATHCredential
     
     override var operationName: OperationName {
@@ -35,7 +35,7 @@ class PutOperation: BaseOATHOperation {
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return PutOperation(credential: self.credential)
     }
 

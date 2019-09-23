@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResetOperation: BaseOATHOperation {
+class ResetOperation: OATHOperation {
     override var operationName: OperationName {
         return OperationName.reset
     }
@@ -24,7 +24,7 @@ class ResetOperation: BaseOATHOperation {
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return ResetOperation()
     }
 }

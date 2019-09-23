@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CalculateOperation: BaseOATHOperation {
+class CalculateOperation: OATHOperation {
     private let credential: Credential
     private var timer: Timer?
 
@@ -35,39 +35,47 @@ class CalculateOperation: BaseOATHOperation {
             // delegate?.onTouchRequired() if operation is not completed within 1 second
             // to workaround HOTP credentials that don't have requiresTouch flag
             let timer = Timer(timeInterval: 1.0, repeats: false, block: { [weak self] (timer) in
-                guard let strongSelf = self else {
+                guard let self = self else {
                     return
                 }
 
-                strongSelf.operationRequiresTouch()
+                self.operationRequiresTouch()
             })
             RunLoop.main.add(timer, forMode: .common)
             self.timer = timer
         }
         
-        oathService.execute(YKFKeyOATHCalculateRequest(credential: self.credential.ykCredential)!) { [weak self] (response, error) in
-            guard let strongSelf = self else {
+        // Adding 10 etra seconds to current timestamp as boost and improvement for quick code expiration:
+        // If < 10 seconds remain on the validity of a code at time of generation,
+        // increment the timeslot for the challenge and increase the validity time by the period of the credential.
+        // For example, if 7 seconds remain at time of generation, on a 30 second credential,
+        // generate a code for the next timeslot and show a timer for 37 seconds.
+        // Even if the user is very quick to enter and submit the code to the server,
+        // it is very likely that it will be accepted as servers typically allow for some clock drift.
+        let request = YKFKeyOATHCalculateRequest(credential: self.credential.ykCredential,
+                                                 timestamp: Date().addingTimeInterval(10))
+        oathService.execute(request!) { [weak self] (response, error) in
+            guard let self = self else {
                 return
             }
 
-            strongSelf.timer?.invalidate()
+            self.timer?.invalidate()
 
             guard error == nil else {
-                strongSelf.operationFailed(error: error!)
+                self.operationFailed(error: error!)
                 return
             }
             guard let response = response else {
-                strongSelf.operationFailed(error: KeySessionError.noResponse)
+                self.operationFailed(error: KeySessionError.noResponse)
                 return
             }
-            strongSelf.credential.code = response.otp
-            strongSelf.credential.setValidity(validity: response.validity)
-            strongSelf.operationSucceeded(credential: strongSelf.credential)
-            print("Issuer \(strongSelf.credential.issuer) Account \(strongSelf.credential.account)")
+            self.credential.code = response.otp
+            self.credential.setValidity(validity: response.validity)
+            self.operationSucceeded(credential: self.credential)
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return CalculateOperation(credential: self.credential)
     }
 }

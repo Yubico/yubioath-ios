@@ -47,9 +47,10 @@ class PieProgressBar: UIView {
     
     private func getArchPath(progress: CGFloat) -> CGPath {
         let startAngle = (-CGFloat.pi/2)
-        let endAngle = 2 * CGFloat.pi
+        let endAngle = startAngle + 2 * CGFloat.pi
 
-        let path = UIBezierPath(arcCenter: self.pathCenter, radius: self.radius, startAngle: startAngle, endAngle: startAngle + (1 - progress) * endAngle, clockwise: false)
+        let path = UIBezierPath(arcCenter: self.pathCenter, radius: self.radius, startAngle: startAngle + (1 - progress)
+        * 2 * CGFloat.pi, endAngle:endAngle, clockwise: true)
         path.addLine(to: pathCenter)
         return path.cgPath
     }

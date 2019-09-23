@@ -1,5 +1,5 @@
 //
-//  BaseOATHOperation.swift
+//  OATHOperation.swift
 //  Authenticator
 //
 //  Created by Irina Makhalova on 9/4/19.
@@ -8,24 +8,25 @@
 
 import UIKit
 
-class BaseOATHOperation: Operation {
-    weak var delegate: OperationQueueDelegate?
+class OATHOperation: Operation {
+    weak var delegate: OperationDelegate?
     let semaphore = DispatchSemaphore(value: 0)
 
     var operationName: OperationName {
-        return .calculateAll
+        fatalError("Override the operationName")
     }
     
     var uniqueId: String {
         return "\(operationName)"
     }
     
-    var replacable: Bool {
+    /*! Return true if new operation have to replace old one with the same uniqueId */
+    var replicable: Bool {
         return false
     }
     
     override func main() {
-        if (isCancelled) {
+        if isCancelled {
             return
         }
         
@@ -36,24 +37,30 @@ class BaseOATHOperation: Operation {
         
         executeOperation(oathService: oathService)
         
-        let result = semaphore.wait(timeout: .now() + 20.0)
-        if (result == .timedOut) {
-            if (isCancelled) {
-                print("The \(uniqueId) request was cancelled and timed out")
-                return
-            }
+        let result = semaphore.wait(timeout: .now() + 15.0)
+        if isCancelled {
+            let message = result == .timedOut ? "The \(uniqueId) request was cancelled and timed out" : "The \(uniqueId) request was cancelled"
             
+            print(message)
+            return
+        }
+        if (result == .timedOut) {
             self.operationFailed(error: KeySessionError.timeout)
         }
     }
     
+    override func cancel() {
+        super.cancel()
+        semaphore.signal()
+    }
+    
     func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        // placeholder to override main logic of operation
+        fatalError("Override in the OATH specific operation subclass.")
     }
 
     
     func operationRequiresTouch() {
-        if (isCancelled) {
+        if isCancelled {
             return
         }
 
@@ -61,13 +68,13 @@ class BaseOATHOperation: Operation {
     }
 
     func operationSucceeded() {
-        if (isCancelled) {
-            print("The \(operationName) request was cancelled")
+        if isCancelled {
+            print("The \(uniqueId) request was cancelled")
             semaphore.signal()
             return
         }
 
-        print("The \(operationName) request succeeded")
+        print("The \(uniqueId) request succeeded")
         delegate?.onCompleted(operation: self)
         semaphore.signal()
         
@@ -76,13 +83,13 @@ class BaseOATHOperation: Operation {
     }
     
     func operationSucceeded(credential: Credential) {
-        if (isCancelled) {
-            print("The \(operationName) request was cancelled")
+        if isCancelled {
+            print("The \(uniqueId) request was cancelled")
             semaphore.signal()
             return
         }
 
-        print("The \(operationName) request succeeded")
+        print("The \(uniqueId) request succeeded")
         delegate?.onUpdate(credential: credential)
         semaphore.signal()
          
@@ -91,13 +98,13 @@ class BaseOATHOperation: Operation {
     }
     
     func operationSucceeded(credentials: Array<Credential>) {
-        if (isCancelled) {
-            print("The \(operationName) request was cancelled")
+        if isCancelled {
+            print("The \(uniqueId) request was cancelled")
             semaphore.signal()
             return
         }
 
-        print("The \(operationName) request succeeded")
+        print("The \(uniqueId) request succeeded")
         delegate?.onUpdate(credentials: credentials)
         semaphore.signal()
          
@@ -106,13 +113,13 @@ class BaseOATHOperation: Operation {
     }
     
     func operationFailed(error: Error) {
-        if (isCancelled) {
-            print("The \(operationName) request cancelled")
+        if isCancelled {
+            print("The \(uniqueId) request cancelled")
             semaphore.signal()
             return
         }
 
-        print("The \(operationName) request ended in error \(error.localizedDescription) ")
+        print("The \(uniqueId) request ended in error \(error.localizedDescription) ")
         delegate?.onError(operation: self, error: error)
         semaphore.signal()
 
@@ -120,10 +127,10 @@ class BaseOATHOperation: Operation {
         delegate = nil
     }
     
-    func retryOperation() -> BaseOATHOperation {
+    func createRetryOperation() -> OATHOperation {
         // placeholder for method that recreates new operation instance
         // with the same arguments and priority/dependencies
         // New OATH operation will be in not finished state and can be added back to OperationQueue for retry
-        return self
+        fatalError("Override this method that will create new operation with the same functionality, but in fresh not started state")
     }
 }
