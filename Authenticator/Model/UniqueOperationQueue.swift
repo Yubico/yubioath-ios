@@ -12,8 +12,7 @@ class UniqueOperationQueue: OperationQueue {
     let serial = DispatchQueue(label: "serial", qos: .default)
     var pendingOperations : [String:OATHOperation] = [:]
     
-    func add(operation: OATHOperation, suspendQueue: Bool = false) {
-        
+    func add(operation: OATHOperation, suspendQueue: Bool = false) {        
         // operating on serial dispatcher thread with operation queue bcz access to pending operations and
         // suspend state should be syncronized
         
@@ -51,7 +50,7 @@ class UniqueOperationQueue: OperationQueue {
         }
     }
     
-    func enqueue(operation: OATHOperation) {
+    private func enqueue(operation: OATHOperation) {
         let operationId = operation.uniqueId
         pendingOperations[operationId] = operation
         weak var weakOp = operation

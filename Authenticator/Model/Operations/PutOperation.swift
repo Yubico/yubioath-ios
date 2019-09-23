@@ -21,6 +21,7 @@ class PutOperation: OATHOperation {
 
     init(credential: YKFOATHCredential) {
         self.credential = credential
+        super.init()
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {

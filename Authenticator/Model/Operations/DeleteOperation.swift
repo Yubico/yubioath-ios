@@ -21,6 +21,7 @@ class DeleteOperation: OATHOperation {
     
     init(credential: Credential) {
         self.credential = credential
+        super.init()
     }
         
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {

@@ -12,6 +12,11 @@ class CalculateAllOperation: OATHOperation {
     override var operationName: OperationName {
         return OperationName.calculateAll
     }
+    
+    override init() {
+        super.init()
+        self.queuePriority = .low
+    }
 
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
         oathService.executeCalculateAllRequest() { [weak self] (response, error) in
