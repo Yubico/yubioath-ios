@@ -37,12 +37,6 @@ class AddCredentialController: UITableViewController {
         setupView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
-    }
-
-    
     // MARK: - Public methods
     
     func displayCredential(details: YKFOATHCredential) {
@@ -221,8 +215,7 @@ class AddCredentialController: UITableViewController {
     
     fileprivate func resetDefaults() {
         let defaults = UserDefaults.standard
-        let dictionary = defaults.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
+        AdvancedSettingsViewController.ALL_KEYS.forEach { key in
             defaults.removeObject(forKey: key)
         }
     }

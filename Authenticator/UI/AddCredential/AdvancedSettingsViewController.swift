@@ -9,9 +9,11 @@
 import UIKit
 
 class AdvancedSettingsViewController: UITableViewController {
+    public static let ALL_KEYS = [AlgorithmTableViewController.KEY, TypeTableViewController.KEY, DigitsTableViewController.KEY, PeriodTableViewController.KEY]
+    
     var key: String {
         // default value than needs to be overriden
-        return ""
+        fatalError("Override the key value")
     }
     
     var defaultSelectedRow : Int {

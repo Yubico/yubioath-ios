@@ -1,5 +1,5 @@
 //
-//  BaseOATHVIewControllerTableViewController.swift
+//  BaseOATHVIewController.swift
 //  Authenticator
 //
 //  Created by Irina Makhalova on 9/11/19.
@@ -23,6 +23,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         
         // notify view model that view in foreground and it can resume operations
         viewModel.resume()
+        
+        // update view in case if state has changed
+        self.tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -32,7 +35,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         super.viewWillDisappear(animated)
     }
     
-    
 //
 // MARK: - CredentialViewModelDelegate
 //
@@ -40,7 +42,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
         let errorCode = (error as NSError).code;
         if (errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue) {
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Provided password was wrong" : "To prevent anauthorized access YubiKey is protected with a password"
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Provided password was wrong" : "To prevent unauthorized access YubiKey is protected with a password"
             
             self.showPasswordPrompt(title: "Unlock YubiKey", message: message, inputHandler: {  [weak self] (password) -> Void in
                     self?.viewModel.validate(password: password)

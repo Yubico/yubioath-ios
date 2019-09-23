@@ -22,6 +22,7 @@ class SetCodeOperation: OATHOperation {
 
     init(password: String) {
         self.password = password
+        super.init()
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {

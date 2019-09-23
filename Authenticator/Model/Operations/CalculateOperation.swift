@@ -23,11 +23,13 @@ class CalculateOperation: OATHOperation {
 
     init(credential: Credential) {
         self.credential = credential
+        super.init()
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
         // TODO: check if calculation for this credential is in progress
         
+        self.credential.isUpdating = true
         if (self.credential.requiresTouch) {
             operationRequiresTouch()
         } else if (self.credential.type == .HOTP){
@@ -60,6 +62,7 @@ class CalculateOperation: OATHOperation {
             }
 
             self.timer?.invalidate()
+            self.credential.isUpdating = false
 
             guard error == nil else {
                 self.operationFailed(error: error!)

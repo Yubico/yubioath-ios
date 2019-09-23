@@ -22,6 +22,9 @@ class ValidateOperation: OATHOperation {
 
     init(password: String) {
         self.password = password
+        super.init()
+
+        self.queuePriority = .high
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
@@ -41,8 +44,6 @@ class ValidateOperation: OATHOperation {
     }
     
     override func createRetryOperation() -> OATHOperation {
-        let retryOperation = ValidateOperation(password: self.password)
-        retryOperation.queuePriority = .high
-        return retryOperation
+        return ValidateOperation(password: self.password)
     }
 }

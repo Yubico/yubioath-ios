@@ -46,7 +46,9 @@ class Credential: NSObject {
     @objc dynamic var code: String
     @objc dynamic var remainingTime : Double
     @objc dynamic var activeTime : Double
+    @objc dynamic var isUpdating : Bool = false
 
+    
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
     init(fromYKFOATHCredential credential:YKFOATHCredential) {
@@ -140,11 +142,20 @@ class Credential: NSObject {
 
             self.remainingTime = self.validity.end.timeIntervalSince(Date())
             if self.remainingTime <= 0 {
-                // we don't update automatically credentials that require touch
-                if (!self.requiresTouch) {
-                    self.delegate?.calculateResultDidExpire(self)
+                DispatchQueue.main.async { [weak self] in
+                    // we don't update automatically credentials that require touch
+                    guard let self = self else {
+                        return
+                    }
+                    if (!self.requiresTouch) {
+                        self.delegate?.calculateResultDidExpire(self)
+                    }
+
+                    // we need to remove observers on UI thread because we can have other operations
+                    // (e.g. calculateAll or delete) asynchronously change that state
+                    // TODO: provide another dispatcher for it (other than main thread)
+                    self.removeTimerObservation()
                 }
-                self.removeTimerObservation()
             }
         })
     }

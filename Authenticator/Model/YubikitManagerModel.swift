@@ -52,6 +52,12 @@ class YubikitManagerModel : NSObject {
         }
     }
     
+    var hasFilter: Bool {
+        get {
+            return self.filter != nil && !self.filter!.isEmpty
+        }
+    }
+    
     
     override init() {
         super.init()
@@ -74,15 +80,10 @@ class YubikitManagerModel : NSObject {
         addOperation(operation: CalculateAllOperation())
     }
     
-    public func deleteCredential(index: Int) {
-        // remove from the list so it will be reflected in UI
-        // the actual removal might happen later (for example when user tapped key over NFC)
-        // in case of error it will be back with refresh credentials call
-        let credential = self.credentials[index]
+    public func deleteCredential(credential: Credential) {
         credential.removeTimerObservation()
-        _credentials.remove(at:index)
-        
         addOperation(operation: DeleteOperation(credential: credential))
+        addOperation(operation: CalculateAllOperation())
     }
     
     public func setCode(password: String) {
@@ -90,9 +91,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func validate(password: String) {
-        let operation = ValidateOperation(password: password)
-        operation.queuePriority = .high
-        addOperation(operation: operation)
+        addOperation(operation: ValidateOperation(password: password))
     }
     
     public func reset() {
@@ -129,19 +128,23 @@ class YubikitManagerModel : NSObject {
     public func emulateSomeRecords() {
         let credentialResult = YKFOATHCredential()
         credentialResult.account = "test@yubico.com"
-        credentialResult.issuer = "Yubico"
+        credentialResult.issuer = "Google"
         credentialResult.type = YKFOATHCredentialType.TOTP;
         let credential = Credential(fromYKFOATHCredential: credentialResult)
         credential.code = "111222"
         credential.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
         credential.setupTimerObservation()
         self._credentials.append(credential)
+
+        credentialResult.issuer = "Amazon"
         let credential2 = Credential(fromYKFOATHCredential: credentialResult)
         credential2.code = "444555"
         credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(5)))
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
         credentialResult.requiresTouch = true
+
+        credentialResult.issuer = "Facebook"
         let credential3 = Credential(fromYKFOATHCredential: credentialResult)
         credential3.code = ""
         credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
