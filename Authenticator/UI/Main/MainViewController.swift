@@ -85,23 +85,18 @@ class MainViewController: BaseOATHVIewController {
             messageLabel.textAlignment = NSTextAlignment.center
             messageLabel.numberOfLines = 5
             
-            if YubiKitManager.shared.keySession.sessionState == .closed {
+            switch viewModel.state {
+            case .idle:
                 messageLabel.text = "Insert your YubiKey"
-            } else {
-                switch viewModel.state {
-                case .idle:
-                    messageLabel.text = "Insert your YubiKey"
-                case .loading:
-                    messageLabel.text = "Loading..."
-                case .locked:
-                    messageLabel.text = "Authentication is required"
-                default:
-                    messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
-                }
+            case .loading:
+                messageLabel.text = "Loading..."
+            case .locked:
+                messageLabel.text = "Authentication is required"
+            default:
+                messageLabel.text = "No credentials.\nAdd credential to this YubiKey in order to be able to generate security codes from it."
             }
             
             messageLabel.center = self.view.center
-            messageLabel.textColor = UIColor.black;
             messageLabel.sizeToFit()
             
             self.tableView.backgroundView = messageLabel;
@@ -208,13 +203,16 @@ class MainViewController: BaseOATHVIewController {
             
             if (sessionState == YKFKeySessionState.open) {
                 viewModel.calculateAll()
+                tableView.reloadData()
             } else {
                 // if YubiKey is unplugged do not show any OTP codes
                 viewModel.cleanUp()
             }
         } else {
-            // TODO: remove before release
+#if DEBUG
+            // show some credentials on emulator
             viewModel.emulateSomeRecords()
+#endif
         }
     }
     
@@ -226,26 +224,41 @@ class MainViewController: BaseOATHVIewController {
         credentialsSearchController = UISearchController(searchResultsController: nil)
         credentialsSearchController.searchResultsUpdater = self
         credentialsSearchController.obscuresBackgroundDuringPresentation = false
+        credentialsSearchController.dimsBackgroundDuringPresentation = false
         credentialsSearchController.searchBar.placeholder = "Quick Find"
+        navigationItem.searchController = credentialsSearchController
+        navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
     }
 
     private func refreshUIOnKeyStateUpdate() {
-        refreshCredentials()
-        
-        if YubiKitManager.shared.keySession.sessionState == .closed {
-            navigationItem.searchController = nil
-            
+        #if DEBUG
             // allow to see add option on emulator
-            // TODO: remove before release
-            navigationItem.rightBarButtonItems?[1].isEnabled = !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
-        } else {
-            navigationItem.searchController = credentialsSearchController
-            navigationItem.rightBarButtonItems?[1].isEnabled = true
-            
-        }
+            navigationItem.rightBarButtonItems?[1].isEnabled = YubiKitManager.shared.keySession.isKeyConnected || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+        #else
+            navigationItem.rightBarButtonItems?[1].isEnabled = YubiKitManager.shared.keySession.isKeyConnected
+        #endif
+        
         view.setNeedsLayout()
+        refreshCredentials()
     }
+
+    //
+    // MARK: - CredentialViewModelDelegate
+    //
+    override func onOperationCompleted(operation: OperationName) {
+        switch operation {
+        case .calculate:
+            break
+        case .filter:
+            self.tableView.reloadData()
+        default:
+            // show search bar only if there are credentials on the key
+            navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
+            self.tableView.reloadData()
+        }
+    }
+
 }
 
 extension String {
@@ -272,3 +285,4 @@ extension MainViewController: UISearchResultsUpdating {
         viewModel.applyFilter(filter: filter)
     }
 }
+    

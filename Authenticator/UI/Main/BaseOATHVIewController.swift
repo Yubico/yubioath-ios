@@ -33,9 +33,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     
-    //
-    // MARK: - CredentialViewModelDelegate
-    //
+//
+// MARK: - CredentialViewModelDelegate
+//
     func onError(operation: OperationName, error: Error) {
         // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
         let errorCode = (error as NSError).code;
@@ -65,7 +65,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.tableView.reloadData()
             }
         default:
-            self.tableView.reloadData()
+            break
         }
     }
     

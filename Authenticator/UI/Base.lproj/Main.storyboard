@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Authenticator-->
         <scene sceneID="gXL-Ho-oJ5">
             <objects>
                 <tableViewController id="r4m-OO-XO1" customClass="MainViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,7 +25,6 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8el-ru-Cbt" customClass="PieProgressBar" customModule="Authenticator" customModuleProvider="target">
                                             <rect key="frame" x="362" y="72" width="32" height="32"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="32" id="fDQ-Za-yXd"/>
                                                 <constraint firstAttribute="height" constant="32" id="pqQ-2s-gqC"/>
@@ -43,7 +42,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico (user@yubico.com)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocK-d8-Mjy">
                                                     <rect key="frame" x="0.0" y="72.5" width="205.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -79,7 +78,7 @@
                             <outlet property="delegate" destination="r4m-OO-XO1" id="XPc-yi-Iur"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Ecq-ES-9eb">
+                    <navigationItem key="navigationItem" title="Authenticator" id="Ecq-ES-9eb">
                         <rightBarButtonItems>
                             <barButtonItem title="Settings" id="jeY-LK-zwC">
                                 <connections>

@@ -8,35 +8,36 @@
 
 import UIKit
 
-class CalculateAllOperation: BaseOATHOperation {
+class CalculateAllOperation: OATHOperation {
     override var operationName: OperationName {
         return OperationName.calculateAll
     }
 
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
         oathService.executeCalculateAllRequest() { [weak self] (response, error) in
-            guard let strongSelf = self else {
+            guard let self = self else {
                 return
             }
             
             guard error == nil else {
-                strongSelf.operationFailed(error: error!)
+                self.operationFailed(error: error!)
                 return
             }
             // If the error is nil the response cannot be empty.
             guard let response = response else {
-                strongSelf.operationFailed(error: KeySessionError.noResponse)
+                self.operationFailed(error: KeySessionError.noResponse)
                 return
             }
             
-            strongSelf.operationSucceeded(credentials: response.credentials.map {
-                let result = Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
-                return result
-            })
+            let credentials = response.credentials.map {
+              return Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
+            }
+
+            self.operationSucceeded(credentials: credentials)
         }        
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return CalculateAllOperation()
     }
 }

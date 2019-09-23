@@ -14,10 +14,10 @@ protocol CredentialViewModelDelegate: class {
     func onTouchRequired()
 }
 
-protocol OperationQueueDelegate: class {
+protocol OperationDelegate: class {
     func onTouchRequired()
-    func onError(operation: BaseOATHOperation, error: Error)
-    func onCompleted(operation: BaseOATHOperation)
+    func onError(operation: OATHOperation, error: Error)
+    func onCompleted(operation: OATHOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
 }
@@ -60,7 +60,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func calculateAll() {
-        state = .loading
+        state = YubiKitManager.shared.keySession.isKeyConnected ? .loading : .idle
         addOperation(operation: CalculateAllOperation())
     }
     
@@ -71,6 +71,7 @@ class YubikitManagerModel : NSObject {
 
     public func addCredential(credential: YKFOATHCredential) {
         addOperation(operation: PutOperation(credential: credential))
+        addOperation(operation: CalculateAllOperation())
     }
     
     public func deleteCredential(index: Int) {
@@ -114,7 +115,7 @@ class YubikitManagerModel : NSObject {
         }
 
         _credentials.removeAll()
-        state = .loading
+        state = .idle
 
         operationQueue.cancelAllOperations()
         delegate?.onOperationCompleted(operation: .cleanup)
@@ -166,7 +167,7 @@ extension YubikitManagerModel:  CredentialExpirationDelegate {
 //
 // MARK: - CredentialExpirationDelegate
 //
-extension YubikitManagerModel: OperationQueueDelegate {
+extension YubikitManagerModel: OperationDelegate {
     
     func onTouchRequired() {
         DispatchQueue.main.async { [weak self] in
@@ -184,7 +185,7 @@ extension YubikitManagerModel: OperationQueueDelegate {
         }
     }
     
-    func onError(operation: BaseOATHOperation, error: Error) {
+    func onError(operation: OATHOperation, error: Error) {
         switch error {
         case KeySessionError.noOathService:
             self.onRetry(operation: operation)
@@ -211,7 +212,7 @@ extension YubikitManagerModel: OperationQueueDelegate {
         }
     }
     
-    func onCompleted(operation: BaseOATHOperation) {
+    func onCompleted(operation: OATHOperation) {
         if (operation.operationName == .validate) {
             state = .loading
         }
@@ -278,38 +279,14 @@ extension YubikitManagerModel: OperationQueueDelegate {
         }
     }
     
-    func onRetry(operation: BaseOATHOperation) {
-        let retryOperation = operation.retryOperation()
-        // operating on main thread with operation queue bcz there is no internal syncronized block
-        // TODO: hide syncronization in operation queue class with DispatchQueue
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            // recreate operation that is not finished and remove finished one from queue, so it isn't considered as duplicated operation
-            self.operationQueue.removeOperation(operation)
-            self.addOperation(operation: retryOperation, suspendQueue: true)
-        }
+    func onRetry(operation: OATHOperation) {
+        let retryOperation = operation.createRetryOperation()
+        addOperation(operation: retryOperation, suspendQueue: true)
     }
     
-    func addOperation(operation: BaseOATHOperation, suspendQueue: Bool = false) {
-        // TODO: make sure that this operation in not in a queue already
-        // otherwise user might click button multiple times and invoke the same operation
+    func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
         operation.delegate = self
-        
-        // if queue needs to be resumed than we add operation first and then resume queue
-        // to allow operation queue to pick higher priority operation before resuming operation
-        // if queus needs to be suspended than we suspend queue before adding retried operation
-        // otherwise queue might restart operations right away
-        if (suspendQueue) {
-            operationQueue.isSuspended = suspendQueue
-            operationQueue.addOperation(operation)
-        } else {
-            operationQueue.addOperation(operation)
-            // make sure that queue is not blocked if new operation request coming
-            operationQueue.isSuspended = suspendQueue
-        }
+        operationQueue.add(operation: operation, suspendQueue: suspendQueue)
     }
 }
 

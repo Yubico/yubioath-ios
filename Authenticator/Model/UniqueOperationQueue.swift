@@ -9,41 +9,62 @@
 import UIKit
 
 class UniqueOperationQueue: OperationQueue {
-    var pendingOperations : [String:BaseOATHOperation] = [:]
+    let serial = DispatchQueue(label: "serial", qos: .default)
+    var pendingOperations : [String:OATHOperation] = [:]
     
-    func addOperation(_ op: BaseOATHOperation) {
-        // add operations to queue only if there is no such request in queue yet
-        // update only set code and validation to the latest one, because user might corrected his input
-        if let pendingOperation = pendingOperations[op.uniqueId] {
-            if (op.replacable || pendingOperation.isCancelled) {
-                pendingOperation.cancel()
-                pendingOperations[op.uniqueId] = nil
-                queueOperation(op)
-            } else {
-                print("\(op.uniqueId) is skipped because it's already in queue")
+    func add(operation: OATHOperation, suspendQueue: Bool = false) {
+        
+        // operating on serial dispatcher thread with operation queue bcz access to pending operations and
+        // suspend state should be syncronized
+        
+        serial.async { [weak self] in
+            guard let self = self else {
+                return
             }
-        } else {
-            queueOperation(op)
+
+            // if queue needs to be resumed than we add operation first and then resume queue
+            // to allow operation queue to pick higher priority operation before resuming operation
+            // if queus needs to be suspended than we suspend queue before adding retried operation
+            // otherwise queue might restart operations right away
+            if suspendQueue {
+                self.isSuspended = suspendQueue
+                // recreated operation should be added to the queue without any duplication checks
+                self.enqueue(operation: operation)
+            } else {
+                // making sure that this operation in not in a queue already
+                // otherwise user might click button multiple times and invoke the same operation
+                if let pendingOperation = self.pendingOperations[operation.uniqueId] {
+                    // update only set code and validation to the latest one, because user might corrected his input
+                    if (operation.replicable || pendingOperation.isCancelled) {
+                        pendingOperation.cancel()
+                        self.enqueue(operation: operation)
+                    } else {
+                        print("\(operation.uniqueId) is skipped because it's already in queue")
+                    }
+                } else {
+                    // add operations to queue only if there is no such request
+                    self.enqueue(operation: operation)
+                }
+                // make sure that queue is not blocked if new operation request coming
+                self.isSuspended = suspendQueue
+            }
         }
     }
     
-    func queueOperation(_ op: BaseOATHOperation) {
-        pendingOperations[op.uniqueId] = op
-        weak var weakOp = op
-        op.completionBlock = {
-            DispatchQueue.main.async { [weak self] in
+    func enqueue(operation: OATHOperation) {
+        let operationId = operation.uniqueId
+        pendingOperations[operationId] = operation
+        weak var weakOp = operation
+        operation.completionBlock = {
+            self.serial.async { [weak self] in
             // Make sure we are removing the right object, because
             // if the op was cancelled and it was replaced, we
             // don't want to remove the op that replaced it
-                if (weakOp == self?.pendingOperations[op.uniqueId]) {
-                    self?.pendingOperations[op.uniqueId] = nil
+                if weakOp == self?.pendingOperations[operationId] {
+                    self?.pendingOperations[operationId] = nil
                 }
             }
         }
-        super.addOperation(op)
-    }
-    
-    func removeOperation(_ op: BaseOATHOperation) {
-        pendingOperations[op.uniqueId] = nil
+        super.addOperation(operation)
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeleteOperation: BaseOATHOperation {
+class DeleteOperation: OATHOperation {
     private let credential: Credential
 
     override var operationName: OperationName {
@@ -34,7 +34,7 @@ class DeleteOperation: BaseOATHOperation {
         }
     }
     
-    override func retryOperation() -> BaseOATHOperation {
+    override func createRetryOperation() -> OATHOperation {
         return DeleteOperation(credential: self.credential)
     }
 
