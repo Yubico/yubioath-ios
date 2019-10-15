@@ -102,7 +102,7 @@ class CredentialTableViewCell: UITableViewCell {
             self.progress.isHidden = credential.remainingTime <= 0
             self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
             self.activityIndicator.isHidden = true
-                // TODO: add logic of changing color or timout expiration
+            // TODO: add logic of changing color or timout expiration
         } else if (credential.type == .HOTP) {
             actionIcon.isHidden = credential.activeTime < 5 && !credential.code.isEmpty
             self.activityIndicator.isHidden = true

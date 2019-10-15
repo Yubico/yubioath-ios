@@ -40,6 +40,7 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open
         keySessionObserver = KeySessionObserver(delegate: self)
         refreshUIOnKeyStateUpdate()
     }
@@ -54,7 +55,7 @@ class MainViewController: BaseOATHVIewController {
     //
     @IBAction func onAddCredentialClick(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        actionSheet.view.tintColor = secondaryLabelColor
+//        actionSheet.view.tintColor = secondaryLabelColor
         if (YubiKitDeviceCapabilities.supportsQRCodeScanning) {
             // if QR codes are anavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
@@ -71,7 +72,7 @@ class MainViewController: BaseOATHVIewController {
         // The action sheet requires a presentation popover on iPad.
         if UIDevice.current.userInterfaceIdiom == .pad {
             actionSheet.modalPresentationStyle = .popover
-            actionSheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItems?[1]
+            actionSheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         }
         
         present(actionSheet, animated: true, completion: nil)
@@ -287,39 +288,10 @@ class MainViewController: BaseOATHVIewController {
         backgroundView.center = tableView.center
         backgroundView.frame = CGRect(x: 0, y:0, width: width, height: height)
         
-        // 1. title in the middle of screen
-        let messageLabel = UILabel()
-        messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
-        messageLabel.textAlignment = NSTextAlignment.center
-        messageLabel.text = getTitle()
-        messageLabel.textColor = secondaryLabelColor
-        messageLabel.font = messageLabel.font.withSize(CGFloat(25.0))
-        messageLabel.sizeToFit()
-
-        messageLabel.center = backgroundView.center
-        backgroundView.addSubview(messageLabel)
-
-        // 2. subtitle (optional) is below the title
-        if let subtitle = getSubtitle() {
-            let secondaryMessageLabel = UILabel()
-            // setting frame here because multiple lines label requires bounds,
-            // otherwise it spreads outside of view boundaries in 1 line
-            secondaryMessageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
-            secondaryMessageLabel.textAlignment = NSTextAlignment.center
-            secondaryMessageLabel.numberOfLines = 3
-            secondaryMessageLabel.font = messageLabel.font.withSize(CGFloat(20.0))
-            secondaryMessageLabel.text = subtitle
-            secondaryMessageLabel.textColor = secondaryLabelColor
-            secondaryMessageLabel.sizeToFit()
-            
-            secondaryMessageLabel.center.y = messageLabel.frame.maxY + secondaryMessageLabel.frame.height/2 + marginFromNeighbour
-            secondaryMessageLabel.center.x = backgroundView.center.x
-            backgroundView.addSubview(secondaryMessageLabel)
-        }
         
-        // 3. image is above the title (takes no more than 1/6 space of whole screen)
+        // 1. image is in the middle of screen
         let imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: width/2, height:height/6)
+        imageView.frame = CGRect(x: 0, y: 0, width: width/2, height:124)
         imageView.contentMode = .scaleAspectFit
         if let image = getBackgroundImage() {
             imageView.image = image.withRenderingMode(.alwaysTemplate)
@@ -332,9 +304,38 @@ class MainViewController: BaseOATHVIewController {
         } else {
             imageView.tintColor = UIColor(named: "YubiBlue")
         }
-        imageView.center.y = messageLabel.frame.minY - marginFromNeighbour - imageView.frame.height/2
-        imageView.center.x = backgroundView.center.x
+        imageView.center = backgroundView.center
         backgroundView.addSubview(imageView)
+        
+        // 2. title is below the image
+        let messageLabel = UILabel()
+        messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
+        messageLabel.textAlignment = NSTextAlignment.center
+        messageLabel.text = getTitle()
+        messageLabel.textColor = secondaryLabelColor
+        messageLabel.font = messageLabel.font.withSize(CGFloat(20.0))
+        messageLabel.sizeToFit()
+
+        messageLabel.center.y = imageView.frame.maxY + messageLabel.frame.height/2 + marginFromNeighbour
+        messageLabel.center.x = backgroundView.center.x
+        backgroundView.addSubview(messageLabel)
+
+        // 3. subtitle (optional) is below the title
+        if let subtitle = getSubtitle() {
+            let secondaryMessageLabel = UILabel()
+            // setting frame here because multiple lines label requires bounds,
+            // otherwise it spreads outside of view boundaries in 1 line
+            secondaryMessageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
+            secondaryMessageLabel.textAlignment = NSTextAlignment.center
+            secondaryMessageLabel.numberOfLines = 3
+            secondaryMessageLabel.text = subtitle
+            secondaryMessageLabel.textColor = secondaryLabelColor
+            secondaryMessageLabel.sizeToFit()
+            
+            secondaryMessageLabel.center.y = messageLabel.frame.maxY + secondaryMessageLabel.frame.height/2 + marginFromNeighbour
+            secondaryMessageLabel.center.x = backgroundView.center.x
+            backgroundView.addSubview(secondaryMessageLabel)
+        }
         
         self.tableView.backgroundView = backgroundView;
         self.tableView.separatorStyle = .none
@@ -364,7 +365,7 @@ class MainViewController: BaseOATHVIewController {
     private func getTitle() -> String {
         switch viewModel.state {
             case .idle:
-                return keyPluggedIn ? "Loading..." : "Insert YubiKey"
+                return keyPluggedIn ? "Loading..." : "Insert your YubiKey"
             case .loading:
                 return  "Loading..."
             case .locked:
@@ -380,9 +381,6 @@ class MainViewController: BaseOATHVIewController {
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
-            case .idle:
-                return YubiKitManager.shared.keySession.isKeyConnected ? nil :
-                "To read your accounts and codes generated for 2-step verification"
             default:
                 return nil
         }

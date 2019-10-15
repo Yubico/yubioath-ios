@@ -39,7 +39,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
 // MARK: - CredentialViewModelDelegate
 //
     func onError(operation: OperationName, error: Error) {
-        // TODO: add pull to refresh feaute so that in case of some error user can retry to read all (no need to unplug and plug)
         let errorCode = (error as NSError).code;
         if (errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue) {
             let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Provided password was wrong" : "To prevent unauthorized access YubiKey is protected with a password"
@@ -49,8 +48,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }, cancelHandler: {  [weak self] () -> Void in
                     self?.tableView.reloadData()
                 })
-        } else {           
-            // TODO: think about better error dialog for case when no connection (future NFC support - ask to tap over NFC)
+        } else {
             self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
         }
     }

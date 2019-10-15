@@ -9,7 +9,6 @@
 import UIKit
 
 class SettingsViewController: BaseOATHVIewController {
-    // TODO: observe state changes and update keyPluggedIn property
     private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
     private var appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var systemVersion = UIDevice().systemVersion
