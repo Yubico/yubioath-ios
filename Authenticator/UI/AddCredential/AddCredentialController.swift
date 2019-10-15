@@ -37,6 +37,12 @@ class AddCredentialController: UITableViewController {
         setupView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Public methods
     
     func displayCredential(details: YKFOATHCredential) {
@@ -88,7 +94,7 @@ class AddCredentialController: UITableViewController {
                 // use the base32DecodeData (of type Data) and set it on the credential:
                 guard let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") else {
                     // we already validated input before enabling action button, so this should never happen
-                    // TODO: but better to notify with error alert
+                    // but better to notify with error alert
                     print("Invalid Base32 encoded string")
                     return
                 }

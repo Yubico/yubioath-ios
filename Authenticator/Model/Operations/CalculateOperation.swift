@@ -27,8 +27,7 @@ class CalculateOperation: OATHOperation {
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        // TODO: check if calculation for this credential is in progress
-        
+       
         self.credential.isUpdating = true
         if (self.credential.requiresTouch) {
             operationRequiresTouch()
