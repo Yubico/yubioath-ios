@@ -12,6 +12,7 @@ protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onTouchRequired()
+    func onOperationRetry(operation: OATHOperation)
 }
 
 protocol OperationDelegate: class {
@@ -217,9 +218,16 @@ extension YubikitManagerModel: OperationDelegate {
             state = .loading
         }
         DispatchQueue.main.async { [weak self] in
-            // TODO: in case of put operation
+            guard let self = self else {
+                return
+            }
+            self.delegate?.onOperationCompleted(operation: operation.operationName)
+
+            // in case of put operation
             // prompt user if he wants to retry this operation for another key
-            self?.delegate?.onOperationCompleted(operation: operation.operationName)
+            if (operation.operationName == .put) {
+                self.delegate?.onOperationRetry(operation: operation)
+            }
         }
     }
     

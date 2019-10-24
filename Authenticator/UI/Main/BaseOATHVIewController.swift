@@ -134,6 +134,16 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         viewModel.stopNfc()
     }
     
+    func onOperationRetry(operation: OATHOperation) {
+        self.showAlertDialog(title: "Backup credential?", message: "Do you want to add this credential to another key for backup? This operation requires to unplug current key and plug-in another one") { [weak self] () -> Void in
+            guard let self = self else {
+                return
+            }
+            self.viewModel.onRetry(operation: operation)
+            self.viewModel.resume()
+        }
+    }
+    
     func onTouchRequired() {
         self.displayToast(message: "Touch your YubiKey")
     }    
