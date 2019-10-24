@@ -145,7 +145,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onOperationRetry(operation: OATHOperation) {
-        self.showAlertDialog(title: "Backup credential?", message: "Do you want to add this credential to another key for backup? This operation requires to unplug current key and plug-in another one") { [weak self] () -> Void in
+        showBackupOption(){ [weak self] () -> Void in
             guard let self = self else {
                 return
             }
@@ -156,5 +156,17 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     
     func onTouchRequired() {
         self.displayToast(message: "Touch your YubiKey")
-    }    
+    }
+    
+    private func showBackupOption(okHandler: (() -> Void)? = nil) {
+        let alertController = UIAlertController(title: "Backup credential?", message: "Do you want to add this credential to another key for backup? This operation requires to unplug current key and plug-in another one", preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
+            okHandler?()
+        })
+        let cancel = UIAlertAction(title: "No", style: .cancel) { (action) -> Void in }
+        alertController.addAction(ok)
+        alertController.addAction(cancel)        
+        self.present(alertController, animated: false)
+    }
 }
