@@ -33,6 +33,9 @@ class AddCredentialController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.issuerManualText.delegate = self
+        self.accountManualText.delegate = self
+        self.secretManualText.delegate = self
         
         setupView()
     }
@@ -229,4 +232,21 @@ class AddCredentialController: UITableViewController {
 
 extension String {
     fileprivate static let unwindToMainViewController = "unwindToMain"
+}
+
+extension AddCredentialController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case issuerManualText:
+            accountManualText.becomeFirstResponder()
+        case accountManualText:
+            secretManualText.becomeFirstResponder()
+        case secretManualText:
+            secretManualText.resignFirstResponder()
+        default:
+            break
+        }
+        return false
+    }
 }

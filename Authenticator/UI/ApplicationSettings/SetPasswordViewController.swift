@@ -23,7 +23,26 @@ class SetPasswordViewController: BaseOATHVIewController {
             self.showAlertDialog(title: "Error", message: "The passwords do not match")
         } else {
             viewModel.setCode(password: password.text ?? "")
-            // TODO: show progress bar
         }
+    }
+    
+    override func viewDidLoad() {
+        self.password.delegate = self
+        self.confirmPassword.delegate = self
+    }
+}
+
+extension SetPasswordViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case password:
+            confirmPassword.becomeFirstResponder()
+        case confirmPassword:
+            confirmPassword.resignFirstResponder()
+        default:
+            break
+        }
+        return false
     }
 }
