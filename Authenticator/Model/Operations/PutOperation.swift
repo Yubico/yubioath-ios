@@ -45,7 +45,7 @@ class PutOperation: OATHOperation {
 extension YKFOATHCredential {
     var uniqueId: String {
         get {
-            if (type == YKFOATHCredentialType.TOTP) {
+            if type == YKFOATHCredentialType.TOTP {
                 return String(format:"%d/%@:%@", self.period, self.issuer ?? "", self.account);
             } else {
                 return String(format:"%@:%@", self.issuer ?? "", self.account);

@@ -54,7 +54,7 @@ class CredentialTableViewCell: UITableViewCell {
     // MARK: - Model Observation
     
     private func setupModelObservation() {
-        if (credential?.type == .TOTP) {
+        if credential?.type == .TOTP {
             timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { (object, change) in
                 DispatchQueue.main.async { [weak self] in
                     self?.refreshProgress()
@@ -72,7 +72,7 @@ class CredentialTableViewCell: UITableViewCell {
                 self?.refreshCode()
             }
         })
-        progressObservation = observe(\.credential?.isUpdating, options: [], changeHandler: { (object, change) in
+        progressObservation = observe(\.credential?.state, options: [], changeHandler: { (object, change) in
             DispatchQueue.main.async { [weak self] in
                 self?.refreshProgress()
             }
@@ -85,28 +85,33 @@ class CredentialTableViewCell: UITableViewCell {
         guard let credential = self.credential else {
             return
         }
-        if (credential.isUpdating) {
+        if credential.state == .calculating {
             self.progress.isHidden = true
             self.actionIcon.isHidden = true
             self.activityIndicator.isHidden = false
-        } else if (credential.type == .TOTP && !credential.code.isEmpty) {
-            if (credential.remainingTime > 0) {
+        } else if credential.type == .TOTP && !credential.code.isEmpty {
+            if credential.remainingTime > 0 {
                 self.progress.setProgress(to: credential.remainingTime / Double(credential.period))
             } else {
                 // keeping old value of code on screen even if it's expired already
                 self.progress.setProgress(to: Double(0.0))
-                if (credential.requiresTouch) {
-                    credential.code = ""
-                }
             }
             self.progress.isHidden = credential.remainingTime <= 0
             self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
             self.activityIndicator.isHidden = true
-            // TODO: add logic of changing color or timout expiration
-        } else if (credential.type == .HOTP) {
+
+            // logic of changing color when timout expiration
+            self.code.textColor = credential.state == .expired || credential.state == .idle ? UIColor.secondaryText : UIColor.primaryText
+        } else if credential.type == .HOTP {
             actionIcon.isHidden = credential.activeTime < 5 && !credential.code.isEmpty
             self.activityIndicator.isHidden = true
         }
+        
+        if credential.code.isEmpty {
+            // case when credential require touch or HOTP not calculated yet
+            self.code.textColor = UIColor.secondaryText
+        }
+        
     }
     
     func refreshCode() {

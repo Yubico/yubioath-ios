@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CredentialExpirationDelegate: NSObjectProtocol {
+protocol CredentialExpirationDelegate : class {
     func calculateResultDidExpire(_ credential: Credential)
 }
 
@@ -46,22 +46,22 @@ class Credential: NSObject {
     @objc dynamic var code: String
     @objc dynamic var remainingTime : Double
     @objc dynamic var activeTime : Double
-    @objc dynamic var isUpdating : Bool = false
+    @objc dynamic var state : CredentialState = .idle
 
     
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(fromYKFOATHCredential credential:YKFOATHCredential) {
-        type = credential.type
-        account = credential.account
-        issuer = credential.issuer ?? ""
-        period = credential.period
-        
-        code = ""
-        validity = DateInterval()
-        remainingTime = 0
+    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = 30,  code: String, requiresTouch: Bool = false) {
+        self.type = type
+        self.account = account
+        self.issuer = issuer
+        self.period = period
+        self.code = code
+        self.validity = type == .TOTP ? DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(period)) :
+            DateInterval(start: Date(timeIntervalSinceNow: 0), end: Date.distantFuture)
+        self.requiresTouch  = requiresTouch
+        remainingTime = validity.end.timeIntervalSince(Date())
         activeTime = 0
-        requiresTouch = credential.requiresTouch
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -75,11 +75,15 @@ class Credential: NSObject {
         remainingTime = credential.validity.end.timeIntervalSince(Date())
         activeTime = 0
         requiresTouch = credential.requiresTouch
+        
+        if !code.isEmpty {
+            state = .active
+        }
     }
     
     var uniqueId: String {
         get {
-            if (type == YKFOATHCredentialType.TOTP) {
+            if type == YKFOATHCredentialType.TOTP {
                 return String(format:"%d/%@:%@", period, issuer, account);
             } else {
                 return String(format:"%@:%@", issuer, account);
@@ -102,33 +106,18 @@ class Credential: NSObject {
         return credential
     }
     
-    // MARK: - NSObjectProtocol for using within Set
-    static func == (lhs: Credential, rhs: Credential) -> Bool {
-        return lhs.uniqueId == rhs.uniqueId
-    }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        if let rhs = object as? Credential {
-            return self == rhs
-        }
-        return false
-        
-    }
-    override public var hash: Int { return uniqueId.hashValue }
-    
-    
     // MARK: - Observation
     
     // set up timer to get notified about expiration (by watching global timer changes)
     func setupTimerObservation() {
-        if (self.code.isEmpty) {
+        if self.code.isEmpty {
             return
         }
         timerObservation = observe(\.globalTimer.tick, options: [.initial], changeHandler: { [weak self] (object, change) in
             guard let self = self else {
                 return
             }
-            if (self.timerObservation == nil) {
+            if self.timerObservation == nil {
                 // timer is ignored
                 return
             }
@@ -136,7 +125,7 @@ class Credential: NSObject {
             self.activeTime += 1;
             
             // HOTP credential track only active time and no remaining time
-            if (self.type == .HOTP) {
+            if self.type == .HOTP {
                 return
             }
 
@@ -147,8 +136,11 @@ class Credential: NSObject {
                     guard let self = self else {
                         return
                     }
-                    if (!self.requiresTouch) {
+                    if !self.requiresTouch {
                         self.delegate?.calculateResultDidExpire(self)
+                    } else {
+                        self.code = ""
+                        self.state = .expired
                     }
 
                     // we need to remove observers on UI thread because we can have other operations
@@ -162,5 +154,12 @@ class Credential: NSObject {
     
     func removeTimerObservation() {
         timerObservation = nil
+    }
+    
+    @objc enum CredentialState : Int {
+        case idle
+        case calculating
+        case expired
+        case active
     }
 }

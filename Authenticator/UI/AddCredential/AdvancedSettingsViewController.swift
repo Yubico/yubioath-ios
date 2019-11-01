@@ -21,14 +21,10 @@ class AdvancedSettingsViewController: UITableViewController {
     }
     
     var selectedRow: Int {
-        let object = UserDefaults.standard.object(forKey: key)
-        let selected: Int
-        if (object == nil) {
-            selected = defaultSelectedRow
-        } else {
-            selected = UserDefaults.standard.integer(forKey: key)
+        guard UserDefaults.standard.object(forKey: key) != nil else {
+            return defaultSelectedRow
         }
-        return selected
+        return UserDefaults.standard.integer(forKey: key)
     }
     
     // MARK: - Table view data source
