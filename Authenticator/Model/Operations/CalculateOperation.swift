@@ -28,10 +28,10 @@ class CalculateOperation: OATHOperation {
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
        
-        self.credential.isUpdating = true
-        if (self.credential.requiresTouch) {
+        self.credential.state = .calculating
+        if self.credential.requiresTouch {
             operationRequiresTouch()
-        } else if (self.credential.type == .HOTP){
+        } else if self.credential.type == .HOTP {
             // set timer and invoke
             // delegate?.onTouchRequired() if operation is not completed within 1 second
             // to workaround HOTP credentials that don't have requiresTouch flag
@@ -46,7 +46,7 @@ class CalculateOperation: OATHOperation {
             self.timer = timer
         }
         
-        // Adding 10 etra seconds to current timestamp as boost and improvement for quick code expiration:
+        // Adding 10 extra seconds to current timestamp as boost and improvement for quick code expiration:
         // If < 10 seconds remain on the validity of a code at time of generation,
         // increment the timeslot for the challenge and increase the validity time by the period of the credential.
         // For example, if 7 seconds remain at time of generation, on a 30 second credential,
@@ -61,7 +61,6 @@ class CalculateOperation: OATHOperation {
             }
 
             self.timer?.invalidate()
-            self.credential.isUpdating = false
 
             guard error == nil else {
                 self.operationFailed(error: error!)
@@ -73,6 +72,7 @@ class CalculateOperation: OATHOperation {
             }
             self.credential.code = response.otp
             self.credential.setValidity(validity: response.validity)
+            self.credential.state = .active
             self.operationSucceeded(credential: self.credential)
         }
     }

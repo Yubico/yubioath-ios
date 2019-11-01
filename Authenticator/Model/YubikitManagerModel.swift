@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: class {
-    func onError(operation: OperationName, error: Error)
+    func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onTouchRequired()
 }
@@ -43,7 +43,7 @@ class YubikitManagerModel : NSObject {
     private var _credentials = Array<Credential>()
     var credentials: Array<Credential> {
         get {
-            if (self.filter == nil || self.filter!.isEmpty) {
+            if self.filter == nil || self.filter!.isEmpty {
                 return _credentials
             }
             return _credentials.filter {
@@ -65,9 +65,15 @@ class YubikitManagerModel : NSObject {
         operationQueue.maxConcurrentOperationCount = 1
     }
     
+    public func isQueueEmpty() -> Bool {
+        return operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0
+    }
+    
     public func calculateAll() {
-        state = YubiKitManager.shared.keySession.isKeyConnected ? .loading : .idle
-        addOperation(operation: CalculateAllOperation())
+        state = YubiKitManager.shared.accessorySession.isKeyConnected ? .loading : .idle
+        let operation = CalculateAllOperation()
+        operation.queuePriority = .low
+        addOperation(operation: operation)
     }
     
     public func calculate(credential: Credential) {
@@ -100,22 +106,22 @@ class YubikitManagerModel : NSObject {
     
     public func pause() {
         isPaused = true
-        operationQueue.isSuspended = isPaused
+        operationQueue.suspendQueue(suspendQueue: isPaused)
     }
 
     public func resume() {
         isPaused = false
-        operationQueue.isSuspended = isPaused
+        operationQueue.suspendQueue(suspendQueue: isPaused)
     }
 
     public func cleanUp() {
-        credentials.forEach { credential in
+        _credentials.forEach { credential in
             credential.removeTimerObservation()
         }
 
         _credentials.removeAll()
-        state = .idle
 
+        state = .idle
         operationQueue.cancelAllOperations()
         delegate?.onOperationCompleted(operation: .cleanup)
     }
@@ -126,31 +132,22 @@ class YubikitManagerModel : NSObject {
     }
     
     public func emulateSomeRecords() {
-        let credentialResult = YKFOATHCredential()
-        credentialResult.account = "test@yubico.com"
-        credentialResult.issuer = "Google"
-        credentialResult.type = YKFOATHCredentialType.TOTP;
-        let credential = Credential(fromYKFOATHCredential: credentialResult)
-        credential.code = "111222"
-        credential.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(30)))
+        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361")
         credential.setupTimerObservation()
         self._credentials.append(credential)
 
-        credentialResult.issuer = "Amazon"
-        let credential2 = Credential(fromYKFOATHCredential: credentialResult)
-        credential2.code = "444555"
-        credential2.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(5)))
+        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725")
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
-        credentialResult.requiresTouch = true
 
-        credentialResult.issuer = "Facebook"
-        let credential3 = Credential(fromYKFOATHCredential: credentialResult)
-        credential3.code = ""
-        credential3.setValidity(validity: DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(40)))
+        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true)
+        credential4.setupTimerObservation()
+        self._credentials.append(credential4)
+
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", requiresTouch: true)
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
-        delegate?.onOperationCompleted(operation: .put)
+        delegate?.onOperationCompleted(operation: .calculateAll)
     }    
 }
 
@@ -160,11 +157,12 @@ class YubikitManagerModel : NSObject {
 extension YubikitManagerModel:  CredentialExpirationDelegate {
     
     func calculateResultDidExpire(_ credential: Credential) {
-        if (!self.isPaused) {
+        if !self.isPaused && YubiKitManager.shared.accessorySession.isKeyConnected {
             self.calculate(credential: credential)
+        } else {
+            credential.state = .expired
         }
-    }
-    
+    }    
 }
 
 //
@@ -182,7 +180,7 @@ extension YubikitManagerModel: OperationDelegate {
             }
             
             // only if key is attached require touch
-            if (YubiKitManager.shared.keySession.isKeyConnected) {
+            if YubiKitManager.shared.accessorySession.isKeyConnected {
                 delegate.onTouchRequired()
             }
         }
@@ -200,26 +198,26 @@ extension YubikitManagerModel: OperationDelegate {
         
         let errorCode = (error as NSError).code;
         // in case of authentication error supend queue but retry what was requested after resuming
-        if (errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue) {
+        if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
             self.onRetry(operation: operation)
             state = .locked
-        }
-        
-        if (errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue) {
+        } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
             // wait for another successful validation
             operationQueue.isSuspended = true
         }
                
         DispatchQueue.main.async { [weak self] in
-            self?.delegate?.onError(operation: operation.operationName, error: error)
+            self?.delegate?.onError(error: error)
         }
     }
     
     func onCompleted(operation: OATHOperation) {
-        if (operation.operationName == .validate) {
+        if operation.operationName == .validate {
             state = .loading
         }
         DispatchQueue.main.async { [weak self] in
+            // TODO: in case of put operation
+            // prompt user if he wants to retry this operation for another key
             self?.delegate?.onOperationCompleted(operation: operation.operationName)
         }
     }
@@ -243,7 +241,7 @@ extension YubikitManagerModel: OperationDelegate {
             // using dictionary with uinique id as a key for quick search of existing credential object
             let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.map{ ($0.uniqueId, $0) })
             self._credentials = credentials.map {
-                if ($0.requiresTouch || $0.type == .HOTP) {
+                if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
                     if let oldCredential = oldCredentials[$0.uniqueId] {
@@ -274,7 +272,7 @@ extension YubikitManagerModel: OperationDelegate {
             // timer observers better to set up on main thread to avoid
             // thread racing between operations
             // making sure that credential was not removed or updated with calculate all operation
-            if (self._credentials.contains(credential)) {
+            if self._credentials.contains(credential) {
                 credential.setupTimerObservation()
             }
             

@@ -12,6 +12,16 @@ class UniqueOperationQueue: OperationQueue {
     let serial = DispatchQueue(label: "serial", qos: .default)
     var pendingOperations : [String:OATHOperation] = [:]
     
+    func suspendQueue(suspendQueue: Bool = true) {
+        serial.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.isSuspended = suspendQueue
+            print(self.isSuspended ? "Queue is suspended" : "Queue is resumed")
+        }
+    }
+    
     func add(operation: OATHOperation, suspendQueue: Bool = false) {        
         // operating on serial dispatcher thread with operation queue bcz access to pending operations and
         // suspend state should be syncronized
@@ -26,6 +36,7 @@ class UniqueOperationQueue: OperationQueue {
             // if queus needs to be suspended than we suspend queue before adding retried operation
             // otherwise queue might restart operations right away
             if suspendQueue {
+                print("Queue is suspended")
                 self.isSuspended = suspendQueue
                 // recreated operation should be added to the queue without any duplication checks
                 self.enqueue(operation: operation)
@@ -33,9 +44,12 @@ class UniqueOperationQueue: OperationQueue {
                 // making sure that this operation in not in a queue already
                 // otherwise user might click button multiple times and invoke the same operation
                 if let pendingOperation = self.pendingOperations[operation.uniqueId] {
-                    // update only set code and validation to the latest one, because user might corrected his input
-                    if (operation.replicable || pendingOperation.isCancelled) {
+                    if operation.replicable {
+                        // update only set code and validation to the latest one, because user might corrected his input
                         pendingOperation.cancel()
+                        self.enqueue(operation: operation)
+                    } else if (pendingOperation.isCancelled) {
+                        // add operation in case if previous one was cancelled
                         self.enqueue(operation: operation)
                     } else {
                         print("\(operation.uniqueId) is skipped because it's already in queue")
@@ -46,6 +60,7 @@ class UniqueOperationQueue: OperationQueue {
                 }
                 // make sure that queue is not blocked if new operation request coming
                 self.isSuspended = suspendQueue
+                print("Queue is resumed")
             }
         }
     }
@@ -59,11 +74,13 @@ class UniqueOperationQueue: OperationQueue {
             // Make sure we are removing the right object, because
             // if the op was cancelled and it was replaced, we
             // don't want to remove the op that replaced it
-                if weakOp == self?.pendingOperations[operationId] {
+                if weakOp == self?.pendingOperations[operation.uniqueId] {
                     self?.pendingOperations[operationId] = nil
+                    print("\(operation) \(operation.uniqueId) is removed")
                 }
             }
         }
         super.addOperation(operation)
+        print("\(operation) \(operation.uniqueId) is added")
     }
 }

@@ -63,7 +63,7 @@ class AddCredentialController: UITableViewController {
     
     @IBAction func save(_ sender: Any) {
         let (valid, message) = validate()
-        if (!valid) {
+        if !valid {
             showAlertDialog(title: "Not valid credential information", message: message ?? "")
         } else {
             self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
@@ -103,7 +103,7 @@ class AddCredentialController: UITableViewController {
                 credential.type = getSelectedIndex(row: 0) == 0 ? .TOTP : .HOTP
                 credential.algorithm = YKFOATHCredentialAlgorithm.init(rawValue: UInt(getSelectedIndex(row: 1) + 1)) ?? .SHA1
                 credential.digits = UInt(getSelectedIndex(row: 2) + 6)
-                if (credential.type == .TOTP) {
+                if credential.type == .TOTP {
                     credential.period = UInt(periodManualText.text ?? "30") ?? 30
                 }
                 self.credential = credential

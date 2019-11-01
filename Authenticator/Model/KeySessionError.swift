@@ -22,7 +22,7 @@ extension KeySessionError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .notSupported:
-            return NSLocalizedString("This version of iOS does not support operations with the YubiKey for Lightning", comment: "Not supported")
+            return NSLocalizedString("This version of iOS does not support operations with the YubiKey for Lightning nor over NFC", comment: "Not supported")
         case .noOathService:
             return NSLocalizedString("Plug-in your YubiKey for that operation", comment: "No service found")
         case .noResponse:
