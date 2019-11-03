@@ -23,9 +23,8 @@ protocol OperationDelegate: class {
 }
 
 class YubikitManagerModel : NSObject {
-    
     /*!
-    * The OperationQueueDelegate delegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
+    * The OperationDelegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
     */
     let operationQueue: UniqueOperationQueue = UniqueOperationQueue()
     weak var delegate: CredentialViewModelDelegate?
@@ -57,8 +56,10 @@ class YubikitManagerModel : NSObject {
             return self.filter != nil && !self.filter!.isEmpty
         }
     }
-    
-    
+        
+    //
+    // MARK: - Public methods
+    //
     override init() {
         super.init()
         // create sequensial queue for all operations, so we don't execute multiple at once
@@ -288,6 +289,60 @@ extension YubikitManagerModel: OperationDelegate {
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
         operation.delegate = self
         operationQueue.add(operation: operation, suspendQueue: suspendQueue)
+    }
+}
+
+// MARK: - Properties to YubikitManager sessions
+extension YubikitManagerModel {
+    /*!
+     * Checks if accessory key is plugged in
+     */
+    var keyPluggedIn: Bool {
+        get {
+            return YubiKitManager.shared.accessorySession.sessionState == .open;
+        }
+    }
+    
+    var keyIdentifier: String? {
+        get {
+            if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
+                return accessoryDescription.serialNumber
+            } else {
+               if #available(iOS 13.0, *) {
+                    return YubiKitManager.shared.nfcSession.tagDescription?.identifier.hex
+                } else {
+                    return nil
+                }
+            }
+        }
+    }
+    
+    var keyDescription: YKFAccessoryDescription? {
+        get {
+            return YubiKitManager.shared.accessorySession.accessoryDescription
+        }
+    }
+    
+    func startNfc() {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            guard #available(iOS 13.0, *) else {
+                fatalError()
+            }
+            if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
+                YubiKitManager.shared.nfcSession.stopIso7816Session()
+            }
+            YubiKitManager.shared.nfcSession.startIso7816Session()
+        }
+    }
+
+    func stopNfc() {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && self.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
+            guard #available(iOS 13.0, *) else {
+                fatalError()
+            }
+
+            YubiKitManager.shared.nfcSession.stopIso7816Session()
+        }
     }
 }
 

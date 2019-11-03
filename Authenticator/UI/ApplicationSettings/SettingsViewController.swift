@@ -9,7 +9,6 @@
 import UIKit
 
 class SettingsViewController: BaseOATHVIewController {
-    private var keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
     private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
     
     private var appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
@@ -17,7 +16,6 @@ class SettingsViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
-        keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
@@ -31,7 +29,7 @@ class SettingsViewController: BaseOATHVIewController {
         
         // hide OATH specific commands: Set password and reset
         if indexPath.section == 0 && indexPath.row != 0 {
-            return allowKeyOperations || keyPluggedIn ? 80.0 : 0.0
+            return allowKeyOperations || viewModel.keyPluggedIn ? 80.0 : 0.0
         }
         
         return height
@@ -41,11 +39,11 @@ class SettingsViewController: BaseOATHVIewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         switch (indexPath.section, indexPath.row) {
         case (0,0):
-            if let description = YubiKitManager.shared.accessorySession.accessoryDescription {
+            if let description = viewModel.keyDescription {
                 cell.textLabel?.text = "\(description.name) (\(description.firmwareRevision))"
                 cell.detailTextLabel?.text = "Serial number: \(description.serialNumber)"
             } else {
-                cell.textLabel?.text = keyPluggedIn ? "YubiKey" : "No device found"
+                cell.textLabel?.text = viewModel.keyPluggedIn ? "YubiKey" : "No device found"
                 cell.detailTextLabel?.text = ""
             }
         case (3,0):
@@ -82,7 +80,7 @@ class SettingsViewController: BaseOATHVIewController {
             }
         case (2, 3):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
-            if let description = YubiKitManager.shared.accessorySession.accessoryDescription {
+            if let description = viewModel.keyDescription {
                 title += ", key \(description.firmwareRevision)"
             }
                 
@@ -118,7 +116,6 @@ class SettingsViewController: BaseOATHVIewController {
 extension  SettingsViewController: AccessorySessionObserverDelegate {
     
     func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
-        self.keyPluggedIn = state == .open;
         self.tableView.reloadData()
     }
 }
