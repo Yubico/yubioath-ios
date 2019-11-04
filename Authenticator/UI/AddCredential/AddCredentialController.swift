@@ -258,7 +258,3 @@ extension AddCredentialController: UITextFieldDelegate {
         return false
     }
 }
-
-extension String {
-    fileprivate static let unwindToMainViewController = "unwindToMain"
-}
