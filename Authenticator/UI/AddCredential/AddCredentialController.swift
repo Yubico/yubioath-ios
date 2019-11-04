@@ -33,6 +33,7 @@ class AddCredentialController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // UITextViewDelegate added for switching resonder on return key on keyboard
         self.issuerManualText.delegate = self
         self.accountManualText.delegate = self
         self.secretManualText.delegate = self
@@ -188,6 +189,9 @@ class AddCredentialController: UITableViewController {
         if (!manualMode) {
             issuerManualText.text = credential?.issuer ?? ""
             accountManualText.text = credential?.account ?? ""
+            accountManualText.returnKeyType = .done
+        } else {
+            accountManualText.returnKeyType = .next
         }
     }
     
@@ -230,9 +234,9 @@ class AddCredentialController: UITableViewController {
     }
 }
 
-extension String {
-    fileprivate static let unwindToMainViewController = "unwindToMain"
-}
+//
+// MARK: - UITextFieldDelegate
+//
 
 extension AddCredentialController: UITextFieldDelegate {
     
@@ -241,12 +245,20 @@ extension AddCredentialController: UITextFieldDelegate {
         case issuerManualText:
             accountManualText.becomeFirstResponder()
         case accountManualText:
-            secretManualText.becomeFirstResponder()
+            if manualMode {
+                secretManualText.becomeFirstResponder()
+            } else {
+                accountManualText.resignFirstResponder()
+            }
         case secretManualText:
             secretManualText.resignFirstResponder()
         default:
-            break
+            textField.resignFirstResponder()
         }
         return false
     }
+}
+
+extension String {
+    fileprivate static let unwindToMainViewController = "unwindToMain"
 }
