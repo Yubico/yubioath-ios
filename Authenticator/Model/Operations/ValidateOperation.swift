@@ -28,7 +28,7 @@ class ValidateOperation: OATHOperation {
     }
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        if (password.isEmpty) {
+        if password.isEmpty {
             // SDK doesn't handle empty values
             self.operationFailed(error: NSError(domain: "", code: Int(YKFKeyOATHErrorCode.wrongPassword.rawValue), userInfo: nil))
             return
