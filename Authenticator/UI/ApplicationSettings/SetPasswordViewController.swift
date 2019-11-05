@@ -19,8 +19,11 @@ class SetPasswordViewController: BaseOATHVIewController {
     }
     
     @IBAction func savePassword(_ sender: Any) {
-        self.savePassword()
-        
+       if password.text != confirmPassword.text {
+            self.showAlertDialog(title: "Error", message: "The passwords do not match")
+        } else {
+            viewModel.setCode(password: password.text ?? "")
+        }
     }
     
     override func viewDidLoad() {
@@ -28,14 +31,6 @@ class SetPasswordViewController: BaseOATHVIewController {
         // UITextViewDelegate added for switching resonder on return key on keyboard
         self.password.delegate = self
         self.confirmPassword.delegate = self
-    }
-    
-    func savePassword() {
-        if(password.text != confirmPassword.text) {
-             self.showAlertDialog(title: "Error", message: "The passwords do not match")
-         } else {
-             viewModel.setCode(password: password.text ?? "")
-         }
     }
 }
 
@@ -47,7 +42,7 @@ extension SetPasswordViewController: UITextFieldDelegate {
             confirmPassword.becomeFirstResponder()
         case confirmPassword:
             confirmPassword.resignFirstResponder()
-            self.savePassword()
+            self.savePassword(self.saveButton as Any)
         default:
             break
         }

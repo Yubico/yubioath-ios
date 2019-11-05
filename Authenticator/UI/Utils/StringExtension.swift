@@ -9,5 +9,5 @@
 import Foundation
 
 extension String {
-    fileprivate static let unwindToMainViewController = "unwindToMain"
+    internal static let unwindToMainViewController = "unwindToMain"
 }
