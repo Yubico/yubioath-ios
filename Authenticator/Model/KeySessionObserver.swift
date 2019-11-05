@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-protocol KeySessionObserverDelegate: NSObjectProtocol {
-    func keySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFKeySessionState)
+protocol AccessorySessionObserverDelegate: NSObjectProtocol {
+    func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState)
+}
+
+protocol NfcSessionObserverDelegate: NSObjectProtocol {
+    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState)
 }
 
 /*
@@ -23,16 +27,20 @@ protocol KeySessionObserverDelegate: NSObjectProtocol {
  */
 @objc class KeySessionObserver: NSObject {
     
-    private weak var delegate: KeySessionObserverDelegate?
+    private weak var accessoryDelegate: AccessorySessionObserverDelegate?
+    private weak var nfcDlegate: NfcSessionObserverDelegate?
     private var queue: DispatchQueue?
 
     private var isObservingSessionStateUpdates = false
-    private var keySessionObservation: NSKeyValueObservation?
-    
-    @objc dynamic private var keySession: YKFKeySessionProtocol = YubiKitManager.shared.keySession
-    
-    init(delegate: KeySessionObserverDelegate, queue: DispatchQueue? = nil) {
-        self.delegate = delegate
+    private var accessorySessionObservation: NSKeyValueObservation?
+    private var nfcSessionObservation: NSKeyValueObservation?
+
+    @objc dynamic private var accessorySession: YKFAccessorySessionProtocol = YubiKitManager.shared.accessorySession
+    @objc dynamic private var nfcSession: YKFNFCSessionProtocol = YubiKitManager.shared.nfcSession
+
+    init(accessoryDelegate: AccessorySessionObserverDelegate? = nil, nfcDlegate: NfcSessionObserverDelegate? = nil, queue: DispatchQueue? = nil) {
+        self.accessoryDelegate = accessoryDelegate
+        self.nfcDlegate = nfcDlegate
         self.queue = queue
         super.init()
         observeSessionState = true
@@ -53,27 +61,48 @@ protocol KeySessionObserverDelegate: NSObjectProtocol {
             isObservingSessionStateUpdates = newValue
             
             if isObservingSessionStateUpdates {
-                keySessionObservation = observe(\.keySession.sessionState, options: [], changeHandler: { [weak self] (object, change) in
-                    self?.keySessionStateDidChange()
+                accessorySessionObservation = observe(\.accessorySession.sessionState, options: [], changeHandler: { [weak self] (object, change) in
+                    self?.accessorySessionStateDidChange()
+                })
+                
+                nfcSessionObservation = observe(\.nfcSession.iso7816SessionState, options: [], changeHandler: { [weak self] (object, change) in
+                    self?.nfcSessionStateDidChange()
                 })
             } else {
-                keySessionObservation = nil
+                accessorySessionObservation = nil
+                nfcSessionObservation = nil
             }
         }
     }
     
-    func keySessionStateDidChange() {
+    func accessorySessionStateDidChange() {
         let queue = self.queue ?? DispatchQueue.main
         queue.async { [weak self] in
             guard let self = self else {
                 return
             }
-            guard let delegate = self.delegate else {
+            guard let delegate = self.accessoryDelegate else {
                 return
             }
             
-            let state = YubiKitManager.shared.keySession.sessionState
-            delegate.keySessionObserver(self, sessionStateChangedTo: state)
+            let state = YubiKitManager.shared.accessorySession.sessionState
+            delegate.accessorySessionObserver(self, sessionStateChangedTo: state)
         }
     }
+
+    func nfcSessionStateDidChange() {
+        let queue = self.queue ?? DispatchQueue.main
+        queue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.nfcDlegate else {
+                return
+            }
+            
+            let state = YubiKitManager.shared.nfcSession.iso7816SessionState
+            delegate.nfcSessionObserver(self, sessionStateChangedTo: state)
+        }
+    }
+
 }

@@ -9,13 +9,16 @@
 import UIKit
 
 class SettingsViewController: BaseOATHVIewController {
-    private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
+    private var keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
+    private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
+    
     private var appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     private var systemVersion = UIDevice().systemVersion
     private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
-        keySessionObserver = KeySessionObserver(delegate: self)
+        keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
+        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -23,13 +26,12 @@ class SettingsViewController: BaseOATHVIewController {
     }
 
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = super.tableView(tableView, heightForRowAt: indexPath)
         
         // hide OATH specific commands: Set password and reset
-        if (indexPath.section == 0 && indexPath.row != 0) {
-            return keyPluggedIn ? 80.0 : 0.0
+        if indexPath.section == 0 && indexPath.row != 0 {
+            return allowKeyOperations || keyPluggedIn ? 80.0 : 0.0
         }
         
         return height
@@ -37,17 +39,19 @@ class SettingsViewController: BaseOATHVIewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if indexPath.section == 0 && indexPath.row == 0 {
-            if let description = YubiKitManager.shared.keySession.keyDescription {
+        switch (indexPath.section, indexPath.row) {
+        case (0,0):
+            if let description = YubiKitManager.shared.accessorySession.accessoryDescription {
                 cell.textLabel?.text = "\(description.name) (\(description.firmwareRevision))"
                 cell.detailTextLabel?.text = "Serial number: \(description.serialNumber)"
             } else {
                 cell.textLabel?.text = keyPluggedIn ? "YubiKey" : "No device found"
                 cell.detailTextLabel?.text = ""
             }
-
-        } else if (indexPath.section == 2 && indexPath.row == 0) {
+        case (3,0):
             cell.textLabel?.text = "Yubico Authenticator \(appVersion)"
+        default:
+            break;
         }
         return cell
     }
@@ -59,58 +63,72 @@ class SettingsViewController: BaseOATHVIewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 2 {
-            showResetWarning { [weak self]  () -> Void in
+        switch (indexPath.section, indexPath.row) {
+        case (0, 2):
+            self.showWarning(title: "Reset OATH application?", message: "This will delete all credentials and restore factory defaults.", okButtonTitle: "Reset") { [weak self]  () -> Void in
                 self?.viewModel.reset()
             }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/"){
-                    UIApplication.shared.open(url)
-                }
-            case 1:
-                if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/"){
-                    UIApplication.shared.open(url)
-                }
-            default:
-                var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
-                if let description = YubiKitManager.shared.keySession.keyDescription {
-                    title += ", key \(description.firmwareRevision)"
-                }
-                    
-                title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
-                let urlPath = "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)"
-                if let url = URL(string: urlPath) {
-                    UIApplication.shared.open(url)
-                }
-            }            
+        case (1, 0):
+            self.showWarning(title: "Remove stored passwords?", message: "If you have set password on your YubiKey you will be prompted for it on next usage.", okButtonTitle: "Forget") { [weak self]  () -> Void in
+                self?.removeStoredPasswords()
+            }
+        case (2, 0):
+            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/"){
+                UIApplication.shared.open(url)
+            }
+        case (2, 1):
+            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/"){
+                UIApplication.shared.open(url)
+            }
+        case (2, 3):
+            var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
+            if let description = YubiKitManager.shared.accessorySession.accessoryDescription {
+                title += ", key \(description.firmwareRevision)"
+            }
+                
+            title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
+            let urlPath = "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)"
+            if let url = URL(string: urlPath) {
+                UIApplication.shared.open(url)
+            }
+        default:
+            break;
         }
     }
     
-    // MARK: - private helper methods
-    private func showResetWarning(okHandler: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: "Reset OATH application?", message: "This will delete all credentials and restore factory defaults.", preferredStyle: .alert)
-        
-        let reset = UIAlertAction(title: "Reset", style: .destructive, handler: { (action) -> Void in
-            okHandler?()
-        })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
-        alertController.addAction(reset)
-        alertController.addAction(cancel)
-        
-        self.present(alertController, animated: false)
+    // MARK: - private helper methods  
+    private func removeStoredPasswords() {
+        passwordPreferences.resetPasswordPreference()
+        do {
+          try secureStore.removeAllValues()
+            self.showAlertDialog(title: "Success", message: "Saved passwords has been erased from the phone") { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            }
+        } catch (let e) {
+            self.showAlertDialog(title: "Error happend during cleaning up passwords", message: e.localizedDescription) { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            }
+        }
     }
-
 }
 
 //
 // MARK: - Key Session Observer
 //
-extension  SettingsViewController: KeySessionObserverDelegate {
+extension  SettingsViewController: AccessorySessionObserverDelegate {
     
-    func keySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFKeySessionState) {
-        self.keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
+    func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
+        self.keyPluggedIn = state == .open;
         self.tableView.reloadData()
+    }
+}
+
+extension  SettingsViewController: NfcSessionObserverDelegate {
+    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
+        
+        print("NFC key session state: \(String(describing: state.rawValue))")
+        if (state == .open) {
+            viewModel.resume()
+        }
     }
 }

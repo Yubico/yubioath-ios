@@ -12,7 +12,7 @@ class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
-    private var keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
+    private var keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open;
 
     private var credentailToAdd: YKFOATHCredential?
 
@@ -22,11 +22,12 @@ class MainViewController: BaseOATHVIewController {
         setupCredentialsSearchController()
         setupNavigationBar()
         
-        if (!YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
+#if !DEBUG
+        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             let error = KeySessionError.notSupported
             self.showAlertDialog(title: "", message: error.localizedDescription)
         }
-
+#endif
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -40,8 +41,8 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open
-        keySessionObserver = KeySessionObserver(delegate: self)
+        keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
+        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         refreshUIOnKeyStateUpdate()
     }
     
@@ -51,13 +52,13 @@ class MainViewController: BaseOATHVIewController {
     }
     
     //
-    // MARK: - Add cedential
+    // MARK: - Add credential
     //
     @IBAction func onAddCredentialClick(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 //        actionSheet.view.tintColor = secondaryLabelColor
-        if (YubiKitDeviceCapabilities.supportsQRCodeScanning) {
-            // if QR codes are anavailable on device disable option
+        if YubiKitDeviceCapabilities.supportsQRCodeScanning {
+            // if QR codes are unavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
                 self?.scanQR()
             })
@@ -82,7 +83,7 @@ class MainViewController: BaseOATHVIewController {
     // MARK: - Table view data source
     //
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if (viewModel.credentials.count > 0) {
+        if viewModel.credentials.count > 0 {
             self.tableView.backgroundView = nil
             self.tableView.separatorStyle = .singleLine
             return 1
@@ -106,11 +107,11 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let credential = viewModel.credentials[indexPath.row]
-            if (credential.type == .HOTP && credential.activeTime > 5) {
+            if credential.type == .HOTP && credential.activeTime > 5 {
                 // refresh HOTP on touch
                 print("HOTP active for \(String(format:"%f", credential.activeTime)) seconds")
                 viewModel.calculate(credential: credential)
-            } else if (credential.code.isEmpty || credential.remainingTime <= 0) {
+            } else if credential.code.isEmpty || credential.remainingTime <= 0 {
                 // refresh items that require touch
                 viewModel.calculate(credential: credential)
             } else {
@@ -134,7 +135,10 @@ class MainViewController: BaseOATHVIewController {
             // show warning that user will delete credential to preven accident removals
             // we also won't update UI until
             // the actual removal happen (for example when user tapped key over NFC)
-            showDeleteWarning(credential: credential)
+            let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
+            showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
+                self?.viewModel.deleteCredential(credential: credential)
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -162,20 +166,26 @@ class MainViewController: BaseOATHVIewController {
     // MARK: - CredentialViewModelDelegate
     //
     override func onOperationCompleted(operation: OperationName) {
+        super.onOperationCompleted(operation: operation)
         switch operation {
-        case .calculate:
+        case .calculateAll:
+            // show search bar only if there are credentials on the key
+            navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
+            self.tableView.reloadData()
+            break
+        case .put:
+            break
+        case .validate:
             break
         case .filter:
             self.tableView.reloadData()
         default:
-            // show search bar only if there are credentials on the key
-            navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
-            self.tableView.reloadData()
+            // other operations do not change list of credentials
+            break
         }
     }
     
     // MARK: - private methods
-    
     private func scanQR() {
         YubiKitManager.shared.qrReaderSession.scanQrCode(withPresenter: self) {
             [weak self] (payload, error) in
@@ -183,18 +193,18 @@ class MainViewController: BaseOATHVIewController {
                 return
             }
             guard error == nil else {
-                self?.onError(operation: .scan, error: error!)
+                self?.onError(error: error!)
                 return
             }
             
             // This is an URL conforming to Key URI Format specs.
             guard let url = URL(string: payload!) else {
-                self?.onError(operation: .scan, error: KeySessionError.invalidUri)
+                self?.onError(error: KeySessionError.invalidUri)
                 return
             }
             
             guard let credential = YKFOATHCredential(url: url) else {
-                self?.onError(operation: .scan, error: KeySessionError.invalidCredentialUri)
+                self?.onError(error: KeySessionError.invalidCredentialUri)
                 return
             }
             
@@ -204,13 +214,13 @@ class MainViewController: BaseOATHVIewController {
     }
 
     private func refreshCredentials() {
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey) {
-            let sessionState = YubiKitManager.shared.keySession.sessionState
-            print("Key session state: \(String(describing: sessionState.rawValue))")
-            
-            if (sessionState == YKFKeySessionState.open) {
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            let sessionState = YubiKitManager.shared.accessorySession.sessionState
+            print("Accessory key session state: \(String(describing: sessionState.rawValue))")
+            if sessionState == .open {
                 viewModel.calculateAll()
-            } else {
+                tableView.reloadData()
+            } else if sessionState == .closed {
                 // if YubiKey is unplugged do not show any OTP codes
                 viewModel.cleanUp()
             }
@@ -225,12 +235,11 @@ class MainViewController: BaseOATHVIewController {
     }
     
     @objc func refreshData() {
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey && YubiKitManager.shared.keySession.isKeyConnected {
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey && keyPluggedIn {
             viewModel.calculateAll()
         }
         refreshControl?.endRefreshing()
     }
-    
     
     //
     // MARK: - UI Setup
@@ -265,9 +274,9 @@ class MainViewController: BaseOATHVIewController {
     private func refreshUIOnKeyStateUpdate() {
         #if DEBUG
             // allow to see add option on emulator
-            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
         #else
-            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn
+            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
         #endif
         
         refreshCredentials()
@@ -296,14 +305,7 @@ class MainViewController: BaseOATHVIewController {
         if let image = getBackgroundImage() {
             imageView.image = image.withRenderingMode(.alwaysTemplate)
         }
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle != .dark {
-                // User Interface is Dark
-                imageView.tintColor = UIColor(named: "YubiBlue")
-            }
-        } else {
-            imageView.tintColor = UIColor(named: "YubiBlue")
-        }
+        imageView.tintColor = UIColor.yubiBlue
         imageView.center = backgroundView.center
         backgroundView.addSubview(imageView)
         
@@ -312,7 +314,7 @@ class MainViewController: BaseOATHVIewController {
         messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
         messageLabel.textAlignment = NSTextAlignment.center
         messageLabel.text = getTitle()
-        messageLabel.textColor = secondaryLabelColor
+        messageLabel.textColor = UIColor.secondaryText
         messageLabel.font = messageLabel.font.withSize(CGFloat(20.0))
         messageLabel.sizeToFit()
 
@@ -329,7 +331,7 @@ class MainViewController: BaseOATHVIewController {
             secondaryMessageLabel.textAlignment = NSTextAlignment.center
             secondaryMessageLabel.numberOfLines = 3
             secondaryMessageLabel.text = subtitle
-            secondaryMessageLabel.textColor = secondaryLabelColor
+            secondaryMessageLabel.textColor = UIColor.secondaryText
             secondaryMessageLabel.sizeToFit()
             
             secondaryMessageLabel.center.y = messageLabel.frame.maxY + secondaryMessageLabel.frame.height/2 + marginFromNeighbour
@@ -337,20 +339,16 @@ class MainViewController: BaseOATHVIewController {
             backgroundView.addSubview(secondaryMessageLabel)
         }
         
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.activateNfc))
+            backgroundView.isUserInteractionEnabled = true
+            backgroundView.addGestureRecognizer(gestureRecognizer)
+        }
+
         self.tableView.backgroundView = backgroundView;
         self.tableView.separatorStyle = .none
     }
-    
-    private var secondaryLabelColor: UIColor {
-        get {
-            if #available(iOS 13.0, *) {
-                return UIColor.secondaryLabel
-            } else {
-                return UIColor.systemGray
-            }
-        }
-    }
-    
+       
     private func getBackgroundImage() -> UIImage? {
         switch viewModel.state {
             case .loaded:
@@ -378,31 +376,14 @@ class MainViewController: BaseOATHVIewController {
     
     private func getSubtitle() -> String? {
         switch viewModel.state {
+            case .idle:
+                return keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
             default:
                 return nil
         }
-    }
-
-    // MARK: - Custom warning for deletion of account
-
-    private func showDeleteWarning(credential: Credential) {
-        let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
-
-        let alertController = UIAlertController(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", preferredStyle: .alert)
-        
-        let reset = UIAlertAction(title: "Delete", style: .destructive, handler: { (action) -> Void in
-            DispatchQueue.main.async { [weak self] in
-                self?.viewModel.deleteCredential(credential: credential)
-            }
-        })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
-        alertController.addAction(reset)
-        alertController.addAction(cancel)
-        
-        self.present(alertController, animated: false)
     }
 }
 
@@ -413,11 +394,32 @@ extension String {
 //
 // MARK: - Key Session Observer
 //
-extension  MainViewController: KeySessionObserverDelegate {
+extension  MainViewController: AccessorySessionObserverDelegate {
     
-    func keySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFKeySessionState) {
-        self.keyPluggedIn = YubiKitManager.shared.keySession.sessionState == .open;
-        refreshUIOnKeyStateUpdate()
+    func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
+        self.keyPluggedIn = state == .open;
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.refreshUIOnKeyStateUpdate()
+        }
+    }
+}
+
+extension  MainViewController: NfcSessionObserverDelegate {
+    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
+        guard #available(iOS 13.0, *) else {
+            fatalError()
+        }
+
+        print("NFC key session state: \(String(describing: state.rawValue))")
+        if state == .open {
+            viewModel.calculateAll()
+
+            guard let identifier = YubiKitManager.shared.nfcSession.tagDescription?.identifier else {
+                return
+            }
+            print("NFC tag identifier \(identifier.hex)")
+        }
     }
 }
 

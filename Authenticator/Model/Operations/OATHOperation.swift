@@ -29,10 +29,23 @@ class OATHOperation: Operation {
         if isCancelled {
             return
         }
-        
-        guard let oathService = YubiKitManager.shared.keySession.oathService else {
-            self.operationFailed(error: KeySessionError.noOathService)
-            return
+        let keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
+        let oathService: YKFKeyOATHServiceProtocol
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !keyPluggedIn {
+            guard #available(iOS 13.0, *) else {
+                fatalError()
+            }
+            guard let service = YubiKitManager.shared.nfcSession.oathService else {
+                self.operationFailed(error: KeySessionError.noOathService)
+                return
+            }
+            oathService = service
+        } else {
+            guard let service = YubiKitManager.shared.accessorySession.oathService else {
+                self.operationFailed(error: KeySessionError.noOathService)
+                return
+            }
+            oathService = service
         }
         
         executeOperation(oathService: oathService)
@@ -44,7 +57,7 @@ class OATHOperation: Operation {
             print(message)
             return
         }
-        if (result == .timedOut) {
+        if result == .timedOut {
             self.operationFailed(error: KeySessionError.timeout)
         }
     }

@@ -34,7 +34,6 @@ class PieProgressBar: UIView {
     
     //MARK: Private
 
-    private var label = UILabel()
     private let shapeLayer = CAShapeLayer()
     private var radius: CGFloat {
         get{
