@@ -256,6 +256,8 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
+            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
+            
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
