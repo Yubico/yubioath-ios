@@ -230,7 +230,7 @@ class MainViewController: BaseOATHVIewController {
     }
     
     @objc func refreshData() {
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn {
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             viewModel.calculateAll()
         }
         refreshControl?.endRefreshing()

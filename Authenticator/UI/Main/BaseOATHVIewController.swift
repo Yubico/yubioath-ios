@@ -135,38 +135,16 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onOperationRetry(operation: OATHOperation) {
-        self.showAlertDialog(title: "Backup credential?", message: "Do you want to add this credential to another key for backup? This operation requires to unplug current key and plug-in another one") { [weak self] () -> Void in
+        let backupText = "Do you want to add this account to another key for backup?" + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one" : "")
+        self.showWarning(title: "Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
             guard let self = self else {
                 return
             }
-            self.viewModel.onRetry(operation: operation)
-            self.viewModel.resume()
-        }
-    }
-    
-    func onOperationRetry(operation: OATHOperation) {
-        showBackupOption(){ [weak self] () -> Void in
-            guard let self = self else {
-                return
-            }
-            self.viewModel.onRetry(operation: operation)
-            self.viewModel.resume()
+            self.viewModel.onRetry(operation: operation, suspendQueue: false)
         }
     }
     
     func onTouchRequired() {
         self.displayToast(message: "Touch your YubiKey")
-    }
-    
-    private func showBackupOption(okHandler: (() -> Void)? = nil) {
-        let alertController = UIAlertController(title: "Backup credential?", message: "Do you want to add this credential to another key for backup? This operation requires to unplug current key and plug-in another one", preferredStyle: .alert)
-        
-        let ok = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
-            okHandler?()
-        })
-        let cancel = UIAlertAction(title: "No", style: .cancel) { (action) -> Void in }
-        alertController.addAction(ok)
-        alertController.addAction(cancel)        
-        self.present(alertController, animated: false)
     }
 }

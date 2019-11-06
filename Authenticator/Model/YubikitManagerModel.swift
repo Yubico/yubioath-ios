@@ -68,7 +68,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func isQueueEmpty() -> Bool {
-        return operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0
+        return (operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0) || operationQueue.isSuspended
     }
     
     public func calculateAll() {
@@ -291,9 +291,9 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onRetry(operation: OATHOperation) {
+    func onRetry(operation: OATHOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
-        addOperation(operation: retryOperation, suspendQueue: true)
+        addOperation(operation: retryOperation, suspendQueue: suspendQueue)
     }
     
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
