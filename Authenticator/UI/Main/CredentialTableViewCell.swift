@@ -100,18 +100,13 @@ class CredentialTableViewCell: UITableViewCell {
             self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
             self.activityIndicator.isHidden = true
 
-            // logic of changing color when timout expiration
-            self.code.textColor = credential.state == .expired || credential.state == .idle ? UIColor.secondaryText : UIColor.primaryText
         } else if credential.type == .HOTP {
             actionIcon.isHidden = credential.activeTime < 5 && !credential.code.isEmpty
             self.activityIndicator.isHidden = true
         }
         
-        if credential.code.isEmpty {
-            // case when credential require touch or HOTP not calculated yet
-            self.code.textColor = UIColor.secondaryText
-        }
-        
+        // logic of changing color when timout expiration
+        self.code.textColor = credential.state == .expired || credential.state == .idle || credential.code.isEmpty ? UIColor.secondaryText : UIColor.primaryText
     }
     
     func refreshCode() {
