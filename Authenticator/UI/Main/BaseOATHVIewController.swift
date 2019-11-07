@@ -104,7 +104,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
                 
                 if case KeySessionError.noOathService = error {
-                    self.showAlertDialog(title: "", message: "Plug-in your YubiKey to refresh credentials or activate NFC reading in application", nfcHandler: nfcHandler)
+                    self.showAlertDialog(title: "", message: "Plug-in your YubiKey or activate NFC reading in application", nfcHandler: nfcHandler)
                 } else {
                     self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
                 }
@@ -135,8 +135,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onOperationRetry(operation: OATHOperation) {
-        let backupText = "Do you want to add this account to another key for backup?" + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one" : "")
-        self.showWarning(title: "Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
+        let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. Do you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
+        self.showWarning(title: "Account added. Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
             guard let self = self else {
                 return
             }

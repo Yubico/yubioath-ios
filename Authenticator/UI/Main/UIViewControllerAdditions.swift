@@ -156,10 +156,10 @@ extension UIViewController {
     func showWarning(title: String, message: String, okButtonTitle: String, style: UIAlertAction.Style = .destructive, okHandler: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let reset = UIAlertAction(title: okButtonTitle, style: .destructive, handler: { (action) -> Void in
+        let reset = UIAlertAction(title: okButtonTitle, style: style, handler: { (action) -> Void in
             okHandler?()
         })
-        let cancel = UIAlertAction(title: "Cancel", style: style) { (action) -> Void in }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
         alertController.addAction(reset)
         alertController.addAction(cancel)
         
