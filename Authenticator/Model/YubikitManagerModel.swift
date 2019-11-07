@@ -12,6 +12,7 @@ protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onTouchRequired()
+    func onOperationRetry(operation: OATHOperation)
 }
 
 protocol OperationDelegate: class {
@@ -23,9 +24,8 @@ protocol OperationDelegate: class {
 }
 
 class YubikitManagerModel : NSObject {
-    
     /*!
-    * The OperationQueueDelegate delegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
+    * The OperationDelegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
     */
     let operationQueue: UniqueOperationQueue = UniqueOperationQueue()
     weak var delegate: CredentialViewModelDelegate?
@@ -57,8 +57,10 @@ class YubikitManagerModel : NSObject {
             return self.filter != nil && !self.filter!.isEmpty
         }
     }
-    
-    
+        
+    //
+    // MARK: - Public methods
+    //
     override init() {
         super.init()
         // create sequensial queue for all operations, so we don't execute multiple at once
@@ -66,7 +68,7 @@ class YubikitManagerModel : NSObject {
     }
     
     public func isQueueEmpty() -> Bool {
-        return operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0
+        return (operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0) || operationQueue.isSuspended
     }
     
     public func calculateAll() {
@@ -216,9 +218,16 @@ extension YubikitManagerModel: OperationDelegate {
             state = .loading
         }
         DispatchQueue.main.async { [weak self] in
-            // TODO: in case of put operation
+            guard let self = self else {
+                return
+            }
+            self.delegate?.onOperationCompleted(operation: operation.operationName)
+
+            // in case of put operation
             // prompt user if he wants to retry this operation for another key
-            self?.delegate?.onOperationCompleted(operation: operation.operationName)
+            if operation.operationName == .put {
+                self.delegate?.onOperationRetry(operation: operation)
+            }
         }
     }
     
@@ -255,6 +264,8 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
+            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
+            
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
@@ -280,14 +291,68 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onRetry(operation: OATHOperation) {
+    func onRetry(operation: OATHOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
-        addOperation(operation: retryOperation, suspendQueue: true)
+        addOperation(operation: retryOperation, suspendQueue: suspendQueue)
     }
     
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
         operation.delegate = self
         operationQueue.add(operation: operation, suspendQueue: suspendQueue)
+    }
+}
+
+// MARK: - Properties to YubikitManager sessions
+extension YubikitManagerModel {
+    /*!
+     * Checks if accessory key is plugged in
+     */
+    var keyPluggedIn: Bool {
+        get {
+            return YubiKitManager.shared.accessorySession.sessionState == .open;
+        }
+    }
+    
+    var keyIdentifier: String? {
+        get {
+            if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
+                return accessoryDescription.serialNumber
+            } else {
+               if #available(iOS 13.0, *) {
+                    return YubiKitManager.shared.nfcSession.tagDescription?.identifier.hex
+                } else {
+                    return nil
+                }
+            }
+        }
+    }
+    
+    var keyDescription: YKFAccessoryDescription? {
+        get {
+            return YubiKitManager.shared.accessorySession.accessoryDescription
+        }
+    }
+    
+    func startNfc() {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            guard #available(iOS 13.0, *) else {
+                fatalError()
+            }
+            if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
+                YubiKitManager.shared.nfcSession.stopIso7816Session()
+            }
+            YubiKitManager.shared.nfcSession.startIso7816Session()
+        }
+    }
+
+    func stopNfc() {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && self.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
+            guard #available(iOS 13.0, *) else {
+                fatalError()
+            }
+
+            YubiKitManager.shared.nfcSession.stopIso7816Session()
+        }
     }
 }
 

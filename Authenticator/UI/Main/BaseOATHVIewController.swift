@@ -12,19 +12,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     let viewModel = YubikitManagerModel()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     let passwordPreferences = PasswordPreferences()
-    var keyIdentifier: String? {
-        get {
-            if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
-                return accessoryDescription.serialNumber
-            } else {
-               if #available(iOS 13.0, *) {
-                    return YubiKitManager.shared.nfcSession.tagDescription?.identifier.hex
-                } else {
-                    return nil
-                }
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +38,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     @objc func activateNfc() {
-        guard #available(iOS 13.0, *) else {
-            fatalError()
-        }
-        if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
-            YubiKitManager.shared.nfcSession.stopIso7816Session()
-        }
-        YubiKitManager.shared.nfcSession.startIso7816Session()
+        viewModel.startNfc()
     }
        
 //
@@ -66,7 +47,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     func onError(error: Error) {
         let errorCode = (error as NSError).code;
         // save key identifier in local variable so that it can be accessed when save password is prompted
-        let keyIdentifier = self.keyIdentifier
+        let keyIdentifier = self.viewModel.keyIdentifier
         
         if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
             // if we saved password in secure store then we can try to authenticate with it
@@ -118,12 +99,12 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     fatalError()
                 }
                 
-                let nfcHandler = { () -> Void in
-                    YubiKitManager.shared.nfcSession.startIso7816Session()
+                let nfcHandler = { [weak self] () -> Void in
+                    self?.activateNfc()
                 }
                 
                 if case KeySessionError.noOathService = error {
-                    self.showAlertDialog(title: "", message: "Plug-in your YubiKey to refresh credentials or activate NFC reading in application", nfcHandler: nfcHandler)
+                    self.showAlertDialog(title: "", message: "Plug-in your YubiKey or activate NFC reading in application", nfcHandler: nfcHandler)
                 } else {
                     self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
                 }
@@ -132,13 +113,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             }
         }
 
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && viewModel.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
-            guard #available(iOS 13.0, *) else {
-                fatalError()
-            }
-
-            YubiKitManager.shared.nfcSession.stopIso7816Session()
-        }
+        viewModel.stopNfc()
     }
     
     func onOperationCompleted(operation: OperationName) {
@@ -156,14 +131,20 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             break
         }
         
-        if #available(iOS 13.0, *) {
-            if viewModel.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
-                YubiKitManager.shared.nfcSession.stopIso7816Session()
+        viewModel.stopNfc()
+    }
+    
+    func onOperationRetry(operation: OATHOperation) {
+        let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. Do you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
+        self.showWarning(title: "Account added. Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
+            guard let self = self else {
+                return
             }
+            self.viewModel.onRetry(operation: operation, suspendQueue: false)
         }
     }
     
     func onTouchRequired() {
         self.displayToast(message: "Touch your YubiKey")
-    }    
+    }
 }

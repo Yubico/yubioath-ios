@@ -12,8 +12,6 @@ class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
-    private var keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open;
-
     private var credentailToAdd: YKFOATHCredential?
 
     override func viewDidLoad() {
@@ -41,7 +39,6 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         refreshUIOnKeyStateUpdate()
     }
@@ -215,12 +212,10 @@ class MainViewController: BaseOATHVIewController {
 
     private func refreshCredentials() {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            let sessionState = YubiKitManager.shared.accessorySession.sessionState
-            print("Accessory key session state: \(String(describing: sessionState.rawValue))")
-            if sessionState == .open {
+            if viewModel.keyPluggedIn {
                 viewModel.calculateAll()
                 tableView.reloadData()
-            } else if sessionState == .closed {
+            } else {
                 // if YubiKey is unplugged do not show any OTP codes
                 viewModel.cleanUp()
             }
@@ -235,7 +230,7 @@ class MainViewController: BaseOATHVIewController {
     }
     
     @objc func refreshData() {
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey && keyPluggedIn {
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             viewModel.calculateAll()
         }
         refreshControl?.endRefreshing()
@@ -274,9 +269,9 @@ class MainViewController: BaseOATHVIewController {
     private func refreshUIOnKeyStateUpdate() {
         #if DEBUG
             // allow to see add option on emulator
-            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+            navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
         #else
-            navigationItem.rightBarButtonItem?.isEnabled = keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
+        navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
         #endif
         
         refreshCredentials()
@@ -363,7 +358,7 @@ class MainViewController: BaseOATHVIewController {
     private func getTitle() -> String {
         switch viewModel.state {
             case .idle:
-                return keyPluggedIn ? "Loading..." : "Insert your YubiKey"
+                return viewModel.keyPluggedIn ? "Loading..." : "Insert your YubiKey"
             case .loading:
                 return  "Loading..."
             case .locked:
@@ -377,7 +372,7 @@ class MainViewController: BaseOATHVIewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
@@ -397,8 +392,6 @@ extension String {
 extension  MainViewController: AccessorySessionObserverDelegate {
     
     func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
-        self.keyPluggedIn = state == .open;
-        
         DispatchQueue.main.async { [weak self] in
             self?.refreshUIOnKeyStateUpdate()
         }
@@ -414,11 +407,6 @@ extension  MainViewController: NfcSessionObserverDelegate {
         print("NFC key session state: \(String(describing: state.rawValue))")
         if state == .open {
             viewModel.calculateAll()
-
-            guard let identifier = YubiKitManager.shared.nfcSession.tagDescription?.identifier else {
-                return
-            }
-            print("NFC tag identifier \(identifier.hex)")
         }
     }
 }
