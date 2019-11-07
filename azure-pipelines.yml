@@ -13,7 +13,7 @@ steps:
 - task: CocoaPods@0
   displayName: 'pod install using the CocoaPods task with defaults'
   inputs:
-  forceRepoUpdate: true
+    forceRepoUpdate: true
 
 - script: ls
 - script: ls Pods
