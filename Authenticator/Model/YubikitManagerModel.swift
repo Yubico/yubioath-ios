@@ -225,7 +225,7 @@ extension YubikitManagerModel: OperationDelegate {
 
             // in case of put operation
             // prompt user if he wants to retry this operation for another key
-            if (operation.operationName == .put) {
+            if operation.operationName == .put {
                 self.delegate?.onOperationRetry(operation: operation)
             }
         }
