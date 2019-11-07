@@ -37,4 +37,24 @@ extension UIColor {
             return color
         }
     }
+    
+    static var colorSetForAccountIcons = [UIColor(named: "Color1"),
+                                          UIColor(named: "Color2"),
+                                          UIColor(named: "Color3"),
+                                          UIColor(named: "Color4"),
+                                          UIColor(named: "Color5"),
+                                          UIColor(named: "Color6"),
+                                          UIColor(named: "Color7"),
+                                          UIColor(named: "Color8"),
+                                          UIColor(named: "Color9"),
+                                          UIColor(named: "Color10"),
+                                          UIColor(named: "Color11"),
+                                          UIColor(named: "Color12"),
+                                          UIColor(named: "Color13"),
+                                          UIColor(named: "Color14"),
+                                          UIColor(named: "Color15"),
+                                          UIColor(named: "Color16"),
+                                          UIColor(named: "Color17"),
+                                          UIColor(named: "Color18"),
+                                          UIColor(named: "Color19")]
 }

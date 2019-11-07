@@ -45,6 +45,9 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
             
+        let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+        credentialIcon.backgroundColor = UIColor.colorSetForAccountIcons[value]
+
         refreshCode()
         refreshProgress()
 
