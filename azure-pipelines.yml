@@ -10,7 +10,10 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
+- script: ls -la
+
 - task: CocoaPods@0
+  workingDirectory: yubioath-ios
   displayName: 'pod install using the CocoaPods task with defaults'
 
 - task: Xcode@5
