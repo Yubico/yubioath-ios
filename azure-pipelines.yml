@@ -13,8 +13,9 @@ steps:
 - script: ls -la
 
 - task: CocoaPods@0
-  workingDirectory: yubioath-ios
   displayName: 'pod install using the CocoaPods task with defaults'
+  inputs:
+    workingDirectory: yubioath-ios
 
 - task: Xcode@5
   inputs:
