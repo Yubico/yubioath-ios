@@ -22,7 +22,7 @@ steps:
 - task: Xcode@5
   inputs:
     actions: 'build'
-    scheme: 'Authenticator'
+    scheme: ''
     sdk: 'iphoneos'
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
