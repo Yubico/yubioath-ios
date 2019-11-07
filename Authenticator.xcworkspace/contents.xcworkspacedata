@@ -5,6 +5,6 @@
       location = "group:Authenticator.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Submodules/YubiKit/YubiKit/YubiKit.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
