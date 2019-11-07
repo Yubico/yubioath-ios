@@ -89,7 +89,6 @@ class YubikitManagerModel : NSObject {
     }
     
     public func deleteCredential(credential: Credential) {
-        credential.removeTimerObservation()
         addOperation(operation: DeleteOperation(credential: credential))
         addOperation(operation: CalculateAllOperation())
     }
