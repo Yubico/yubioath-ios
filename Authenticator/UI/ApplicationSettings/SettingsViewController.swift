@@ -63,7 +63,7 @@ class SettingsViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
-            self.showWarning(title: "Reset OATH application?", message: "This will delete all credentials and restore factory defaults.", okButtonTitle: "Reset") { [weak self]  () -> Void in
+            self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self]  () -> Void in
                 self?.viewModel.reset()
             }
         case (1, 0):
@@ -78,7 +78,7 @@ class SettingsViewController: BaseOATHVIewController {
             if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/"){
                 UIApplication.shared.open(url)
             }
-        case (2, 3):
+        case (2, 2):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
             if let description = viewModel.keyDescription {
                 title += ", key \(description.firmwareRevision)"

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		816C685223440EF900209342 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685123440EF900209342 /* SecureStoreTests.swift */; };
 		816C685E234697BF00209342 /* StorePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685D234697BE00209342 /* StorePreferences.swift */; };
 		817232472372332900694DF9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817232462372332900694DF9 /* StringExtension.swift */; };
+		817232492374C8D300694DF9 /* Ramps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817232482374C8D300694DF9 /* Ramps.swift */; };
 		817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */; };
 		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		816C685123440EF900209342 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
 		816C685D234697BE00209342 /* StorePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePreferences.swift; sourceTree = "<group>"; };
 		817232462372332900694DF9 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		817232482374C8D300694DF9 /* Ramps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ramps.swift; sourceTree = "<group>"; };
 		817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAdditions.swift; sourceTree = "<group>"; };
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +148,6 @@
 				9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */,
 				D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -299,6 +300,7 @@
 			children = (
 				811CD95622FB276A00E2BCBB /* SettingsViewController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
+				817232482374C8D300694DF9 /* Ramps.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -513,6 +515,7 @@
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
+				817232492374C8D300694DF9 /* Ramps.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,

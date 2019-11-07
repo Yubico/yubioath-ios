@@ -334,7 +334,7 @@ class MainViewController: BaseOATHVIewController {
             backgroundView.addSubview(secondaryMessageLabel)
         }
         
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.activateNfc))
             backgroundView.isUserInteractionEnabled = true
             backgroundView.addGestureRecognizer(gestureRecognizer)
