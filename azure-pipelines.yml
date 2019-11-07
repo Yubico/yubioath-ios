@@ -13,6 +13,8 @@ steps:
 - task: CocoaPods@0
   displayName: 'pod install using the CocoaPods task with defaults'
 
+- script: ls
+
 - task: Xcode@5
   inputs:
     actions: 'build'
@@ -21,3 +23,11 @@ steps:
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+    useXcpretty: 'true' # Makes it easier to diagnose build failures
+    
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.ipa'
+    targetFolder: '$(build.artifactStagingDirectory)'
+    
+- task: PublishBuildArtifacts@1
