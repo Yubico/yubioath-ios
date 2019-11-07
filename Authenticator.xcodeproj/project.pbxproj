@@ -27,7 +27,6 @@
 		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
 		818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */; };
 		818866E922E18134006BC0A8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* MainViewController.swift */; };
-		818866EE22E1845B006BC0A8 /* libYubiKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 818866ED22E1845B006BC0A8 /* libYubiKit.a */; };
 		818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F422E23D9F006BC0A8 /* AddCredentialController.swift */; };
 		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
 		818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* PieProgressBar.swift */; };
@@ -90,7 +89,6 @@
 		818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorUITests.swift; sourceTree = "<group>"; };
 		818866DA22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818866E822E18134006BC0A8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Authenticator/UI/Main/MainViewController.swift; sourceTree = SOURCE_ROOT; };
-		818866ED22E1845B006BC0A8 /* libYubiKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYubiKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Authenticator-Bridging-Header.h"; sourceTree = "<group>"; };
 		818866F422E23D9F006BC0A8 /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddCredentialController.swift; path = Authenticator/UI/AddCredential/AddCredentialController.swift; sourceTree = SOURCE_ROOT; };
 		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				818866EE22E1845B006BC0A8 /* libYubiKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +221,6 @@
 		818866EC22E1845B006BC0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				818866ED22E1845B006BC0A8 /* libYubiKit.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -439,7 +435,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
-				A58A44C2237146B800A5F40D /* StringExtension.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				817232472372332900694DF9 /* StringExtension.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
