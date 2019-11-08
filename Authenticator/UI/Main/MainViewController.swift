@@ -35,17 +35,19 @@ class MainViewController: BaseOATHVIewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
         self.refreshControl = refreshControl
+        
+        // observe key plug-in/out changes even in background
+        // to make sure we don't leave credentials on screen when key was unplugged
+        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         refreshUIOnKeyStateUpdate()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    deinit {
         keySessionObserver.observeSessionState = false
-        super.viewWillDisappear(animated)
     }
     
     //
