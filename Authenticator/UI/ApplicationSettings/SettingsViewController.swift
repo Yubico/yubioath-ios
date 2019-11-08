@@ -67,7 +67,7 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.viewModel.reset()
             }
         case (1, 0):
-            self.showWarning(title: "Remove stored passwords?", message: "If you have set password on your YubiKey you will be prompted for it on next usage.", okButtonTitle: "Forget") { [weak self]  () -> Void in
+            self.showWarning(title: "Clear stored passwords?", message: "If you have set password on your YubiKey you will be prompted for it on next usage.", okButtonTitle: "Clear") { [weak self]  () -> Void in
                 self?.removeStoredPasswords()
             }
         case (2, 0):
@@ -99,7 +99,7 @@ class SettingsViewController: BaseOATHVIewController {
         passwordPreferences.resetPasswordPreference()
         do {
           try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Saved passwords has been erased from the phone") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "Stored passwords has been cleared from the application") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
         } catch (let e) {

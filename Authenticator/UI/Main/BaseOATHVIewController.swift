@@ -37,7 +37,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         super.viewWillDisappear(animated)
     }
     
-    @objc func activateNfc() {
+    func activateNfc() {
         viewModel.startNfc()
     }
        
@@ -80,13 +80,11 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                         return
                     }
                     self.viewModel.validate(password: password)
-                    guard let passwordKey = keyIdentifier else {
-                        self.showAlertDialog(title: "Password was not saved", message: "Couldn't detect key uinique device Id")
-                        return
-                    }
                     if self.passwordPreferences.useSavedPassword() {
                         do {
-                          try self.secureStore.setValue(password, for: passwordKey)
+                            // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
+                            // and move it when we validated password and got keyIdentifier in connection
+                            try self.secureStore.setValue(password, for: keyIdentifier)
                         } catch (let e) {
                             self.passwordPreferences.resetPasswordPreference()
                             self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
@@ -122,6 +120,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
      */
     func onOperationCompleted(operation: OperationName) {
         switch operation {
+        case .validate:
+            if self.passwordPreferences.useSavedPassword(), let keyIdentifier = self.viewModel.keyIdentifier {
+                do {
+                    try self.secureStore.moveValue(to: keyIdentifier)
+                } catch (let e) {
+                    self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                }
+            }
         case .setCode:
             self.showAlertDialog(title: "Success", message: "The password has been successfully set") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)

@@ -113,6 +113,23 @@ class SecureStore {
   }
 }
 
+extension SecureStore {
+    static let DEFAULT_KEY = "defaultKey"
+    
+    public func setValue(_ value: String, for userAccount: String?) throws {
+        try self.setValue(value, for: userAccount ?? SecureStore.DEFAULT_KEY)
+    }
+    
+    public func moveValue(to userAccount: String) throws {
+        // do nothing if we couldn't get stored password for default key
+        // we will try on next successful attempt
+        if let password = try? self.getValue(for: SecureStore.DEFAULT_KEY) {
+            try self.setValue(password, for: userAccount)
+            try? self.removeValue(for: SecureStore.DEFAULT_KEY)
+        }
+    }
+}
+
 /*! Using this hex representation for keys that has format Data, when Store requires only String keys
  */
 extension Data {

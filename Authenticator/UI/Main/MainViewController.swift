@@ -329,11 +329,9 @@ class MainViewController: BaseOATHVIewController {
             backgroundView.addSubview(secondaryMessageLabel)
         }
         
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.activateNfc))
-            backgroundView.isUserInteractionEnabled = true
-            backgroundView.addGestureRecognizer(gestureRecognizer)
-        }
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.onBackgroundClick))
+        backgroundView.isUserInteractionEnabled = true
+        backgroundView.addGestureRecognizer(gestureRecognizer)
 
         self.tableView.backgroundView = backgroundView;
         self.tableView.separatorStyle = .none
@@ -375,10 +373,22 @@ class MainViewController: BaseOATHVIewController {
                 return nil
         }
     }
-}
-
-extension String {
-    fileprivate static let addCredentialSequeID = "AddCredentialSequeID"
+    
+    @objc func onBackgroundClick() {
+        switch viewModel.state {
+            case .idle:
+                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
+                    self.activateNfc()
+                }
+            case .loaded:
+                self.onAddCredentialClick(self)
+            case .locked:
+                let error = NSError(domain: "", code: Int(YKFKeyOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
+                self.onError(error: error)
+            default:
+                break
+        }
+    }
 }
 
 //
