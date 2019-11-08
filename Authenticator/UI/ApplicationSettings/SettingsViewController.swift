@@ -28,8 +28,13 @@ class SettingsViewController: BaseOATHVIewController {
         let height = super.tableView(tableView, heightForRowAt: indexPath)
         
         // hide OATH specific commands: Set password and reset
-        if indexPath.section == 0 && indexPath.row != 0 {
-            return allowKeyOperations || viewModel.keyPluggedIn ? 80.0 : 0.0
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                return viewModel.keyPluggedIn ? height : 0.0
+            default:
+                return allowKeyOperations || viewModel.keyPluggedIn ? height : 0.0
+            }
         }
         
         return height
@@ -43,7 +48,7 @@ class SettingsViewController: BaseOATHVIewController {
                 cell.textLabel?.text = "\(description.name) (\(description.firmwareRevision))"
                 cell.detailTextLabel?.text = "Serial number: \(description.serialNumber)"
             } else {
-                cell.textLabel?.text = viewModel.keyPluggedIn ? "YubiKey" : "No device found"
+                cell.textLabel?.text = viewModel.keyPluggedIn ? "YubiKey" : "No device active"
                 cell.detailTextLabel?.text = ""
             }
         case (3,0):
