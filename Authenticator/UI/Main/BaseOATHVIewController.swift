@@ -44,6 +44,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
 //
 // MARK: - CredentialViewModelDelegate
 //
+    /*! Delegate method that invoked when any operation failed
+     * Operation could be from YubiKit operations (e.g. calculate) or QR scanning (e.g. scan code)
+     */
     func onError(error: Error) {
         let errorCode = (error as NSError).code;
         // save key identifier in local variable so that it can be accessed when save password is prompted
@@ -71,7 +74,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Provided password was wrong. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
                 self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
                     guard let self = self else {
                         return
@@ -114,6 +117,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         viewModel.stopNfc()
     }
     
+    /*! Delegate method that invoked when any operation succeeded
+     * Operation could be from YubiKit (e.g. calculate) or local (e.g. filter)
+     */
     func onOperationCompleted(operation: OperationName) {
         switch operation {
         case .setCode:
@@ -132,7 +138,12 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         viewModel.stopNfc()
     }
     
+    /*! Delegate method invoked when we need to retry if user approves */
     func onOperationRetry(operation: OATHOperation) {
+        // currently only put operation can have conditioned retry
+        guard operation.operationName == .put else {
+            return
+        }
         guard Ramps.showBackupWarning else {
             return
         }

@@ -12,29 +12,38 @@ protocol CredentialExpirationDelegate : class {
     func calculateResultDidExpire(_ credential: Credential)
 }
 
+/*! Model class that represent data for each account/credetial
+ * Does not have any knowledge about UI and how it's going to be represented
+ * Doesn't have any delegates, so it's suggested to use observers to watch changes in that object
+ * It is using observers to get updates on it's properties (code/remainingTime/activeTime/state)
+ * It's responsibility of user to start observers and remove them before deallocating, otherwise observer could lead to crash
+ * Make sure that you don't have multithreading issue with observers (e.g. do not stop observer while it's just started on another thread)
+ */
 class Credential: NSObject {
+    static let DEFAULT_PERIOD: UInt = 30
+    
     /*!
      The credential type (HOTP or TOTP).
      */
-    let type: YKFOATHCredentialType;
+    let type: YKFOATHCredentialType
     
     /*!
      The Issuer of the credential as defined in the Key URI Format specifications:
      https://github.com/google/google-authenticator/wiki/Key-Uri-Format
      */
-    let issuer: String;
+    let issuer: String
     
     /*!
      The validity period for a TOTP code, in seconds. The default value for this property is 30.
      If the credential is of HOTP type, this property returns 0.
      */
-    let period: UInt;
+    let period: UInt
     
     /*!
      The account name extracted from the label. If the label does not contain the issuer, the
      name is the same as the label.
      */
-    let account: String;
+    let account: String
     
     
     let requiresTouch: Bool
@@ -48,10 +57,13 @@ class Credential: NSObject {
     @objc dynamic var activeTime : Double
     @objc dynamic var state : CredentialState = .idle
 
-    
+    /*! This is reference to static timer
+     * watching its ticks to calculate how much time since last OTP recalculation(activeTime) and how much time it's still valid (remainingTime)
+     *
+     */
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = 30,  code: String, requiresTouch: Bool = false) {
+    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false) {
         self.type = type
         self.account = account
         self.issuer = issuer
@@ -60,8 +72,8 @@ class Credential: NSObject {
         self.validity = type == .TOTP ? DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(period)) :
             DateInterval(start: Date(timeIntervalSinceNow: 0), end: Date.distantFuture)
         self.requiresTouch  = requiresTouch
-        remainingTime = validity.end.timeIntervalSince(Date())
-        activeTime = 0
+        self.remainingTime = validity.end.timeIntervalSince(Date())
+        self.activeTime = 0
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
@@ -83,10 +95,10 @@ class Credential: NSObject {
     
     var uniqueId: String {
         get {
-            if type == YKFOATHCredentialType.TOTP {
-                return String(format:"%d/%@:%@", period, issuer, account);
+            if type == YKFOATHCredentialType.TOTP && period != Credential.DEFAULT_PERIOD {
+                return String(format:"%d/%@:%@", period, issuer, account).lowercased();
             } else {
-                return String(format:"%@:%@", issuer, account);
+                return String(format:"%@:%@", issuer, account).lowercased();
             }
         }
     }
@@ -156,6 +168,11 @@ class Credential: NSObject {
         timerObservation = nil
     }
     
+    /*! Variation of states for credential
+     * idle - just created from list
+     * calculating - the operation of calculation is poped from queue and started execution
+     * expired 
+     */
     @objc enum CredentialState : Int {
         case idle
         case calculating

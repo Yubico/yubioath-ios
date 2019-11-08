@@ -30,13 +30,9 @@ class CredentialTableViewCell: UITableViewCell {
         activityIndicator.isHidden = true
         activityIndicator.startAnimating()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    // this method is invoked when table view reloaded and UI got data/list of credentials
+    // each cell is responsible to show 1 credential and cell can be reused by updating credential with this method
     func updateView(credential: Credential) {
         self.credential = credential
         name.text = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
@@ -44,7 +40,10 @@ class CredentialTableViewCell: UITableViewCell {
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
-            
+        
+        // picking up color for icon from set of colors using hash of unique Id,
+        // so that user keeps seeing the same color for item every time he launches the app
+        // and we don't need to have map between credential and colors
         let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
         credentialIcon.backgroundColor = UIColor.colorSetForAccountIcons[value]
 
@@ -55,7 +54,8 @@ class CredentialTableViewCell: UITableViewCell {
     }
     
     // MARK: - Model Observation
-    
+    // this allows you to avoid reloading tableview when data in specific credential changes
+    // watching changes in view model/credential object and update UI
     private func setupModelObservation() {
         if credential?.type == .TOTP {
             timerObservation = observe(\.credential?.remainingTime, options: [], changeHandler: { (object, change) in
@@ -83,7 +83,7 @@ class CredentialTableViewCell: UITableViewCell {
     }
 
 
-    // MARK: - Refresh
+    // MARK: - UI Refresh
     func refreshProgress() {
         guard let credential = self.credential else {
             return

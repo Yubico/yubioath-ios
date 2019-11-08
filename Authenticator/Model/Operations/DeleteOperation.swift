@@ -16,7 +16,7 @@ class DeleteOperation: OATHOperation {
     }
     
     override var uniqueId: String {
-        return "\(operationName):" + credential.uniqueId
+        return "\(operationName) " + credential.uniqueId
     }
     
     init(credential: Credential) {

@@ -9,6 +9,8 @@
 import UIKit
 
 class CalculateAllOperation: OATHOperation {
+    var credentials: Array<Credential>?
+    
     override var operationName: OperationName {
         return OperationName.calculateAll
     }
@@ -34,15 +36,19 @@ class CalculateAllOperation: OATHOperation {
                 return
             }
             
-            let credentials = response.credentials.map {
+            self.credentials = response.credentials.map {
               return Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
             }
 
-            self.operationSucceeded(credentials: credentials)
+            self.operationSucceeded()
         }        
     }
     
     override func createRetryOperation() -> OATHOperation {
         return CalculateAllOperation()
+    }
+    
+    override func invokeDelegateCompletion() {
+        delegate?.onUpdate(credentials: self.credentials!)
     }
 }

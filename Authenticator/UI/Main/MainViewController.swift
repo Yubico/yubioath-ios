@@ -53,7 +53,6 @@ class MainViewController: BaseOATHVIewController {
     //
     @IBAction func onAddCredentialClick(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        actionSheet.view.tintColor = secondaryLabelColor
         if YubiKitDeviceCapabilities.supportsQRCodeScanning {
             // if QR codes are unavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
@@ -170,10 +169,6 @@ class MainViewController: BaseOATHVIewController {
             navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
             self.tableView.reloadData()
             break
-        case .put:
-            break
-        case .validate:
-            break
         case .filter:
             self.tableView.reloadData()
         default:
@@ -267,11 +262,11 @@ class MainViewController: BaseOATHVIewController {
     }
 
     private func refreshUIOnKeyStateUpdate() {
-        #if DEBUG
-            // allow to see add option on emulator
-            navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+        #if !targetEnvironment(simulator)
+            // allow to see add option on emulator and switch to manual add credential view
+            navigationItem.rightBarButtonItem?.isEnabled = true
         #else
-        navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
+            navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
         #endif
         
         refreshCredentials()
