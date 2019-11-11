@@ -38,6 +38,7 @@
 		81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */; };
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
+		81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */; };
 		81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E009C222FF44B100E7715B /* KeySessionObserver.swift */; };
 		81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */; };
 		81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8D4DF231FF9A9004B6F9E /* OATHOperation.swift */; };
@@ -105,6 +106,7 @@
 		81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubikitManagerModel.swift; sourceTree = "<group>"; };
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
+		81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSessionObserver.swift; sourceTree = "<group>"; };
 		81E009C222FF44B100E7715B /* KeySessionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySessionObserver.swift; sourceTree = "<group>"; };
 		81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateOperation.swift; sourceTree = "<group>"; };
 		81E8D4DF231FF9A9004B6F9E /* OATHOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHOperation.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */,
+				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
+				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
 				816C685E234697BF00209342 /* StorePreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,

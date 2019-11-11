@@ -13,6 +13,7 @@ class MainViewController: BaseOATHVIewController {
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
+    private var applicationSessionObserver: ApplicationSessionObserver!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class MainViewController: BaseOATHVIewController {
         // observe key plug-in/out changes even in background
         // to make sure we don't leave credentials on screen when key was unplugged
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
+        
+        applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -172,6 +175,9 @@ class MainViewController: BaseOATHVIewController {
             self.tableView.reloadData()
             break
         case .filter:
+            self.tableView.reloadData()
+        case .cleanup:
+            navigationItem.searchController = nil
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials
@@ -415,6 +421,12 @@ extension  MainViewController: NfcSessionObserverDelegate {
         if state == .open {
             viewModel.calculateAll()
         }
+    }
+}
+// MARK: ApplicationSessionObserverDelegate
+extension MainViewController: ApplicationSessionObserverDelegate {
+    func didEnterBackground() {
+        viewModel.cleanUp()
     }
 }
 
