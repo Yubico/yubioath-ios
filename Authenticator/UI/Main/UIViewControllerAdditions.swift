@@ -92,47 +92,6 @@ extension UIViewController {
         self.present(actionSheet, animated: true, completion: nil)
     }
 
-    /*! Shows bottom sheet with option whether user wants to activate NFC or prefer to continue with plugged in key
-     */
-    func showTrasportSelectionSheet(title: String, message: String, anchorView:UIView, inputHandler: ((KeyType) -> Void)? = nil) {
-        let actionSheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            actionSheet.addAction(UIAlertAction(title: "Scan my key - Over NFC", style: .default, handler: { (action) -> Void in
-                guard #available(iOS 13.0, *) else {
-                    fatalError()
-                }
-
-                DispatchQueue.main.async {
-                    inputHandler?(.nfc)
-                }
-            }))
-        }
-        
-        actionSheet.addAction(UIAlertAction(title: "Plug my key - From MFi key", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.accessory)
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] (action) in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.dismiss(animated: true, completion: nil)
-        }))
-        
-        // The action sheet requires a presentation popover on iPad.
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            actionSheet.modalPresentationStyle = .popover
-            if let presentationController = actionSheet.popoverPresentationController {
-                presentationController.sourceView = anchorView
-                presentationController.sourceRect = anchorView.bounds
-            }
-        }
-        
-        present(actionSheet, animated: true, completion: nil)
-    }
-
     /*! Show error dialog to notify if some operation couldn't be executed
      */
     func showAlertDialog(title: String, message: String, nfcHandler: (() -> Void)? = nil, okHandler: (() -> Void)? = nil) {

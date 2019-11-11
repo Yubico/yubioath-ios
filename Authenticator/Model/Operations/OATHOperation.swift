@@ -71,7 +71,6 @@ class OATHOperation: Operation {
         fatalError("Override in the OATH specific operation subclass.")
     }
 
-    
     func operationRequiresTouch() {
         if isCancelled {
             return
@@ -88,43 +87,13 @@ class OATHOperation: Operation {
         }
 
         print("The \(uniqueId) request succeeded")
-        delegate?.onCompleted(operation: self)
+        invokeDelegateCompletion()
         semaphore.signal()
         
         // to avoid double invocation of callback
         delegate = nil
     }
-    
-    func operationSucceeded(credential: Credential) {
-        if isCancelled {
-            print("The \(uniqueId) request was cancelled")
-            semaphore.signal()
-            return
-        }
-
-        print("The \(uniqueId) request succeeded")
-        delegate?.onUpdate(credential: credential)
-        semaphore.signal()
-         
-        // to avoid double invocation of callback
-        delegate = nil
-    }
-    
-    func operationSucceeded(credentials: Array<Credential>) {
-        if isCancelled {
-            print("The \(uniqueId) request was cancelled")
-            semaphore.signal()
-            return
-        }
-
-        print("The \(uniqueId) request succeeded")
-        delegate?.onUpdate(credentials: credentials)
-        semaphore.signal()
-         
-        // to avoid double invocation of callback
-        delegate = nil
-    }
-    
+        
     func operationFailed(error: Error) {
         if isCancelled {
             print("The \(uniqueId) request cancelled")
@@ -140,10 +109,16 @@ class OATHOperation: Operation {
         delegate = nil
     }
     
+    /*! Method to overide for operation that invoke another delegate method */
+    func invokeDelegateCompletion() {
+        delegate?.onCompleted(operation: self)
+    }
+
+    /*! Placeholder for method that recreates new operation instance
+     * with the same arguments and priority/dependencies
+     * New OATH operation will be in not finished state and can be added back to OperationQueue for retry
+     */
     func createRetryOperation() -> OATHOperation {
-        // placeholder for method that recreates new operation instance
-        // with the same arguments and priority/dependencies
-        // New OATH operation will be in not finished state and can be added back to OperationQueue for retry
         fatalError("Override this method that will create new operation with the same functionality, but in fresh not started state")
     }
 }

@@ -8,6 +8,13 @@
 
 import UIKit
 
+/*!
+* This operation queue can dedup operations.
+* To avoid putting in queue operations that already waiting for execution
+* Use add method to add operation and it will skip adding if operation already exists
+* Also it allows to suspend and resume the queue and controlling syncronization of that switch,
+* so it's recommended to use suspendQueue method instead of direct flag isSuspended for multithreading support
+*/
 class UniqueOperationQueue: OperationQueue {
     let serial = DispatchQueue(label: "serial", qos: .default)
     var pendingOperations : [String:OATHOperation] = [:]

@@ -23,6 +23,10 @@ protocol OperationDelegate: class {
     func onUpdate(credential: Credential)
 }
 
+/*! This is main view model class that talks to YubiKit
+ * It's recommended to use only methods of this class to talk to YubiKitManager (even if it's a singleton and can be accessed anywhere in code)
+ * Every view controller that communicates with YubiKey should have this object initialized in contructor
+ */
 class YubikitManagerModel : NSObject {
     /*!
     * The OperationDelegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
@@ -41,6 +45,8 @@ class YubikitManagerModel : NSObject {
     var state: State = .idle
     
     private var _credentials = Array<Credential>()
+    
+    /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
             if self.filter == nil || self.filter!.isEmpty {
@@ -158,9 +164,11 @@ class YubikitManagerModel : NSObject {
 extension YubikitManagerModel:  CredentialExpirationDelegate {
     
     func calculateResultDidExpire(_ credential: Credential) {
-        if !self.isPaused && YubiKitManager.shared.accessorySession.isKeyConnected {
+        // recalculate automatically only if key is plugged in and view model is not paused (the view is in background, behind another view controller)
+        if !self.isPaused && keyPluggedIn {
             self.calculate(credential: credential)
         } else {
+            // if we can't recalculate credential set state to expired
             credential.state = .expired
         }
     }    
@@ -171,6 +179,7 @@ extension YubikitManagerModel:  CredentialExpirationDelegate {
 //
 extension YubikitManagerModel: OperationDelegate {
     
+    /*! Invoked in case we started executing operation, but it requires touch and we need to notify user about it*/
     func onTouchRequired() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -180,13 +189,15 @@ extension YubikitManagerModel: OperationDelegate {
                 return
             }
             
-            // only if key is attached require touch
-            if YubiKitManager.shared.accessorySession.isKeyConnected {
+            // only if key is attached require touch (otherwise user can't touch and tap YubiKey)
+            // YubiKey will calculate credential over NFC connection even credential requires touch
+            if self.keyPluggedIn {
                 delegate.onTouchRequired()
             }
         }
     }
     
+    /*! Invoked when operation/request to YubiKey failed */
     func onError(operation: OATHOperation, error: Error) {
         switch error {
         case KeySessionError.noOathService:
@@ -212,6 +223,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    /*! Invoked when some operation completed but doesn't change list of credentials or its data */
     func onCompleted(operation: OATHOperation) {
         if operation.operationName == .validate {
             state = .loading
@@ -230,6 +242,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    /*! Invoked when we've got new list of credentials from YubiKey */
     func onUpdate(credentials: Array<Credential>) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
@@ -263,6 +276,17 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
+            // if we've got NFC connection and code was not calculated with calculate all
+            // we can recalculate each individually (touch won't be required over NFC)
+            if !self.keyPluggedIn {
+                for credential in self._credentials {
+                    if credential.requiresRefresh {
+                        self.calculate(credential: credential)
+                    }
+                }
+            }
+            
+            // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
             self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
             
             self.state = .loaded
@@ -270,6 +294,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    /*! Invoked when specific credential gets recalculated */
     func onUpdate(credential: Credential) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {

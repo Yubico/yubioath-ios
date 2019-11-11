@@ -17,7 +17,7 @@ class CalculateOperation: OATHOperation {
     }
     
     override var uniqueId: String {
-        return "\(operationName)" + credential.uniqueId
+        return "\(operationName) " + credential.uniqueId
     }
 
 
@@ -73,11 +73,21 @@ class CalculateOperation: OATHOperation {
             self.credential.code = response.otp
             self.credential.setValidity(validity: response.validity)
             self.credential.state = .active
-            self.operationSucceeded(credential: self.credential)
+            self.operationSucceeded()
         }
+    }
+
+    override func operationFailed(error: Error) {
+        // failure to calculate credential leads from calculating to expiration state
+        self.credential.state = .expired
+        super.operationFailed(error: error)
     }
     
     override func createRetryOperation() -> OATHOperation {
         return CalculateOperation(credential: self.credential)
+    }
+    
+    override func invokeDelegateCompletion() {
+        delegate?.onUpdate(credential: self.credential)
     }
 }
