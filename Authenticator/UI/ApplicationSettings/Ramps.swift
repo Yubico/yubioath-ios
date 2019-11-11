@@ -26,10 +26,10 @@ class Ramps {
     
     static var showBackupWarning : Bool {
         get {
-            return !UserDefaults.standard.bool(forKey: ALLOW_BACKUP)
+            return UserDefaults.standard.bool(forKey: ALLOW_BACKUP)
         }
         set {
-            UserDefaults.standard.set(!newValue, forKey: ALLOW_BACKUP)
+            UserDefaults.standard.set(newValue, forKey: ALLOW_BACKUP)
         }
     }
 }
