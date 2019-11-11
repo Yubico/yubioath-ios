@@ -44,6 +44,7 @@
 		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
+		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		BD9DDD989E9866A13B2D48AC /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +114,7 @@
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
 		9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +303,7 @@
 				811CD95622FB276A00E2BCBB /* SettingsViewController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				817232482374C8D300694DF9 /* Ramps.swift */,
+				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
+				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
