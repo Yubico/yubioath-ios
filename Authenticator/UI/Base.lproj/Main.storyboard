@@ -4,7 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
         <!--Accounts-->
@@ -520,7 +520,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCn-NM-Q0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2701" y="-834"/>
+            <point key="canvasLocation" x="3390" y="-1156"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
@@ -537,6 +537,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uco-xh-UqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-923" y="-577"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="R39-sG-fOM">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="da5-ct-woX" customClass="WebViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4P3-tr-fgW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KI0-f0-tyY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="KI0-f0-tyY" firstAttribute="trailing" secondItem="PAc-6B-KB4" secondAttribute="trailing" id="b3i-sg-KW2"/>
+                            <constraint firstAttribute="bottom" secondItem="KI0-f0-tyY" secondAttribute="bottom" id="czk-5M-6Ql"/>
+                            <constraint firstItem="KI0-f0-tyY" firstAttribute="leading" secondItem="PAc-6B-KB4" secondAttribute="leading" id="nS9-za-81H"/>
+                            <constraint firstItem="KI0-f0-tyY" firstAttribute="top" secondItem="4P3-tr-fgW" secondAttribute="top" id="uY6-ln-Cf6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PAc-6B-KB4"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="KI0-f0-tyY" id="5zL-kk-9kh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3s1-M7-Tff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="202.89855072463769" y="201.5625"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jy7-8d-TSq">
@@ -933,7 +967,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vmq-7v-FxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3091" y="-623"/>
+            <point key="canvasLocation" x="2565" y="-1364"/>
         </scene>
         <!--Digits Table View Controller-->
         <scene sceneID="JH1-ke-ln8">
@@ -1008,7 +1042,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WeU-LX-ma2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3281" y="-468"/>
+            <point key="canvasLocation" x="3390" y="-508"/>
         </scene>
         <!--Period Table View Controller-->
         <scene sceneID="CNw-Fu-1BM">
@@ -1083,7 +1117,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dg3-Y9-dtX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3659" y="-228"/>
+            <point key="canvasLocation" x="4017" y="6"/>
         </scene>
     </scenes>
     <resources>

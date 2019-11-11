@@ -66,6 +66,9 @@ class SettingsViewController: BaseOATHVIewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let stboard = UIStoryboard(name: "Main", bundle: nil)
+        let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+        
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
             self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self]  () -> Void in
@@ -76,13 +79,11 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.removeStoredPasswords()
             }
         case (2, 0):
-            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/"){
-                UIApplication.shared.open(url)
-            }
+            webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
+            self.navigationController?.pushViewController(webVC, animated: true)
         case (2, 1):
-            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/"){
-                UIApplication.shared.open(url)
-            }
+            webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
+            self.navigationController?.pushViewController(webVC, animated: true)
         case (2, 2):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
             if let description = viewModel.keyDescription {
@@ -90,10 +91,9 @@ class SettingsViewController: BaseOATHVIewController {
             }
                 
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
-            let urlPath = "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)"
-            if let url = URL(string: urlPath) {
-                UIApplication.shared.open(url)
-            }
+            webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
+            self.navigationController?.pushViewController(webVC, animated: true)
+            
         default:
             break;
         }
