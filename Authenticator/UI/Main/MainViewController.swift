@@ -13,6 +13,7 @@ class MainViewController: BaseOATHVIewController {
     private var credentialsSearchController: UISearchController!
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
+    private var applicationSessionObserver: ApplicationSessionObserver!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,17 +36,21 @@ class MainViewController: BaseOATHVIewController {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
         self.refreshControl = refreshControl
+        
+        // observe key plug-in/out changes even in background
+        // to make sure we don't leave credentials on screen when key was unplugged
+        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
+        
+        applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         refreshUIOnKeyStateUpdate()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    deinit {
         keySessionObserver.observeSessionState = false
-        super.viewWillDisappear(animated)
     }
     
     //
@@ -53,7 +58,6 @@ class MainViewController: BaseOATHVIewController {
     //
     @IBAction func onAddCredentialClick(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//        actionSheet.view.tintColor = secondaryLabelColor
         if YubiKitDeviceCapabilities.supportsQRCodeScanning {
             // if QR codes are unavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
@@ -170,11 +174,10 @@ class MainViewController: BaseOATHVIewController {
             navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
             self.tableView.reloadData()
             break
-        case .put:
-            break
-        case .validate:
-            break
         case .filter:
+            self.tableView.reloadData()
+        case .cleanup:
+            navigationItem.searchController = nil
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials
@@ -267,11 +270,11 @@ class MainViewController: BaseOATHVIewController {
     }
 
     private func refreshUIOnKeyStateUpdate() {
-        #if DEBUG
-            // allow to see add option on emulator
-            navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags || !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+        #if !targetEnvironment(simulator)
+            // allow to see add option on emulator and switch to manual add credential view
+            navigationItem.rightBarButtonItem?.isEnabled = true
         #else
-        navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
+            navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
         #endif
         
         refreshCredentials()
@@ -334,11 +337,9 @@ class MainViewController: BaseOATHVIewController {
             backgroundView.addSubview(secondaryMessageLabel)
         }
         
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.activateNfc))
-            backgroundView.isUserInteractionEnabled = true
-            backgroundView.addGestureRecognizer(gestureRecognizer)
-        }
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainViewController.onBackgroundClick))
+        backgroundView.isUserInteractionEnabled = true
+        backgroundView.addGestureRecognizer(gestureRecognizer)
 
         self.tableView.backgroundView = backgroundView;
         self.tableView.separatorStyle = .none
@@ -380,10 +381,22 @@ class MainViewController: BaseOATHVIewController {
                 return nil
         }
     }
-}
-
-extension String {
-    fileprivate static let addCredentialSequeID = "AddCredentialSequeID"
+    
+    @objc func onBackgroundClick() {
+        switch viewModel.state {
+            case .idle:
+                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
+                    self.activateNfc()
+                }
+            case .loaded:
+                self.onAddCredentialClick(self)
+            case .locked:
+                let error = NSError(domain: "", code: Int(YKFKeyOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
+                self.onError(error: error)
+            default:
+                break
+        }
+    }
 }
 
 //
@@ -408,6 +421,12 @@ extension  MainViewController: NfcSessionObserverDelegate {
         if state == .open {
             viewModel.calculateAll()
         }
+    }
+}
+// MARK: ApplicationSessionObserverDelegate
+extension MainViewController: ApplicationSessionObserverDelegate {
+    func didEnterBackground() {
+        viewModel.cleanUp()
     }
 }
 

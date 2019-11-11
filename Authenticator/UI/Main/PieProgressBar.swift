@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*! View that shows progress bar in each credential cell showing how much time left before expiration
+ * It uses UIBezierPath on CAShapeLayer to draw the circle
+ */
 class PieProgressBar: UIView {
 
     //MARK: awakeFromNib

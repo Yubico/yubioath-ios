@@ -18,7 +18,6 @@ enum PasswordSaveType : Int {
  Using UserDefaults as permanent storage
  */
 class PasswordPreferences {
-    
     func neverSavePassword() -> Bool {
         return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.never.rawValue
     }

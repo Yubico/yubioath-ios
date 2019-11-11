@@ -37,13 +37,16 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         super.viewWillDisappear(animated)
     }
     
-    @objc func activateNfc() {
+    func activateNfc() {
         viewModel.startNfc()
     }
        
 //
 // MARK: - CredentialViewModelDelegate
 //
+    /*! Delegate method that invoked when any operation failed
+     * Operation could be from YubiKit operations (e.g. calculate) or QR scanning (e.g. scan code)
+     */
     func onError(error: Error) {
         let errorCode = (error as NSError).code;
         // save key identifier in local variable so that it can be accessed when save password is prompted
@@ -71,19 +74,17 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Provided password was wrong. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
                 self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
                     guard let self = self else {
                         return
                     }
                     self.viewModel.validate(password: password)
-                    guard let passwordKey = keyIdentifier else {
-                        self.showAlertDialog(title: "Password was not saved", message: "Couldn't detect key uinique device Id")
-                        return
-                    }
                     if self.passwordPreferences.useSavedPassword() {
                         do {
-                          try self.secureStore.setValue(password, for: passwordKey)
+                            // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
+                            // and move it when we validated password and got keyIdentifier in connection
+                            try self.secureStore.setValue(password, for: keyIdentifier)
                         } catch (let e) {
                             self.passwordPreferences.resetPasswordPreference()
                             self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
@@ -107,6 +108,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     activateNfc()
                 }
             } else {
+                print("Error code: \(String(format:"0x%02X", errorCode))")
                 self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
             }
         }
@@ -114,8 +116,19 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         viewModel.stopNfc()
     }
     
+    /*! Delegate method that invoked when any operation succeeded
+     * Operation could be from YubiKit (e.g. calculate) or local (e.g. filter)
+     */
     func onOperationCompleted(operation: OperationName) {
         switch operation {
+        case .validate:
+            if self.passwordPreferences.useSavedPassword(), let keyIdentifier = self.viewModel.keyIdentifier {
+                do {
+                    try self.secureStore.moveValue(to: keyIdentifier)
+                } catch (let e) {
+                    self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                }
+            }
         case .setCode:
             self.showAlertDialog(title: "Success", message: "The password has been successfully set") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
@@ -132,7 +145,12 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         viewModel.stopNfc()
     }
     
+    /*! Delegate method invoked when we need to retry if user approves */
     func onOperationRetry(operation: OATHOperation) {
+        // currently only put operation can have conditioned retry
+        guard operation.operationName == .put else {
+            return
+        }
         guard Ramps.showBackupWarning else {
             return
         }

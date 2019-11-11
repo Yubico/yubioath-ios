@@ -10,4 +10,5 @@ import Foundation
 
 extension String {
     internal static let unwindToMainViewController = "unwindToMain"
+    internal static let addCredentialSequeID = "AddCredentialSequeID"
 }
