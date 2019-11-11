@@ -95,11 +95,29 @@ class Credential: NSObject {
     
     var uniqueId: String {
         get {
-            if type == YKFOATHCredentialType.TOTP && period != Credential.DEFAULT_PERIOD {
+            if type == .TOTP && period != Credential.DEFAULT_PERIOD {
                 return String(format:"%d/%@:%@", period, issuer, account).lowercased();
             } else {
                 return String(format:"%@:%@", issuer, account).lowercased();
             }
+        }
+    }
+    
+    var requiresRefresh: Bool {
+        get {
+            if code.isEmpty {
+                return true
+            }
+            if state == .expired || state == .idle {
+                return true
+            }
+            if type == .TOTP && self.remainingTime <= 0 {
+                return true
+            }
+            if type == .HOTP && self.activeTime > 10 {
+                return true
+            }
+            return false
         }
     }
     
