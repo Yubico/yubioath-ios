@@ -46,6 +46,9 @@
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
+		A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */; };
+		A5E9DEA6237A2D7B0011FBF4 /* FreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */; };
+		A5E9DEA8237A2D920011FBF4 /* FreNfcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */; };
 		BD9DDD989E9866A13B2D48AC /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +120,9 @@
 		9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
+		A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreViewController.swift; sourceTree = "<group>"; };
+		A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreNfcViewController.swift; sourceTree = "<group>"; };
 		D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -314,6 +320,7 @@
 		81FA3C35231AF33E009C22AB /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A5E9DEA2237A2C130011FBF4 /* FRE */,
 				818866E822E18134006BC0A8 /* MainViewController.swift */,
 				81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */,
 				818866F922E96B47006BC0A8 /* PieProgressBar.swift */,
@@ -321,6 +328,16 @@
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		A5E9DEA2237A2C130011FBF4 /* FRE */ = {
+			isa = PBXGroup;
+			children = (
+				A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */,
+				A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */,
+				A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */,
+			);
+			path = FRE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -504,8 +521,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
+				A5E9DEA6237A2D7B0011FBF4 /* FreViewController.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				817232472372332900694DF9 /* StringExtension.swift in Sources */,
+				A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
@@ -525,6 +544,7 @@
 				817232492374C8D300694DF9 /* Ramps.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
+				A5E9DEA8237A2D920011FBF4 /* FreNfcViewController.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
