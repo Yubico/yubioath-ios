@@ -44,6 +44,18 @@ class MainViewController: BaseOATHVIewController {
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !UserDefaults.standard.freFinished {
+            let stboard = UIStoryboard(name: "Main", bundle: nil)
+            let freNavigationController = stboard.instantiateViewController(withIdentifier: "FreNavigationController") as! UINavigationController
+            if #available(iOS 13.0, *) {
+                freNavigationController.isModalInPresentation = true
+            }
+            self.present(freNavigationController, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         refreshUIOnKeyStateUpdate()

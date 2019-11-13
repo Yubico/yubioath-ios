@@ -131,7 +131,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4.3478260869565224" y="-577.23214285714278"/>
+            <point key="canvasLocation" x="-12" y="-577"/>
         </scene>
         <!--New Account-->
         <scene sceneID="7Bk-6J-hPU">
@@ -537,7 +537,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uco-xh-UqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-948" y="-577"/>
+            <point key="canvasLocation" x="-1022" y="-577"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="R39-sG-fOM">
@@ -1123,7 +1123,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9Ov-ut-zYd">
             <objects>
-                <navigationController id="Lne-rY-9A9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FreNavigationController" id="Lne-rY-9A9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Sp-fH-h0n">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1134,28 +1134,29 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpc-YR-EfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-949" y="-1291"/>
+            <point key="canvasLocation" x="-1023" y="-1300"/>
         </scene>
-        <!--View Controller-->
+        <!--Fre View Controller-->
         <scene sceneID="hVP-51-z4Y">
             <objects>
-                <viewController id="cAX-8i-Ueg" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreViewController" id="cAX-8i-Ueg" customClass="FreViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uTX-Y5-I9l">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="44G-h1-sWU">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="722"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
-                                    <segue destination="5oO-LG-Rha" kind="embed" id="eCz-zy-MlB"/>
+                                    <segue destination="Xbm-8Q-Itj" kind="embed" id="ddh-iU-iF9"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="G4U-VB-OYu" firstAttribute="bottom" secondItem="44G-h1-sWU" secondAttribute="bottom" constant="52" id="2Fn-lZ-xtT"/>
                             <constraint firstItem="44G-h1-sWU" firstAttribute="leading" secondItem="G4U-VB-OYu" secondAttribute="leading" id="DpT-Kv-haM"/>
                             <constraint firstItem="44G-h1-sWU" firstAttribute="trailing" secondItem="G4U-VB-OYu" secondAttribute="trailing" id="H1h-G8-bES"/>
-                            <constraint firstAttribute="bottom" secondItem="44G-h1-sWU" secondAttribute="bottom" id="xof-O8-KiC"/>
                             <constraint firstItem="44G-h1-sWU" firstAttribute="top" secondItem="G4U-VB-OYu" secondAttribute="top" id="yPS-Hx-5YT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G4U-VB-OYu"/>
@@ -1164,26 +1165,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIq-Ii-Asc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-13" y="-1291"/>
+            <point key="canvasLocation" x="-13" y="-1300"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="lR7-Cq-JpN">
-            <objects>
-                <viewController id="5oO-LG-Rha" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sH2-8S-ve0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zgY-V5-MH4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="830" y="-1291"/>
-        </scene>
-        <!--View Controller-->
+        <!--Fre Nfc View Controller-->
         <scene sceneID="xFk-cw-1Hk">
             <objects>
-                <viewController id="ukx-bI-ibl" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreNfcViewController" id="ukx-bI-ibl" customClass="FreNfcViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5cY-9F-9Pa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1198,7 +1185,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="zmC-Ha-icW" firstAttribute="centerX" secondItem="TCi-9k-IFl" secondAttribute="centerX" id="gqs-14-rpF"/>
                                     <constraint firstItem="zmC-Ha-icW" firstAttribute="centerY" secondItem="TCi-9k-IFl" secondAttribute="centerY" id="qLE-YJ-1Ip"/>
@@ -1219,6 +1206,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wm3-w7-5so" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1673.913043478261" y="-1291.0714285714284"/>
+        </scene>
+        <!--Fre Page View Controller-->
+        <scene sceneID="K0j-IJ-tZr">
+            <objects>
+                <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Xbm-8Q-Itj" customClass="FrePageViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iD4-Zm-Hsc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="970" y="-1300"/>
+        </scene>
+        <!--Fre Welcome View Controller-->
+        <scene sceneID="8C0-4S-T0Q">
+            <objects>
+                <viewController storyboardIdentifier="FreWelcomeViewController" id="sjh-6M-HhY" customClass="FreWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LS7-8D-A4S">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXC-RX-kK8">
+                                <rect key="frame" x="16" y="60" width="382" height="786"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It works like this" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lex-lu-shA">
+                                        <rect key="frame" x="24" y="24" width="238" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="130" id="PFG-5c-3yn"/>
+                                            <constraint firstAttribute="width" constant="238" id="hvK-6g-YlB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bvX-Cy-85A">
+                                        <rect key="frame" x="24" y="189" width="279" height="194"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <string key="text">Note: This app requires a YubiKey with CCID/OTP cpabilities. Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey.</string>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="lex-lu-shA" firstAttribute="leading" secondItem="FXC-RX-kK8" secondAttribute="leading" constant="24" id="mff-58-nRn"/>
+                                    <constraint firstItem="lex-lu-shA" firstAttribute="top" secondItem="FXC-RX-kK8" secondAttribute="top" constant="24" id="uke-14-1BC"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FXC-RX-kK8" firstAttribute="top" secondItem="7cV-jz-hou" secondAttribute="top" constant="16" id="VXz-tt-o7q"/>
+                            <constraint firstItem="7cV-jz-hou" firstAttribute="trailing" secondItem="FXC-RX-kK8" secondAttribute="trailing" constant="16" id="mLK-7R-Fk9"/>
+                            <constraint firstItem="7cV-jz-hou" firstAttribute="bottom" secondItem="FXC-RX-kK8" secondAttribute="bottom" constant="16" id="mtf-XJ-nzG"/>
+                            <constraint firstItem="FXC-RX-kK8" firstAttribute="leading" secondItem="7cV-jz-hou" secondAttribute="leading" constant="16" id="z6r-em-R2u"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7cV-jz-hou"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="41m-0X-Lk2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="71u-bb-ndB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1673.913043478261" y="-1966.0714285714284"/>
         </scene>
     </scenes>
     <resources>

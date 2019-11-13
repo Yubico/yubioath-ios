@@ -14,25 +14,22 @@ class FreViewController: UIViewController {
     
     private weak var frePageViewController: FrePageViewController? {
         didSet {
-         //   FrePageViewController.freDelegate = self
+            frePageViewController?.freDelegate = self
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let skipButton = UIBarButtonItem(title: "Skip", style: .done, target: self, action: #selector(didTapSkipButton))
-        navigationItem.rightBarButtonItem = skipButton
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isTranslucent = false
+        let nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton))
+        self.navigationItem.leftBarButtonItem = skipButton
+        self.navigationItem.rightBarButtonItem = nextButton
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let frePageVC = segue.destination as? FrePageViewController {
-            self.frePageViewController = frePageVC
+        if let frePageviewController = segue.destination as? FrePageViewController {
+            self.frePageViewController = frePageviewController
         }
     }
     
@@ -40,14 +37,23 @@ class FreViewController: UIViewController {
         finishFRE()
     }
     
-    private func finishFRE() {
-        // UserDefaults
-        navigationController?.dismiss(animated: true, completion: nil)
+    @objc func didTapNextButton() {
+        if isLastPage {
+            finishFRE()
+        } else {
+            frePageViewController?.scrollNext()
+        }
     }
+    
+    private func finishFRE() {
+        UserDefaults.standard.freFinished = true
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
-//extension FreViewController: FrePageViewControllerDelegate {
-//    func pageViewController(didUpdatePageIndex index: Int, count: Int) {
-//        updateButtons
-//    }
-//}
+extension FreViewController: FrePageViewControllerDelegate {
+    func pageViewController(didUpdatePageIndex index: Int, count: Int) {
+        isLastPage = index == count - 1
+    }
+}

@@ -14,37 +14,68 @@ protocol FrePageViewControllerDelegate: class {
 
 class FrePageViewController: UIPageViewController {
 
-  //  weak var freDelegate: FrePageViewControllerDelegate?
+    weak var freDelegate: FrePageViewControllerDelegate?
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        [FrePageViewController.createViewController(withIdentifier: "FreNfcViewController")]
+        [FrePageViewController.createViewController(withIdentifier: "FreWelcomeViewController"),
+         FrePageViewController.createViewController(withIdentifier: "FreNfcViewController")]
     }()
     
-    var pageControl: UIPageControl? {
-        return view.subviews.first(where: { $0 is UIPageControl }) as? UIPageControl
+    private var pageControl = UIPageControl()
+    
+    override var transitionStyle: UIPageViewController.TransitionStyle {
+        return .scroll
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        delegate = self
-//        dataSource = self
+        delegate = self
+        dataSource = self
         
         if let initialViewController = orderedViewControllers.first {
             scrollToViewController(viewController: initialViewController)
         }
+        
+        self.pageControl.frame = CGRect()
+        self.pageControl.currentPageIndicatorTintColor = UIColor(named: "YubiGreen")
+        self.pageControl.pageIndicatorTintColor = .systemGray
+        self.pageControl.numberOfPages = orderedViewControllers.count
+        self.view.addSubview(self.pageControl)
+
+        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        self.pageControl.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 5).isActive = true
+        self.pageControl.widthAnchor.constraint(equalTo: self.view.widthAnchor, constant: -20).isActive = true
+        self.pageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        self.pageControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        notifyFreDelegate()
     }
     
-    private func notify() {
-        if let pageControl = pageControl {
-//            delegate
+    private func notifyFreDelegate() {
+        freDelegate?.pageViewController(didUpdatePageIndex: self.pageControl.currentPage, count: pageControl.numberOfPages)
+    }
+    
+    func scrollNext() {
+        if self.pageControl.currentPage < self.pageControl.numberOfPages - 1 {
+            scrollToViewController(index: self.pageControl.currentPage + 1)
         }
     }
     
-    func scrollToViewController(index: Int) {
-        
+    private func scrollToViewController(index: Int) {
+        if let firstViewController = viewControllers?.first, let currentIndex = orderedViewControllers.firstIndex(of: firstViewController) {
+            let direction: UIPageViewController.NavigationDirection = index >= currentIndex ? .forward : .reverse
+            let nextViewController = orderedViewControllers[index]
+            self.pageControl.currentPage = index
+            scrollToViewController(viewController: nextViewController, direction: direction)
+        }
     }
     
+    
     private func scrollToViewController(viewController: UIViewController, direction: UIPageViewController.NavigationDirection = .forward) {
+        setViewControllers([viewController], direction: direction, animated: true) { animationFinished -> Void in
+            if animationFinished {
+                self.notifyFreDelegate()
+            }
+        }
         
     }
     
@@ -57,9 +88,16 @@ class FrePageViewController: UIPageViewController {
 extension FrePageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished {
-            self.notify()
+            if let viewController = viewControllers?.first {
+                if let viewControllerIndex = self.orderedViewControllers.firstIndex(of: viewController) {
+                    self.pageControl.currentPage = viewControllerIndex
+                }
+            }
+            self.notifyFreDelegate()
         }
     }
+    
+    
 }
 
 extension FrePageViewController: UIPageViewControllerDataSource {
@@ -68,7 +106,17 @@ extension FrePageViewController: UIPageViewControllerDataSource {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
             return nil
         }
-        return orderedViewControllers[viewControllerIndex - 1]
+        
+        let previousIndex = viewControllerIndex - 1
+        guard previousIndex >= 0 else {
+            return nil
+        }
+        
+        guard orderedViewControllers.count > previousIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[previousIndex]
     }
     
     func  pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -76,7 +124,17 @@ extension FrePageViewController: UIPageViewControllerDataSource {
                    return nil
                }
                
-         return orderedViewControllers[viewControllerIndex + 1]
+        let nextIndex = viewControllerIndex + 1
+        
+        guard orderedViewControllers.count != nextIndex else {
+            return nil
+        }
+        
+        guard orderedViewControllers.count > nextIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[nextIndex]
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {

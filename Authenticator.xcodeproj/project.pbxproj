@@ -49,6 +49,8 @@
 		A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */; };
 		A5E9DEA6237A2D7B0011FBF4 /* FreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */; };
 		A5E9DEA8237A2D920011FBF4 /* FreNfcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */; };
+		A5E9DEAA237B23D80011FBF4 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA9237B23D80011FBF4 /* UserDefaultsExtension.swift */; };
+		A5E9DEAC237B2BB70011FBF4 /* FreWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAB237B2BB70011FBF4 /* FreWelcomeViewController.swift */; };
 		BD9DDD989E9866A13B2D48AC /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +125,8 @@
 		A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
 		A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreViewController.swift; sourceTree = "<group>"; };
 		A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreNfcViewController.swift; sourceTree = "<group>"; };
+		A5E9DEA9237B23D80011FBF4 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		A5E9DEAB237B2BB70011FBF4 /* FreWelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreWelcomeViewController.swift; sourceTree = "<group>"; };
 		D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +189,7 @@
 			children = (
 				817232462372332900694DF9 /* StringExtension.swift */,
 				817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */,
+				A5E9DEA9237B23D80011FBF4 /* UserDefaultsExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */,
 				A5E9DEA5237A2D7B0011FBF4 /* FreViewController.swift */,
 				A5E9DEA7237A2D920011FBF4 /* FreNfcViewController.swift */,
+				A5E9DEAB237B2BB70011FBF4 /* FreWelcomeViewController.swift */,
 			);
 			path = FRE;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 				A5E9DEA6237A2D7B0011FBF4 /* FreViewController.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				817232472372332900694DF9 /* StringExtension.swift in Sources */,
+				A5E9DEAA237B23D80011FBF4 /* UserDefaultsExtension.swift in Sources */,
 				A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
@@ -534,6 +541,7 @@
 				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
+				A5E9DEAC237B2BB70011FBF4 /* FreWelcomeViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
