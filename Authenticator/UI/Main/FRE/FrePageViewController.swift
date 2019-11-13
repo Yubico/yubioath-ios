@@ -18,14 +18,11 @@ class FrePageViewController: UIPageViewController {
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         [FrePageViewController.createViewController(withIdentifier: "FreWelcomeViewController"),
+         FrePageViewController.createViewController(withIdentifier: "FreQRViewController"),
          FrePageViewController.createViewController(withIdentifier: "FreNfcViewController")]
     }()
     
     private var pageControl = UIPageControl()
-    
-    override var transitionStyle: UIPageViewController.TransitionStyle {
-        return .scroll
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
