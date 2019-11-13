@@ -18,8 +18,9 @@ class FrePageViewController: UIPageViewController {
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         [FrePageViewController.createViewController(withIdentifier: "FreWelcomeViewController"),
+         FrePageViewController.createViewController(withIdentifier: "FreNfcViewController"),
          FrePageViewController.createViewController(withIdentifier: "FreQRViewController"),
-         FrePageViewController.createViewController(withIdentifier: "FreNfcViewController")]
+        ]
     }()
     
     private var pageControl = UIPageControl()

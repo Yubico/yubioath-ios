@@ -1197,12 +1197,12 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NFC Support" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paE-uz-XxF">
-                                        <rect key="frame" x="24" y="24" width="280" height="130"/>
+                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="Yld-OR-gtC"/>
+                                            <constraint firstAttribute="width" constant="260" id="Yld-OR-gtC"/>
                                             <constraint firstAttribute="height" constant="130" id="akm-O8-cvd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1252,13 +1252,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXC-RX-kK8">
                                 <rect key="frame" x="16" y="60" width="382" height="786"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It works like this" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lex-lu-shA">
-                                        <rect key="frame" x="24" y="24" width="280" height="130"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lex-lu-shA">
+                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="260" id="HkT-dx-A1z"/>
                                             <constraint firstAttribute="height" constant="130" id="PFG-5c-3yn"/>
-                                            <constraint firstAttribute="width" constant="280" id="hvK-6g-YlB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1323,7 +1323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71u-bb-ndB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="220" y="-1958"/>
+            <point key="canvasLocation" x="218.84057971014494" y="-1958.0357142857142"/>
         </scene>
         <!--FreQR View Controller-->
         <scene sceneID="hj3-Ef-rNJ">
@@ -1355,12 +1355,12 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Codes" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1q7-gT-ajl">
-                                        <rect key="frame" x="24" y="24" width="226" height="130"/>
+                                        <rect key="frame" x="24" y="24" width="210" height="130"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="226" id="SLr-UP-gn0"/>
+                                            <constraint firstAttribute="width" constant="210" id="Dvw-W2-tE8"/>
                                             <constraint firstAttribute="height" constant="130" id="Ssa-po-zum"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
