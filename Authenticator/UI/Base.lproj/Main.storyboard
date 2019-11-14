@@ -127,11 +127,12 @@
                     </navigationItem>
                     <connections>
                         <segue destination="WuU-mE-bu6" kind="presentation" identifier="AddCredentialSequeID" id="OmF-gu-Vvz"/>
+                        <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="0dB-Xx-crT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-12" y="-577"/>
+            <point key="canvasLocation" x="-220" y="-569"/>
         </scene>
         <!--New Account-->
         <scene sceneID="7Bk-6J-hPU">
@@ -446,7 +447,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vIo-xs-l89" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="rWP-KO-ZHA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1879.7101449275365" y="-577.23214285714278"/>
+            <point key="canvasLocation" x="1678" y="-577"/>
         </scene>
         <!--Algorithm Table View Controller-->
         <scene sceneID="2Ud-Xk-F9p">
@@ -521,7 +522,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCn-NM-Q0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3390" y="-1156"/>
+            <point key="canvasLocation" x="4300" y="-1156.4732142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
@@ -537,7 +538,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uco-xh-UqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1022" y="-577"/>
+            <point key="canvasLocation" x="-1023" y="-577"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="R39-sG-fOM">
@@ -571,7 +572,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3s1-M7-Tff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="202.89855072463769" y="201.5625"/>
+            <point key="canvasLocation" x="16" y="202"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jy7-8d-TSq">
@@ -763,7 +764,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHT-RQ-G62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="969.56521739130437" y="203.57142857142856"/>
+            <point key="canvasLocation" x="783" y="204"/>
         </scene>
         <!--Set Password-->
         <scene sceneID="a04-Iv-oTD">
@@ -874,7 +875,17 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ihq-dp-VCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2575" y="204"/>
+            <point key="canvasLocation" x="2410" y="204"/>
+        </scene>
+        <!--Fre-->
+        <scene sceneID="L6t-CP-u4G">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Fre" id="xYZ-Fp-gO1" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="SQd-4J-hAg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="go7-l6-NO6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="519" y="-1222"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D3s-IH-G1K">
@@ -892,7 +903,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Mf-fY-rNX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="969.56521739130437" y="-577.23214285714278"/>
+            <point key="canvasLocation" x="784" y="-577"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="McT-KE-rAN">
@@ -910,7 +921,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ekW-UU-e4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1840.5797101449277" y="203.57142857142856"/>
+            <point key="canvasLocation" x="1677" y="204"/>
         </scene>
         <!--Type Table View Controller-->
         <scene sceneID="d75-WG-qKc">
@@ -968,7 +979,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vmq-7v-FxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2565" y="-1364"/>
+            <point key="canvasLocation" x="3473.913043478261" y="-1364.0625"/>
         </scene>
         <!--Digits Table View Controller-->
         <scene sceneID="JH1-ke-ln8">
@@ -1120,281 +1131,8 @@
             </objects>
             <point key="canvasLocation" x="4017" y="6"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="9Ov-ut-zYd">
-            <objects>
-                <navigationController storyboardIdentifier="FreNavigationController" id="Lne-rY-9A9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8Sp-fH-h0n">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="cAX-8i-Ueg" kind="relationship" relationship="rootViewController" id="mF7-ZL-9Ja"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xpc-YR-EfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1023" y="-1300"/>
-        </scene>
-        <!--Fre View Controller-->
-        <scene sceneID="hVP-51-z4Y">
-            <objects>
-                <viewController storyboardIdentifier="FreViewController" id="cAX-8i-Ueg" customClass="FreViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="uTX-Y5-I9l">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="44G-h1-sWU">
-                                <rect key="frame" x="0.0" y="88" width="414" height="722"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <connections>
-                                    <segue destination="Xbm-8Q-Itj" kind="embed" id="ddh-iU-iF9"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="G4U-VB-OYu" firstAttribute="bottom" secondItem="44G-h1-sWU" secondAttribute="bottom" constant="52" id="2Fn-lZ-xtT"/>
-                            <constraint firstItem="44G-h1-sWU" firstAttribute="leading" secondItem="G4U-VB-OYu" secondAttribute="leading" id="DpT-Kv-haM"/>
-                            <constraint firstItem="44G-h1-sWU" firstAttribute="trailing" secondItem="G4U-VB-OYu" secondAttribute="trailing" id="H1h-G8-bES"/>
-                            <constraint firstItem="44G-h1-sWU" firstAttribute="top" secondItem="G4U-VB-OYu" secondAttribute="top" id="yPS-Hx-5YT"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="G4U-VB-OYu"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="GD7-ct-wip"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JIq-Ii-Asc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-13" y="-1300"/>
-        </scene>
-        <!--Fre Nfc View Controller-->
-        <scene sceneID="xFk-cw-1Hk">
-            <objects>
-                <viewController storyboardIdentifier="FreNfcViewController" id="ukx-bI-ibl" customClass="FreNfcViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5cY-9F-9Pa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TCi-9k-IFl">
-                                <rect key="frame" x="16" y="60" width="382" height="786"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan Key" translatesAutoresizingMaskIntoConstraints="NO" id="CtN-fp-A2c">
-                                        <rect key="frame" x="24" y="194" width="280" height="300"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="300" id="VRJ-YH-Zkf"/>
-                                            <constraint firstAttribute="width" constant="280" id="kVL-25-3e7"/>
-                                        </constraints>
-                                    </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hold NFC key against the back of your NFC-enabled phone to authenticate." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4p-Tl-BzW">
-                                        <rect key="frame" x="24" y="534" width="280" height="160"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="aAa-3G-pbo"/>
-                                            <constraint firstAttribute="height" constant="160" id="aWc-tg-VLz"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NFC Support" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paE-uz-XxF">
-                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="260" id="Yld-OR-gtC"/>
-                                            <constraint firstAttribute="height" constant="130" id="akm-O8-cvd"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="a4p-Tl-BzW" firstAttribute="leading" secondItem="TCi-9k-IFl" secondAttribute="leading" constant="24" id="4SY-ec-n1N"/>
-                                    <constraint firstItem="paE-uz-XxF" firstAttribute="leading" secondItem="TCi-9k-IFl" secondAttribute="leading" constant="24" id="965-aR-oRu"/>
-                                    <constraint firstItem="CtN-fp-A2c" firstAttribute="top" secondItem="paE-uz-XxF" secondAttribute="bottom" constant="40" id="Cm3-eM-6e5"/>
-                                    <constraint firstItem="paE-uz-XxF" firstAttribute="top" secondItem="TCi-9k-IFl" secondAttribute="top" constant="24" id="Hhl-0w-uBn"/>
-                                    <constraint firstItem="a4p-Tl-BzW" firstAttribute="top" secondItem="CtN-fp-A2c" secondAttribute="bottom" constant="40" id="mTL-9f-ENs"/>
-                                    <constraint firstItem="CtN-fp-A2c" firstAttribute="leading" secondItem="TCi-9k-IFl" secondAttribute="leading" constant="24" id="qbv-pa-e9A"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="TCi-9k-IFl" firstAttribute="leading" secondItem="uVE-7y-t3R" secondAttribute="leading" constant="16" id="6BQ-RE-hfS"/>
-                            <constraint firstItem="uVE-7y-t3R" firstAttribute="bottom" secondItem="TCi-9k-IFl" secondAttribute="bottom" constant="16" id="CZh-IT-ut5"/>
-                            <constraint firstItem="uVE-7y-t3R" firstAttribute="trailing" secondItem="TCi-9k-IFl" secondAttribute="trailing" constant="16" id="TJq-NK-dvZ"/>
-                            <constraint firstItem="TCi-9k-IFl" firstAttribute="top" secondItem="uVE-7y-t3R" secondAttribute="top" constant="16" id="sdf-Jp-0bG"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="uVE-7y-t3R"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Nhx-9F-Ogl"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wm3-w7-5so" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1734.7826086956522" y="-1958.0357142857142"/>
-        </scene>
-        <!--Fre Page View Controller-->
-        <scene sceneID="K0j-IJ-tZr">
-            <objects>
-                <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Xbm-8Q-Itj" customClass="FrePageViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iD4-Zm-Hsc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="970" y="-1300"/>
-        </scene>
-        <!--Fre Welcome View Controller-->
-        <scene sceneID="8C0-4S-T0Q">
-            <objects>
-                <viewController storyboardIdentifier="FreWelcomeViewController" id="sjh-6M-HhY" customClass="FreWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="LS7-8D-A4S">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FXC-RX-kK8">
-                                <rect key="frame" x="16" y="60" width="382" height="786"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lex-lu-shA">
-                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="260" id="HkT-dx-A1z"/>
-                                            <constraint firstAttribute="height" constant="130" id="PFG-5c-3yn"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities. " textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvX-Cy-85A">
-                                        <rect key="frame" x="24" y="194" width="280" height="80"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="DEl-cR-kf1"/>
-                                            <constraint firstAttribute="width" constant="280" id="OwI-bD-8sp"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4Q-Sn-9oJ">
-                                        <rect key="frame" x="24" y="434" width="280" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="fbg-YU-aDQ"/>
-                                            <constraint firstAttribute="width" constant="280" id="i4y-Mn-opq"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HF4-o7-0Oa">
-                                        <rect key="frame" x="24" y="274" width="280" height="160"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="D5c-h9-NfM"/>
-                                            <constraint firstAttribute="height" constant="160" id="vv7-Wt-I2q"/>
-                                        </constraints>
-                                        <string key="text">Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. </string>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="u4Q-Sn-9oJ" firstAttribute="top" secondItem="HF4-o7-0Oa" secondAttribute="bottom" id="5n4-6s-Iok"/>
-                                    <constraint firstItem="bvX-Cy-85A" firstAttribute="leading" secondItem="FXC-RX-kK8" secondAttribute="leading" constant="24" id="9rT-FV-xGC"/>
-                                    <constraint firstItem="bvX-Cy-85A" firstAttribute="top" secondItem="lex-lu-shA" secondAttribute="bottom" constant="40" id="i5l-ak-qjR"/>
-                                    <constraint firstItem="lex-lu-shA" firstAttribute="leading" secondItem="FXC-RX-kK8" secondAttribute="leading" constant="24" id="mff-58-nRn"/>
-                                    <constraint firstItem="HF4-o7-0Oa" firstAttribute="top" secondItem="bvX-Cy-85A" secondAttribute="bottom" id="oxD-iK-n7y"/>
-                                    <constraint firstItem="HF4-o7-0Oa" firstAttribute="leading" secondItem="FXC-RX-kK8" secondAttribute="leading" constant="24" id="rc5-PB-aes"/>
-                                    <constraint firstItem="u4Q-Sn-9oJ" firstAttribute="leading" secondItem="FXC-RX-kK8" secondAttribute="leading" constant="24" id="uh2-ve-o2l"/>
-                                    <constraint firstItem="lex-lu-shA" firstAttribute="top" secondItem="FXC-RX-kK8" secondAttribute="top" constant="24" id="uke-14-1BC"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="FXC-RX-kK8" firstAttribute="top" secondItem="7cV-jz-hou" secondAttribute="top" constant="16" id="VXz-tt-o7q"/>
-                            <constraint firstItem="7cV-jz-hou" firstAttribute="trailing" secondItem="FXC-RX-kK8" secondAttribute="trailing" constant="16" id="mLK-7R-Fk9"/>
-                            <constraint firstItem="7cV-jz-hou" firstAttribute="bottom" secondItem="FXC-RX-kK8" secondAttribute="bottom" constant="16" id="mtf-XJ-nzG"/>
-                            <constraint firstItem="FXC-RX-kK8" firstAttribute="leading" secondItem="7cV-jz-hou" secondAttribute="leading" constant="16" id="z6r-em-R2u"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="7cV-jz-hou"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="41m-0X-Lk2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="71u-bb-ndB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="218.84057971014494" y="-1958.0357142857142"/>
-        </scene>
-        <!--FreQR View Controller-->
-        <scene sceneID="hj3-Ef-rNJ">
-            <objects>
-                <viewController storyboardIdentifier="FreQRViewController" id="EWJ-W0-hIr" customClass="FreQRViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iIF-6P-j53">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NU6-aY-8el">
-                                <rect key="frame" x="16" y="60" width="382" height="786"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan QR" translatesAutoresizingMaskIntoConstraints="NO" id="Pl0-vn-b2y">
-                                        <rect key="frame" x="24" y="194" width="280" height="300"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="280" id="dzq-47-2V9"/>
-                                            <constraint firstAttribute="height" constant="300" id="hB0-Mf-NZX"/>
-                                        </constraints>
-                                    </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Scan a QR code provided by your service provider when you add the new key." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6F4-1E-2qa">
-                                        <rect key="frame" x="24" y="534" width="280" height="160"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="160" id="B1d-Vq-Umj"/>
-                                            <constraint firstAttribute="width" constant="280" id="u0O-fY-uwu"/>
-                                        </constraints>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Codes" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1q7-gT-ajl">
-                                        <rect key="frame" x="24" y="24" width="210" height="130"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="210" id="Dvw-W2-tE8"/>
-                                            <constraint firstAttribute="height" constant="130" id="Ssa-po-zum"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="6F4-1E-2qa" firstAttribute="top" secondItem="Pl0-vn-b2y" secondAttribute="bottom" constant="40" id="7Mr-S3-bTe"/>
-                                    <constraint firstItem="6F4-1E-2qa" firstAttribute="leading" secondItem="NU6-aY-8el" secondAttribute="leading" constant="24" id="AOL-WQ-Jec"/>
-                                    <constraint firstItem="Pl0-vn-b2y" firstAttribute="leading" secondItem="NU6-aY-8el" secondAttribute="leading" constant="24" id="U7s-MO-Z08"/>
-                                    <constraint firstItem="1q7-gT-ajl" firstAttribute="leading" secondItem="NU6-aY-8el" secondAttribute="leading" constant="24" id="ZQB-Jt-bFs"/>
-                                    <constraint firstItem="1q7-gT-ajl" firstAttribute="top" secondItem="NU6-aY-8el" secondAttribute="top" constant="24" id="dr9-Cs-6zb"/>
-                                    <constraint firstItem="Pl0-vn-b2y" firstAttribute="top" secondItem="1q7-gT-ajl" secondAttribute="bottom" constant="40" id="wiT-EP-QFr"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="RKz-Qm-VfT" firstAttribute="bottom" secondItem="NU6-aY-8el" secondAttribute="bottom" constant="16" id="PSw-gr-qeL"/>
-                            <constraint firstItem="NU6-aY-8el" firstAttribute="leading" secondItem="RKz-Qm-VfT" secondAttribute="leading" constant="16" id="kLi-8Y-M4R"/>
-                            <constraint firstItem="NU6-aY-8el" firstAttribute="top" secondItem="RKz-Qm-VfT" secondAttribute="top" constant="16" id="mQ1-Fw-BQS"/>
-                            <constraint firstItem="RKz-Qm-VfT" firstAttribute="trailing" secondItem="NU6-aY-8el" secondAttribute="trailing" constant="16" id="mtN-3q-Xdm"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="RKz-Qm-VfT"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ei7-Vn-g0B"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UXp-qw-h5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="969.56521739130437" y="-1958.0357142857142"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="Scan Key" width="369" height="379"/>
-        <image name="Scan QR" width="336" height="662"/>
         <image name="Settings" width="24" height="24"/>
         <image name="touch" width="24" height="24"/>
     </resources>

@@ -8,18 +8,12 @@
 
 import UIKit
 
-protocol FrePageViewControllerDelegate: class {
-    func pageViewController(didUpdatePageIndex index: Int, count: Int)
-}
-
 class FrePageViewController: UIPageViewController {
-
-    weak var freDelegate: FrePageViewControllerDelegate?
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        [FrePageViewController.createViewController(withIdentifier: "FreWelcomeViewController"),
-         FrePageViewController.createViewController(withIdentifier: "FreNfcViewController"),
-         FrePageViewController.createViewController(withIdentifier: "FreQRViewController"),
+        [self.createViewController(withIdentifier: "FreWelcomeViewController"),
+         self.createViewController(withIdentifier: "FreNfcViewController"),
+         self.createViewController(withIdentifier: "FreQRViewController"),
         ]
     }()
     
@@ -32,25 +26,56 @@ class FrePageViewController: UIPageViewController {
         delegate = self
         dataSource = self
         
+        SettingsConfig.isFreFinished = true
+        
         if let initialViewController = orderedViewControllers.first {
             scrollToViewController(viewController: initialViewController)
+        }
+        
+        let skipButton = UIBarButtonItem(title: "Skip", style: .done, target: self, action: #selector(didTapSkipButton))
+        let nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton))
+        
+        if #available(iOS 13.0, *) {
+            skipButton.tintColor = .label
+            nextButton.tintColor = .label
+        } else {
+            skipButton.tintColor = .black
+            nextButton.tintColor = .black
+        }
+        
+        self.navigationItem.leftBarButtonItem = skipButton
+        self.navigationItem.rightBarButtonItem = nextButton
+        
+        if #available(iOS 13.0, *) {
+            self.view.backgroundColor = .systemBackground
+        } else {
+            self.view.backgroundColor = .white
         }
     }
     
     override func viewDidLayoutSubviews() {
-       super.viewDidLayoutSubviews()
-       if let pageControl = self.pageControl {
-           pageControl.currentPageIndicatorTintColor = .darkGray
-           pageControl.pageIndicatorTintColor = .lightGray
-           view.bringSubviewToFront(pageControl)
-           notifyFreDelegate()
-       }
+        super.viewDidLayoutSubviews()
+            if let pageControl = self.pageControl {
+            pageControl.currentPageIndicatorTintColor = .darkGray
+            pageControl.pageIndicatorTintColor = .lightGray
+                
+            if #available(iOS 13.0, *) {
+                pageControl.backgroundColor = .systemBackground
+            } else {
+                pageControl.backgroundColor = .white
+            }
+        }
     }
     
+    @objc func didTapSkipButton() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
     
-    private func notifyFreDelegate() {
-        if let pageControl = self.pageControl {
-            freDelegate?.pageViewController(didUpdatePageIndex: pageControl.currentPage, count: pageControl.numberOfPages)
+    @objc func didTapNextButton() {
+        if pageControl?.currentPage == pageControl?.numberOfPages {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.scrollNext()
         }
     }
     
@@ -75,16 +100,11 @@ class FrePageViewController: UIPageViewController {
     
     
     private func scrollToViewController(viewController: UIViewController, direction: UIPageViewController.NavigationDirection = .forward) {
-        setViewControllers([viewController], direction: direction, animated: true) { animationFinished -> Void in
-            if animationFinished {
-                self.notifyFreDelegate()
-            }
-        }
-        
+        setViewControllers([viewController], direction: direction, animated: true, completion: nil)
     }
     
-    private static func createViewController(withIdentifier id: String) -> UIViewController {
-        let stboard = UIStoryboard(name: "Main", bundle: nil)
+    private func createViewController(withIdentifier id: String) -> UIViewController {
+        let stboard = UIStoryboard(name: "Fre", bundle: nil)
         return stboard.instantiateViewController(withIdentifier: id)
     }
 }
@@ -103,7 +123,7 @@ extension FrePageViewController: UIPageViewControllerDelegate {
                     }
                 }
             }
-            self.notifyFreDelegate()
+            //self.notifyFreDelegate()
         }
     }
     
