@@ -18,6 +18,7 @@ steps:
 - script: ls
 - script: ls Pods
 
+- script: echo "test"
 
 - task: Xcode@5
   inputs:
