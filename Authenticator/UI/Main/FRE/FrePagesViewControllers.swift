@@ -14,3 +14,19 @@ class FreWelcomeViewController: UIViewController {
         super.viewDidLoad()
     }
 }
+
+class FreNfcViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+}
+
+class FreQRViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}
+

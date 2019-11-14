@@ -28,8 +28,8 @@ class FreViewController: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let frePageviewController = segue.destination as? FrePageViewController {
-            self.frePageViewController = frePageviewController
+        if let frePageVC = segue.destination as? FrePageViewController {
+            self.frePageViewController = frePageVC
         }
     }
     
