@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:YubiKit/YubiKit/YubiKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Authenticator.xcodeproj">
    </FileRef>
    <FileRef
