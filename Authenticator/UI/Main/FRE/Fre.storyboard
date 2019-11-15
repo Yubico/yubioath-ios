@@ -77,7 +77,24 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv2-AP-3Mo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="FrePageViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="jVl-UO-t9f"/>
+                    <navigationItem key="navigationItem" id="jVl-UO-t9f">
+                        <barButtonItem key="leftBarButtonItem" title="Skip" id="IVf-FH-Iqr">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="skip:" destination="Nrf-fR-vCF" id="HPR-d7-OW9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="N2W-CE-fPm">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="next:" destination="Nrf-fR-vCF" id="A84-uD-pAO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nextBarButton" destination="N2W-CE-fPm" id="FFg-2C-kVo"/>
+                        <outlet property="skipBarButton" destination="IVf-FH-Iqr" id="Cdf-9g-Ff7"/>
+                    </connections>
                 </pageViewController>
             </objects>
             <point key="canvasLocation" x="-301" y="-1339"/>
@@ -103,18 +120,18 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
                                         <rect key="frame" x="24" y="194" width="366" height="416"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="138.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="125.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
-                                                <rect key="frame" x="0.0" y="138.5" width="366" height="139"/>
+                                                <rect key="frame" x="0.0" y="145.5" width="366" height="125"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <string key="text">Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. </string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -122,7 +139,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
-                                                <rect key="frame" x="0.0" y="277.5" width="366" height="138.5"/>
+                                                <rect key="frame" x="0.0" y="290.5" width="366" height="125.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>

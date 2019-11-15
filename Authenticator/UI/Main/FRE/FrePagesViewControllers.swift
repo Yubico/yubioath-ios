@@ -9,24 +9,14 @@
 import UIKit
 
 class FreWelcomeViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    static let identifier = "FreWelcomeViewController"
 }
 
 class FreNfcViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
+    static let identifier = "FreNfcViewController"
 }
 
 class FreQRViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    static let identifier = "FreQRViewController"
 }
 

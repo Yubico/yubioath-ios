@@ -46,8 +46,9 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !SettingsConfig.isFreFinished {
+        if !SettingsConfig.isFreShown {
             self.performSegue(withIdentifier: "StartFRE", sender: self)
+            SettingsConfig.isFreShown = true
         }
     }
     

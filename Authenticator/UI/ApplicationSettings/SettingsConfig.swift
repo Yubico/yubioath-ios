@@ -14,7 +14,7 @@ import Foundation
 class SettingsConfig {
     static private let NO_SERVICE_WARNING = "nfcwarning"
     static private let ALLOW_BACKUP = "backup"
-    static private let FRE_FINISHED = "freFinished"
+    static private let FRE_SHOWN = "freShown"
 
     static var showNoServiceWarning : Bool {
         get {
@@ -34,12 +34,12 @@ class SettingsConfig {
         }
     }
     
-    static var isFreFinished : Bool {
+    static var isFreShown : Bool {
         get {
-            return UserDefaults.standard.bool(forKey: FRE_FINISHED)
+            return UserDefaults.standard.bool(forKey: FRE_SHOWN)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: FRE_FINISHED)
+            UserDefaults.standard.set(newValue, forKey: FRE_SHOWN)
         }
     }
 }

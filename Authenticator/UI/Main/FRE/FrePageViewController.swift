@@ -8,19 +8,38 @@
 
 import UIKit
 
+/*
+ This class is presenting UIPageController with Firs User Experience information about app and feauters on first install. It's using 3 ViewControllers that you can scroll through with options of skipping or swiping down or using NextBarButton to go to the next page. It's located in Fre.storyboard and presented modally from MainViewController using segue
+ */
+
 class FrePageViewController: UIPageViewController {
+    
+    @IBOutlet weak var nextBarButton: UIBarButtonItem!
+    @IBOutlet weak var skipBarButton: UIBarButtonItem!
+    
+    @IBAction func next(_ sender: Any) {
+        if pageControl.currentPage == pageControl.numberOfPages {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.scrollNext()
+        }
+    }
+    
+    @IBAction func skip(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         let viewControllers: [UIViewController?] = [
-            self.createViewController(withIdentifier: "FreWelcomeViewController"),
-            YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: "FreNfcViewController") : nil,
-            self.createViewController(withIdentifier: "FreQRViewController")
+            self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
+            YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
+            self.createViewController(withIdentifier: FreQRViewController.identifier)
         ]
         return viewControllers.compactMap { $0 }
     }()
     
-    private var pageControl: UIPageControl? {
-        return view.subviews.first(where: { $0 is UIPageControl}) as? UIPageControl
+    private var pageControl: UIPageControl {
+        return view.subviews.first(where: { $0 is UIPageControl}) as! UIPageControl
     }
     
     override func viewDidLoad() {
@@ -28,64 +47,23 @@ class FrePageViewController: UIPageViewController {
         delegate = self
         dataSource = self
         
-        SettingsConfig.isFreFinished = true
+        // when view.background color is not set, part of the mainViewController is visible when present modally UIPageViewController, by default view.background is transperent.
+        self.view.backgroundColor = .background
         
         if let initialViewController = orderedViewControllers.first {
-            scrollToViewController(viewController: initialViewController)
-        }
-        
-        let skipButton = UIBarButtonItem(title: "Skip", style: .done, target: self, action: #selector(didTapSkipButton))
-        let nextButton = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNextButton))
-        
-        if #available(iOS 13.0, *) {
-            skipButton.tintColor = .label
-            nextButton.tintColor = .label
-        } else {
-            skipButton.tintColor = .black
-            nextButton.tintColor = .black
-        }
-        
-        self.navigationItem.leftBarButtonItem = skipButton
-        self.navigationItem.rightBarButtonItem = nextButton
-        
-        if #available(iOS 13.0, *) {
-            self.view.backgroundColor = .systemBackground
-        } else {
-            self.view.backgroundColor = .white
+            setViewControllers([initialViewController], direction: .forward, animated: true, completion: nil)
         }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-            if let pageControl = self.pageControl {
-            pageControl.currentPageIndicatorTintColor = .darkGray
-            pageControl.pageIndicatorTintColor = .lightGray
-                
-            if #available(iOS 13.0, *) {
-                pageControl.backgroundColor = .systemBackground
-            } else {
-                pageControl.backgroundColor = .white
-            }
-        }
-    }
-    
-    @objc func didTapSkipButton() {
-        self.navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func didTapNextButton() {
-        if pageControl?.currentPage == pageControl?.numberOfPages {
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        } else {
-            self.scrollNext()
-        }
+        pageControl.currentPageIndicatorTintColor = .primaryText
+        pageControl.pageIndicatorTintColor = .secondaryText
     }
     
     func scrollNext() {
-        if let pageControl = self.pageControl {
-            if pageControl.currentPage < pageControl.numberOfPages - 1 {
-                scrollToViewController(index: pageControl.currentPage + 1)
-            }
+        if pageControl.currentPage < pageControl.numberOfPages - 1 {
+            scrollToViewController(index: pageControl.currentPage + 1)
         }
     }
     
@@ -93,16 +71,9 @@ class FrePageViewController: UIPageViewController {
         if let firstViewController = viewControllers?.first, let currentIndex = orderedViewControllers.firstIndex(of: firstViewController) {
             let direction: UIPageViewController.NavigationDirection = index >= currentIndex ? .forward : .reverse
             let nextViewController = orderedViewControllers[index]
-            if let pageControl = self.pageControl {
-                pageControl.currentPage = index
-            }
-            scrollToViewController(viewController: nextViewController, direction: direction)
+            pageControl.currentPage = index
+            setViewControllers([nextViewController], direction: direction, animated: true, completion: nil)
         }
-    }
-    
-    
-    private func scrollToViewController(viewController: UIViewController, direction: UIPageViewController.NavigationDirection = .forward) {
-        setViewControllers([viewController], direction: direction, animated: true, completion: nil)
     }
     
     private func createViewController(withIdentifier id: String) -> UIViewController {
@@ -120,9 +91,7 @@ extension FrePageViewController: UIPageViewControllerDelegate {
         if finished {
             if let viewController = viewControllers?.first {
                 if let viewControllerIndex = self.orderedViewControllers.firstIndex(of: viewController) {
-                    if let pageControl = self.pageControl {
-                        pageControl.currentPage = viewControllerIndex
-                    }
+                    pageControl.currentPage = viewControllerIndex
                 }
             }
         }
