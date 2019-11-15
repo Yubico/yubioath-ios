@@ -18,10 +18,10 @@ class FrePageViewController: UIPageViewController {
     @IBOutlet weak var skipBarButton: UIBarButtonItem!
     
     @IBAction func next(_ sender: Any) {
-        if pageControl.currentPage == pageControl.numberOfPages {
+        if pageControl.currentPage == pageControl.numberOfPages - 1 {
             self.dismiss(animated: true, completion: nil)
         } else {
-            self.scrollNext()
+            scrollToViewController(index: pageControl.currentPage + 1)
         }
     }
     
@@ -44,7 +44,6 @@ class FrePageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
         dataSource = self
         
         // when view.background color is not set, part of the mainViewController is visible when present modally UIPageViewController, by default view.background is transperent.
@@ -59,12 +58,6 @@ class FrePageViewController: UIPageViewController {
         super.viewDidLayoutSubviews()
         pageControl.currentPageIndicatorTintColor = .primaryText
         pageControl.pageIndicatorTintColor = .secondaryText
-    }
-    
-    func scrollNext() {
-        if pageControl.currentPage < pageControl.numberOfPages - 1 {
-            scrollToViewController(index: pageControl.currentPage + 1)
-        }
     }
     
     private func scrollToViewController(index: Int) {
@@ -83,23 +76,7 @@ class FrePageViewController: UIPageViewController {
 }
 
 //
-// MARK: - UIPageViewControllerDelegate
-//
-
-extension FrePageViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if finished {
-            if let viewController = viewControllers?.first {
-                if let viewControllerIndex = self.orderedViewControllers.firstIndex(of: viewController) {
-                    pageControl.currentPage = viewControllerIndex
-                }
-            }
-        }
-    }
-}
-
-//
-// MARK: - UIPageViewControllerDelegate
+// MARK: - UIPageViewControllerDataSource
 //
 
 extension FrePageViewController: UIPageViewControllerDataSource {
