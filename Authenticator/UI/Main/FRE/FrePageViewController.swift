@@ -11,10 +11,12 @@ import UIKit
 class FrePageViewController: UIPageViewController {
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        [self.createViewController(withIdentifier: "FreWelcomeViewController"),
-         self.createViewController(withIdentifier: "FreNfcViewController"),
-         self.createViewController(withIdentifier: "FreQRViewController"),
+        let viewControllers: [UIViewController?] = [
+            self.createViewController(withIdentifier: "FreWelcomeViewController"),
+            YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: "FreNfcViewController") : nil,
+            self.createViewController(withIdentifier: "FreQRViewController")
         ]
+        return viewControllers.compactMap { $0 }
     }()
     
     private var pageControl: UIPageControl? {
@@ -123,11 +125,8 @@ extension FrePageViewController: UIPageViewControllerDelegate {
                     }
                 }
             }
-            //self.notifyFreDelegate()
         }
     }
-    
-    
 }
 
 //

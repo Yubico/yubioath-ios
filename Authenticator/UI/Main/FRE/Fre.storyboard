@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqH-ut-UBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2094" y="-1339"/>
+            <point key="canvasLocation" x="1345" y="-1339"/>
         </scene>
         <!--Fre Page View Controller-->
         <scene sceneID="jCS-nU-7vP">
@@ -103,18 +103,18 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
-                                        <rect key="frame" x="24" y="194" width="366" height="600"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
+                                        <rect key="frame" x="24" y="194" width="366" height="416"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="75"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="138.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
-                                                <rect key="frame" x="0.0" y="85" width="366" height="119"/>
+                                                <rect key="frame" x="0.0" y="138.5" width="366" height="139"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <string key="text">Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. </string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -122,7 +122,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
-                                                <rect key="frame" x="0.0" y="214" width="366" height="386"/>
+                                                <rect key="frame" x="0.0" y="277.5" width="366" height="138.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -138,7 +138,7 @@
                                     <constraint firstItem="ub0-A4-vpe" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leading" constant="24" id="MmQ-Z1-rtQ"/>
                                     <constraint firstItem="ub0-A4-vpe" firstAttribute="top" secondItem="2OQ-lF-PWA" secondAttribute="top" constant="24" id="TP5-yQ-DSX"/>
                                     <constraint firstItem="Hen-Fh-eKN" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="hg7-2f-ISn"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Hen-Fh-eKN" secondAttribute="bottom" constant="16" id="rp1-xt-inx"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Hen-Fh-eKN" secondAttribute="bottom" constant="200" id="rp1-xt-inx"/>
                                     <constraint firstItem="Hen-Fh-eKN" firstAttribute="top" secondItem="ub0-A4-vpe" secondAttribute="bottom" constant="40" id="sV0-LW-iel"/>
                                 </constraints>
                             </view>
@@ -220,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqD-aa-CWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1326" y="-1339"/>
+            <point key="canvasLocation" x="2128" y="-1339"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cN6-XN-tgq">
