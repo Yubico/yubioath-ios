@@ -9,19 +9,16 @@
 import UIKit
 
 /*
- This class is presenting UIPageController with Firs User Experience information about app and feauters on first install. It's using 3 ViewControllers that you can scroll through with options of skipping or swiping down or using NextBarButton to go to the next page. It's located in Fre.storyboard and presented modally from MainViewController using segue
+ This class is presenting UIPageController with First User Experience information about app and features on first install. It's using 3 ViewControllers that you can scroll through with options of skipping or swiping down or using NextBarButton to go to the next page. It's located in Fre.storyboard and presented modally from MainViewController using segue
  */
 
 class FrePageViewController: UIPageViewController {
-    
-    @IBOutlet weak var nextBarButton: UIBarButtonItem!
-    @IBOutlet weak var skipBarButton: UIBarButtonItem!
     
     @IBAction func next(_ sender: Any) {
         if pageControl.currentPage == pageControl.numberOfPages - 1 {
             self.dismiss(animated: true, completion: nil)
         } else {
-            scrollToViewController(index: pageControl.currentPage + 1)
+            scrollNext(index: pageControl.currentPage + 1)
         }
     }
     
@@ -38,6 +35,7 @@ class FrePageViewController: UIPageViewController {
         return viewControllers.compactMap { $0 }
     }()
     
+    // invoking manually since UIPageViewController doesn't let to add pageControl to itself via storyboard because it's already there but is not visible under UIPageViewController elements hierarchy in storyboard.
     private var pageControl: UIPageControl {
         return view.subviews.first(where: { $0 is UIPageControl}) as! UIPageControl
     }
@@ -49,18 +47,17 @@ class FrePageViewController: UIPageViewController {
         // when view.background color is not set, part of the mainViewController is visible when present modally UIPageViewController, by default view.background is transperent.
         self.view.backgroundColor = .background
         
-        if let initialViewController = orderedViewControllers.first {
-            setViewControllers([initialViewController], direction: .forward, animated: true, completion: nil)
-        }
+        setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        // when indicator colors are not set, pageControl is not visible in light mode
         pageControl.currentPageIndicatorTintColor = .primaryText
         pageControl.pageIndicatorTintColor = .secondaryText
     }
     
-    private func scrollToViewController(index: Int) {
+    private func scrollNext(index: Int) {
         if let firstViewController = viewControllers?.first, let currentIndex = orderedViewControllers.firstIndex(of: firstViewController) {
             let direction: UIPageViewController.NavigationDirection = index >= currentIndex ? .forward : .reverse
             let nextViewController = orderedViewControllers[index]

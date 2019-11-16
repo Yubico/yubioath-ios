@@ -75,7 +75,6 @@
         <!--Fre Page View Controller-->
         <scene sceneID="jCS-nU-7vP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fv2-AP-3Mo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="FrePageViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="jVl-UO-t9f">
                         <barButtonItem key="leftBarButtonItem" title="Skip" id="IVf-FH-Iqr">
@@ -91,11 +90,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="nextBarButton" destination="N2W-CE-fPm" id="FFg-2C-kVo"/>
-                        <outlet property="skipBarButton" destination="IVf-FH-Iqr" id="Cdf-9g-Ff7"/>
-                    </connections>
                 </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv2-AP-3Mo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-301" y="-1339"/>
         </scene>
