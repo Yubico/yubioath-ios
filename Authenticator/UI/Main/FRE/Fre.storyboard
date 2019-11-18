@@ -90,6 +90,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="nextBarButton" destination="N2W-CE-fPm" id="Y9X-R6-pcT"/>
+                        <outlet property="skipBarButton" destination="IVf-FH-Iqr" id="ayX-HN-nki"/>
+                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fv2-AP-3Mo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

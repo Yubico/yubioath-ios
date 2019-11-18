@@ -12,34 +12,35 @@ import Foundation
  Using UserDefaults as permanent storage
  */
 class SettingsConfig {
-    static private let NO_SERVICE_WARNING = "nfcwarning"
-    static private let ALLOW_BACKUP = "backup"
-    static private let FRE_SHOWN = "freShown"
+    static private let noServiceWarning = "nfcwarning"
+    static private let allowBackup = "backup"
+    static private let freShown = "freShown"
 
-    static var showNoServiceWarning : Bool {
+    static var showNoServiceWarning: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: NO_SERVICE_WARNING)
+            return UserDefaults.standard.bool(forKey: noServiceWarning)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: NO_SERVICE_WARNING)
+            UserDefaults.standard.set(newValue, forKey: noServiceWarning)
         }
     }
     
-    static var showBackupWarning : Bool {
+    static var showBackupWarning: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: ALLOW_BACKUP)
+            return UserDefaults.standard.bool(forKey: allowBackup)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: ALLOW_BACKUP)
+            UserDefaults.standard.set(newValue, forKey: allowBackup)
         }
     }
     
     static var isFreShown : Bool {
         get {
-            return UserDefaults.standard.bool(forKey: FRE_SHOWN)
+            return UserDefaults.standard.bool(forKey: freShown)
+
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: FRE_SHOWN)
+            UserDefaults.standard.set(newValue, forKey: freShown)
         }
     }
 }
