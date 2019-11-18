@@ -187,7 +187,7 @@ class MainViewController: BaseOATHVIewController {
     
     // MARK: - private methods
     private func scanQR() {
-        YubiKitManager.shared.qrReaderSession.scanQrCode(withPresenter: self) {
+        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
             [weak self] (payload, error) in
             guard self != nil else {
                 return
