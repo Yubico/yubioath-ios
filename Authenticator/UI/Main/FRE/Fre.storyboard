@@ -35,7 +35,7 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan Key" translatesAutoresizingMaskIntoConstraints="NO" id="dJv-0x-gPf">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="280"/>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hold NFC key against the back of your NFC-enabled phone to authenticate." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngW-Cj-tgP">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Hold NFC key against the back of your NFC-enabled phone to authenticate." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngW-Cj-tgP">
                                                 <rect key="frame" x="0.0" y="320" width="366" height="280"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -120,26 +120,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
-                                        <rect key="frame" x="24" y="194" width="366" height="416"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
+                                        <rect key="frame" x="24" y="194" width="366" height="456"/>
                                         <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="125.5"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="144"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
-                                                <rect key="frame" x="0.0" y="145.5" width="366" height="125"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
+                                                <rect key="frame" x="0.0" y="156" width="366" height="144"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <string key="text">Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. </string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
-                                                <rect key="frame" x="0.0" y="290.5" width="366" height="125.5"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
+                                                <rect key="frame" x="0.0" y="312" width="366" height="144"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -151,11 +151,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="Hen-Fh-eKN" secondAttribute="trailing" constant="16" id="11E-uo-GPC"/>
-                                    <constraint firstItem="Hen-Fh-eKN" firstAttribute="centerX" secondItem="2OQ-lF-PWA" secondAttribute="centerX" id="IHT-Di-iIr"/>
                                     <constraint firstItem="ub0-A4-vpe" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leading" constant="24" id="MmQ-Z1-rtQ"/>
                                     <constraint firstItem="ub0-A4-vpe" firstAttribute="top" secondItem="2OQ-lF-PWA" secondAttribute="top" constant="24" id="TP5-yQ-DSX"/>
                                     <constraint firstItem="Hen-Fh-eKN" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="hg7-2f-ISn"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Hen-Fh-eKN" secondAttribute="bottom" constant="200" id="rp1-xt-inx"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Hen-Fh-eKN" secondAttribute="bottom" constant="160" id="rp1-xt-inx"/>
                                     <constraint firstItem="Hen-Fh-eKN" firstAttribute="top" secondItem="ub0-A4-vpe" secondAttribute="bottom" constant="40" id="sV0-LW-iel"/>
                                 </constraints>
                             </view>
@@ -202,7 +201,7 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan QR" translatesAutoresizingMaskIntoConstraints="NO" id="PHL-Ex-RSX">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="280"/>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Scan a QR code provided by your service provider when you add the new key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efa-vO-thx">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Scan a QR code provided by your service provider when you add the new key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efa-vO-thx">
                                                 <rect key="frame" x="0.0" y="320" width="366" height="280"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>

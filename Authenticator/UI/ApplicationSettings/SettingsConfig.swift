@@ -14,7 +14,7 @@ import Foundation
 class SettingsConfig {
     static private let noServiceWarning = "nfcwarning"
     static private let allowBackup = "backup"
-    static private let freShown = "freShown"
+    static private let freVersion = "freVersion"
 
     static var showNoServiceWarning: Bool {
         get {
@@ -34,13 +34,12 @@ class SettingsConfig {
         }
     }
     
-    static var isFreShown : Bool {
+    static var lastFreVersionShown : Int {
         get {
-            return UserDefaults.standard.bool(forKey: freShown)
-
+            return UserDefaults.standard.integer(forKey: freVersion)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: freShown)
+            UserDefaults.standard.set(newValue, forKey: freVersion)
         }
     }
 }

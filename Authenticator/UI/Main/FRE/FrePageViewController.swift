@@ -19,10 +19,7 @@ class FrePageViewController: UIPageViewController {
     
     @IBAction func next(_ sender: Any) {
         if let currentViewController = viewControllers?[0], let nextViewController = pageViewController(self, viewControllerAfter: currentViewController) {
-            if nextViewController == orderedViewControllers.last {
-                self.nextBarButton.isEnabled = false
-                self.skipBarButton.title = "Done"
-            }
+            setNavigationBar(nextViewController: nextViewController)
             setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
         }
     }
@@ -31,13 +28,19 @@ class FrePageViewController: UIPageViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // Will use this property to manage FRE pages in the future releases.
+    var userFreVersion = 0
+    
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        let viewControllers: [UIViewController?] = [
-            self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
-            YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
-            self.createViewController(withIdentifier: FreQRViewController.identifier)
-        ]
-        return viewControllers.compactMap { $0 }
+        if .freVersion > userFreVersion {
+            let viewControllers: [UIViewController?] = [
+                self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
+                YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
+                self.createViewController(withIdentifier: FreQRViewController.identifier)
+            ]
+            return viewControllers.compactMap { $0 }
+        }
+        return []
     }()
     
     // Invoking manually since UIPageViewController doesn't let to add pageControl
@@ -67,6 +70,16 @@ class FrePageViewController: UIPageViewController {
         pageControl.pageIndicatorTintColor = .secondaryText
     }
     
+    // When it's the last page changing 'Skip' to 'Done' and disabling 'Next'.
+    private func setNavigationBar(nextViewController: UIViewController) {
+        if nextViewController == orderedViewControllers.last {
+            self.nextBarButton.isEnabled = false
+            self.skipBarButton.title = "Done"
+        } else {
+            self.nextBarButton.isEnabled = true
+        }
+    }
+    
     private func createViewController(withIdentifier id: String) -> UIViewController {
         let stboard = UIStoryboard(name: "Fre", bundle: nil)
         return stboard.instantiateViewController(withIdentifier: id)
@@ -78,13 +91,9 @@ class FrePageViewController: UIPageViewController {
 //
 
 extension FrePageViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if finished && viewControllers?.first == orderedViewControllers.last {
-            self.nextBarButton.isEnabled = false
-            self.skipBarButton.title = "Done"
-        } else {
-            self.nextBarButton.isEnabled = true
-        }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        setNavigationBar(nextViewController: pendingViewControllers[0])
     }
 }
 
