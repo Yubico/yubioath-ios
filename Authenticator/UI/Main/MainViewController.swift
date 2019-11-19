@@ -232,11 +232,7 @@ class MainViewController: BaseOATHVIewController {
         tableView.reloadData()
     }
     
-    @objc func refreshData() {
-        if (YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn) {
-            viewModel.cleanUp()
-        }
-        
+    @objc func refreshData() {       
         if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             viewModel.calculateAll()
         }
