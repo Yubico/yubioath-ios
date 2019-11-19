@@ -29,6 +29,16 @@ extension UIColor {
         }
     }
     
+    static var background: UIColor {
+        get {
+            if #available(iOS 13.0, *) {
+                return UIColor.systemBackground
+            } else {
+                return UIColor.white
+            }
+        }
+    }
+    
     static var yubiBlue: UIColor {
         get {
             guard let color = UIColor(named: "YubiBlue") else {
