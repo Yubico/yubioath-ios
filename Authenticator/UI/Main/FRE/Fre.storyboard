@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,41 +20,70 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfr-Ls-d7G">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NFC Support" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmV-7R-faG">
-                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YubiKey 5 Series NFC authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ew-5d-tth">
+                                        <rect key="frame" x="27" y="60" width="360" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="260" id="270-Fs-m32"/>
-                                            <constraint firstAttribute="height" constant="130" id="WOz-5y-PJH"/>
+                                            <constraint firstAttribute="height" constant="60" id="hdA-Jy-eXN"/>
+                                            <constraint firstAttribute="width" constant="360" id="m4R-Ay-R4M"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="05q-ze-jOk">
-                                        <rect key="frame" x="24" y="194" width="366" height="600"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan Key" translatesAutoresizingMaskIntoConstraints="NO" id="dJv-0x-gPf">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="280"/>
-                                            </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Hold NFC key against the back of your NFC-enabled phone to authenticate." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngW-Cj-tgP">
-                                                <rect key="frame" x="0.0" y="320" width="366" height="280"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan Key" translatesAutoresizingMaskIntoConstraints="NO" id="NrX-PD-IYK">
+                                        <rect key="frame" x="0.0" y="180" width="364" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="nAL-4y-UBC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC. hold it horizontally." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zvy-Qt-GJA">
+                                        <rect key="frame" x="24" y="592" width="366" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="3b5-li-3vL"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Tilt the iPhone towards the key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxy-Ot-GLA">
+                                        <rect key="frame" x="24" y="660" width="366" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Gd5-Kj-nhC"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Touch the center of the key to the edge of the phone." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkN-Lk-jMY">
+                                        <rect key="frame" x="24" y="708" width="366" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="hiS-gQ-bAW"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="XmV-7R-faG" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leading" constant="24" id="I00-fH-PeO"/>
-                                    <constraint firstItem="05q-ze-jOk" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="JAJ-bM-VQc"/>
-                                    <constraint firstItem="XmV-7R-faG" firstAttribute="top" secondItem="zfr-Ls-d7G" secondAttribute="top" constant="24" id="JzP-ip-b06"/>
-                                    <constraint firstItem="05q-ze-jOk" firstAttribute="top" secondItem="XmV-7R-faG" secondAttribute="bottom" constant="40" id="SDy-wM-eEv"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="05q-ze-jOk" secondAttribute="trailing" constant="16" id="TdT-x4-3bd"/>
-                                    <constraint firstItem="05q-ze-jOk" firstAttribute="centerX" secondItem="zfr-Ls-d7G" secondAttribute="centerX" id="dh9-hA-fEN"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="05q-ze-jOk" secondAttribute="bottom" constant="16" id="ntI-uM-YGE"/>
+                                    <constraint firstItem="0Ew-5d-tth" firstAttribute="centerX" secondItem="zfr-Ls-d7G" secondAttribute="centerX" id="1oP-eb-5Hc"/>
+                                    <constraint firstItem="NrX-PD-IYK" firstAttribute="top" secondItem="0Ew-5d-tth" secondAttribute="bottom" constant="60" id="2ev-DK-9HC"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Bxy-Ot-GLA" secondAttribute="trailing" constant="16" id="4zY-g2-fTh"/>
+                                    <constraint firstItem="Bxy-Ot-GLA" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="9PR-Vg-ooO"/>
+                                    <constraint firstItem="Zvy-Qt-GJA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NrX-PD-IYK" secondAttribute="bottom" constant="100" id="KqT-Vs-fU7"/>
+                                    <constraint firstItem="bkN-Lk-jMY" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="TnD-PW-dhZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="bkN-Lk-jMY" secondAttribute="bottom" constant="40" id="Ucs-ee-LlW"/>
+                                    <constraint firstAttribute="trailing" secondItem="NrX-PD-IYK" secondAttribute="trailing" constant="50" id="cg6-eh-3ss"/>
+                                    <constraint firstItem="0Ew-5d-tth" firstAttribute="top" secondItem="zfr-Ls-d7G" secondAttribute="top" constant="60" id="cmf-UN-FOb"/>
+                                    <constraint firstItem="NrX-PD-IYK" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leading" id="nOd-zK-u1c"/>
+                                    <constraint firstItem="bkN-Lk-jMY" firstAttribute="top" secondItem="Bxy-Ot-GLA" secondAttribute="bottom" constant="8" id="oke-Tx-vWb"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Zvy-Qt-GJA" secondAttribute="trailing" constant="16" id="sBz-Ft-Htt"/>
+                                    <constraint firstItem="Zvy-Qt-GJA" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="svJ-ed-I4k"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="bkN-Lk-jMY" secondAttribute="trailing" constant="16" id="wPJ-CY-ofM"/>
+                                    <constraint firstItem="Bxy-Ot-GLA" firstAttribute="top" secondItem="Zvy-Qt-GJA" secondAttribute="bottom" constant="8" id="x0d-H2-6eI"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -70,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqH-ut-UBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1345" y="-1339"/>
+            <point key="canvasLocation" x="2111.594202898551" y="-1339.2857142857142"/>
         </scene>
         <!--Fre Page View Controller-->
         <scene sceneID="jCS-nU-7vP">
@@ -103,59 +133,66 @@
         <scene sceneID="d8z-vL-FXx">
             <objects>
                 <viewController storyboardIdentifier="FreWelcomeViewController" id="5Xb-Tm-822" customClass="FreWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PeX-o2-9zN">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="PeX-o2-9zN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OQ-lF-PWA">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OQ-lF-PWA">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ub0-A4-vpe">
-                                        <rect key="frame" x="24" y="24" width="260" height="130"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How it works" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ub0-A4-vpe">
+                                        <rect key="frame" x="24" y="60" width="366" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="02N-qz-y9A"/>
-                                            <constraint firstAttribute="width" constant="260" id="9is-NS-t0x"/>
+                                            <constraint firstAttribute="height" constant="32" id="Ja1-lW-9rC"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Hen-Fh-eKN">
-                                        <rect key="frame" x="24" y="194" width="366" height="456"/>
-                                        <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This app requires a YubiKey with CCID/OTP cpabilities." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-em-i8E">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="144"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
-                                                <rect key="frame" x="0.0" y="156" width="366" height="144"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <string key="text">Many 2FA enabled websites will provide a shared secret which then can be used to generate security codes. This app will display such codes. </string>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Instead of storing the sensitive secrets on your phone, secrets wil be safely stored in a secure element inside the YubiKey." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
-                                                <rect key="frame" x="0.0" y="312" width="366" height="144"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoAccounts" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-vv-YCZ">
+                                        <rect key="frame" x="57" y="152" width="300" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="9ct-mQ-ocZ"/>
+                                            <constraint firstAttribute="width" constant="300" id="USH-yX-EAw"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
+                                        <rect key="frame" x="24" y="560" width="366" height="140"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="140" id="hW4-wx-wlr"/>
+                                        </constraints>
+                                        <string key="text">Get a shared credential from any service you wish to secure, store it on the YubiKey and use it to generate your security codes. Stoting your credentials on the YubiKey is the safest method.</string>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="*You will need a YubiKey 5Ci or any YubiKey 5 Series NFC key to get started." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
+                                        <rect key="frame" x="24" y="708" width="366" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="kB7-k2-8EN"/>
+                                        </constraints>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Hen-Fh-eKN" secondAttribute="trailing" constant="16" id="11E-uo-GPC"/>
-                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leading" constant="24" id="MmQ-Z1-rtQ"/>
-                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="top" secondItem="2OQ-lF-PWA" secondAttribute="top" constant="24" id="TP5-yQ-DSX"/>
-                                    <constraint firstItem="Hen-Fh-eKN" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="hg7-2f-ISn"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Hen-Fh-eKN" secondAttribute="bottom" constant="160" id="rp1-xt-inx"/>
-                                    <constraint firstItem="Hen-Fh-eKN" firstAttribute="top" secondItem="ub0-A4-vpe" secondAttribute="bottom" constant="40" id="sV0-LW-iel"/>
+                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="4B4-Ka-gkZ"/>
+                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="centerX" secondItem="2OQ-lF-PWA" secondAttribute="centerX" id="7ML-7k-tmT"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="ub0-A4-vpe" secondAttribute="trailing" constant="16" id="A6B-yo-6ZD"/>
+                                    <constraint firstItem="bYg-TD-NqH" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="Gct-gq-fqE"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="agV-vn-fpt" secondAttribute="trailing" constant="16" id="Gw3-zM-UHs"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="bYg-TD-NqH" secondAttribute="trailing" constant="16" id="OjS-SZ-eG8"/>
+                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="top" secondItem="2OQ-lF-PWA" secondAttribute="top" constant="60" id="TP5-yQ-DSX"/>
+                                    <constraint firstItem="bYg-TD-NqH" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1gK-vv-YCZ" secondAttribute="bottom" constant="100" id="UaI-Jp-tar"/>
+                                    <constraint firstItem="agV-vn-fpt" firstAttribute="top" secondItem="bYg-TD-NqH" secondAttribute="bottom" constant="8" id="Uty-7g-H6z"/>
+                                    <constraint firstAttribute="bottom" secondItem="agV-vn-fpt" secondAttribute="bottom" constant="40" id="eOo-62-JNb"/>
+                                    <constraint firstItem="1gK-vv-YCZ" firstAttribute="top" secondItem="ub0-A4-vpe" secondAttribute="bottom" constant="60" id="fZw-Gs-F2S"/>
+                                    <constraint firstItem="agV-vn-fpt" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="gTF-hm-qwr"/>
+                                    <constraint firstItem="1gK-vv-YCZ" firstAttribute="centerX" secondItem="2OQ-lF-PWA" secondAttribute="centerX" id="lnv-eq-CN4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -185,41 +222,58 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-H3-WSN">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Codes" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z5K-cD-Mkd">
-                                        <rect key="frame" x="24" y="24" width="210" height="130"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where to get QR codes" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-K8-lGO">
+                                        <rect key="frame" x="24" y="60" width="366" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="Bfn-Vm-QUB"/>
-                                            <constraint firstAttribute="width" constant="210" id="bxJ-av-f5H"/>
+                                            <constraint firstAttribute="height" constant="32" id="U7Q-Je-NWj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
-                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="yzl-Sx-jyS">
-                                        <rect key="frame" x="24" y="194" width="366" height="600"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan QR" translatesAutoresizingMaskIntoConstraints="NO" id="PHL-Ex-RSX">
-                                                <rect key="frame" x="0.0" y="0.0" width="366" height="280"/>
-                                            </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Scan a QR code provided by your service provider when you add the new key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efa-vO-thx">
-                                                <rect key="frame" x="0.0" y="320" width="366" height="280"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scan QR" translatesAutoresizingMaskIntoConstraints="NO" id="m5C-iy-rJD">
+                                        <rect key="frame" x="57" y="152" width="300" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="Klu-y1-XuA"/>
+                                            <constraint firstAttribute="width" constant="300" id="cTf-bv-j0h"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Simply scan the QR code when you add your YubiKey and generate your own security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBh-MF-9Fk">
+                                        <rect key="frame" x="24" y="688" width="366" height="90"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="FFx-Sl-yqP"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="QR codes are avalible from the services you wish to secure." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-Sg-vD2">
+                                        <rect key="frame" x="24" y="620" width="366" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="meF-a3-ypL"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="yzl-Sx-jyS" secondAttribute="trailing" constant="16" id="CkS-2E-aKs"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="yzl-Sx-jyS" secondAttribute="bottom" constant="16" id="IgL-zg-iUW"/>
-                                    <constraint firstItem="yzl-Sx-jyS" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="R5T-AD-GQg"/>
-                                    <constraint firstItem="Z5K-cD-Mkd" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leading" constant="24" id="RA1-5N-VRr"/>
-                                    <constraint firstItem="yzl-Sx-jyS" firstAttribute="top" secondItem="Z5K-cD-Mkd" secondAttribute="bottom" constant="40" id="hqZ-4h-fEz"/>
-                                    <constraint firstItem="yzl-Sx-jyS" firstAttribute="centerX" secondItem="UZW-H3-WSN" secondAttribute="centerX" id="jtT-4w-I4R"/>
-                                    <constraint firstItem="Z5K-cD-Mkd" firstAttribute="top" secondItem="UZW-H3-WSN" secondAttribute="top" constant="24" id="p1I-Wv-gBu"/>
+                                    <constraint firstItem="m5C-iy-rJD" firstAttribute="top" secondItem="RUl-K8-lGO" secondAttribute="bottom" constant="60" id="2HM-xJ-fV1"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="centerX" secondItem="UZW-H3-WSN" secondAttribute="centerX" id="Crg-p0-vK3"/>
+                                    <constraint firstItem="jBh-MF-9Fk" firstAttribute="top" secondItem="cSo-Sg-vD2" secondAttribute="bottom" constant="8" id="H1k-F4-oVh"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="jBh-MF-9Fk" secondAttribute="trailing" constant="16" id="Ja5-Vg-bFp"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="top" secondItem="UZW-H3-WSN" secondAttribute="top" constant="60" id="Nqa-lY-rKL"/>
+                                    <constraint firstItem="m5C-iy-rJD" firstAttribute="centerX" secondItem="UZW-H3-WSN" secondAttribute="centerX" id="P5F-Se-iyf"/>
+                                    <constraint firstItem="cSo-Sg-vD2" firstAttribute="top" relation="greaterThanOrEqual" secondItem="m5C-iy-rJD" secondAttribute="bottom" constant="100" id="VI1-cu-7Ju"/>
+                                    <constraint firstAttribute="bottom" secondItem="jBh-MF-9Fk" secondAttribute="bottom" constant="40" id="Z6F-ch-Y5L"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="cSo-Sg-vD2" secondAttribute="trailing" constant="16" id="eze-E0-crV"/>
+                                    <constraint firstItem="cSo-Sg-vD2" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="nW2-BQ-nrq"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="RUl-K8-lGO" secondAttribute="trailing" constant="16" id="qKI-Ng-oC8"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="sFt-oy-0ZH"/>
+                                    <constraint firstItem="jBh-MF-9Fk" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="x5H-VH-aSx"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -236,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqD-aa-CWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2128" y="-1339"/>
+            <point key="canvasLocation" x="2895.6521739130435" y="-1339.2857142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cN6-XN-tgq">
@@ -256,9 +310,95 @@
             </objects>
             <point key="canvasLocation" x="-1254" y="-1339"/>
         </scene>
+        <!--Fre5 Ci View Controller-->
+        <scene sceneID="4q3-LE-id7">
+            <objects>
+                <viewController storyboardIdentifier="Fre5CiViewController" id="kkp-Ao-3KZ" customClass="Fre5CiViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SLj-kf-UpP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27b-Wg-3iK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YubiKey 5Ci authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdG-o8-OXh">
+                                        <rect key="frame" x="24" y="60" width="366" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="0sO-IH-Ot2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" scrollEnabled="NO" editable="NO" text="If you have a YubiKey 5Ci, plug it in." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWb-g8-FRF">
+                                        <rect key="frame" x="24" y="660" width="366" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="v7m-Cl-ARM"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Touch the contacts on the sides when prompted." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paz-Es-tja">
+                                        <rect key="frame" x="24" y="708" width="366" height="70"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="1ns-VH-gs8"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InsertKey" translatesAutoresizingMaskIntoConstraints="NO" id="uJY-Sf-sBz">
+                                        <rect key="frame" x="57" y="152" width="300" height="300"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="eY8-O1-YbY"/>
+                                            <constraint firstAttribute="width" constant="300" id="isY-49-enu"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="centerX" secondItem="27b-Wg-3iK" secondAttribute="centerX" id="8TV-fB-IdR"/>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="IFh-zX-Ldh"/>
+                                    <constraint firstItem="uJY-Sf-sBz" firstAttribute="centerX" secondItem="27b-Wg-3iK" secondAttribute="centerX" id="P2B-2E-w0L"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Paz-Es-tja" secondAttribute="trailing" constant="16" id="SMU-TI-HhE"/>
+                                    <constraint firstItem="Paz-Es-tja" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="Tgb-M5-bLg"/>
+                                    <constraint firstItem="Paz-Es-tja" firstAttribute="top" secondItem="KWb-g8-FRF" secondAttribute="bottom" constant="8" id="V2b-It-lB5"/>
+                                    <constraint firstItem="KWb-g8-FRF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="uJY-Sf-sBz" secondAttribute="bottom" constant="100" id="Yp3-jj-6mM"/>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="top" secondItem="27b-Wg-3iK" secondAttribute="top" constant="60" id="YyX-7p-o4G"/>
+                                    <constraint firstAttribute="bottom" secondItem="Paz-Es-tja" secondAttribute="bottom" constant="40" id="h2M-k8-vvW"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="KWb-g8-FRF" secondAttribute="trailing" constant="16" id="mdz-pT-F3r"/>
+                                    <constraint firstItem="uJY-Sf-sBz" firstAttribute="top" secondItem="mdG-o8-OXh" secondAttribute="bottom" constant="60" id="qPB-iz-VY4"/>
+                                    <constraint firstItem="KWb-g8-FRF" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="xIB-g6-X1c"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="mdG-o8-OXh" secondAttribute="trailing" constant="16" id="xkr-EQ-QdK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="leading" secondItem="wi6-ZF-chH" secondAttribute="leading" id="D7w-my-Nsd"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="trailing" secondItem="wi6-ZF-chH" secondAttribute="trailing" id="YCk-p5-znk"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="top" secondItem="wi6-ZF-chH" secondAttribute="top" id="mR1-RO-QCb"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="bottom" secondItem="wi6-ZF-chH" secondAttribute="bottom" id="uw5-Jj-nYs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wi6-ZF-chH"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5sy-f9-pMg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGt-tp-lOj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1324.6376811594205" y="-1339.2857142857142"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="InsertKey" width="39" height="124"/>
+        <image name="NoAccounts" width="98" height="65"/>
         <image name="Scan Key" width="369" height="379"/>
         <image name="Scan QR" width="336" height="662"/>
+        <namedColor name="YubiBlue">
+            <color red="0.19607843137254902" green="0.37254901960784315" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

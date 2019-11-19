@@ -48,6 +48,15 @@ extension UIColor {
         }
     }
     
+    static var yubiGreen: UIColor {
+        get {
+            guard let color = UIColor(named: "YubiGreen") else {
+                return UIColor.primaryText
+            }
+            return color
+        }
+    }
+    
     static var colorSetForAccountIcons = [UIColor(named: "Color1"),
                                           UIColor(named: "Color2"),
                                           UIColor(named: "Color3"),

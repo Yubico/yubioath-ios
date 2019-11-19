@@ -35,6 +35,7 @@ class FrePageViewController: UIPageViewController {
         if .freVersion > userFreVersion {
             let viewControllers: [UIViewController?] = [
                 self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
+                self.createViewController(withIdentifier: Fre5CiViewController.identifier),
                 YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
                 self.createViewController(withIdentifier: FreQRViewController.identifier)
             ]
@@ -66,7 +67,7 @@ class FrePageViewController: UIPageViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // when indicator colors are not set, pageControl is not visible in light mode
-        pageControl.currentPageIndicatorTintColor = .primaryText
+        pageControl.currentPageIndicatorTintColor = .yubiGreen
         pageControl.pageIndicatorTintColor = .secondaryText
     }
     
