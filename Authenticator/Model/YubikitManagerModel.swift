@@ -276,15 +276,24 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
-            // if we've got NFC connection and code was not calculated with calculate all
-            // we can recalculate each individually (touch won't be required over NFC)
-            if !self.keyPluggedIn {
-                for credential in self._credentials {
-                    if credential.requiresRefresh {
-                        self.calculate(credential: credential)
-                    }
+            for credential in self._credentials {
+                // credentials that has period other than 30 seconds needs to be recalculated
+                // calculateAll assumes that every credential has period 30 seconds
+                if credential.period != Credential.DEFAULT_PERIOD {
+                    self.calculate(credential: credential)
+                }
+                // credentials that don't need to be truncated need to be reculculated as well
+                // calculateAll assumes that every credential needs to be truncated
+                if credential.isSteam {
+                    self.calculate(credential: credential)
+                }
+                // if we've got NFC connection and code was not calculated with calculate all
+                // we can recalculate each individually (touch won't be required over NFC)
+                if !self.keyPluggedIn && credential.requiresRefresh {
+                    self.calculate(credential: credential)
                 }
             }
+            
             
             // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
             self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
