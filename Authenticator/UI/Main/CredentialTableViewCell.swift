@@ -22,18 +22,7 @@ class CredentialTableViewCell: UITableViewCell {
     private var otpObservation: NSKeyValueObservation?
     private var progressObservation: NSKeyValueObservation?
 
-    // picking up color for icon from set of colors using hash of unique Id,
-    // so that user keeps seeing the same color for item every time he launches the app
-    // and we don't need to have map between credential and colors
-    private var credentialIconColor: UIColor {
-        get {
-            if let credential = self.credential {
-                let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
-                return UIColor.colorSetForAccountIcons[value]
-            }
-            return UIColor.primaryText
-        }
-    }
+    private var credentialIconColor: UIColor = .primaryText
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,6 +42,8 @@ class CredentialTableViewCell: UITableViewCell {
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
+        
+        self.getCredentiaIconlColor()
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.tintColor = self.credentialIconColor
         progress.setupView()
@@ -61,6 +52,16 @@ class CredentialTableViewCell: UITableViewCell {
 
         setupModelObservation()
     }
+    
+    // picking up color for icon from set of colors using hash of unique Id,
+    // so that user keeps seeing the same color for item every time he launches the app
+    // and we don't need to have map between credential and colors
+      private func getCredentiaIconlColor() {
+          if let credential = self.credential {
+              let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+              self.credentialIconColor = UIColor.colorSetForAccountIcons[value]
+          }
+      }
     
     // MARK: - Model Observation
     // this allows you to avoid reloading tableview when data in specific credential changes
