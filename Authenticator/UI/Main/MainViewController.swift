@@ -233,6 +233,10 @@ class MainViewController: BaseOATHVIewController {
     }
     
     @objc func refreshData() {
+        if (YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn) {
+            viewModel.cleanUp()
+        }
+        
         if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             viewModel.calculateAll()
         }
@@ -373,7 +377,7 @@ class MainViewController: BaseOATHVIewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
