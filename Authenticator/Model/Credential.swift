@@ -169,7 +169,7 @@ class Credential: NSObject {
         var steamCode = ""
         var intCode = Int(value) ?? 0
         for _ in 0...4 {
-            steamCode.append(Credential.STEAM_CHARS[intCode % STEAM_CHARS.count])
+            steamCode.append(Credential.STEAM_CHARS[abs(intCode) % STEAM_CHARS.count])
             intCode /= Credential.STEAM_CHARS.count
         }
         return steamCode
