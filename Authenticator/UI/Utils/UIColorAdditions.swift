@@ -48,7 +48,7 @@ extension UIColor {
         }
     }
     
-    static var colorSetForAccountIcons = [UIColor(named: "Color1"),
+    static let colorSetForAccountIcons = [UIColor(named: "Color1"),
                                           UIColor(named: "Color2"),
                                           UIColor(named: "Color3"),
                                           UIColor(named: "Color4"),
@@ -66,5 +66,5 @@ extension UIColor {
                                           UIColor(named: "Color16"),
                                           UIColor(named: "Color17"),
                                           UIColor(named: "Color18"),
-                                          UIColor(named: "Color19")]
+                                          UIColor(named: "Color19")].compactMap {$0}
 }
