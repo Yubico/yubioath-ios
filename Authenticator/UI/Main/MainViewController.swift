@@ -233,8 +233,10 @@ class MainViewController: BaseOATHVIewController {
     }
     
     @objc func refreshData() {       
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
             viewModel.calculateAll()
+        } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+            activateNfc()
         }
         refreshControl?.endRefreshing()
     }
@@ -384,10 +386,6 @@ class MainViewController: BaseOATHVIewController {
     
     @objc func onBackgroundClick() {
         switch viewModel.state {
-            case .idle:
-                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-                    self.activateNfc()
-                }
             case .loaded:
                 self.onAddCredentialClick(self)
             case .locked:
