@@ -43,7 +43,7 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
         
-        self.credentialIconColor = self.getCredentiaIconlColor()
+        self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.tintColor = self.credentialIconColor
         progress.setupView()
@@ -56,12 +56,9 @@ class CredentialTableViewCell: UITableViewCell {
     // picking up color for icon from set of colors using hash of unique Id,
     // so that user keeps seeing the same color for item every time he launches the app
     // and we don't need to have map between credential and colors
-    private func getCredentiaIconlColor() -> UIColor {
-        if let credential = self.credential {
-            let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
-            return UIColor.colorSetForAccountIcons[value]
-        }
-        return UIColor.primaryText
+    private func getCredentiaIconlColor(credential: Credential) -> UIColor {
+        let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+        return UIColor.colorSetForAccountIcons[value] ?? UIColor.primaryText
     }
     
     // MARK: - Model Observation

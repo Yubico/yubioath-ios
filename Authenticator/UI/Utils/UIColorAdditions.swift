@@ -66,5 +66,5 @@ extension UIColor {
                                           UIColor(named: "Color16"),
                                           UIColor(named: "Color17"),
                                           UIColor(named: "Color18"),
-                                          UIColor(named: "Color19")].compactMap {$0}
+                                          UIColor(named: "Color19")]
 }
