@@ -48,7 +48,7 @@ extension UIColor {
         }
     }
     
-    static var colorSetForAccountIcons = [UIColor(named: "Color1"),
+    static let colorSetForAccountIcons = [UIColor(named: "Color1"),
                                           UIColor(named: "Color2"),
                                           UIColor(named: "Color3"),
                                           UIColor(named: "Color4"),
