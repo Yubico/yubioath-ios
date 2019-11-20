@@ -99,7 +99,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     fatalError()
                 }
                 
-                if Ramps.showNoServiceWarning {
+                if SettingsConfig.showNoServiceWarning {
                     self.showAlertDialog(title: "", message: "Plug-in your YubiKey or activate NFC reading in application", nfcHandler: {[weak self] () -> Void in
                         self?.activateNfc()
                     })
@@ -151,7 +151,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         guard operation.operationName == .put else {
             return
         }
-        guard Ramps.showBackupWarning else {
+        guard SettingsConfig.showBackupWarning else {
             return
         }
         let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. \nDo you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")

@@ -11,7 +11,7 @@ import UIKit
 class SettingsViewController: BaseOATHVIewController {
     private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
     
-    private var appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    private var appVersion = UIApplication.appVersion
     private var systemVersion = UIDevice().systemVersion
     private var keySessionObserver: KeySessionObserver!
     

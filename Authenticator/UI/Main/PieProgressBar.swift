@@ -57,7 +57,7 @@ class PieProgressBar: UIView {
         return path.cgPath
     }
     
-    private func setupView() {
+    func setupView() {
         self.layer.sublayers = nil
 
         shapeLayer.path = getArchPath(progress: 1)

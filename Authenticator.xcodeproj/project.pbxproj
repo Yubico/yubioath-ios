@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60C2982511715138D25A735F /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95EFFD393BE5CCB160A57738 /* Pods_Authenticator.framework */; };
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
 		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
 		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
@@ -18,8 +19,6 @@
 		816C685023440D2200209342 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684F23440D2200209342 /* SecureStoreError.swift */; };
 		816C685223440EF900209342 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685123440EF900209342 /* SecureStoreTests.swift */; };
 		816C685E234697BF00209342 /* StorePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685D234697BE00209342 /* StorePreferences.swift */; };
-		817232472372332900694DF9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817232462372332900694DF9 /* StringExtension.swift */; };
-		817232492374C8D300694DF9 /* Ramps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817232482374C8D300694DF9 /* Ramps.swift */; };
 		817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */; };
 		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
@@ -46,8 +45,13 @@
 		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
+		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
+		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
-		FF58B9B4B1C25853EDA4868B /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AC3E16B16618ACA14C95EA /* Pods_Authenticator.framework */; };
+		A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */; };
+		A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */; };
+		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
+		A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +72,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		170104EA4F5A36E15A7F906B /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
 		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
@@ -80,8 +83,6 @@
 		816C684F23440D2200209342 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
 		816C685123440EF900209342 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
 		816C685D234697BE00209342 /* StorePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePreferences.swift; sourceTree = "<group>"; };
-		817232462372332900694DF9 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		817232482374C8D300694DF9 /* Ramps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ramps.swift; sourceTree = "<group>"; };
 		817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAdditions.swift; sourceTree = "<group>"; };
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -116,10 +117,17 @@
 		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
-		95D25418A7B05407126162B0 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
-		A5AC3E16B16618ACA14C95EA /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95EFFD393BE5CCB160A57738 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
+		A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
+		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
+		A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
+		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
+		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81DF8FE8237E1B6000737268 /* libYubiKit.a in Frameworks */,
-				FF58B9B4B1C25853EDA4868B /* Pods_Authenticator.framework in Frameworks */,
+				60C2982511715138D25A735F /* Pods_Authenticator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +157,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C05878C67054995188B04AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */,
+				D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		816C684423430DC000209342 /* SecureStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,8 +189,9 @@
 		817DBA0E2368B7BE001FC18D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				817232462372332900694DF9 /* StringExtension.swift */,
+				A591412023835F4600CCCF67 /* Constants.swift */,
 				817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */,
+				A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -186,7 +205,7 @@
 				818866B422DFD729006BC0A8 /* Products */,
 				818866EC22E1845B006BC0A8 /* Frameworks */,
 				81723245237231F100694DF9 /* Recovered References */,
-				8B2AF3B3D07A4AADC512D740 /* Pods */,
+				6C05878C67054995188B04AE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				81DF8FE7237E1B6000737268 /* libYubiKit.a */,
-				A5AC3E16B16618ACA14C95EA /* Pods_Authenticator.framework */,
+				95EFFD393BE5CCB160A57738 /* Pods_Authenticator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,6 +268,7 @@
 				81FA3C35231AF33E009C22AB /* Main */,
 				81FA3C30231AF198009C22AB /* ApplicationSettings */,
 				81FA3C2B2319839B009C22AB /* AddCredential */,
+				A5E9DEA2237A2C130011FBF4 /* FRE */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
 			);
@@ -300,8 +320,8 @@
 			children = (
 				811CD95622FB276A00E2BCBB /* SettingsViewController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
-				817232482374C8D300694DF9 /* Ramps.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
+				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -318,14 +338,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		8B2AF3B3D07A4AADC512D740 /* Pods */ = {
+		A5E9DEA2237A2C130011FBF4 /* FRE */ = {
 			isa = PBXGroup;
 			children = (
-				95D25418A7B05407126162B0 /* Pods-Authenticator.debug.xcconfig */,
-				170104EA4F5A36E15A7F906B /* Pods-Authenticator.release.xcconfig */,
+				A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */,
+				A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */,
+				A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */,
 			);
-			name = Pods;
-			path = Pods;
+			name = FRE;
+			path = Main/FRE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,6 +461,7 @@
 			files = (
 				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
+				A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,17 +513,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
+				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
-				817232472372332900694DF9 /* StringExtension.swift in Sources */,
+				A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
+				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
 				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
+				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
+				A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
@@ -509,7 +535,6 @@
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
-				817232492374C8D300694DF9 /* Ramps.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
@@ -696,7 +721,7 @@
 		};
 		818866DE22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95D25418A7B05407126162B0 /* Pods-Authenticator.debug.xcconfig */;
+			baseConfigurationReference = B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
@@ -722,7 +747,7 @@
 		};
 		818866DF22DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 170104EA4F5A36E15A7F906B /* Pods-Authenticator.release.xcconfig */;
+			baseConfigurationReference = D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;

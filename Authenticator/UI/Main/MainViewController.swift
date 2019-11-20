@@ -44,6 +44,15 @@ class MainViewController: BaseOATHVIewController {
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // UserDefaults will store the latest FRE version that was shown to user.
+        // For every new FRE in the future releases we're going to increase .freVersion by 1.
+        if .freVersion > SettingsConfig.lastFreVersionShown {
+            self.performSegue(withIdentifier: "StartFRE", sender: self)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         refreshUIOnKeyStateUpdate()
@@ -147,6 +156,16 @@ class MainViewController: BaseOATHVIewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == .startFRE {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let freViewController = destinationNavigationController.topViewController as? FrePageViewController {
+                // passing userFreVersion and then setting current freVersion to userDefaults.
+                freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
+                SettingsConfig.lastFreVersionShown = .freVersion
+            }
+        }
+        
         if segue.identifier == .addCredentialSequeID {
             let destinationNavigationController = segue.destination as! UINavigationController
             if let addViewController = destinationNavigationController.topViewController as? AddCredentialController, let credential = credentailToAdd {
@@ -232,9 +251,11 @@ class MainViewController: BaseOATHVIewController {
         tableView.reloadData()
     }
     
-    @objc func refreshData() {
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+    @objc func refreshData() {       
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
             viewModel.calculateAll()
+        } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+            activateNfc()
         }
         refreshControl?.endRefreshing()
     }
@@ -373,7 +394,7 @@ class MainViewController: BaseOATHVIewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
@@ -384,10 +405,6 @@ class MainViewController: BaseOATHVIewController {
     
     @objc func onBackgroundClick() {
         switch viewModel.state {
-            case .idle:
-                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-                    self.activateNfc()
-                }
             case .loaded:
                 self.onAddCredentialClick(self)
             case .locked:
