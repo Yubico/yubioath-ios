@@ -33,7 +33,7 @@ class CredentialTableViewCell: UITableViewCell {
         activityIndicator.startAnimating()
     }
     
-     // this method is invoked when table view reloaded and UI got data/list of credentials
+    // this method is invoked when table view reloaded and UI got data/list of credentials
     // each cell is responsible to show 1 credential and cell can be reused by updating credential with this method
     func updateView(credential: Credential) {
         self.credential = credential
@@ -43,7 +43,7 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
         
-        self.getCredentiaIconlColor()
+        self.credentialIconColor = self.getCredentiaIconlColor()
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.tintColor = self.credentialIconColor
         progress.setupView()
@@ -56,12 +56,13 @@ class CredentialTableViewCell: UITableViewCell {
     // picking up color for icon from set of colors using hash of unique Id,
     // so that user keeps seeing the same color for item every time he launches the app
     // and we don't need to have map between credential and colors
-      private func getCredentiaIconlColor() {
-          if let credential = self.credential {
-              let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
-              self.credentialIconColor = UIColor.colorSetForAccountIcons[value]
-          }
-      }
+    private func getCredentiaIconlColor() -> UIColor {
+        if let credential = self.credential {
+            let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+            return UIColor.colorSetForAccountIcons[value]
+        }
+        return UIColor.primaryText
+    }
     
     // MARK: - Model Observation
     // this allows you to avoid reloading tableview when data in specific credential changes
