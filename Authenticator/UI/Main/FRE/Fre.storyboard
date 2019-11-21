@@ -41,10 +41,10 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdG-yt-Z34">
-                                        <rect key="frame" x="24" y="117.33333333333337" width="343" height="381"/>
+                                        <rect key="frame" x="24" y="117.33333333333334" width="343" height="404.66666666666663"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
-                                                <rect key="frame" x="12.666666666666657" y="14.666666666666657" width="318" height="352"/>
+                                                <rect key="frame" x="12.666666666666657" y="26.333333333333314" width="318" height="352"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -57,8 +57,8 @@
                                             <constraint firstItem="D2o-L4-HE3" firstAttribute="centerY" secondItem="kdG-yt-Z34" secondAttribute="centerY" id="yYB-RN-Ea4"/>
                                         </constraints>
                                     </view>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC, activate NFC by pulling down the main view." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hs-uc-a5r">
-                                        <rect key="frame" x="24" y="518.33333333333337" width="327" height="87.666666666666629"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC, pull down the main view to activate NFC." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hs-uc-a5r">
+                                        <rect key="frame" x="24" y="542" width="327" height="64"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -405,7 +405,7 @@
         <image name="auth-app-intro-3-yk-nfc" width="318" height="352"/>
         <image name="auth-app-intro-4-qr-code" width="174" height="338"/>
         <namedColor name="YubiBlue">
-            <color red="0.19607843137254902" green="0.37254901960784315" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
