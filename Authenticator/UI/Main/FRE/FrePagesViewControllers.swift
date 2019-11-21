@@ -12,6 +12,10 @@ class FreWelcomeViewController: UIViewController {
     static let identifier = "FreWelcomeViewController"
 }
 
+class Fre5CiViewController: UIViewController {
+    static let identifier = "Fre5CiViewController"
+}
+
 class FreNfcViewController: UIViewController {
     static let identifier = "FreNfcViewController"
 }
