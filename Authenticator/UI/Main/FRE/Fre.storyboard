@@ -159,7 +159,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
                                         <rect key="frame" x="24" y="537.33333333333337" width="327" height="159.33333333333337"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <string key="text">Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes. Stoting your credentials on the YubiKey is the safest method.</string>
+                                        <string key="text">Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes. Storing your credentials on the YubiKey is the safest method.</string>
                                         <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
