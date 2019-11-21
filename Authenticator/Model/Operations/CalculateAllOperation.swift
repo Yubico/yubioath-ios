@@ -21,7 +21,8 @@ class CalculateAllOperation: OATHOperation {
     }
 
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        oathService.executeCalculateAllRequest() { [weak self] (response, error) in
+        let request = YKFKeyOATHCalculateAllRequest(timestamp: Date().addingTimeInterval(10))
+        oathService.execute(request!) { [weak self] (response, error) in
             guard let self = self else {
                 return
             }
