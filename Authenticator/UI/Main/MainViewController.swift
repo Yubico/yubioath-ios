@@ -251,9 +251,11 @@ class MainViewController: BaseOATHVIewController {
         tableView.reloadData()
     }
     
-    @objc func refreshData() {
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+    @objc func refreshData() {       
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
             viewModel.calculateAll()
+        } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+            activateNfc()
         }
         refreshControl?.endRefreshing()
     }
@@ -392,7 +394,7 @@ class MainViewController: BaseOATHVIewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
@@ -403,10 +405,6 @@ class MainViewController: BaseOATHVIewController {
     
     @objc func onBackgroundClick() {
         switch viewModel.state {
-            case .idle:
-                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-                    self.activateNfc()
-                }
             case .loaded:
                 self.onAddCredentialClick(self)
             case .locked:

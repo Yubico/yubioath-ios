@@ -22,6 +22,8 @@ class CredentialTableViewCell: UITableViewCell {
     private var otpObservation: NSKeyValueObservation?
     private var progressObservation: NSKeyValueObservation?
 
+    private var credentialIconColor: UIColor = .primaryText
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,16 +43,22 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
         
-        // picking up color for icon from set of colors using hash of unique Id,
-        // so that user keeps seeing the same color for item every time he launches the app
-        // and we don't need to have map between credential and colors
-        let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
-        credentialIcon.backgroundColor = UIColor.colorSetForAccountIcons[value]
-
+        self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
+        credentialIcon.backgroundColor = self.credentialIconColor
+        progress.tintColor = self.credentialIconColor
+        progress.setupView()
         refreshCode()
         refreshProgress()
 
         setupModelObservation()
+    }
+    
+    // picking up color for icon from set of colors using hash of unique Id,
+    // so that user keeps seeing the same color for item every time he launches the app
+    // and we don't need to have map between credential and colors
+    private func getCredentiaIconlColor(credential: Credential) -> UIColor {
+        let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+        return UIColor.colorSetForAccountIcons[value] ?? UIColor.primaryText
     }
     
     // MARK: - Model Observation
@@ -111,6 +119,7 @@ class CredentialTableViewCell: UITableViewCell {
         
         // logic of changing color when timout expiration
         self.code.textColor = requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
+        self.credentialIcon.backgroundColor = requiresRefresh ? UIColor.secondaryText : self.credentialIconColor
     }
     
     func refreshCode() {
