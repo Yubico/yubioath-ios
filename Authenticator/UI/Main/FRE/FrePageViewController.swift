@@ -67,7 +67,7 @@ class FrePageViewController: UIPageViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // when indicator colors are not set, pageControl is not visible in light mode
-        pageControl.currentPageIndicatorTintColor = .pageIndicator
+        pageControl.currentPageIndicatorTintColor = .yubiBlue
         pageControl.pageIndicatorTintColor = .secondaryText
     }
     
