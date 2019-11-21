@@ -18,6 +18,12 @@ class Fre5CiViewController: UIViewController {
 
 class FreNfcViewController: UIViewController {
     static let identifier = "FreNfcViewController"
+    
+    @IBOutlet weak var imageView: UIImageView! {
+        didSet {
+            self.imageView.layer.cornerRadius = 12.0
+        }
+    }
 }
 
 class FreQRViewController: UIViewController {
