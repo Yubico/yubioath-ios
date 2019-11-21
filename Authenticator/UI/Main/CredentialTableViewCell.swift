@@ -129,8 +129,12 @@ class CredentialTableViewCell: UITableViewCell {
 
         var otp = credential.code.isEmpty ? "******" : credential.code
 
-        // make it pretty by splitting in halves
-        otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))        
-        self.code.text = otp
+        if credential.isSteam {
+            self.code.text = otp
+        } else {
+            // make it pretty by splitting in halves
+            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
+            self.code.text = otp
+        }
     }
 }
