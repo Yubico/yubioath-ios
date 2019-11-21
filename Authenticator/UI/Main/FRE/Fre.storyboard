@@ -45,6 +45,11 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
                                                 <rect key="frame" x="12.666666666666657" y="26.333333333333314" width="318" height="352"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -97,9 +102,6 @@
                         <viewLayoutGuide key="safeArea" id="P1K-OU-E0u"/>
                     </view>
                     <navigationItem key="navigationItem" id="Tuk-da-gmS"/>
-                    <connections>
-                        <outlet property="imageView" destination="D2o-L4-HE3" id="LUA-xx-yAz"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqH-ut-UBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
