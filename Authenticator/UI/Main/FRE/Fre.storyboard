@@ -43,8 +43,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdG-yt-Z34">
                                         <rect key="frame" x="24" y="117.33333333333334" width="343" height="404.66666666666663"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
                                                 <rect key="frame" x="12.666666666666657" y="26.333333333333314" width="318" height="352"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="D2o-L4-HE3" secondAttribute="height" multiplier="159:176" id="w2j-Jg-QVr"/>
+                                                </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="12"/>
@@ -52,7 +55,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D2o-L4-HE3" secondAttribute="trailing" id="QEx-28-Gzu"/>
                                             <constraint firstItem="D2o-L4-HE3" firstAttribute="centerX" secondItem="kdG-yt-Z34" secondAttribute="centerX" id="T7j-mr-kMO"/>
@@ -254,7 +257,7 @@
                                                 <rect key="frame" x="76.666666666666686" y="68" width="174" height="338"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="m5C-iy-rJD" firstAttribute="centerX" secondItem="6pA-e2-c5r" secondAttribute="centerX" id="3mb-VI-yXX"/>
                                             <constraint firstItem="m5C-iy-rJD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6pA-e2-c5r" secondAttribute="leading" id="Par-o1-Sqr"/>
@@ -355,7 +358,7 @@
                                                 <rect key="frame" x="87.666666666666686" y="79.666666666666686" width="152" height="362"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="uJY-Sf-sBz" firstAttribute="centerY" secondItem="UEm-Pv-1b5" secondAttribute="centerY" id="AY3-jY-4rO"/>
                                             <constraint firstItem="uJY-Sf-sBz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UEm-Pv-1b5" secondAttribute="leading" id="PDl-sI-sRR"/>
