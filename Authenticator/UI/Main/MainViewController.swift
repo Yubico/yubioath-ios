@@ -20,6 +20,7 @@ class MainViewController: BaseOATHVIewController {
 
         setupCredentialsSearchController()
         setupNavigationBar()
+        setupRefreshControl()
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -32,10 +33,6 @@ class MainViewController: BaseOATHVIewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
-        self.refreshControl = refreshControl
         
         // observe key plug-in/out changes even in background
         // to make sure we don't leave credentials on screen when key was unplugged
@@ -190,14 +187,11 @@ class MainViewController: BaseOATHVIewController {
         super.onOperationCompleted(operation: operation)
         switch operation {
         case .calculateAll:
-            // show search bar only if there are credentials on the key
-            navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
             self.tableView.reloadData()
             break
         case .filter:
             self.tableView.reloadData()
         case .cleanup:
-            navigationItem.searchController = nil
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials
@@ -289,6 +283,15 @@ class MainViewController: BaseOATHVIewController {
         imageView.image = UIImage(named: "LogoText")
         titleView.addSubview(imageView)
         navigationItem.titleView = titleView
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        // setting background to refresh control changes behavior of spinner
+        // and it gets dragged with pull rather than sticks to the top of the view
+        refreshControl.backgroundColor = .clear
+        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
+        self.refreshControl = refreshControl
     }
 
     private func refreshUIOnKeyStateUpdate() {
