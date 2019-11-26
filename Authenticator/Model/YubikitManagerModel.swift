@@ -289,9 +289,6 @@ extension YubikitManagerModel: OperationDelegate {
                 // HOTP credentials rely on a counter which is stored on the YubiKey and the validating server.
                 // Each time an OTP is generated the counter is incremented on the YubiKey,
                 // but if the OTP is not sent to the server, the counters get out of sync (there is usually a small window to allow for some drift, around 5 OTPs or so).
-<<<<<<< HEAD
-                if !self.keyPluggedIn && credential.requiresRefresh && credential.type == .TOTP {
-=======
                 if credential.type == .TOTP && !credential.requiresTouch {
                     // credentials that has period other than 30 seconds needs to be recalculated
                     // calculateAll assumes that every credential has period 30 seconds
@@ -303,7 +300,6 @@ extension YubikitManagerModel: OperationDelegate {
                     }
                 } else if !self.keyPluggedIn && credential.type == .TOTP && credential.requiresRefresh {
                     // if we've got NFC connection touch won't be required over NFC
->>>>>>> master
                     self.calculate(credential: credential)
                 }
             }
