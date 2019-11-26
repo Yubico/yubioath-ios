@@ -13,6 +13,8 @@ class WebViewController: UIViewController, WKUIDelegate {
 
     @IBOutlet var webView: WKWebView!
     
+    // Using property insead of IBOutlet, because outlet is nil for some reason after inithialization and
+    // compiler throughs 'Fatal error: unecxpectedly found nil...' error message.
     private var activityIndicator: UIActivityIndicatorView!
     
     var url: URL?
@@ -21,12 +23,13 @@ class WebViewController: UIViewController, WKUIDelegate {
         let webConfig = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: webConfig)
         webView.uiDelegate = self
+        // Assigning webView to view since phone reboots when using view.addSubview(webView).
         view = webView
     }
     
+    // Setting up the activity indicator in ViewWillAppear before the view hierarchy is loaded into memory.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Setting up the activity indicator
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         activityIndicator.center = webView.center
         activityIndicator.hidesWhenStopped = true
