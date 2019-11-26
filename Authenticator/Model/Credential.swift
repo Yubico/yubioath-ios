@@ -90,6 +90,10 @@ class Credential: NSObject {
         self.requiresTouch  = requiresTouch
         self.remainingTime = validity.end.timeIntervalSince(Date())
         self.activeTime = 0
+        
+        if !code.isEmpty {
+            state = .active
+        }
     }
     
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {

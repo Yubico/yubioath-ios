@@ -157,7 +157,7 @@ class YubikitManagerModel : NSObject {
         credential4.setupTimerObservation()
         self._credentials.append(credential4)
 
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", requiresTouch: true)
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691")
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         delegate?.onOperationCompleted(operation: .calculateAll)
