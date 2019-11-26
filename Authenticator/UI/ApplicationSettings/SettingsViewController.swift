@@ -78,6 +78,8 @@ class SettingsViewController: BaseOATHVIewController {
             self.showWarning(title: "Clear stored passwords?", message: "If you have set password on your YubiKey you will be prompted for it on next usage.", okButtonTitle: "Clear") { [weak self]  () -> Void in
                 self?.removeStoredPasswords()
             }
+        case (1, 1):
+            self.performSegue(withIdentifier: "StartFRE", sender: self)
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)

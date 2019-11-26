@@ -70,7 +70,10 @@ class CalculateOperation: OATHOperation {
                 self.operationFailed(error: KeySessionError.noResponse)
                 return
             }
+<<<<<<< HEAD
             self.credential.code = response.otp
+=======
+>>>>>>> master
             self.credential.setCode(code: response.otp, validity: response.validity)
             self.credential.state = .active
             self.operationSucceeded()

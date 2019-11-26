@@ -294,8 +294,14 @@ extension YubikitManagerModel: OperationDelegate {
                     self.calculate(credential: credential)
                 }
                 // if we've got NFC connection and code was not calculated with calculate all
+                // because it requires touch
                 // we can recalculate each individually (touch won't be required over NFC)
-                if !self.keyPluggedIn && credential.requiresRefresh {
+                               
+                // NOTE: we don't update HOTP credentials unless user specifies because
+                // HOTP credentials rely on a counter which is stored on the YubiKey and the validating server.
+                // Each time an OTP is generated the counter is incremented on the YubiKey,
+                // but if the OTP is not sent to the server, the counters get out of sync (there is usually a small window to allow for some drift, around 5 OTPs or so).
+                if !self.keyPluggedIn && credential.requiresRefresh && credential.type == .TOTP {
                     self.calculate(credential: credential)
                 }
             }
