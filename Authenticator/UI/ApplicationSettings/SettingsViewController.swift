@@ -127,8 +127,7 @@ extension  SettingsViewController: AccessorySessionObserverDelegate {
 
 extension  SettingsViewController: NfcSessionObserverDelegate {
     func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
-        
-        print("NFC key session state: \(String(describing: state.rawValue))")
+        viewModel.nfcStateChanged(state: state)
         if (state == .open) {
             viewModel.resume()
         }

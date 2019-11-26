@@ -11,7 +11,7 @@ import Foundation
 protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
-    func onTouchRequired()
+    func onShowToastMessage(message: String)
     func onOperationRetry(operation: OATHOperation)
 }
 
@@ -110,7 +110,7 @@ class YubikitManagerModel : NSObject {
     public func reset() {
         addOperation(operation: ResetOperation())
     }
-    
+        
     public func pause() {
         isPaused = true
         operationQueue.suspendQueue(suspendQueue: isPaused)
@@ -136,6 +136,12 @@ class YubikitManagerModel : NSObject {
     public func applyFilter(filter: String?) {
         self.filter = filter?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         delegate?.onOperationCompleted(operation: .filter)
+    }
+    
+    public func copyToClipboard(credential: Credential) {
+        // copy to clipbboard
+        UIPasteboard.general.string = credential.code
+        delegate?.onShowToastMessage(message: "Copied to clipboard!")
     }
     
     public func emulateSomeRecords() {
@@ -192,7 +198,7 @@ extension YubikitManagerModel: OperationDelegate {
             // only if key is attached require touch (otherwise user can't touch and tap YubiKey)
             // YubiKey will calculate credential over NFC connection even credential requires touch
             if self.keyPluggedIn {
-                delegate.onTouchRequired()
+                delegate.onShowToastMessage(message: "Touch your YubiKey")
             }
         }
     }
@@ -321,6 +327,10 @@ extension YubikitManagerModel: OperationDelegate {
             }
             
             delegate.onOperationCompleted(operation: .calculate)
+            
+            if (credential.type == .HOTP) {
+                self.copyToClipboard(credential: credential)
+            }
         }
     }
     
@@ -385,6 +395,20 @@ extension YubikitManagerModel {
             }
 
             YubiKitManager.shared.nfcSession.stopIso7816Session()
+        }
+    }
+    
+    func nfcStateChanged(state: YKFNFCISO7816SessionState) {
+        guard #available(iOS 13.0, *) else {
+            fatalError()
+        }
+        print("NFC key session state: \(String(describing: state.rawValue))")
+        if state == .open {
+            YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
+        } else if (state == .pooling) {
+            YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
+        } else if state == .closed && YubiKitManager.shared.nfcSession.iso7816SessionError != nil {
+            print("NFC key session error: \(YubiKitManager.shared.nfcSession.iso7816SessionError?.localizedDescription ?? "NFC error")")
         }
     }
 }
