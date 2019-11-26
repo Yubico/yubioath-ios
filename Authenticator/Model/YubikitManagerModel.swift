@@ -411,8 +411,16 @@ extension YubikitManagerModel {
             YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
         } else if (state == .pooling) {
             YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
-        } else if state == .closed && YubiKitManager.shared.nfcSession.iso7816SessionError != nil {
-            print("NFC key session error: \(YubiKitManager.shared.nfcSession.iso7816SessionError?.localizedDescription ?? "NFC error")")
+        } else if state == .closed {
+            guard let error = YubiKitManager.shared.nfcSession.iso7816SessionError else {
+                return
+            }
+            let errorCode = (error as NSError).code;
+            if errorCode == NFCReaderError.readerSessionInvalidationErrorUserCanceled.rawValue {
+                // if user pressed cancel button we won't proceed with queueed operations
+                operationQueue.cancelAllOperations()
+            }
+            print("NFC key session error: \(error.localizedDescription)")
         }
     }
 }
