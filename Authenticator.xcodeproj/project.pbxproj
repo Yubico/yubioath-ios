@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6261BCDD0227038EF3269750 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE448C359E880A9848547335 /* Pods_Authenticator.framework */; };
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
 		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
 		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
@@ -51,6 +50,7 @@
 		A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */; };
+		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
 		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
@@ -109,7 +110,6 @@
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
 		81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSessionObserver.swift; sourceTree = "<group>"; };
-		81DF8FE7237E1B6000737268 /* libYubiKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYubiKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		81E009C222FF44B100E7715B /* KeySessionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeySessionObserver.swift; sourceTree = "<group>"; };
 		81E8D4DC231FDFCE004B6F9E /* CalculateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateOperation.swift; sourceTree = "<group>"; };
 		81E8D4DF231FF9A9004B6F9E /* OATHOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHOperation.swift; sourceTree = "<group>"; };
@@ -124,7 +124,6 @@
 		A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
-		AE448C359E880A9848547335 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,7 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6261BCDD0227038EF3269750 /* Pods_Authenticator.framework in Frameworks */,
+				B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,8 +251,7 @@
 		818866EC22E1845B006BC0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				81DF8FE7237E1B6000737268 /* libYubiKit.a */,
-				AE448C359E880A9848547335 /* Pods_Authenticator.framework */,
+				45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
