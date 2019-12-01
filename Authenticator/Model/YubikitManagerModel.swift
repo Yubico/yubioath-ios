@@ -80,7 +80,6 @@ class YubikitManagerModel : NSObject {
     public func calculateAll() {
         state = YubiKitManager.shared.accessorySession.isKeyConnected ? .loading : .idle
         let operation = CalculateAllOperation()
-        operation.queuePriority = .low
         addOperation(operation: operation)
     }
     
@@ -122,15 +121,24 @@ class YubikitManagerModel : NSObject {
     }
 
     public func cleanUp() {
-        _credentials.forEach { credential in
-            credential.removeTimerObservation()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+
+            self._credentials.forEach { credential in
+                credential.removeTimerObservation()
+            }
+
+            self._credentials.removeAll()
+
+            self.state = .idle
+            self.operationQueue.cancelAllOperations()
+            delegate.onOperationCompleted(operation: .cleanup)
         }
-
-        _credentials.removeAll()
-
-        state = .idle
-        operationQueue.cancelAllOperations()
-        delegate?.onOperationCompleted(operation: .cleanup)
     }
     
     public func applyFilter(filter: String?) {
@@ -260,13 +268,12 @@ extension YubikitManagerModel: OperationDelegate {
 
             // timer observers better to set up on main thread to avoid
             // thread racing between operations
-
             self._credentials.forEach {
                 $0.removeTimerObservation()
             }
             
             // using dictionary with uinique id as a key for quick search of existing credential object
-            let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.map{ ($0.uniqueId, $0) })
+            let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap{ $0 }.map{ ($0.uniqueId, $0) })
             self._credentials = credentials.map {
                 if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated

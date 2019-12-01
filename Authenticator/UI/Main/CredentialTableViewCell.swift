@@ -113,8 +113,10 @@ class CredentialTableViewCell: UITableViewCell {
             self.activityIndicator.isHidden = true
 
             // logic of changing color when timout expiration
-            self.code.textColor = requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
-            self.credentialIcon.backgroundColor = requiresRefresh ? UIColor.secondaryText : self.credentialIconColor
+            if !credential.requiresTouch {
+                self.code.textColor = requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
+                self.credentialIcon.backgroundColor = requiresRefresh ? UIColor.secondaryText : self.credentialIconColor
+            }
 
         } else if credential.type == .HOTP {
             actionIcon.isHidden = !requiresRefresh
