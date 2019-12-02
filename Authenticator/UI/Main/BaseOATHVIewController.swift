@@ -163,7 +163,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         }
     }
     
-    func onTouchRequired() {
-        self.displayToast(message: "Touch your YubiKey")
+    func onShowToastMessage(message: String) {
+        self.displayToast(message: message)
     }
 }

@@ -123,9 +123,7 @@ class MainViewController: BaseOATHVIewController {
                 // refresh items that require touch
                 viewModel.calculate(credential: credential)
             } else {
-                // copy to clipbboard
-                UIPasteboard.general.string = credential.code
-                self.displayToast(message: "Copied to clipboard!")
+                viewModel.copyToClipboard(credential: credential)
             }
         }
     }
@@ -437,8 +435,7 @@ extension  MainViewController: NfcSessionObserverDelegate {
         guard #available(iOS 13.0, *) else {
             fatalError()
         }
-
-        print("NFC key session state: \(String(describing: state.rawValue))")
+        viewModel.nfcStateChanged(state: state)
         if state == .open {
             viewModel.calculateAll()
         }

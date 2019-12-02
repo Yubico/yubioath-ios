@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -50,7 +50,7 @@
 		A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */; };
-		BD9DDD989E9866A13B2D48AC /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */; };
+		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
 		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
@@ -116,7 +116,6 @@
 		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
-		9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -125,7 +124,8 @@
 		A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
-		D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
+		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
+		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD9DDD989E9866A13B2D48AC /* Pods_Authenticator.framework in Frameworks */,
+				B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,11 +154,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2297E43B90AC103B079B4A85 /* Pods */ = {
+		6C05878C67054995188B04AE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */,
-				D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */,
+				B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */,
+				D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 				818866B422DFD729006BC0A8 /* Products */,
 				818866EC22E1845B006BC0A8 /* Frameworks */,
 				81723245237231F100694DF9 /* Recovered References */,
-				2297E43B90AC103B079B4A85 /* Pods */,
+				6C05878C67054995188B04AE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -251,7 +251,7 @@
 		818866EC22E1845B006BC0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C167B78CD080A09B4CDAAC1 /* Pods_Authenticator.framework */,
+				45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -263,6 +263,7 @@
 				81FA3C35231AF33E009C22AB /* Main */,
 				81FA3C30231AF198009C22AB /* ApplicationSettings */,
 				81FA3C2B2319839B009C22AB /* AddCredential */,
+				A5E9DEA2237A2C130011FBF4 /* FRE */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
 			);
@@ -323,7 +324,6 @@
 		81FA3C35231AF33E009C22AB /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				A5E9DEA2237A2C130011FBF4 /* FRE */,
 				818866E822E18134006BC0A8 /* MainViewController.swift */,
 				81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */,
 				818866F922E96B47006BC0A8 /* PieProgressBar.swift */,
@@ -340,7 +340,8 @@
 				A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */,
 				A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */,
 			);
-			path = FRE;
+			name = FRE;
+			path = Main/FRE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,7 +355,7 @@
 				818866AF22DFD729006BC0A8 /* Sources */,
 				818866B022DFD729006BC0A8 /* Frameworks */,
 				818866B122DFD729006BC0A8 /* Resources */,
-				41C898FBF174747D534FC9C4 /* [CP] Embed Pods Frameworks */,
+				578D81793E8B565C4A170CA2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -500,17 +501,15 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		41C898FBF174747D534FC9C4 /* [CP] Embed Pods Frameworks */ = {
+		578D81793E8B565C4A170CA2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Authenticator/Pods-Authenticator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Authenticator/Pods-Authenticator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -733,12 +732,12 @@
 		};
 		818866DE22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9927C695709D5FF97CE64D8B /* Pods-Authenticator.debug.xcconfig */;
+			baseConfigurationReference = B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -747,7 +746,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -759,12 +758,12 @@
 		};
 		818866DF22DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D39BE2654F437CF6065AAD1F /* Pods-Authenticator.release.xcconfig */;
+			baseConfigurationReference = D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -773,7 +772,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
