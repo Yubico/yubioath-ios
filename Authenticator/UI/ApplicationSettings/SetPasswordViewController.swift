@@ -30,7 +30,7 @@ class SetPasswordViewController: BaseOATHVIewController {
     
     @IBAction func savePassword(_ sender: Any) {
        if password.text != confirmPassword.text {
-            self.showAlertDialog(title: "Wrong password", message: "Re-enter password")
+            self.showAlertDialog(title: "Error", message: "The passwords do not match")
         } else {
             viewModel.setCode(password: password.text ?? "")
         }
