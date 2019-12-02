@@ -38,5 +38,4 @@ class DeleteOperation: OATHOperation {
     override func createRetryOperation() -> OATHOperation {
         return DeleteOperation(credential: self.credential)
     }
-
 }

@@ -42,7 +42,7 @@ class PutOperation: OATHOperation {
 
 }
 
-extension YKFOATHCredential {
+fileprivate extension YKFOATHCredential {
     var uniqueId: String {
         get {
             if type == YKFOATHCredentialType.TOTP {
