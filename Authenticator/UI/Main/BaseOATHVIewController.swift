@@ -74,7 +74,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
                 self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
                     guard let self = self else {
                         return
