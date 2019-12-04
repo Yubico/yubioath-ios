@@ -9,10 +9,11 @@
 import Foundation
 
 extension UIColor {
+    
     static var primaryText: UIColor {
         get {
             if #available(iOS 13.0, *) {
-                return UIColor.label
+                return UIColor(named: "TextColor") ?? UIColor.label
             } else {
                 return UIColor.darkGray
             }
@@ -22,7 +23,7 @@ extension UIColor {
     static var secondaryText: UIColor {
         get {
             if #available(iOS 13.0, *) {
-                return UIColor.secondaryLabel
+                return UIColor(named: "TextColor")?.withAlphaComponent(0.6) ?? UIColor.secondaryLabel
             } else {
                 return UIColor.gray
             }
@@ -32,9 +33,25 @@ extension UIColor {
     static var background: UIColor {
         get {
             if #available(iOS 13.0, *) {
-                return UIColor.systemBackground
+                return UIColor(named: "BaseBackground") ?? UIColor.systemBackground
             } else {
                 return UIColor.white
+            }
+        }
+    }
+   
+    static var selected: UIColor {
+        get {
+            if #available(iOS 13.0, *) {
+               return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                    if traitCollection.userInterfaceStyle == .dark {
+                        return UIColor.white.withAlphaComponent(0.08)
+                    } else {
+                        return UIColor.lightGray.withAlphaComponent(0.3)
+                    }
+                }
+            } else {
+                return UIColor.lightGray.withAlphaComponent(0.3)
             }
         }
     }

@@ -31,6 +31,10 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.startAnimating()
+        
+        let view = UIView()
+        view.backgroundColor = UIColor.selected
+        self.selectedBackgroundView = view
     }
     
     // this method is invoked when table view reloaded and UI got data/list of credentials

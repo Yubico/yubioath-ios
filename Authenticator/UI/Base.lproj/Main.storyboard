@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +16,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="FFY-H8-Wss">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CredentialCell" rowHeight="90" id="GKO-4h-cU9" customClass="CredentialTableViewCell" customModule="Authenticator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="90"/>
@@ -49,7 +50,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="123 456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8KS-av-uoB">
                                                             <rect key="frame" x="0.0" y="0.0" width="265" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="TextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico (user@yubico.com)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocK-d8-Mjy">
@@ -98,6 +99,12 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="8el-ru-Cbt" secondAttribute="trailing" id="vSD-C6-NWw"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="TableCell"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedBackgroundView?.backgroundColor">
+                                        <color key="value" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="actionIcon" destination="4WS-8i-Uyp" id="eLv-T7-LSg"/>
                                     <outlet property="activityIndicator" destination="Gvn-Oe-FZH" id="K4C-QO-u7L"/>
@@ -132,7 +139,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="-569"/>
+            <point key="canvasLocation" x="-220" y="-577"/>
         </scene>
         <!--New Account-->
         <scene sceneID="7Bk-6J-hPU">
@@ -141,7 +148,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="W7R-D0-hBW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection headerTitle="Credential details" id="33A-5I-kSr">
                                 <cells>
@@ -179,6 +186,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="zwg-Kz-Iq8" secondAttribute="trailing" id="xrU-ga-9DV"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -217,6 +225,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="1xZ-ju-Hfz" secondAttribute="trailing" id="gLO-gt-q3f"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -255,6 +264,7 @@
                                                 <constraint firstItem="G1U-OW-mOh" firstAttribute="top" secondItem="KGE-Ig-O0I" secondAttribute="topMargin" id="mH8-Cu-92t"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -287,6 +297,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="Nfi-4o-ivB" secondAttribute="trailing" id="fCI-AO-S5B"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -318,6 +329,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -348,6 +360,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -378,6 +391,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -408,6 +422,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                         </accessibility>
@@ -447,7 +462,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vIo-xs-l89" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="rWP-KO-ZHA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1678" y="-577"/>
+            <point key="canvasLocation" x="1676.8115942028987" y="-577.23214285714278"/>
         </scene>
         <!--Algorithm Table View Controller-->
         <scene sceneID="2Ud-Xk-F9p">
@@ -456,7 +471,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="uYv-wA-BoI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection id="O8n-pz-07c">
                                 <cells>
@@ -476,6 +491,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="iUR-oi-Qac" style="IBUITableViewCellStyleDefault" id="beo-ed-zmm">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
@@ -493,6 +509,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="A2i-wt-PAy" style="IBUITableViewCellStyleDefault" id="QJM-fD-0xb">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
@@ -510,6 +527,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -522,7 +540,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCn-NM-Q0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4300" y="-1156.4732142857142"/>
+            <point key="canvasLocation" x="4322" y="-1006"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
@@ -557,7 +575,7 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <constraints>
                             <constraint firstItem="KI0-f0-tyY" firstAttribute="trailing" secondItem="PAc-6B-KB4" secondAttribute="trailing" id="b3i-sg-KW2"/>
                             <constraint firstAttribute="bottom" secondItem="KI0-f0-tyY" secondAttribute="bottom" id="czk-5M-6Ql"/>
@@ -581,7 +599,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sHL-iT-zqk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <color key="tintColor" red="0.60500001910000001" green="0.79299998279999995" blue="0.23600000139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexColor" red="0.60500001910000001" green="0.79299998279999995" blue="0.23600000139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -610,8 +628,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Hpo-pk-kqn" style="IBUITableViewCellStyleDefault" id="uNC-3B-XiS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Hpo-pk-kqn" style="IBUITableViewCellStyleDefault" id="uNC-3B-XiS">
                                         <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNC-3B-XiS" id="kLT-NV-ary">
@@ -627,6 +646,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <connections>
                                             <segue destination="lSw-49-AD0" kind="presentation" id="PKG-8G-ln1"/>
                                         </connections>
@@ -647,6 +667,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -668,6 +689,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="y0i-iX-KLv" style="IBUITableViewCellStyleDefault" id="mCh-ga-VPI">
                                         <rect key="frame" x="0.0" y="299.5" width="414" height="44"/>
@@ -685,6 +707,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                         <connections>
                                             <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="UPN-tw-Bce"/>
                                         </connections>
@@ -709,6 +732,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="tMr-aW-Doe" style="IBUITableViewCellStyleDefault" id="laH-Tj-Lw4">
                                         <rect key="frame" x="0.0" y="443.5" width="414" height="44"/>
@@ -726,6 +750,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Ybp-yE-Xgg" style="IBUITableViewCellStyleDefault" id="Jyf-AZ-5hK">
                                         <rect key="frame" x="0.0" y="487.5" width="414" height="44"/>
@@ -743,6 +768,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -771,6 +797,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -784,7 +811,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHT-RQ-G62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="230"/>
+            <point key="canvasLocation" x="-220.28985507246378" y="229.6875"/>
         </scene>
         <!--Set Password-->
         <scene sceneID="a04-Iv-oTD">
@@ -793,7 +820,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="EbR-vz-nXg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection footerTitle="For additional security and to prevent unauthorized access the YubiKey can be protected with a password" id="hOr-gJ-fIa">
                                 <cells>
@@ -831,6 +858,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="9ay-z9-Icz" secondAttribute="bottom" id="ovc-Zk-8If"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="B7w-33-Zw8">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
@@ -866,6 +894,7 @@
                                                 <constraint firstItem="t4I-nA-bFF" firstAttribute="top" secondItem="VZa-l7-yGP" secondAttribute="top" id="yfp-fn-W6U"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -905,7 +934,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go7-l6-NO6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="387" y="-363"/>
+            <point key="canvasLocation" x="375" y="-374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="D3s-IH-G1K">
@@ -950,7 +979,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="K8Q-sn-Sgu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection id="U5X-Zv-bXo">
                                 <cells>
@@ -970,6 +999,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="559-ja-ySh" style="IBUITableViewCellStyleDefault" id="23k-OM-etr">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
@@ -987,6 +1017,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1008,7 +1039,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sRw-Zc-VZg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection id="xjj-sE-521">
                                 <cells>
@@ -1028,6 +1059,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="ZLU-NM-9hu" style="IBUITableViewCellStyleDefault" id="igJ-Re-yeB">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
@@ -1045,6 +1077,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="8MR-ti-hsT" style="IBUITableViewCellStyleDefault" id="L85-b5-UIj">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
@@ -1062,6 +1095,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1083,7 +1117,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="olo-Xw-4gf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" name="BaseBackground"/>
                         <sections>
                             <tableViewSection id="Diz-PW-ug2">
                                 <cells>
@@ -1103,6 +1137,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" textLabel="tL1-Yn-qDm" style="IBUITableViewCellStyleDefault" id="PIY-uz-rbs">
                                         <rect key="frame" x="0.0" y="62" width="414" height="44"/>
@@ -1120,6 +1155,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="8GT-b0-NsD" style="IBUITableViewCellStyleDefault" id="rNz-Sf-b5p">
                                         <rect key="frame" x="0.0" y="106" width="414" height="44"/>
@@ -1137,6 +1173,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="TableCell"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1155,6 +1192,15 @@
     <resources>
         <image name="Settings" width="24" height="24"/>
         <image name="touch" width="24" height="24"/>
+        <namedColor name="BaseBackground">
+            <color red="0.96862745098039216" green="0.97254901960784312" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TableCell">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColor">
+            <color red="0.18823529411764706" green="0.18823529411764706" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UPN-tw-Bce"/>
