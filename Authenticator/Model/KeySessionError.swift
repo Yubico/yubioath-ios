@@ -30,7 +30,7 @@ extension KeySessionError: LocalizedError {
         case .invalidUri:
             return NSLocalizedString("This is an URL conforming to Key URI Format specs", comment: "Invalid Uri")
         case .timeout:
-            return NSLocalizedString("The operation got timed out", comment: "Invalid Uri")
+            return NSLocalizedString("The key doesn't respond", comment: "Invalid Uri")
         case .invalidCredentialUri:
             return NSLocalizedString("Invalid URI format", comment: "Invalid Uri")
         }

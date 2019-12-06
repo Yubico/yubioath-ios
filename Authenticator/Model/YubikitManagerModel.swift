@@ -313,7 +313,7 @@ extension YubikitManagerModel: OperationDelegate {
             
             
             // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
+            self._credentials.sort(by: { $0.uniqueId.lowercased() < $1.uniqueId.lowercased() })
             
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)

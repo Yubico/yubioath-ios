@@ -116,9 +116,9 @@ class Credential: NSObject {
     var uniqueId: String {
         get {
             if type == .TOTP && period != Credential.DEFAULT_PERIOD {
-                return String(format:"%@:%@/%d", issuer, account, period).lowercased();
+                return String(format:"%@:%@/%d", issuer, account, period);
             } else {
-                return String(format:"%@:%@", issuer, account).lowercased();
+                return String(format:"%@:%@", issuer, account);
             }
         }
     }
