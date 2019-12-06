@@ -134,20 +134,41 @@ class MainViewController: BaseOATHVIewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let credential = viewModel.credentials[indexPath.row]
-            // show warning that user will delete credential to preven accident removals
-            // we also won't update UI until
-            // the actual removal happen (for example when user tapped key over NFC)
-            let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
-            showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
-                self?.viewModel.deleteCredential(credential: credential)
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+             // Delete the row from the data source
+            let credential = self.viewModel.credentials[indexPath.row]
+             // show warning that user will delete credential to preven accident removals
+             // we also won't update UI until
+             // the actual removal happen (for example when user tapped key over NFC)
+             let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
+             self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
+                 self?.viewModel.deleteCredential(credential: credential)
+
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+            
+        deleteAction.image = UIImage(named: "delete")
+        deleteAction.backgroundColor = .red
+               
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let addToFavorites = UIContextualAction(style: .normal, title: "Favorites") { _, _, _ in
+            
+        }
+            
+        addToFavorites.image = UIImage(named: "favorites")
+        addToFavorites.backgroundColor = UIColor(named: "Favorites")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [addToFavorites])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
     
     // MARK: - Navigation
