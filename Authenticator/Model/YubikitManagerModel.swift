@@ -45,7 +45,7 @@ class YubikitManagerModel : NSObject {
     var state: State = .idle
     
     private var _credentials = Array<Credential>()
-    
+
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
@@ -57,6 +57,8 @@ class YubikitManagerModel : NSObject {
             }
         }
     }
+    
+    var favorites: Favorites? = nil
     
     var hasFilter: Bool {
         get {
@@ -311,13 +313,56 @@ extension YubikitManagerModel: OperationDelegate {
                 }
             }
             
-            
-            // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
+            self.syncFavorites()
             
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
+    }
+    
+    func addFavorite(credential: Credential) {
+        credential.isFavorite = true
+        let credentialData = CredentialData(issuer: credential.issuer, account: credential.account)
+        if let keyIdentifier = self.keyIdentifier {
+            if self.favorites == nil {
+                self.favorites = Favorites(userAccount: keyIdentifier, favorites: [])
+            }
+            self.favorites?.addFavorite(credential: credentialData)
+            Favorites.saveFavorites(favorites: self.favorites!)
+            syncFavorites()
+        }
+    }
+    
+    func removeFavorite(credential: Credential) {
+        credential.isFavorite = false
+        let credentialData = CredentialData(issuer: credential.issuer, account: credential.account)
+        if let favorites = self.favorites {
+            self.favorites?.removeFavorite(credential: credentialData)
+            Favorites.saveFavorites(favorites: favorites)
+            syncFavorites()
+        }
+    }
+    
+    private func syncFavorites() {
+        if let keyIdentifier = self.keyIdentifier {
+            if let favorites = Favorites.readFavorites(userAccount: keyIdentifier) {
+                self.favorites = favorites
+                self._credentials.forEach { credential in
+                    let credentialData = favorites.favorites.filter { $0.issuer == credential.issuer && $0.account == credential.account }
+                    credential.isFavorite = credentialData.count > 0
+                }
+            } else {
+                self.favorites = Favorites(userAccount: keyIdentifier, favorites: [])
+            }
+        }
+        
+        // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
+        self._credentials.sort(by: {
+            if $0.isFavorite == $1.isFavorite {
+                return $0.uniqueId < $1.uniqueId
+            }
+            return $0.isFavorite
+        })
     }
     
     /*! Invoked when specific credential gets recalculated */

@@ -17,6 +17,8 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var favoriteIcon: UIImageView!
+    
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
     private var otpObservation: NSKeyValueObservation?
@@ -42,7 +44,7 @@ class CredentialTableViewCell: UITableViewCell {
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
-        
+        self.favoriteIcon.isHidden = !credential.isFavorite
         self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.tintColor = self.credentialIconColor

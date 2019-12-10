@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -84,18 +85,30 @@
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-Oe-FZH">
                                             <rect key="frame" x="371.5" y="47.5" width="20" height="20"/>
                                         </activityIndicatorView>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorites" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
+                                            <rect key="frame" x="369" y="11" width="25" height="26"/>
+                                            <color key="backgroundColor" name="Favorites"/>
+                                            <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="1Tb-il-VKx"/>
+                                                <constraint firstAttribute="height" constant="25" id="zCe-Yf-1OL"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="dNh-Vy-6pM" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leadingMargin" id="10d-br-PY5"/>
                                         <constraint firstItem="dNh-Vy-6pM" firstAttribute="top" secondItem="xsC-d5-U8J" secondAttribute="topMargin" id="5g8-IX-LoE"/>
                                         <constraint firstItem="4WS-8i-Uyp" firstAttribute="top" secondItem="dNh-Vy-6pM" secondAttribute="centerY" id="7yu-MX-bu2"/>
+                                        <constraint firstItem="y6C-jA-Ng0" firstAttribute="trailing" secondItem="xsC-d5-U8J" secondAttribute="trailingMargin" id="Bv6-3A-rnZ"/>
                                         <constraint firstItem="8el-ru-Cbt" firstAttribute="centerX" secondItem="4WS-8i-Uyp" secondAttribute="centerX" id="EB2-yf-6U8"/>
                                         <constraint firstItem="8el-ru-Cbt" firstAttribute="centerY" secondItem="4WS-8i-Uyp" secondAttribute="centerY" id="F1R-0K-Obh"/>
                                         <constraint firstItem="4WS-8i-Uyp" firstAttribute="leading" secondItem="dNh-Vy-6pM" secondAttribute="trailing" constant="20" id="IGw-Oy-uoT"/>
+                                        <constraint firstItem="y6C-jA-Ng0" firstAttribute="top" secondItem="xsC-d5-U8J" secondAttribute="topMargin" id="KoD-BM-bbZ"/>
                                         <constraint firstItem="dNh-Vy-6pM" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="QED-Ki-aYn"/>
                                         <constraint firstItem="Gvn-Oe-FZH" firstAttribute="centerX" secondItem="8el-ru-Cbt" secondAttribute="centerX" id="Ym5-Ep-LzY"/>
                                         <constraint firstItem="Gvn-Oe-FZH" firstAttribute="centerY" secondItem="8el-ru-Cbt" secondAttribute="centerY" id="pi9-c1-cbx"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="8el-ru-Cbt" secondAttribute="trailing" id="vSD-C6-NWw"/>
+                                        <constraint firstItem="4WS-8i-Uyp" firstAttribute="top" secondItem="y6C-jA-Ng0" secondAttribute="bottom" constant="8" id="yAM-rt-CAG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -103,6 +116,7 @@
                                     <outlet property="activityIndicator" destination="Gvn-Oe-FZH" id="K4C-QO-u7L"/>
                                     <outlet property="code" destination="8KS-av-uoB" id="1qE-ia-43d"/>
                                     <outlet property="credentialIcon" destination="0ds-kQ-Fq4" id="UDd-Ps-HoU"/>
+                                    <outlet property="favoriteIcon" destination="y6C-jA-Ng0" id="4D4-tw-Lz6"/>
                                     <outlet property="name" destination="ocK-d8-Mjy" id="ksH-mE-exz"/>
                                     <outlet property="progress" destination="8el-ru-Cbt" id="WVN-6C-REt"/>
                                 </connections>
@@ -1154,7 +1168,11 @@
     </scenes>
     <resources>
         <image name="Settings" width="24" height="24"/>
+        <image name="favorites" width="24" height="24"/>
         <image name="touch" width="24" height="24"/>
+        <namedColor name="Favorites">
+            <color red="0.80000000000000004" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="0dB-Xx-crT"/>

@@ -50,6 +50,8 @@ class Credential: NSObject {
     
     
     let requiresTouch: Bool
+    
+    var isFavorite: Bool = false
 
     var validity : DateInterval
     weak var delegate: CredentialExpirationDelegate?

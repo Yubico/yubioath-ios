@@ -14,13 +14,15 @@ class MainViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
     private var applicationSessionObserver: ApplicationSessionObserver!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupCredentialsSearchController()
         setupNavigationBar()
         setupRefreshControl()
+        
+        //load accountData with favorites
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -159,8 +161,17 @@ class MainViewController: BaseOATHVIewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let addToFavorites = UIContextualAction(style: .normal, title: "Favorites") { _, _, _ in
-            
+        let addToFavorites = UIContextualAction(style: .normal, title: "Favorites") { [weak self] _, _, _ in
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                let credential = self.viewModel.credentials[indexPath.row]
+                self.viewModel.addFavorite(credential: credential)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
             
         addToFavorites.image = UIImage(named: "favorites")
