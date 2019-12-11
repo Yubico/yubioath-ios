@@ -161,21 +161,36 @@ class MainViewController: BaseOATHVIewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let addToFavorites = UIContextualAction(style: .normal, title: "Favorites") { [weak self] _, _, _ in
-            DispatchQueue.global(qos: .background).async { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                let credential = self.viewModel.credentials[indexPath.row]
-                self.viewModel.addFavorite(credential: credential)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+        let credential = self.viewModel.credentials[indexPath.row]
+        var addToFavorites = UIContextualAction()
+        if credential.isFavorite {
+            addToFavorites = UIContextualAction(style: .normal, title: "UnFavorite") { [weak self] _, _, _ in
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    self.viewModel.removeFavorite(credential: credential)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
             }
+        } else {
+            addToFavorites = UIContextualAction(style: .normal, title: "Favorite") { [weak self] _, _, _ in
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    self.viewModel.addFavorite(credential: credential)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            addToFavorites.backgroundColor = UIColor(named: "Favorites")
         }
             
         addToFavorites.image = UIImage(named: "favorites")
-        addToFavorites.backgroundColor = UIColor(named: "Favorites")
         
         let configuration = UISwipeActionsConfiguration(actions: [addToFavorites])
         configuration.performsFirstActionWithFullSwipe = true
