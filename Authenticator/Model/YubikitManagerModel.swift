@@ -53,7 +53,7 @@ class YubikitManagerModel : NSObject {
                 return _credentials
             }
             return _credentials.filter {
-                $0.issuer.lowercased().contains(self.filter!) || $0.account.lowercased().contains(self.filter!)
+                $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
             }
         }
     }
