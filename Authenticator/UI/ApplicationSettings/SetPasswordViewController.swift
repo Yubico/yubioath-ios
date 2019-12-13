@@ -17,10 +17,12 @@ class SetPasswordViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         keySessionObserver = KeySessionObserver(nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         keySessionObserver.observeSessionState = false
     }
     
