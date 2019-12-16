@@ -109,7 +109,8 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         let credential = viewModel.credentials[indexPath.row]
-        cell.updateView(credential: credential)
+        let isFavorite = self.viewModel.favoritesStorage.map { $0.favorites.contains(credential.uniqueId) } ?? false
+        cell.updateView(credential: credential, isFavorite: isFavorite)
         return cell
     }
     
@@ -147,11 +148,10 @@ class MainViewController: BaseOATHVIewController {
              let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
              self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
                  self?.viewModel.deleteCredential(credential: credential)
-
             }
         }
             
-        deleteAction.image = UIImage(named: "delete")
+        deleteAction.image = UIImage.trash
         deleteAction.backgroundColor = .red
                
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -163,34 +163,38 @@ class MainViewController: BaseOATHVIewController {
         
         let credential = self.viewModel.credentials[indexPath.row]
         var addToFavorites = UIContextualAction()
-        if credential.isFavorite {
-            addToFavorites = UIContextualAction(style: .normal, title: "UnFavorite") { [weak self] _, _, _ in
-                DispatchQueue.global(qos: .background).async { [weak self] in
-                    guard let self = self else {
-                        return
-                    }
-                    self.viewModel.removeFavorite(credential: credential)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        } else {
-            addToFavorites = UIContextualAction(style: .normal, title: "Favorite") { [weak self] _, _, _ in
-                DispatchQueue.global(qos: .background).async { [weak self] in
-                    guard let self = self else {
-                        return
-                    }
-                    self.viewModel.addFavorite(credential: credential)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+        if let favorites = self.viewModel.favoritesStorage?.favorites, favorites.contains(credential.uniqueId) {
+            addToFavorites = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
+                if let destinationIndexPath = self?.viewModel.removeFavorite(credential: credential) {
+                    if indexPath != destinationIndexPath {
+                        self?.tableView.beginUpdates()
+                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                        self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
+                        self?.tableView.endUpdates()
+                    } else {
+                        self?.tableView.reloadData()
                     }
                 }
             }
-            addToFavorites.backgroundColor = UIColor(named: "Favorites")
-        }
             
-        addToFavorites.image = UIImage(named: "favorites")
+            addToFavorites.image = UIImage.star
+        } else {
+            addToFavorites = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
+                if let destinationIndexPath = self?.viewModel.addFavorite(credential: credential) {
+                        if indexPath != destinationIndexPath {
+                            self?.tableView.beginUpdates()
+                            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                            self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
+                            self?.tableView.endUpdates()
+                        } else {
+                            self?.tableView.reloadData()
+                        }
+                    }
+                }
+            
+            addToFavorites.backgroundColor = UIColor(named: "Favorites")
+            addToFavorites.image = UIImage.starFilled
+        }
         
         let configuration = UISwipeActionsConfiguration(actions: [addToFavorites])
         configuration.performsFirstActionWithFullSwipe = true

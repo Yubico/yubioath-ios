@@ -50,8 +50,6 @@ class Credential: NSObject {
     
     
     let requiresTouch: Bool
-    
-    var isFavorite: Bool = false
 
     var validity : DateInterval
     weak var delegate: CredentialExpirationDelegate?
@@ -231,6 +229,14 @@ class Credential: NSObject {
         timerObservation = nil
     }
     
+    static func == (lhs: Credential, rhs: Credential) -> Bool {
+        return lhs.uniqueId == rhs.uniqueId
+    }
+
+    static func < (lhs: Credential, rhs: Credential) -> Bool {
+        return lhs.uniqueId < rhs.uniqueId
+    }
+
     /*! Variation of states for credential
      * idle - just created from list
      * calculating - the operation of calculation is poped from queue and started execution

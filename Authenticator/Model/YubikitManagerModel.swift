@@ -49,6 +49,20 @@ class YubikitManagerModel : NSObject {
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
+            // sorting credentials: 1) favorites 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
+            if let favorites = self.favoritesStorage?.favorites {
+                self._credentials.sort {
+                    if favorites.contains($0.uniqueId) == favorites.contains($1.uniqueId) {
+                        return $0 < $1
+                    }
+                    return favorites.contains($0.uniqueId)
+                }
+            } else {
+                self._credentials.sort {
+                    return $0 < $1
+                }
+            }
+            
             if self.filter == nil || self.filter!.isEmpty {
                 return _credentials
             }
@@ -58,7 +72,9 @@ class YubikitManagerModel : NSObject {
         }
     }
     
-    var favorites: Favorites? = nil
+    var favoritesStorage: FavoritesStorage? = nil
+    
+    var cashedKeyId: String? = nil
     
     var hasFilter: Bool {
         get {
@@ -291,6 +307,8 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
+            self.cashedKeyId = self.keyIdentifier
+            
             for credential in self._credentials {
                 // If it's TOTP credential we might need to recalculate each individually
                 // if there was no correct value returned as part of calculateAll request
@@ -320,49 +338,37 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func addFavorite(credential: Credential) {
-        credential.isFavorite = true
-        let credentialData = CredentialData(issuer: credential.issuer, account: credential.account)
-        if let keyIdentifier = self.keyIdentifier {
-            if self.favorites == nil {
-                self.favorites = Favorites(userAccount: keyIdentifier, favorites: [])
+    func addFavorite(credential: Credential) -> IndexPath? {
+        if let keyIdentifier = self.cashedKeyId {
+            if self.favoritesStorage == nil {
+                self.favoritesStorage = FavoritesStorage(userAccount: keyIdentifier, favorites: [])
             }
-            self.favorites?.addFavorite(credential: credentialData)
-            Favorites.saveFavorites(favorites: self.favorites!)
-            syncFavorites()
+            self.favoritesStorage?.addFavorite(credentialId: credential.uniqueId)
+            self.syncFavorites()
+
+            return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
         }
+        return nil
     }
     
-    func removeFavorite(credential: Credential) {
-        credential.isFavorite = false
-        let credentialData = CredentialData(issuer: credential.issuer, account: credential.account)
-        if let favorites = self.favorites {
-            self.favorites?.removeFavorite(credential: credentialData)
-            Favorites.saveFavorites(favorites: favorites)
-            syncFavorites()
+    func removeFavorite(credential: Credential) -> IndexPath? {
+        if self.favoritesStorage != nil {
+            self.favoritesStorage?.removeFavorite(credentialId: credential.uniqueId)
+            self.syncFavorites()
+            
+            return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
         }
+        return nil
     }
-    
+   
     private func syncFavorites() {
-        if let keyIdentifier = self.keyIdentifier {
-            if let favorites = Favorites.readFavorites(userAccount: keyIdentifier) {
-                self.favorites = favorites
-                self._credentials.forEach { credential in
-                    let credentialData = favorites.favorites.filter { $0.issuer == credential.issuer && $0.account == credential.account }
-                    credential.isFavorite = credentialData.count > 0
-                }
+        if let keyIdentifier = self.cashedKeyId {
+            if let favorites = FavoritesStorage.readFavorites(userAccount: keyIdentifier) {
+                self.favoritesStorage = favorites
             } else {
-                self.favorites = Favorites(userAccount: keyIdentifier, favorites: [])
+                self.favoritesStorage = FavoritesStorage(userAccount: keyIdentifier, favorites: [])
             }
         }
-        
-        // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-        self._credentials.sort(by: {
-            if $0.isFavorite == $1.isFavorite {
-                return $0.uniqueId < $1.uniqueId
-            }
-            return $0.isFavorite
-        })
     }
     
     /*! Invoked when specific credential gets recalculated */

@@ -85,10 +85,10 @@
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-Oe-FZH">
                                             <rect key="frame" x="371.5" y="47.5" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorites" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
                                             <rect key="frame" x="369" y="11" width="25" height="26"/>
-                                            <color key="backgroundColor" name="Favorites"/>
-                                            <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" name="Favorites"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="1Tb-il-VKx"/>
                                                 <constraint firstAttribute="height" constant="25" id="zCe-Yf-1OL"/>
@@ -1168,7 +1168,7 @@
     </scenes>
     <resources>
         <image name="Settings" width="24" height="24"/>
-        <image name="favorites" width="24" height="24"/>
+        <image name="star" catalog="system" width="64" height="58"/>
         <image name="touch" width="24" height="24"/>
         <namedColor name="Favorites">
             <color red="0.80000000000000004" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

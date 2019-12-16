@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ic_grade_white.png",
+      "filename" : "ic_star_border_white.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_grade_white_2x.png",
+      "filename" : "ic_star_border_white_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_grade_white_3x.png",
+      "filename" : "ic_star_border_white_3x.png",
       "scale" : "3x"
     }
   ],
