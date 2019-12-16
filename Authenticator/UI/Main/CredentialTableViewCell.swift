@@ -37,11 +37,11 @@ class CredentialTableViewCell: UITableViewCell {
     // each cell is responsible to show 1 credential and cell can be reused by updating credential with this method
     func updateView(credential: Credential) {
         self.credential = credential
-        name.text = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
+        name.text = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
         actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
-        credentialIcon.text = credential.issuer.isEmpty ? "Y" : String(credential.issuer.first!).uppercased()
+        credentialIcon.text = credential.issuer?.isEmpty == false ? String(credential.issuer!.first!).uppercased() : "Y"
         
         self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
         credentialIcon.backgroundColor = self.credentialIconColor

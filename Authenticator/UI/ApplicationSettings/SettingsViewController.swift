@@ -16,13 +16,15 @@ class SettingsViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         keySessionObserver.observeSessionState = false
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = super.tableView(tableView, heightForRowAt: indexPath)

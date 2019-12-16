@@ -28,11 +28,11 @@ extension KeySessionError: LocalizedError {
         case .noResponse:
             return NSLocalizedString("Something went wrong and key doesn't respond", comment: "No response")
         case .invalidUri:
-            return NSLocalizedString("This is an URL conforming to Key URI Format specs", comment: "Invalid Uri")
+            return NSLocalizedString("This QR code is not supported", comment: "Invalid Uri format, not OATH URL")
         case .timeout:
-            return NSLocalizedString("The operation got timed out", comment: "Invalid Uri")
+            return NSLocalizedString("The key doesn't respond", comment: "Timeout issue")
         case .invalidCredentialUri:
-            return NSLocalizedString("Invalid URI format", comment: "Invalid Uri")
+            return NSLocalizedString("Invalid URI format", comment: "Invalid Uri, wrong parameters")
         }
     }
 }

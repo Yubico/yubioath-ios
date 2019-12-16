@@ -53,7 +53,7 @@ class YubikitManagerModel : NSObject {
                 return _credentials
             }
             return _credentials.filter {
-                $0.issuer.lowercased().contains(self.filter!) || $0.account.lowercased().contains(self.filter!)
+                $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
             }
         }
     }
@@ -66,13 +66,7 @@ class YubikitManagerModel : NSObject {
         
     //
     // MARK: - Public methods
-    //
-    override init() {
-        super.init()
-        // create sequensial queue for all operations, so we don't execute multiple at once
-        operationQueue.maxConcurrentOperationCount = 1
-    }
-    
+    //    
     public func isQueueEmpty() -> Bool {
         return (operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0) || operationQueue.isSuspended
     }
@@ -229,7 +223,7 @@ extension YubikitManagerModel: OperationDelegate {
             state = .locked
         } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
             // wait for another successful validation
-            operationQueue.isSuspended = true
+            operationQueue.suspendQueue()
         }
                
         DispatchQueue.main.async { [weak self] in
@@ -313,7 +307,7 @@ extension YubikitManagerModel: OperationDelegate {
             
             
             // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
+            self._credentials.sort(by: { $0.uniqueId.lowercased() < $1.uniqueId.lowercased() })
             
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
@@ -351,6 +345,9 @@ extension YubikitManagerModel: OperationDelegate {
     }
     
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
+        if (isPaused) {
+            return
+        }
         operation.delegate = self
         operationQueue.add(operation: operation, suspendQueue: suspendQueue)
     }
