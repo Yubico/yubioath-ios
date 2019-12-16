@@ -113,6 +113,8 @@ class Credential: NSObject {
         }
     }
     
+    // uniqueId is used to store a set of Favorites in UserDefaults.
+    // Changing/removing uniqueId will brake FavoritesStorage.
     var uniqueId: String {
         get {
             if type == .TOTP && period != Credential.DEFAULT_PERIOD {

@@ -74,6 +74,7 @@ class YubikitManagerModel : NSObject {
     
     var favoritesStorage = FavoritesStorage()
     
+    // cashedId is used as a key to store a set of Favorites in UserDefaults.
     var cashedKeyId: String? = nil
     
     var hasFilter: Bool {

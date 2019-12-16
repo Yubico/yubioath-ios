@@ -164,9 +164,11 @@ class MainViewController: BaseOATHVIewController {
         let credential = self.viewModel.credentials[indexPath.row]
         var addToFavorites = UIContextualAction()
         if self.viewModel.favoritesStorage.favorites.contains(credential.uniqueId) {
+            // Remove credential from the set of Favorites.
             addToFavorites = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
                 if let destinationIndexPath = self?.viewModel.removeFavorite(credential: credential) {
                     if indexPath != destinationIndexPath {
+                        // Animation
                         self?.tableView.beginUpdates()
                         self?.tableView.deleteRows(at: [indexPath], with: .fade)
                         self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
@@ -179,18 +181,20 @@ class MainViewController: BaseOATHVIewController {
 
             addToFavorites.image = UIImage.star
         } else {
+            // Add credential to the set of Favorites.
             addToFavorites = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
                 if let destinationIndexPath = self?.viewModel.addFavorite(credential: credential) {
-                        if indexPath != destinationIndexPath {
-                            self?.tableView.beginUpdates()
-                            self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                            self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
-                            self?.tableView.endUpdates()
-                        } else {
-                            self?.tableView.reloadData()
-                        }
+                    if indexPath != destinationIndexPath {
+                        // Animation
+                        self?.tableView.beginUpdates()
+                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
+                        self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
+                        self?.tableView.endUpdates()
+                    } else {
+                        self?.tableView.reloadData()
                     }
                 }
+            }
             
             addToFavorites.backgroundColor = UIColor(named: "Favorites")
             addToFavorites.image = UIImage.starFilled

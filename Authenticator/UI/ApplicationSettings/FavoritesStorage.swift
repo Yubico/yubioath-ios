@@ -8,12 +8,10 @@
 
 import Foundation
 
+// This class is for storing a set of favorite credentials in UserDefaults by keyIdentifier.
 class FavoritesStorage: NSObject {
 
     public var favorites: Set<String> = []
-
-    private static let userAccountKey = "userAccount"
-    private static let favoritesKey = "favorites"
 
     func addFavorite(userAccount: String?, credentialId: String) {
         if let keyId = userAccount {
