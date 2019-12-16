@@ -49,13 +49,13 @@ class YubikitManagerModel : NSObject {
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
-            // sorting credentials: 1) favorites 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            if let favorites = self.favoritesStorage?.favorites {
+            // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
+            if self.favoritesStorage.favorites.count > 0 {
                 self._credentials.sort {
-                    if favorites.contains($0.uniqueId) == favorites.contains($1.uniqueId) {
+                    if self.favoritesStorage.favorites.contains($0.uniqueId) == self.favoritesStorage.favorites.contains($1.uniqueId) {
                         return $0 < $1
                     }
-                    return favorites.contains($0.uniqueId)
+                    return self.favoritesStorage.favorites.contains($0.uniqueId)
                 }
             } else {
                 self._credentials.sort {
@@ -72,7 +72,7 @@ class YubikitManagerModel : NSObject {
         }
     }
     
-    var favoritesStorage: FavoritesStorage? = nil
+    var favoritesStorage = FavoritesStorage(favorites: [])
     
     var cashedKeyId: String? = nil
     
@@ -152,6 +152,7 @@ class YubikitManagerModel : NSObject {
             }
 
             self._credentials.removeAll()
+            self.favoritesStorage.favorites = []
 
             self.state = .idle
             self.operationQueue.cancelAllOperations()
@@ -330,45 +331,22 @@ extension YubikitManagerModel: OperationDelegate {
                     self.calculate(credential: credential)
                 }
             }
-            
-            self.syncFavorites()
+        
+            self.favoritesStorage.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
             
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
     }
     
-    func addFavorite(credential: Credential) -> IndexPath? {
-        if let keyIdentifier = self.cashedKeyId {
-            if self.favoritesStorage == nil {
-                self.favoritesStorage = FavoritesStorage(userAccount: keyIdentifier, favorites: [])
-            }
-            self.favoritesStorage?.addFavorite(credentialId: credential.uniqueId)
-            self.syncFavorites()
-
-            return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
-        }
-        return nil
+    func addFavorite(credential: Credential) -> IndexPath {
+        self.favoritesStorage.addFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
     
-    func removeFavorite(credential: Credential) -> IndexPath? {
-        if self.favoritesStorage != nil {
-            self.favoritesStorage?.removeFavorite(credentialId: credential.uniqueId)
-            self.syncFavorites()
-            
-            return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
-        }
-        return nil
-    }
-   
-    private func syncFavorites() {
-        if let keyIdentifier = self.cashedKeyId {
-            if let favorites = FavoritesStorage.readFavorites(userAccount: keyIdentifier) {
-                self.favoritesStorage = favorites
-            } else {
-                self.favoritesStorage = FavoritesStorage(userAccount: keyIdentifier, favorites: [])
-            }
-        }
+    func removeFavorite(credential: Credential) -> IndexPath {
+        self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
     
     /*! Invoked when specific credential gets recalculated */

@@ -8,83 +8,41 @@
 
 import Foundation
 
-//class CredentialData: NSObject, NSCoding {
-//
-//    var issuer: String
-//    var account: String
-//
-//    init(issuer: String, account: String) {
-//        self.issuer = issuer
-//        self.account = account
-//    }
-//
-//    required convenience init?(coder: NSCoder) {
-//        guard let issuer = coder.decodeObject(forKey: "issuer") as? String,
-//            let account = coder.decodeObject(forKey: "account") as? String else {
-//                return nil
-//        }
-//        self.init(issuer: issuer, account: account)
-//    }
-//
-//    func encode(with coder: NSCoder) {
-//        coder.encode(issuer, forKey: "issuer")
-//        coder.encode(account, forKey: "account")
-//    }
-//    
-//    static func == (lhs: CredentialData, rhs: CredentialData) -> Bool {
-//        return lhs.issuer == rhs.issuer && lhs.account == rhs.account
-//    }
-//}
+class FavoritesStorage: NSObject {
 
-
-class FavoritesStorage: NSObject, NSCoding {
-
-    public private(set) var userAccount: String
-    public private(set) var favorites: Set<String>
+    public var favorites: Set<String> = []
 
     private static let userAccountKey = "userAccount"
     private static let favoritesKey = "favorites"
 
-    init(userAccount: String, favorites: Set<String>) {
-        self.userAccount = userAccount
+    init(favorites: Set<String>) {
         self.favorites = favorites
     }
 
-    required convenience init?(coder: NSCoder) {
-        guard let userAccount = coder.decodeObject(forKey: FavoritesStorage.userAccountKey) as? String,
-            let favorites = coder.decodeObject(forKey: FavoritesStorage.favoritesKey) as? Set<String> else {
-                return nil
+    func addFavorite(userAccount: String?, credentialId: String) {
+        if let keyId = userAccount {
+            self.favorites.insert(credentialId)
+            self.saveFavorites(userAccount: keyId)
         }
-        self.init(userAccount: userAccount, favorites: favorites)
-    }
-    
-    func encode(with coder: NSCoder) {
-        coder.encode(userAccount, forKey: FavoritesStorage.userAccountKey)
-        coder.encode(favorites, forKey: FavoritesStorage.favoritesKey)
     }
 
-    func addFavorite(credentialId: String) {
-         self.favorites.insert(credentialId)
-         self.saveFavorites()
+    func removeFavorite(userAccount: String?, credentialId: String) {
+        if let keyId = userAccount, favorites.count > 0 {
+            self.favorites.remove(credentialId)
+            self.saveFavorites(userAccount: keyId)
+        }
     }
 
-    func removeFavorite(credentialId: String) {
-        self.favorites.remove(credentialId)
-        self.saveFavorites()
-    }
-
-    private func saveFavorites() {
+    private func saveFavorites(userAccount: String) {
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: self.favorites)
-        UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + self.userAccount)
+        UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + userAccount)
     }
 
-    static func readFavorites(userAccount: String) -> FavoritesStorage? {
-        guard let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + userAccount) else {
-            return nil
+    func readFavorites(userAccount: String?) -> Set<String> {
+        if let keyId = userAccount, let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyId) {
+            let favorites = NSKeyedUnarchiver.unarchiveObject(with: encodedData) as! Set<String>
+            return favorites
         }
-        guard let favorites = NSKeyedUnarchiver.unarchiveObject(with: encodedData) as? Set<String> else {
-            return nil
-        }
-        return FavoritesStorage(userAccount: userAccount, favorites: favorites)
+        return []
     }
 }
