@@ -15,10 +15,6 @@ class FavoritesStorage: NSObject {
     private static let userAccountKey = "userAccount"
     private static let favoritesKey = "favorites"
 
-    init(favorites: Set<String>) {
-        self.favorites = favorites
-    }
-
     func addFavorite(userAccount: String?, credentialId: String) {
         if let keyId = userAccount {
             self.favorites.insert(credentialId)
@@ -38,11 +34,9 @@ class FavoritesStorage: NSObject {
         UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + userAccount)
     }
 
-    func readFavorites(userAccount: String?) -> Set<String> {
+    func readFavorites(userAccount: String?) {
         if let keyId = userAccount, let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyId) {
-            let favorites = NSKeyedUnarchiver.unarchiveObject(with: encodedData) as! Set<String>
-            return favorites
+            self.favorites = NSKeyedUnarchiver.unarchiveObject(with: encodedData) as! Set<String>
         }
-        return []
     }
 }

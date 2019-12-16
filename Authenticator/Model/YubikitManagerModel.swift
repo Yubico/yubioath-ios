@@ -72,7 +72,7 @@ class YubikitManagerModel : NSObject {
         }
     }
     
-    var favoritesStorage = FavoritesStorage(favorites: [])
+    var favoritesStorage = FavoritesStorage()
     
     var cashedKeyId: String? = nil
     
@@ -332,7 +332,7 @@ extension YubikitManagerModel: OperationDelegate {
                 }
             }
         
-            self.favoritesStorage.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
+            self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
             
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
