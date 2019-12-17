@@ -136,7 +136,6 @@ class MainViewController: BaseOATHVIewController {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
@@ -145,7 +144,7 @@ class MainViewController: BaseOATHVIewController {
              // show warning that user will delete credential to preven accident removals
              // we also won't update UI until
              // the actual removal happen (for example when user tapped key over NFC)
-             let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
+             let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
              self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
                  self?.viewModel.deleteCredential(credential: credential)
             }

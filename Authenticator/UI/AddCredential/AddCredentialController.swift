@@ -83,7 +83,9 @@ class AddCredentialController: UITableViewController {
             // Set the credential to be passed to MainViewController after the unwind segue.
             if let credential = self.credential {
             // Credential is pupolated from QR code, apply user changes
-                credential.issuer = self.issuerManualText.text ?? ""
+                if (self.issuerManualText.text?.isEmpty == false) {
+                    credential.issuer = self.issuerManualText.text!
+                }
                 credential.account = self.accountManualText.text ?? ""
                 credential.requiresTouch = self.requireTouchManual.isOn
             } else {
@@ -91,7 +93,9 @@ class AddCredentialController: UITableViewController {
                 let credential = YKFOATHCredential()
                 
                 // Set the credential to be passed to MainViewController after the unwind segue.
-                credential.issuer = self.issuerManualText.text ?? ""
+                if (self.issuerManualText.text?.isEmpty == false) {
+                    credential.issuer = self.issuerManualText.text!
+                }
                 credential.account = self.accountManualText.text ?? ""
                 credential.requiresTouch = self.requireTouchManual.isOn
 

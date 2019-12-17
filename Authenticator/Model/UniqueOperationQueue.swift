@@ -18,6 +18,12 @@ import UIKit
 class UniqueOperationQueue: OperationQueue {
     let serial = DispatchQueue(label: "serial", qos: .default)
     var pendingOperations : [String:OATHOperation] = [:]
+    override init() {
+        super.init()
+        
+        // create sequensial queue for all operations, so we don't execute multiple at once
+        maxConcurrentOperationCount = 1
+    }
     
     func suspendQueue(suspendQueue: Bool = true) {
         serial.async { [weak self] in

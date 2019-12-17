@@ -34,7 +34,7 @@ class Credential: NSObject {
      The Issuer of the credential as defined in the Key URI Format specifications:
      https://github.com/google/google-authenticator/wiki/Key-Uri-Format
      */
-    let issuer: String
+    let issuer: String?
     
     /*!
      The validity period for a TOTP code, in seconds. The default value for this property is 30.
@@ -64,7 +64,7 @@ class Credential: NSObject {
      */
     var isSteam: Bool {
         get {
-            return issuer.lowercased() == Credential.STEAM_ISSUER
+            return issuer?.lowercased() == Credential.STEAM_ISSUER
         }
     }
     
@@ -99,7 +99,7 @@ class Credential: NSObject {
     init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
         type = credential.type
         account = credential.account
-        issuer = credential.issuer ?? ""
+        issuer = credential.issuer
         period = credential.period
         
         code = credential.otp ?? ""
@@ -118,9 +118,9 @@ class Credential: NSObject {
     var uniqueId: String {
         get {
             if type == .TOTP && period != Credential.DEFAULT_PERIOD {
-                return String(format:"%@:%@/%d", issuer, account, period).lowercased();
+                return String(format:"%@:%@/%d", issuer ?? "", account, period);
             } else {
-                return String(format:"%@:%@", issuer, account).lowercased();
+                return String(format:"%@:%@", issuer ?? "", account);
             }
         }
     }
