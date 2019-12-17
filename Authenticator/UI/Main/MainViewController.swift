@@ -22,8 +22,6 @@ class MainViewController: BaseOATHVIewController {
         setupNavigationBar()
         setupRefreshControl()
         
-        //load accountData with favorites
-        
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             let error = KeySessionError.notSupported

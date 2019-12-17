@@ -236,7 +236,7 @@ class Credential: NSObject {
     }
 
     static func < (lhs: Credential, rhs: Credential) -> Bool {
-        return lhs.uniqueId < rhs.uniqueId
+        return lhs.uniqueId.lowercased() < rhs.uniqueId.lowercased()
     }
 
     /*! Variation of states for credential
