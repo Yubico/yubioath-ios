@@ -159,47 +159,45 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let credential = self.viewModel.credentials[indexPath.row]
-        var addToFavorites = UIContextualAction()
+        var action = UIContextualAction()
         if self.viewModel.isFavorite(credential: credential) {
             // Remove credential from the set of Favorites.
-            addToFavorites = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
-                if let destinationIndexPath = self?.viewModel.removeFavorite(credential: credential) {
-                    if indexPath != destinationIndexPath {
-                        // Animation
-                        self?.tableView.beginUpdates()
-                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                        self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
-                        self?.tableView.endUpdates()
-                    } else {
-                        self?.tableView.reloadData()
-                    }
+            action = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
                 }
+                let destinationIndexPath = self.viewModel.removeFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
             }
 
-            addToFavorites.image = UIImage.star
+            action.image = UIImage.star
         } else {
             // Add credential to the set of Favorites.
-            addToFavorites = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
-                if let destinationIndexPath = self?.viewModel.addFavorite(credential: credential) {
-                    if indexPath != destinationIndexPath {
-                        // Animation
-                        self?.tableView.beginUpdates()
-                        self?.tableView.deleteRows(at: [indexPath], with: .fade)
-                        self?.tableView.insertRows(at: [destinationIndexPath], with: .left)
-                        self?.tableView.endUpdates()
-                    } else {
-                        self?.tableView.reloadData()
-                    }
+            action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
                 }
+                let destinationIndexPath = self.viewModel.addFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
             }
             
-            addToFavorites.backgroundColor = UIColor(named: "Favorites")
-            addToFavorites.image = UIImage.starFilled
+            action.backgroundColor = UIColor(named: "Favorites")
+            action.image = UIImage.starFilled
         }
         
-        let configuration = UISwipeActionsConfiguration(actions: [addToFavorites])
+        let configuration = UISwipeActionsConfiguration(actions: [action])
         configuration.performsFirstActionWithFullSwipe = true
         return configuration
+    }
+    
+    private func animateAction(indexPath: IndexPath, destinationIndexPath:IndexPath) {
+       tableView.performBatchUpdates({ () -> Void in
+        tableView.deleteRows(at: [indexPath], with: .right)
+        tableView.insertRows(at: [destinationIndexPath], with: .right)
+
+       }, completion: { [weak self] (finished) -> Void in
+            self?.tableView.reloadData()
+       })
     }
     
     // MARK: - Navigation
