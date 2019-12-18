@@ -52,10 +52,10 @@ class YubikitManagerModel : NSObject {
             // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
             if self.favoritesStorage.favorites.count > 0 {
                 self._credentials.sort {
-                    if self.favoritesStorage.favorites.contains($0.uniqueId) == self.favoritesStorage.favorites.contains($1.uniqueId) {
+                    if isFavorite(credential: $0) == isFavorite(credential: $1) {
                         return $0 < $1
                     }
-                    return self.favoritesStorage.favorites.contains($0.uniqueId)
+                    return isFavorite(credential: $0)
                 }
             } else {
                 self._credentials.sort {
@@ -72,10 +72,10 @@ class YubikitManagerModel : NSObject {
         }
     }
     
-    var favoritesStorage = FavoritesStorage()
+    private var favoritesStorage = FavoritesStorage()
     
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
-    var cashedKeyId: String? = nil
+    private var cashedKeyId: String? = nil
     
     var hasFilter: Bool {
         get {
@@ -147,7 +147,7 @@ class YubikitManagerModel : NSObject {
             }
 
             self._credentials.removeAll()
-            self.favoritesStorage.favorites = []
+            self.cashedKeyId = nil
 
             self.state = .idle
             self.operationQueue.cancelAllOperations()
@@ -332,6 +332,10 @@ extension YubikitManagerModel: OperationDelegate {
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
+    }
+    
+    func isFavorite(credential: Credential) -> Bool {
+        return self.favoritesStorage.favorites.contains(credential.uniqueId)
     }
     
     func addFavorite(credential: Credential) -> IndexPath {

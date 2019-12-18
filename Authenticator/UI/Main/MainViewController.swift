@@ -107,7 +107,7 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         let credential = viewModel.credentials[indexPath.row]
-        let isFavorite = self.viewModel.favoritesStorage.favorites.contains(credential.uniqueId)
+        let isFavorite = self.viewModel.isFavorite(credential: credential)
         cell.updateView(credential: credential, isFavorite: isFavorite)
         return cell
     }
@@ -160,7 +160,7 @@ class MainViewController: BaseOATHVIewController {
         
         let credential = self.viewModel.credentials[indexPath.row]
         var addToFavorites = UIContextualAction()
-        if self.viewModel.favoritesStorage.favorites.contains(credential.uniqueId) {
+        if self.viewModel.isFavorite(credential: credential) {
             // Remove credential from the set of Favorites.
             addToFavorites = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
                 if let destinationIndexPath = self?.viewModel.removeFavorite(credential: credential) {
