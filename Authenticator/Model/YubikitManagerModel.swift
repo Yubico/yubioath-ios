@@ -21,6 +21,7 @@ protocol OperationDelegate: class {
     func onCompleted(operation: OATHOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
+    func onDeleteFromFavorites(credential: Credential)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -148,6 +149,7 @@ class YubikitManagerModel : NSObject {
 
             self._credentials.removeAll()
             self.cashedKeyId = nil
+            self.favoritesStorage.cleanUpCache()
 
             self.state = .idle
             self.operationQueue.cancelAllOperations()
@@ -331,6 +333,12 @@ extension YubikitManagerModel: OperationDelegate {
 
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
+        }
+    }
+    
+    func onDeleteFromFavorites(credential: Credential) {
+        if self.isFavorite(credential: credential) {
+            self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
         }
     }
     

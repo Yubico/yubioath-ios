@@ -24,10 +24,10 @@ class FavoritesStorage: NSObject {
         if let keyId = userAccount {
             if favorites.count > 1 {
                 self.favorites.remove(credentialId)
-                self.saveFavorites(userAccount: keyId)
             } else {
-                self.cleanUp(userAccount: keyId)
+                self.cleanUpCache()
             }
+            self.saveFavorites(userAccount: keyId)
         }
     }
 
@@ -45,5 +45,9 @@ class FavoritesStorage: NSObject {
     private func cleanUp(userAccount: String) {
         UserDefaults.standard.removeObject(forKey: "Favorites-" + userAccount)
         UserDefaults.standard.synchronize()
+    }
+    
+    func cleanUpCache() {
+        self.favorites = []
     }
 }
