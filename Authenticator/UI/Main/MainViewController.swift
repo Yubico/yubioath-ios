@@ -190,11 +190,11 @@ class MainViewController: BaseOATHVIewController {
         return configuration
     }
     
-    private func animateAction(indexPath: IndexPath, destinationIndexPath:IndexPath) {
-       tableView.performBatchUpdates({ () -> Void in
-        tableView.deleteRows(at: [indexPath], with: .right)
-        tableView.insertRows(at: [destinationIndexPath], with: .right)
-
+    // Animation for moving row when pin/unpin favorites to/from the top.
+    private func animateAction(indexPath: IndexPath, destinationIndexPath: IndexPath) {
+        tableView.performBatchUpdates({ () -> Void in
+            tableView.deleteRows(at: [indexPath], with: .right)
+            tableView.insertRows(at: [destinationIndexPath], with: .right)
        }, completion: { [weak self] (finished) -> Void in
             self?.tableView.reloadData()
        })
@@ -240,6 +240,8 @@ class MainViewController: BaseOATHVIewController {
         case .filter:
             self.tableView.reloadData()
         case .cleanup:
+            self.tableView.reloadData()
+        case .delete:
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials

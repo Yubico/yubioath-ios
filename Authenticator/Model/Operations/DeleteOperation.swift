@@ -40,6 +40,7 @@ class DeleteOperation: OATHOperation {
     }
     
     override func invokeDelegateCompletion() {
-        delegate?.onDeleteFromFavorites(credential: self.credential)
+        delegate?.onDelete(credential: self.credential)
+        super.invokeDelegateCompletion()
     }
 }

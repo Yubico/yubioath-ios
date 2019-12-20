@@ -21,7 +21,7 @@ protocol OperationDelegate: class {
     func onCompleted(operation: OATHOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
-    func onDeleteFromFavorites(credential: Credential)
+    func onDelete(credential: Credential)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -107,9 +107,13 @@ class YubikitManagerModel : NSObject {
         addOperation(operation: CalculateAllOperation())
     }
     
+//    public func deleteCredential(credential: Credential) {
+//        addOperation(operation: DeleteOperation(credential: credential))
+//        addOperation(operation: CalculateAllOperation())
+//    }
+    
     public func deleteCredential(credential: Credential) {
         addOperation(operation: DeleteOperation(credential: credential))
-        addOperation(operation: CalculateAllOperation())
     }
     
     public func setCode(password: String) {
@@ -336,24 +340,18 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onDeleteFromFavorites(credential: Credential) {
-        if self.isFavorite(credential: credential) {
-            self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+    func onDelete(credential: Credential) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+                
+            if self.isFavorite(credential: credential) {
+                self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+            }
+
+            self._credentials.removeAll { $0 == credential }
         }
-    }
-    
-    func isFavorite(credential: Credential) -> Bool {
-        return self.favoritesStorage.favorites.contains(credential.uniqueId)
-    }
-    
-    func addFavorite(credential: Credential) -> IndexPath {
-        self.favoritesStorage.addFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
-        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
-    }
-    
-    func removeFavorite(credential: Credential) -> IndexPath {
-        self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
-        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
     
     /*! Invoked when specific credential gets recalculated */
@@ -468,6 +466,25 @@ extension YubikitManagerModel {
             }
             print("NFC key session error: \(error.localizedDescription)")
         }
+    }
+}
+
+// MARK: - Operations with Favorites set.
+
+extension YubikitManagerModel {
+    
+    func isFavorite(credential: Credential) -> Bool {
+        return self.favoritesStorage.favorites.contains(credential.uniqueId)
+    }
+    
+    func addFavorite(credential: Credential) -> IndexPath {
+        self.favoritesStorage.addFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
+    }
+    
+    func removeFavorite(credential: Credential) -> IndexPath {
+        self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
 }
 
