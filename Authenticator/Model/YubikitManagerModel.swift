@@ -50,24 +50,25 @@ class YubikitManagerModel : NSObject {
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
+            var credentials = self._credentials.filter { !$0.uniqueId.contains("_hidden")}
             // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
             if self.favoritesStorage.favorites.count > 0 {
-                self._credentials.sort {
+                credentials.sort {
                     if isFavorite(credential: $0) == isFavorite(credential: $1) {
                         return $0 < $1
                     }
                     return isFavorite(credential: $0)
                 }
             } else {
-                self._credentials.sort {
+                credentials.sort {
                     return $0 < $1
                 }
             }
             
             if self.filter == nil || self.filter!.isEmpty {
-                return _credentials
+                return credentials
             }
-            return _credentials.filter {
+            return credentials.filter {
                 $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
             }
         }
