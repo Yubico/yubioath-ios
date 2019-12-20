@@ -81,7 +81,9 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.removeStoredPasswords()
             }
         case (1, 1):
-            self.performSegue(withIdentifier: "StartFRE", sender: self)
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "StartFRE", sender: self)
+            }
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)
