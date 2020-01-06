@@ -81,6 +81,8 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.removeStoredPasswords()
             }
         case (1, 1):
+            // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
+            // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "StartFRE", sender: self)
             }
