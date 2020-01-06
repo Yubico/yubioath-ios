@@ -50,31 +50,31 @@ class YubikitManagerModel : NSObject {
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
-            var credentials = self._credentials.filter { !$0.uniqueId.contains("_hidden")}
             // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
-            if self.favoritesStorage.favorites.count > 0 {
-                credentials.sort {
+            if self.favorites.count > 0 {
+                self._credentials.sort {
                     if isFavorite(credential: $0) == isFavorite(credential: $1) {
                         return $0 < $1
                     }
                     return isFavorite(credential: $0)
                 }
             } else {
-                credentials.sort {
+                self._credentials.sort {
                     return $0 < $1
                 }
             }
             
             if self.filter == nil || self.filter!.isEmpty {
-                return credentials
+                return _credentials
             }
-            return credentials.filter {
+            return _credentials.filter {
                 $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
             }
         }
     }
     
     private var favoritesStorage = FavoritesStorage()
+    private var favorites: Set<String> = []
     
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
     private var cashedKeyId: String? = nil
@@ -107,11 +107,6 @@ class YubikitManagerModel : NSObject {
         addOperation(operation: PutOperation(credential: credential))
         addOperation(operation: CalculateAllOperation())
     }
-    
-//    public func deleteCredential(credential: Credential) {
-//        addOperation(operation: DeleteOperation(credential: credential))
-//        addOperation(operation: CalculateAllOperation())
-//    }
     
     public func deleteCredential(credential: Credential) {
         addOperation(operation: DeleteOperation(credential: credential))
@@ -154,7 +149,7 @@ class YubikitManagerModel : NSObject {
 
             self._credentials.removeAll()
             self.cashedKeyId = nil
-            self.favoritesStorage.cleanUpCache()
+            self.favorites = []
 
             self.state = .idle
             self.operationQueue.cancelAllOperations()
@@ -295,7 +290,8 @@ extension YubikitManagerModel: OperationDelegate {
             
             // using dictionary with uinique id as a key for quick search of existing credential object
             let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap{ $0 }.map{ ($0.uniqueId, $0) })
-            self._credentials = credentials.map {
+            // not adding credentials with '_hidden' prefix to our list.
+            self._credentials = credentials.filter { !$0.uniqueId.contains("_hidden")}.map {
                 if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
@@ -334,7 +330,7 @@ extension YubikitManagerModel: OperationDelegate {
                 }
             }
         
-            self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
+            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
 
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
@@ -348,9 +344,11 @@ extension YubikitManagerModel: OperationDelegate {
             }
                 
             if self.isFavorite(credential: credential) {
-                self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+                self.favorites.remove(credential.uniqueId)
+                self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
             }
 
+            credential.removeTimerObservation()
             self._credentials.removeAll { $0 == credential }
         }
     }
@@ -475,16 +473,18 @@ extension YubikitManagerModel {
 extension YubikitManagerModel {
     
     func isFavorite(credential: Credential) -> Bool {
-        return self.favoritesStorage.favorites.contains(credential.uniqueId)
+        return self.favorites.contains(credential.uniqueId)
     }
     
     func addFavorite(credential: Credential) -> IndexPath {
-        self.favoritesStorage.addFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        self.favorites.insert(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
         return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
     
     func removeFavorite(credential: Credential) -> IndexPath {
-        self.favoritesStorage.removeFavorite(userAccount: self.cashedKeyId, credentialId: credential.uniqueId)
+        self.favorites.remove(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
         return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
 }
