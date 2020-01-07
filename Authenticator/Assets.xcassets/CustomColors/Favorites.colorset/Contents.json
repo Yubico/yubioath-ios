@@ -7,13 +7,8 @@
     {
       "idiom" : "universal",
       "color" : {
-        "color-space" : "display-p3",
-        "components" : {
-          "red" : "0xCC",
-          "alpha" : "1.000",
-          "blue" : "0x00",
-          "green" : "0xCC"
-        }
+        "platform" : "ios",
+        "reference" : "systemYellowColor"
       }
     }
   ]
