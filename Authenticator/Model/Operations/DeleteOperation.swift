@@ -41,6 +41,5 @@ class DeleteOperation: OATHOperation {
     
     override func invokeDelegateCompletion() {
         delegate?.onDelete(credential: self.credential)
-        super.invokeDelegateCompletion()
     }
 }

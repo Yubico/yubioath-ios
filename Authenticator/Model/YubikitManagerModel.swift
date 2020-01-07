@@ -350,6 +350,7 @@ extension YubikitManagerModel: OperationDelegate {
 
             credential.removeTimerObservation()
             self._credentials.removeAll { $0 == credential }
+            self.delegate?.onOperationCompleted(operation: .delete)
         }
     }
     

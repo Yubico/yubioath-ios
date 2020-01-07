@@ -11,9 +11,10 @@ import UIKit
 class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
+    private var applicationSessionObserver: ApplicationSessionObserver!
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
-    private var applicationSessionObserver: ApplicationSessionObserver!
+    private var rowToDelete = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +145,7 @@ class MainViewController: BaseOATHVIewController {
              // the actual removal happen (for example when user tapped key over NFC)
              let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
              self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
+                 self?.rowToDelete = indexPath.row
                  self?.viewModel.deleteCredential(credential: credential)
             }
         }
@@ -242,7 +244,7 @@ class MainViewController: BaseOATHVIewController {
         case .cleanup:
             self.tableView.reloadData()
         case .delete:
-            self.tableView.reloadData()
+            self.tableView.deleteRows(at: [IndexPath(row: self.rowToDelete, section: 0)], with: .fade)
         default:
             // other operations do not change list of credentials
             break
