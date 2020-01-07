@@ -13,6 +13,7 @@ protocol CredentialViewModelDelegate: class {
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
     func onOperationRetry(operation: OATHOperation)
+    func onCredentialDelete(indexPath: IndexPath)
 }
 
 protocol OperationDelegate: class {
@@ -349,8 +350,10 @@ extension YubikitManagerModel: OperationDelegate {
             }
 
             credential.removeTimerObservation()
-            self._credentials.removeAll { $0 == credential }
-            self.delegate?.onOperationCompleted(operation: .delete)
+            if let row = self._credentials.firstIndex(where: { $0 == credential }) {
+                self._credentials.remove(at: row)
+                self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
+            }
         }
     }
     
