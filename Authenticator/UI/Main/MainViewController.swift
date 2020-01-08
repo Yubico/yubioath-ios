@@ -11,10 +11,10 @@ import UIKit
 class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
+    private var applicationSessionObserver: ApplicationSessionObserver!
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
-    private var applicationSessionObserver: ApplicationSessionObserver!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -107,7 +107,8 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         let credential = viewModel.credentials[indexPath.row]
-        cell.updateView(credential: credential)
+        let isFavorite = self.viewModel.isFavorite(credential: credential)
+        cell.updateView(credential: credential, isFavorite: isFavorite)
         return cell
     }
     
@@ -133,21 +134,70 @@ class MainViewController: BaseOATHVIewController {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let credential = viewModel.credentials[indexPath.row]
-            // show warning that user will delete credential to preven accident removals
-            // we also won't update UI until
-            // the actual removal happen (for example when user tapped key over NFC)
-            let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
-            showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
-                self?.viewModel.deleteCredential(credential: credential)
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+             // Delete the row from the data source
+            let credential = self.viewModel.credentials[indexPath.row]
+             // show warning that user will delete credential to preven accident removals
+             // we also won't update UI until
+             // the actual removal happen (for example when user tapped key over NFC)
+             let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
+             self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
+                 self?.viewModel.deleteCredential(credential: credential)
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+            
+        deleteAction.image = UIImage.trash
+        deleteAction.backgroundColor = .red
+               
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let credential = self.viewModel.credentials[indexPath.row]
+        var action = UIContextualAction()
+        if self.viewModel.isFavorite(credential: credential) {
+            // Remove credential from the set of Favorites.
+            action = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
+                }
+                let destinationIndexPath = self.viewModel.removeFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
+            }
+
+            action.image = UIImage.star
+        } else {
+            // Add credential to the set of Favorites.
+            action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
+                }
+                let destinationIndexPath = self.viewModel.addFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
+            }
+            
+            action.backgroundColor = UIColor.systemYellow
+            action.image = UIImage.starFilled
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    // Animation for moving row when pin/unpin favorites to/from the top.
+    private func animateAction(indexPath: IndexPath, destinationIndexPath: IndexPath) {
+        tableView.performBatchUpdates({ () -> Void in
+            tableView.deleteRows(at: [indexPath], with: .right)
+            tableView.insertRows(at: [destinationIndexPath], with: .right)
+       }, completion: { [weak self] (finished) -> Void in
+            self?.tableView.reloadData()
+       })
     }
     
     // MARK: - Navigation
@@ -175,25 +225,6 @@ class MainViewController: BaseOATHVIewController {
         if let sourceViewController = segue.source as? AddCredentialController, let credential = sourceViewController.credential {
             // Add a new credential to table.
             viewModel.addCredential(credential: credential)
-        }
-    }
-    
-    //
-    // MARK: - CredentialViewModelDelegate
-    //
-    override func onOperationCompleted(operation: OperationName) {
-        super.onOperationCompleted(operation: operation)
-        switch operation {
-        case .calculateAll:
-            self.tableView.reloadData()
-            break
-        case .filter:
-            self.tableView.reloadData()
-        case .cleanup:
-            self.tableView.reloadData()
-        default:
-            // other operations do not change list of credentials
-            break
         }
     }
     
