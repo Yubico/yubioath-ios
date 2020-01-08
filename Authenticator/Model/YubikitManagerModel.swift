@@ -292,7 +292,7 @@ extension YubikitManagerModel: OperationDelegate {
             // using dictionary with uinique id as a key for quick search of existing credential object
             let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap{ $0 }.map{ ($0.uniqueId, $0) })
             // not adding credentials with '_hidden' prefix to our list.
-            self._credentials = credentials.filter { !$0.uniqueId.contains("_hidden")}.map {
+            self._credentials = credentials.filter { !$0.uniqueId.starts(with: "_hidden") }.map {
                 if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
@@ -345,8 +345,7 @@ extension YubikitManagerModel: OperationDelegate {
             }
                 
             if self.isFavorite(credential: credential) {
-                self.favorites.remove(credential.uniqueId)
-                self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+                let _ = self.removeFavorite(credential: credential)
             }
 
             credential.removeTimerObservation()
