@@ -44,6 +44,8 @@
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
 		A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A557BEDF23AD97100097545D /* AddCredential.storyboard */; };
+		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
+		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
@@ -118,6 +120,8 @@
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A557BEDF23AD97100097545D /* AddCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCredential.storyboard; sourceTree = "<group>"; };
+		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
+		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 				A591412023835F4600CCCF67 /* Constants.swift */,
 				817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */,
 				A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */,
+				A525965A23A45501006AA3C0 /* UIImageAdditions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
+				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -532,6 +538,7 @@
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
+				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
@@ -552,6 +559,7 @@
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
+				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,

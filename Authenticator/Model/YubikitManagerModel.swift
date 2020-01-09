@@ -13,6 +13,7 @@ protocol CredentialViewModelDelegate: class {
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
     func onOperationRetry(operation: OATHOperation)
+    func onCredentialDelete(indexPath: IndexPath)
 }
 
 protocol OperationDelegate: class {
@@ -21,6 +22,7 @@ protocol OperationDelegate: class {
     func onCompleted(operation: OATHOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
+    func onDelete(credential: Credential)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -45,10 +47,24 @@ class YubikitManagerModel : NSObject {
     var state: State = .idle
     
     private var _credentials = Array<Credential>()
-    
+
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
+            // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
+            if self.favorites.count > 0 {
+                self._credentials.sort {
+                    if isFavorite(credential: $0) == isFavorite(credential: $1) {
+                        return $0 < $1
+                    }
+                    return isFavorite(credential: $0)
+                }
+            } else {
+                self._credentials.sort {
+                    return $0 < $1
+                }
+            }
+            
             if self.filter == nil || self.filter!.isEmpty {
                 return _credentials
             }
@@ -57,6 +73,12 @@ class YubikitManagerModel : NSObject {
             }
         }
     }
+    
+    private var favoritesStorage = FavoritesStorage()
+    private var favorites: Set<String> = []
+    
+    // cashedId is used as a key to store a set of Favorites in UserDefaults.
+    private var cashedKeyId: String? = nil
     
     var hasFilter: Bool {
         get {
@@ -89,7 +111,6 @@ class YubikitManagerModel : NSObject {
     
     public func deleteCredential(credential: Credential) {
         addOperation(operation: DeleteOperation(credential: credential))
-        addOperation(operation: CalculateAllOperation())
     }
     
     public func setCode(password: String) {
@@ -128,6 +149,8 @@ class YubikitManagerModel : NSObject {
             }
 
             self._credentials.removeAll()
+            self.cashedKeyId = nil
+            self.favorites = []
 
             self.state = .idle
             self.operationQueue.cancelAllOperations()
@@ -268,7 +291,8 @@ extension YubikitManagerModel: OperationDelegate {
             
             // using dictionary with uinique id as a key for quick search of existing credential object
             let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap{ $0 }.map{ ($0.uniqueId, $0) })
-            self._credentials = credentials.map {
+            // not adding credentials with '_hidden' prefix to our list.
+            self._credentials = credentials.filter { !$0.uniqueId.starts(with: "_hidden") }.map {
                 if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
@@ -282,6 +306,8 @@ extension YubikitManagerModel: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
+            
+            self.cashedKeyId = self.keyIdentifier
             
             for credential in self._credentials {
                 // If it's TOTP credential we might need to recalculate each individually
@@ -304,13 +330,29 @@ extension YubikitManagerModel: OperationDelegate {
                     self.calculate(credential: credential)
                 }
             }
-            
-            
-            // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            self._credentials.sort(by: { $0.uniqueId.lowercased() < $1.uniqueId.lowercased() })
-            
+        
+            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
+
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
+        }
+    }
+    
+    func onDelete(credential: Credential) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+                
+            if self.isFavorite(credential: credential) {
+                let _ = self.removeFavorite(credential: credential)
+            }
+
+            credential.removeTimerObservation()
+            if let row = self._credentials.firstIndex(where: { $0 == credential }) {
+                self._credentials.remove(at: row)
+                self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
+            }
         }
     }
     
@@ -426,6 +468,27 @@ extension YubikitManagerModel {
             }
             print("NFC key session error: \(error.localizedDescription)")
         }
+    }
+}
+
+// MARK: - Operations with Favorites set.
+
+extension YubikitManagerModel {
+    
+    func isFavorite(credential: Credential) -> Bool {
+        return self.favorites.contains(credential.uniqueId)
+    }
+    
+    func addFavorite(credential: Credential) -> IndexPath {
+        self.favorites.insert(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
+    }
+    
+    func removeFavorite(credential: Credential) -> IndexPath {
+        self.favorites.remove(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
 }
 

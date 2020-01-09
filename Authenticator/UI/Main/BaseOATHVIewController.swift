@@ -138,7 +138,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
+        case .calculateAll, .cleanup, .filter :
+            self.tableView.reloadData()
         default:
+            // other operations do not change list of credentials
             break
         }
         
@@ -165,5 +168,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     
     func onShowToastMessage(message: String) {
         self.displayToast(message: message)
+    }
+    
+    func onCredentialDelete(indexPath: IndexPath) {
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
