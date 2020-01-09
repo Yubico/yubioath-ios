@@ -81,7 +81,11 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.removeStoredPasswords()
             }
         case (1, 1):
-            self.performSegue(withIdentifier: "StartFRE", sender: self)
+            // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
+            // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "StartFRE", sender: self)
+            }
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)
