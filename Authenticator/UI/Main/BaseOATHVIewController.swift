@@ -112,11 +112,11 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 print("Error code: \(code)")
                 var errorMessage = error.localizedDescription
                 
-                if code == "0x6984" || code == "0x01" {
+                if errorCode == YKFAPDUCommandInstruction.oathPut.rawValue || errorCode == YKFKeyAPDUErrorCode.dataInvalid.rawValue {
                     errorMessage = "Key returned status error (\(code)). Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
                 }
                 
-                if error.localizedDescription == "The key returned a malformed response when selecting OATH." {
+                if errorCode == YKFKeyOATHErrorCode.badApplicationSelectionResponse.rawValue {
                     errorMessage = "OATH not supported. Please select a different option."
                 }
                 
