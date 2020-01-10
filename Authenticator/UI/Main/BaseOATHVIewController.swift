@@ -171,6 +171,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onCredentialDelete(indexPath: IndexPath) {
-        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        if self.viewModel.credentials.count == 0 {
+           self.tableView.reloadData()
+        } else {
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
