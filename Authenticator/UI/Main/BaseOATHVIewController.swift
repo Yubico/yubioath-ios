@@ -175,7 +175,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
            self.tableView.reloadData()
         } else {
             self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableView.reloadData()
         }
     }
 }

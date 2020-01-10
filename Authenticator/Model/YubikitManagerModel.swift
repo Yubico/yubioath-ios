@@ -343,14 +343,13 @@ extension YubikitManagerModel: OperationDelegate {
             guard let self = self else {
                 return
             }
-                
-            if self.isFavorite(credential: credential) {
-                let _ = self.removeFavorite(credential: credential)
-            }
 
             credential.removeTimerObservation()
             if let row = self._credentials.firstIndex(where: { $0 == credential }) {
                 self._credentials.remove(at: row)
+                if self.isFavorite(credential: credential) {
+                    let _ = self.removeFavorite(credential: credential)
+                }
                 self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
             }
         }
