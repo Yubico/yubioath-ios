@@ -171,8 +171,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onCredentialDelete(indexPath: IndexPath) {
+        // Adding check on 0 and removing the whole section in that case, because deleteRows crashes the app if there is only one credential in the table.
         if self.viewModel.credentials.count == 0 {
-           self.tableView.reloadData()
+            self.tableView.deleteSections([0], with: .fade)
         } else {
             self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
