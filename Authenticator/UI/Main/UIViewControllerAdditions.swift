@@ -54,7 +54,7 @@ extension UIViewController {
     /*! Shows bottom sheet with options whether to save password or not
      */
     private func showPasswordSaveSheet(inputHandler: ((PasswordSaveType) -> Void)? = nil) {
-        let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Would you like to save this password for the next time you use this application with your YubiKey?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Save Password", style: .default, handler: { (action) -> Void in
             DispatchQueue.main.async {
                 inputHandler?(.save)

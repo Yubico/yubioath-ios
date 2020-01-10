@@ -74,7 +74,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Please try again." : "To prevent unauthorized access this YubiKey is protected with a password."
                 self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
                     guard let self = self else {
                         return
@@ -108,8 +108,23 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     activateNfc()
                 }
             } else {
-                print("Error code: \(String(format:"0x%02X", errorCode))")
-                self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
+                let code = String(format:"0x%02X", errorCode)
+                print("Error code: \(code)")
+                var errorMessage = error.localizedDescription
+                
+                if code == "0x6984" || code == "0x01" {
+                    errorMessage = "Key returned status error (\(code)). Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
+                }
+                
+                if error.localizedDescription == "The key returned a malformed response when selecting OATH." {
+                    errorMessage = "OATH not supported. Please select a different option."
+                }
+                
+                if error.localizedDescription == "The operation got timed out" {
+                    errorMessage = "Operation timed out."
+                }
+                
+                self.showAlertDialog(title: "Error occurred", message: errorMessage)
             }
         }
 
@@ -126,15 +141,15 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 do {
                     try self.secureStore.moveValue(to: keyIdentifier)
                 } catch (let e) {
-                    self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                    self.showAlertDialog(title: "Password was not saved.", message: e.localizedDescription)
                 }
             }
         case .setCode:
-            self.showAlertDialog(title: "Success", message: "The password has been successfully set") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "The password has been set.") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
         case .reset:
-            self.showAlertDialog(title: "Success", message: "The application has been successfully reset") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "The application has been reset.") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
@@ -157,7 +172,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         guard SettingsConfig.showBackupWarning else {
             return
         }
-        let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. \nDo you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
+        let backupText = "Do you want to add this secret to another key so that if the first key is lost, you still have access? If you do not have a second YubiKey to hand, redo this setup when you have both keys. " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
         self.showWarning(title: "Account added. Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
             guard let self = self else {
                 return
