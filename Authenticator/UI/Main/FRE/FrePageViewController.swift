@@ -32,12 +32,20 @@ class FrePageViewController: UIPageViewController {
     var userFreVersion = 0
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
+        if .freVersion > 1 {
+//            let viewControllers: [UIViewController?] = [
+//                self.createViewController(withIdentifier: FreFavoritesViewController.identifier)
+//            ]
+//            return viewControllers.compactMap { $0 }
+            return [self.createViewController(withIdentifier: FreFavoritesViewController.identifier)]
+        }
         if .freVersion > userFreVersion {
             let viewControllers: [UIViewController?] = [
                 self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
                 self.createViewController(withIdentifier: Fre5CiViewController.identifier),
                 YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
-                self.createViewController(withIdentifier: FreQRViewController.identifier)
+                self.createViewController(withIdentifier: FreQRViewController.identifier),
+                self.createViewController(withIdentifier: FreFavoritesViewController.identifier)
             ]
             return viewControllers.compactMap { $0 }
         }
@@ -55,7 +63,6 @@ class FrePageViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
-        
         // When view.background color is not set, part of the mainViewController is
         // visible when present modally UIPageViewController, by default
         // view.background is transperent.
