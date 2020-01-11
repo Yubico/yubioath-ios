@@ -429,8 +429,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWe-lc-Gum">
                                         <rect key="frame" x="24" y="88.666666666666629" width="327" height="450"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-img-light" translatesAutoresizingMaskIntoConstraints="NO" id="rxu-cE-Q8s">
-                                                <rect key="frame" x="42.666666666666686" y="114" width="242" height="222"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-5-favorites" translatesAutoresizingMaskIntoConstraints="NO" id="rxu-cE-Q8s">
+                                                <rect key="frame" x="42.666666666666686" y="78" width="242" height="294"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -473,9 +473,6 @@
                         <viewLayoutGuide key="safeArea" id="mDO-a8-K0a"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hhh-11-hdc"/>
-                    <connections>
-                        <outlet property="headerTitle" destination="Btv-aT-UwD" id="rfy-ND-c8Q"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="54k-Ya-hhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -487,6 +484,7 @@
         <image name="auth-app-intro-2-yk5ci" width="152" height="362"/>
         <image name="auth-app-intro-3-yk-nfc" width="318" height="352"/>
         <image name="auth-app-intro-4-qr-code" width="174" height="338"/>
+        <image name="auth-app-intro-5-favorites" width="242" height="294"/>
         <namedColor name="YubiBlue">
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

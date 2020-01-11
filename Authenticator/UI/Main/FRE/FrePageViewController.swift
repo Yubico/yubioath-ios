@@ -32,13 +32,10 @@ class FrePageViewController: UIPageViewController {
     var userFreVersion = 0
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        if .freVersion > 1 {
-//            let viewControllers: [UIViewController?] = [
-//                self.createViewController(withIdentifier: FreFavoritesViewController.identifier)
-//            ]
-//            return viewControllers.compactMap { $0 }
+        if userFreVersion == 1 {
             return [self.createViewController(withIdentifier: FreFavoritesViewController.identifier)]
         }
+        
         if .freVersion > userFreVersion {
             let viewControllers: [UIViewController?] = [
                 self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
@@ -69,6 +66,11 @@ class FrePageViewController: UIPageViewController {
         self.view.backgroundColor = .background
 
         setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
+        
+        if orderedViewControllers.count == 1 {
+            self.nextBarButton.isEnabled = false
+            self.skipBarButton.title = "Done"
+        }
     }
     
     override func viewDidLayoutSubviews() {
