@@ -32,21 +32,20 @@ class FrePageViewController: UIPageViewController {
     var userFreVersion = 0
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        if userFreVersion == 1 {
-            return [self.createViewController(withIdentifier: FreFavoritesViewController.identifier)]
+        var viewControllers: [UIViewController?] = []
+        
+        if userFreVersion < 1 {
+            viewControllers.append(self.createViewController(withIdentifier: FreWelcomeViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: Fre5CiViewController.identifier))
+            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil)
+            viewControllers.append(self.createViewController(withIdentifier: FreQRViewController.identifier))
         }
         
-        if .freVersion > userFreVersion {
-            let viewControllers: [UIViewController?] = [
-                self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
-                self.createViewController(withIdentifier: Fre5CiViewController.identifier),
-                YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
-                self.createViewController(withIdentifier: FreQRViewController.identifier),
-                self.createViewController(withIdentifier: FreFavoritesViewController.identifier)
-            ]
-            return viewControllers.compactMap { $0 }
+        if userFreVersion < 2 {
+            viewControllers.append(self.createViewController(withIdentifier: FreFavoritesViewController.identifier))
         }
-        return []
+        
+        return viewControllers.compactMap { $0 }
     }()
     
     // Invoking manually since UIPageViewController doesn't let to add pageControl
@@ -68,8 +67,7 @@ class FrePageViewController: UIPageViewController {
         setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
         
         if orderedViewControllers.count == 1 {
-            self.nextBarButton.isEnabled = false
-            self.skipBarButton.title = "Done"
+            setNavigationBar(nextViewController: orderedViewControllers[0])
         }
     }
     
