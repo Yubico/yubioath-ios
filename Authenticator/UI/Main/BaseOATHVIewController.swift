@@ -111,8 +111,23 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 let code = String(format:"0x%02X", errorCode)
                 print("Error code: \(code)")
                 var errorMessage = error.localizedDescription
+                let values: Set<UInt> = [YKFKeyOATHErrorCode.authenticationRequired.rawValue,
+                                          YKFKeyOATHErrorCode.badApplicationSelectionResponse.rawValue,
+                                          YKFKeyOATHErrorCode.badCalculateAllResponse.rawValue,
+                                          YKFKeyOATHErrorCode.badCalculationResponse.rawValue,
+                                          YKFKeyOATHErrorCode.badListResponse.rawValue,
+                                          YKFKeyOATHErrorCode.badValidationResponse.rawValue,
+                                          YKFKeyOATHErrorCode.nameTooLong.rawValue,
+                                          YKFKeyOATHErrorCode.secretTooLong.rawValue,
+                                          YKFKeyOATHErrorCode.touchTimeout.rawValue,
+                                          YKFKeyOATHErrorCode.wrongPassword.rawValue,
+                                          YKFKeySessionErrorCode.keyBusyCode.rawValue,
+                                          YKFKeySessionErrorCode.missingApplicationCode.rawValue,
+                                          YKFKeySessionErrorCode.readTimeoutCode.rawValue,
+                                          YKFKeySessionErrorCode.touchTimeoutCode.rawValue,
+                                          YKFKeySessionErrorCode.writeTimeoutCode.rawValue]
                 
-                if errorCode == YKFAPDUCommandInstruction.oathPut.rawValue || errorCode == YKFKeyAPDUErrorCode.dataInvalid.rawValue {
+                if !values.contains(UInt(errorCode)) {
                     errorMessage = "Key returned status error (\(code)). Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
                 }
                 
@@ -120,8 +135,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     errorMessage = "OATH not supported. Please select a different option."
                 }
                 
-                if error.localizedDescription == "The operation got timed out" {
-                    errorMessage = "Operation timed out."
+                if errorCode == YKFKeySessionErrorCode.readTimeoutCode.rawValue {
+                    errorMessage = "Operation timed out (\(code)). Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
                 }
                 
                 self.showAlertDialog(title: "Error occurred", message: errorMessage)
