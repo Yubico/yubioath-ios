@@ -110,26 +110,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             } else {
                 let code = String(format:"0x%02X", errorCode)
                 print("Error code: \(code)")
-                var errorMessage = error.localizedDescription
-                let values: Set<UInt> = [YKFKeyOATHErrorCode.authenticationRequired.rawValue,
-                                          YKFKeyOATHErrorCode.badApplicationSelectionResponse.rawValue,
-                                          YKFKeyOATHErrorCode.badCalculateAllResponse.rawValue,
-                                          YKFKeyOATHErrorCode.badCalculationResponse.rawValue,
-                                          YKFKeyOATHErrorCode.badListResponse.rawValue,
-                                          YKFKeyOATHErrorCode.badValidationResponse.rawValue,
-                                          YKFKeyOATHErrorCode.nameTooLong.rawValue,
-                                          YKFKeyOATHErrorCode.secretTooLong.rawValue,
-                                          YKFKeyOATHErrorCode.touchTimeout.rawValue,
-                                          YKFKeyOATHErrorCode.wrongPassword.rawValue,
-                                          YKFKeySessionErrorCode.keyBusyCode.rawValue,
-                                          YKFKeySessionErrorCode.missingApplicationCode.rawValue,
-                                          YKFKeySessionErrorCode.readTimeoutCode.rawValue,
-                                          YKFKeySessionErrorCode.touchTimeoutCode.rawValue,
-                                          YKFKeySessionErrorCode.writeTimeoutCode.rawValue]
-                
-                if !values.contains(UInt(errorCode)) {
-                    errorMessage = "Key returned status error (\(code)). Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
-                }
+                var errorMessage = "\(error.localizedDescription) Please contact support if the error is persistent. Go to Settings -> Help and Feedback."
                 
                 if errorCode == YKFKeyOATHErrorCode.badApplicationSelectionResponse.rawValue {
                     errorMessage = "OATH not supported. Please select a different option."
