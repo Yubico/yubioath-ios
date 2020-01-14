@@ -43,16 +43,16 @@
 		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
-		A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A557BEDF23AD97100097545D /* AddCredential.storyboard */; };
 		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
+		A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948B23CE546B003E1E07 /* FrePageViewController.swift */; };
+		A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */; };
+		A544949023CE546B003E1E07 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A544948D23CE546B003E1E07 /* Fre.storyboard */; };
+		A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A557BEDF23AD97100097545D /* AddCredential.storyboard */; };
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
-		A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */; };
-		A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
-		A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */; };
 		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,17 +119,17 @@
 		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
-		A557BEDF23AD97100097545D /* AddCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCredential.storyboard; sourceTree = "<group>"; };
 		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
+		A544948B23CE546B003E1E07 /* FrePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
+		A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
+		A544948D23CE546B003E1E07 /* Fre.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
+		A557BEDF23AD97100097545D /* AddCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCredential.storyboard; sourceTree = "<group>"; };
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
-		A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
-		A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -268,9 +268,9 @@
 			children = (
 				817DBA0E2368B7BE001FC18D /* Utils */,
 				81FA3C35231AF33E009C22AB /* Main */,
+				A544948A23CE546B003E1E07 /* FRE */,
 				81FA3C30231AF198009C22AB /* ApplicationSettings */,
 				81FA3C2B2319839B009C22AB /* AddCredential */,
-				A5E9DEA2237A2C130011FBF4 /* FRE */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
 			);
@@ -285,6 +285,7 @@
 				81E009C222FF44B100E7715B /* KeySessionObserver.swift */,
 				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
+				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */,
@@ -325,7 +326,6 @@
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
-				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -342,15 +342,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		A5E9DEA2237A2C130011FBF4 /* FRE */ = {
+		A544948A23CE546B003E1E07 /* FRE */ = {
 			isa = PBXGroup;
 			children = (
-				A5E9DEA3237A2C660011FBF4 /* FrePageViewController.swift */,
-				A5E9DEAB237B2BB70011FBF4 /* FrePagesViewControllers.swift */,
-				A5E9DEB1237DE6A40011FBF4 /* Fre.storyboard */,
+				A544948B23CE546B003E1E07 /* FrePageViewController.swift */,
+				A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */,
+				A544948D23CE546B003E1E07 /* Fre.storyboard */,
 			);
-			name = FRE;
-			path = Main/FRE;
+			path = FRE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,7 +466,7 @@
 				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
 				A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
-				A5E9DEB2237DE6A40011FBF4 /* Fre.storyboard in Resources */,
+				A544949023CE546B003E1E07 /* Fre.storyboard in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -536,7 +535,6 @@
 				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
-				A5E9DEA4237A2C660011FBF4 /* FrePageViewController.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
@@ -549,7 +547,6 @@
 				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
-				A5E9DEAC237B2BB70011FBF4 /* FrePagesViewControllers.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
@@ -558,6 +555,7 @@
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
+				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
@@ -566,6 +564,7 @@
 				816C685E234697BF00209342 /* StorePreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
+				A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */,
 				81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */,
 				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
