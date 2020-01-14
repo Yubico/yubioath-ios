@@ -65,10 +65,7 @@ class FrePageViewController: UIPageViewController {
         self.view.backgroundColor = .background
 
         setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
-        
-        if orderedViewControllers.count == 1 {
-            setNavigationBar(nextViewController: orderedViewControllers[0])
-        }
+        setNavigationBar(nextViewController: orderedViewControllers[0])
     }
     
     override func viewDidLayoutSubviews() {
