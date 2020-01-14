@@ -24,3 +24,6 @@ class FreQRViewController: UIViewController {
     static let identifier = "FreQRViewController"
 }
 
+class FreFavoritesViewController: UIViewController {
+    static let identifier = "FreFavoritesViewController"
+}
