@@ -32,16 +32,20 @@ class FrePageViewController: UIPageViewController {
     var userFreVersion = 0
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        if .freVersion > userFreVersion {
-            let viewControllers: [UIViewController?] = [
-                self.createViewController(withIdentifier: FreWelcomeViewController.identifier),
-                self.createViewController(withIdentifier: Fre5CiViewController.identifier),
-                YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil,
-                self.createViewController(withIdentifier: FreQRViewController.identifier)
-            ]
-            return viewControllers.compactMap { $0 }
+        var viewControllers: [UIViewController?] = []
+        
+        if userFreVersion < 1 {
+            viewControllers.append(self.createViewController(withIdentifier: FreWelcomeViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: Fre5CiViewController.identifier))
+            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil)
+            viewControllers.append(self.createViewController(withIdentifier: FreQRViewController.identifier))
         }
-        return []
+        
+        if userFreVersion < 2 {
+            viewControllers.append(self.createViewController(withIdentifier: FreFavoritesViewController.identifier))
+        }
+        
+        return viewControllers.compactMap { $0 }
     }()
     
     // Invoking manually since UIPageViewController doesn't let to add pageControl
@@ -55,13 +59,13 @@ class FrePageViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
-        
         // When view.background color is not set, part of the mainViewController is
         // visible when present modally UIPageViewController, by default
         // view.background is transperent.
         self.view.backgroundColor = .background
 
         setViewControllers([orderedViewControllers[0]], direction: .forward, animated: true, completion: nil)
+        setNavigationBar(nextViewController: orderedViewControllers[0])
     }
     
     override func viewDidLayoutSubviews() {

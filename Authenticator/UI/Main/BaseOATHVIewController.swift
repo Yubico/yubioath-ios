@@ -182,6 +182,11 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     func onCredentialDelete(indexPath: IndexPath) {
-        self.tableView.deleteRows(at: [indexPath], with: .fade)
+        // Removal of last element in section requires to remove the section.
+        if self.viewModel.credentials.count == 0 {
+            self.tableView.deleteSections([0], with: .fade)
+        } else {
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }

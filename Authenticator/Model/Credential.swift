@@ -117,11 +117,16 @@ class Credential: NSObject {
     // Changing/removing uniqueId will brake FavoritesStorage.
     var uniqueId: String {
         get {
-            if type == .TOTP && period != Credential.DEFAULT_PERIOD {
-                return String(format:"%@:%@/%d", issuer ?? "", account, period);
-            } else {
-                return String(format:"%@:%@", issuer ?? "", account);
+            var id = ""
+            if let issuer = issuer {
+                id += issuer + ":"
             }
+            id += account
+            if type == .TOTP && period != Credential.DEFAULT_PERIOD {
+                id += "/" + String(period)
+            }
+            
+            return id
         }
     }
     

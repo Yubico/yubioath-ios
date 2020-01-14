@@ -44,7 +44,7 @@
                                         <rect key="frame" x="24" y="117.33333333333334" width="343" height="404.66666666666663"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="404.66666666666669"/>
+                                                <rect key="frame" x="12.666666666666657" y="26.333333333333314" width="318" height="352"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -164,7 +164,7 @@
                                         <rect key="frame" x="24" y="88.666666666666657" width="327" height="476.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-img-light" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-vv-YCZ">
-                                                <rect key="frame" x="0.0" y="16.333333333333343" width="327" height="444"/>
+                                                <rect key="frame" x="42.666666666666686" y="127.33333333333334" width="242" height="222.00000000000003"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -246,7 +246,7 @@
                                         <rect key="frame" x="24" y="88.666666666666657" width="327" height="473.66666666666674"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-4-qr-code" translatesAutoresizingMaskIntoConstraints="NO" id="m5C-iy-rJD">
-                                                <rect key="frame" x="0.0" y="0.0" width="327" height="473.66666666666669"/>
+                                                <rect key="frame" x="76.666666666666686" y="68" width="174" height="338"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -347,7 +347,7 @@
                                         <rect key="frame" x="24" y="88.666666666666686" width="327" height="521.33333333333326"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-2-yk5ci" translatesAutoresizingMaskIntoConstraints="NO" id="uJY-Sf-sBz">
-                                                <rect key="frame" x="11.666666666666657" y="0.0" width="304" height="521.33333333333337"/>
+                                                <rect key="frame" x="87.666666666666686" y="79.666666666666686" width="152" height="362"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -395,12 +395,96 @@
             </objects>
             <point key="canvasLocation" x="1324" y="-1339.8800599700151"/>
         </scene>
+        <!--Fre Favorites View Controller-->
+        <scene sceneID="syT-df-UON">
+            <objects>
+                <viewController storyboardIdentifier="FreFavoritesViewController" id="Y7f-4B-LiD" customClass="FreFavoritesViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1iC-Mj-VCJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3K6-fP-bhK">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Favorites" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Btv-aT-UwD">
+                                        <rect key="frame" x="24" y="40" width="327" height="28.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply swipe all the way or swipe and tap the 'Add to Favorites' button." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcl-KI-PV4">
+                                        <rect key="frame" x="24" y="646.33333333333337" width="327" height="87.666666666666629"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Now you can mark your credentials as 'Favorite' and it will appear at the top of the list." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrc-MC-wya">
+                                        <rect key="frame" x="24" y="558.66666666666663" width="327" height="87.666666666666629"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWe-lc-Gum">
+                                        <rect key="frame" x="24" y="88.666666666666629" width="327" height="450"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-5-favorites" translatesAutoresizingMaskIntoConstraints="NO" id="rxu-cE-Q8s">
+                                                <rect key="frame" x="42.666666666666686" y="78" width="242" height="294"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rxu-cE-Q8s" secondAttribute="bottom" id="L0U-RH-tTF"/>
+                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CWe-lc-Gum" secondAttribute="leading" id="aAx-2S-EBt"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rxu-cE-Q8s" secondAttribute="trailing" id="hI3-H0-7PT"/>
+                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="centerY" secondItem="CWe-lc-Gum" secondAttribute="centerY" id="q78-8l-rh5"/>
+                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="centerX" secondItem="CWe-lc-Gum" secondAttribute="centerX" id="qJp-zP-Rk8"/>
+                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CWe-lc-Gum" secondAttribute="top" id="ttF-Ak-mZG"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Tcl-KI-PV4" secondAttribute="bottom" id="5MQ-0y-cLi"/>
+                                    <constraint firstItem="CWe-lc-Gum" firstAttribute="top" secondItem="Btv-aT-UwD" secondAttribute="bottom" constant="20" id="A8F-yZ-CR4"/>
+                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="centerX" secondItem="3K6-fP-bhK" secondAttribute="centerX" id="B8j-k6-hXh"/>
+                                    <constraint firstItem="Tcl-KI-PV4" firstAttribute="top" secondItem="yrc-MC-wya" secondAttribute="bottom" id="DMH-7d-Kxb"/>
+                                    <constraint firstItem="yrc-MC-wya" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="KjF-QQ-ij8"/>
+                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="top" secondItem="3K6-fP-bhK" secondAttribute="top" constant="40" id="Upd-RL-VlB"/>
+                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="iN8-AQ-YwK"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="yrc-MC-wya" secondAttribute="trailing" constant="16" id="jU9-Wf-dtW"/>
+                                    <constraint firstItem="yrc-MC-wya" firstAttribute="top" secondItem="CWe-lc-Gum" secondAttribute="bottom" constant="20" id="mSA-C0-1Hu"/>
+                                    <constraint firstItem="Tcl-KI-PV4" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="n4d-sN-GVO"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Tcl-KI-PV4" secondAttribute="trailing" constant="16" id="ruB-2d-hcp"/>
+                                    <constraint firstItem="CWe-lc-Gum" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="u5J-4i-TYz"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Btv-aT-UwD" secondAttribute="trailing" constant="16" id="vlT-cI-QLR"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="CWe-lc-Gum" secondAttribute="trailing" constant="16" id="zqY-oi-Dh9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mDO-a8-K0a" firstAttribute="trailing" secondItem="3K6-fP-bhK" secondAttribute="trailing" id="ej8-2s-fLz"/>
+                            <constraint firstItem="mDO-a8-K0a" firstAttribute="bottom" secondItem="3K6-fP-bhK" secondAttribute="bottom" id="pyE-Kc-mqE"/>
+                            <constraint firstItem="3K6-fP-bhK" firstAttribute="top" secondItem="mDO-a8-K0a" secondAttribute="top" id="sPW-3g-6Dl"/>
+                            <constraint firstItem="3K6-fP-bhK" firstAttribute="leading" secondItem="mDO-a8-K0a" secondAttribute="leading" id="ynK-fu-YVB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="mDO-a8-K0a"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hhh-11-hdc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54k-Ya-hhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3690" y="-1340"/>
+        </scene>
     </scenes>
     <resources>
         <image name="auth-app-img-light" width="242" height="222"/>
         <image name="auth-app-intro-2-yk5ci" width="152" height="362"/>
         <image name="auth-app-intro-3-yk-nfc" width="318" height="352"/>
         <image name="auth-app-intro-4-qr-code" width="174" height="338"/>
+        <image name="auth-app-intro-5-favorites" width="242" height="294"/>
         <namedColor name="YubiBlue">
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
