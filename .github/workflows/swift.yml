@@ -1,11 +1,11 @@
-name: Swift
+name: AuthenticatorTests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   build:
 
-    runs-on: macOS-latest
+    runs-on: macos-latest
     strategy:
         matrix:
           destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X']
@@ -24,8 +24,23 @@ jobs:
       - name: Install Dependencies
         run: pod install       
                         
-      - name: Build and test
+      - name: Test on emulator
         run: |
-          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator test CODE_SIGNING_ALLOWED=NO
+          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator test CODE_SIGNING_ALLOWED=NO
         env: 
          destination: ${{ matrix.destination }}
+
+      - name: Build for device
+        run: |
+          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO
+
+      - name: Rename and archive app bundle
+        run: |
+          mkdir deploy
+          mv Authenticator.app deploy
+          
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: yubioath-desktop-macos-app-bundle
+          path: deploy
