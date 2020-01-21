@@ -11,8 +11,9 @@ import Foundation
 protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
-    func onTouchRequired()
+    func onShowToastMessage(message: String)
     func onOperationRetry(operation: OATHOperation)
+    func onCredentialDelete(indexPath: IndexPath)
 }
 
 protocol OperationDelegate: class {
@@ -21,6 +22,7 @@ protocol OperationDelegate: class {
     func onCompleted(operation: OATHOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
+    func onDelete(credential: Credential)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -45,18 +47,38 @@ class YubikitManagerModel : NSObject {
     var state: State = .idle
     
     private var _credentials = Array<Credential>()
-    
+
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: Array<Credential> {
         get {
+            // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
+            if self.favorites.count > 0 {
+                self._credentials.sort {
+                    if isFavorite(credential: $0) == isFavorite(credential: $1) {
+                        return $0 < $1
+                    }
+                    return isFavorite(credential: $0)
+                }
+            } else {
+                self._credentials.sort {
+                    return $0 < $1
+                }
+            }
+            
             if self.filter == nil || self.filter!.isEmpty {
                 return _credentials
             }
             return _credentials.filter {
-                $0.issuer.lowercased().contains(self.filter!) || $0.account.lowercased().contains(self.filter!)
+                $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
             }
         }
     }
+    
+    private var favoritesStorage = FavoritesStorage()
+    private var favorites: Set<String> = []
+    
+    // cashedId is used as a key to store a set of Favorites in UserDefaults.
+    private var cashedKeyId: String? = nil
     
     var hasFilter: Bool {
         get {
@@ -66,13 +88,7 @@ class YubikitManagerModel : NSObject {
         
     //
     // MARK: - Public methods
-    //
-    override init() {
-        super.init()
-        // create sequensial queue for all operations, so we don't execute multiple at once
-        operationQueue.maxConcurrentOperationCount = 1
-    }
-    
+    //    
     public func isQueueEmpty() -> Bool {
         return (operationQueue.operationCount == 0 && operationQueue.pendingOperations.count == 0) || operationQueue.isSuspended
     }
@@ -80,7 +96,6 @@ class YubikitManagerModel : NSObject {
     public func calculateAll() {
         state = YubiKitManager.shared.accessorySession.isKeyConnected ? .loading : .idle
         let operation = CalculateAllOperation()
-        operation.queuePriority = .low
         addOperation(operation: operation)
     }
     
@@ -96,7 +111,6 @@ class YubikitManagerModel : NSObject {
     
     public func deleteCredential(credential: Credential) {
         addOperation(operation: DeleteOperation(credential: credential))
-        addOperation(operation: CalculateAllOperation())
     }
     
     public func setCode(password: String) {
@@ -110,7 +124,7 @@ class YubikitManagerModel : NSObject {
     public func reset() {
         addOperation(operation: ResetOperation())
     }
-    
+        
     public func pause() {
         isPaused = true
         operationQueue.suspendQueue(suspendQueue: isPaused)
@@ -122,20 +136,37 @@ class YubikitManagerModel : NSObject {
     }
 
     public func cleanUp() {
-        _credentials.forEach { credential in
-            credential.removeTimerObservation()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            guard let delegate = self.delegate else {
+                return
+            }
+
+            self._credentials.forEach { credential in
+                credential.removeTimerObservation()
+            }
+
+            self._credentials.removeAll()
+            self.cashedKeyId = nil
+            self.favorites = []
+
+            self.state = .idle
+            self.operationQueue.cancelAllOperations()
+            delegate.onOperationCompleted(operation: .cleanup)
         }
-
-        _credentials.removeAll()
-
-        state = .idle
-        operationQueue.cancelAllOperations()
-        delegate?.onOperationCompleted(operation: .cleanup)
     }
     
     public func applyFilter(filter: String?) {
         self.filter = filter?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         delegate?.onOperationCompleted(operation: .filter)
+    }
+    
+    public func copyToClipboard(credential: Credential) {
+        // copy to clipbboard
+        UIPasteboard.general.string = credential.code
+        delegate?.onShowToastMessage(message: "Copied to clipboard!")
     }
     
     public func emulateSomeRecords() {
@@ -151,7 +182,7 @@ class YubikitManagerModel : NSObject {
         credential4.setupTimerObservation()
         self._credentials.append(credential4)
 
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", requiresTouch: true)
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691")
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         delegate?.onOperationCompleted(operation: .calculateAll)
@@ -192,7 +223,7 @@ extension YubikitManagerModel: OperationDelegate {
             // only if key is attached require touch (otherwise user can't touch and tap YubiKey)
             // YubiKey will calculate credential over NFC connection even credential requires touch
             if self.keyPluggedIn {
-                delegate.onTouchRequired()
+                delegate.onShowToastMessage(message: "Touch your YubiKey")
             }
         }
     }
@@ -215,7 +246,7 @@ extension YubikitManagerModel: OperationDelegate {
             state = .locked
         } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
             // wait for another successful validation
-            operationQueue.isSuspended = true
+            operationQueue.suspendQueue()
         }
                
         DispatchQueue.main.async { [weak self] in
@@ -254,14 +285,14 @@ extension YubikitManagerModel: OperationDelegate {
 
             // timer observers better to set up on main thread to avoid
             // thread racing between operations
-
             self._credentials.forEach {
                 $0.removeTimerObservation()
             }
             
             // using dictionary with uinique id as a key for quick search of existing credential object
-            let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.map{ ($0.uniqueId, $0) })
-            self._credentials = credentials.map {
+            let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap{ $0 }.map{ ($0.uniqueId, $0) })
+            // not adding credentials with '_hidden' prefix to our list.
+            self._credentials = credentials.filter { !$0.uniqueId.starts(with: "_hidden:") }.map {
                 if $0.requiresTouch || $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
@@ -276,21 +307,52 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
-            // if we've got NFC connection and code was not calculated with calculate all
-            // we can recalculate each individually (touch won't be required over NFC)
-            if !self.keyPluggedIn {
-                for credential in self._credentials {
-                    if credential.requiresRefresh {
+            self.cashedKeyId = self.keyIdentifier
+            
+            for credential in self._credentials {
+                // If it's TOTP credential we might need to recalculate each individually
+                // if there was no correct value returned as part of calculateAll request
+                // NOTE: we don't update HOTP credentials unless user specifies because
+                // HOTP credentials rely on a counter which is stored on the YubiKey and the validating server.
+                // Each time an OTP is generated the counter is incremented on the YubiKey,
+                // but if the OTP is not sent to the server, the counters get out of sync (there is usually a small window to allow for some drift, around 5 OTPs or so).
+                if credential.type == .TOTP && !credential.requiresTouch {
+                    // credentials that has period other than 30 seconds needs to be recalculated
+                    // calculateAll assumes that every credential has period 30 seconds
+                    if credential.period != Credential.DEFAULT_PERIOD
+                        // credentials that don't need to be truncated need to be reculculated as well
+                        // calculateAll assumes that every credential needs to be truncated
+                        || credential.isSteam {
                         self.calculate(credential: credential)
                     }
+                } else if !self.keyPluggedIn && credential.type == .TOTP && credential.requiresRefresh {
+                    // if we've got NFC connection touch won't be required over NFC
+                    self.calculate(credential: credential)
                 }
             }
-            
-            // sorting credentials: 2) shorter period first (as they expire quickly) 3) alphabetically (issuer first, name second)
-            self._credentials.sort(by: { $0.uniqueId < $1.uniqueId })
-            
+        
+            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
+
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
+        }
+    }
+    
+    func onDelete(credential: Credential) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+
+            credential.removeTimerObservation()
+            // If remove credential from favorites first and then from credentials list, the wrong indexPath will be returned.
+            if let row = self._credentials.firstIndex(where: { $0 == credential }) {
+                self._credentials.remove(at: row)
+                if self.isFavorite(credential: credential) {
+                    let _ = self.removeFavorite(credential: credential)
+                }
+                self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
+            }
         }
     }
     
@@ -312,6 +374,10 @@ extension YubikitManagerModel: OperationDelegate {
             }
             
             delegate.onOperationCompleted(operation: .calculate)
+            
+            if (credential.type == .HOTP) {
+                self.copyToClipboard(credential: credential)
+            }
         }
     }
     
@@ -321,6 +387,9 @@ extension YubikitManagerModel: OperationDelegate {
     }
     
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
+        if (isPaused) {
+            return
+        }
         operation.delegate = self
         operationQueue.add(operation: operation, suspendQueue: suspendQueue)
     }
@@ -377,6 +446,49 @@ extension YubikitManagerModel {
 
             YubiKitManager.shared.nfcSession.stopIso7816Session()
         }
+    }
+    
+    func nfcStateChanged(state: YKFNFCISO7816SessionState) {
+        guard #available(iOS 13.0, *) else {
+            fatalError()
+        }
+        print("NFC key session state: \(String(describing: state.rawValue))")
+        if state == .open {
+            YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
+        } else if (state == .pooling) {
+            YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
+        } else if state == .closed {
+            guard let error = YubiKitManager.shared.nfcSession.iso7816SessionError else {
+                return
+            }
+            let errorCode = (error as NSError).code;
+            if errorCode == NFCReaderError.readerSessionInvalidationErrorUserCanceled.rawValue {
+                // if user pressed cancel button we won't proceed with queueed operations
+                operationQueue.cancelAllOperations()
+            }
+            print("NFC key session error: \(error.localizedDescription)")
+        }
+    }
+}
+
+// MARK: - Operations with Favorites set.
+
+extension YubikitManagerModel {
+    
+    func isFavorite(credential: Credential) -> Bool {
+        return self.favorites.contains(credential.uniqueId)
+    }
+    
+    func addFavorite(credential: Credential) -> IndexPath {
+        self.favorites.insert(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
+    }
+    
+    func removeFavorite(credential: Credential) -> IndexPath {
+        self.favorites.remove(credential.uniqueId)
+        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
 }
 

@@ -11,15 +11,16 @@ import UIKit
 class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
+    private var applicationSessionObserver: ApplicationSessionObserver!
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
-    private var applicationSessionObserver: ApplicationSessionObserver!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupCredentialsSearchController()
         setupNavigationBar()
+        setupRefreshControl()
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -33,15 +34,20 @@ class MainViewController: BaseOATHVIewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
-        self.refreshControl = refreshControl
-        
         // observe key plug-in/out changes even in background
         // to make sure we don't leave credentials on screen when key was unplugged
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // UserDefaults will store the latest FRE version that was shown to user.
+        // For every new FRE in the future releases we're going to increase .freVersion by 1.
+        if .freVersion > SettingsConfig.lastFreVersionShown {
+            self.performSegue(withIdentifier: "StartFRE", sender: self)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,11 +107,13 @@ class MainViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         let credential = viewModel.credentials[indexPath.row]
-        cell.updateView(credential: credential)
+        let isFavorite = self.viewModel.isFavorite(credential: credential)
+        cell.updateView(credential: credential, isFavorite: isFavorite)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             let credential = viewModel.credentials[indexPath.row]
             if credential.type == .HOTP && credential.activeTime > 5 {
@@ -116,9 +124,7 @@ class MainViewController: BaseOATHVIewController {
                 // refresh items that require touch
                 viewModel.calculate(credential: credential)
             } else {
-                // copy to clipbboard
-                UIPasteboard.general.string = credential.code
-                self.displayToast(message: "Copied to clipboard!")
+                viewModel.copyToClipboard(credential: credential)
             }
         }
     }
@@ -128,25 +134,84 @@ class MainViewController: BaseOATHVIewController {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            let credential = viewModel.credentials[indexPath.row]
-            // show warning that user will delete credential to preven accident removals
-            // we also won't update UI until
-            // the actual removal happen (for example when user tapped key over NFC)
-            let name = !credential.issuer.isEmpty ? "\(credential.issuer) (\(credential.account))" : credential.account
-            showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
-                self?.viewModel.deleteCredential(credential: credential)
+
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+             // Delete the row from the data source
+            let credential = self.viewModel.credentials[indexPath.row]
+             // show warning that user will delete credential to preven accident removals
+             // we also won't update UI until
+             // the actual removal happen (for example when user tapped key over NFC)
+             let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
+             self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
+                 self?.viewModel.deleteCredential(credential: credential)
             }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+            
+        deleteAction.image = UIImage.trash
+        deleteAction.backgroundColor = .red
+               
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let credential = self.viewModel.credentials[indexPath.row]
+        var action = UIContextualAction()
+        if self.viewModel.isFavorite(credential: credential) {
+            // Remove credential from the set of Favorites.
+            action = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
+                }
+                let destinationIndexPath = self.viewModel.removeFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
+            }
+
+            action.image = UIImage.star
+        } else {
+            // Add credential to the set of Favorites.
+            action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
+                guard let self = self else {
+                    return
+                }
+                let destinationIndexPath = self.viewModel.addFavorite(credential: credential)
+                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
+            }
+            
+            action.backgroundColor = UIColor.systemYellow
+            action.image = UIImage.starFilled
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
+    }
+    
+    // Animation for moving row when pin/unpin favorites to/from the top.
+    private func animateAction(indexPath: IndexPath, destinationIndexPath: IndexPath) {
+        tableView.performBatchUpdates({ () -> Void in
+            tableView.deleteRows(at: [indexPath], with: .right)
+            tableView.insertRows(at: [destinationIndexPath], with: .right)
+       }, completion: { [weak self] (finished) -> Void in
+            self?.tableView.reloadData()
+       })
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == .startFRE {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let freViewController = destinationNavigationController.topViewController as? FrePageViewController {
+                // passing userFreVersion and then setting current freVersion to userDefaults.
+                freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
+                SettingsConfig.lastFreVersionShown = .freVersion
+            }
+        }
+        
         if segue.identifier == .addCredentialSequeID {
             let destinationNavigationController = segue.destination as! UINavigationController
             if let addViewController = destinationNavigationController.topViewController as? AddCredentialController, let credential = credentailToAdd {
@@ -163,31 +228,9 @@ class MainViewController: BaseOATHVIewController {
         }
     }
     
-    //
-    // MARK: - CredentialViewModelDelegate
-    //
-    override func onOperationCompleted(operation: OperationName) {
-        super.onOperationCompleted(operation: operation)
-        switch operation {
-        case .calculateAll:
-            // show search bar only if there are credentials on the key
-            navigationItem.searchController = viewModel.credentials.count > 0 ? credentialsSearchController : nil
-            self.tableView.reloadData()
-            break
-        case .filter:
-            self.tableView.reloadData()
-        case .cleanup:
-            navigationItem.searchController = nil
-            self.tableView.reloadData()
-        default:
-            // other operations do not change list of credentials
-            break
-        }
-    }
-    
     // MARK: - private methods
     private func scanQR() {
-        YubiKitManager.shared.qrReaderSession.scanQrCode(withPresenter: self) {
+        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
             [weak self] (payload, error) in
             guard self != nil else {
                 return
@@ -232,9 +275,11 @@ class MainViewController: BaseOATHVIewController {
         tableView.reloadData()
     }
     
-    @objc func refreshData() {
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+    @objc func refreshData() {       
+        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
             viewModel.calculateAll()
+        } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+            activateNfc()
         }
         refreshControl?.endRefreshing()
     }
@@ -267,6 +312,15 @@ class MainViewController: BaseOATHVIewController {
         imageView.image = UIImage(named: "LogoText")
         titleView.addSubview(imageView)
         navigationItem.titleView = titleView
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        // setting background to refresh control changes behavior of spinner
+        // and it gets dragged with pull rather than sticks to the top of the view
+        refreshControl.backgroundColor = .clear
+        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
+        self.refreshControl = refreshControl
     }
 
     private func refreshUIOnKeyStateUpdate() {
@@ -373,7 +427,7 @@ class MainViewController: BaseOATHVIewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Or tap on screen to activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :
                 "No accounts have been set up for this YubiKey. Tap + button to add an account."
@@ -384,10 +438,6 @@ class MainViewController: BaseOATHVIewController {
     
     @objc func onBackgroundClick() {
         switch viewModel.state {
-            case .idle:
-                if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !viewModel.keyPluggedIn {
-                    self.activateNfc()
-                }
             case .loaded:
                 self.onAddCredentialClick(self)
             case .locked:
@@ -416,8 +466,7 @@ extension  MainViewController: NfcSessionObserverDelegate {
         guard #available(iOS 13.0, *) else {
             fatalError()
         }
-
-        print("NFC key session state: \(String(describing: state.rawValue))")
+        viewModel.nfcStateChanged(state: state)
         if state == .open {
             viewModel.calculateAll()
         }

@@ -38,5 +38,8 @@ class DeleteOperation: OATHOperation {
     override func createRetryOperation() -> OATHOperation {
         return DeleteOperation(credential: self.credential)
     }
-
+    
+    override func invokeDelegateCompletion() {
+        delegate?.onDelete(credential: self.credential)
+    }
 }

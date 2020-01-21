@@ -11,18 +11,20 @@ import UIKit
 class SettingsViewController: BaseOATHVIewController {
     private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
     
-    private var appVersion: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    private var appVersion = UIApplication.appVersion
     private var systemVersion = UIDevice().systemVersion
     private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         keySessionObserver.observeSessionState = false
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height = super.tableView(tableView, heightForRowAt: indexPath)
@@ -75,8 +77,14 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.viewModel.reset()
             }
         case (1, 0):
-            self.showWarning(title: "Clear stored passwords?", message: "If you have set password on your YubiKey you will be prompted for it on next usage.", okButtonTitle: "Clear") { [weak self]  () -> Void in
+            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self]  () -> Void in
                 self?.removeStoredPasswords()
+            }
+        case (1, 1):
+            // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
+            // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "StartFRE", sender: self)
             }
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
@@ -104,11 +112,11 @@ class SettingsViewController: BaseOATHVIewController {
         passwordPreferences.resetPasswordPreference()
         do {
           try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Stored passwords has been cleared from the application") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
         } catch (let e) {
-            self.showAlertDialog(title: "Error happend during cleaning up passwords", message: e.localizedDescription) { [weak self] () -> Void in
+            self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription) { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
         }
@@ -127,8 +135,7 @@ extension  SettingsViewController: AccessorySessionObserverDelegate {
 
 extension  SettingsViewController: NfcSessionObserverDelegate {
     func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
-        
-        print("NFC key session state: \(String(describing: state.rawValue))")
+        viewModel.nfcStateChanged(state: state)
         if (state == .open) {
             viewModel.resume()
         }

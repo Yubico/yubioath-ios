@@ -74,7 +74,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Please try again" : "To prevent unauthorized access YubiKey is protected with a password"
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
                 self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
                     guard let self = self else {
                         return
@@ -99,7 +99,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     fatalError()
                 }
                 
-                if Ramps.showNoServiceWarning {
+                if SettingsConfig.showNoServiceWarning {
                     self.showAlertDialog(title: "", message: "Plug-in your YubiKey or activate NFC reading in application", nfcHandler: {[weak self] () -> Void in
                         self?.activateNfc()
                     })
@@ -109,7 +109,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             } else {
                 print("Error code: \(String(format:"0x%02X", errorCode))")
-                self.showAlertDialog(title: "Error occured", message: error.localizedDescription)
+                self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
             }
         }
 
@@ -138,7 +138,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
+        case .calculateAll, .cleanup, .filter :
+            self.tableView.reloadData()
         default:
+            // other operations do not change list of credentials
             break
         }
         
@@ -151,7 +154,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         guard operation.operationName == .put else {
             return
         }
-        guard Ramps.showBackupWarning else {
+        guard SettingsConfig.showBackupWarning else {
             return
         }
         let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. \nDo you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
@@ -163,7 +166,16 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         }
     }
     
-    func onTouchRequired() {
-        self.displayToast(message: "Touch your YubiKey")
+    func onShowToastMessage(message: String) {
+        self.displayToast(message: message)
+    }
+    
+    func onCredentialDelete(indexPath: IndexPath) {
+        // Removal of last element in section requires to remove the section.
+        if self.viewModel.credentials.count == 0 {
+            self.tableView.deleteSections([0], with: .fade)
+        } else {
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
