@@ -6,9 +6,6 @@ jobs:
   build:
 
     runs-on: macos-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=13.2.2,name=iPhone 8']
 
     steps:
       - uses: actions/checkout@v2
@@ -23,18 +20,16 @@ jobs:
         
       - name: Install Dependencies
         run: pod install       
-                        
-      - name: Test on emulator
-        run: |
-          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator -destination "${destination}" test  CODE_SIGNING_ALLOWED=NO | xcpretty --test --color
-        env: 
-         destination: ${{ matrix.destination }}
 
       - name: Build for device
         run: |
           mkdir deploy
-          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO CONFIGURATION_BUILD_DIR=deploy
-          
+          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO DSTROOT=deploy
+                        
+      - name: Test on emulator
+        run: |
+          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator -destination "platform=iOS Simulator,OS=13.2.2,name=iPhone 8" clean test  CODE_SIGNING_ALLOWED=NO | xcpretty --test --color
+         
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
