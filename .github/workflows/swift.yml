@@ -23,8 +23,7 @@ jobs:
 
       - name: Build for device
         run: |
-          mkdir deploy
-          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO DSTROOT=deploy
+          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO DSTROOT=/tmp/deploy SYMROOT=/tmp/deploy
                         
       - name: Test on emulator
         run: |
@@ -34,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: yubioath-ios-app-bundle
-          path: deploy
+          path: /tmp/deploy
