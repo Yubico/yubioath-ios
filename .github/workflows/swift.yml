@@ -6,6 +6,9 @@ jobs:
   build:
 
     runs-on: macOS-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X']
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +24,8 @@ jobs:
       - name: Install Dependencies
         run: pod install       
                         
-      - name: Build
+      - name: Build and test
         run: |
-          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator build CODE_SIGNING_ALLOWED=NO
+          xcodebuild -sdk iphoneos -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator test CODE_SIGNING_ALLOWED=NO
+        env: 
+         destination: ${{ matrix.destination }}
