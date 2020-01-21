@@ -20,16 +20,10 @@ jobs:
         run: ls -la
         
       - name: Install Dependencies
-        working-directory: yubioath-ios
-        shell: bash
-        run: |
-          pod repo update
-          pod install       
+        run: pod install       
              
       - name: Build
-        working-directory: yubioath-ios
         run: swift build -v
         
       - name: Run tests
-        working-directory: yubioath-ios
         run: swift test -v
