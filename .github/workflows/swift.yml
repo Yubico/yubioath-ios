@@ -8,20 +8,24 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+        
       - name: Checkout submodules
         shell: bash
         run: |
           auth_header="$(git config --local --get http.https://github.com/.extraheader)"
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+      
       - name: Install Dependencies
         shell: bash
         run: |
           cd yubioath-ios
           pod repo update
-          pod install          
+          pod install       
+             
       - name: Build
         run: swift build -v
+        
       - name: Run tests
         run: swift test -v
