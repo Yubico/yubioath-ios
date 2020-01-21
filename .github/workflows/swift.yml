@@ -6,6 +6,9 @@ jobs:
   build:
 
     runs-on: macos-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=13.2.2,name=iPhone 8']
 
     steps:
       - uses: actions/checkout@v2
@@ -16,14 +19,16 @@ jobs:
           git submodule update --init --recursive
       
       - name: Check file structure
-        run: ls -la
+        run: ls -la YubiKit
         
       - name: Install Dependencies
         run: pod install       
                         
       - name: Test on emulator
         run: |
-          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator -destination 'platform=iOS Simulator' test  CODE_SIGNING_ALLOWED=NO | xcpretty --test --color
+          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator -destination "${destination}" test  CODE_SIGNING_ALLOWED=NO | xcpretty --test --color
+        env: 
+         destination: ${{ matrix.destination }}
 
       - name: Build for device
         run: |
