@@ -16,13 +16,13 @@ jobs:
           git submodule update --init --recursive
       
       - name: Check file structure
-        working-directory: ${{ github.workspace }}
         run: ls -la
         
       - name: Install Dependencies
         run: pod install       
              
       - name: Build
+        working-directory: ${{ github.workspace }}
         run: swift build -v
         
       - name: Run tests
