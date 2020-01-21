@@ -34,3 +34,7 @@ jobs:
         with:
           name: yubioath-ios-app-bundle
           path: /tmp/deploy
+
+      - name: Cleanup
+        run: |
+          rm -rf /tmp/deploy
