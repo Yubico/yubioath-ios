@@ -24,7 +24,7 @@ jobs:
       - name: Build
         working-directory: ${{ github.workspace }}
         run: |
-           xcode-select -p
+           cd Authenticator
            swift build -v
         
       - name: Run tests
