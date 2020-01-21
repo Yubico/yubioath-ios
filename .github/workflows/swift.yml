@@ -6,9 +6,6 @@ jobs:
   build:
 
     runs-on: macos-latest
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X']
 
     steps:
       - uses: actions/checkout@v2
@@ -26,9 +23,7 @@ jobs:
                         
       - name: Test on emulator
         run: |
-          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator test CODE_SIGNING_ALLOWED=NO
-        env: 
-         destination: ${{ matrix.destination }}
+          xcodebuild -sdk iphonesimulator -configuration Release -workspace Authenticator.xcworkspace -scheme Authenticator test CODE_SIGNING_ALLOWED=NO | xcpretty --test --color
 
       - name: Build for device
         run: |
