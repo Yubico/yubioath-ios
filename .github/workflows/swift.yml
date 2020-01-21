@@ -15,15 +15,21 @@ jobs:
         run: |
           git submodule update --init --recursive
       
+      - name: Check file structure
+        working-directory: ${{ github.workspace }}
+        run: ls -la
+        
       - name: Install Dependencies
+        working-directory: yubioath-ios
         shell: bash
         run: |
-          cd yubioath-ios
           pod repo update
           pod install       
              
       - name: Build
+        working-directory: yubioath-ios
         run: swift build -v
         
       - name: Run tests
+        working-directory: yubioath-ios
         run: swift test -v
