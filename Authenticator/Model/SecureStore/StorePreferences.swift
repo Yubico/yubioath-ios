@@ -8,10 +8,11 @@
 
 import Foundation
 
-enum PasswordSaveType : Int {
+enum PasswordSaveType : Int, CaseIterable {
     case none = 0
-    case never = 1
-    case save = 2
+    case never
+    case save
+    case lock
 }
 
 /*! Allows to store user selection of preferences: whether to save password or not.
@@ -23,7 +24,13 @@ class PasswordPreferences {
     }
 
     func useSavedPassword() -> Bool {
-        return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.save.rawValue
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
+    }
+    
+    func useScreenLock() -> Bool {
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        return savedPreference == PasswordSaveType.lock.rawValue
     }
     
     func setPasswordPreference(saveType: PasswordSaveType) {

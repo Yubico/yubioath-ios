@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 /*!
  APP ID prefix required in case if we want to share storage with our other applications
@@ -42,6 +43,16 @@ extension PasswordQueryable: SecureStoreQueryable {
 #if !targetEnvironment(simulator)
     if let accessGroup = accessGroup {
       query[String(kSecAttrAccessGroup)] = "\(APP_ID)." + accessGroup
+    }
+
+    if PasswordPreferences().useScreenLock() {
+        query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
+                                                                               kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                                                                               .userPresence,
+                                                                               nil) // ignore any error
+        let context = LAContext()
+        context.touchIDAuthenticationAllowableReuseDuration = 10
+        query[String(kSecUseAuthenticationContext)] = context
     }
 #endif
     return query

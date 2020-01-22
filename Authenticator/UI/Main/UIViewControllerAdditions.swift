@@ -20,25 +20,29 @@ extension UIViewController {
     /*! Shows view with edit text field amd returns input text within inputHandler
      */
     func showPasswordPrompt(preferences: PasswordPreferences, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
-        var inputTextField: UITextField?
+        weak var inputTextField: UITextField?
         let alertController = UIAlertController(title: "Unlock YubiKey", message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let passwordText = inputTextField?.text ?? ""
             if !preferences.neverSavePassword() {
                 self.showPasswordSaveSheet() { (saveType) -> Void in
                     preferences.setPasswordPreference(saveType: saveType)
-                    inputHandler?(inputTextField?.text ?? "")
+                    DispatchQueue.main.async {
+                        inputHandler?(passwordText)
+                    }
                 }
             } else  {
                 DispatchQueue.main.async {
-                    inputHandler?(inputTextField?.text ?? "")
+                    inputHandler?(passwordText)
                 }
             }
-        })
+        }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
             cancelHandler?()
         }
+
         alertController.addTextField { (textField) -> Void in
             // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
             inputTextField = textField
@@ -58,6 +62,12 @@ extension UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Save Password", style: .default, handler: { (action) -> Void in
             DispatchQueue.main.async {
                 inputHandler?(.save)
+            }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Use Face ID/Touch ID", style: .default, handler: { (action) -> Void in
+            DispatchQueue.main.async {
+                inputHandler?(.lock)
             }
         }))
         
@@ -118,7 +128,7 @@ extension UIViewController {
         let reset = UIAlertAction(title: okButtonTitle, style: style, handler: { (action) -> Void in
             okHandler?()
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(reset)
         alertController.addAction(cancel)
         

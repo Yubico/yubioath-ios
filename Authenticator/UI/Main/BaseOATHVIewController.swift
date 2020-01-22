@@ -75,24 +75,24 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             }
             
             let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
-                self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
-                    guard let self = self else {
-                        return
+            self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
+                guard let self = self else {
+                    return
+                }
+                self.viewModel.validate(password: password)
+                if self.passwordPreferences.useSavedPassword() {
+                    do {
+                        // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
+                        // and move it when we validated password and got keyIdentifier in connection
+                        try self.secureStore.setValue(password, for: keyIdentifier)
+                    } catch (let e) {
+                        self.passwordPreferences.resetPasswordPreference()
+                        self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
                     }
-                    self.viewModel.validate(password: password)
-                    if self.passwordPreferences.useSavedPassword() {
-                        do {
-                            // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
-                            // and move it when we validated password and got keyIdentifier in connection
-                            try self.secureStore.setValue(password, for: keyIdentifier)
-                        } catch (let e) {
-                            self.passwordPreferences.resetPasswordPreference()
-                            self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
-                        }
-                    }
-                }, cancelHandler: {  [weak self] () -> Void in
-                    self?.tableView.reloadData()
-                })
+                }
+            }, cancelHandler: {  [weak self] () -> Void in
+                self?.tableView.reloadData()
+            })
         } else {
             if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noOathService = error {
                 guard #available(iOS 13.0, *) else {
