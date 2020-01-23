@@ -58,26 +58,27 @@ extension UIViewController {
      */
     private func showPasswordSaveSheet(inputHandler: ((PasswordSaveType) -> Void)? = nil) {
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Save Password", style: .default, handler: { (action) -> Void in
-            inputHandler?(.save)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Use Face ID/Touch ID", style: .default, handler: { (action) -> Void in
-            inputHandler?(.lock)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Never for this application", style: .default, handler: { (action) -> Void in
-            inputHandler?(.never)
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Not now", style: .cancel, handler: { [weak self] (action) in
+        let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
+        let biometric = UIAlertAction(title: "Use Face ID/Touch ID", style: .default) { (action) -> Void in inputHandler?(.lock) }
+        let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in inputHandler?(.never) }
+        let notNow = UIAlertAction(title: "Not now", style: .cancel) { [weak self] (action) in
             guard let self = self else {
                 return
             }
-
             self.dismiss(animated: true, completion: nil)
             inputHandler?(.none)
-        }))
+        }
+        
+        if PasswordPreferences().useScreenLock() {
+            actionSheet.addAction(biometric)
+            actionSheet.addAction(never)
+            actionSheet.addAction(notNow)
+        } else {
+            actionSheet.addAction(save)
+            actionSheet.addAction(biometric)
+            actionSheet.addAction(never)
+            actionSheet.addAction(notNow)
+        }
         
         // The action sheet requires a presentation popover on iPad.
         if UIDevice.current.userInterfaceIdiom == .pad {
