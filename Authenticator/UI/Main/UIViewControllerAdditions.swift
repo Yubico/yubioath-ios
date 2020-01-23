@@ -44,7 +44,6 @@ extension UIViewController {
         }
 
         alertController.addTextField { (textField) -> Void in
-            // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
             inputTextField = textField
             inputTextField?.isSecureTextEntry = true
         }
@@ -60,21 +59,15 @@ extension UIViewController {
     private func showPasswordSaveSheet(inputHandler: ((PasswordSaveType) -> Void)? = nil) {
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Save Password", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.save)
-            }
+            inputHandler?(.save)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Use Face ID/Touch ID", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.lock)
-            }
+            inputHandler?(.lock)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Never for this application", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.never)
-            }
+            inputHandler?(.never)
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Not now", style: .cancel, handler: { [weak self] (action) in
@@ -83,10 +76,7 @@ extension UIViewController {
             }
 
             self.dismiss(animated: true, completion: nil)
-            
-            DispatchQueue.main.async {
-                inputHandler?(.none)
-            }
+            inputHandler?(.none)
         }))
         
         // The action sheet requires a presentation popover on iPad.

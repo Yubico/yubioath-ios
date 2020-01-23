@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PasswordSaveType : Int, CaseIterable {
+enum PasswordSaveType: Int {
     case none = 0
     case never
     case save
