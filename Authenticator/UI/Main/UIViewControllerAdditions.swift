@@ -69,16 +69,13 @@ extension UIViewController {
             inputHandler?(.none)
         }
         
-        if PasswordPreferences().useScreenLock() {
-            actionSheet.addAction(biometric)
-            actionSheet.addAction(never)
-            actionSheet.addAction(notNow)
-        } else {
+        if !PasswordPreferences().useScreenLock() {
             actionSheet.addAction(save)
-            actionSheet.addAction(biometric)
-            actionSheet.addAction(never)
-            actionSheet.addAction(notNow)
         }
+
+        actionSheet.addAction(biometric)
+        actionSheet.addAction(never)
+        actionSheet.addAction(notNow)
         
         // The action sheet requires a presentation popover on iPad.
         if UIDevice.current.userInterfaceIdiom == .pad {
