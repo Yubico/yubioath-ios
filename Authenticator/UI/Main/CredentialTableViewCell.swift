@@ -17,7 +17,11 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var favoriteIcon: UIImageView!
+    @IBOutlet weak var favoriteIcon: UIImageView! {
+        didSet {
+            favoriteIcon.image = UIImage.star
+        }
+    }
     
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
