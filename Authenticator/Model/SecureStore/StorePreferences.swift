@@ -21,37 +21,42 @@ enum PasswordSaveType: Int {
  */
 class PasswordPreferences {
 
-    private static let context = LAContext()
-
-    static var evaluatedBiometryType: LABiometryType {
-        if self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+    // This method returns what biometric authentiacation type set on user's device.
+    // canEvaluatePolicy should be called before getting the biometryType.
+    func evaluatedBiometryType() -> LABiometryType {
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             if #available(iOS 11.0, *) {
-                return self.context.biometryType
+                return context.biometryType
             }
             return .touchID
+        }
+        if let error = error {
+            print("Biometric policy error: " + String(describing: error.localizedDescription))
         }
         return .none
     }
     
     func neverSavePassword() -> Bool {
-        return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.never.rawValue
+        return UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey) == PasswordSaveType.never.rawValue
     }
 
     func useSavedPassword() -> Bool {
-        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey)
         return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
     }
     
     func useScreenLock() -> Bool {
-        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey)
         return savedPreference == PasswordSaveType.lock.rawValue
     }
     
     func setPasswordPreference(saveType: PasswordSaveType) {
-        UserDefaults.standard.set(saveType.rawValue, forKey: UIViewController.PassowrdUserDefaultsKey)
+        UserDefaults.standard.set(saveType.rawValue, forKey: UIViewController.PasswordUserDefaultsKey)
     }
     
     func resetPasswordPreference() {
-        UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: UIViewController.PassowrdUserDefaultsKey)
+        UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: UIViewController.PasswordUserDefaultsKey)
     }
 }
