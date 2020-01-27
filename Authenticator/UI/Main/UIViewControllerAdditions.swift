@@ -16,7 +16,7 @@ extension UIViewController {
         case nfc
     }
     
-    static let PassowrdUserDefaultsKey = "PasswordSaveType"
+    static let PasswordUserDefaultsKey = "PasswordSaveType"
     /*! Shows view with edit text field amd returns input text within inputHandler
      */
     func showPasswordPrompt(preferences: PasswordPreferences, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
@@ -26,7 +26,7 @@ extension UIViewController {
         let ok = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             let passwordText = inputTextField?.text ?? ""
             if !preferences.neverSavePassword() {
-                self.showPasswordSaveSheet(passwordPref: preferences) { (saveType) -> Void in
+                self.showPasswordSaveSheet(preferences: preferences) { (saveType) -> Void in
                     preferences.setPasswordPreference(saveType: saveType)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
@@ -56,8 +56,8 @@ extension UIViewController {
     
     /*! Shows bottom sheet with options whether to save password or not
      */
-    private func showPasswordSaveSheet(passwordPref: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
-        let biometryType = passwordPref.evaluatedBiometryType()
+    private func showPasswordSaveSheet(preferences: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
+        let biometryType = preferences.evaluatedBiometryType()
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
@@ -71,7 +71,7 @@ extension UIViewController {
             inputHandler?(.none)
         }
         
-        if !passwordPref.useScreenLock() {
+        if !preferences.useScreenLock() {
             actionSheet.addAction(save)
         }
 
