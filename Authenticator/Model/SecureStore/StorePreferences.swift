@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 enum PasswordSaveType: Int {
     case none = 0
@@ -19,6 +20,19 @@ enum PasswordSaveType: Int {
  Using UserDefaults as permanent storage
  */
 class PasswordPreferences {
+
+    private static let context = LAContext()
+
+    static var evaluatedBiometryType: LABiometryType {
+        if self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            if #available(iOS 11.0, *) {
+                return self.context.biometryType
+            }
+            return .touchID
+        }
+        return .none
+    }
+    
     func neverSavePassword() -> Bool {
         return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.never.rawValue
     }

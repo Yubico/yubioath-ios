@@ -44,7 +44,7 @@
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
 		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
-		A537399E23DB9C520057E9E2 /* BiometricExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537399D23DB9C520057E9E2 /* BiometricExtension.swift */; };
+		A537399E23DB9C520057E9E2 /* LABiometryTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537399D23DB9C520057E9E2 /* LABiometryTypeExtension.swift */; };
 		A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948B23CE546B003E1E07 /* FrePageViewController.swift */; };
 		A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */; };
 		A544949023CE546B003E1E07 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A544948D23CE546B003E1E07 /* Fre.storyboard */; };
@@ -121,7 +121,7 @@
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
-		A537399D23DB9C520057E9E2 /* BiometricExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricExtension.swift; sourceTree = "<group>"; };
+		A537399D23DB9C520057E9E2 /* LABiometryTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABiometryTypeExtension.swift; sourceTree = "<group>"; };
 		A544948B23CE546B003E1E07 /* FrePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
 		A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
 		A544948D23CE546B003E1E07 /* Fre.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
-				A537399D23DB9C520057E9E2 /* BiometricExtension.swift */,
+				A537399D23DB9C520057E9E2 /* LABiometryTypeExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -552,7 +552,7 @@
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
-				A537399E23DB9C520057E9E2 /* BiometricExtension.swift in Sources */,
+				A537399E23DB9C520057E9E2 /* LABiometryTypeExtension.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
