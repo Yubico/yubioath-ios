@@ -26,7 +26,7 @@ extension UIViewController {
         let ok = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             let passwordText = inputTextField?.text ?? ""
             if !preferences.neverSavePassword() {
-                self.showPasswordSaveSheet() { (saveType) -> Void in
+                self.showPasswordSaveSheet(passwordPref: preferences) { (saveType) -> Void in
                     preferences.setPasswordPreference(saveType: saveType)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
@@ -56,8 +56,8 @@ extension UIViewController {
     
     /*! Shows bottom sheet with options whether to save password or not
      */
-    private func showPasswordSaveSheet(inputHandler: ((PasswordSaveType) -> Void)? = nil) {
-        let biometryType = PasswordPreferences.evaluatedBiometryType
+    private func showPasswordSaveSheet(passwordPref: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
+        let biometryType = passwordPref.evaluatedBiometryType()
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
@@ -71,7 +71,7 @@ extension UIViewController {
             inputHandler?(.none)
         }
         
-        if !PasswordPreferences().useScreenLock() {
+        if !passwordPref.useScreenLock() {
             actionSheet.addAction(save)
         }
 

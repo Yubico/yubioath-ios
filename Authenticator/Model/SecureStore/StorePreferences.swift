@@ -21,12 +21,11 @@ enum PasswordSaveType: Int {
  */
 class PasswordPreferences {
 
-    private static let context = LAContext()
-
-    static var evaluatedBiometryType: LABiometryType {
-        if self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+    func evaluatedBiometryType() -> LABiometryType {
+        let context = LAContext()
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             if #available(iOS 11.0, *) {
-                return self.context.biometryType
+                return context.biometryType
             }
             return .touchID
         }
