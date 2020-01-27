@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 extension UIViewController {
     enum KeyType {
@@ -16,31 +17,33 @@ extension UIViewController {
     }
     
     static let PassowrdUserDefaultsKey = "PasswordSaveType"
-    
     /*! Shows view with edit text field amd returns input text within inputHandler
      */
     func showPasswordPrompt(preferences: PasswordPreferences, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
-        var inputTextField: UITextField?
+        weak var inputTextField: UITextField?
         let alertController = UIAlertController(title: "Unlock YubiKey", message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let passwordText = inputTextField?.text ?? ""
             if !preferences.neverSavePassword() {
                 self.showPasswordSaveSheet() { (saveType) -> Void in
                     preferences.setPasswordPreference(saveType: saveType)
-                    inputHandler?(inputTextField?.text ?? "")
+                    DispatchQueue.main.async {
+                        inputHandler?(passwordText)
+                    }
                 }
             } else  {
                 DispatchQueue.main.async {
-                    inputHandler?(inputTextField?.text ?? "")
+                    inputHandler?(passwordText)
                 }
             }
-        })
+        }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
             cancelHandler?()
         }
+
         alertController.addTextField { (textField) -> Void in
-            // Here you can configure the text field (eg: make it secure, add a placeholder, etc)
             inputTextField = textField
             inputTextField?.isSecureTextEntry = true
         }
@@ -54,30 +57,30 @@ extension UIViewController {
     /*! Shows bottom sheet with options whether to save password or not
      */
     private func showPasswordSaveSheet(inputHandler: ((PasswordSaveType) -> Void)? = nil) {
+        let biometryType = PasswordPreferences.evaluatedBiometryType
+        
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Save Password", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.save)
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Never for this application", style: .default, handler: { (action) -> Void in
-            DispatchQueue.main.async {
-                inputHandler?(.never)
-            }
-        }))
-        
-        actionSheet.addAction(UIAlertAction(title: "Not now", style: .cancel, handler: { [weak self] (action) in
+        let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
+        let biometric = UIAlertAction(title: "Save and protect with \(biometryType.title)", style: .default) { (action) -> Void in inputHandler?(.lock) }
+        let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in inputHandler?(.never) }
+        let notNow = UIAlertAction(title: "Not now", style: .cancel) { [weak self] (action) in
             guard let self = self else {
                 return
             }
-
             self.dismiss(animated: true, completion: nil)
-            
-            DispatchQueue.main.async {
-                inputHandler?(.none)
-            }
-        }))
+            inputHandler?(.none)
+        }
+        
+        if !PasswordPreferences().useScreenLock() {
+            actionSheet.addAction(save)
+        }
+
+        if biometryType != .none {
+            actionSheet.addAction(biometric)
+        }
+
+        actionSheet.addAction(never)
+        actionSheet.addAction(notNow)
         
         // The action sheet requires a presentation popover on iPad.
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -118,7 +121,7 @@ extension UIViewController {
         let reset = UIAlertAction(title: okButtonTitle, style: style, handler: { (action) -> Void in
             okHandler?()
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(reset)
         alertController.addAction(cancel)
         

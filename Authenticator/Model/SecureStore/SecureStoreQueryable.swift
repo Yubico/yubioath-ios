@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 /*!
  APP ID prefix required in case if we want to share storage with our other applications
@@ -42,6 +43,18 @@ extension PasswordQueryable: SecureStoreQueryable {
 #if !targetEnvironment(simulator)
     if let accessGroup = accessGroup {
       query[String(kSecAttrAccessGroup)] = "\(APP_ID)." + accessGroup
+    }
+
+    if PasswordPreferences().useScreenLock() {
+        query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
+                                                                               kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                                                                               .userPresence,
+                                                                               nil) // ignore any error
+        let context = LAContext()
+        // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
+        // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
+        context.touchIDAuthenticationAllowableReuseDuration = 10
+        query[String(kSecUseAuthenticationContext)] = context
     }
 #endif
     return query

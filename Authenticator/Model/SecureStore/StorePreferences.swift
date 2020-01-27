@@ -7,23 +7,44 @@
 //
 
 import Foundation
+import LocalAuthentication
 
-enum PasswordSaveType : Int {
+enum PasswordSaveType: Int {
     case none = 0
-    case never = 1
-    case save = 2
+    case never
+    case save
+    case lock
 }
 
 /*! Allows to store user selection of preferences: whether to save password or not.
  Using UserDefaults as permanent storage
  */
 class PasswordPreferences {
+
+    private static let context = LAContext()
+
+    static var evaluatedBiometryType: LABiometryType {
+        if self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            if #available(iOS 11.0, *) {
+                return self.context.biometryType
+            }
+            return .touchID
+        }
+        return .none
+    }
+    
     func neverSavePassword() -> Bool {
         return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.never.rawValue
     }
 
     func useSavedPassword() -> Bool {
-        return UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey) == PasswordSaveType.save.rawValue
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
+    }
+    
+    func useScreenLock() -> Bool {
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PassowrdUserDefaultsKey)
+        return savedPreference == PasswordSaveType.lock.rawValue
     }
     
     func setPasswordPreference(saveType: PasswordSaveType) {
