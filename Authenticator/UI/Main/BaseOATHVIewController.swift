@@ -108,9 +108,11 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     activateNfc()
                 }
             } else {
-                if self.viewModel.cashedKeyId == keyIdentifier {
-                    print("Error code: \(String(format:"0x%02X", errorCode))")
-                    self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
+                print("Error code: \(String(format:"0x%02X", errorCode))")
+                if let cachedId = self.viewModel.cachedKeyId, let keyId = keyIdentifier {
+                    if cachedId == keyId {
+                        self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
+                    }
                 }
             }
         }
