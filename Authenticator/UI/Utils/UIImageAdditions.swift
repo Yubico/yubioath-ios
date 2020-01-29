@@ -10,21 +10,21 @@ import Foundation
 
 extension UIImage {
     
-    static var star: UIImage {
+    static var star: UIImage? {
         get {
-            return UIImage(named: "Star") ?? UIImage()
+            return UIImage(named: "Star")
         }
     }
     
-    static var starFilled: UIImage {
+    static var starFilled: UIImage? {
         get {
-            return UIImage(named: "StarFilled") ?? UIImage()
+            return UIImage(named: "StarFilled")
         }
     }
     
-    static var trash: UIImage {
+    static var trash: UIImage? {
         get {
-            return UIImage(named: "Delete") ?? UIImage()
+            return UIImage(named: "Delete")
         }
     }
 }
