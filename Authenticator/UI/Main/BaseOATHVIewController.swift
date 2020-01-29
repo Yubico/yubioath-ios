@@ -109,7 +109,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 }
             } else {
                 print("Error code: \(String(format:"0x%02X", errorCode))")
-                self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
+                if self.viewModel.cachedKeyId == keyIdentifier || self.viewModel.cachedKeyId == nil || keyIdentifier == nil {
+                    self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
+                }
             }
         }
 
