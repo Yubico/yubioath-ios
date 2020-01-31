@@ -78,7 +78,7 @@ class YubikitManagerModel : NSObject {
     private var favorites: Set<String> = []
     
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
-    private var cashedKeyId: String? = nil
+    var cachedKeyId: String? = nil
     
     var hasFilter: Bool {
         get {
@@ -149,7 +149,7 @@ class YubikitManagerModel : NSObject {
             }
 
             self._credentials.removeAll()
-            self.cashedKeyId = nil
+            self.cachedKeyId = nil
             self.favorites = []
 
             self.state = .idle
@@ -307,7 +307,7 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
-            self.cashedKeyId = self.keyIdentifier
+            self.cachedKeyId = self.keyIdentifier
             
             for credential in self._credentials {
                 // If it's TOTP credential we might need to recalculate each individually
@@ -331,7 +331,7 @@ extension YubikitManagerModel: OperationDelegate {
                 }
             }
         
-            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cashedKeyId)
+            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cachedKeyId)
 
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
@@ -481,13 +481,13 @@ extension YubikitManagerModel {
     
     func addFavorite(credential: Credential) -> IndexPath {
         self.favorites.insert(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
     
     func removeFavorite(credential: Credential) -> IndexPath {
         self.favorites.remove(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cashedKeyId, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
     }
 }

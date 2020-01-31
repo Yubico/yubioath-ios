@@ -181,7 +181,7 @@ class MainViewController: BaseOATHVIewController {
                 self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
             }
             
-            action.backgroundColor = UIColor.systemYellow
+            action.backgroundColor = UIColor(named: "Favorite")
             action.image = UIImage.starFilled
         }
         

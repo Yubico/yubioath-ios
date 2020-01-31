@@ -97,8 +97,10 @@ class FrePageViewController: UIPageViewController {
 
 extension FrePageViewController: UIPageViewControllerDelegate {
     
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        setNavigationBar(nextViewController: pendingViewControllers[0])
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if finished, let currentViewController = pageViewController.viewControllers?[0] {
+            setNavigationBar(nextViewController: currentViewController)
+        }
     }
 }
 
@@ -126,9 +128,9 @@ extension FrePageViewController: UIPageViewControllerDataSource {
     }
     
     func  pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
-                   return nil
-               }
+        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
+            return nil
+        }
                
         let nextIndex = viewControllerIndex + 1
         
