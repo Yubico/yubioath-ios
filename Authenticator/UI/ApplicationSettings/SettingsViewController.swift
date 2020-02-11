@@ -109,15 +109,18 @@ class SettingsViewController: BaseOATHVIewController {
     
     // MARK: - private helper methods  
     private func removeStoredPasswords() {
-        passwordPreferences.resetPasswordPreference()
-        do {
-          try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.") { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
-            }
-        } catch (let e) {
-            self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription) { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
+        if let keyIdentifier = self.viewModel.cachedKeyId {
+            passwordPreferences.resetPasswordPreference(keyIdentifier: keyIdentifier)
+            do {
+//              try secureStore.removeAllValues()
+                try secureStore.removeValue(for: keyIdentifier)
+                self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.") { [weak self] () -> Void in
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            } catch (let e) {
+                self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription) { [weak self] () -> Void in
+                    self?.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }

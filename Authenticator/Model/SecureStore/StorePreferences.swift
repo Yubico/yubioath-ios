@@ -38,25 +38,26 @@ class PasswordPreferences {
         return .none
     }
     
-    func neverSavePassword() -> Bool {
-        return UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey) == PasswordSaveType.never.rawValue
+    func neverSavePassword(keyIdentifier: String) -> Bool {
+        return UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier) == PasswordSaveType.never.rawValue
     }
 
-    func useSavedPassword() -> Bool {
-        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey)
-        return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
+    func useSavedPassword(keyIdentifier: String) -> Bool {
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
+      //  return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
+        return savedPreference == PasswordSaveType.save.rawValue
     }
     
-    func useScreenLock() -> Bool {
-        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey)
+    func useScreenLock(keyIdentifier: String) -> Bool {
+        let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
         return savedPreference == PasswordSaveType.lock.rawValue
     }
     
-    func setPasswordPreference(saveType: PasswordSaveType) {
-        UserDefaults.standard.set(saveType.rawValue, forKey: UIViewController.PasswordUserDefaultsKey)
+    func setPasswordPreference(saveType: PasswordSaveType, keyIdentifier: String) {
+        UserDefaults.standard.set(saveType.rawValue, forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
     }
     
-    func resetPasswordPreference() {
-        UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: UIViewController.PasswordUserDefaultsKey)
+    func resetPasswordPreference(keyIdentifier: String) {
+        UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
     }
 }

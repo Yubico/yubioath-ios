@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 /*! Represents storage for secure information (e.g. user password/pin)
  Uses KeyChain as permanent storage
@@ -81,6 +82,52 @@ class SecureStore {
     default:
       throw error(from: status)
     }
+  }
+    
+    public func getValueAsync(for userAccount: String, success: ((String?) -> Void)?, failure: ((Error?) -> Void)? = nil) {
+        
+        DispatchQueue.global(qos: .utility).async { [weak self] in
+            guard let self = self else { return }
+                var query = self.secureStoreQueryable.query
+                query[String(kSecMatchLimit)] = kSecMatchLimitOne
+                query[String(kSecReturnAttributes)] = kCFBooleanTrue
+                query[String(kSecReturnData)] = kCFBooleanTrue
+                query[String(kSecAttrAccount)] = userAccount
+
+                query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(
+                    nil, // use the default allocator
+                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                    .userPresence,
+                    nil) // ignore any error
+                let context = LAContext()
+                // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
+                // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
+                context.touchIDAuthenticationAllowableReuseDuration = 10
+                query[String(kSecUseAuthenticationContext)] = context
+                
+                var queryResult: AnyObject?
+                let status = withUnsafeMutablePointer(to: &queryResult) {
+                  SecItemCopyMatching(query as CFDictionary, $0)
+                }
+                
+                switch status {
+                case errSecSuccess:
+                  guard let queriedItem = queryResult as? [String: Any],
+                    let passwordData = queriedItem[String(kSecValueData)] as? Data,
+                    let password = String(data: passwordData, encoding: .utf8)
+                    else {
+                        failure?(SecureStoreError.data2StringConversionError)
+                        return
+                  }
+                  success?(password)
+                  
+                case errSecItemNotFound:
+                  success?(nil)
+                  
+                default:
+                    failure?(self.error(from: status))
+                }
+        }
   }
   
   public func removeValue(for userAccount: String) throws {

@@ -74,6 +74,8 @@ class YubikitManagerModel : NSObject {
         }
     }
     
+    private var nfcState: YKFNFCISO7816SessionState = .closed
+    
     private var favoritesStorage = FavoritesStorage()
     private var favorites: Set<String> = []
     

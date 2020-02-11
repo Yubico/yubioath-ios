@@ -10,8 +10,10 @@ import UIKit
 
 class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate {
     let viewModel = YubikitManagerModel()
-    let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     let passwordPreferences = PasswordPreferences()
+    let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
+ //   let secureStore = SecureStore(passwordPreferences: passwordPreferences, secureStoreQueryable: PasswordQueryable(service: "OATH"))
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +57,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
             // if we saved password in secure store then we can try to authenticate with it
             // in case if we fail we keep the same logic as if we don't have stored password
-            if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue && passwordPreferences.useSavedPassword() {
-                if let passwordKey = keyIdentifier {
+            if let passwordKey = keyIdentifier {
+                if (errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue && passwordPreferences.useSavedPassword(keyIdentifier: passwordKey)) {
                     do {
                         if let password = try self.secureStore.getValue(for: passwordKey) {
                             self.viewModel.validate(password: password)
@@ -69,30 +71,56 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     } catch (let e) {
                         print("No stored password for this key: \(e.localizedDescription)")
                     }
-                } else {
-                    print("Failed to get key identifier to get password, so user will be prompted for password")
                 }
+            } else {
+                print("Failed to get key identifier to get password, so user will be prompted for password")
             }
             
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
-            self.showPasswordPrompt(preferences: passwordPreferences, message: message, inputHandler: {  [weak self] (password) -> Void in
-                guard let self = self else {
-                    return
+            if let passwordKey = keyIdentifier {
+                if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue && passwordPreferences.useScreenLock(keyIdentifier: passwordKey) {
+                    self.secureStore.getValueAsync(for: passwordKey,
+                                                                     success: { password in
+                                                                        if let p = password {
+                            self.viewModel.validate(password: p)
+                            // doing early return for this special case because
+                            // we need to keep active session for NFC
+                            // so that validation happens during the same connection
+                            // all other cases will close active NFC connection
+                                                                        }
+                            return
+                    },
+                                                                     failure: { error in
+                                                                        if let e = error {
+                              print("No stored password for this key: \(e.localizedDescription)")
+                                                                        }
+                    })
                 }
-                self.viewModel.validate(password: password)
-                if self.passwordPreferences.useSavedPassword() {
-                    do {
-                        // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
-                        // and move it when we validated password and got keyIdentifier in connection
-                        try self.secureStore.setValue(password, for: keyIdentifier)
-                    } catch (let e) {
-                        self.passwordPreferences.resetPasswordPreference()
-                        self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+            } else {
+                print("Failed to get key identifier to get password, so user will be prompted for password")
+            }
+            
+            if let passwordKey = keyIdentifier {
+                let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
+                self.showPasswordPrompt(preferences: passwordPreferences, keyIdentifier: passwordKey, message: message, inputHandler: {
+                    [weak self] (password) -> Void in
+                    guard let self = self else {
+                        return
                     }
-                }
-            }, cancelHandler: {  [weak self] () -> Void in
-                self?.tableView.reloadData()
-            })
+                    self.viewModel.validate(password: password)
+                    if self.passwordPreferences.useSavedPassword(keyIdentifier: passwordKey) {
+                        do {
+                            // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
+                            // and move it when we validated password and got keyIdentifier in connection
+                            try self.secureStore.setValue(password, for: keyIdentifier)
+                        } catch (let e) {
+                            self.passwordPreferences.resetPasswordPreference(keyIdentifier: passwordKey)
+                            self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                        }
+                    }
+                }, cancelHandler: {  [weak self] () -> Void in
+                    self?.tableView.reloadData()
+                })
+            }
         } else {
             if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noOathService = error {
                 guard #available(iOS 13.0, *) else {
@@ -124,7 +152,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     func onOperationCompleted(operation: OperationName) {
         switch operation {
         case .validate:
-            if self.passwordPreferences.useSavedPassword(), let keyIdentifier = self.viewModel.keyIdentifier {
+            if let keyIdentifier = self.viewModel.keyIdentifier, self.passwordPreferences.useSavedPassword(keyIdentifier: keyIdentifier) {
                 do {
                     try self.secureStore.moveValue(to: keyIdentifier)
                 } catch (let e) {
