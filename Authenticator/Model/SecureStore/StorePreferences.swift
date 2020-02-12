@@ -44,7 +44,6 @@ class PasswordPreferences {
 
     func useSavedPassword(keyIdentifier: String) -> Bool {
         let savedPreference = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
-      //  return savedPreference == PasswordSaveType.save.rawValue || savedPreference == PasswordSaveType.lock.rawValue
         return savedPreference == PasswordSaveType.save.rawValue
     }
     
@@ -59,5 +58,13 @@ class PasswordPreferences {
     
     func resetPasswordPreference(keyIdentifier: String) {
         UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier)
+    }
+    
+    func resetPasswordPreferenceForAll() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.starts(with: UIViewController.PasswordUserDefaultsKey) {
+                UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: key)
+            }
+        }
     }
 }

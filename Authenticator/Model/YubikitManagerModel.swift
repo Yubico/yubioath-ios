@@ -451,6 +451,8 @@ extension YubikitManagerModel {
     }
     
     func nfcStateChanged(state: YKFNFCISO7816SessionState) {
+        let oldState = self.nfcState
+        self.nfcState = state
         guard #available(iOS 13.0, *) else {
             fatalError()
         }
@@ -458,7 +460,11 @@ extension YubikitManagerModel {
         if state == .open {
             YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
         } else if (state == .pooling) {
-            YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
+            if oldState == .open {
+                self.stopNfc()
+            } else {
+                YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
+            }
         } else if state == .closed {
             guard let error = YubiKitManager.shared.nfcSession.iso7816SessionError else {
                 return

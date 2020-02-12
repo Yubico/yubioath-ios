@@ -412,12 +412,10 @@ class MainViewController: BaseOATHVIewController {
     
     private func getTitle() -> String {
         switch viewModel.state {
-            case .idle:
+        case .idle, .locked:
                 return viewModel.keyPluggedIn ? "Loading..." : "Insert your YubiKey"
             case .loading:
                 return  "Loading..."
-            case .locked:
-                return  "Authentication is required"
             default:
                 return viewModel.hasFilter ? "No accounts found" :
                 "Add accounts"
@@ -426,7 +424,7 @@ class MainViewController: BaseOATHVIewController {
     
     private func getSubtitle() -> String? {
         switch viewModel.state {
-            case .idle:
+        case .idle, .locked:
                 return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
             case .loaded:
                 return viewModel.hasFilter ? "No accounts matching your search criteria." :

@@ -27,7 +27,7 @@ extension UIViewController {
             let passwordText = inputTextField?.text ?? ""
         
             if !preferences.neverSavePassword(keyIdentifier: keyIdentifier) {
-                self.showPasswordSaveSheet(preferences: preferences, keyIdentifier: keyIdentifier) { (saveType) -> Void in
+                self.showPasswordSaveSheet(preferences: preferences) { (saveType) -> Void in
                     preferences.setPasswordPreference(saveType: saveType, keyIdentifier: keyIdentifier)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
@@ -57,7 +57,7 @@ extension UIViewController {
     
     /*! Shows bottom sheet with options whether to save password or not
      */
-    private func showPasswordSaveSheet(preferences: PasswordPreferences, keyIdentifier: String, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
+    private func showPasswordSaveSheet(preferences: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
         let biometryType = preferences.evaluatedBiometryType()
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
@@ -72,9 +72,7 @@ extension UIViewController {
             inputHandler?(.none)
         }
         
-        if !preferences.useScreenLock(keyIdentifier: keyIdentifier) {
-            actionSheet.addAction(save)
-        }
+        actionSheet.addAction(save)
 
         if biometryType != .none {
             actionSheet.addAction(biometric)
