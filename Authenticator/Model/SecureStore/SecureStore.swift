@@ -24,23 +24,8 @@ class SecureStore {
             throw SecureStoreError.string2DataConversionError
         }
         
-        var query = secureStoreQueryable.query
+        var query = secureStoreQueryable.setUpQuery(useBiometrics: useBiometrics)
         query[String(kSecAttrAccount)] = userAccount
-        
-        if useBiometrics {
-            query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(
-                nil, // use the default allocator
-                kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-                .userPresence,
-                nil) // ignore any error
-            let context = LAContext()
-            // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
-            // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
-            context.touchIDAuthenticationAllowableReuseDuration = 10
-            query[String(kSecUseAuthenticationContext)] = context
-        }
-        
-        print("Set Value Bla bla bla \(useBiometrics)")
         
         var status = SecItemCopyMatching(query as CFDictionary, nil)
         
@@ -71,24 +56,11 @@ class SecureStore {
     public func getValueAsync(for userAccount: String, useBiometrics: Bool, success: ((String?) -> Void)?, failure: ((Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .utility).async { [weak self] in
             guard let self = self else { return }
-            var query = self.secureStoreQueryable.query
+            var query = self.secureStoreQueryable.setUpQuery(useBiometrics: useBiometrics)
             query[String(kSecMatchLimit)] = kSecMatchLimitOne
             query[String(kSecReturnAttributes)] = kCFBooleanTrue
             query[String(kSecReturnData)] = kCFBooleanTrue
             query[String(kSecAttrAccount)] = userAccount
-            
-            if useBiometrics {
-                query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(
-                    nil, // use the default allocator
-                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-                    .userPresence,
-                    nil) // ignore any error
-                let context = LAContext()
-                // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
-                // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
-                context.touchIDAuthenticationAllowableReuseDuration = 10
-                query[String(kSecUseAuthenticationContext)] = context
-            }
             
             var queryResult: AnyObject?
             let status = withUnsafeMutablePointer(to: &queryResult) {
@@ -116,7 +88,7 @@ class SecureStore {
     }
     
     public func removeValue(for userAccount: String) throws {
-        var query = secureStoreQueryable.query
+        var query = secureStoreQueryable.setUpQuery(useBiometrics: false)
         query[String(kSecAttrAccount)] = userAccount
         
         let status = SecItemDelete(query as CFDictionary)
@@ -126,7 +98,7 @@ class SecureStore {
     }
     
     public func removeAllValues() throws {
-        let query = secureStoreQueryable.query
+        let query = secureStoreQueryable.setUpQuery(useBiometrics: false)
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw error(from: status)
