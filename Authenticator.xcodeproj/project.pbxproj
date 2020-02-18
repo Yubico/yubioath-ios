@@ -17,7 +17,7 @@
 		816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684723430F8E00209342 /* SecureStoreQueryable.swift */; };
 		816C685023440D2200209342 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684F23440D2200209342 /* SecureStoreError.swift */; };
 		816C685223440EF900209342 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685123440EF900209342 /* SecureStoreTests.swift */; };
-		816C685E234697BF00209342 /* StorePreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685D234697BE00209342 /* StorePreferences.swift */; };
+		816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685D234697BE00209342 /* PasswordPreferences.swift */; };
 		817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */; };
 		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
@@ -86,7 +86,7 @@
 		816C684723430F8E00209342 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
 		816C684F23440D2200209342 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
 		816C685123440EF900209342 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
-		816C685D234697BE00209342 /* StorePreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorePreferences.swift; sourceTree = "<group>"; };
+		816C685D234697BE00209342 /* PasswordPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordPreferences.swift; sourceTree = "<group>"; };
 		817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAdditions.swift; sourceTree = "<group>"; };
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 				816C684523430E0700209342 /* SecureStore.swift */,
 				816C684723430F8E00209342 /* SecureStoreQueryable.swift */,
 				816C684F23440D2200209342 /* SecureStoreError.swift */,
-				816C685D234697BE00209342 /* StorePreferences.swift */,
+				816C685D234697BE00209342 /* PasswordPreferences.swift */,
 			);
 			path = SecureStore;
 			sourceTree = "<group>";
@@ -565,7 +565,7 @@
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
-				816C685E234697BF00209342 /* StorePreferences.swift in Sources */,
+				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */,
@@ -765,6 +765,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -791,6 +792,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

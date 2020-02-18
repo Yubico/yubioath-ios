@@ -59,10 +59,18 @@ extension UIViewController {
      */
     private func showPasswordSaveSheet(preferences: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
         let biometryType = preferences.evaluatedBiometryType()
+        let passcodeSet = preferences.devicePasscodeEnabled()
+        var typeString = ""
+        
+        if biometryType == .none && passcodeSet {
+            typeString = "Passcode"
+        } else {
+            typeString = biometryType.title
+        }
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
-        let biometric = UIAlertAction(title: "Save and protect with \(biometryType.title)", style: .default) { (action) -> Void in inputHandler?(.lock) }
+        let biometric = UIAlertAction(title: "Save and protect with \(typeString)", style: .default) { (action) -> Void in inputHandler?(.lock) }
         let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in inputHandler?(.never) }
         let notNow = UIAlertAction(title: "Not now", style: .cancel) { [weak self] (action) in
             guard let self = self else {
@@ -74,7 +82,7 @@ extension UIViewController {
         
         actionSheet.addAction(save)
 
-        if biometryType != .none {
+        if biometryType != .none || passcodeSet {
             actionSheet.addAction(biometric)
         }
 

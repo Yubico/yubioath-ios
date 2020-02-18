@@ -412,23 +412,25 @@ class MainViewController: BaseOATHVIewController {
     
     private func getTitle() -> String {
         switch viewModel.state {
-        case .idle, .locked:
-                return viewModel.keyPluggedIn ? "Loading..." : "Insert your YubiKey"
+            case .idle:
+                return viewModel.keyPluggedIn ? NSLocalizedString("Loading...", comment: "") : NSLocalizedString("Insert your YubiKey", comment: "")
             case .loading:
-                return  "Loading..."
+                return  NSLocalizedString("Loading...", comment: "")
+            case .locked:
+                return NSLocalizedString("Authentication is required", comment: "")
+
             default:
-                return viewModel.hasFilter ? "No accounts found" :
-                "Add accounts"
+                return viewModel.hasFilter ? NSLocalizedString("No accounts found", comment: "") : NSLocalizedString("Add accounts", comment: "")
         }
     }
     
     private func getSubtitle() -> String? {
         switch viewModel.state {
-        case .idle, .locked:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
+            case .idle:
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : NSLocalizedString("Pull down to refresh or activate NFC", comment: "")
             case .loaded:
-                return viewModel.hasFilter ? "No accounts matching your search criteria." :
-                "No accounts have been set up for this YubiKey. Tap + button to add an account."
+                return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "")
+                    : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "")
             default:
                 return nil
         }

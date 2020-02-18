@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import LocalAuthentication
 
 /*! Represents storage for secure information (e.g. user password/pin)
  Uses KeyChain as permanent storage
@@ -53,8 +52,10 @@ class SecureStore {
         }
     }
     
-    public func getValueAsync(for userAccount: String, useBiometrics: Bool, success: ((String?) -> Void)?, failure: ((Error?) -> Void)? = nil) {
-        DispatchQueue.global(qos: .utility).async { [weak self] in
+    // getValue is asynchronous to avoid main thread blocking while scanning NFC and
+    // validating password with device's biometric or passcode protection.
+    public func getValueAsync(for userAccount: String, useBiometrics: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
             var query = self.secureStoreQueryable.setUpQuery(useBiometrics: useBiometrics)
             query[String(kSecMatchLimit)] = kSecMatchLimitOne
@@ -73,16 +74,16 @@ class SecureStore {
                     let passwordData = queriedItem[String(kSecValueData)] as? Data,
                     let password = String(data: passwordData, encoding: .utf8)
                 else {
-                    failure?(SecureStoreError.data2StringConversionError)
+                    failure(SecureStoreError.data2StringConversionError)
                     return
                 }
-                success?(password)
+                success(password)
                 
             case errSecItemNotFound:
-                success?(nil)
+                failure(SecureStoreError.itemNotFound)
                 
             default:
-                failure?(self.error(from: status))
+                failure(self.error(from: status))
             }
         }
     }

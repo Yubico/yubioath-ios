@@ -1,5 +1,5 @@
 //
-//  StorePreferences.swift
+//  PasswordPreferences.swift
 //  Authenticator
 //
 //  Created by Irina Makhalova on 10/3/19.
@@ -32,10 +32,15 @@ class PasswordPreferences {
             }
             return .touchID
         }
+        
         if let error = error {
             print("Biometric policy error: " + String(describing: error.localizedDescription))
         }
         return .none
+    }
+    
+    func devicePasscodeEnabled() -> Bool {
+        return LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
     }
     
     func neverSavePassword(keyIdentifier: String) -> Bool {

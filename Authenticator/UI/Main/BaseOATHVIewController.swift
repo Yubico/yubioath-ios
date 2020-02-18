@@ -47,25 +47,27 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
      */
     func onError(error: Error) {
         let errorCode = (error as NSError).code
-        // save key identifier in local variable so that it can be accessed when save password is prompted
+        // Save key identifier in local variable so that it can be accessed when save password is prompted.
         let keyIdentifier = self.viewModel.keyIdentifier
         
         if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
+            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue
+                ? "Incorrect password. Re-enter password."
+                : "To prevent unauthorized access this YubiKey is protected with a password."
             
-            // if we saved password in secure store then we can try to authenticate with it
-            // in case if we fail we keep the same logic as if we don't have stored password
+            // If we saved password in secure store then we can try to authenticate with it.
+            // In case of any failure, we keep as if we don't have stored password.
             if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
                 self.validatePassword(with: message)
-                // doing early return for this special case because
+                // Doing early return for this special case because
                 // we need to keep active session for NFC
                 // so that validation happens during the same connection
-                // all other cases will close active NFC connection
+                // all other cases will close active NFC connection.
                 return
             }
             
-            self.requestSavePassword(with: message)
-
+            self.showPasswordPrompt(with: message)
+            
         } else {
             if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noOathService = error {
                 guard #available(iOS 13.0, *) else {
@@ -91,36 +93,35 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         self.viewModel.stopNfc()
     }
     
-    func validatePassword(with message: String) {
+    // Validates YubiKey password. If password is available in secure storage then use it, otherwise shows prompt to user and request password.
+    private func validatePassword(with message: String) {
         if let keyIdentifier = self.viewModel.keyIdentifier {
             let useBiometrics = self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier)
+            
+            if useBiometrics && (self.passwordPreferences.evaluatedBiometryType() == .none || !self.passwordPreferences.devicePasscodeEnabled()) {
+                self.showAlertDialog(title: "This key was set with biometric or passcode protection.", message: "To access the key, please turn on the biometric or passcode protection back on your device or clear stored passwords under Settings menu.")
+            }
             
             if self.passwordPreferences.useSavedPassword(keyIdentifier: keyIdentifier) || useBiometrics {
                 self.secureStore.getValueAsync(
                     for: keyIdentifier,
                     useBiometrics: useBiometrics,
                     success: { password in
-                        DispatchQueue.main.async { [weak self] in
-                            if let p = password {
-                                self?.viewModel.validate(password: p)
-                            }
-                        }
-                        return
+                        self.viewModel.validate(password: password)
                     },
                     failure: { error in
-                        if let e = error {
-                            print("No stored password for this key: \(e.localizedDescription)")
-                        }
+                        print("No stored password for this key: \(error.localizedDescription)")
                 })
             } else {
-                self.requestSavePassword(with: message)
+                self.showPasswordPrompt(with: message)
             }
         } else {
             print("Failed to get key identifier to get password, so user will be prompted for password")
         }
     }
     
-    func requestSavePassword(with message: String) {
+    // Shows password prompt to user with specified message.
+    private func showPasswordPrompt(with message: String) {
         if let passwordKey = self.viewModel.keyIdentifier {
             self.showPasswordPrompt(preferences: self.passwordPreferences, keyIdentifier: passwordKey, message: message, inputHandler: {
                 [weak self] (password) -> Void in
@@ -130,8 +131,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self.viewModel.validate(password: password)
                 if self.passwordPreferences.useSavedPassword(keyIdentifier: passwordKey) || self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey) {
                     do {
-                        // in case if we don't have connection (NFC) our keyIdentifier will be unknown, we put into temporary slot on KeyChain
-                        // and move it when we validated password and got keyIdentifier in connection
                         try self.secureStore.setValue(password, useBiometrics: self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey), for: passwordKey)
                     } catch let e {
                         self.passwordPreferences.resetPasswordPreference(keyIdentifier: passwordKey)
