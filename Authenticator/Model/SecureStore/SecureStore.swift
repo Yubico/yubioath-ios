@@ -88,6 +88,29 @@ class SecureStore {
         }
     }
     
+    public func hasValue(for userAccount: String) -> Bool {
+        let status = self.getStatus(for: userAccount)
+        switch status {
+        case errSecSuccess, errSecInteractionNotAllowed:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public func hasValueProtected(for userAccount: String) -> Bool {
+        let status = self.getStatus(for: userAccount)
+        return status == errSecInteractionNotAllowed
+    }
+    
+    private func getStatus(for userAccount: String) -> OSStatus {
+        var query = secureStoreQueryable.setUpQuery(useBiometrics: false)
+        query[String(kSecAttrAccount)] = userAccount
+        query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
+        
+        return SecItemCopyMatching(query as CFDictionary, nil)
+    }
+    
     public func removeValue(for userAccount: String) throws {
         var query = secureStoreQueryable.setUpQuery(useBiometrics: false)
         query[String(kSecAttrAccount)] = userAccount

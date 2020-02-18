@@ -461,7 +461,7 @@ extension YubikitManagerModel {
             YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
         } else if (state == .pooling) {
             if oldState == .open {
-                // Closing session on YubiKey pooling, so NFC screen not overlapping FaceId/TouchId diologs.
+                // Closing session because YubiKey was removed from NFC reader.
                 self.stopNfc()
             } else {
                 YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")

@@ -54,7 +54,7 @@ extension PasswordQueryable: SecureStoreQueryable {
             // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
             // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
             context.touchIDAuthenticationAllowableReuseDuration = 10
-            query[kSecUseOperationPrompt as String] = "Authenticate to login to YubiKey." as CFString
+            query[String(kSecUseOperationPrompt)] = "Authenticate to login to YubiKey."
             query[String(kSecUseAuthenticationContext)] = context
         }
 #endif

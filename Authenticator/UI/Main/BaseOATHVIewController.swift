@@ -58,12 +58,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             // If we saved password in secure store then we can try to authenticate with it.
             // In case of any failure, we keep as if we don't have stored password.
             if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
-                self.validatePassword(with: message)
-                // Doing early return for this special case because
-                // we need to keep active session for NFC
-                // so that validation happens during the same connection
-                // all other cases will close active NFC connection.
-                return
+                if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey) {
+                    self.validatePassword(for: passwordKey, with: message)
+                    // Doing early return for this special case because
+                    // we need to keep active session for NFC
+                    // so that validation happens during the same connection
+                    // all other cases will close active NFC connection.
+                    return
+                }
             }
             
             self.showPasswordPrompt(with: message)
@@ -94,30 +96,18 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     // Validates YubiKey password. If password is available in secure storage then use it, otherwise shows prompt to user and request password.
-    private func validatePassword(with message: String) {
-        if let keyIdentifier = self.viewModel.keyIdentifier {
-            let useBiometrics = self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier)
-            
-            if useBiometrics && (self.passwordPreferences.evaluatedBiometryType() == .none || !self.passwordPreferences.devicePasscodeEnabled()) {
-                self.showAlertDialog(title: "This key was set with biometric or passcode protection.", message: "To access the key, please turn on the biometric or passcode protection back on your device or clear stored passwords under Settings menu.")
-            }
-            
-            if self.passwordPreferences.useSavedPassword(keyIdentifier: keyIdentifier) || useBiometrics {
-                self.secureStore.getValueAsync(
-                    for: keyIdentifier,
-                    useBiometrics: useBiometrics,
-                    success: { password in
-                        self.viewModel.validate(password: password)
-                    },
-                    failure: { error in
-                        print("No stored password for this key: \(error.localizedDescription)")
-                })
-            } else {
+    private func validatePassword(for userAccount: String, with message: String) {
+        let hasValueProtected = self.secureStore.hasValueProtected(for: userAccount)
+        self.secureStore.getValueAsync(
+            for: userAccount,
+            useBiometrics: hasValueProtected,
+            success: { password in
+                self.viewModel.validate(password: password)
+            },
+            failure: { error in
                 self.showPasswordPrompt(with: message)
-            }
-        } else {
-            print("Failed to get key identifier to get password, so user will be prompted for password")
-        }
+                print("No stored password for this key: \(error.localizedDescription)")
+        })
     }
     
     // Shows password prompt to user with specified message.
