@@ -23,18 +23,28 @@ class PasswordPreferences {
 
     // This method returns what biometric authentiacation type set on user's device.
     // canEvaluatePolicy should be called before getting the biometryType.
-    func evaluatedBiometryType() -> LABiometryType {
+    func evaluatedAuthenticationType() -> AuthenticationType {
         let context = LAContext()
         var error: NSError?
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            if #available(iOS 11.0, *) {
-                return context.biometryType
-            }
-            return .touchID
-        }
+        
+        let hasAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        let hasBiometricAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
         
         if let error = error {
             print("Biometric policy error: " + String(describing: error.localizedDescription))
+        }
+        
+        if hasAuthentication {
+            if hasBiometricAuthentication {
+                if #available(iOS 11.0, *) {
+                    if context.biometryType == .faceID {
+                        return .faceId
+                    }
+                    return .touchId
+                }
+                return .touchId
+            }
+            return .passcode
         }
         return .none
     }

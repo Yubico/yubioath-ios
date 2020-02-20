@@ -57,15 +57,13 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             
             // If we saved password in secure store then we can try to authenticate with it.
             // In case of any failure, we keep as if we don't have stored password.
-            if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
-                if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey) {
+            if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey), errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
                     self.validatePassword(for: passwordKey, with: message)
                     // Doing early return for this special case because
                     // we need to keep active session for NFC
                     // so that validation happens during the same connection
                     // all other cases will close active NFC connection.
                     return
-                }
             }
             
             self.showPasswordPrompt(with: message)
@@ -95,7 +93,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         self.viewModel.stopNfc()
     }
     
-    // Validates YubiKey password. If password is available in secure storage then use it, otherwise shows prompt to user and request password.
+    /* Validates YubiKey password. If password is available in secure storage then use it,
+    otherwise shows prompt to user and request password.
+    */
     private func validatePassword(for userAccount: String, with message: String) {
         let hasValueProtected = self.secureStore.hasValueProtected(for: userAccount)
         self.secureStore.getValueAsync(
@@ -110,7 +110,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         })
     }
     
-    // Shows password prompt to user with specified message.
+    /* Shows password prompt to user with specified message, validates password
+    and saves the option (Save password or Save password with biometric protection) selected by user into permanent storage.
+    */
     private func showPasswordPrompt(with message: String) {
         if let passwordKey = self.viewModel.keyIdentifier {
             self.showPasswordPrompt(preferences: self.passwordPreferences, keyIdentifier: passwordKey, message: message, inputHandler: {
