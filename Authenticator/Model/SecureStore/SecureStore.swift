@@ -18,12 +18,12 @@ class SecureStore {
         self.secureStoreQueryable = secureStoreQueryable
     }
     
-    public func setValue(_ value: String, useBiometrics: Bool, for userAccount: String) throws {
+    public func setValue(_ value: String, useAuthentication: Bool, for userAccount: String) throws {
         guard let encodedPassword = value.data(using: .utf8) else {
             throw SecureStoreError.string2DataConversionError
         }
         
-        var query = secureStoreQueryable.setUpQuery(useBiometrics: useBiometrics)
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
         query[String(kSecAttrAccount)] = userAccount
         
         var status = SecItemCopyMatching(query as CFDictionary, nil)
@@ -52,12 +52,13 @@ class SecureStore {
         }
     }
     
-    // getValue is asynchronous to avoid main thread blocking while scanning NFC and
-    // validating password with device's biometric or passcode protection.
-    public func getValueAsync(for userAccount: String, useBiometrics: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
+    /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
+    validating password with device's biometric or passcode protection.
+    */
+    public func getValueAsync(for userAccount: String, useAuthentication: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
-            var query = self.secureStoreQueryable.setUpQuery(useBiometrics: useBiometrics)
+            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
             query[String(kSecMatchLimit)] = kSecMatchLimitOne
             query[String(kSecReturnAttributes)] = kCFBooleanTrue
             query[String(kSecReturnData)] = kCFBooleanTrue
@@ -103,8 +104,16 @@ class SecureStore {
         return status == errSecInteractionNotAllowed
     }
     
+    public func removeAllValues() throws {
+        let query = secureStoreQueryable.setUpQuery(useAuthentication: false)
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw error(from: status)
+        }
+    }
+        
     private func getStatus(for userAccount: String) -> OSStatus {
-        var query = secureStoreQueryable.setUpQuery(useBiometrics: false)
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: false)
         query[String(kSecAttrAccount)] = userAccount
         query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
         
@@ -112,17 +121,9 @@ class SecureStore {
     }
     
     public func removeValue(for userAccount: String) throws {
-        var query = secureStoreQueryable.setUpQuery(useBiometrics: false)
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: false)
         query[String(kSecAttrAccount)] = userAccount
         
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw error(from: status)
-        }
-    }
-    
-    public func removeAllValues() throws {
-        let query = secureStoreQueryable.setUpQuery(useBiometrics: false)
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw error(from: status)

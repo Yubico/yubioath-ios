@@ -21,36 +21,38 @@ enum PasswordSaveType: Int {
  */
 class PasswordPreferences {
 
-    // This method returns what biometric authentiacation type set on user's device.
-    // canEvaluatePolicy should be called before getting the biometryType.
+    /* This method returns what biometric authentiacation type set on user's device.
+    canEvaluatePolicy should be called before getting the biometryType.
+    */
     func evaluatedAuthenticationType() -> AuthenticationType {
         let context = LAContext()
-        var error: NSError?
+        var errorPolicy: NSError?
+        var errorBiometricPolicy: NSError?
         
-        let hasAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
-        let hasBiometricAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+        let hasAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &errorPolicy)
+        let hasBiometricAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &errorBiometricPolicy)
         
-        if let error = error {
+        if let error = errorPolicy {
+            print("Authentication policy error: " + String(describing: error.localizedDescription))
+        }
+        
+        if let error = errorBiometricPolicy {
             print("Biometric policy error: " + String(describing: error.localizedDescription))
         }
         
-        if hasAuthentication {
-            if hasBiometricAuthentication {
-                if #available(iOS 11.0, *) {
-                    if context.biometryType == .faceID {
-                        return .faceId
-                    }
-                    return .touchId
-                }
-                return .touchId
-            }
+        if !hasAuthentication {
+            return .none
+        }
+
+        if !hasBiometricAuthentication {
             return .passcode
         }
-        return .none
-    }
-    
-    func devicePasscodeEnabled() -> Bool {
-        return LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        
+        if #available(iOS 11.0, *) {
+            return context.biometryType == .faceID ? .faceId : .touchId
+        }
+
+        return .touchId
     }
     
     func neverSavePassword(keyIdentifier: String) -> Bool {

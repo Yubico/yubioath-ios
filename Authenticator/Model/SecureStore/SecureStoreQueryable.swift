@@ -15,7 +15,7 @@ import LocalAuthentication
 let APP_ID = "LQA3CS5MM7"
 
 protocol SecureStoreQueryable {
-    func setUpQuery(useBiometrics: Bool) -> [String: Any]
+    func setUpQuery(useAuthentication: Bool) -> [String: Any]
 }
 
 /*! Provides simple query to KeyChain specifically for password type of information
@@ -35,7 +35,7 @@ public struct PasswordQueryable {
 }
 
 extension PasswordQueryable: SecureStoreQueryable {
-    func setUpQuery(useBiometrics: Bool) -> [String: Any] {
+    func setUpQuery(useAuthentication: Bool) -> [String: Any] {
         var query: [String: Any] = [:]
         query[String(kSecClass)] = kSecClassGenericPassword
         query[String(kSecAttrService)] = service
@@ -45,7 +45,7 @@ extension PasswordQueryable: SecureStoreQueryable {
             query[String(kSecAttrAccessGroup)] = "\(APP_ID)." + accessGroup
         }
 
-        if useBiometrics {
+        if useAuthentication {
             query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
                                                                                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
                                                                                    .userPresence,

@@ -100,7 +100,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         let hasValueProtected = self.secureStore.hasValueProtected(for: userAccount)
         self.secureStore.getValueAsync(
             for: userAccount,
-            useBiometrics: hasValueProtected,
+            useAuthentication: hasValueProtected,
             success: { password in
                 self.viewModel.validate(password: password)
             },
@@ -123,7 +123,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self.viewModel.validate(password: password)
                 if self.passwordPreferences.useSavedPassword(keyIdentifier: passwordKey) || self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey) {
                     do {
-                        try self.secureStore.setValue(password, useBiometrics: self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey), for: passwordKey)
+                        try self.secureStore.setValue(password, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey), for: passwordKey)
                     } catch let e {
                         self.passwordPreferences.resetPasswordPreference(keyIdentifier: passwordKey)
                         self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
