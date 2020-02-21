@@ -10,123 +10,135 @@ import Foundation
 
 /*! Represents storage for secure information (e.g. user password/pin)
  Uses KeyChain as permanent storage
-*/
+ */
 class SecureStore {
-  let secureStoreQueryable: SecureStoreQueryable
-  
-  public init(secureStoreQueryable: SecureStoreQueryable) {
-    self.secureStoreQueryable = secureStoreQueryable
-  }
-  
-  public func setValue(_ value: String, for userAccount: String) throws {
-    guard let encodedPassword = value.data(using: .utf8) else {
-      throw SecureStoreError.string2DataConversionError
+    let secureStoreQueryable: SecureStoreQueryable
+    
+    public init(secureStoreQueryable: SecureStoreQueryable) {
+        self.secureStoreQueryable = secureStoreQueryable
     }
     
-    var query = secureStoreQueryable.query
-    query[String(kSecAttrAccount)] = userAccount
-    
-    var status = SecItemCopyMatching(query as CFDictionary, nil)
-    
-    switch status {
-    case errSecSuccess:
-      var attributesToUpdate: [String : Any] = [:]
-      attributesToUpdate[String(kSecValueData)] = encodedPassword
-      
-      status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
-      
-      if status != errSecSuccess {
-        throw error(from: status)
-      }
-      
-    case errSecItemNotFound:
-      query[String(kSecValueData)] = encodedPassword
-      
-      status = SecItemAdd(query as CFDictionary, nil)
-      if status != errSecSuccess {
-        throw error(from: status)
-      }
-      
-    default:
-      throw error(from: status)
-    }
-  }
-  
-  public func getValue(for userAccount: String) throws -> String? {
-    var query = secureStoreQueryable.query
-    query[String(kSecMatchLimit)] = kSecMatchLimitOne
-    query[String(kSecReturnAttributes)] = kCFBooleanTrue
-    query[String(kSecReturnData)] = kCFBooleanTrue
-    query[String(kSecAttrAccount)] = userAccount
-    
-    var queryResult: AnyObject?
-    let status = withUnsafeMutablePointer(to: &queryResult) {
-      SecItemCopyMatching(query as CFDictionary, $0)
-    }
-    
-    switch status {
-    case errSecSuccess:
-      guard let queriedItem = queryResult as? [String: Any],
-        let passwordData = queriedItem[String(kSecValueData)] as? Data,
-        let password = String(data: passwordData, encoding: .utf8)
-        else {
-          throw SecureStoreError.data2StringConversionError
-      }
-      
-      return password
-      
-    case errSecItemNotFound:
-      return nil
-      
-    default:
-      throw error(from: status)
-    }
-  }
-  
-  public func removeValue(for userAccount: String) throws {
-    var query = secureStoreQueryable.query
-    query[String(kSecAttrAccount)] = userAccount
-    
-    let status = SecItemDelete(query as CFDictionary)
-    guard status == errSecSuccess || status == errSecItemNotFound else {
-      throw error(from: status)
-    }
-  }
-  
-  public func removeAllValues() throws {
-    let query = secureStoreQueryable.query
-    let status = SecItemDelete(query as CFDictionary)
-    guard status == errSecSuccess || status == errSecItemNotFound else {
-      throw error(from: status)
-    }
-  }
-  
-  private func error(from status: OSStatus) -> SecureStoreError {
-    var message: String
-    if #available(iOS 11.3, *) {
-        message = SecCopyErrorMessageString(status, nil) as String? ?? NSLocalizedString("Unhandled Error", comment: "")
-    } else {
-        // Fallback on earlier versions
-        message = NSLocalizedString("Unhandled Error", comment: "")
-    }
-    return SecureStoreError.unhandledError(message: message)
-  }
-}
-
-extension SecureStore {
-    static let DEFAULT_KEY = "defaultKey"
-    
-    public func setValue(_ value: String, for userAccount: String?) throws {
-        try self.setValue(value, for: userAccount ?? SecureStore.DEFAULT_KEY)
-    }
-    
-    public func moveValue(to userAccount: String) throws {
-        // do nothing if we couldn't get stored password for default key
-        // we will try on next successful attempt
-        if let password = try? self.getValue(for: SecureStore.DEFAULT_KEY) {
-            try self.setValue(password, for: userAccount)
-            try? self.removeValue(for: SecureStore.DEFAULT_KEY)
+    public func setValue(_ value: String, useAuthentication: Bool, for userAccount: String) throws {
+        guard let encodedPassword = value.data(using: .utf8) else {
+            throw SecureStoreError.string2DataConversionError
         }
+        
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+        query[String(kSecAttrAccount)] = userAccount
+        
+        var status = SecItemCopyMatching(query as CFDictionary, nil)
+        
+        switch status {
+        case errSecSuccess:
+            var attributesToUpdate: [String: Any] = [:]
+            attributesToUpdate[String(kSecValueData)] = encodedPassword
+            
+            status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
+            
+            if status != errSecSuccess {
+                throw error(from: status)
+            }
+            
+        case errSecItemNotFound:
+            query[String(kSecValueData)] = encodedPassword
+            
+            status = SecItemAdd(query as CFDictionary, nil)
+            if status != errSecSuccess {
+                throw error(from: status)
+            }
+            
+        default:
+            throw error(from: status)
+        }
+    }
+    
+    /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
+    validating password with device's biometric or passcode protection.
+    */
+    public func getValueAsync(for userAccount: String, useAuthentication: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+            query[String(kSecMatchLimit)] = kSecMatchLimitOne
+            query[String(kSecReturnAttributes)] = kCFBooleanTrue
+            query[String(kSecReturnData)] = kCFBooleanTrue
+            query[String(kSecAttrAccount)] = userAccount
+            
+            var queryResult: AnyObject?
+            let status = withUnsafeMutablePointer(to: &queryResult) {
+                SecItemCopyMatching(query as CFDictionary, $0)
+            }
+            
+            switch status {
+            case errSecSuccess:
+                guard let queriedItem = queryResult as? [String: Any],
+                    let passwordData = queriedItem[String(kSecValueData)] as? Data,
+                    let password = String(data: passwordData, encoding: .utf8)
+                else {
+                    failure(SecureStoreError.data2StringConversionError)
+                    return
+                }
+                success(password)
+                
+            case errSecItemNotFound:
+                failure(SecureStoreError.itemNotFound)
+                
+            default:
+                failure(self.error(from: status))
+            }
+        }
+    }
+    
+    public func hasValue(for userAccount: String) -> Bool {
+        let status = self.getStatus(for: userAccount)
+        switch status {
+        case errSecSuccess, errSecInteractionNotAllowed:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    public func hasValueProtected(for userAccount: String) -> Bool {
+        let status = self.getStatus(for: userAccount)
+        return status == errSecInteractionNotAllowed
+    }
+    
+    public func removeAllValues() throws {
+        let query = secureStoreQueryable.setUpQuery(useAuthentication: false)
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw error(from: status)
+        }
+    }
+        
+    private func getStatus(for userAccount: String) -> OSStatus {
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: false)
+        query[String(kSecAttrAccount)] = userAccount
+        query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
+        
+        return SecItemCopyMatching(query as CFDictionary, nil)
+    }
+    
+    public func removeValue(for userAccount: String) throws {
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: false)
+        query[String(kSecAttrAccount)] = userAccount
+        
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            throw error(from: status)
+        }
+    }
+    
+    private func error(from status: OSStatus) -> SecureStoreError {
+        var message: String
+        if #available(iOS 11.3, *) {
+            message = SecCopyErrorMessageString(status, nil) as String? ?? NSLocalizedString("Unhandled Error", comment: "")
+        } else {
+            // Fallback on earlier versions
+            message = NSLocalizedString("Unhandled Error", comment: "")
+        }
+        return SecureStoreError.unhandledError(message: message)
     }
 }
 

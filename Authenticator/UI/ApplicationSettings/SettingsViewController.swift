@@ -107,15 +107,16 @@ class SettingsViewController: BaseOATHVIewController {
         }
     }
     
-    // MARK: - private helper methods  
+    // MARK: - private helper methods
+    
     private func removeStoredPasswords() {
-        passwordPreferences.resetPasswordPreference()
+        passwordPreferences.resetPasswordPreferenceForAll()
         do {
-          try secureStore.removeAllValues()
+            try secureStore.removeAllValues()
             self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.") { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
-        } catch (let e) {
+        } catch let e {
             self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription) { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             }
@@ -123,20 +124,18 @@ class SettingsViewController: BaseOATHVIewController {
     }
 }
 
-//
 // MARK: - Key Session Observer
-//
-extension  SettingsViewController: AccessorySessionObserverDelegate {
-    
+
+extension SettingsViewController: AccessorySessionObserverDelegate {
     func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
         self.tableView.reloadData()
     }
 }
 
-extension  SettingsViewController: NfcSessionObserverDelegate {
+extension SettingsViewController: NfcSessionObserverDelegate {
     func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
         viewModel.nfcStateChanged(state: state)
-        if (state == .open) {
+        if state == .open {
             viewModel.resume()
         }
     }

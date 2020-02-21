@@ -15,7 +15,7 @@ import LocalAuthentication
 let APP_ID = "LQA3CS5MM7"
 
 protocol SecureStoreQueryable {
-    var query: [String: Any] { get }
+    func setUpQuery(useAuthentication: Bool) -> [String: Any]
 }
 
 /*! Provides simple query to KeyChain specifically for password type of information
@@ -25,39 +25,39 @@ protocol SecureStoreQueryable {
  but potentially can be used if we planning to share this keychain with another application (e.g. YubiKey manager)
  */
 public struct PasswordQueryable {
-  let service: String
-  let accessGroup: String?
-  
-  init(service: String, accessGroup: String? = nil) {
-    self.service = service
-    self.accessGroup = accessGroup
-  }
+    let service: String
+    let accessGroup: String?
+
+    init(service: String, accessGroup: String? = nil) {
+        self.service = service
+        self.accessGroup = accessGroup
+    }
 }
 
 extension PasswordQueryable: SecureStoreQueryable {
-  public var query: [String: Any] {
-    var query: [String: Any] = [:]
-    query[String(kSecClass)] = kSecClassGenericPassword
-    query[String(kSecAttrService)] = service
-    // Access group if target environment is not simulator
+    func setUpQuery(useAuthentication: Bool) -> [String: Any] {
+        var query: [String: Any] = [:]
+        query[String(kSecClass)] = kSecClassGenericPassword
+        query[String(kSecAttrService)] = service
+// Access group if target environment is not simulator
 #if !targetEnvironment(simulator)
-    if let accessGroup = accessGroup {
-      query[String(kSecAttrAccessGroup)] = "\(APP_ID)." + accessGroup
-    }
+        if let accessGroup = accessGroup {
+            query[String(kSecAttrAccessGroup)] = "\(APP_ID)." + accessGroup
+        }
 
-    if PasswordPreferences().useScreenLock() {
-        query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
-                                                                               kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-                                                                               .userPresence,
-                                                                               nil) // ignore any error
-        let context = LAContext()
-        // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
-        // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
-        context.touchIDAuthenticationAllowableReuseDuration = 10
-        query[String(kSecUseAuthenticationContext)] = context
-    }
+        if useAuthentication {
+            query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
+                                                                                   kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                                                                                   .userPresence,
+                                                                                   nil) // ignore any error
+            let context = LAContext()
+            // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
+            // So, if the user opens our app within 10 seconds of unlocking the device, we not prompting the user for FaceID/TouchID again.
+            context.touchIDAuthenticationAllowableReuseDuration = 10
+            query[String(kSecUseOperationPrompt)] = "Authenticate to login to YubiKey."
+            query[String(kSecUseAuthenticationContext)] = context
+        }
 #endif
-    return query
-  }
+        return query
+    }
 }
-

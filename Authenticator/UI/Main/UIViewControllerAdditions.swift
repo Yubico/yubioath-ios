@@ -19,15 +19,16 @@ extension UIViewController {
     static let PasswordUserDefaultsKey = "PasswordSaveType"
     /*! Shows view with edit text field amd returns input text within inputHandler
      */
-    func showPasswordPrompt(preferences: PasswordPreferences, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
+    func showPasswordPrompt(preferences: PasswordPreferences, keyIdentifier: String, message: String, inputHandler: ((String) -> Void)? = nil, cancelHandler: (() -> Void)? = nil) {
         weak var inputTextField: UITextField?
         let alertController = UIAlertController(title: "Unlock YubiKey", message: message, preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             let passwordText = inputTextField?.text ?? ""
-            if !preferences.neverSavePassword() {
+        
+            if !preferences.neverSavePassword(keyIdentifier: keyIdentifier) {
                 self.showPasswordSaveSheet(preferences: preferences) { (saveType) -> Void in
-                    preferences.setPasswordPreference(saveType: saveType)
+                    preferences.setPasswordPreference(saveType: saveType, keyIdentifier: keyIdentifier)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
                     }
@@ -57,11 +58,11 @@ extension UIViewController {
     /*! Shows bottom sheet with options whether to save password or not
      */
     private func showPasswordSaveSheet(preferences: PasswordPreferences, inputHandler: ((PasswordSaveType) -> Void)? = nil) {
-        let biometryType = preferences.evaluatedBiometryType()
+        let authenticationType = preferences.evaluatedAuthenticationType()
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
         let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
-        let biometric = UIAlertAction(title: "Save and protect with \(biometryType.title)", style: .default) { (action) -> Void in inputHandler?(.lock) }
+        let biometric = UIAlertAction(title: "Save and protect with \(authenticationType.title)", style: .default) { (action) -> Void in inputHandler?(.lock) }
         let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in inputHandler?(.never) }
         let notNow = UIAlertAction(title: "Not now", style: .cancel) { [weak self] (action) in
             guard let self = self else {
@@ -71,11 +72,9 @@ extension UIViewController {
             inputHandler?(.none)
         }
         
-        if !preferences.useScreenLock() {
-            actionSheet.addAction(save)
-        }
+        actionSheet.addAction(save)
 
-        if biometryType != .none {
+        if authenticationType != .none {
             actionSheet.addAction(biometric)
         }
 

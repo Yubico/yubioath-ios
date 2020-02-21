@@ -1,5 +1,5 @@
 //
-//  LABiometryTypeExtension.swift
+//  AuthenticationTypeEnum.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 1/24/20.
@@ -7,15 +7,21 @@
 //
 
 import Foundation
-import LocalAuthentication
 
-extension LABiometryType {
+enum AuthenticationType {
+    case touchId
+    case faceId
+    case passcode
+    case none
+    
     var title: String {
         switch self {
-        case .touchID:
+        case .touchId:
             return "Touch ID"
-        case .faceID:
+        case .faceId:
             return "Face ID"
+        case .passcode:
+            return "Passcode"
         default:
             return ""
         }

@@ -413,24 +413,24 @@ class MainViewController: BaseOATHVIewController {
     private func getTitle() -> String {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn ? "Loading..." : "Insert your YubiKey"
+                return viewModel.keyPluggedIn ? NSLocalizedString("Loading...", comment: "Main view title while the key plugged in and  loading data.") : NSLocalizedString("Insert your YubiKey", comment: "Main view title if the key not plugged in, asking to insert the key.")
             case .loading:
-                return  "Loading..."
+                return  NSLocalizedString("Loading...", comment: "Main view title while loading data.")
             case .locked:
-                return  "Authentication is required"
+                return NSLocalizedString("Authentication is required", comment: "Main view title when the key has password.")
+
             default:
-                return viewModel.hasFilter ? "No accounts found" :
-                "Add accounts"
+                return viewModel.hasFilter ? NSLocalizedString("No accounts found", comment: "Main view title when filter is applied and has no results") : NSLocalizedString("Add accounts", comment: "Main view title when the key doesn't have any accounts.")
         }
     }
     
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : "Pull down to refresh or activate NFC"
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : NSLocalizedString("Pull down to refresh or activate NFC", comment: "Main view subtitle, instructions to activate NFC reader or to refresh table data.")
             case .loaded:
-                return viewModel.hasFilter ? "No accounts matching your search criteria." :
-                "No accounts have been set up for this YubiKey. Tap + button to add an account."
+                return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "Main view subtitle when filter is applied and has no results.")
+                    : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "Main view subtitle when the key doesn't have any accounts.")
             default:
                 return nil
         }
