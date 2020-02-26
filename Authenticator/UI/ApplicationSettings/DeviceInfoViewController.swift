@@ -26,14 +26,14 @@ enum DeviceInfoTitles: Int, CaseIterable {
 }
 
 class DeviceInfoViewController: BaseOATHVIewController {
-
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    var keyDescription: YKFAccessoryDescription? = nil
-    var keyVersion: YKFKeyVersion? = nil
-    var keyIdentifier: String? = nil
+    var keyDescription: YKFAccessoryDescription?
+    var keyVersion: YKFKeyVersion?
+    var keyIdentifier: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ class DeviceInfoViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceInfoTableViewCell", for: indexPath) as! DeviceInfoTableViewCell
         cell.titleLabel.text = DeviceInfoTitles.allCases[indexPath.row].title
-        
+
         switch indexPath.row {
         case 0:
             if let description = keyDescription {
@@ -67,15 +67,13 @@ class DeviceInfoViewController: BaseOATHVIewController {
         case 2:
             if let description = keyDescription {
                 cell.infoLabel?.text = description.firmwareRevision
-            } else {
-                if let firmwareVersion = keyVersion {
-                    cell.infoLabel?.text = "\(firmwareVersion.major).\(firmwareVersion.minor).\(firmwareVersion.micro)"
-                }
+            } else if let firmwareVersion = keyVersion {
+                cell.infoLabel?.text = "\(firmwareVersion.major).\(firmwareVersion.minor).\(firmwareVersion.micro)"
             }
         default:
-            break;
+            break
         }
-        
+
         return cell
     }
 }

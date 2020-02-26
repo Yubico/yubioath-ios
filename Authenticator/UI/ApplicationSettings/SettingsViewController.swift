@@ -17,22 +17,23 @@ class SettingsViewController: BaseOATHVIewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
+        self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        keySessionObserver.observeSessionState = false
+        self.keySessionObserver.observeSessionState = false
     }
     
     // MARK: - Table view data source
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         switch (indexPath.section, indexPath.row) {
-        case (3,0):
-            cell.textLabel?.text = "Yubico Authenticator \(appVersion)"
+        case (3, 0):
+            cell.textLabel?.text = "Yubico Authenticator \(self.appVersion)"
         default:
-            break;
+            break
         }
         return cell
     }
@@ -48,7 +49,7 @@ class SettingsViewController: BaseOATHVIewController {
         let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         
         switch (indexPath.section, indexPath.row) {
-        case (0,0):
+        case (0, 0):
             DispatchQueue.main.async { [weak self] in
                 if self?.viewModel.keyPluggedIn == false {
                     self?.viewModel.getKeyVersion()
@@ -56,13 +57,13 @@ class SettingsViewController: BaseOATHVIewController {
                     self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
                 }
             }
-
+            
         case (0, 2):
-            self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self]  () -> Void in
+            self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
                 self?.viewModel.reset()
             }
         case (1, 0):
-            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self]  () -> Void in
+            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
             }
         case (1, 1):
@@ -82,13 +83,13 @@ class SettingsViewController: BaseOATHVIewController {
             if let description = viewModel.keyDescription {
                 title += ", key \(description.firmwareRevision)"
             }
-                
+            
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
             webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
             self.navigationController?.pushViewController(webVC, animated: true)
             
         default:
-            break;
+            break
         }
     }
     
