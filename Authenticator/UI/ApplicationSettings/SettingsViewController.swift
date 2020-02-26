@@ -50,11 +50,11 @@ class SettingsViewController: BaseOATHVIewController {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            DispatchQueue.main.async { [weak self] in
-                if self?.viewModel.keyPluggedIn == false {
-                    self?.viewModel.getKeyVersion()
+                if !self.viewModel.keyPluggedIn {
+                    self.viewModel.getKeyVersion()
                 } else {
-                    self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
                 }
             }
             

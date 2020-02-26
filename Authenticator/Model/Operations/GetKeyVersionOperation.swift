@@ -1,5 +1,5 @@
 //
-//  GetKeyVersion.swift
+//  GetKeyVersionOperation.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 2/25/20.
@@ -29,9 +29,7 @@ class GetKeyVersionOperation: OATHOperation {
             
             self?.firmwareVersion = response.version
             
-            DispatchQueue.main.async { [weak self] in
-                self?.operationSucceeded()
-            }
+            self?.operationSucceeded()
         })
     }
     
