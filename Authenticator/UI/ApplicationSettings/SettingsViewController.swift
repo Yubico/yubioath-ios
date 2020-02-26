@@ -26,33 +26,9 @@ class SettingsViewController: BaseOATHVIewController {
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let height = super.tableView(tableView, heightForRowAt: indexPath)
-        
-        // hide OATH specific commands: Set password and reset
-        if indexPath.section == 0 {
-            switch indexPath.row {
-            case 0:
-                return viewModel.keyPluggedIn ? height : 0.0
-            default:
-                return allowKeyOperations || viewModel.keyPluggedIn ? height : 0.0
-            }
-        }
-        
-        return height
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         switch (indexPath.section, indexPath.row) {
-        case (0,0):
-            if let description = viewModel.keyDescription {
-                cell.textLabel?.text = "\(description.name) (\(description.firmwareRevision))"
-                cell.detailTextLabel?.text = "Serial number: \(description.serialNumber)"
-            } else {
-                cell.textLabel?.text = viewModel.keyPluggedIn ? "YubiKey" : "No device active"
-                cell.detailTextLabel?.text = ""
-            }
         case (3,0):
             cell.textLabel?.text = "Yubico Authenticator \(appVersion)"
         default:
@@ -72,6 +48,15 @@ class SettingsViewController: BaseOATHVIewController {
         let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         
         switch (indexPath.section, indexPath.row) {
+        case (0,0):
+            DispatchQueue.main.async { [weak self] in
+                if self?.viewModel.keyPluggedIn == false {
+                    self?.viewModel.getKeyVersion()
+                } else {
+                    self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+                }
+            }
+
         case (0, 2):
             self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self]  () -> Void in
                 self?.viewModel.reset()
