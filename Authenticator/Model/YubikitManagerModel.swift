@@ -23,7 +23,7 @@ protocol OperationDelegate: class {
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
-    func onGetKeyVersion(version: YKFKeyVersion?)
+    func onGetKeyVersion(version: YKFKeyVersion)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -390,16 +390,13 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onGetKeyVersion(version: YKFKeyVersion?) {
+    func onGetKeyVersion(version: YKFKeyVersion) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
             
-            if let keyVersion = version {
-                self.cachedKeyVersion = keyVersion
-            }
-            
+            self.cachedKeyVersion = version
             self.cachedKeyId = self.keyIdentifier
             
             self.delegate?.onOperationCompleted(operation: .getKeyVersion)
