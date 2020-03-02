@@ -52,6 +52,6 @@ class GetKeyConfiguration: ManagmentServiceOperation {
     }
     
     override func invokeDelegateCompletion() {
-        delegate?.onGetConfiguration(configuration: self.configuration)
+        delegate?.onGetConfiguration(configuration: self.configuration!)
     }
 }

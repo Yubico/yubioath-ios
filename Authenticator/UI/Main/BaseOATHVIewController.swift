@@ -154,8 +154,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.performSegue(withIdentifier: "ShowTagSettings", sender: self)
             }
         case .setConfig:
-            self.showAlertDialog(title: "Note", message: "In order for this setting to apply please unplug and plag back the Ybikey.") { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
+            if self.viewModel.keyPluggedIn {
+                self.showAlertDialog(title: "Note", message: "In order for this setting to apply please unplug and plag back the Ybikey.") { [weak self] () -> Void in
+                    self?.dismiss(animated: true, completion: nil)
+                }
             }
         case .calculateAll, .cleanup, .filter:
             self.tableView.reloadData()

@@ -25,7 +25,7 @@ protocol OperationDelegate: class {
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
-    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration?)
+    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration)
     func onSetConfiguration()
 }
 
@@ -435,7 +435,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration?) {
+    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration) {
        DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
