@@ -23,6 +23,7 @@ protocol OperationDelegate: class {
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
+    func onGetKeyVersion(version: YKFKeyVersion)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -82,6 +83,8 @@ class YubikitManagerModel : NSObject {
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
     var cachedKeyId: String? = nil
     
+    var cachedKeyVersion: YKFKeyVersion? = nil
+    
     var hasFilter: Bool {
         get {
             return self.filter != nil && !self.filter!.isEmpty
@@ -125,6 +128,10 @@ class YubikitManagerModel : NSObject {
     
     public func reset() {
         addOperation(operation: ResetOperation())
+    }
+    
+    public func getKeyVersion() {
+        addOperation(operation: GetKeyVersionOperation())
     }
         
     public func pause() {
@@ -383,6 +390,19 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    func onGetKeyVersion(version: YKFKeyVersion) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.cachedKeyVersion = version
+            self.cachedKeyId = self.keyIdentifier
+            
+            self.delegate?.onOperationCompleted(operation: .getKeyVersion)
+        }
+    }
+    
     func onRetry(operation: OATHOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
         addOperation(operation: retryOperation, suspendQueue: suspendQueue)
@@ -512,6 +532,7 @@ enum OperationName : String {
     case cleanup = "cleanup"
     case filter = "filter"
     case scan = "scan"
+    case getKeyVersion = "get key version"
 }
 
 enum State {

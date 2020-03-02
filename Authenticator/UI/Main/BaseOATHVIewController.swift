@@ -149,6 +149,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
+        case .getKeyVersion:
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+            }
         case .calculateAll, .cleanup, .filter:
             self.tableView.reloadData()
         default:
@@ -157,6 +161,17 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         }
         
         self.viewModel.stopNfc()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == .showDeviceInfo {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? DeviceInfoViewController {
+                deviceInfoViewController.keyDescription = self.viewModel.keyDescription
+                deviceInfoViewController.keyVersion = self.viewModel.cachedKeyVersion
+                deviceInfoViewController.keyIdentifier = self.viewModel.cachedKeyId
+            }
+        }
     }
     
     /*! Delegate method invoked when we need to retry if user approves */
