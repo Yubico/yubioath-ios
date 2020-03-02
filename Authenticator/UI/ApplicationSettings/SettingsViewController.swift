@@ -15,6 +15,12 @@ class SettingsViewController: BaseOATHVIewController {
     private var systemVersion = UIDevice().systemVersion
     private var keySessionObserver: KeySessionObserver!
     
+    @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
+        if let sourceViewController = segue.source as? TagSwitchViewController, let keyConfiguration = sourceViewController.keyConfig {
+            self.viewModel.setConfiguration(configuration: keyConfiguration)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
@@ -76,6 +82,8 @@ class SettingsViewController: BaseOATHVIewController {
             self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self]  () -> Void in
                 self?.viewModel.reset()
             }
+        case (0, 3):
+            self.viewModel.getConfiguration()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self]  () -> Void in
                 self?.removeStoredPasswords()

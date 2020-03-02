@@ -69,7 +69,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             self.showPasswordPrompt(with: message)
             
         } else {
-            if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noOathService = error {
+            if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noService = error {
                 guard #available(iOS 13.0, *) else {
                     fatalError()
                 }
@@ -149,6 +149,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
+        case .getConfig:
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowTagSettings", sender: self)
+            }
+        case .setConfig:
+            self.showAlertDialog(title: "Note", message: "In order for this setting to apply please unplug and plag back the Ybikey.") { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            }
         case .calculateAll, .cleanup, .filter:
             self.tableView.reloadData()
         default:
@@ -157,6 +165,15 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         }
         
         self.viewModel.stopNfc()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == .tagConfig {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? TagSwitchViewController {
+                deviceInfoViewController.keyConfig = self.viewModel.cachedKeyConfig
+            }
+        }
     }
     
     /*! Delegate method invoked when we need to retry if user approves */

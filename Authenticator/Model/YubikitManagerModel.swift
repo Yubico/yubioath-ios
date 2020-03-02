@@ -19,10 +19,14 @@ protocol CredentialViewModelDelegate: class {
 protocol OperationDelegate: class {
     func onTouchRequired()
     func onError(operation: OATHOperation, error: Error)
+    func onError(operation: ManagmentServiceOperation, error: Error)
     func onCompleted(operation: OATHOperation)
+    func onCompleted(operation: ManagmentServiceOperation)
     func onUpdate(credentials: Array<Credential>)
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
+    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration?)
+    func onSetConfiguration()
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -82,6 +86,8 @@ class YubikitManagerModel : NSObject {
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
     var cachedKeyId: String? = nil
     
+    var cachedKeyConfig: YKFMGMTInterfaceConfiguration? = nil
+    
     var hasFilter: Bool {
         get {
             return self.filter != nil && !self.filter!.isEmpty
@@ -121,6 +127,14 @@ class YubikitManagerModel : NSObject {
     
     public func validate(password: String) {
         addOperation(operation: ValidateOperation(password: password))
+    }
+    
+    public func getConfiguration() {
+        addOperation(operation: GetKeyConfiguration())
+    }
+    
+    public func setConfiguration(configuration: YKFMGMTInterfaceConfiguration?) {
+        addOperation(operation: SetKeyConfiguration(configuration: configuration))
     }
     
     public func reset() {
@@ -233,7 +247,33 @@ extension YubikitManagerModel: OperationDelegate {
     /*! Invoked when operation/request to YubiKey failed */
     func onError(operation: OATHOperation, error: Error) {
         switch error {
-        case KeySessionError.noOathService:
+        case KeySessionError.noService:
+            self.onRetry(operation: operation)
+            state = .idle
+        default:
+            // do nothing
+            break;
+        }
+        
+        let errorCode = (error as NSError).code;
+        // in case of authentication error supend queue but retry what was requested after resuming
+        if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
+            self.onRetry(operation: operation)
+            state = .locked
+        } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
+            // wait for another successful validation
+            operationQueue.suspendQueue()
+        }
+               
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.onError(error: error)
+        }
+    }
+    
+    /*! Invoked when operation/request to YubiKey failed */
+    func onError(operation: ManagmentServiceOperation, error: Error) {
+        switch error {
+        case KeySessionError.noService:
             self.onRetry(operation: operation)
             state = .idle
         default:
@@ -272,6 +312,18 @@ extension YubikitManagerModel: OperationDelegate {
             if operation.operationName == .put {
                 self.delegate?.onOperationRetry(operation: operation)
             }
+        }
+    }
+    
+    func onCompleted(operation: ManagmentServiceOperation) {
+        if operation.operationName == .validate {
+            state = .loading
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.delegate?.onOperationCompleted(operation: operation.operationName)
         }
     }
     
@@ -383,12 +435,46 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration?) {
+       DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.cachedKeyConfig = configuration
+               
+            self.delegate?.onOperationCompleted(operation: .getConfig)
+       }
+    }
+    
+    func onSetConfiguration() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.delegate?.onOperationCompleted(operation: .setConfig)
+        }
+    }
+    
     func onRetry(operation: OATHOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
         addOperation(operation: retryOperation, suspendQueue: suspendQueue)
     }
     
+    func onRetry(operation: ManagmentServiceOperation, suspendQueue: Bool = true) {
+        let retryOperation = operation.createRetryOperation()
+        addOperation(operation: retryOperation, suspendQueue: suspendQueue)
+    }
+    
     func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
+        if (isPaused) {
+            return
+        }
+        operation.delegate = self
+        operationQueue.add(operation: operation, suspendQueue: suspendQueue)
+    }
+    
+    func addOperation(operation: ManagmentServiceOperation, suspendQueue: Bool = false) {
         if (isPaused) {
             return
         }
@@ -512,6 +598,8 @@ enum OperationName : String {
     case cleanup = "cleanup"
     case filter = "filter"
     case scan = "scan"
+    case getConfig = "get configuration"
+    case setConfig = "set configuration"
 }
 
 enum State {

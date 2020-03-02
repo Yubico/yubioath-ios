@@ -1,14 +1,14 @@
 //
-//  OATHOperation.swift
+//  ManagmentServiceOperation.swift
 //  Authenticator
 //
-//  Created by Irina Makhalova on 9/4/19.
-//  Copyright © 2019 Irina Makhalova. All rights reserved.
+//  Created by Irina Rakhmanova on 2/27/20.
+//  Copyright © 2020 Irina Makhalova. All rights reserved.
 //
 
 import UIKit
 
-class OATHOperation: Operation {
+class ManagmentServiceOperation: Operation {
     weak var delegate: OperationDelegate?
     let semaphore = DispatchSemaphore(value: 0)
 
@@ -29,32 +29,14 @@ class OATHOperation: Operation {
         if isCancelled {
             return
         }
-        let keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
         
-        let oathService: YKFKeyOATHServiceProtocol
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !keyPluggedIn {
-            guard #available(iOS 13.0, *) else {
-                fatalError()
-            }
-            guard let service = YubiKitManager.shared.nfcSession.oathService else {
-                self.operationFailed(error: KeySessionError.noService)
-                return
-            }
-            oathService = service
-        } else {
-            guard let service = YubiKitManager.shared.accessorySession.oathService else {
-                self.operationFailed(error: KeySessionError.noService)
-                return
-            }
-            oathService = service
-        }
-        
-        executeOperation(oathService: oathService)
+        let mgmtService = YKFKeyMGMTService()
+        executeOperation(mgtmService: mgmtService)
         
         let result = semaphore.wait(timeout: .now() + 15.0)
         if isCancelled {
             let message = result == .timedOut ? "The \(uniqueId) request was cancelled and timed out" : "The \(uniqueId) request was cancelled"
-            
+
             print(message)
             return
         }
@@ -68,16 +50,8 @@ class OATHOperation: Operation {
         semaphore.signal()
     }
     
-    func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        fatalError("Override in the OATH specific operation subclass.")
-    }
-
-    func operationRequiresTouch() {
-        if isCancelled {
-            return
-        }
-
-        delegate?.onTouchRequired()
+    func executeOperation(mgtmService: YKFKeyMGMTService) {
+        fatalError("Override in the Managment specific operation subclass.")
     }
 
     func operationSucceeded() {
@@ -103,6 +77,7 @@ class OATHOperation: Operation {
         }
 
         print("The \(uniqueId) request ended in error \(error.localizedDescription) ")
+        
         delegate?.onError(operation: self, error: error)
         semaphore.signal()
 
@@ -117,9 +92,9 @@ class OATHOperation: Operation {
 
     /*! Placeholder for method that recreates new operation instance
      * with the same arguments and priority/dependencies
-     * New OATH operation will be in not finished state and can be added back to OperationQueue for retry
+     * New MGMT operation will be in not finished state and can be added back to OperationQueue for retry
      */
-    func createRetryOperation() -> OATHOperation {
+    func createRetryOperation() -> ManagmentServiceOperation {
         fatalError("Override this method that will create new operation with the same functionality, but in fresh not started state")
     }
 }
