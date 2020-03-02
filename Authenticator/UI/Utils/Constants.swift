@@ -18,4 +18,5 @@ extension String {
     internal static let addCredentialSequeID = "AddCredentialSequeID"
     internal static let startFRE = "StartFRE"
     internal static let tagConfig = "ShowTagSettings"
+    internal static let showDeviceInfo = "ShowDeviceInfo"
 }

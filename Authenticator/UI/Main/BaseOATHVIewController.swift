@@ -159,6 +159,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
+        case .getKeyVersion:
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+            }
         case .calculateAll, .cleanup, .filter:
             self.tableView.reloadData()
         default:
@@ -174,6 +178,15 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             let destinationNavigationController = segue.destination as! UINavigationController
             if let deviceInfoViewController = destinationNavigationController.topViewController as? TagSwitchViewController {
                 deviceInfoViewController.keyConfig = self.viewModel.cachedKeyConfig
+            }
+        }
+                
+        if segue.identifier == .showDeviceInfo {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? DeviceInfoViewController {
+                deviceInfoViewController.keyDescription = self.viewModel.keyDescription
+                deviceInfoViewController.keyVersion = self.viewModel.cachedKeyVersion
+                deviceInfoViewController.keyIdentifier = self.viewModel.cachedKeyId
             }
         }
     }

@@ -48,6 +48,7 @@
 		A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948B23CE546B003E1E07 /* FrePageViewController.swift */; };
 		A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */; };
 		A544949023CE546B003E1E07 /* Fre.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A544948D23CE546B003E1E07 /* Fre.storyboard */; };
+		A556D1602405A100007014A7 /* GetKeyVersionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */; };
 		A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A557BEDF23AD97100097545D /* AddCredential.storyboard */; };
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
@@ -56,6 +57,7 @@
 		A5D4E87124085A9C00FD63A0 /* ManagmentServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */; };
 		A5D4E8732408748800FD63A0 /* GetKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E8722408748800FD63A0 /* GetKeyConfiguration.swift */; };
 		A5D4E87524087A1D00FD63A0 /* SetKeyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87424087A1D00FD63A0 /* SetKeyConfiguration.swift */; };
+		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
@@ -129,6 +131,7 @@
 		A544948B23CE546B003E1E07 /* FrePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePageViewController.swift; sourceTree = "<group>"; };
 		A544948C23CE546B003E1E07 /* FrePagesViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePagesViewControllers.swift; sourceTree = "<group>"; };
 		A544948D23CE546B003E1E07 /* Fre.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Fre.storyboard; sourceTree = "<group>"; };
+		A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyVersionOperation.swift; sourceTree = "<group>"; };
 		A557BEDF23AD97100097545D /* AddCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCredential.storyboard; sourceTree = "<group>"; };
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 		A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagmentServiceOperation.swift; sourceTree = "<group>"; };
 		A5D4E8722408748800FD63A0 /* GetKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyConfiguration.swift; sourceTree = "<group>"; };
 		A5D4E87424087A1D00FD63A0 /* SetKeyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKeyConfiguration.swift; sourceTree = "<group>"; };
+		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -319,6 +323,7 @@
 				A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */,
 				A5D4E8722408748800FD63A0 /* GetKeyConfiguration.swift */,
 				A5D4E87424087A1D00FD63A0 /* SetKeyConfiguration.swift */,
+				A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 				A5D4E86C24083CF300FD63A0 /* TagSwitchViewController.swift */,
+				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -577,6 +583,7 @@
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
+				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				A5D4E87524087A1D00FD63A0 /* SetKeyConfiguration.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
@@ -586,6 +593,7 @@
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */,
 				81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */,
+				A556D1602405A100007014A7 /* GetKeyVersionOperation.swift in Sources */,
 				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
