@@ -12,16 +12,14 @@ protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
-    func onOperationRetry(operation: OATHOperation)
+    func onOperationRetry(operation: BaseOperation)
     func onCredentialDelete(indexPath: IndexPath)
 }
 
 protocol OperationDelegate: class {
     func onTouchRequired()
-    func onError(operation: OATHOperation, error: Error)
-    func onError(operation: ManagmentServiceOperation, error: Error)
-    func onCompleted(operation: OATHOperation)
-    func onCompleted(operation: ManagmentServiceOperation)
+    func onError(operation: BaseOperation, error: Error)
+    func onCompleted(operation: BaseOperation)
     func onUpdate(credentials: [Credential])
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
@@ -250,33 +248,7 @@ extension YubikitManagerModel: OperationDelegate {
     }
     
     /*! Invoked when operation/request to YubiKey failed */
-    func onError(operation: OATHOperation, error: Error) {
-        switch error {
-        case KeySessionError.noService:
-            self.onRetry(operation: operation)
-            self.state = .idle
-        default:
-            // do nothing
-            break
-        }
-        
-        let errorCode = (error as NSError).code
-        // in case of authentication error supend queue but retry what was requested after resuming
-        if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
-            self.onRetry(operation: operation)
-            self.state = .locked
-        } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
-            // wait for another successful validation
-            self.operationQueue.suspendQueue()
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.delegate?.onError(error: error)
-        }
-    }
-    
-    /*! Invoked when operation/request to YubiKey failed */
-    func onError(operation: ManagmentServiceOperation, error: Error) {
+    func onError(operation: BaseOperation, error: Error) {
         switch error {
         case KeySessionError.noService:
             self.onRetry(operation: operation)
@@ -302,7 +274,7 @@ extension YubikitManagerModel: OperationDelegate {
     }
     
     /*! Invoked when some operation completed but doesn't change list of credentials or its data */
-    func onCompleted(operation: OATHOperation) {
+    func onCompleted(operation: BaseOperation) {
         if operation.operationName == .validate {
             self.state = .loading
         }
@@ -317,18 +289,6 @@ extension YubikitManagerModel: OperationDelegate {
             if operation.operationName == .put {
                 self.delegate?.onOperationRetry(operation: operation)
             }
-        }
-    }
-    
-    func onCompleted(operation: ManagmentServiceOperation) {
-        if operation.operationName == .validate {
-            self.state = .loading
-        }
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.delegate?.onOperationCompleted(operation: operation.operationName)
         }
     }
     
@@ -474,25 +434,12 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onRetry(operation: OATHOperation, suspendQueue: Bool = true) {
+    func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
         self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
     }
     
-    func onRetry(operation: ManagmentServiceOperation, suspendQueue: Bool = true) {
-        let retryOperation = operation.createRetryOperation()
-        self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
-    }
-    
-    func addOperation(operation: OATHOperation, suspendQueue: Bool = false) {
-        if self.isPaused {
-            return
-        }
-        operation.delegate = self
-        self.operationQueue.add(operation: operation, suspendQueue: suspendQueue)
-    }
-    
-    func addOperation(operation: ManagmentServiceOperation, suspendQueue: Bool = false) {
+    func addOperation(operation: BaseOperation, suspendQueue: Bool = false) {
         if self.isPaused {
             return
         }

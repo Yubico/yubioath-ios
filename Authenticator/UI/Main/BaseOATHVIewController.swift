@@ -192,7 +192,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     /*! Delegate method invoked when we need to retry if user approves */
-    func onOperationRetry(operation: OATHOperation) {
+    func onOperationRetry(operation: BaseOperation) {
         // currently only put operation can have conditioned retry
         guard operation.operationName == .put else {
             return
