@@ -155,7 +155,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             }
         case .setConfig:
             if self.viewModel.keyPluggedIn {
-                self.showAlertDialog(title: "Note", message: "In order for this setting to apply please unplug and plag back the Ybikey.") { [weak self] () -> Void in
+                self.showAlertDialog(title: NSLocalizedString("Note", comment: "Alert dialog title."), message: NSLocalizedString("In order for this setting to apply please unplug and plag back the YubiKey.", comment: "Alert dialog message description.")) { [weak self] () -> Void in
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -177,7 +177,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         if segue.identifier == .tagConfig {
             let destinationNavigationController = segue.destination as! UINavigationController
             if let deviceInfoViewController = destinationNavigationController.topViewController as? TagSwitchViewController {
-                deviceInfoViewController.keyConfig = self.viewModel.cachedKeyConfig
+                deviceInfoViewController.keyConfiguration = self.viewModel.cachedKeyConfig
             }
         }
                 

@@ -16,7 +16,7 @@ class SettingsViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     
     @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
-        if let sourceViewController = segue.source as? TagSwitchViewController, let keyConfiguration = sourceViewController.keyConfig {
+        if let sourceViewController = segue.source as? TagSwitchViewController, let keyConfiguration = sourceViewController.keyConfiguration {
             self.viewModel.setConfiguration(configuration: keyConfiguration)
         }
     }
@@ -56,27 +56,27 @@ class SettingsViewController: BaseOATHVIewController {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-                if !self.viewModel.keyPluggedIn {
-                    self.viewModel.getKeyVersion()
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+            if !self.viewModel.keyPluggedIn {
+                self.viewModel.getKeyVersion()
+            } else {
+                // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
+                // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
+                DispatchQueue.main.async { [weak self] in
+                    self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
                 }
             }
-            
         case (0, 2):
+            self.viewModel.getConfiguration()
+        case (0, 3):
             self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
                 self?.viewModel.reset()
             }
-        case (0, 3):
             self.viewModel.getConfiguration()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
             }
         case (1, 1):
-            // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
-            // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "StartFRE", sender: self)
             }
