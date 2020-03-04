@@ -10,11 +10,7 @@ import UIKit
 
 class OATHOperation: BaseOperation {
 
-    override func main() {
-        if isCancelled {
-            return
-        }
-
+    override func executeOperation() -> Bool {
         let keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
 
         let oathService: YKFKeyOATHServiceProtocol
@@ -24,20 +20,20 @@ class OATHOperation: BaseOperation {
             }
             guard let service = YubiKitManager.shared.nfcSession.oathService else {
                 self.operationFailed(error: KeySessionError.noService)
-                return
+                return false
             }
             oathService = service
         } else {
             guard let service = YubiKitManager.shared.accessorySession.oathService else {
                 self.operationFailed(error: KeySessionError.noService)
-                return
+                return false
             }
             oathService = service
         }
+        
+        self.executeOperation(oathService: oathService)
 
-        executeOperation(oathService: oathService)
-
-        waitOperationFinish()
+        return true
     }
     
     func executeOperation(oathService: YKFKeyOATHServiceProtocol) {

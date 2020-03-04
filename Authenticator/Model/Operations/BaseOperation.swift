@@ -26,7 +26,24 @@ class BaseOperation: Operation {
     }
     
     override func main() {
-        fatalError("Override in the specific operation subclass.")
+        if isCancelled {
+            return
+        }
+
+        if executeOperation() {
+            let result = semaphore.wait(timeout: .now() + 15.0)
+            if isCancelled {
+                let message = result == .timedOut
+                    ? "The \(uniqueId) request was cancelled and timed out"
+                    : "The \(uniqueId) request was cancelled"
+
+                print(message)
+                return
+            }
+            if result == .timedOut {
+                self.operationFailed(error: KeySessionError.timeout)
+            }
+        }
     }
     
     override func cancel() {
@@ -34,19 +51,8 @@ class BaseOperation: Operation {
         semaphore.signal()
     }
 
-    func waitOperationFinish() {
-        let result = semaphore.wait(timeout: .now() + 15.0)
-        if isCancelled {
-            let message = result == .timedOut
-                ? "The \(uniqueId) request was cancelled and timed out"
-                : "The \(uniqueId) request was cancelled"
-
-            print(message)
-            return
-        }
-        if result == .timedOut {
-            self.operationFailed(error: KeySessionError.timeout)
-        }
+    func executeOperation() -> Bool {
+        fatalError("Override in the specific operation subclass.")
     }
 
     func operationRequiresTouch() {

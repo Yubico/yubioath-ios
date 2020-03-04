@@ -10,13 +10,9 @@ import UIKit
 
 class ManagmentServiceOperation: BaseOperation {
 
-    override func main() {
-        if isCancelled {
-            return
-        }
-
+    override func executeOperation() -> Bool {
         executeOperation(mgtmService: YKFKeyMGMTService())
-        waitOperationFinish()
+        return true
     }
 
     func executeOperation(mgtmService: YKFKeyMGMTService) {
