@@ -153,12 +153,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowTagSettings", sender: self)
             }
-        case .setConfig:
-            if self.viewModel.keyPluggedIn {
-                self.showAlertDialog(title: NSLocalizedString("Note", comment: "Alert dialog title."), message: NSLocalizedString("In order for this setting to apply please unplug and plag back the YubiKey.", comment: "Alert dialog message description.")) { [weak self] () -> Void in
-                    self?.dismiss(animated: true, completion: nil)
-                }
-            }
         case .getKeyVersion:
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
