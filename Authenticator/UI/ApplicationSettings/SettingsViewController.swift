@@ -16,7 +16,7 @@ class SettingsViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     
     @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
-        if let sourceViewController = segue.source as? TagSwitchViewController, let keyConfiguration = sourceViewController.keyConfiguration {
+        if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
             self.viewModel.setConfiguration(configuration: keyConfiguration)
         }
     }

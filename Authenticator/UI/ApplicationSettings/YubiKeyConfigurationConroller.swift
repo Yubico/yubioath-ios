@@ -1,5 +1,5 @@
 //
-//  TagSwitchViewController.swift
+//  YubiKeyConfigurationConroller.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 2/27/20.
@@ -8,7 +8,12 @@
 
 import UIKit
 
-class TagSwitchViewController: BaseOATHVIewController {
+/* This class is for showing YubiKey MGMT configuration over OTP whether it's on or off.
+ Users can customize the configuration by switching tagSwitch and saving the change.
+ For YubiKey NFC it is showing website NFC tag notification on YubiKey tap against the device.
+ For YubiKey 5Ci it is printing key string in text fields on YubiKey touch.
+ */
+class YubiKeyConfigurationConroller: BaseOATHVIewController {
 
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var tagSwitch: UISwitch!

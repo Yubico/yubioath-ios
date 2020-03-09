@@ -554,10 +554,10 @@
             </objects>
             <point key="canvasLocation" x="780" y="215"/>
         </scene>
-        <!--Tag Switch View Controller-->
+        <!--Yubi Key Configuration Conroller-->
         <scene sceneID="Umn-5X-AQm">
             <objects>
-                <tableViewController storyboardIdentifier="TagSwitchViewController" id="aoN-t0-WPq" customClass="TagSwitchViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="YubiKeyConfigurationConroller" id="aoN-t0-WPq" customClass="YubiKeyConfigurationConroller" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Eeq-g4-NeJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -1,5 +1,5 @@
 //
-//  GetKeyConfiguration.swift
+//  GetKeyConfigurationOperation.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 2/27/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GetKeyConfiguration: ManagmentServiceOperation {
+class GetKeyConfigurationOperation: ManagmentServiceOperation {
     var configuration: YKFMGMTInterfaceConfiguration?
     
     override var operationName: OperationName {
@@ -17,7 +17,6 @@ class GetKeyConfiguration: ManagmentServiceOperation {
     
     override init() {
         super.init()
-        self.queuePriority = .low
     }
 
     override func executeOperation(mgtmService: YKFKeyMGMTService) {
@@ -48,7 +47,7 @@ class GetKeyConfiguration: ManagmentServiceOperation {
     }
     
     override func createRetryOperation() -> ManagmentServiceOperation {
-        return GetKeyConfiguration()
+        return GetKeyConfigurationOperation()
     }
     
     override func invokeDelegateCompletion() {

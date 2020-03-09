@@ -1,5 +1,5 @@
 //
-//  SetKeyConfiguration.swift
+//  SetKeyConfigurationOperation.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 2/27/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SetKeyConfiguration: ManagmentServiceOperation {
+class SetKeyConfigurationOperation: ManagmentServiceOperation {
     private var configuration: YKFMGMTInterfaceConfiguration
 
     override var operationName: OperationName {
@@ -21,7 +21,7 @@ class SetKeyConfiguration: ManagmentServiceOperation {
     }
 
     override func executeOperation(mgtmService: YKFKeyMGMTService) {
-        mgtmService.write(self.configuration) { [weak self] error in
+        mgtmService.write(self.configuration, withReboot: true) { [weak self] error in
             if let error = error {
                 let errorCode = (error as NSError).code
                 if errorCode == YKFKeySessionErrorCode.noConnection.rawValue {
@@ -37,6 +37,6 @@ class SetKeyConfiguration: ManagmentServiceOperation {
     }
 
     override func createRetryOperation() -> ManagmentServiceOperation {
-        return SetKeyConfiguration(configuration: self.configuration)
+        return SetKeyConfigurationOperation(configuration: self.configuration)
     }
 }

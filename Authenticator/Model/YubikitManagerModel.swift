@@ -127,11 +127,11 @@ class YubikitManagerModel: NSObject {
     }
     
     public func getConfiguration() {
-        addOperation(operation: GetKeyConfiguration())
+        addOperation(operation: GetKeyConfigurationOperation())
     }
     
     public func setConfiguration(configuration: YKFMGMTInterfaceConfiguration) {
-        addOperation(operation: SetKeyConfiguration(configuration: configuration))
+        addOperation(operation: SetKeyConfigurationOperation(configuration: configuration))
     }
     
     public func reset() {

@@ -170,7 +170,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == .tagConfig {
             let destinationNavigationController = segue.destination as! UINavigationController
-            if let deviceInfoViewController = destinationNavigationController.topViewController as? TagSwitchViewController {
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? YubiKeyConfigurationConroller {
                 deviceInfoViewController.keyConfiguration = self.viewModel.cachedKeyConfig
             }
         }
