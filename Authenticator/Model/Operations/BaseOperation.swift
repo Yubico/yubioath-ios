@@ -29,20 +29,21 @@ class BaseOperation: Operation {
         if isCancelled {
             return
         }
+        
+        executeOperation()
+        
+        let result = semaphore.wait(timeout: .now() + 15.0)
+        if isCancelled {
+            let message = result == .timedOut
+                ? "The \(uniqueId) request was cancelled and timed out"
+                : "The \(uniqueId) request was cancelled"
 
-        if executeOperation() {
-            let result = semaphore.wait(timeout: .now() + 15.0)
-            if isCancelled {
-                let message = result == .timedOut
-                    ? "The \(uniqueId) request was cancelled and timed out"
-                    : "The \(uniqueId) request was cancelled"
-
-                print(message)
-                return
-            }
-            if result == .timedOut {
-                self.operationFailed(error: KeySessionError.timeout)
-            }
+            print(message)
+            return
+        }
+        
+        if result == .timedOut {
+            self.operationFailed(error: KeySessionError.timeout)
         }
     }
     
@@ -51,7 +52,7 @@ class BaseOperation: Operation {
         semaphore.signal()
     }
 
-    func executeOperation() -> Bool {
+    func executeOperation() {
         fatalError("Override in the specific operation subclass.")
     }
 

@@ -14,10 +14,6 @@ class GetKeyConfigurationOperation: ManagmentServiceOperation {
     override var operationName: OperationName {
         return OperationName.getConfig
     }
-    
-    override init() {
-        super.init()
-    }
 
     override func executeOperation(mgtmService: YKFKeyMGMTService) {
         mgtmService.readConfiguration { [weak self] (response, error) in

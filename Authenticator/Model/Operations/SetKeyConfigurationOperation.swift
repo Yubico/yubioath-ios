@@ -21,7 +21,7 @@ class SetKeyConfigurationOperation: ManagmentServiceOperation {
     }
 
     override func executeOperation(mgtmService: YKFKeyMGMTService) {
-        mgtmService.write(self.configuration, withReboot: true) { [weak self] error in
+        mgtmService.write(self.configuration, reboot: true) { [weak self] error in
             if let error = error {
                 let errorCode = (error as NSError).code
                 if errorCode == YKFKeySessionErrorCode.noConnection.rawValue {

@@ -10,9 +10,8 @@ import UIKit
 
 class ManagmentServiceOperation: BaseOperation {
 
-    override func executeOperation() -> Bool {
+    override func executeOperation() {
         executeOperation(mgtmService: YKFKeyMGMTService())
-        return true
     }
 
     func executeOperation(mgtmService: YKFKeyMGMTService) {
