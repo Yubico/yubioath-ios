@@ -9,7 +9,8 @@ target 'Authenticator' do
 
     # Use pod from submodule
     pod 'YubiKit', :path => './YubiKit'
+    
+    pod 'Fabric', '~> 1.10.2'
     pod 'Crashlytics', '~> 3.14.0'
     pod 'Firebase/Analytics'
-    
 end

@@ -56,7 +56,13 @@
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
-		A5FB87802418158E005F6343 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5FB877F2418158E005F6343 /* GoogleService-Info.plist */; };
+		A5FB8782241824E6005F6343 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB8781241824E5005F6343 /* Security.framework */; };
+		A5FB8784241824F2005F6343 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB8783241824F2005F6343 /* SystemConfiguration.framework */; };
+		A5FB878624182500005F6343 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB878524182500005F6343 /* StoreKit.framework */; };
+		A5FB878824182528005F6343 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB87872418251C005F6343 /* libsqlite3.tbd */; };
+		A5FB878A24182543005F6343 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB87892418253A005F6343 /* libz.tbd */; };
+		A5FB878C2418255E005F6343 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FB878B24182550005F6343 /* libc++.tbd */; };
+		A5FB878D24182727005F6343 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5FB877F2418158E005F6343 /* GoogleService-Info.plist */; };
 		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +144,12 @@
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		A5FB877F2418158E005F6343 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A5FB8781241824E5005F6343 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A5FB8783241824F2005F6343 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A5FB878524182500005F6343 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A5FB87872418251C005F6343 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A5FB87892418253A005F6343 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		A5FB878B24182550005F6343 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,7 +159,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5FB878824182528005F6343 /* libsqlite3.tbd in Frameworks */,
+				A5FB878C2418255E005F6343 /* libc++.tbd in Frameworks */,
+				A5FB878A24182543005F6343 /* libz.tbd in Frameworks */,
+				A5FB8782241824E6005F6343 /* Security.framework in Frameworks */,
+				A5FB8784241824F2005F6343 /* SystemConfiguration.framework in Frameworks */,
 				B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */,
+				A5FB878624182500005F6343 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +285,12 @@
 		818866EC22E1845B006BC0A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5FB878B24182550005F6343 /* libc++.tbd */,
+				A5FB87892418253A005F6343 /* libz.tbd */,
+				A5FB87872418251C005F6343 /* libsqlite3.tbd */,
+				A5FB878524182500005F6343 /* StoreKit.framework */,
+				A5FB8783241824F2005F6343 /* SystemConfiguration.framework */,
+				A5FB8781241824E5005F6343 /* Security.framework */,
 				45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */,
 			);
 			name = Frameworks;
@@ -481,7 +505,7 @@
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
 				A544949023CE546B003E1E07 /* Fre.storyboard in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
-				A5FB87802418158E005F6343 /* GoogleService-Info.plist in Resources */,
+				A5FB878D24182727005F6343 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +565,7 @@
 		};
 		A5FB877E24180E5E005F6343 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -783,6 +807,7 @@
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -792,7 +817,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = 1.2.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -819,7 +844,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MARKETING_VERSION = 1.2.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
