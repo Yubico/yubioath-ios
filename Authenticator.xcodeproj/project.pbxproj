@@ -56,6 +56,7 @@
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
+		A5FB87802418158E005F6343 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A5FB877F2418158E005F6343 /* GoogleService-Info.plist */; };
 		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +137,7 @@
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
+		A5FB877F2418158E005F6343 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,6 +240,7 @@
 				818866B622DFD729006BC0A8 /* AppDelegate.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
+				A5FB877F2418158E005F6343 /* GoogleService-Info.plist */,
 			);
 			path = Authenticator;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
 				A544949023CE546B003E1E07 /* Fre.storyboard in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
+				A5FB87802418158E005F6343 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

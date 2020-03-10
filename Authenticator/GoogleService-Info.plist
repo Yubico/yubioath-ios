@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>705987650906-b6vl405pl35t7g51g757nejd2i774m01.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.705987650906-b6vl405pl35t7g51g757nejd2i774m01</string>
+	<key>API_KEY</key>
+	<string>AIzaSyClpQdiofNj3etzurcZRF2fHQUVQlsQzQc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>705987650906</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.yubico.Authenticator</string>
+	<key>PROJECT_ID</key>
+	<string>yubioath-ios</string>
+	<key>STORAGE_BUCKET</key>
+	<string>yubioath-ios.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:705987650906:ios:082081463b6ab742b67f63</string>
+	<key>DATABASE_URL</key>
+	<string>https://yubioath-ios.firebaseio.com</string>
+</dict>
+</plist>
