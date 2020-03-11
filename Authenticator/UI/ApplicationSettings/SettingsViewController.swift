@@ -69,7 +69,9 @@ class SettingsViewController: BaseOATHVIewController {
             self.viewModel.getConfiguration()
         case (0, 3):
         #if DEBUG
-        // Removing Reset operation for users due to it's complexity. To get to the default state user can manually delete credentials and remove password under Settings.
+        // Removing Reset operation for users due to it's complexity.
+        // To get to the default state user can manually delete credentials and remove password under Settings.
+        // To test or restore this feature, add a cell to SettingsViewController in the main storyboard.
             self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
                 self?.viewModel.reset()
             }

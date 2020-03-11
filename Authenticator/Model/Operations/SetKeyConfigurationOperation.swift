@@ -20,7 +20,7 @@ class SetKeyConfigurationOperation: ManagmentServiceOperation {
         super.init()
     }
 
-    override func executeOperation(mgtmService: YKFKeyMGMTService) {
+    override func executeOperation(mgtmService: YKFKeyMGMTServiceProtocol) {
         mgtmService.write(self.configuration, reboot: true) { [weak self] error in
             if let error = error {
                 let errorCode = (error as NSError).code

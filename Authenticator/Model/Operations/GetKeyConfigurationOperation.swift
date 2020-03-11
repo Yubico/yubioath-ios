@@ -15,7 +15,7 @@ class GetKeyConfigurationOperation: ManagmentServiceOperation {
         return OperationName.getConfig
     }
 
-    override func executeOperation(mgtmService: YKFKeyMGMTService) {
+    override func executeOperation(mgtmService: YKFKeyMGMTServiceProtocol) {
         mgtmService.readConfiguration { [weak self] (response, error) in
             guard let self = self else {
                 return
