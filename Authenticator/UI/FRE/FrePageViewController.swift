@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FirebaseAnalytics
 /*
  This class is presenting UIPageController with First User Experience information about app and features on first install. It's using 3 ViewControllers that you can scroll through with options of skipping or swiping down or using NextBarButton to go to the next page. It's located in Fre.storyboard and presented modally from MainViewController using segue.
  */
@@ -25,6 +25,11 @@ class FrePageViewController: UIPageViewController {
     }
     
     @IBAction func skip(_ sender: Any) {
+        if self.skipBarButton.title == "Done" {
+            Analytics.logEvent(AnalyticsEventTutorialComplete, parameters: nil)
+        } else {
+            Analytics.logEvent("tutorial_skip", parameters: nil)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 
+import FirebaseAnalytics
+
 class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
@@ -47,6 +49,7 @@ class MainViewController: BaseOATHVIewController {
         // For every new FRE in the future releases we're going to increase .freVersion by 1.
         if .freVersion > SettingsConfig.lastFreVersionShown {
             self.performSegue(withIdentifier: "StartFRE", sender: self)
+            Analytics.logEvent(AnalyticsEventTutorialBegin, parameters: nil)
         }
     }
     
@@ -485,8 +488,10 @@ extension MainViewController: ApplicationSessionObserverDelegate {
 
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        let filter = searchController.searchBar.text
-        viewModel.applyFilter(filter: filter)
+        if let filter = searchController.searchBar.text {
+            Analytics.logEvent(AnalyticsEventSearch, parameters: [AnalyticsParameterSearchTerm: filter])
+            viewModel.applyFilter(filter: filter)
+        }
     }
 }
     

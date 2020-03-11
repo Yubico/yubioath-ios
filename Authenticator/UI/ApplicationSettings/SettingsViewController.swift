@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class SettingsViewController: BaseOATHVIewController {
     private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
@@ -71,6 +72,7 @@ class SettingsViewController: BaseOATHVIewController {
             // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "StartFRE", sender: self)
+                Analytics.logEvent("tutorial_start_settings", parameters: nil)
             }
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
