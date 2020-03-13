@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import FirebaseAnalytics
 
 class MainViewController: BaseOATHVIewController {
@@ -71,10 +70,12 @@ class MainViewController: BaseOATHVIewController {
             // if QR codes are unavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
                 self?.scanQR()
+                Analytics.logEvent("add_credential", parameters: ["via" : "qr"])
             })
         }
         actionSheet.addAction(UIAlertAction(title: "Enter manually", style: .default) { [weak self]  (action) in
             self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+            Analytics.logEvent("add_credential", parameters: ["via" : "manual"])
         })
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
             self?.dismiss(animated: true, completion: nil)
@@ -148,6 +149,7 @@ class MainViewController: BaseOATHVIewController {
              let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
              self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
                  self?.viewModel.deleteCredential(credential: credential)
+                 Analytics.logEvent("credential_delete", parameters: nil)
             }
         }
             
@@ -182,6 +184,7 @@ class MainViewController: BaseOATHVIewController {
                 }
                 let destinationIndexPath = self.viewModel.addFavorite(credential: credential)
                 self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
+                Analytics.logEvent("add_to_favorites", parameters: nil)
             }
             
             action.backgroundColor = UIColor(named: "Favorite")
@@ -316,7 +319,7 @@ class MainViewController: BaseOATHVIewController {
         titleView.addSubview(imageView)
         navigationItem.titleView = titleView
     }
-    
+
     private func setupRefreshControl() {
         let refreshControl = UIRefreshControl()
         // setting background to refresh control changes behavior of spinner
@@ -333,7 +336,6 @@ class MainViewController: BaseOATHVIewController {
         #else
             navigationItem.rightBarButtonItem?.isEnabled = viewModel.keyPluggedIn || YubiKitDeviceCapabilities.supportsISO7816NFCTags
         #endif
-        
         refreshCredentials()
     }
     
@@ -489,8 +491,8 @@ extension MainViewController: ApplicationSessionObserverDelegate {
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let filter = searchController.searchBar.text {
-            Analytics.logEvent(AnalyticsEventSearch, parameters: [AnalyticsParameterSearchTerm: filter])
             viewModel.applyFilter(filter: filter)
+            Analytics.logEvent(AnalyticsEventSearch, parameters: [AnalyticsParameterSearchTerm: filter])
         }
     }
 }

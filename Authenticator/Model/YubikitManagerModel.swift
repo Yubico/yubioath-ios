@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAnalytics
 
 protocol CredentialViewModelDelegate: class {
     func onError(error: Error)
@@ -316,8 +317,6 @@ extension YubikitManagerModel: OperationDelegate {
                 return $0
             }
             
-            self.cachedKeyId = self.keyIdentifier
-            
             for credential in self._credentials {
                 // If it's TOTP credential we might need to recalculate each individually
                 // if there was no correct value returned as part of calculateAll request
@@ -340,6 +339,20 @@ extension YubikitManagerModel: OperationDelegate {
                 }
             }
         
+            if self.cachedKeyId != self.keyIdentifier {
+                if self.keyPluggedIn {
+                    Analytics.logEvent("key_connected", parameters: ["device" : "5ci",
+                                                                     "firmware_version" : String(self.keyDescription?.firmwareRevision ?? "<empty>"),
+                                                                     "credentials_number" : self.credentials.count])
+                } else {
+                    Analytics.logEvent("key_connected", parameters: ["device" : "nfc",
+                                                                     "firmware_version" : "\(self.cachedKeyVersion?.major).\(self.cachedKeyVersion?.minor).\(self.cachedKeyVersion?.micro)",
+                                                                     "credentials_number" : self.credentials.count])
+                }
+            }
+            
+            self.cachedKeyId = self.keyIdentifier
+            
             self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cachedKeyId)
 
             self.state = .loaded

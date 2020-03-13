@@ -28,7 +28,8 @@ class FrePageViewController: UIPageViewController {
         if self.skipBarButton.title == "Done" {
             Analytics.logEvent(AnalyticsEventTutorialComplete, parameters: nil)
         } else {
-            Analytics.logEvent("tutorial_skip", parameters: nil)
+            Analytics.logEvent("tutorial_skip", parameters: ["page_index" : pageControl.currentPage,
+                                                             "number_of_pages" : pageControl.numberOfPages])
         }
         self.dismiss(animated: true, completion: nil)
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class AddCredentialController: UITableViewController {
     
@@ -71,6 +72,14 @@ class AddCredentialController: UITableViewController {
             showAlertDialog(title: "Not valid credential information", message: message ?? "")
         } else {
             self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
+            let type = self.credential?.type.rawValue
+            let algorithm = self.credential?.algorithm.rawValue ?? 0
+            Analytics.logEvent("add_credential_comlete", parameters: ["via" : (self.manualMode ? "manual" : "qr"),
+                                                                      "require_touch" : (self.requireTouchManual.isOn ? "yes" : "no"),
+                                                                      "type" : type == 32 ? "totp" : "hotp",
+                                                                      "algorithm" : algorithm,
+                                                                      "digits" : self.credential?.digits ?? 0,
+                                                                      "period" : self.credential?.period ?? 0])
         }
     }
     // MARK: - Navigation

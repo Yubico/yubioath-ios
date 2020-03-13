@@ -53,9 +53,11 @@ class SettingsViewController: BaseOATHVIewController {
         case (0, 0):
                 if !self.viewModel.keyPluggedIn {
                     self.viewModel.getKeyVersion()
+                    Analytics.logEvent("show_device_info", parameters: ["device" : "nfc"])
                 } else {
                     DispatchQueue.main.async { [weak self] in
                         self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+                        Analytics.logEvent("show_device_info", parameters: ["device" : "5ci"])
                 }
             }
             
@@ -66,6 +68,7 @@ class SettingsViewController: BaseOATHVIewController {
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
+                Analytics.logEvent("clear_stored_passwords", parameters: nil)
             }
         case (1, 1):
             // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
@@ -77,9 +80,11 @@ class SettingsViewController: BaseOATHVIewController {
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)
+            Analytics.logEvent("terms_condirions", parameters: nil)
         case (2, 1):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
             self.navigationController?.pushViewController(webVC, animated: true)
+            Analytics.logEvent("privacy_policy", parameters: nil)
         case (2, 2):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
             if let description = viewModel.keyDescription {
@@ -89,6 +94,7 @@ class SettingsViewController: BaseOATHVIewController {
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
             webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
             self.navigationController?.pushViewController(webVC, animated: true)
+            Analytics.logEvent("support", parameters: nil)
             
         default:
             break
