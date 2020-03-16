@@ -105,8 +105,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self.viewModel.validate(password: password)
             },
             failure: { error in
-                self.showPasswordPrompt(with: message)
-                print("No stored password for this key: \(error.localizedDescription)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.showPasswordPrompt(with: message)
+                    print("No stored password for this key: \(error.localizedDescription)")
+                }
         })
     }
     
