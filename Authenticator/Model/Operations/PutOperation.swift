@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class PutOperation: OATHOperation {
     private let credential: YKFOATHCredential
@@ -26,13 +27,24 @@ class PutOperation: OATHOperation {
     
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
         oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) {  [weak self] (error) in
+            guard let self = self else {
+                return
+            }
             guard error == nil else {
-                self?.operationFailed(error: error!)
+                self.operationFailed(error: error!)
                 return
             }
             
             // The request was successful. The credential was added to the key.
-            self?.operationSucceeded()
+            self.operationSucceeded()
+            
+            let type = self.credential.type.rawValue
+            let requiresTouch = self.credential.requiresTouch
+            Analytics.logEvent("add_credential_complete", parameters: ["require_touch" : (requiresTouch ? "yes" : "no"),
+                                                                       "type" : type == 32 ? "totp" : "hotp",
+                                                                       "algorithm" : self.credential.algorithm.rawValue,
+                                                                       "digits" : self.credential.digits,
+                                                                       "period" : self.credential.period])
         }
     }
     

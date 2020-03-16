@@ -80,7 +80,7 @@ class SettingsViewController: BaseOATHVIewController {
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)
-            Analytics.logEvent("terms_condirions", parameters: nil)
+            Analytics.logEvent("terms_conditions", parameters: nil)
         case (2, 1):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
             self.navigationController?.pushViewController(webVC, animated: true)

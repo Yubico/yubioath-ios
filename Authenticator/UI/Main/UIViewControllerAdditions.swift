@@ -29,6 +29,7 @@ extension UIViewController {
         
             if !preferences.neverSavePassword(keyIdentifier: keyIdentifier) {
                 self.showPasswordSaveSheet(preferences: preferences) { (saveType) -> Void in
+                    Analytics.logEvent("save_password_prompt", parameters: ["with_option" : saveType.title])
                     preferences.setPasswordPreference(saveType: saveType, keyIdentifier: keyIdentifier)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
@@ -62,25 +63,15 @@ extension UIViewController {
         let authenticationType = preferences.evaluatedAuthenticationType()
         
         let actionSheet = UIAlertController(title: "Would you like to save this password for YubiKey for next usage in this application?", message: "You can remove saved password in Settings.", preferredStyle: .actionSheet)
-        let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in
-            inputHandler?(.save)
-            Analytics.logEvent("save_password_prompt", parameters: ["with_option" : "save"])
-        }
-        let biometric = UIAlertAction(title: "Save and protect with \(authenticationType.title)", style: .default) { (action) -> Void in
-            inputHandler?(.lock)
-            Analytics.logEvent("save_password_prompt", parameters: ["with_option" : "protect with \(authenticationType.title)"])
-        }
-        let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in
-            inputHandler?(.never)
-            Analytics.logEvent("save_password_prompt", parameters: ["with_option" : "never"])
-        }
+        let save = UIAlertAction(title: "Save Password", style: .default) { (action) -> Void in inputHandler?(.save) }
+        let biometric = UIAlertAction(title: "Save and protect with \(authenticationType.title)", style: .default) { (action) -> Void in inputHandler?(.lock) }
+        let never = UIAlertAction(title: "Never for this application", style: .default) { (action) -> Void in inputHandler?(.never) }
         let notNow = UIAlertAction(title: "Not now", style: .cancel) { [weak self] (action) in
             guard let self = self else {
                 return
             }
             self.dismiss(animated: true, completion: nil)
             inputHandler?(.none)
-            Analytics.logEvent("save_password_prompt", parameters: ["with_option" : "not now"])
         }
         
         actionSheet.addAction(save)

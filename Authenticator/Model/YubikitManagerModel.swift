@@ -346,7 +346,7 @@ extension YubikitManagerModel: OperationDelegate {
                                                                      "credentials_number" : self.credentials.count])
                 } else {
                     Analytics.logEvent("key_connected", parameters: ["device" : "nfc",
-                                                                     "firmware_version" : "\(self.cachedKeyVersion?.major).\(self.cachedKeyVersion?.minor).\(self.cachedKeyVersion?.micro)",
+                                                                     "firmware_version" : "<empty>",
                                                                      "credentials_number" : self.credentials.count])
                 }
             }
