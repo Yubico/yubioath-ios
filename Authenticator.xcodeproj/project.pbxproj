@@ -54,8 +54,13 @@
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
+		A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */; };
+		A5D4E87124085A9C00FD63A0 /* ManagmentServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */; };
+		A5D4E8732408748800FD63A0 /* GetKeyConfigurationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */; };
+		A5D4E87524087A1D00FD63A0 /* SetKeyConfigurationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87424087A1D00FD63A0 /* SetKeyConfigurationOperation.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
+		A5F23EAC240E17710060A127 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F23EAB240E17710060A127 /* BaseOperation.swift */; };
 		B9F0FF11F842A39183974083 /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
@@ -134,8 +139,13 @@
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationConroller.swift; sourceTree = "<group>"; };
+		A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagmentServiceOperation.swift; sourceTree = "<group>"; };
+		A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyConfigurationOperation.swift; sourceTree = "<group>"; };
+		A5D4E87424087A1D00FD63A0 /* SetKeyConfigurationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKeyConfigurationOperation.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
+		A5F23EAB240E17710060A127 /* BaseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
 		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
 		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,7 +322,11 @@
 				815E0A4B2329520100F2478F /* DeleteOperation.swift */,
 				815E0A4D2329557300F2478F /* SetCodeOperation.swift */,
 				81BE0C26232975AA00C60E1D /* ResetOperation.swift */,
+				A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */,
+				A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */,
+				A5D4E87424087A1D00FD63A0 /* SetKeyConfigurationOperation.swift */,
 				A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */,
+				A5F23EAB240E17710060A127 /* BaseOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -334,6 +348,7 @@
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
+				A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */,
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
 			);
 			path = ApplicationSettings;
@@ -563,7 +578,10 @@
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
+				A5F23EAC240E17710060A127 /* BaseOperation.swift in Sources */,
+				A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
+				A5D4E87124085A9C00FD63A0 /* ManagmentServiceOperation.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
 				815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */,
@@ -571,8 +589,10 @@
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
 				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
+				A5D4E87524087A1D00FD63A0 /* SetKeyConfigurationOperation.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
+				A5D4E8732408748800FD63A0 /* GetKeyConfigurationOperation.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */,

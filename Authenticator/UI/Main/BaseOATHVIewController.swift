@@ -69,7 +69,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             self.showPasswordPrompt(with: message)
             
         } else {
-            if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noOathService = error {
+            if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noService = error {
                 guard #available(iOS 13.0, *) else {
                     fatalError()
                 }
@@ -149,6 +149,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
             }
+        case .getConfig:
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowTagSettings", sender: self)
+            }
         case .getKeyVersion:
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
@@ -164,6 +168,13 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == .tagConfig {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? YubiKeyConfigurationConroller {
+                deviceInfoViewController.keyConfiguration = self.viewModel.cachedKeyConfig
+            }
+        }
+                
         if segue.identifier == .showDeviceInfo {
             let destinationNavigationController = segue.destination as! UINavigationController
             if let deviceInfoViewController = destinationNavigationController.topViewController as? DeviceInfoViewController {
@@ -175,7 +186,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     }
     
     /*! Delegate method invoked when we need to retry if user approves */
-    func onOperationRetry(operation: OATHOperation) {
+    func onOperationRetry(operation: BaseOperation) {
         // currently only put operation can have conditioned retry
         guard operation.operationName == .put else {
             return
