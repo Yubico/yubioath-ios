@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate {
     let viewModel = YubikitManagerModel()
@@ -88,6 +89,9 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
                 }
             }
+            
+            Analytics.logEvent("error", parameters: ["domain" : (error as NSError).domain,
+                                                     "code" : String(format:"0x%02X", errorCode)])
         }
         
         self.viewModel.stopNfc()
@@ -127,6 +131,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                     } catch let e {
                         self.passwordPreferences.resetPasswordPreference(keyIdentifier: passwordKey)
                         self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                        Analytics.logEvent("error", parameters: ["domain" : (e as NSError).domain,
+                                                                 "code" : String(format:"0x%02X", (e as NSError).code)])
                     }
                 }
             }, cancelHandler: { [weak self] () -> Void in
@@ -157,7 +163,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
             }
-        case .calculateAll, .cleanup, .filter:
+        case .filter:
+            Analytics.logEvent(AnalyticsEventSearch, parameters: nil)
+            self.tableView.reloadData()
+        case .calculateAll, .cleanup:
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials

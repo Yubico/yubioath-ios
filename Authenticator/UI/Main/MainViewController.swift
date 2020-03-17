@@ -69,17 +69,17 @@ class MainViewController: BaseOATHVIewController {
         if YubiKitDeviceCapabilities.supportsQRCodeScanning {
             // if QR codes are unavailable on device disable option
             actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
-                self?.scanQR()
                 Analytics.logEvent("add_credential_begin", parameters: ["mode" : "qr"])
+                self?.scanQR()
             })
         }
         actionSheet.addAction(UIAlertAction(title: "Enter manually", style: .default) { [weak self]  (action) in
-            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
             Analytics.logEvent("add_credential_begin", parameters: ["mode" : "manual"])
+            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+            Analytics.logEvent("add_credential_save_view", parameters: ["mode" : "manual"])
         })
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
             self?.dismiss(animated: true, completion: nil)
-            Analytics.logEvent("add_credential_failed", parameters: ["reason" : "cancel on action sheet"])
         })
         
         // The action sheet requires a presentation popover on iPad.
@@ -244,25 +244,23 @@ class MainViewController: BaseOATHVIewController {
             }
             guard error == nil else {
                 self?.onError(error: error!)
-                Analytics.logEvent("add_credential_failed", parameters: ["reason" : error?.localizedDescription ?? "<empty>"])
                 return
             }
             
             // This is an URL conforming to Key URI Format specs.
             guard let url = URL(string: payload!) else {
                 self?.onError(error: KeySessionError.invalidUri)
-                Analytics.logEvent("add_credential_failed", parameters: ["reason" : KeySessionError.invalidUri.errorDescription ?? "<empty>"])
                 return
             }
             
             guard let credential = YKFOATHCredential(url: url) else {
                 self?.onError(error: KeySessionError.invalidCredentialUri)
-                Analytics.logEvent("add_credential_failed", parameters: ["reason" : KeySessionError.invalidCredentialUri.errorDescription ?? "<empty>"])
                 return
             }
             
             self?.credentailToAdd = credential
             self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+            Analytics.logEvent("add_credential_save_view", parameters: ["mode" : "qr"])
         }
     }
 
@@ -496,7 +494,6 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let filter = searchController.searchBar.text {
             viewModel.applyFilter(filter: filter)
-            Analytics.logEvent(AnalyticsEventSearch, parameters: nil)
         }
     }
 }

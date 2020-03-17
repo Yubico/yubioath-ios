@@ -29,13 +29,13 @@ extension UIViewController {
         
             if !preferences.neverSavePassword(keyIdentifier: keyIdentifier) {
                 self.showPasswordSaveSheet(preferences: preferences) { (saveType) -> Void in
-                    Analytics.logEvent("save_password_prompt", parameters: ["with_option" : saveType.title])
+                    Analytics.logEvent("save_password_prompt", parameters: ["with_option" : "\(saveType)"])
                     preferences.setPasswordPreference(saveType: saveType, keyIdentifier: keyIdentifier)
                     DispatchQueue.main.async {
                         inputHandler?(passwordText)
                     }
                 }
-            } else  {
+            } else {
                 DispatchQueue.main.async {
                     inputHandler?(passwordText)
                 }

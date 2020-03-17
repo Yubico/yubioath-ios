@@ -14,19 +14,6 @@ enum PasswordSaveType: Int {
     case never
     case save
     case lock
-    
-    var title: String {
-        switch self {
-        case .none:
-            return "not now"
-        case .never:
-            return "never"
-        case .save:
-            return "save"
-        case .lock:
-            return "protect"
-        }
-    }
 }
 
 /*! Allows to store user selection of preferences: whether to save password or not.

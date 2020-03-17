@@ -19,6 +19,8 @@ class SettingsViewController: BaseOATHVIewController {
     @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
             self.viewModel.setConfiguration(configuration: keyConfiguration)
+            Analytics.logEvent("set_key_configuration", parameters: ["device" : sourceViewController.keyPluggedIn ? "5ci" : "nfc",
+                                                                     "tag_enabled" : sourceViewController.isTagEnabled ? "yes" : "no"])
         }
     }
     
@@ -59,7 +61,7 @@ class SettingsViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let stboard = UIStoryboard(name: "Main", bundle: nil)
         let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-        
+        Analytics.logEvent("setting_selected", parameters: ["index": "\(indexPath)"])
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             if !self.viewModel.keyPluggedIn {
@@ -76,21 +78,17 @@ class SettingsViewController: BaseOATHVIewController {
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
-                Analytics.logEvent("clear_stored_passwords", parameters: nil)
             }
         case (1, 1):
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "StartFRE", sender: self)
-                Analytics.logEvent("tutorial_start_settings", parameters: nil)
             }
         case (2, 0):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webVC, animated: true)
-            Analytics.logEvent("terms_conditions", parameters: nil)
         case (2, 1):
             webVC.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
             self.navigationController?.pushViewController(webVC, animated: true)
-            Analytics.logEvent("privacy_policy", parameters: nil)
         case (2, 2):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
             if let description = viewModel.keyDescription {
@@ -100,7 +98,6 @@ class SettingsViewController: BaseOATHVIewController {
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
             webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
             self.navigationController?.pushViewController(webVC, animated: true)
-            Analytics.logEvent("support", parameters: nil)
             
         default:
             break
@@ -118,6 +115,8 @@ class SettingsViewController: BaseOATHVIewController {
             }
         } catch let e {
             self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription) { [weak self] () -> Void in
+                Analytics.logEvent("error", parameters: ["domain" : (e as NSError).domain,
+                                                         "code" : String(format:"0x%02X", (e as NSError).code)])
                 self?.dismiss(animated: true, completion: nil)
             }
         }

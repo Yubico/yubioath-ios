@@ -63,7 +63,6 @@ class AddCredentialController: UITableViewController {
         // reset all advanced settings to default
         resetDefaults()
         dismiss(animated: true, completion: nil)
-        Analytics.logEvent("add_credential_failed", parameters: ["reason" : "cancel on save view"])
     }
     
     @IBAction func save(_ sender: Any) {
