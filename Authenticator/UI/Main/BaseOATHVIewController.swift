@@ -101,8 +101,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         self.secureStore.getValueAsync(
             for: userAccount,
             useAuthentication: hasValueProtected,
-            success: { password in
-                self.viewModel.validate(password: password)
+            success: { [weak self] password in
+                self?.viewModel.validate(password: password)
             },
             failure: { error in
                 DispatchQueue.main.async { [weak self] in
