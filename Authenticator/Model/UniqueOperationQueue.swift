@@ -9,15 +9,15 @@
 import UIKit
 
 /*!
-* This operation queue can dedup operations.
-* To avoid putting in queue operations that already waiting for execution
-* Use add method to add operation and it will skip adding if operation already exists
-* Also it allows to suspend and resume the queue and controlling syncronization of that switch,
-* so it's recommended to use suspendQueue method instead of direct flag isSuspended for multithreading support
-*/
+ * This operation queue can dedup operations.
+ * To avoid putting in queue operations that already waiting for execution
+ * Use add method to add operation and it will skip adding if operation already exists
+ * Also it allows to suspend and resume the queue and controlling syncronization of that switch,
+ * so it's recommended to use suspendQueue method instead of direct flag isSuspended for multithreading support
+ */
 class UniqueOperationQueue: OperationQueue {
     let serial = DispatchQueue(label: "serial", qos: .default)
-    var pendingOperations : [String:OATHOperation] = [:]
+    var pendingOperations: [String: BaseOperation] = [:]
     override init() {
         super.init()
         
@@ -35,7 +35,7 @@ class UniqueOperationQueue: OperationQueue {
         }
     }
     
-    func add(operation: OATHOperation, suspendQueue: Bool = false) {        
+    func add(operation: BaseOperation, suspendQueue: Bool = false) {
         // operating on serial dispatcher thread with operation queue bcz access to pending operations and
         // suspend state should be syncronized
         
@@ -43,7 +43,7 @@ class UniqueOperationQueue: OperationQueue {
             guard let self = self else {
                 return
             }
-
+            
             // if queue needs to be resumed than we add operation first and then resume queue
             // to allow operation queue to pick higher priority operation before resuming operation
             // if queus needs to be suspended than we suspend queue before adding retried operation
@@ -61,7 +61,7 @@ class UniqueOperationQueue: OperationQueue {
                         // update only set code and validation to the latest one, because user might corrected his input
                         pendingOperation.cancel()
                         self.enqueue(operation: operation)
-                    } else if (pendingOperation.isCancelled) {
+                    } else if pendingOperation.isCancelled {
                         // add operation in case if previous one was cancelled
                         self.enqueue(operation: operation)
                     } else {
@@ -78,15 +78,15 @@ class UniqueOperationQueue: OperationQueue {
         }
     }
     
-    private func enqueue(operation: OATHOperation) {
+    private func enqueue(operation: BaseOperation) {
         let operationId = operation.uniqueId
         pendingOperations[operationId] = operation
         weak var weakOp = operation
         operation.completionBlock = {
             self.serial.async { [weak self] in
-            // Make sure we are removing the right object, because
-            // if the op was cancelled and it was replaced, we
-            // don't want to remove the op that replaced it
+                // Make sure we are removing the right object, because
+                // if the op was cancelled and it was replaced, we
+                // don't want to remove the op that replaced it
                 if weakOp == self?.pendingOperations[operation.uniqueId] {
                     self?.pendingOperations[operationId] = nil
                     print("\(operation) \(operation.uniqueId) is removed")

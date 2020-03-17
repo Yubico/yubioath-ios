@@ -10,7 +10,7 @@ import Foundation
 
 enum KeySessionError : Error {
     case notSupported
-    case noOathService
+    case noService
     case noResponse
     case timeout
     case invalidUri
@@ -23,7 +23,7 @@ extension KeySessionError: LocalizedError {
         switch self {
         case .notSupported:
             return NSLocalizedString("This version of iOS does not support operations with the YubiKey for Lightning nor over NFC", comment: "Not supported")
-        case .noOathService:
+        case .noService:
             return NSLocalizedString("Plug-in your YubiKey for that operation", comment: "No service found")
         case .noResponse:
             return NSLocalizedString("Something went wrong and key doesn't respond", comment: "No response")

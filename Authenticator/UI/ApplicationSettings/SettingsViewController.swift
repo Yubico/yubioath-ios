@@ -16,6 +16,12 @@ class SettingsViewController: BaseOATHVIewController {
     private var systemVersion = UIDevice().systemVersion
     private var keySessionObserver: KeySessionObserver!
     
+    @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
+        if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
+            self.viewModel.setConfiguration(configuration: keyConfiguration)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
@@ -45,34 +51,34 @@ class SettingsViewController: BaseOATHVIewController {
         return false
     }
     
+    /*
+     Reset feature was removed for users due to it's complexity.
+     To get to the default state user can manually delete credentials and remove password under Settings.
+     To restore this feature, use git history and add a cell to SettingsViewController in the main storyboard.
+    */
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let stboard = UIStoryboard(name: "Main", bundle: nil)
         let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-                if !self.viewModel.keyPluggedIn {
-                    self.viewModel.getKeyVersion()
-                    Analytics.logEvent("show_device_info", parameters: ["device" : "nfc"])
-                } else {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
-                        Analytics.logEvent("show_device_info", parameters: ["device" : "5ci"])
+            if !self.viewModel.keyPluggedIn {
+                self.viewModel.getKeyVersion()
+            } else {
+                // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
+                // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
+                DispatchQueue.main.async { [weak self] in
+                    self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
                 }
             }
-            
         case (0, 2):
-            self.showWarning(title: "Reset OATH application?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
-                self?.viewModel.reset()
-            }
+            self.viewModel.getConfiguration()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
                 Analytics.logEvent("clear_stored_passwords", parameters: nil)
             }
         case (1, 1):
-            // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
-            // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "StartFRE", sender: self)
                 Analytics.logEvent("tutorial_start_settings", parameters: nil)
