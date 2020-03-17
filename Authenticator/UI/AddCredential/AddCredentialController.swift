@@ -224,7 +224,7 @@ class AddCredentialController: UITableViewController {
         
         if textField == secretManualText && text.count > 0 {
             let base32DecodedSecret = NSData.ykf_data(withBase32String: text)
-            return (base32DecodedSecret != nil, "Invalid Base32 encoded string")
+            return (base32DecodedSecret != nil && base32DecodedSecret!.count > 0, "Invalid Base32 encoded string. For secret use symbols A-Z and numbers 2-7.")
         }
         
         return (text.count > 0, "Required fields cannot be empty.")
