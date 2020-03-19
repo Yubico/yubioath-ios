@@ -101,12 +101,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         self.secureStore.getValueAsync(
             for: userAccount,
             useAuthentication: hasValueProtected,
-            success: { password in
-                self.viewModel.validate(password: password)
+            success: { [weak self] password in
+                self?.viewModel.validate(password: password)
             },
             failure: { error in
-                self.showPasswordPrompt(with: message)
-                print("No stored password for this key: \(error.localizedDescription)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.showPasswordPrompt(with: message)
+                    print("No stored password for this key: \(error.localizedDescription)")
+                }
         })
     }
     
