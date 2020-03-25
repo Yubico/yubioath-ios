@@ -442,7 +442,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = "Irina Makhalova";
+				ORGANIZATIONNAME = Yubico;
 				TargetAttributes = {
 					818866B222DFD729006BC0A8 = {
 						CreatedOnToolsVersion = 10.2.1;
