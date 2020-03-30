@@ -26,6 +26,7 @@ protocol OperationDelegate: class {
     func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration)
     func onSetConfiguration()
     func onGetKeyVersion(version: YKFKeyVersion)
+    func onReadOtpToken(token: YKFOTPTokenProtocol)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -84,6 +85,7 @@ class YubikitManagerModel: NSObject {
     var cachedKeyId: String?
     var cachedKeyConfig: YKFMGMTInterfaceConfiguration?
     var cachedKeyVersion: YKFKeyVersion?
+    var cachedOtpToken: YKFOTPTokenProtocol?
     
     var hasFilter: Bool {
         return self.filter != nil && !self.filter!.isEmpty
@@ -142,6 +144,10 @@ class YubikitManagerModel: NSObject {
         addOperation(operation: GetKeyVersionOperation())
     }
     
+    public func readOtpToken() {
+        addOperation(operation: ReadOTPOperation())
+    }
+    
     public func pause() {
         self.isPaused = true
         self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
@@ -180,9 +186,9 @@ class YubikitManagerModel: NSObject {
         self.delegate?.onOperationCompleted(operation: .filter)
     }
     
-    public func copyToClipboard(credential: Credential) {
+    public func copyToClipboard(string: String) {
         // copy to clipbboard
-        UIPasteboard.general.string = credential.code
+        UIPasteboard.general.string = string
         self.delegate?.onShowToastMessage(message: "Copied to clipboard!")
     }
     
@@ -395,7 +401,7 @@ extension YubikitManagerModel: OperationDelegate {
             delegate.onOperationCompleted(operation: .calculate)
             
             if credential.type == .HOTP {
-                self.copyToClipboard(credential: credential)
+                self.copyToClipboard(string: credential.code)
             }
         }
     }
@@ -431,6 +437,18 @@ extension YubikitManagerModel: OperationDelegate {
             self.cachedKeyId = self.keyIdentifier
             
             self.delegate?.onOperationCompleted(operation: .getKeyVersion)
+        }
+    }
+    
+    func onReadOtpToken(token: YKFOTPTokenProtocol) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.cachedOtpToken = token
+            
+            self.delegate?.onOperationCompleted(operation: .readOtpToken)
         }
     }
     
@@ -561,6 +579,7 @@ enum OperationName : String {
     case getConfig = "get configuration"
     case setConfig = "set configuration"
     case getKeyVersion = "get version"
+    case readOtpToken = "read otp token"
 }
 
 enum State {

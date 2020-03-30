@@ -9,10 +9,11 @@
 import UIKit
 
 class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate {
+
     let viewModel = YubikitManagerModel()
     let passwordPreferences = PasswordPreferences()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // register cell identifiers
@@ -159,6 +160,10 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
             }
+        case .readOtpToken:
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowOtpTag", sender: self)
+            }
         case .calculateAll, .cleanup, .filter:
             self.tableView.reloadData()
         default:
@@ -183,6 +188,13 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
                 deviceInfoViewController.keyDescription = self.viewModel.keyDescription
                 deviceInfoViewController.keyVersion = self.viewModel.cachedKeyVersion
                 deviceInfoViewController.keyIdentifier = self.viewModel.cachedKeyId
+            }
+        }
+        
+        if segue.identifier == .otpToken {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let deviceInfoViewController = destinationNavigationController.topViewController as? OtpTagViewController {
+                deviceInfoViewController.token = self.viewModel.cachedOtpToken?.value
             }
         }
     }

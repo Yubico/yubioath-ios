@@ -54,6 +54,9 @@
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
+		A5CFAC9724328F1A00B7165F /* OtpTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFAC9624328F1A00B7165F /* OtpTagViewController.swift */; };
+		A5CFAC992432AA4300B7165F /* OTPOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFAC982432AA4300B7165F /* OTPOperation.swift */; };
+		A5CFAC9B2432AED700B7165F /* ReadOTPOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CFAC9A2432AED700B7165F /* ReadOTPOperation.swift */; };
 		A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */; };
 		A5D4E87124085A9C00FD63A0 /* ManagmentServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */; };
 		A5D4E8732408748800FD63A0 /* GetKeyConfigurationOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */; };
@@ -139,6 +142,9 @@
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
+		A5CFAC9624328F1A00B7165F /* OtpTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpTagViewController.swift; sourceTree = "<group>"; };
+		A5CFAC982432AA4300B7165F /* OTPOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPOperation.swift; sourceTree = "<group>"; };
+		A5CFAC9A2432AED700B7165F /* ReadOTPOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOTPOperation.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationConroller.swift; sourceTree = "<group>"; };
 		A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagmentServiceOperation.swift; sourceTree = "<group>"; };
 		A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetKeyConfigurationOperation.swift; sourceTree = "<group>"; };
@@ -327,6 +333,8 @@
 				A5D4E87424087A1D00FD63A0 /* SetKeyConfigurationOperation.swift */,
 				A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */,
 				A5F23EAB240E17710060A127 /* BaseOperation.swift */,
+				A5CFAC982432AA4300B7165F /* OTPOperation.swift */,
+				A5CFAC9A2432AED700B7165F /* ReadOTPOperation.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -350,6 +358,7 @@
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 				A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */,
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
+				A5CFAC9624328F1A00B7165F /* OtpTagViewController.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -557,7 +566,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				815E0A4C2329520100F2478F /* DeleteOperation.swift in Sources */,
+				A5CFAC992432AA4300B7165F /* OTPOperation.swift in Sources */,
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
+				A5CFAC9724328F1A00B7165F /* OtpTagViewController.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
@@ -570,6 +581,7 @@
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
+				A5CFAC9B2432AED700B7165F /* ReadOTPOperation.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,

@@ -124,7 +124,7 @@ class MainViewController: BaseOATHVIewController {
                 // refresh items that require touch
                 viewModel.calculate(credential: credential)
             } else {
-                viewModel.copyToClipboard(credential: credential)
+                viewModel.copyToClipboard(string: credential.code)
             }
         }
     }

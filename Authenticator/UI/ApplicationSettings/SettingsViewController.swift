@@ -72,6 +72,8 @@ class SettingsViewController: BaseOATHVIewController {
             }
         case (0, 2):
             self.viewModel.getConfiguration()
+        case (0, 3):
+            self.viewModel.readOtpToken()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
