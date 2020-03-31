@@ -25,6 +25,7 @@ class SettingsViewController: BaseOATHVIewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         Analytics.setScreenName("Settings", screenClass: "SettingsViewController")
     }
     
