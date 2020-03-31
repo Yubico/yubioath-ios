@@ -24,6 +24,10 @@ class SettingsViewController: BaseOATHVIewController {
         }
     }
     
+    override func viewDidLoad() {
+        Analytics.setScreenName("Settings", screenClass: "SettingsViewController")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)

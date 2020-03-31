@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -771,6 +771,10 @@
             <point key="canvasLocation" x="780" y="961"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="UPN-tw-Bce"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
     <resources>
         <image name="Settings" width="24" height="24"/>
         <image name="Star" width="24" height="24"/>
@@ -779,8 +783,4 @@
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="UPN-tw-Bce"/>
-    </inferredMetricsTieBreakers>
-    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>

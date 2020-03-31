@@ -34,6 +34,7 @@ class AddCredentialController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.setScreenName("AddCredential", screenClass: "MainViewController")
         // UITextViewDelegate added for switching resonder on return key on keyboard
         self.issuerManualText.delegate = self
         self.accountManualText.delegate = self

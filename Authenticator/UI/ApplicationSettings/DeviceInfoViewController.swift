@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class DeviceInfoViewController: BaseOATHVIewController {
     
@@ -20,6 +21,7 @@ class DeviceInfoViewController: BaseOATHVIewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.setScreenName("DeviceInfo", screenClass: "DeviceInfoViewController")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

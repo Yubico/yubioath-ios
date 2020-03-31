@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class SetPasswordViewController: BaseOATHVIewController {
     
@@ -40,6 +41,7 @@ class SetPasswordViewController: BaseOATHVIewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.setScreenName("SetPassword", screenClass: "SetPasswordViewController")
         // UITextViewDelegate added for switching resonder on return key on keyboard
         self.password.delegate = self
         self.confirmPassword.delegate = self

@@ -18,7 +18,7 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Analytics.setScreenName("Main", screenClass: "MainViewController")
         setupCredentialsSearchController()
         setupNavigationBar()
         setupRefreshControl()
@@ -237,8 +237,8 @@ class MainViewController: BaseOATHVIewController {
     
     // MARK: - private methods
     private func scanQR() {
-        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
-            [weak self] (payload, error) in
+        Analytics.setScreenName("QR", screenClass: "MainViewController")
+        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) { [weak self] (payload, error) in
             guard self != nil else {
                 return
             }

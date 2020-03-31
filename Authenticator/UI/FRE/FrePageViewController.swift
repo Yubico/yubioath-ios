@@ -65,6 +65,7 @@ class FrePageViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
+        Analytics.setScreenName("FRE", screenClass: "FrePageViewController")
         // When view.background color is not set, part of the mainViewController is
         // visible when present modally UIPageViewController, by default
         // view.background is transperent.

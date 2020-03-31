@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FirebaseAnalytics
 /* This class is for showing YubiKey MGMT configuration over OTP whether it's on or off.
  Users can customize the configuration by switching tagSwitch and saving the change.
  For YubiKey NFC it is showing website NFC tag notification on YubiKey tap against the device.
@@ -36,6 +36,7 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.setScreenName("KeyConfiguration", screenClass: "YubiKeyConfigurationConroller")
         if let keyConfig = self.keyConfiguration {
             if keyPluggedIn {
                 self.isTagEnabled = keyConfig.isEnabled(.OTP, overTransport: .USB)
