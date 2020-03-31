@@ -27,6 +27,7 @@ class OtpTagViewController: BaseOATHVIewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let token = self.token {
             self.viewModel.copyToClipboard(string: token)
         }

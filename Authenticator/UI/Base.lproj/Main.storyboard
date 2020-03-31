@@ -272,7 +272,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Copy OTP tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Cok-6d-uab">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Copy NDEF tag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Cok-6d-uab">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -791,7 +791,6 @@
         <!--Copy Token-->
         <scene sceneID="cmZ-ZP-fOR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1J6-Lc-bZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="OtpTagViewController" id="dPY-Ed-jSw" customClass="OtpTagViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tHd-Ha-qjc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
@@ -833,13 +832,13 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1J6-Lc-bZo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1023" y="1705"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uIV-Ga-c7C">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fZp-kg-XtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1xe-Fc-LRf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9bJ-J2-GN6">
@@ -851,6 +850,7 @@
                         <segue destination="dPY-Ed-jSw" kind="relationship" relationship="rootViewController" id="XCv-5r-ful"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fZp-kg-XtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1023" y="961"/>
         </scene>

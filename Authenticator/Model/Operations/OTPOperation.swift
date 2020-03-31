@@ -18,9 +18,9 @@ class OTPOperation: BaseOperation {
             guard #available(iOS 13.0, *) else {
                 fatalError()
             }
+            
             otpService = YubiKitManager.shared.nfcSession.otpService
             self.executeOperation(otpService: otpService)
-        } else {
         }
     }
     
