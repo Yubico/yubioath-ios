@@ -1,5 +1,5 @@
 //
-//  PasswordPromptController.swift
+//  UIViewControllerAdditions.swift
 //  Authenticator
 //
 //  Created by Irina Makhalova on 8/31/19.
@@ -11,12 +11,6 @@ import LocalAuthentication
 import FirebaseAnalytics
 
 extension UIViewController {
-    enum KeyType {
-        case none
-        case accessory
-        case nfc
-    }
-    
     static let PasswordUserDefaultsKey = "PasswordSaveType"
     /*! Shows view with edit text field amd returns input text within inputHandler
      */
