@@ -6,45 +6,12 @@
       "scale" : "1x"
     },
     {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "cogwheel-white-24.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
       "filename" : "cogwheel-black-48.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "cogwheel-white-48.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
       "filename" : "cogwheel-black-72.png",
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "cogwheel-white-72.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
