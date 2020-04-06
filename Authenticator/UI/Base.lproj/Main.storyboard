@@ -383,7 +383,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" trigger="accessoryAction" id="eY5-fE-1sY"/>
+                                            <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="CgE-gV-OlK"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
@@ -929,11 +929,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="customizeIcon" destination="Lba-tl-hTc" id="j3V-DH-rU1"/>
-                        <outlet property="infoIcon" destination="l1G-Ku-iL0" id="aGK-N1-iVE"/>
-                        <outlet property="secureIcon" destination="pFd-XL-VcX" id="X2a-GB-Jl4"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uEt-oD-dCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -950,7 +945,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="QUg-EH-bgx" kind="relationship" relationship="rootViewController" id="IMS-ul-gzB"/>
+                        <segue destination="QUg-EH-bgx" kind="relationship" relationship="rootViewController" id="Tho-Ob-CfT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwb-7c-YDJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -959,7 +954,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Gs-5m-Syj"/>
+        <segue reference="CgE-gV-OlK"/>
         <segue reference="UPN-tw-Bce"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
