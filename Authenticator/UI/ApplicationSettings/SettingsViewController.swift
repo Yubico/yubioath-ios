@@ -36,7 +36,7 @@ class SettingsViewController: BaseOATHVIewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         switch (indexPath.section, indexPath.row) {
-        case (3, 0):
+        case (3, 1):
             cell.textLabel?.text = "Yubico Authenticator \(self.appVersion)"
         default:
             break
@@ -96,6 +96,10 @@ class SettingsViewController: BaseOATHVIewController {
             webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
             self.navigationController?.pushViewController(webVC, animated: true)
             
+        case (3, 0):
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "ShowWhatsNew", sender: self)
+            }
         default:
             break
         }

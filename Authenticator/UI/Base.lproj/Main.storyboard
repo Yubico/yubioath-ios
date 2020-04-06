@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -142,6 +142,7 @@
                     <connections>
                         <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="0dB-Xx-crT"/>
                         <segue destination="ffl-wX-lrv" kind="presentation" identifier="AddCredentialSequeID" id="qUJ-ak-UTT"/>
+                        <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="0Gs-5m-Syj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -365,8 +366,28 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="About" id="1aV-BN-kwv">
                                 <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="7vJ-dW-ag5" style="IBUITableViewCellStyleDefault" id="4yD-xK-A66">
+                                        <rect key="frame" x="0.0" y="575.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yD-xK-A66" id="TAD-Ru-NHF">
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="What's New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="7vJ-dW-ag5">
+                                                    <rect key="frame" x="20" y="0.0" width="355" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" trigger="accessoryAction" id="eY5-fE-1sY"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
-                                        <rect key="frame" x="0.0" y="575.5" width="414" height="56"/>
+                                        <rect key="frame" x="0.0" y="619.5" width="414" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uhk-Qp-xgv" id="zIl-32-rQz">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -516,7 +537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ihq-dp-VCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1677" y="215"/>
+            <point key="canvasLocation" x="-1023" y="1702"/>
         </scene>
         <!--Fre-->
         <scene sceneID="L6t-CP-u4G">
@@ -526,7 +547,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go7-l6-NO6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448" y="-474"/>
+            <point key="canvasLocation" x="400" y="-433"/>
         </scene>
         <!--AddCredential-->
         <scene sceneID="AGY-YY-5Yc">
@@ -552,7 +573,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ekW-UU-e4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780" y="215"/>
+            <point key="canvasLocation" x="-1023" y="961"/>
         </scene>
         <!--Yubi Key Configuration Conroller-->
         <scene sceneID="Umn-5X-AQm">
@@ -629,7 +650,7 @@
                 <exit id="X1b-r2-E4c" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BrY-sS-eWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="1705"/>
+            <point key="canvasLocation" x="-186" y="1702"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="04K-p5-vnp">
@@ -647,7 +668,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhf-HL-Fi7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="961"/>
+            <point key="canvasLocation" x="-186" y="961"/>
         </scene>
         <!--Device Info-->
         <scene sceneID="5zl-0h-Mbi">
@@ -750,7 +771,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kc2-Hq-6wM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1677" y="961"/>
+            <point key="canvasLocation" x="664" y="1702"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cVc-eY-lFL">
@@ -768,19 +789,192 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyH-4o-naX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780" y="961"/>
+            <point key="canvasLocation" x="664" y="961"/>
+        </scene>
+        <!--App Version Info View Controller-->
+        <scene sceneID="nfx-Ct-jBs">
+            <objects>
+                <viewController storyboardIdentifier="AppVersionInfoViewController" id="QUg-EH-bgx" customClass="AppVersionInfoViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8En-hR-f6f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Hv-2Y-32j">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="What's new" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgV-QY-T0H">
+                                        <rect key="frame" x="24" y="100" width="366" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Version 1.3.0" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6De-pA-fyh">
+                                        <rect key="frame" x="151" y="137" width="112.5" height="37.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Biometric Protection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbY-nq-SJo">
+                                        <rect key="frame" x="111" y="244.5" width="192" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="secure-lock" translatesAutoresizingMaskIntoConstraints="NO" id="pFd-XL-VcX">
+                                        <rect key="frame" x="55" y="244.5" width="48" height="48"/>
+                                        <color key="tintColor" name="YubiBlue"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="QIW-jX-KjC"/>
+                                            <constraint firstAttribute="width" constant="48" id="rp3-NW-QGq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protect your YubiKey password with FaceID or TouchID." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2n-sS-Xnm">
+                                        <rect key="frame" x="111" y="269.5" width="279" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hih-pm-eM5">
+                                        <rect key="frame" x="111" y="350.5" width="192" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info" translatesAutoresizingMaskIntoConstraints="NO" id="l1G-Ku-iL0">
+                                        <rect key="frame" x="55" y="350.5" width="48" height="48"/>
+                                        <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="0e2-6p-QoC"/>
+                                            <constraint firstAttribute="width" constant="48" id="Xhu-nB-8vY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Look up your YubiKey information." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fiG-x5-e7N">
+                                        <rect key="frame" x="111" y="375.5" width="261" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndm-gy-6R4">
+                                        <rect key="frame" x="111" y="436" width="192" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="configure" translatesAutoresizingMaskIntoConstraints="NO" id="Lba-tl-hTc">
+                                        <rect key="frame" x="55" y="436" width="48" height="48"/>
+                                        <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="cGm-wO-JGG"/>
+                                            <constraint firstAttribute="height" constant="48" id="p0v-k2-GUB"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure your YubiKey settings." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adm-Ct-pIb">
+                                        <rect key="frame" x="111" y="461" width="249.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Adm-Ct-pIb" firstAttribute="top" secondItem="Ndm-gy-6R4" secondAttribute="bottom" constant="4" id="0YL-OZ-6Mg"/>
+                                    <constraint firstItem="Ndm-gy-6R4" firstAttribute="leading" secondItem="Hih-pm-eM5" secondAttribute="leading" id="2bP-Br-dcf"/>
+                                    <constraint firstItem="TgV-QY-T0H" firstAttribute="top" secondItem="1Hv-2Y-32j" secondAttribute="top" constant="100" id="2dK-16-61l"/>
+                                    <constraint firstItem="Ndm-gy-6R4" firstAttribute="top" secondItem="fiG-x5-e7N" secondAttribute="bottom" constant="40" id="6SA-rx-IQE"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="TgV-QY-T0H" secondAttribute="trailing" constant="16" id="8pQ-DO-Huo"/>
+                                    <constraint firstItem="TgV-QY-T0H" firstAttribute="leading" secondItem="1Hv-2Y-32j" secondAttribute="leadingMargin" constant="16" id="8wg-5y-vv8"/>
+                                    <constraint firstItem="Lba-tl-hTc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Hv-2Y-32j" secondAttribute="leading" constant="16" id="BNa-8l-9mJ"/>
+                                    <constraint firstItem="O2n-sS-Xnm" firstAttribute="leading" secondItem="pFd-XL-VcX" secondAttribute="trailing" constant="8" id="FIk-V7-QQa"/>
+                                    <constraint firstItem="Hih-pm-eM5" firstAttribute="centerX" secondItem="1Hv-2Y-32j" secondAttribute="centerX" id="FSp-bY-cp7"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Hih-pm-eM5" secondAttribute="trailing" constant="16" id="GrA-FF-C0w"/>
+                                    <constraint firstItem="EbY-nq-SJo" firstAttribute="leading" secondItem="pFd-XL-VcX" secondAttribute="trailing" constant="8" id="Hyp-Q4-QLK"/>
+                                    <constraint firstItem="Ndm-gy-6R4" firstAttribute="centerX" secondItem="1Hv-2Y-32j" secondAttribute="centerX" id="KAf-aL-rr2"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EbY-nq-SJo" secondAttribute="trailing" constant="16" id="NwB-2f-1FQ"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ndm-gy-6R4" secondAttribute="trailing" constant="16" id="Nzg-i2-FF5"/>
+                                    <constraint firstItem="6De-pA-fyh" firstAttribute="top" secondItem="TgV-QY-T0H" secondAttribute="bottom" constant="8" id="OvK-Iv-WYO"/>
+                                    <constraint firstAttribute="trailing" secondItem="O2n-sS-Xnm" secondAttribute="trailing" constant="24" id="Pv9-gG-Bbo"/>
+                                    <constraint firstItem="Adm-Ct-pIb" firstAttribute="leading" secondItem="Lba-tl-hTc" secondAttribute="trailing" constant="8" id="Qxl-kx-p3b"/>
+                                    <constraint firstItem="l1G-Ku-iL0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Hv-2Y-32j" secondAttribute="leading" constant="16" id="RIB-u2-OKp"/>
+                                    <constraint firstItem="6De-pA-fyh" firstAttribute="centerX" secondItem="1Hv-2Y-32j" secondAttribute="centerX" id="UFJ-Nw-6pm"/>
+                                    <constraint firstItem="Hih-pm-eM5" firstAttribute="top" secondItem="O2n-sS-Xnm" secondAttribute="bottom" constant="40" id="VYR-Pa-wER"/>
+                                    <constraint firstItem="Hih-pm-eM5" firstAttribute="leading" secondItem="l1G-Ku-iL0" secondAttribute="trailing" constant="8" id="Wfl-Lh-Zrw"/>
+                                    <constraint firstItem="Hih-pm-eM5" firstAttribute="leading" secondItem="EbY-nq-SJo" secondAttribute="leading" id="Yq0-fh-wbr"/>
+                                    <constraint firstItem="l1G-Ku-iL0" firstAttribute="top" secondItem="Hih-pm-eM5" secondAttribute="top" id="aML-CA-24D"/>
+                                    <constraint firstItem="O2n-sS-Xnm" firstAttribute="top" secondItem="EbY-nq-SJo" secondAttribute="bottom" constant="4" id="dLB-It-97W"/>
+                                    <constraint firstItem="fiG-x5-e7N" firstAttribute="top" secondItem="Hih-pm-eM5" secondAttribute="bottom" constant="4" id="eGL-rT-bx3"/>
+                                    <constraint firstItem="pFd-XL-VcX" firstAttribute="top" secondItem="EbY-nq-SJo" secondAttribute="top" id="ghs-4k-3dV"/>
+                                    <constraint firstItem="EbY-nq-SJo" firstAttribute="centerX" secondItem="1Hv-2Y-32j" secondAttribute="centerX" id="gkb-zu-cCV"/>
+                                    <constraint firstItem="Lba-tl-hTc" firstAttribute="top" secondItem="Ndm-gy-6R4" secondAttribute="top" id="hBS-1X-xKz"/>
+                                    <constraint firstItem="pFd-XL-VcX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Hv-2Y-32j" secondAttribute="leading" constant="16" id="hYg-bC-Lu9"/>
+                                    <constraint firstItem="fiG-x5-e7N" firstAttribute="leading" secondItem="l1G-Ku-iL0" secondAttribute="trailing" constant="8" id="kNO-j8-Q6C"/>
+                                    <constraint firstItem="Ndm-gy-6R4" firstAttribute="leading" secondItem="Lba-tl-hTc" secondAttribute="trailing" constant="8" id="mjy-xw-aWa"/>
+                                    <constraint firstItem="EbY-nq-SJo" firstAttribute="top" secondItem="6De-pA-fyh" secondAttribute="bottom" constant="70" id="wDd-0s-wiT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="5HD-0H-Wgq" firstAttribute="trailing" secondItem="1Hv-2Y-32j" secondAttribute="trailing" id="HU8-SQ-FKg"/>
+                            <constraint firstItem="1Hv-2Y-32j" firstAttribute="leading" secondItem="5HD-0H-Wgq" secondAttribute="leading" id="WRe-d6-75E"/>
+                            <constraint firstItem="1Hv-2Y-32j" firstAttribute="top" secondItem="8En-hR-f6f" secondAttribute="top" id="msp-eY-Oal"/>
+                            <constraint firstItem="5HD-0H-Wgq" firstAttribute="bottom" secondItem="1Hv-2Y-32j" secondAttribute="bottom" id="spn-i2-rM0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5HD-0H-Wgq"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rab-WA-uhQ">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="jTb-vg-6A0">
+                            <connections>
+                                <action selector="done:" destination="QUg-EH-bgx" id="7ZE-D4-Jmk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="customizeIcon" destination="Lba-tl-hTc" id="j3V-DH-rU1"/>
+                        <outlet property="infoIcon" destination="l1G-Ku-iL0" id="aGK-N1-iVE"/>
+                        <outlet property="secureIcon" destination="pFd-XL-VcX" id="X2a-GB-Jl4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uEt-oD-dCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1943" y="-433"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uso-4J-URY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5YB-z2-cNJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xO6-3d-aVp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QUg-EH-bgx" kind="relationship" relationship="rootViewController" id="IMS-ul-gzB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qwb-7c-YDJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1136" y="-433"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0Gs-5m-Syj"/>
+        <segue reference="UPN-tw-Bce"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
     <resources>
         <image name="Settings" width="24" height="24"/>
         <image name="Star" width="24" height="24"/>
+        <image name="configure" width="24" height="24"/>
+        <image name="info" width="24" height="24"/>
+        <image name="secure-lock" width="24" height="24"/>
         <image name="touch" width="24" height="24"/>
         <namedColor name="Favorite">
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="YubiBlue">
+            <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="UPN-tw-Bce"/>
-    </inferredMetricsTieBreakers>
-    <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
 </document>
