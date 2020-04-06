@@ -34,19 +34,30 @@ class DeviceInfoViewController: BaseOATHVIewController {
                 break
             }
         } else {
-            switch indexPath.row {
-            case 0: cell.detailTextLabel?.text = "YubiKey NFC"
-            case 1:
-                cell.textLabel?.text = "Unique ID"
-                if let keyId = self.keyIdentifier {
-                    cell.detailTextLabel?.text = keyId
-                }
-            case 2:
-                if let firmwareVersion = keyVersion {
+            if let firmwareVersion = keyVersion {
+                switch indexPath.row {
+                case 0:
+                    if Int(firmwareVersion.major) < 4 {
+                        cell.detailTextLabel?.text = "YubiKey NEO"
+                    } else {
+                        cell.detailTextLabel?.text = "YubiKey NFC"
+                    }
+                case 1:
+                    cell.textLabel?.text = "Unique ID"
+                    if let keyId = self.keyIdentifier {
+                        cell.detailTextLabel?.text = keyId
+                    }
+                case 2:
+                    if Int(firmwareVersion.major) < 4 {
+                        cell.textLabel?.text = "OATH version"
+                    } else {
+                        cell.textLabel?.text = "Firmware version"
+                    }
                     cell.detailTextLabel?.text = "\(firmwareVersion.major).\(firmwareVersion.minor).\(firmwareVersion.micro)"
+                    
+                default:
+                    break
                 }
-            default:
-                break
             }
         }
 
