@@ -36,14 +36,19 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let keyConfig = self.keyConfiguration {
+        if let keyConfig = self.keyConfiguration, keyConfig.isSupported(.OTP, overTransport: .USB) || keyConfig.isSupported(.OTP, overTransport: .NFC) {
             if keyPluggedIn {
                 self.isTagEnabled = keyConfig.isEnabled(.OTP, overTransport: .USB)
             } else {
                 self.isTagEnabled = keyConfig.isEnabled(.OTP, overTransport: .NFC)
             }
+            self.tagSwitch.isEnabled = true
+            self.saveButton.isEnabled = true
+            self.tagSwitch.setOn(isTagEnabled, animated: true)
+        } else {
+            self.tagSwitch.isEnabled = false
+            self.saveButton.isEnabled = false
         }
-        self.tagSwitch.setOn(isTagEnabled, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,9 +72,12 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if keyPluggedIn {
-            return NSLocalizedString("This setting turns on/off printing key string in text fields when you touch the YubiKey.", comment: "Description for tag setting switch on Yubikey 5Ci.")
+        if let keyConfig = self.keyConfiguration, keyConfig.isSupported(.OTP, overTransport: .USB) || keyConfig.isSupported(.OTP, overTransport: .NFC) {
+            if keyPluggedIn {
+                return NSLocalizedString("This setting turns on/off printing key string in text fields when you touch the YubiKey.", comment: "Description for tag setting switch on Yubikey 5Ci.")
+            }
+            return NSLocalizedString("This setting turns on/off website NFC tag notification when you tap the YubiKey.", comment: "Description for tag setting switch on Yubikey NFC.")
         }
-        return NSLocalizedString("This setting turns on/off website NFC tag notification when you tap the YubiKey.", comment: "Description for tag setting switch on Yubikey NFC.")
+        return NSLocalizedString("This setting is not suppurted on your YubiKey.", comment: "Description when tag setting is not supported on the YubiKey.")
     }
 }
