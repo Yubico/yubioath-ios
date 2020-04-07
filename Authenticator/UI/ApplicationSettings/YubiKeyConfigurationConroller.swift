@@ -78,6 +78,6 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
             }
             return NSLocalizedString("This setting turns on/off website NFC tag notification when you tap the YubiKey.", comment: "Description for tag setting switch on Yubikey NFC.")
         }
-        return NSLocalizedString("This setting is not suppurted on your YubiKey.", comment: "Description when tag setting is not supported on the YubiKey.")
+        return NSLocalizedString("This setting is not supported on your YubiKey.", comment: "Description when tag setting is not supported on the YubiKey.")
     }
 }
