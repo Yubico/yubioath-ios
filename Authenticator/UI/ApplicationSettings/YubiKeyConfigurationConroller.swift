@@ -40,10 +40,10 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
         
         if keyPluggedIn {
             self.isTagEnabled = self.keyConfiguration.isEnabled(.OTP, overTransport: .USB)
-            self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: .USB) && !self.keyConfiguration.isConfigurationLocked
+            self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: .USB) && self.keyConfiguration.isConfigurationLocked
         } else {
             self.isTagEnabled = self.keyConfiguration.isEnabled(.OTP, overTransport: .NFC)
-            self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: .NFC) && !self.keyConfiguration.isConfigurationLocked
+            self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: .NFC) && self.keyConfiguration.isConfigurationLocked
         }
         
         self.tagSwitch.setOn(isTagEnabled, animated: true)
