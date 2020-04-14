@@ -43,11 +43,11 @@ class MainViewController: BaseOATHVIewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // UserDefaults will store the latest FRE version that was shown to user.
-        // For every new FRE in the future releases we're going to increase .freVersion by 1.
-        if SettingsConfig.lastFreVersionShown == 0 {
+        // UserDefaults will store the latest FRE version and latest 'What's New' version that were shown to user.
+        // For every new FRE or 'What's New' in the future releases we're going to increment .freVersion and .whatsNewVersion by 1.
+        if .freVersion > SettingsConfig.lastFreVersionShown {
             self.performSegue(withIdentifier: "StartFRE", sender: self)
-        } else if .freVersion > SettingsConfig.lastFreVersionShown {
+        } else if .whatsNewVersion > SettingsConfig.lastWhatsNewVersionShown {
             self.performSegue(withIdentifier: "ShowWhatsNew", sender: self)
         }
     }
@@ -204,6 +204,15 @@ class MainViewController: BaseOATHVIewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == .startFRE {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let freViewController = destinationNavigationController.topViewController as? FrePageViewController {
+                // passing userFreVersion and then setting current freVersion to userDefaults.
+                freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
+                SettingsConfig.lastFreVersionShown = .freVersion
+            }
+        }
         
         if segue.identifier == .addCredentialSequeID {
             let destinationNavigationController = segue.destination as! UINavigationController

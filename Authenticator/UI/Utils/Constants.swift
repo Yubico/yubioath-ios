@@ -9,7 +9,8 @@
 import Foundation
 
 extension Int {
-    internal static let freVersion = 3
+    internal static let freVersion = 2
+    internal static let whatsNewVersion = 1
 }
 
 extension String {

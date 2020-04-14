@@ -16,7 +16,7 @@ class AppVersionInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SettingsConfig.lastFreVersionShown = .freVersion
+        SettingsConfig.lastWhatsNewVersionShown = .whatsNewVersion
     }
 
 }

@@ -28,13 +28,22 @@ class FrePageViewController: UIPageViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // Will use this property to manage FRE pages in the future releases.
+    var userFreVersion = 0
+    
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         var viewControllers: [UIViewController?] = []
-        viewControllers.append(self.createViewController(withIdentifier: FreWelcomeViewController.identifier))
-        viewControllers.append(self.createViewController(withIdentifier: Fre5CiViewController.identifier))
-        viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil)
-        viewControllers.append(self.createViewController(withIdentifier: FreQRViewController.identifier))
-        viewControllers.append(self.createViewController(withIdentifier: FreFavoritesViewController.identifier))
+        
+        if userFreVersion < 1 {
+            viewControllers.append(self.createViewController(withIdentifier: FreWelcomeViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: Fre5CiViewController.identifier))
+            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil)
+            viewControllers.append(self.createViewController(withIdentifier: FreQRViewController.identifier))
+        }
+        
+        if userFreVersion < 2 {
+            viewControllers.append(self.createViewController(withIdentifier: FreFavoritesViewController.identifier))
+        }
         
         return viewControllers.compactMap { $0 }
     }()
@@ -50,7 +59,6 @@ class FrePageViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
-        SettingsConfig.lastFreVersionShown = .freVersion
         // When view.background color is not set, part of the mainViewController is
         // visible when present modally UIPageViewController, by default
         // view.background is transperent.
