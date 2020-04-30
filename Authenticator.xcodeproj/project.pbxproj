@@ -53,6 +53,7 @@
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
+		A5B531F22437CD16008C501C /* AppVersionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */; };
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
 		A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */; };
 		A5D4E87124085A9C00FD63A0 /* ManagmentServiceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */; };
@@ -137,6 +138,7 @@
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionInfoViewController.swift; sourceTree = "<group>"; };
 		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationConroller.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 				A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */,
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
+				A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */,
 			);
 			path = ApplicationSettings;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */,
 				A556D1602405A100007014A7 /* GetKeyVersionOperation.swift in Sources */,
 				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
+				A5B531F22437CD16008C501C /* AppVersionInfoViewController.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
@@ -789,7 +793,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -816,7 +820,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
