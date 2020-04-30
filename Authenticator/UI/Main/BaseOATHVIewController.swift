@@ -182,7 +182,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             if let deviceInfoViewController = destinationNavigationController.topViewController as? DeviceInfoViewController {
                 deviceInfoViewController.keyDescription = self.viewModel.keyDescription
                 deviceInfoViewController.keyVersion = self.viewModel.cachedKeyVersion
-                deviceInfoViewController.keyIdentifier = self.viewModel.cachedKeyId
             }
         }
     }
