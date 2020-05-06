@@ -45,9 +45,9 @@ class DeviceInfoViewController: BaseOATHVIewController {
                 case 0:
                     if Int(firmwareVersion.major) < 4 {
                         cell.detailTextLabel?.text = "YubiKey NEO"
-                    } else {
-                        cell.detailTextLabel?.text = "YubiKey NFC"
-                    }
+                    } else if Int(firmwareVersion.major) == 5 {
+                        cell.detailTextLabel?.text = "YubiKey 5 NFC"
+                    } 
                 case 2:
                     if Int(firmwareVersion.major) < 4 {
                         cell.textLabel?.text = "OATH version"
