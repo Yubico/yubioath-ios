@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 513F34BD24633A7900FCE030 /* EditCredential.storyboard */; };
+		513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34BF2463F0C900FCE030 /* EditFieldController.swift */; };
+		513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C12463F44300FCE030 /* EditCredentialController.swift */; };
+		513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C72464658F00FCE030 /* SettingsRowView.swift */; };
+		513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34DB246B144300FCE030 /* UIViewAdditions.swift */; };
+		518F1EE7244DA8F000E4F78B /* RenameOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518F1EE6244DA8F000E4F78B /* RenameOperation.swift */; };
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
 		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
 		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
@@ -83,6 +89,12 @@
 
 /* Begin PBXFileReference section */
 		45F91D129E5099BF43FFD197 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
+		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
+		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
+		513F34C72464658F00FCE030 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		513F34DB246B144300FCE030 /* UIViewAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAdditions.swift; sourceTree = "<group>"; };
+		518F1EE6244DA8F000E4F78B /* RenameOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenameOperation.swift; sourceTree = "<group>"; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
 		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
@@ -176,6 +188,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		513F34BC24633A4A00FCE030 /* EditCredential */ = {
+			isa = PBXGroup;
+			children = (
+				513F34BD24633A7900FCE030 /* EditCredential.storyboard */,
+				513F34C12463F44300FCE030 /* EditCredentialController.swift */,
+				513F34BF2463F0C900FCE030 /* EditFieldController.swift */,
+				513F34C72464658F00FCE030 /* SettingsRowView.swift */,
+			);
+			path = EditCredential;
+			sourceTree = "<group>";
+		};
 		6C05878C67054995188B04AE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +234,7 @@
 				817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */,
 				A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */,
 				A525965A23A45501006AA3C0 /* UIImageAdditions.swift */,
+				513F34DB246B144300FCE030 /* UIViewAdditions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -287,6 +311,7 @@
 				A544948A23CE546B003E1E07 /* FRE */,
 				81FA3C30231AF198009C22AB /* ApplicationSettings */,
 				81FA3C2B2319839B009C22AB /* AddCredential */,
+				513F34BC24633A4A00FCE030 /* EditCredential */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
 			);
@@ -319,6 +344,7 @@
 				816BF3D42325835C00D2F44A /* CalculateAllOperation.swift */,
 				815E0A4723293A0A00F2478F /* ValidateOperation.swift */,
 				815E0A4923294DEA00F2478F /* PutOperation.swift */,
+				518F1EE6244DA8F000E4F78B /* RenameOperation.swift */,
 				815E0A4B2329520100F2478F /* DeleteOperation.swift */,
 				815E0A4D2329557300F2478F /* SetCodeOperation.swift */,
 				81BE0C26232975AA00C60E1D /* ResetOperation.swift */,
@@ -488,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
+				513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */,
 				A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
 				A544949023CE546B003E1E07 /* Fre.storyboard in Resources */,
@@ -563,9 +590,12 @@
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				816BF3D52325835C00D2F44A /* CalculateAllOperation.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
+				518F1EE7244DA8F000E4F78B /* RenameOperation.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
 				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
+				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
+				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
@@ -575,6 +605,7 @@
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				A537399E23DB9C520057E9E2 /* AuthenticationTypeEnum.swift in Sources */,
 				815E0A4E2329557300F2478F /* SetCodeOperation.swift in Sources */,
+				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				81E009C322FF44B100E7715B /* KeySessionObserver.swift in Sources */,
 				81E8D4E0231FF9A9004B6F9E /* OATHOperation.swift in Sources */,
@@ -589,6 +620,7 @@
 				815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */,
 				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
+				513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */,
 				A5D4E87524087A1D00FD63A0 /* SetKeyConfigurationOperation.swift in Sources */,
 				81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,

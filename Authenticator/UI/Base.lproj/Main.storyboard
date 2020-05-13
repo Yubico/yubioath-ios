@@ -85,7 +85,7 @@
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-Oe-FZH">
                                             <rect key="frame" x="371.5" y="47.5" width="20" height="20"/>
                                         </activityIndicatorView>
-                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Star" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
                                             <rect key="frame" x="369" y="11" width="25" height="26"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" name="Favorite"/>
@@ -128,12 +128,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Accounts" id="Ecq-ES-9eb">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" image="Settings" id="jeY-LK-zwC">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" image="gear" catalog="system" id="jeY-LK-zwC">
                             <connections>
                                 <segue destination="IqS-lg-whJ" kind="show" id="fTw-or-UJD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zlN-3Z-daV">
+                        <barButtonItem key="rightBarButtonItem" title="Add Account" image="plus" catalog="system" id="zlN-3Z-daV">
                             <connections>
                                 <action selector="onAddCredentialClick:" destination="r4m-OO-XO1" id="d6O-b7-EEM"/>
                             </connections>
@@ -787,8 +787,9 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
     <resources>
-        <image name="Settings" width="24" height="24"/>
-        <image name="Star" width="24" height="24"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="touch" width="24" height="24"/>
         <namedColor name="Favorite">
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

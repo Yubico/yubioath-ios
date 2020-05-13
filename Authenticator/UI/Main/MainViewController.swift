@@ -148,8 +148,8 @@ class MainViewController: BaseOATHVIewController {
             }
         }
             
-        deleteAction.image = UIImage.trash
-        deleteAction.backgroundColor = .red
+        deleteAction.image = UIImage(nameOrSystemName: "trash")
+        deleteAction.backgroundColor = UIColor(named: "Color1")
                
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
             let credential = self.viewModel.credentials[indexPath.row]
@@ -179,7 +179,7 @@ class MainViewController: BaseOATHVIewController {
                 self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
             }
 
-            action.image = UIImage.star
+            action.image = UIImage(nameOrSystemName: "star")
         } else {
             // Add credential to the set of Favorites.
             action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
@@ -191,7 +191,7 @@ class MainViewController: BaseOATHVIewController {
             }
             
             action.backgroundColor = UIColor(named: "Favorite")
-            action.image = UIImage.starFilled
+            action.image = UIImage(nameOrSystemName: "star.fill")
         }
         
         let configuration = UISwipeActionsConfiguration(actions: [action])
