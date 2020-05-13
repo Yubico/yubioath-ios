@@ -118,6 +118,10 @@ class YubikitManagerModel: NSObject {
         addOperation(operation: DeleteOperation(credential: credential))
     }
     
+    public func renameCredential(credential: Credential, issuer: String, account: String) {
+        addOperation(operation: RenameOperation(credential: credential, issuer: issuer, account: account))
+    }
+    
     public func setCode(password: String) {
         addOperation(operation: SetCodeOperation(password: password))
     }
@@ -552,6 +556,7 @@ enum OperationName : String {
     case calculate = "calculate"
     case calculateAll = "calculate all"
     case delete = "delete"
+    case rename = "rename"
     case setCode = "set code"
     case validate = "validate"
     case reset = "reset"
