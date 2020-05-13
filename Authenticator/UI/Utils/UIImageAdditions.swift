@@ -6,25 +6,13 @@
 //  Copyright © 2019 Irina Makhalova. All rights reserved.
 //
 
-import Foundation
-
 extension UIImage {
-    
-    static var star: UIImage? {
-        get {
-            return UIImage(named: "Star")
-        }
-    }
-    
-    static var starFilled: UIImage? {
-        get {
-            return UIImage(named: "StarFilled")
-        }
-    }
-    
-    static var trash: UIImage? {
-        get {
-            return UIImage(named: "Delete")
+    /// Returns a system image on iOS 13, otherwise returns an image from the Bundle provided.
+    convenience init?(nameOrSystemName: String, in bundle: Bundle? = Bundle.main, compatibleWith traitCollection: UITraitCollection? = nil) {
+        if #available(iOS 13, *) {
+            self.init(systemName: nameOrSystemName, compatibleWith: traitCollection)
+        } else {
+            self.init(named: nameOrSystemName, in: bundle, compatibleWith: traitCollection)
         }
     }
 }
