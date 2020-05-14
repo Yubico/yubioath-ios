@@ -28,9 +28,12 @@ class EditCredentialController: UITableViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        if let credential = credential, let issuer = issuerRow.value, let account = accountRow.value {
-            viewModel?.renameCredential(credential: credential, issuer: issuer, account: account)
+        guard let credential = credential, let issuer = issuerRow.value, let account = accountRow.value, account.count > 0 else {
+            showAlertDialog(title: "Account not set")
+            return
         }
+        
+        viewModel?.renameCredential(credential: credential, issuer: issuer, account: account)
         self.dismiss(animated: true)
     }
     
