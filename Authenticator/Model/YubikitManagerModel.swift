@@ -121,6 +121,7 @@ class YubikitManagerModel: NSObject {
     
     public func renameCredential(credential: Credential, issuer: String, account: String) {
         addOperation(operation: RenameOperation(credential: credential, issuer: issuer, account: account))
+        addOperation(operation: CalculateAllOperation())
     }
     
     public func setCode(password: String) {
