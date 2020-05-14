@@ -12,12 +12,14 @@ class EditFieldController: UITableViewController, UINavigationControllerDelegate
     
     @IBOutlet weak var field: UITextField!
     var settingsRow: SettingsRowView?
+    var enablesReturnKeyAutomatically: Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
         field.text = settingsRow?.value
         title = settingsRow?.title
         field.becomeFirstResponder()
         field.delegate = self
+        field.enablesReturnKeyAutomatically = enablesReturnKeyAutomatically;
     }
     
     override func viewWillDisappear(_ animated: Bool) {

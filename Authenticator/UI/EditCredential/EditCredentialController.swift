@@ -24,12 +24,13 @@ class EditCredentialController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingsRow = (sender as? UITableViewCell)?.contentView.subviews.first as? SettingsRowView else { return }
         guard let editFieldController = segue.destination as? EditFieldController else { return }
+        editFieldController.enablesReturnKeyAutomatically = settingsRow == accountRow
         editFieldController.settingsRow = settingsRow
     }
     
     @IBAction func save(_ sender: Any) {
         guard let credential = credential, let issuer = issuerRow.value, let account = accountRow.value, account.count > 0 else {
-            showAlertDialog(title: "Account not set")
+            showAlertDialog(title: "Account not set", message: "Account name can not be empty")
             return
         }
         
