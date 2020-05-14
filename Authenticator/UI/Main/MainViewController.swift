@@ -211,6 +211,7 @@ class MainViewController: BaseOATHVIewController {
                 // passing userFreVersion and then setting current freVersion to userDefaults.
                 freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
                 SettingsConfig.lastFreVersionShown = .freVersion
+                SettingsConfig.lastWhatsNewVersionShown = .whatsNewVersion
             }
         }
         

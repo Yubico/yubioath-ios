@@ -803,7 +803,7 @@
                                 <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <subviews>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Hv-2Y-32j">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="699.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="720"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Version 1.3.0" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6De-pA-fyh">
                                                 <rect key="frame" x="151" y="96.666666666666657" width="112" height="37.666666666666657"/>
@@ -844,8 +844,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize YubiKey" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mo-Zs-bAc">
-                                                <rect key="frame" x="130" y="582.33333333333337" width="154" height="21"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change OTP settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mo-Zs-bAc">
+                                                <rect key="frame" x="122.66666666666669" y="582.33333333333337" width="169" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -853,8 +853,8 @@
                                                 <rect key="frame" x="175.66666666666666" y="511.33333333333337" width="63" height="63"/>
                                                 <color key="tintColor" name="YubiBlue"/>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Turn off NDEF tag reading" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNb-7F-bca">
-                                                <rect key="frame" x="42" y="603.33333333333337" width="330" height="36.333333333333371"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Opt in/out of viewing the OTP string when you interact with the YubiKey" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNb-7F-bca">
+                                                <rect key="frame" x="42" y="603.33333333333337" width="330" height="56.666666666666629"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
