@@ -26,6 +26,7 @@ protocol OperationDelegate: class {
     func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration)
     func onSetConfiguration()
     func onGetKeyVersion(version: YKFKeyVersion)
+    func onGetCachedKeyVersion(version: YKFKeyVersion)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -144,6 +145,10 @@ class YubikitManagerModel: NSObject {
     
     public func getKeyVersion() {
         addOperation(operation: GetKeyVersionOperation())
+    }
+    
+    public func getCachedKeyVersion() {
+        addOperation(operation: GetCachedKeyVersionOperation())
     }
     
     public func pause() {
@@ -438,6 +443,17 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
+    func onGetCachedKeyVersion(version: YKFKeyVersion) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.cachedKeyVersion = version
+            self.cachedKeyId = self.keyIdentifier
+        }
+    }
+    
     func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
         self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
@@ -566,6 +582,7 @@ enum OperationName : String {
     case getConfig = "get configuration"
     case setConfig = "set configuration"
     case getKeyVersion = "get version"
+    case getCachedKeyVersion = "get cached version"
 }
 
 enum State {

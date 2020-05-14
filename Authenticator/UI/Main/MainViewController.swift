@@ -147,20 +147,21 @@ class MainViewController: BaseOATHVIewController {
                  self?.viewModel.deleteCredential(credential: credential)
             }
         }
-            
         deleteAction.image = UIImage(nameOrSystemName: "trash")
         deleteAction.backgroundColor = UIColor(named: "Color1")
-               
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
-            let credential = self.viewModel.credentials[indexPath.row]
-            self.performSegue(withIdentifier: .editCredential, sender: credential)
-            handler(true)
-        }
 
-        editAction.image = UIImage(nameOrSystemName: "square.and.pencil")
-        editAction.backgroundColor = UIColor(named: "Color18")
+        var editAction: UIContextualAction? = nil
+        if let version = viewModel.cachedKeyVersion, version >= YKFKeyVersion(bytes: 5, minor: 3, micro: 0)  {
+            editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
+                let credential = self.viewModel.credentials[indexPath.row]
+                self.performSegue(withIdentifier: .editCredential, sender: credential)
+                handler(true)
+            }
+            editAction?.image = UIImage(nameOrSystemName: "square.and.pencil")
+            editAction?.backgroundColor = UIColor(named: "Color18")
+        }
         
-        let configuration = UISwipeActionsConfiguration(actions: [editAction, deleteAction])
+        let configuration = UISwipeActionsConfiguration(actions: [editAction, deleteAction].compactMap { $0 })
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
@@ -277,6 +278,7 @@ class MainViewController: BaseOATHVIewController {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             if viewModel.keyPluggedIn {
                 viewModel.calculateAll()
+                viewModel.getCachedKeyVersion()
                 tableView.reloadData()
             } else {
                 // if YubiKey is unplugged do not show any OTP codes
@@ -486,6 +488,7 @@ extension  MainViewController: NfcSessionObserverDelegate {
         viewModel.nfcStateChanged(state: state)
         if state == .open {
             viewModel.calculateAll()
+            viewModel.getCachedKeyVersion()
         }
     }
 }
