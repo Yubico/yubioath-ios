@@ -13,7 +13,6 @@
 		513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C72464658F00FCE030 /* SettingsRowView.swift */; };
 		513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34DB246B144300FCE030 /* UIViewAdditions.swift */; };
 		518F1EE7244DA8F000E4F78B /* RenameOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518F1EE6244DA8F000E4F78B /* RenameOperation.swift */; };
-		51EEC52F246D2FB000061A8F /* GetCachedKeyVersionOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC52E246D2FB000061A8F /* GetCachedKeyVersionOperation.swift */; };
 		51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */; };
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
 		72C30E6D847930A2AF6F55DB /* Pods_Authenticator_AuthenticatorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB140BD3DFB8669C5DF4FDB1 /* Pods_Authenticator_AuthenticatorTests.framework */; };
@@ -98,7 +97,6 @@
 		513F34C72464658F00FCE030 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		513F34DB246B144300FCE030 /* UIViewAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAdditions.swift; sourceTree = "<group>"; };
 		518F1EE6244DA8F000E4F78B /* RenameOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenameOperation.swift; sourceTree = "<group>"; };
-		51EEC52E246D2FB000061A8F /* GetCachedKeyVersionOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCachedKeyVersionOperation.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 				A5D4E8722408748800FD63A0 /* GetKeyConfigurationOperation.swift */,
 				A5D4E87424087A1D00FD63A0 /* SetKeyConfigurationOperation.swift */,
 				A556D15F2405A100007014A7 /* GetKeyVersionOperation.swift */,
-				51EEC52E246D2FB000061A8F /* GetCachedKeyVersionOperation.swift */,
 				A5F23EAB240E17710060A127 /* BaseOperation.swift */,
 			);
 			path = Operations;
@@ -695,7 +692,6 @@
 				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
-				51EEC52F246D2FB000061A8F /* GetCachedKeyVersionOperation.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
 			);

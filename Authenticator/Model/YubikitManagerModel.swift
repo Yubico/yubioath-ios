@@ -26,7 +26,6 @@ protocol OperationDelegate: class {
     func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration)
     func onSetConfiguration()
     func onGetKeyVersion(version: YKFKeyVersion)
-    func onGetCachedKeyVersion(version: YKFKeyVersion)
 }
 
 /*! This is main view model class that talks to YubiKit
@@ -148,10 +147,6 @@ class YubikitManagerModel: NSObject {
         addOperation(operation: GetKeyVersionOperation())
     }
     
-    public func getCachedKeyVersion() {
-        addOperation(operation: GetCachedKeyVersionOperation())
-    }
-    
     public func pause() {
         self.isPaused = true
         self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
@@ -197,19 +192,19 @@ class YubikitManagerModel: NSObject {
     }
     
     public func emulateSomeRecords() {
-        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361")
+        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential.setupTimerObservation()
         self._credentials.append(credential)
         
-        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725")
+        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
         
-        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true)
+        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential4.setupTimerObservation()
         self._credentials.append(credential4)
         
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691")
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         self.delegate?.onOperationCompleted(operation: .calculateAll)
@@ -444,16 +439,16 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onGetCachedKeyVersion(version: YKFKeyVersion) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.cachedKeyVersion = version
-            self.cachedKeyId = self.keyIdentifier
-        }
-    }
+//    func onGetCachedKeyVersion(version: YKFKeyVersion) {
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self else {
+//                return
+//            }
+//
+//            self.cachedKeyVersion = version
+//            self.cachedKeyId = self.keyIdentifier
+//        }
+//    }
     
     func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
@@ -478,6 +473,21 @@ extension YubikitManagerModel {
     var keyPluggedIn: Bool {
         return YubiKitManager.shared.accessorySession.sessionState == .open
     }
+    
+//    public var version: YKFKeyVersion? {
+//        if let version = YubiKitManager.shared.accessorySession.oathService?.version {
+//            return version
+//        } else {
+//            if #available(iOS 13.0, *) {
+//                print("Version: nfcSession: \(YubiKitManager.shared.nfcSession)")
+//                print("Version: OATHService: \(YubiKitManager.shared.nfcSession.oathService)")
+//                print("Version: \(YubiKitManager.shared.nfcSession.oathService?.version)")
+//                return YubiKitManager.shared.nfcSession.oathService?.version
+//            } else {
+//                return nil
+//            }
+//        }
+//    }
     
     var keyIdentifier: String? {
         if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
@@ -583,7 +593,6 @@ enum OperationName : String {
     case getConfig = "get configuration"
     case setConfig = "set configuration"
     case getKeyVersion = "get version"
-    case getCachedKeyVersion = "get cached version"
 }
 
 enum State {

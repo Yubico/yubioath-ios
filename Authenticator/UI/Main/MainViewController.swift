@@ -136,9 +136,11 @@ class MainViewController: BaseOATHVIewController {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let credential = self.viewModel.credentials[indexPath.row]
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
              // Delete the row from the data source
-            let credential = self.viewModel.credentials[indexPath.row]
              // show warning that user will delete credential to prevent accident removals
              // we also won't update UI until
              // the actual removal happen (for example when user tapped key over NFC)
@@ -151,9 +153,8 @@ class MainViewController: BaseOATHVIewController {
         deleteAction.backgroundColor = UIColor(named: "Color1")
 
         var editAction: UIContextualAction? = nil
-        if let version = viewModel.cachedKeyVersion, version >= YKFKeyVersion(bytes: 5, minor: 3, micro: 0)  {
+        if credential.keyVersion >= YKFKeyVersion(bytes: 5, minor: 3, micro: 0)  {
             editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
-                let credential = self.viewModel.credentials[indexPath.row]
                 self.performSegue(withIdentifier: .editCredential, sender: credential)
                 handler(true)
             }
@@ -278,7 +279,6 @@ class MainViewController: BaseOATHVIewController {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             if viewModel.keyPluggedIn {
                 viewModel.calculateAll()
-                viewModel.getCachedKeyVersion()
                 tableView.reloadData()
             } else {
                 // if YubiKey is unplugged do not show any OTP codes
@@ -488,7 +488,6 @@ extension  MainViewController: NfcSessionObserverDelegate {
         viewModel.nfcStateChanged(state: state)
         if state == .open {
             viewModel.calculateAll()
-            viewModel.getCachedKeyVersion()
         }
     }
 }
