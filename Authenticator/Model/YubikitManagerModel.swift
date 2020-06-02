@@ -439,17 +439,6 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-//    func onGetCachedKeyVersion(version: YKFKeyVersion) {
-//        DispatchQueue.main.async { [weak self] in
-//            guard let self = self else {
-//                return
-//            }
-//
-//            self.cachedKeyVersion = version
-//            self.cachedKeyId = self.keyIdentifier
-//        }
-//    }
-    
     func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
         let retryOperation = operation.createRetryOperation()
         self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
@@ -473,21 +462,6 @@ extension YubikitManagerModel {
     var keyPluggedIn: Bool {
         return YubiKitManager.shared.accessorySession.sessionState == .open
     }
-    
-//    public var version: YKFKeyVersion? {
-//        if let version = YubiKitManager.shared.accessorySession.oathService?.version {
-//            return version
-//        } else {
-//            if #available(iOS 13.0, *) {
-//                print("Version: nfcSession: \(YubiKitManager.shared.nfcSession)")
-//                print("Version: OATHService: \(YubiKitManager.shared.nfcSession.oathService)")
-//                print("Version: \(YubiKitManager.shared.nfcSession.oathService?.version)")
-//                return YubiKitManager.shared.nfcSession.oathService?.version
-//            } else {
-//                return nil
-//            }
-//        }
-//    }
     
     var keyIdentifier: String? {
         if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
