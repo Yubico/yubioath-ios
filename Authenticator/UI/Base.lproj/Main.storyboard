@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ews-nc-Pdd">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -85,8 +85,8 @@
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-Oe-FZH">
                                             <rect key="frame" x="371.66666666666669" y="47.666666666666664" width="20" height="19.999999999999993"/>
                                         </activityIndicatorView>
-                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Star" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
-                                            <rect key="frame" x="369" y="11" width="25" height="26"/>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="y6C-jA-Ng0">
+                                            <rect key="frame" x="369" y="11.33333333333333" width="25" height="25.666666666666668"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" name="Favorite"/>
                                             <constraints>
@@ -128,12 +128,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Accounts" id="Ecq-ES-9eb">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" image="Settings" id="jeY-LK-zwC">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" image="gear" catalog="system" id="jeY-LK-zwC">
                             <connections>
                                 <segue destination="IqS-lg-whJ" kind="show" id="fTw-or-UJD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zlN-3Z-daV">
+                        <barButtonItem key="rightBarButtonItem" title="Add Account" image="plus" catalog="system" id="zlN-3Z-daV">
                             <connections>
                                 <action selector="onAddCredentialClick:" destination="r4m-OO-XO1" id="d6O-b7-EEM"/>
                             </connections>
@@ -142,6 +142,7 @@
                     <connections>
                         <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="0dB-Xx-crT"/>
                         <segue destination="ffl-wX-lrv" kind="presentation" identifier="AddCredentialSequeID" id="qUJ-ak-UTT"/>
+                        <segue destination="9wC-w2-Zzl" kind="presentation" identifier="EditCredential" id="iyd-zI-G00"/>
                         <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="0Gs-5m-Syj"/>
                     </connections>
                 </tableViewController>
@@ -555,7 +556,7 @@
                 <viewControllerPlaceholder storyboardName="AddCredential" id="ffl-wX-lrv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcH-jA-mSQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="449" y="-569"/>
+            <point key="canvasLocation" x="780" y="-575"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="McT-KE-rAN">
@@ -951,6 +952,16 @@
             </objects>
             <point key="canvasLocation" x="1136" y="-433"/>
         </scene>
+        <!--EditCredential-->
+        <scene sceneID="peD-eI-CIP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="EditCredential" id="9wC-w2-Zzl" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="34g-y4-K8S"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qXT-1j-tOp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="780" y="-700"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="CgE-gV-OlK"/>
@@ -958,11 +969,12 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
     <resources>
-        <image name="Settings" width="24" height="24"/>
-        <image name="Star" width="24" height="24"/>
         <image name="biometric" width="63" height="63"/>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="touch" width="24" height="24"/>
         <namedColor name="Favorite">
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

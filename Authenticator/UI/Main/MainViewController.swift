@@ -138,10 +138,12 @@ class MainViewController: BaseOATHVIewController {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let credential = self.viewModel.credentials[indexPath.row]
+        
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
              // Delete the row from the data source
-            let credential = self.viewModel.credentials[indexPath.row]
-             // show warning that user will delete credential to preven accident removals
+             // show warning that user will delete credential to prevent accident removals
              // we also won't update UI until
              // the actual removal happen (for example when user tapped key over NFC)
              let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
@@ -149,12 +151,21 @@ class MainViewController: BaseOATHVIewController {
                  self?.viewModel.deleteCredential(credential: credential)
             }
         }
-            
-        deleteAction.image = UIImage.trash
-        deleteAction.backgroundColor = .red
-               
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
+        deleteAction.image = UIImage(nameOrSystemName: "trash")
+        deleteAction.backgroundColor = UIColor(named: "Color1")
+
+        var editAction: UIContextualAction? = nil
+        if credential.keyVersion >= YKFKeyVersion(bytes: 5, minor: 3, micro: 0)  {
+            editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
+                self.performSegue(withIdentifier: .editCredential, sender: credential)
+                handler(true)
+            }
+            editAction?.image = UIImage(nameOrSystemName: "square.and.pencil")
+            editAction?.backgroundColor = UIColor(named: "Color18")
+        }
+        
+        let configuration = UISwipeActionsConfiguration(actions: [editAction, deleteAction].compactMap { $0 })
+        configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
     
@@ -172,7 +183,7 @@ class MainViewController: BaseOATHVIewController {
                 self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
             }
 
-            action.image = UIImage.star
+            action.image = UIImage(nameOrSystemName: "star")
         } else {
             // Add credential to the set of Favorites.
             action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
@@ -184,7 +195,7 @@ class MainViewController: BaseOATHVIewController {
             }
             
             action.backgroundColor = UIColor(named: "Favorite")
-            action.image = UIImage.starFilled
+            action.image = UIImage(nameOrSystemName: "star.fill")
         }
         
         let configuration = UISwipeActionsConfiguration(actions: [action])
@@ -205,6 +216,14 @@ class MainViewController: BaseOATHVIewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if segue.identifier == .editCredential {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            if let destination = destinationNavigationController.topViewController as? EditCredentialController, let sender = sender as? Credential  {
+                destination.credential = sender
+                destination.viewModel = viewModel
+            }
+        }
+
         if segue.identifier == .startFRE {
             let destinationNavigationController = segue.destination as! UINavigationController
             if let freViewController = destinationNavigationController.topViewController as? FrePageViewController {

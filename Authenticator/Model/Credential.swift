@@ -23,8 +23,13 @@ class Credential: NSObject {
     static let DEFAULT_PERIOD: UInt = 30
     private static let STEAM_ISSUER = "steam"
     private static let STEAM_CHARS = Array("23456789BCDFGHJKMNPQRTVWXY")
-
-
+    
+    
+    /*!
+     Firmware version of the key that generated the credential.
+     */
+    let keyVersion: YKFKeyVersion
+    
     /*!
      The credential type (HOTP or TOTP).
      */
@@ -79,7 +84,8 @@ class Credential: NSObject {
      */
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false) {
+    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false, keyVersion: YKFKeyVersion) {
+        self.keyVersion = keyVersion
         self.type = type
         self.account = account
         self.issuer = issuer
@@ -96,7 +102,8 @@ class Credential: NSObject {
         }
     }
     
-    init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult) {
+    init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult, keyVersion: YKFKeyVersion) {
+        self.keyVersion = keyVersion
         type = credential.type
         account = credential.account
         issuer = credential.issuer

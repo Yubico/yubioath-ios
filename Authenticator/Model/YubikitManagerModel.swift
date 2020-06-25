@@ -118,6 +118,11 @@ class YubikitManagerModel: NSObject {
         addOperation(operation: DeleteOperation(credential: credential))
     }
     
+    public func renameCredential(credential: Credential, issuer: String, account: String) {
+        addOperation(operation: RenameOperation(credential: credential, issuer: issuer, account: account))
+        addOperation(operation: CalculateAllOperation())
+    }
+    
     public func setCode(password: String) {
         addOperation(operation: SetCodeOperation(password: password))
     }
@@ -187,19 +192,19 @@ class YubikitManagerModel: NSObject {
     }
     
     public func emulateSomeRecords() {
-        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361")
+        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential.setupTimerObservation()
         self._credentials.append(credential)
         
-        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725")
+        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
         
-        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true)
+        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential4.setupTimerObservation()
         self._credentials.append(credential4)
         
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691")
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         self.delegate?.onOperationCompleted(operation: .calculateAll)
@@ -550,6 +555,7 @@ enum OperationName : String {
     case calculate = "calculate"
     case calculateAll = "calculate all"
     case delete = "delete"
+    case rename = "rename"
     case setCode = "set code"
     case validate = "validate"
     case reset = "reset"

@@ -38,7 +38,7 @@ class CalculateAllOperation: OATHOperation {
             }
             
             self.credentials = response.credentials.map {
-              return Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult))
+                return Credential(fromYKFOATHCredentialCalculateResult: ($0 as! YKFOATHCredentialCalculateResult), keyVersion: response.keyVersion)
             }
 
             self.operationSucceeded()

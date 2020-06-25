@@ -10,4 +10,7 @@ target 'Authenticator' do
     # Use pod from submodule
     pod 'YubiKit', :path => './YubiKit'
 
+    target 'AuthenticatorTests' do
+      inherit! :complete
+    end
 end

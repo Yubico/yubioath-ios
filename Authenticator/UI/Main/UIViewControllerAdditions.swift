@@ -90,7 +90,7 @@ extension UIViewController {
 
     /*! Show error dialog to notify if some operation couldn't be executed
      */
-    func showAlertDialog(title: String, message: String, nfcHandler: (() -> Void)? = nil, okHandler: (() -> Void)? = nil) {
+    func showAlertDialog(title: String, message: String? = nil, nfcHandler: (() -> Void)? = nil, okHandler: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancel = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
             okHandler?()
