@@ -431,9 +431,7 @@ extension YubikitManagerModel: OperationDelegate {
             guard let self = self else {
                 return
             }
-            
             self.cachedKeyVersion = version
-            self.cachedKeyId = self.keyIdentifier
             
             self.delegate?.onOperationCompleted(operation: .getKeyVersion)
         }

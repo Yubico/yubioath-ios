@@ -15,6 +15,7 @@ class SettingsConfig {
     static private let noServiceWarning = "nfcwarning"
     static private let allowBackup = "backup"
     static private let freVersion = "freVersion"
+    static private let whatsNewVersion = "whatsNewVersion"
 
     static var showNoServiceWarning: Bool {
         get {
@@ -40,6 +41,15 @@ class SettingsConfig {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: freVersion)
+        }
+    }
+    
+    static var lastWhatsNewVersionShown : Int {
+        get {
+            return UserDefaults.standard.integer(forKey: whatsNewVersion)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: whatsNewVersion)
         }
     }
 }

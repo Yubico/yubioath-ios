@@ -16,10 +16,16 @@ class DeviceInfoViewController: BaseOATHVIewController {
     
     var keyDescription: YKFAccessoryDescription?
     var keyVersion: YKFKeyVersion?
-    var keyIdentifier: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if keyDescription == nil && indexPath.row == 1 {
+            return 0
+        }
+        return 44
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,13 +45,10 @@ class DeviceInfoViewController: BaseOATHVIewController {
                 case 0:
                     if Int(firmwareVersion.major) < 4 {
                         cell.detailTextLabel?.text = "YubiKey NEO"
+                    } else if Int(firmwareVersion.major) == 5 {
+                        cell.detailTextLabel?.text = "YubiKey 5 NFC"
                     } else {
                         cell.detailTextLabel?.text = "YubiKey NFC"
-                    }
-                case 1:
-                    cell.textLabel?.text = "Unique ID"
-                    if let keyId = self.keyIdentifier {
-                        cell.detailTextLabel?.text = keyId
                     }
                 case 2:
                     if Int(firmwareVersion.major) < 4 {
