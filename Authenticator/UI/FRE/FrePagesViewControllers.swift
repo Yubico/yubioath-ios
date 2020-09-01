@@ -8,7 +8,22 @@
 
 import UIKit
 
-class FreWelcomeViewController: UIViewController {
+class WelcomeViewController: UIViewController {
+    @IBAction func openUrl(_ sender: Any) {
+        guard
+            let button = sender as? UrlButton,
+            let urlString = button.value(forKeyPath: "url") as? String,
+            let url = URL(string: urlString)
+        else { return }
+        UIApplication.shared.open(url)
+    }
+}
+
+class UrlButton: UIButton {
+    @IBInspectable var url : String?
+}
+
+class FreWelcomeViewController: WelcomeViewController {
     static let identifier = "FreWelcomeViewController"
 }
 
