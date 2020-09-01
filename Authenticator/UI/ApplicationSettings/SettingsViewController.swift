@@ -93,7 +93,7 @@ class SettingsViewController: BaseOATHVIewController {
             }
             
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
-            webVC.url = URL(string: "http://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
+            webVC.url = URL(string: "https://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
             self.navigationController?.pushViewController(webVC, animated: true)
             
         case (3, 0):
