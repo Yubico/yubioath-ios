@@ -15,6 +15,15 @@ class MainViewController: BaseOATHVIewController {
     private var keySessionObserver: KeySessionObserver!
     private var credentailToAdd: YKFOATHCredential?
     
+    private var backgroundView: UIView? {
+        willSet {
+            backgroundView?.removeFromSuperview()
+            if let newValue = newValue {
+                self.tableView.addSubview(newValue)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -361,8 +370,8 @@ class MainViewController: BaseOATHVIewController {
         // using this background view to show on background when the table is empty
         // this background view contains 3 parts: image, title and optionally subtitle
         
-        let width = self.view.bounds.size.width;
-        let height = self.view.bounds.size.height
+        let width = self.view.bounds.size.width
+        let height = self.view.bounds.size.height - 300
         
         let marginFromParent: CGFloat = 50.0
         let marginFromNeighbour: CGFloat = 20.0
@@ -417,7 +426,7 @@ class MainViewController: BaseOATHVIewController {
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(gestureRecognizer)
 
-        self.tableView.backgroundView = backgroundView;
+        self.backgroundView = backgroundView
         self.tableView.separatorStyle = .none
     }
        
