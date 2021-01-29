@@ -72,7 +72,8 @@
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		A5F23EAC240E17710060A127 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F23EAB240E17710060A127 /* BaseOperation.swift */; };
-		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		B9F0FF11F842A39183974083 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		DBFEB4E4D30A7620D3BEDDFB /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
 		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
 		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
@@ -179,7 +181,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5184C62B24A49C0B00E102DA /* YubiKit.framework in Frameworks */,
-				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
+				B9F0FF11F842A39183974083 /* BuildFile in Frameworks */,
+				DBFEB4E4D30A7620D3BEDDFB /* Pods_Authenticator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +327,7 @@
 			children = (
 				5184C62A24A49C0B00E102DA /* YubiKit.framework */,
 				FB140BD3DFB8669C5DF4FDB1 /* Pods_Authenticator_AuthenticatorTests.framework */,
+				50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
