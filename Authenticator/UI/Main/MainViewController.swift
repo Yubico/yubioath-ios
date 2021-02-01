@@ -33,7 +33,8 @@ class MainViewController: BaseOATHVIewController {
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            self.showAlertDialog(title: "Device not supported", message: "This device has no support for NFC nor a Lightning port for the YubiKey to connect to.")
+            let message = "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") has no support for NFC nor a Lightning port for the YubiKey to connect to."
+            self.showAlertDialog(title: "Device not supported", message: message)
         }
 #endif
         // Uncomment the following line to preserve selection between presentations
@@ -470,7 +471,7 @@ class MainViewController: BaseOATHVIewController {
                 return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "Main view subtitle when filter is applied and has no results.")
                     : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "Main view subtitle when the key doesn't have any accounts.")
             case .notSupported:
-                return "This device is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to."
+                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to."
             default:
                 return nil
         }
