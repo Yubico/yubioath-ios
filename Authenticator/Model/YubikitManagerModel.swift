@@ -47,7 +47,13 @@ class YubikitManagerModel: NSObject {
     /*!
      * Allows to detect whether credentials list empty because device doesn't have any credentials or it's not loaded from device yet
      */
-    var state: State = .idle
+    var state: State = {
+        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            return .notSupported
+        } else {
+            return .idle
+        }
+    }()
     
     private var _credentials = [Credential]()
     
@@ -158,6 +164,10 @@ class YubikitManagerModel: NSObject {
     }
     
     public func cleanUp() {
+        guard YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags else {
+            return
+        }
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
@@ -572,4 +582,5 @@ enum State {
     case loading
     case locked
     case loaded
+    case notSupported
 }

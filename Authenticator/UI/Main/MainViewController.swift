@@ -33,8 +33,8 @@ class MainViewController: BaseOATHVIewController {
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            let error = KeySessionError.notSupported
-            self.showAlertDialog(title: "", message: error.localizedDescription)
+            let message = "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") has no support for NFC nor a Lightning port for the YubiKey to connect to."
+            self.showAlertDialog(title: "Device not supported", message: message)
         }
 #endif
         // Uncomment the following line to preserve selection between presentations
@@ -104,6 +104,7 @@ class MainViewController: BaseOATHVIewController {
         if viewModel.credentials.count > 0 {
             self.tableView.backgroundView = nil
             self.tableView.separatorStyle = .singleLine
+            backgroundView = nil
             return 1
         } else {
             showBackgroundView()
@@ -323,7 +324,7 @@ class MainViewController: BaseOATHVIewController {
         credentialsSearchController.searchResultsUpdater = self
         credentialsSearchController.obscuresBackgroundDuringPresentation = false
         credentialsSearchController.dimsBackgroundDuringPresentation = false
-        credentialsSearchController.searchBar.placeholder = "Quick Find"
+        credentialsSearchController.searchBar.placeholder = "Quick find"
         navigationItem.searchController = credentialsSearchController
         navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
@@ -346,12 +347,14 @@ class MainViewController: BaseOATHVIewController {
     }
     
     private func setupRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        // setting background to refresh control changes behavior of spinner
-        // and it gets dragged with pull rather than sticks to the top of the view
-        refreshControl.backgroundColor = .clear
-        refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
-        self.refreshControl = refreshControl
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            let refreshControl = UIRefreshControl()
+            // setting background to refresh control changes behavior of spinner
+            // and it gets dragged with pull rather than sticks to the top of the view
+            refreshControl.backgroundColor = .clear
+            refreshControl.addTarget(self, action:  #selector(refreshData), for: .valueChanged)
+            self.refreshControl = refreshControl
+        }
     }
 
     private func refreshUIOnKeyStateUpdate() {
@@ -375,6 +378,7 @@ class MainViewController: BaseOATHVIewController {
         
         let marginFromParent: CGFloat = 50.0
         let marginFromNeighbour: CGFloat = 20.0
+        let horizontalMargin: CGFloat = width > 400 ? width * 0.4 : 20.0
 
         let backgroundView = UIView()
         backgroundView.center = tableView.center
@@ -394,7 +398,7 @@ class MainViewController: BaseOATHVIewController {
         
         // 2. title is below the image
         let messageLabel = UILabel()
-        messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
+        messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - horizontalMargin, height:height/4)
         messageLabel.textAlignment = NSTextAlignment.center
         messageLabel.text = getTitle()
         messageLabel.textColor = UIColor.secondaryText
@@ -410,7 +414,7 @@ class MainViewController: BaseOATHVIewController {
             let secondaryMessageLabel = UILabel()
             // setting frame here because multiple lines label requires bounds,
             // otherwise it spreads outside of view boundaries in 1 line
-            secondaryMessageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - marginFromParent, height:height/4)
+            secondaryMessageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - horizontalMargin, height:height/4)
             secondaryMessageLabel.textAlignment = NSTextAlignment.center
             secondaryMessageLabel.numberOfLines = 3
             secondaryMessageLabel.text = subtitle
@@ -434,8 +438,10 @@ class MainViewController: BaseOATHVIewController {
         switch viewModel.state {
             case .loaded:
                 // No accounts view
-                return UIImage(named: "NoAccounts")
-            default:
+                return UIImage(nameOrSystemName: "person.fill.badge.plus")
+            case .notSupported:
+                return UIImage(nameOrSystemName: "exclamationmark.circle")
+           default:
                 // YubiKey image
                 return UIImage(named: "InsertKey")
         }
@@ -449,7 +455,9 @@ class MainViewController: BaseOATHVIewController {
                 return  NSLocalizedString("Loading...", comment: "Main view title while loading data.")
             case .locked:
                 return NSLocalizedString("Authentication is required", comment: "Main view title when the key has password.")
-
+            case .notSupported:
+                return "Device not supported"
+            
             default:
                 return viewModel.hasFilter ? NSLocalizedString("No accounts found", comment: "Main view title when filter is applied and has no results") : NSLocalizedString("Add accounts", comment: "Main view title when the key doesn't have any accounts.")
         }
@@ -462,6 +470,8 @@ class MainViewController: BaseOATHVIewController {
             case .loaded:
                 return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "Main view subtitle when filter is applied and has no results.")
                     : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "Main view subtitle when the key doesn't have any accounts.")
+            case .notSupported:
+                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to."
             default:
                 return nil
         }
