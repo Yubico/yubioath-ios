@@ -388,22 +388,22 @@
                                             <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="CgE-gV-OlK"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
-                                        <rect key="frame" x="0.0" y="619.33333206176758" width="414" height="56"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
+                                        <rect key="frame" x="0.0" y="619.33333206176758" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uhk-Qp-xgv" id="zIl-32-rQz">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Yubico Authenticator 1.0.0-alpha01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="NhA-gS-bWd">
-                                                    <rect key="frame" x="19.999999999999986" y="9.3333333333333339" width="252.66666666666666" height="19.333333333333332"/>
+                                                    <rect key="frame" x="19.999999999999986" y="8.3333333333333339" width="252.66666666666666" height="19.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Copyright (c) 2020, Yubico Inc. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="9sA-3C-5qt">
-                                                    <rect key="frame" x="20" y="31.333333333333332" width="286.33333333333331" height="14.333333333333334"/>
+                                                    <rect key="frame" x="20" y="30.333333333333332" width="286.33333333333331" height="14.333333333333334"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -454,7 +454,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-DN-oqW">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="44"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="150" id="90v-dK-PY6"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="90v-dK-PY6"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
@@ -489,7 +489,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="al9-tv-dIv">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="44"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="150" id="STA-UP-ODp"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="STA-UP-ODp"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
@@ -965,8 +965,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Gs-5m-Syj"/>
-        <segue reference="0dB-Xx-crT"/>
+        <segue reference="CgE-gV-OlK"/>
+        <segue reference="UPN-tw-Bce"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor"/>
     <resources>
