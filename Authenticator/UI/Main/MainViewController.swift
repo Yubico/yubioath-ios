@@ -471,7 +471,7 @@ class MainViewController: BaseOATHVIewController {
                 return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "Main view subtitle when filter is applied and has no results.")
                     : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "Main view subtitle when the key doesn't have any accounts.")
             case .notSupported:
-                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to."
+                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a lightning port."
             default:
                 return nil
         }
