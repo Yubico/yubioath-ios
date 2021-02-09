@@ -323,7 +323,6 @@ class MainViewController: BaseOATHVIewController {
         credentialsSearchController = UISearchController(searchResultsController: nil)
         credentialsSearchController.searchResultsUpdater = self
         credentialsSearchController.obscuresBackgroundDuringPresentation = false
-        credentialsSearchController.dimsBackgroundDuringPresentation = false
         credentialsSearchController.searchBar.placeholder = "Quick find"
         navigationItem.searchController = credentialsSearchController
         navigationItem.hidesSearchBarWhenScrolling = true

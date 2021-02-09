@@ -33,7 +33,8 @@ class WebViewController: UIViewController, WKUIDelegate {
         activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
         activityIndicator.center = webView.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = .gray
+        activityIndicator.style = .medium
+        activityIndicator.color = .gray
         webView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
     }
