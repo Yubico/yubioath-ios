@@ -143,14 +143,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
     func onOperationCompleted(operation: OperationName) {
         switch operation {
         case .setCode:
-            self.showAlertDialog(title: "Success", message: "The password has been successfully set") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "The password has been successfully set", okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
-            }
+            })
         case .reset:
-            self.showAlertDialog(title: "Success", message: "The application has been successfully reset") { [weak self] () -> Void in
+            self.showAlertDialog(title: "Success", message: "The application has been successfully reset", okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
                 self?.tableView.reloadData()
-            }
+            })
         case .getConfig:
             DispatchQueue.main.async { [weak self] in
                 self?.performSegue(withIdentifier: "ShowTagSettings", sender: self)
