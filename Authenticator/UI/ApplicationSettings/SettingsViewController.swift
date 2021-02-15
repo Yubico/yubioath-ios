@@ -115,7 +115,7 @@ class SettingsViewController: BaseOATHVIewController {
                 self?.dismiss(animated: true, completion: nil)
             })
         } catch let e {
-            self.showAlertDialog(title: "Error happend during cleaning up passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
+            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
         }
