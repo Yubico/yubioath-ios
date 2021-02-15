@@ -70,7 +70,7 @@ extension PasswordQueryable: SecureStoreQueryable {
         if useAuthentication {
             query[String(kSecAttrAccessControl)] = SecAccessControlCreateWithFlags(nil, // use the default allocator
                                                                                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-                                                                                   .userPresence,
+                                                                                   .biometryCurrentSet,
                                                                                    nil) // ignore any error
             let context = LAContext()
             // Number of seconds to wait between a device unlock with biometric and another biometric authentication request.
