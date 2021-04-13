@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,11 +12,10 @@
 		513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C12463F44300FCE030 /* EditCredentialController.swift */; };
 		513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C72464658F00FCE030 /* SettingsRowView.swift */; };
 		513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34DB246B144300FCE030 /* UIViewAdditions.swift */; };
-		5184C62B24A49C0B00E102DA /* YubiKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5184C62A24A49C0B00E102DA /* YubiKit.framework */; };
 		518F1EE7244DA8F000E4F78B /* RenameOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518F1EE6244DA8F000E4F78B /* RenameOperation.swift */; };
+		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */; };
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
-		72C30E6D847930A2AF6F55DB /* Pods_Authenticator_AuthenticatorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB140BD3DFB8669C5DF4FDB1 /* Pods_Authenticator_AuthenticatorTests.framework */; };
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
 		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
 		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
@@ -73,7 +72,6 @@
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		A5F23EAC240E17710060A127 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F23EAB240E17710060A127 /* BaseOperation.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		DBFEB4E4D30A7620D3BEDDFB /* Pods_Authenticator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,13 +92,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
 		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
 		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
 		513F34C72464658F00FCE030 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		513F34DB246B144300FCE030 /* UIViewAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAdditions.swift; sourceTree = "<group>"; };
-		5184C62A24A49C0B00E102DA /* YubiKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YubiKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		518F1EE6244DA8F000E4F78B /* RenameOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenameOperation.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
@@ -159,7 +155,6 @@
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionInfoViewController.swift; sourceTree = "<group>"; };
-		A5C53C352370EA8B00C89CAC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationConroller.swift; sourceTree = "<group>"; };
 		A5D4E87024085A9C00FD63A0 /* ManagmentServiceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagmentServiceOperation.swift; sourceTree = "<group>"; };
@@ -168,11 +163,6 @@
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		A5F23EAB240E17710060A127 /* BaseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
-		B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.debug.xcconfig"; sourceTree = "<group>"; };
-		D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator.release.xcconfig"; path = "Target Support Files/Pods-Authenticator/Pods-Authenticator.release.xcconfig"; sourceTree = "<group>"; };
-		E46C16D9B307B6C9EB13F8CD /* Pods-Authenticator-AuthenticatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator-AuthenticatorTests.debug.xcconfig"; path = "Target Support Files/Pods-Authenticator-AuthenticatorTests/Pods-Authenticator-AuthenticatorTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EE573ED5D9478C108C89D08F /* Pods-Authenticator-AuthenticatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Authenticator-AuthenticatorTests.release.xcconfig"; path = "Target Support Files/Pods-Authenticator-AuthenticatorTests/Pods-Authenticator-AuthenticatorTests.release.xcconfig"; sourceTree = "<group>"; };
-		FB140BD3DFB8669C5DF4FDB1 /* Pods_Authenticator_AuthenticatorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Authenticator_AuthenticatorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,9 +170,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5184C62B24A49C0B00E102DA /* YubiKit.framework in Frameworks */,
+				51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
-				DBFEB4E4D30A7620D3BEDDFB /* Pods_Authenticator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72C30E6D847930A2AF6F55DB /* Pods_Authenticator_AuthenticatorTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,17 +211,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		6C05878C67054995188B04AE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */,
-				D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */,
-				E46C16D9B307B6C9EB13F8CD /* Pods-Authenticator-AuthenticatorTests.debug.xcconfig */,
-				EE573ED5D9478C108C89D08F /* Pods-Authenticator-AuthenticatorTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		816C684423430DC000209342 /* SecureStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,14 +220,6 @@
 				816C685D234697BE00209342 /* PasswordPreferences.swift */,
 			);
 			path = SecureStore;
-			sourceTree = "<group>";
-		};
-		81723245237231F100694DF9 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				A5C53C352370EA8B00C89CAC /* StringExtension.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		817DBA0E2368B7BE001FC18D /* Utils */ = {
@@ -272,9 +241,6 @@
 				818866CC22DFD72C006BC0A8 /* AuthenticatorTests */,
 				818866D722DFD72C006BC0A8 /* AuthenticatorUITests */,
 				818866B422DFD729006BC0A8 /* Products */,
-				818866EC22E1845B006BC0A8 /* Frameworks */,
-				81723245237231F100694DF9 /* Recovered References */,
-				6C05878C67054995188B04AE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -320,16 +286,6 @@
 				818866DA22DFD72C006BC0A8 /* Info.plist */,
 			);
 			path = AuthenticatorUITests;
-			sourceTree = "<group>";
-		};
-		818866EC22E1845B006BC0A8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5184C62A24A49C0B00E102DA /* YubiKit.framework */,
-				FB140BD3DFB8669C5DF4FDB1 /* Pods_Authenticator_AuthenticatorTests.framework */,
-				50E6A83EE19F84DA7EDA64F2 /* Pods_Authenticator.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		818BE8DA22F3485600061026 /* UI */ = {
@@ -440,17 +396,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 818866DD22DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "Authenticator" */;
 			buildPhases = (
-				14643F9232239D1357456ED4 /* [CP] Check Pods Manifest.lock */,
 				818866AF22DFD729006BC0A8 /* Sources */,
 				818866B022DFD729006BC0A8 /* Frameworks */,
 				818866B122DFD729006BC0A8 /* Resources */,
-				578D81793E8B565C4A170CA2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Authenticator;
+			packageProductDependencies = (
+				51BFF0632625847B00ECFA6A /* YubiKit */,
+			);
 			productName = Authenticator;
 			productReference = 818866B322DFD729006BC0A8 /* Authenticator.app */;
 			productType = "com.apple.product-type.application";
@@ -530,6 +487,9 @@
 				Base,
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
+			packageReferences = (
+				51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */,
+			);
 			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -572,43 +532,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14643F9232239D1357456ED4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Authenticator-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		578D81793E8B565C4A170CA2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Authenticator/Pods-Authenticator-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		BBFABF0A77B92CDD1967F3B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -882,7 +805,6 @@
 		};
 		818866DE22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6EE9E66603A542C303F5533 /* Pods-Authenticator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
@@ -909,7 +831,6 @@
 		};
 		818866DF22DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4E7E84B0951E179D72DE4B4 /* Pods-Authenticator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
@@ -936,7 +857,6 @@
 		};
 		818866E122DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E46C16D9B307B6C9EB13F8CD /* Pods-Authenticator-AuthenticatorTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -958,7 +878,6 @@
 		};
 		818866E222DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EE573ED5D9478C108C89D08F /* Pods-Authenticator-AuthenticatorTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1058,6 +977,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Yubico/yubikit-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		51BFF0632625847B00ECFA6A /* YubiKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */;
+			productName = YubiKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 818866AB22DFD729006BC0A8 /* Project object */;
 }
