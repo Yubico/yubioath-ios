@@ -26,4 +26,9 @@
         })
         RunLoop.main.add(timer, forMode: .common)
     }
+    
+    deinit {
+        self.timer = nil
+        print("deinit GlobalTimer")
+    }
 }

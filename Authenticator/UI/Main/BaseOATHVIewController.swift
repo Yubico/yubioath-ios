@@ -9,7 +9,7 @@
 import UIKit
 
 class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate {
-    let viewModel = YubikitManagerModel()
+    let viewModel = OATHViewModel()
     let passwordPreferences = PasswordPreferences()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
@@ -50,14 +50,14 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         // Save key identifier in local variable so that it can be accessed when save password is prompted.
         let keyIdentifier = self.viewModel.keyIdentifier
         
-        if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
-            let message = errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue
+        if errorCode == YKFOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFOATHErrorCode.wrongPassword.rawValue {
+            let message = errorCode == YKFOATHErrorCode.wrongPassword.rawValue
                 ? "Incorrect password. Re-enter password."
                 : "To prevent unauthorized access this YubiKey is protected with a password."
             
             // If we saved password in secure store then we can try to authenticate with it.
             // In case of any failure, we keep as if we don't have stored password.
-            if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey), errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
+            if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey), errorCode == YKFOATHErrorCode.authenticationRequired.rawValue {
                     self.validatePassword(for: passwordKey, with: message)
                     // Doing early return for this special case because
                     // we need to keep active session for NFC
@@ -166,7 +166,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             break
         }
         
-        self.viewModel.stopNfc()
+        //self.viewModel.stopNfc()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -174,14 +174,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             let destinationNavigationController = segue.destination as! UINavigationController
             if let deviceInfoViewController = destinationNavigationController.topViewController as? YubiKeyConfigurationConroller, let keyConfig = self.viewModel.cachedKeyConfig {
                 deviceInfoViewController.keyConfiguration = keyConfig
-            }
-        }
-                
-        if segue.identifier == .showDeviceInfo {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            if let deviceInfoViewController = destinationNavigationController.topViewController as? DeviceInfoViewController {
-                deviceInfoViewController.keyDescription = self.viewModel.keyDescription
-                deviceInfoViewController.keyVersion = self.viewModel.cachedKeyVersion
             }
         }
     }
@@ -200,7 +192,7 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             guard let self = self else {
                 return
             }
-            self.viewModel.onRetry(operation: operation, suspendQueue: false)
+//            self.viewModel.onRetry(operation: operation, suspendQueue: false)
         }
     }
     

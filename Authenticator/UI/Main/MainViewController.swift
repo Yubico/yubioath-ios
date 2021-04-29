@@ -12,8 +12,8 @@ class MainViewController: BaseOATHVIewController {
 
     private var credentialsSearchController: UISearchController!
     private var applicationSessionObserver: ApplicationSessionObserver!
-    private var keySessionObserver: KeySessionObserver!
-    private var credentailToAdd: YKFOATHCredential?
+//    private var keySessionObserver: KeySessionObserver!
+    private var credentailToAdd: YKFOATHCredentialTemplate?
     
     private var backgroundView: UIView? {
         willSet {
@@ -45,7 +45,7 @@ class MainViewController: BaseOATHVIewController {
         
         // observe key plug-in/out changes even in background
         // to make sure we don't leave credentials on screen when key was unplugged
-        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
+//        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
@@ -67,7 +67,7 @@ class MainViewController: BaseOATHVIewController {
     }
     
     deinit {
-        keySessionObserver.observeSessionState = false
+//        keySessionObserver.observeSessionState = false
     }
     
     //
@@ -165,7 +165,7 @@ class MainViewController: BaseOATHVIewController {
         deleteAction.backgroundColor = UIColor(named: "Color1")
 
         var editAction: UIContextualAction? = nil
-        if credential.keyVersion >= YKFKeyVersion(bytes: 5, minor: 3, micro: 0)  {
+        if credential.keyVersion >= YKFVersion(bytes: 5, minor: 3, micro: 0)  {
             editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
                 self.performSegue(withIdentifier: .editCredential, sender: credential)
                 handler(true)
@@ -256,7 +256,7 @@ class MainViewController: BaseOATHVIewController {
     @IBAction func unwindToMainViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? AddCredentialController, let credential = sourceViewController.credential {
             // Add a new credential to table.
-            viewModel.addCredential(credential: credential)
+            viewModel.addCredential(credential: credential, requiresTouch: sourceViewController.requiresTouch)
         }
     }
     
@@ -278,7 +278,7 @@ class MainViewController: BaseOATHVIewController {
                 return
             }
             
-            guard let credential = YKFOATHCredential(url: url) else {
+            guard let credential = YKFOATHCredentialTemplate(url: url) else {
                 self?.onError(error: KeySessionError.invalidCredentialUri)
                 return
             }
@@ -307,7 +307,10 @@ class MainViewController: BaseOATHVIewController {
         tableView.reloadData()
     }
     
-    @objc func refreshData() {       
+    @objc func refreshData() {
+        viewModel.calculateAll()
+        refreshControl?.endRefreshing()
+        return
         if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
             viewModel.calculateAll()
         } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
@@ -481,7 +484,7 @@ class MainViewController: BaseOATHVIewController {
             case .loaded:
                 self.onAddCredentialClick(self)
             case .locked:
-                let error = NSError(domain: "", code: Int(YKFKeyOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
+                let error = NSError(domain: "", code: Int(YKFOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
                 self.onError(error: error)
             default:
                 break
@@ -492,7 +495,8 @@ class MainViewController: BaseOATHVIewController {
 //
 // MARK: - Key Session Observer
 //
-extension  MainViewController: AccessorySessionObserverDelegate {
+/*
+extension  MainViewController : AccessorySessionObserverDelegate {
     
     func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
         DispatchQueue.main.async { [weak self] in
@@ -512,6 +516,7 @@ extension  MainViewController: NfcSessionObserverDelegate {
         }
     }
 }
+ */
 // MARK: ApplicationSessionObserverDelegate
 extension MainViewController: ApplicationSessionObserverDelegate {
     func didEnterBackground() {

@@ -10,7 +10,7 @@ import UIKit
 
 class EditCredentialController: UITableViewController {
     public var credential: Credential?
-    public var viewModel: YubikitManagerModel?
+    public var viewModel: OATHViewModel?
     public var model: CredentialViewModelDelegate?
     @IBOutlet weak var issuerRow: SettingsRowView!
     @IBOutlet weak var accountRow: SettingsRowView!

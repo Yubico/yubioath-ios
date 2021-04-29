@@ -8,27 +8,26 @@
 
 import UIKit
 
-class SettingsViewController: BaseOATHVIewController {
+class SettingsViewController: UITableViewController {
     private var allowKeyOperations = YubiKitDeviceCapabilities.supportsISO7816NFCTags
     
-    private var appVersion = UIApplication.appVersion
-    private var systemVersion = UIDevice().systemVersion
-    private var keySessionObserver: KeySessionObserver!
+    private let appVersion = UIApplication.appVersion
+    private let systemVersion = UIDevice().systemVersion
     
     @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
-            self.viewModel.setConfiguration(configuration: keyConfiguration)
+//            self.viewModel.setConfiguration(configuration: keyConfiguration)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
+//        self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.keySessionObserver.observeSessionState = false
+//        self.keySessionObserver.observeSessionState = false
     }
     
     // MARK: - Table view data source
@@ -61,17 +60,19 @@ class SettingsViewController: BaseOATHVIewController {
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            if !self.viewModel.keyPluggedIn {
-                self.viewModel.getKeyVersion()
-            } else {
+            return
+//            if !self.viewModel.keyPluggedIn {
+//                self.viewModel.getKeyVersion()
+//            } else {
                 // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
                 // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
-                DispatchQueue.main.async { [weak self] in
-                    self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
-                }
-            }
+//                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
+//                }
+//            }
         case (0, 2):
-            self.viewModel.getConfiguration()
+            return;
+//            self.viewModel.getConfiguration()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
@@ -88,9 +89,9 @@ class SettingsViewController: BaseOATHVIewController {
             self.navigationController?.pushViewController(webVC, animated: true)
         case (2, 2):
             var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
-            if let description = viewModel.keyDescription {
-                title += ", key \(description.firmwareRevision)"
-            }
+//            if let description = viewModel.keyDescription {
+//                title += ", key \(description.firmwareRevision)"
+//            }
             
             title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
             webVC.url = URL(string: "https://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
@@ -108,9 +109,9 @@ class SettingsViewController: BaseOATHVIewController {
     // MARK: - private helper methods
     
     private func removeStoredPasswords() {
-        passwordPreferences.resetPasswordPreferenceForAll()
+//        passwordPreferences.resetPasswordPreferenceForAll()
         do {
-            try secureStore.removeAllValues()
+//            try secureStore.removeAllValues()
             self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
@@ -123,7 +124,7 @@ class SettingsViewController: BaseOATHVIewController {
 }
 
 // MARK: - Key Session Observer
-
+/*
 extension SettingsViewController: AccessorySessionObserverDelegate {
     func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
         self.tableView.reloadData()
@@ -138,3 +139,4 @@ extension SettingsViewController: NfcSessionObserverDelegate {
         }
     }
 }
+*/

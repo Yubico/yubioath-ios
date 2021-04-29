@@ -30,15 +30,15 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
         self.performSegue(withIdentifier: .unwindToSettingsViewController, sender: sender)
      }
     
-    var keyConfiguration: YKFMGMTInterfaceConfiguration!
+    var keyConfiguration: YKFManagementInterfaceConfiguration!
     var isTagEnabled = false
     var isSwitchEnabled = false
-    var transport = YubiKitManager.shared.accessorySession.sessionState == .open ? YKFMGMTTransportType.USB : YKFMGMTTransportType.NFC
+//    var transport = YubiKitManager.shared.accessorySession.sessionState == .open ? YKFMGMTTransportType.USB : YKFMGMTTransportType.NFC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.isTagEnabled = self.keyConfiguration.isEnabled(.OTP, overTransport: self.transport)
-        self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: self.transport) && !self.keyConfiguration.isConfigurationLocked
+//        self.isTagEnabled = self.keyConfiguration.isEnabled(.OTP, overTransport: self.transport)
+//        self.isSwitchEnabled = self.keyConfiguration.isSupported(.OTP, overTransport: self.transport) && !self.keyConfiguration.isConfigurationLocked
         
         self.tagSwitch.setOn(isTagEnabled, animated: true)
         self.tagSwitch.isEnabled = self.isSwitchEnabled
@@ -47,26 +47,32 @@ class YubiKeyConfigurationConroller: BaseOATHVIewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let button = sender as? UIBarButtonItem, button == saveButton {
-            self.keyConfiguration.setEnabled(self.isTagEnabled, application: .OTP, overTransport: self.transport)
+//            self.keyConfiguration.setEnabled(self.isTagEnabled, application: .OTP, overTransport: self.transport)
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if self.transport == .USB {
-            cell.textLabel?.text = NSLocalizedString("Touch Tag", comment: "Title for tag setting switch on YubiKey 5Ci, turn on/off printing key string on touch.")
-        } else {
-            cell.textLabel?.text = NSLocalizedString("NFC Tag", comment: "Title for tag setting switch on YubiKey NFC, turn on/off website NFC tag notification on every key tap.")
-        }
+        cell.textLabel?.text = NSLocalizedString("Touch Tag", comment: "Title for tag setting switch on YubiKey 5Ci, turn on/off printing key string on touch.")
+
+//        if self.transport == .USB {
+//            cell.textLabel?.text = NSLocalizedString("Touch Tag", comment: "Title for tag setting switch on YubiKey 5Ci, turn on/off printing key string on touch.")
+//        } else {
+//            cell.textLabel?.text = NSLocalizedString("NFC Tag", comment: "Title for tag setting switch on YubiKey NFC, turn on/off website NFC tag notification on every key tap.")
+//        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if self.isSwitchEnabled {
+                return NSLocalizedString("This setting turns on/off printing key string in text fields when you touch the YubiKey.", comment: "Description for tag setting switch on Yubikey 5Ci.")
+            /*
+            
             if self.transport == .USB {
                 return NSLocalizedString("This setting turns on/off printing key string in text fields when you touch the YubiKey.", comment: "Description for tag setting switch on Yubikey 5Ci.")
             }
             return NSLocalizedString("This setting turns on/off website NFC tag notification when you tap the YubiKey.", comment: "Description for tag setting switch on Yubikey NFC.")
+ */
         }
         return NSLocalizedString("This setting is not supported on your YubiKey.", comment: "Description when tag setting is not supported on the YubiKey.")
     }

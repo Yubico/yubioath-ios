@@ -11,9 +11,10 @@ import UIKit
 class OATHOperation: BaseOperation {
 
     override func executeOperation() {
+        /*
         let keyPluggedIn = YubiKitManager.shared.accessorySession.sessionState == .open
 
-        let oathService: YKFKeyOATHServiceProtocol
+        let oathService: YKFOATHServiceProtocol
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags && !keyPluggedIn {
             guard #available(iOS 13.0, *) else {
                 fatalError()
@@ -32,9 +33,10 @@ class OATHOperation: BaseOperation {
         }
         
         self.executeOperation(oathService: oathService)
+ */
     }
     
-    func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+    func executeOperation(oathService: YKFOATHSession) {
         fatalError("Override in the OATH specific operation subclass.")
     }
 }

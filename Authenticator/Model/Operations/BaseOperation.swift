@@ -87,7 +87,7 @@ class BaseOperation: Operation {
         }
 
         print("The \(uniqueId) request ended in error \(error.localizedDescription) ")
-        delegate?.onError(operation: self, error: error)
+        delegate?.onError(error: error)
         semaphore.signal()
 
         // to avoid double invocation of callback
@@ -96,7 +96,7 @@ class BaseOperation: Operation {
     
     /*! Method to overide for operation that invoke another delegate method */
     func invokeDelegateCompletion() {
-        delegate?.onCompleted(operation: self)
+//        delegate?.onCompleted(operation: self)
     }
 
     /*! Placeholder for method that recreates new operation instance
@@ -107,4 +107,3 @@ class BaseOperation: Operation {
         fatalError("Override this method that will create new operation with the same functionality, but in fresh not started state")
     }
 }
-

@@ -26,7 +26,7 @@ class CalculateOperation: OATHOperation {
         super.init()
     }
     
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+    override func executeOperation(oathService: YKFOATHSession) {
        
         self.credential.state = .calculating
         if self.credential.requiresTouch {
@@ -53,6 +53,7 @@ class CalculateOperation: OATHOperation {
         // generate a code for the next timeslot and show a timer for 37 seconds.
         // Even if the user is very quick to enter and submit the code to the server,
         // it is very likely that it will be accepted as servers typically allow for some clock drift.
+        /*
         let request = YKFKeyOATHCalculateRequest(credential: self.credential.ykCredential,
                                                  timestamp: Date().addingTimeInterval(10))
         oathService.execute(request!) { [weak self] (response, error) in
@@ -73,7 +74,7 @@ class CalculateOperation: OATHOperation {
             self.credential.setCode(code: response.otp, validity: response.validity)
             self.credential.state = .active
             self.operationSucceeded()
-        }
+        }*/
     }
 
     override func operationFailed(error: Error) {

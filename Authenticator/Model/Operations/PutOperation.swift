@@ -23,9 +23,9 @@ class PutOperation: OATHOperation {
         self.credential = credential
         super.init()
     }
-    
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        oathService.execute(YKFKeyOATHPutRequest(credential: credential)!) {  [weak self] (error) in
+    /*
+    override func executeOperation(oathService: YKFOATHServiceProtocol) {
+        oathService.execute(YKFOATHPutRequest(credential: credential)!) {  [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
                 return
@@ -34,7 +34,7 @@ class PutOperation: OATHOperation {
             // The request was successful. The credential was added to the key.
             self?.operationSucceeded()
         }
-    }
+    }*/
     
     override func createRetryOperation() -> OATHOperation {
         return PutOperation(credential: self.credential)
@@ -46,9 +46,9 @@ fileprivate extension YKFOATHCredential {
     var uniqueId: String {
         get {
             if type == YKFOATHCredentialType.TOTP {
-                return String(format:"%d/%@:%@", self.period, self.issuer ?? "", self.account);
+                return String(format:"%d/%@:%@", self.period, self.issuer ?? "", self.accountName);
             } else {
-                return String(format:"%@:%@", self.issuer ?? "", self.account);
+                return String(format:"%@:%@", self.issuer ?? "", self.accountName);
             }
         }
     }
