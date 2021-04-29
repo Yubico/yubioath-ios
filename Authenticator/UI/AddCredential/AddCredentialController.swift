@@ -29,7 +29,8 @@ class AddCredentialController: UITableViewController {
      This value is either passed by `MainViewController` in `prepare(for:sender:)`
      or constructed as part of scanning/manual input operation.
      */
-    var credential: YKFOATHCredential?
+    var credential: YKFOATHCredentialTemplate?
+    var requiresTouch: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class AddCredentialController: UITableViewController {
     
     // MARK: - Public methods
     
-    func displayCredential(details: YKFOATHCredential) {
+    func displayCredential(details: YKFOATHCredentialTemplate) {
         credential = details
     }
 
@@ -86,18 +87,19 @@ class AddCredentialController: UITableViewController {
                 if (self.issuerManualText.text?.isEmpty == false) {
                     credential.issuer = self.issuerManualText.text!
                 }
-                credential.account = self.accountManualText.text ?? ""
-                credential.requiresTouch = self.requireTouchManual.isOn
+                credential.accountName = self.accountManualText.text ?? ""
+                self.requiresTouch = self.requireTouchManual.isOn
             } else {
             // Create the credential from manual input
-                let credential = YKFOATHCredential()
+                
+                let credential = YKFOATHCredentialTemplate()
                 
                 // Set the credential to be passed to MainViewController after the unwind segue.
                 if (self.issuerManualText.text?.isEmpty == false) {
                     credential.issuer = self.issuerManualText.text!
                 }
-                credential.account = self.accountManualText.text ?? ""
-                credential.requiresTouch = self.requireTouchManual.isOn
+                credential.accountName = self.accountManualText.text ?? ""
+                self.requiresTouch = self.requireTouchManual.isOn
 
                 // use the base32DecodeData (of type Data) and set it on the credential:
                 guard let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") else {
@@ -192,7 +194,7 @@ class AddCredentialController: UITableViewController {
 
         if (!manualMode) {
             issuerManualText.text = credential?.issuer ?? ""
-            accountManualText.text = credential?.account ?? ""
+            accountManualText.text = credential?.accountName ?? ""
             accountManualText.returnKeyType = .done
         } else {
             accountManualText.returnKeyType = .next

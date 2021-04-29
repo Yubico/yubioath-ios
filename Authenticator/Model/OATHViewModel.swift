@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CredentialViewModelDelegate: class {
+protocol CredentialViewModelDelegate: AnyObject {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
@@ -16,34 +16,95 @@ protocol CredentialViewModelDelegate: class {
     func onCredentialDelete(indexPath: IndexPath)
 }
 
-protocol OperationDelegate: class {
+protocol OperationDelegate: AnyObject {
     func onTouchRequired()
-    func onError(operation: BaseOperation, error: Error)
-    func onCompleted(operation: BaseOperation)
+    func onError(error: Error)
+    func onCompleted(operation: OperationName)
     func onUpdate(credentials: [Credential])
     func onUpdate(credential: Credential)
     func onDelete(credential: Credential)
-    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration)
+    func onGetConfiguration(configuration: YKFManagementInterfaceConfiguration)
     func onSetConfiguration()
-    func onGetKeyVersion(version: YKFKeyVersion)
+    func onGetKeyVersion(version: YKFVersion)
 }
 
 /*! This is main view model class that talks to YubiKit
  * It's recommended to use only methods of this class to talk to YubiKitManager (even if it's a singleton and can be accessed anywhere in code)
  * Every view controller that communicates with YubiKey should have this object initialized in contructor
  */
-class YubikitManagerModel: NSObject {
+class OATHViewModel: NSObject, YKFManagerDelegate {
+    
+    var nfcConnection: YKFNFCConnection?
+
+    func didConnectNFC(_ connection: YKFNFCConnection) {
+        nfcConnection = connection
+        if let callback = connectionCallback {
+            callback(connection)
+        }
+    }
+    
+    func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
+        nfcConnection = nil
+        session = nil
+    }
+    
+    var accessoryConnection: YKFAccessoryConnection?
+
+    func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        accessoryConnection = connection
+        calculateAll()
+    }
+    
+    func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+        accessoryConnection = nil
+        session = nil
+        self.cleanUp()
+    }
+    
+    var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    
+    func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+        if let connection = accessoryConnection {
+            completion(connection)
+        } else {
+            connectionCallback = completion
+            YubiKitManager.shared.startNFCConnection()
+        }
+    }
+    
+    var session: YKFOATHSession?
+
+    func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+        if let session = session {
+            completion(session)
+            return
+        }
+        connection { connection in
+            connection.oathSession { session, error in
+                if let error = error {
+                    self.onError(error: error)
+                }
+                self.cachedKeyId = self.keyIdentifier
+                self.session = session
+                completion(session)
+            }
+        }
+    }
+    
+    override init() {
+        super.init()
+        YubiKitManager.shared.delegate = self
+    }
+    
     /*!
      * The OperationDelegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
      */
-    let operationQueue: UniqueOperationQueue = UniqueOperationQueue()
     weak var delegate: CredentialViewModelDelegate?
     var filter: String?
     
     /*!
      * Allows to pause calculation of expired credentials in background
      */
-    var isPaused: Bool = false
     /*!
      * Allows to detect whether credentials list empty because device doesn't have any credentials or it's not loaded from device yet
      */
@@ -80,87 +141,148 @@ class YubikitManagerModel: NSObject {
             $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
         }
     }
-    
-    private var nfcState: YKFNFCISO7816SessionState = .closed
-    
+
     private var favoritesStorage = FavoritesStorage()
     private var favorites: Set<String> = []
     
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
     var cachedKeyId: String?
-    var cachedKeyConfig: YKFMGMTInterfaceConfiguration?
-    var cachedKeyVersion: YKFKeyVersion?
+    var cachedKeyConfig: YKFManagementInterfaceConfiguration?
+    var cachedKeyVersion: YKFVersion?
     
     var hasFilter: Bool {
         return self.filter != nil && !self.filter!.isEmpty
     }
-    
-    //
-    
+
     // MARK: - Public methods
     
-    //
-    public func isQueueEmpty() -> Bool {
-        return (self.operationQueue.operationCount == 0 && self.operationQueue.pendingOperations.count == 0) || self.operationQueue.isSuspended
-    }
-    
     public func calculateAll() {
-        self.state = YubiKitManager.shared.accessorySession.isKeyConnected ? .loading : .idle
-        let operation = CalculateAllOperation()
-        addOperation(operation: operation)
+        session { session in
+            guard let session = session else { return }
+            session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { result, error in
+                YubiKitManager.shared.stopNFCConnection()
+                guard let result = result else {
+                    self.onError(error: error!)
+                    return
+                }
+                let credentials = result.map { credential in
+                    return Credential(credential: credential, keyVersion: session.version)
+                }
+                self.onUpdate(credentials: credentials)
+            }
+        }
     }
     
     public func calculate(credential: Credential) {
-        let operation = CalculateOperation(credential: credential)
-        addOperation(operation: operation)
+        session { session in
+            guard let session = session else { return }
+            
+            if credential.requiresTouch {
+                self.onTouchRequired()
+            }
+            // Adding 10 extra seconds to current timestamp as boost and improvement for quick code expiration:
+            // If < 10 seconds remain on the validity of a code at time of generation,
+            // increment the timeslot for the challenge and increase the validity time by the period of the credential.
+            // For example, if 7 seconds remain at time of generation, on a 30 second credential,
+            // generate a code for the next timeslot and show a timer for 37 seconds.
+            // Even if the user is very quick to enter and submit the code to the server,
+            // it is very likely that it will be accepted as servers typically allow for some clock drift.
+            session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
+                YubiKitManager.shared.stopNFCConnection()
+                guard let code = code, let otp = code.otp else {
+                    if let error = error {
+                        self.onError(error: error)
+                    }
+                    return
+                }
+                credential.setCode(code: otp, validity: code.validity)
+                credential.state = .active
+                self.onUpdate(credential: credential)
+            }
+        }
     }
     
-    public func addCredential(credential: YKFOATHCredential) {
-        addOperation(operation: PutOperation(credential: credential))
-        addOperation(operation: CalculateAllOperation())
+    public func addCredential(credential: YKFOATHCredentialTemplate, requiresTouch: Bool) {
+        session { session in
+            guard let session = session else { return }
+            session.put(credential, requiresTouch: requiresTouch) { error in
+                guard error == nil else {
+                    self.onError(error: error!)
+                    return
+                }
+                self.calculateAll()
+            }
+        }
     }
     
     public func deleteCredential(credential: Credential) {
-        addOperation(operation: DeleteOperation(credential: credential))
+        session { session in
+            guard let session = session else { return }
+            session.delete(credential.ykCredential) { error in
+                guard error == nil else {
+                    self.onError(error: error!)
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection()
+                self.onDelete(credential: credential)
+            }
+        }
     }
     
     public func renameCredential(credential: Credential, issuer: String, account: String) {
-        addOperation(operation: RenameOperation(credential: credential, issuer: issuer, account: account))
-        addOperation(operation: CalculateAllOperation())
+        session { session in
+            guard let session = session else { return }
+            session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
+                guard error == nil else {
+                    self.onError(error: error!)
+                    return
+                }
+                self.calculateAll()
+            }
+        }
     }
     
     public func setCode(password: String) {
-        addOperation(operation: SetCodeOperation(password: password))
+        session { session in
+            guard let session = session else { return }
+            session.setPassword(password) { error in
+                guard error == nil else {
+                    self.onError(error: error!)
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection()
+            }
+        }
     }
     
     public func validate(password: String) {
-        addOperation(operation: ValidateOperation(password: password))
+//        addOperation(operation: ValidateOperation(password: password))
     }
     
     public func getConfiguration() {
-        addOperation(operation: GetKeyConfigurationOperation())
+//        addOperation(operation: GetKeyConfigurationOperation())
     }
     
-    public func setConfiguration(configuration: YKFMGMTInterfaceConfiguration) {
-        addOperation(operation: SetKeyConfigurationOperation(configuration: configuration))
+    public func setConfiguration(configuration: YKFManagementInterfaceConfiguration) {
+//        addOperation(operation: SetKeyConfigurationOperation(configuration: configuration))
     }
     
     public func reset() {
-        addOperation(operation: ResetOperation())
+//        addOperation(operation: ResetOperation())
     }
     
     public func getKeyVersion() {
-        addOperation(operation: GetKeyVersionOperation())
+//        addOperation(operation: GetKeyVersionOperation())
     }
     
     public func pause() {
-        self.isPaused = true
-        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
+//        self.isPaused = true
+//        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
     }
     
     public func resume() {
-        self.isPaused = false
-        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
+//        self.isPaused = false
+//        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
     }
     
     public func cleanUp() {
@@ -185,7 +307,6 @@ class YubikitManagerModel: NSObject {
             self.favorites = []
             
             self.state = .idle
-            self.operationQueue.cancelAllOperations()
             delegate.onOperationCompleted(operation: .cleanup)
         }
     }
@@ -202,19 +323,19 @@ class YubikitManagerModel: NSObject {
     }
     
     public func emulateSomeRecords() {
-        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
+        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
         credential.setupTimerObservation()
         self._credentials.append(credential)
         
-        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
+        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
         credential2.setupTimerObservation()
         self._credentials.append(credential2)
         
-        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
+        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
         credential4.setupTimerObservation()
         self._credentials.append(credential4)
         
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", keyVersion: YKFKeyVersion(bytes: 5, minor: 1, micro: 1))
+        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
         credential3.setupTimerObservation()
         self._credentials.append(credential3)
         self.delegate?.onOperationCompleted(operation: .calculateAll)
@@ -226,10 +347,10 @@ class YubikitManagerModel: NSObject {
 // MARK: - CredentialExpirationDelegate
 
 //
-extension YubikitManagerModel: CredentialExpirationDelegate {
+extension OATHViewModel: CredentialExpirationDelegate {
     func calculateResultDidExpire(_ credential: Credential) {
         // recalculate automatically only if key is plugged in and view model is not paused (the view is in background, behind another view controller)
-        if !self.isPaused, keyPluggedIn {
+        if keyPluggedIn {
             self.calculate(credential: credential)
         } else {
             // if we can't recalculate credential set state to expired
@@ -243,7 +364,7 @@ extension YubikitManagerModel: CredentialExpirationDelegate {
 // MARK: - CredentialExpirationDelegate
 
 //
-extension YubikitManagerModel: OperationDelegate {
+extension OATHViewModel: OperationDelegate {
     /*! Invoked in case we started executing operation, but it requires touch and we need to notify user about it */
     func onTouchRequired() {
         DispatchQueue.main.async { [weak self] in
@@ -263,7 +384,13 @@ extension YubikitManagerModel: OperationDelegate {
     }
     
     /*! Invoked when operation/request to YubiKey failed */
-    func onError(operation: BaseOperation, error: Error) {
+    func onError(error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.delegate?.onError(error: error)
+        }
+    }
+     /*
+        
         switch error {
         case KeySessionError.noService:
             self.onRetry(operation: operation)
@@ -275,10 +402,10 @@ extension YubikitManagerModel: OperationDelegate {
         
         let errorCode = (error as NSError).code
         // in case of authentication error supend queue but retry what was requested after resuming
-        if errorCode == YKFKeyOATHErrorCode.authenticationRequired.rawValue {
+        if errorCode == YKFOATHErrorCode.authenticationRequired.rawValue {
             self.onRetry(operation: operation)
             self.state = .locked
-        } else if errorCode == YKFKeyOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFKeyOATHErrorCode.wrongPassword.rawValue {
+        } else if errorCode == YKFOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFOATHErrorCode.wrongPassword.rawValue {
             // wait for another successful validation
             self.operationQueue.suspendQueue()
         }
@@ -287,23 +414,25 @@ extension YubikitManagerModel: OperationDelegate {
             self?.delegate?.onError(error: error)
         }
     }
+    */
+
     
     /*! Invoked when some operation completed but doesn't change list of credentials or its data */
-    func onCompleted(operation: BaseOperation) {
-        if operation.operationName == .validate {
+    func onCompleted(operation: OperationName) {
+        if operation == .validate {
             self.state = .loading
         }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
-            self.delegate?.onOperationCompleted(operation: operation.operationName)
+            self.delegate?.onOperationCompleted(operation: operation)
             
             // in case of put operation
             // prompt user if he wants to retry this operation for another key
-            if operation.operationName == .put {
-                self.delegate?.onOperationRetry(operation: operation)
-            }
+//            if operation.operationName == .put {
+//                self.delegate?.onOperationRetry(operation: operation)
+//            }
         }
     }
     
@@ -340,9 +469,7 @@ extension YubikitManagerModel: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
-            
-            self.cachedKeyId = self.keyIdentifier
-            
+                        
             for credential in self._credentials {
                 // If it's TOTP credential we might need to recalculate each individually
                 // if there was no correct value returned as part of calculateAll request
@@ -415,7 +542,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onGetConfiguration(configuration: YKFMGMTInterfaceConfiguration) {
+    func onGetConfiguration(configuration: YKFManagementInterfaceConfiguration) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
@@ -436,7 +563,7 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onGetKeyVersion(version: YKFKeyVersion) {
+    func onGetKeyVersion(version: YKFVersion) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
@@ -447,69 +574,70 @@ extension YubikitManagerModel: OperationDelegate {
         }
     }
     
-    func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
-        let retryOperation = operation.createRetryOperation()
-        self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
-    }
+//    func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
+//        let retryOperation = operation.createRetryOperation()
+//        self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
+//    }
     
-    func addOperation(operation: BaseOperation, suspendQueue: Bool = false) {
-        if self.isPaused {
-            return
-        }
-        operation.delegate = self
-        self.operationQueue.add(operation: operation, suspendQueue: suspendQueue)
-    }
+//    func addOperation(operation: BaseOperation, suspendQueue: Bool = false) {
+//        if self.isPaused {
+//            return
+//        }
+//        operation.delegate = self
+//        self.operationQueue.add(operation: operation, suspendQueue: suspendQueue)
+//    }
 }
 
 // MARK: - Properties to YubikitManager sessions
 
-extension YubikitManagerModel {
+extension OATHViewModel {
     /*!
      * Checks if accessory key is plugged in
      */
     var keyPluggedIn: Bool {
-        return YubiKitManager.shared.accessorySession.sessionState == .open
+        return accessoryConnection != nil
     }
     
     var keyIdentifier: String? {
-        if let accessoryDescription = YubiKitManager.shared.accessorySession.accessoryDescription {
-            return accessoryDescription.serialNumber
-        } else {
-            if #available(iOS 13.0, *) {
-                return YubiKitManager.shared.nfcSession.tagDescription?.identifier.hex
-            } else {
-                return nil
-            }
+        if let accessoryConnection = accessoryConnection {
+            return accessoryConnection.accessoryDescription?.serialNumber
         }
+        if let nfcConnection = nfcConnection {
+            return nfcConnection.tagDescription?.identifier.hex
+        }
+        return nil
     }
     
     var keyDescription: YKFAccessoryDescription? {
-        return YubiKitManager.shared.accessorySession.accessoryDescription
+        return accessoryConnection?.accessoryDescription
     }
     
     func startNfc() {
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            guard #available(iOS 13.0, *) else {
-                fatalError()
-            }
-            if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
-                YubiKitManager.shared.nfcSession.stopIso7816Session()
-            }
-            YubiKitManager.shared.nfcSession.startIso7816Session()
-        }
+        YubiKitManager.shared.startNFCConnection()
+//        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+//            guard #available(iOS 13.0, *) else {
+//                fatalError()
+//            }
+//            if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
+//                YubiKitManager.shared.nfcSession.stopIso7816Session()
+//            }
+//            YubiKitManager.shared.nfcSession.startIso7816Session()
+//        }
     }
 
     func stopNfc() {
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && self.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
-            guard #available(iOS 13.0, *) else {
-                fatalError()
-            }
-
-            YubiKitManager.shared.nfcSession.stopIso7816Session()
-        }
+        YubiKitManager.shared.stopNFCConnection()
+//        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && self.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
+//            guard #available(iOS 13.0, *) else {
+//                fatalError()
+//            }
+//
+//            YubiKitManager.shared.nfcSession.stopIso7816Session()
+//        }
     }
-    
+        /*
     func nfcStateChanged(state: YKFNFCISO7816SessionState) {
+
         let oldState = self.nfcState
         self.nfcState = state
         guard #available(iOS 13.0, *) else {
@@ -537,11 +665,12 @@ extension YubikitManagerModel {
             print("NFC key session error: \(error.localizedDescription)")
         }
     }
+     */
 }
 
 // MARK: - Operations with Favorites set.
 
-extension YubikitManagerModel {
+extension OATHViewModel {
     
     func isFavorite(credential: Credential) -> Bool {
         return self.favorites.contains(credential.uniqueId)

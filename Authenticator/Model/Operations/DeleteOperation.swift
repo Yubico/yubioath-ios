@@ -24,8 +24,9 @@ class DeleteOperation: OATHOperation {
         super.init()
     }
         
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        oathService.execute(YKFKeyOATHDeleteRequest(credential: credential.ykCredential)!) { [weak self] (error) in
+    override func executeOperation(oathService: YKFOATHSession) {
+        /*
+        oathService.execute(YKFOATHDeleteRequest(credential: credential.ykCredential)!) { [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
                 return
@@ -33,6 +34,7 @@ class DeleteOperation: OATHOperation {
             
             self?.operationSucceeded()
         }
+ */
     }
     
     override func createRetryOperation() -> OATHOperation {

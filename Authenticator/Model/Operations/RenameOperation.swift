@@ -24,8 +24,9 @@ class RenameOperation: OATHOperation {
         super.init()
     }
     
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        oathService.execute(YKFKeyOATHRenameRequest(credential: credential.ykCredential, issuer: issuer, account: account)!) {  [weak self] (error) in
+    override func executeOperation(oathService: YKFOATHSession) {
+        /*
+        oathService.execute(YKFOATHRenameRequest(credential: credential.ykCredential, issuer: issuer, account: account)!) {  [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
                 return
@@ -34,6 +35,7 @@ class RenameOperation: OATHOperation {
             // The request was successful. The credential was added to the key.
             self?.operationSucceeded()
         }
+ */
     }
     
     override func createRetryOperation() -> OATHOperation {

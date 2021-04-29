@@ -11,11 +11,11 @@ import UIKit
 class ManagmentServiceOperation: BaseOperation {
 
     override func executeOperation() {
-        let mgmtService: YKFKeyMGMTServiceProtocol = YKFKeyMGMTService()
-        executeOperation(mgtmService: mgmtService)
+//        let mgmtService: YKFManagementSession = YKFMGMTService()
+//        executeOperation(mgtmService: mgmtService)
     }
 
-    func executeOperation(mgtmService: YKFKeyMGMTServiceProtocol) {
+    func executeOperation(mgtmService: YKFManagementSession) {
         fatalError("Override in the Managment specific operation subclass.")
     }
 }

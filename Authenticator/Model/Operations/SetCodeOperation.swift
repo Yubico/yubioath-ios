@@ -25,15 +25,16 @@ class SetCodeOperation: OATHOperation {
         super.init()
     }
     
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
-        oathService.execute(YKFKeyOATHSetCodeRequest(password: password)!) { [weak self] (error) in
+    override func executeOperation(oathService: YKFOATHSession) {
+        /*
+        oathService.execute(YKFOATHSetCodeRequest(password: password)!) { [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
                 return
             }
             
             self?.operationSucceeded()
-        }
+        }*/
     }
     
     override func createRetryOperation() -> OATHOperation {

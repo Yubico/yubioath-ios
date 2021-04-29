@@ -14,16 +14,16 @@ class SetPasswordViewController: BaseOATHVIewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
 
-    private var keySessionObserver: KeySessionObserver!
+//    private var keySessionObserver: KeySessionObserver!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        keySessionObserver = KeySessionObserver(nfcDlegate: self)
+//        keySessionObserver = KeySessionObserver(nfcDlegate: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        keySessionObserver.observeSessionState = false
+//        keySessionObserver.observeSessionState = false
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -62,12 +62,12 @@ extension SetPasswordViewController: UITextFieldDelegate {
     }
 }
 
-extension  SetPasswordViewController: NfcSessionObserverDelegate {
-    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
-        viewModel.nfcStateChanged(state: state)
-        if state == .open {
-            viewModel.resume()
-        }
-    }
-}
+//extension  SetPasswordViewController: NfcSessionObserverDelegate {
+//    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
+//        viewModel.nfcStateChanged(state: state)
+//        if state == .open {
+//            viewModel.resume()
+//        }
+//    }
+//}
 

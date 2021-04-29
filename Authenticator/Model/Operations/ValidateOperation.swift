@@ -26,14 +26,14 @@ class ValidateOperation: OATHOperation {
 
         self.queuePriority = .high
     }
-    
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+    /*
+    override func executeOperation(oathService: YKFOATHSession) {
         if password.isEmpty {
             // SDK doesn't handle empty values
-            self.operationFailed(error: NSError(domain: "", code: Int(YKFKeyOATHErrorCode.wrongPassword.rawValue), userInfo: nil))
+            self.operationFailed(error: NSError(domain: "", code: Int(YKFOATHErrorCode.wrongPassword.rawValue), userInfo: nil))
             return
         }
-        oathService.execute(YKFKeyOATHValidateRequest(password: password)!) { [weak self] (error) in
+        oathService.execute(YKFOATHValidateRequest(password: password)!) { [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
                 return
@@ -41,7 +41,7 @@ class ValidateOperation: OATHOperation {
             
             self?.operationSucceeded()
         }
-    }
+    }*/
     
     override func createRetryOperation() -> OATHOperation {
         return ValidateOperation(password: self.password)

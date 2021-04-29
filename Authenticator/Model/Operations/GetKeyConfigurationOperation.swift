@@ -9,13 +9,13 @@
 import UIKit
 
 class GetKeyConfigurationOperation: ManagmentServiceOperation {
-    var configuration: YKFMGMTInterfaceConfiguration?
+    var configuration: YKFManagementInterfaceConfiguration?
     
     override var operationName: OperationName {
         return OperationName.getConfig
     }
-
-    override func executeOperation(mgtmService: YKFKeyMGMTServiceProtocol) {
+/*
+    override func executeOperation(mgtmService: YKFMGMTServiceProtocol) {
         mgtmService.readConfiguration { [weak self] (response, error) in
             guard let self = self else {
                 return
@@ -23,7 +23,7 @@ class GetKeyConfigurationOperation: ManagmentServiceOperation {
             
             if let error = error {
                 let errorCode = (error as NSError).code
-                if errorCode == YKFKeySessionErrorCode.noConnection.rawValue {
+                if errorCode == YKFSessionErrorCode.noConnection.rawValue {
                     self.operationFailed(error: KeySessionError.noService)
                     return
                 }
@@ -40,7 +40,7 @@ class GetKeyConfigurationOperation: ManagmentServiceOperation {
         
             self.operationSucceeded()
         }
-    }
+    }*/
     
     override func createRetryOperation() -> ManagmentServiceOperation {
         return GetKeyConfigurationOperation()

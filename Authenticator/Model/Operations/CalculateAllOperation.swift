@@ -19,7 +19,7 @@ class CalculateAllOperation: OATHOperation {
         super.init()
         self.queuePriority = .low
     }
-
+    /*
     override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
         let request = YKFKeyOATHCalculateAllRequest(timestamp: Date().addingTimeInterval(10))
         oathService.execute(request!) { [weak self] (response, error) in
@@ -42,9 +42,12 @@ class CalculateAllOperation: OATHOperation {
             }
 
             self.operationSucceeded()
-        }        
+        }
     }
+     */
     
+    
+
     override func createRetryOperation() -> OATHOperation {
         return CalculateAllOperation()
     }

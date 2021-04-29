@@ -9,13 +9,14 @@
 import Foundation
 
 class GetKeyVersionOperation: OATHOperation {
-    private var firmwareVersion: YKFKeyVersion?
+    private var firmwareVersion: YKFVersion?
     
     override var operationName: OperationName {
         return OperationName.getKeyVersion
     }
 
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+    override func executeOperation(oathService: YKFOATHSession) {
+        /*
         oathService.selectOATHApplication(completion: { [weak self] (response, error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
@@ -30,7 +31,7 @@ class GetKeyVersionOperation: OATHOperation {
             self?.firmwareVersion = response.version
             
             self?.operationSucceeded()
-        })
+        })*/
     }
     
     override func createRetryOperation() -> OATHOperation {

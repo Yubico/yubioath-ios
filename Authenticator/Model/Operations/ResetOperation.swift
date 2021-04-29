@@ -12,8 +12,8 @@ class ResetOperation: OATHOperation {
     override var operationName: OperationName {
         return OperationName.reset
     }
-
-    override func executeOperation(oathService: YKFKeyOATHServiceProtocol) {
+/*
+    override func executeOperation(oathService: YKFOATHServiceProtocol) {
         oathService.executeResetRequest { [weak self] (error) in
             guard error == nil else {
                 self?.operationFailed(error: error!)
@@ -23,7 +23,7 @@ class ResetOperation: OATHOperation {
             self?.operationSucceeded()
         }
     }
-    
+*/
     override func createRetryOperation() -> OATHOperation {
         return ResetOperation()
     }

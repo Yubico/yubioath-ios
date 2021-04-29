@@ -16,6 +16,8 @@
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */; };
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
+		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
+		51F8E3BF263848E30010686B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* Connection.swift */; };
 		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
 		815E0A4823293A0A00F2478F /* ValidateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4723293A0A00F2478F /* ValidateOperation.swift */; };
 		815E0A4A23294DEA00F2478F /* PutOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815E0A4923294DEA00F2478F /* PutOperation.swift */; };
@@ -42,7 +44,7 @@
 		81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C26232975AA00C60E1D /* ResetOperation.swift */; };
 		81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */; };
 		81BE0C2D23299D6C00C60E1D /* UniqueOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */; };
-		81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */; };
+		81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* OATHViewModel.swift */; };
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
 		81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */; };
@@ -100,6 +102,8 @@
 		518F1EE6244DA8F000E4F78B /* RenameOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenameOperation.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
+		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
+		51F8E3BE263848E30010686B /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		815E0A4723293A0A00F2478F /* ValidateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateOperation.swift; sourceTree = "<group>"; };
 		815E0A4923294DEA00F2478F /* PutOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutOperation.swift; sourceTree = "<group>"; };
@@ -134,7 +138,7 @@
 		81BE0C26232975AA00C60E1D /* ResetOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOperation.swift; sourceTree = "<group>"; };
 		81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOATHVIewController.swift; sourceTree = "<group>"; };
 		81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueOperationQueue.swift; sourceTree = "<group>"; };
-		81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubikitManagerModel.swift; sourceTree = "<group>"; };
+		81C00FDA22EB70A500C54903 /* OATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHViewModel.swift; sourceTree = "<group>"; };
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
 		81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSessionObserver.swift; sourceTree = "<group>"; };
@@ -309,15 +313,17 @@
 				51EEC530246D34D800061A8F /* Extensions */,
 				816C684423430DC000209342 /* SecureStore */,
 				81E8D4DE231FF68E004B6F9E /* Operations */,
+				51F8E3BE263848E30010686B /* Connection.swift */,
 				81E009C222FF44B100E7715B /* KeySessionObserver.swift */,
 				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
-				81C00FDA22EB70A500C54903 /* YubikitManagerModel.swift */,
+				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
 				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				81BE0C2C23299D6C00C60E1D /* UniqueOperationQueue.swift */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
 				A537399D23DB9C520057E9E2 /* AuthenticationTypeEnum.swift */,
+				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -588,10 +594,11 @@
 				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
+				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
-				81C00FDB22EB70A500C54903 /* YubikitManagerModel.swift in Sources */,
+				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
@@ -623,6 +630,7 @@
 				A544948E23CE546B003E1E07 /* FrePageViewController.swift in Sources */,
 				81BE0C27232975AA00C60E1D /* ResetOperation.swift in Sources */,
 				A556D1602405A100007014A7 /* GetKeyVersionOperation.swift in Sources */,
+				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				81E8D4DD231FDFCE004B6F9E /* CalculateOperation.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				A5B531F22437CD16008C501C /* AppVersionInfoViewController.swift in Sources */,
@@ -983,8 +991,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				branch = "jens/add-timestamp-to-oath-calculate";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

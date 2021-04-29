@@ -28,7 +28,7 @@ class Credential: NSObject {
     /*!
      Firmware version of the key that generated the credential.
      */
-    let keyVersion: YKFKeyVersion
+    let keyVersion: YKFVersion
     
     /*!
      The credential type (HOTP or TOTP).
@@ -84,7 +84,7 @@ class Credential: NSObject {
      */
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false, keyVersion: YKFKeyVersion) {
+    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false, keyVersion: YKFVersion) {
         self.keyVersion = keyVersion
         self.type = type
         self.account = account
@@ -102,18 +102,18 @@ class Credential: NSObject {
         }
     }
     
-    init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult, keyVersion: YKFKeyVersion) {
+    init(credential: YKFOATHCredentialWithCode, keyVersion: YKFVersion) {
         self.keyVersion = keyVersion
-        type = credential.type
-        account = credential.account
-        issuer = credential.issuer
-        period = credential.period
+        type = credential.credential.type
+        account = credential.credential.accountName
+        issuer = credential.credential.issuer
+        period = credential.credential.period
         
-        code = credential.otp ?? ""
-        validity = credential.validity
-        remainingTime = credential.validity.end.timeIntervalSince(Date())
+        code = credential.code?.otp ?? ""
+        validity = credential.code?.validity ?? DateInterval()
+        remainingTime = credential.code?.validity.end.timeIntervalSince(Date()) ?? 0
         activeTime = 0
-        requiresTouch = credential.requiresTouch
+        requiresTouch = credential.credential.requiresTouch
         
         if !code.isEmpty {
             state = .active
@@ -168,7 +168,7 @@ class Credential: NSObject {
     
     var ykCredential : YKFOATHCredential {
         let credential = YKFOATHCredential()
-        credential.account = account
+        credential.accountName = account
         credential.type = type
         credential.issuer = issuer
         credential.period = period
