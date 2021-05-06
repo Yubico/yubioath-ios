@@ -12,21 +12,12 @@ protocol CredentialViewModelDelegate: AnyObject {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
-    func onOperationRetry(operation: BaseOperation)
     func onCredentialDelete(indexPath: IndexPath)
+    func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
+    func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void)
+    func didValidatePassword(_ password: String, forKey key: String)
 }
 
-protocol OperationDelegate: AnyObject {
-    func onTouchRequired()
-    func onError(error: Error)
-    func onCompleted(operation: OperationName)
-    func onUpdate(credentials: [Credential])
-    func onUpdate(credential: Credential)
-    func onDelete(credential: Credential)
-    func onGetConfiguration(configuration: YKFManagementInterfaceConfiguration)
-    func onSetConfiguration()
-    func onGetKeyVersion(version: YKFVersion)
-}
 
 /*! This is main view model class that talks to YubiKit
  * It's recommended to use only methods of this class to talk to YubiKitManager (even if it's a singleton and can be accessed anywhere in code)
@@ -160,15 +151,30 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         session { session in
             guard let session = session else { return }
             session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { result, error in
-                YubiKitManager.shared.stopNFCConnection()
                 guard let result = result else {
-                    self.onError(error: error!)
+                    self.onError(error: error!, retry: {
+                        self.calculateAll()
+                    })
                     return
                 }
                 let credentials = result.map { credential in
                     return Credential(credential: credential, keyVersion: session.version)
                 }
-                self.onUpdate(credentials: credentials)
+                
+                credentials.forEach { credential in
+                    // Calculate TOTP credentials with time period != 30 individually
+                    if credential.type == .TOTP && !credential.requiresTouch && credential.period != 30 {
+                        session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
+                            guard let code = code, let otp = code.otp else { return }
+                            credential.setCode(code: otp, validity: code.validity)
+                        }
+                    }
+                }
+                
+                session.dispatchAfterCurrentCommands {
+                    self.onUpdate(credentials: credentials)
+                    YubiKitManager.shared.stopNFCConnection(withMessage: "Credentials successfully read")
+                }
             }
         }
     }
@@ -188,7 +194,13 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             // Even if the user is very quick to enter and submit the code to the server,
             // it is very likely that it will be accepted as servers typically allow for some clock drift.
             session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
-                YubiKitManager.shared.stopNFCConnection()
+                guard error == nil else {
+                    self.onError(error: error!) {
+                        self.calculate(credential: credential)
+                    }
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
                 guard let code = code, let otp = code.otp else {
                     if let error = error {
                         self.onError(error: error)
@@ -207,7 +219,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             guard let session = session else { return }
             session.put(credential, requiresTouch: requiresTouch) { error in
                 guard error == nil else {
-                    self.onError(error: error!)
+                    self.onError(error: error!) {
+                        self.addCredential(credential: credential, requiresTouch: requiresTouch)
+                    }
                     return
                 }
                 self.calculateAll()
@@ -220,10 +234,12 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             guard let session = session else { return }
             session.delete(credential.ykCredential) { error in
                 guard error == nil else {
-                    self.onError(error: error!)
+                    self.onError(error: error!) {
+                        self.deleteCredential(credential: credential)
+                    }
                     return
                 }
-                YubiKitManager.shared.stopNFCConnection()
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Credential deleted")
                 self.onDelete(credential: credential)
             }
         }
@@ -234,7 +250,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             guard let session = session else { return }
             session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
                 guard error == nil else {
-                    self.onError(error: error!)
+                    self.onError(error: error!) {
+                        self.renameCredential(credential: credential, issuer: issuer, account: account)
+                    }
                     return
                 }
                 self.calculateAll()
@@ -255,8 +273,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    public func validate(password: String) {
-//        addOperation(operation: ValidateOperation(password: password))
+    func unlock(withPassword password: String, isCached: Bool, completion: @escaping ((Error?) -> Void)) {
+        session { session in
+            guard let session = session else { return }
+            session.unlock(withPassword: password) { error in
+                completion(error)
+                if !isCached {
+                    if error == nil, let key = self.keyIdentifier {
+                        self.delegate?.didValidatePassword(password, forKey: key)
+                    }
+                }
+            }
+//            session.unlock(withPassword: password, completion: completion)
+        }
     }
     
     public func getConfiguration() {
@@ -364,7 +393,7 @@ extension OATHViewModel: CredentialExpirationDelegate {
 // MARK: - CredentialExpirationDelegate
 
 //
-extension OATHViewModel: OperationDelegate {
+extension OATHViewModel { //}: OperationDelegate {
     /*! Invoked in case we started executing operation, but it requires touch and we need to notify user about it */
     func onTouchRequired() {
         DispatchQueue.main.async { [weak self] in
@@ -384,37 +413,61 @@ extension OATHViewModel: OperationDelegate {
     }
     
     /*! Invoked when operation/request to YubiKey failed */
-    func onError(error: Error) {
-        DispatchQueue.main.async { [weak self] in
-            self?.delegate?.onError(error: error)
+    func onError(error: Error, retry: (() -> Void)? = nil) {
+        let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
+        // Try cached passwords and then ask user for password
+        if errorCode == .authenticationRequired {
+            delegate?.cachedPasswordFor(keyId: keyIdentifier!) { password in
+                if let password = password {
+                    // Got cached password from either memory or keychain
+                    self.unlock(withPassword: password, isCached: true) { error in
+                        if let error = error {
+                            self.onError(error: error, retry: retry)
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
+                        } else {
+                            retry?()
+                        }
+                    }
+                } else {
+                    // No cached password, ask user for password
+                    let keyId = self.keyIdentifier!
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                    self.delegate?.passwordFor(keyId: keyId, isPasswordEntryRetry: false) { password in
+                        guard let password = password else { return }
+                        self.unlock(withPassword: password, isCached: false) { error in
+                            if let error = error {
+                                self.onError(error: error, retry: retry)
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
+                            } else {
+                                retry?()
+                            }
+                        }
+                    }
+                }
+            }
+        // Ask user for the correct password
+        } else if errorCode == .wrongPassword {
+            self.delegate?.passwordFor(keyId: self.keyIdentifier!, isPasswordEntryRetry: true) { password in
+                guard let password = password else { return }
+                self.unlock(withPassword: password, isCached: false) { error in
+                    if let error = error {
+                        self.onError(error: error, retry: retry)
+                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
+                    } else {
+                        retry?()
+                    }
+                }
+            }
+        } else if let error = error as? YKFSessionError, YKFSessionErrorCode(rawValue: UInt(error.code)) == .invalidSessionStateStatusCode {
+            session = nil
+            retry?()
+        } else {
+            // Stop everything and pass error to delegate
+            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+            delegate?.onError(error: error)
         }
     }
-     /*
-        
-        switch error {
-        case KeySessionError.noService:
-            self.onRetry(operation: operation)
-            self.state = .idle
-        default:
-            // do nothing
-            break
-        }
-        
-        let errorCode = (error as NSError).code
-        // in case of authentication error supend queue but retry what was requested after resuming
-        if errorCode == YKFOATHErrorCode.authenticationRequired.rawValue {
-            self.onRetry(operation: operation)
-            self.state = .locked
-        } else if errorCode == YKFOATHErrorCode.badValidationResponse.rawValue || errorCode == YKFOATHErrorCode.wrongPassword.rawValue {
-            // wait for another successful validation
-            self.operationQueue.suspendQueue()
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.delegate?.onError(error: error)
-        }
-    }
-    */
+    
 
     
     /*! Invoked when some operation completed but doesn't change list of credentials or its data */
@@ -468,28 +521,6 @@ extension OATHViewModel: OperationDelegate {
                 $0.setupTimerObservation()
                 $0.delegate = self
                 return $0
-            }
-                        
-            for credential in self._credentials {
-                // If it's TOTP credential we might need to recalculate each individually
-                // if there was no correct value returned as part of calculateAll request
-                // NOTE: we don't update HOTP credentials unless user specifies because
-                // HOTP credentials rely on a counter which is stored on the YubiKey and the validating server.
-                // Each time an OTP is generated the counter is incremented on the YubiKey,
-                // but if the OTP is not sent to the server, the counters get out of sync (there is usually a small window to allow for some drift, around 5 OTPs or so).
-                if credential.type == .TOTP, !credential.requiresTouch {
-                    // credentials that has period other than 30 seconds needs to be recalculated
-                    // calculateAll assumes that every credential has period 30 seconds
-                    if credential.period != Credential.DEFAULT_PERIOD
-                        // credentials that don't need to be truncated need to be reculculated as well
-                        // calculateAll assumes that every credential needs to be truncated
-                        || credential.isSteam {
-                        self.calculate(credential: credential)
-                    }
-                } else if !self.keyPluggedIn, credential.type == .TOTP, credential.requiresRefresh {
-                    // if we've got NFC connection touch won't be required over NFC
-                    self.calculate(credential: credential)
-                }
             }
             
             self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cachedKeyId)

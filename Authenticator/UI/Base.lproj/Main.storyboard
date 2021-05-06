@@ -131,7 +131,7 @@
                     <navigationItem key="navigationItem" title="Accounts" id="Ecq-ES-9eb">
                         <barButtonItem key="leftBarButtonItem" title="Settings" image="gear" catalog="system" id="jeY-LK-zwC">
                             <connections>
-                                <segue destination="IqS-lg-whJ" kind="show" id="fTw-or-UJD"/>
+                                <segue destination="IqS-lg-whJ" kind="show" identifier="ShowSettings" id="fTw-or-UJD"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add Account" image="plus" catalog="system" id="zlN-3Z-daV">
@@ -970,8 +970,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CgE-gV-OlK"/>
-        <segue reference="UPN-tw-Bce"/>
+        <segue reference="0Gs-5m-Syj"/>
+        <segue reference="0dB-Xx-crT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor"/>
     <resources>

@@ -14,6 +14,9 @@ class SettingsViewController: UITableViewController {
     private let appVersion = UIApplication.appVersion
     private let systemVersion = UIDevice().systemVersion
     
+    var passwordPreferences: PasswordPreferences? = nil
+    var secureStore: SecureStore? = nil
+    
     @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
         if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
 //            self.viewModel.setConfiguration(configuration: keyConfiguration)
@@ -109,9 +112,9 @@ class SettingsViewController: UITableViewController {
     // MARK: - private helper methods
     
     private func removeStoredPasswords() {
-//        passwordPreferences.resetPasswordPreferenceForAll()
+        passwordPreferences?.resetPasswordPreferenceForAll()
         do {
-//            try secureStore.removeAllValues()
+            try secureStore?.removeAllValues()
             self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })

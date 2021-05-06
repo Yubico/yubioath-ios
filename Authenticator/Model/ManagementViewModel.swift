@@ -20,7 +20,7 @@ class ManagementViewModel {
                 guard let session = session else { completion(.failure(error!)); return }
                 session.getDeviceInfo { deviceInfo, error in
                     guard let deviceInfo = deviceInfo else { completion(.failure(error!)); return }
-                    YubiKitManager.shared.stopNFCConnection()
+                    YubiKitManager.shared.stopNFCConnection(withMessage: "Read YubiKey device info")
                     completion(.success(deviceInfo))
                 }
             }

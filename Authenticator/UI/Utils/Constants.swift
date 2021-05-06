@@ -21,4 +21,5 @@ extension String {
     internal static let editCredential = "EditCredential"
     internal static let tagConfig = "ShowTagSettings"
     internal static let showDeviceInfo = "ShowDeviceInfo"
+    internal static let showSettings = "ShowSettings"
 }
