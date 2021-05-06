@@ -226,29 +226,35 @@ class MainViewController: BaseOATHVIewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if segue.identifier == .showSettings {
+            guard let settingsViewController = segue.destination as? SettingsViewController else { assertionFailure(); return }
+            settingsViewController.secureStore = self.secureStore
+            settingsViewController.passwordPreferences = self.passwordPreferences
+        }
+        
         if segue.identifier == .editCredential {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            if let destination = destinationNavigationController.topViewController as? EditCredentialController, let sender = sender as? Credential  {
-                destination.credential = sender
-                destination.viewModel = viewModel
-            }
+            guard let navigationController = segue.destination as? UINavigationController,
+                  let destination = navigationController.topViewController as? EditCredentialController,
+                  let credential = sender as? Credential else { assertionFailure(); return }
+            destination.credential = credential
+            destination.viewModel = viewModel
         }
 
         if segue.identifier == .startFRE {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            if let freViewController = destinationNavigationController.topViewController as? FrePageViewController {
-                // passing userFreVersion and then setting current freVersion to userDefaults.
-                freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
-                SettingsConfig.lastFreVersionShown = .freVersion
-                SettingsConfig.lastWhatsNewVersionShown = .whatsNewVersion
-            }
+            guard let navigationController = segue.destination as? UINavigationController,
+                  let freViewController = navigationController.topViewController as? FrePageViewController else { assertionFailure(); return }
+            // passing userFreVersion and then setting current freVersion to userDefaults.
+            freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
+            SettingsConfig.lastFreVersionShown = .freVersion
+            SettingsConfig.lastWhatsNewVersionShown = .whatsNewVersion
         }
         
         if segue.identifier == .addCredentialSequeID {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            if let addViewController = destinationNavigationController.topViewController as? AddCredentialController, let credential = credentailToAdd {
-                    addViewController.displayCredential(details: credential)
-                }
+            guard let navigationController = segue.destination as? UINavigationController,
+                  let addViewController = navigationController.topViewController as? AddCredentialController else { assertionFailure(); return }
+            if let credential = credentailToAdd {
+                addViewController.displayCredential(details: credential)
+            }
             credentailToAdd = nil
         }
     }

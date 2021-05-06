@@ -11,6 +11,7 @@ import UIKit
 class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate {
     let viewModel = OATHViewModel()
     let passwordPreferences = PasswordPreferences()
+    var passwordCache = PasswordCache()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
     override func viewDidLoad() {
@@ -46,95 +47,8 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
      * Operation could be from YubiKit operations (e.g. calculate) or QR scanning (e.g. scan code)
      */
     func onError(error: Error) {
-        let errorCode = (error as NSError).code
-        // Save key identifier in local variable so that it can be accessed when save password is prompted.
-        let keyIdentifier = self.viewModel.keyIdentifier
-        
-        if errorCode == YKFOATHErrorCode.authenticationRequired.rawValue || errorCode == YKFOATHErrorCode.wrongPassword.rawValue {
-            let message = errorCode == YKFOATHErrorCode.wrongPassword.rawValue
-                ? "Incorrect password. Re-enter password."
-                : "To prevent unauthorized access this YubiKey is protected with a password."
-            
-            // If we saved password in secure store then we can try to authenticate with it.
-            // In case of any failure, we keep as if we don't have stored password.
-            if let passwordKey = keyIdentifier, self.secureStore.hasValue(for: passwordKey), errorCode == YKFOATHErrorCode.authenticationRequired.rawValue {
-                    self.validatePassword(for: passwordKey, with: message)
-                    // Doing early return for this special case because
-                    // we need to keep active session for NFC
-                    // so that validation happens during the same connection
-                    // all other cases will close active NFC connection.
-                    return
-            }
-            
-            self.showPasswordPrompt(with: message)
-            
-        } else {
-            if YubiKitDeviceCapabilities.supportsISO7816NFCTags, case KeySessionError.noService = error {
-                guard #available(iOS 13.0, *) else {
-                    fatalError()
-                }
-                
-                if SettingsConfig.showNoServiceWarning {
-                    self.showAlertDialog(title: "", message: "Plug-in your YubiKey or activate NFC reading in application", nfcHandler: {[weak self] () -> Void in
-                        self?.activateNfc()
-                    })
-                } else {
-                    // activate NFC by default, assuming that if key not plugged in, user uses NFC
-                    activateNfc()
-                }
-            } else {
-                print("Error code: \(String(format:"0x%02X", errorCode))")
-                if self.viewModel.cachedKeyId == keyIdentifier || self.viewModel.cachedKeyId == nil || keyIdentifier == nil {
-                    self.showAlertDialog(title: "Error occurred", message: error.localizedDescription)
-                }
-            }
-        }
-        
-        self.viewModel.stopNfc()
-    }
-    
-    /* Validates YubiKey password. If password is available in secure storage then use it,
-    otherwise shows prompt to user and request password.
-    */
-    private func validatePassword(for userAccount: String, with message: String) {
-        let hasValueProtected = self.secureStore.hasValueProtected(for: userAccount)
-        self.secureStore.getValueAsync(
-            for: userAccount,
-            useAuthentication: hasValueProtected,
-            success: { [weak self] password in
-                self?.viewModel.validate(password: password)
-            },
-            failure: { error in
-                DispatchQueue.main.async { [weak self] in
-                    self?.showPasswordPrompt(with: message)
-                    print("No stored password for this key: \(error.localizedDescription)")
-                }
-        })
-    }
-    
-    /* Shows password prompt to user with specified message, validates password
-    and saves the option (Save password or Save password with biometric protection) selected by user into permanent storage.
-    */
-    private func showPasswordPrompt(with message: String) {
-        if let passwordKey = self.viewModel.keyIdentifier {
-            self.showPasswordPrompt(preferences: self.passwordPreferences, keyIdentifier: passwordKey, message: message, inputHandler: {
-                [weak self] (password) -> Void in
-                guard let self = self else {
-                    return
-                }
-                self.viewModel.validate(password: password)
-                if self.passwordPreferences.useSavedPassword(keyIdentifier: passwordKey) || self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey) {
-                    do {
-                        try self.secureStore.setValue(password, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: passwordKey), for: passwordKey)
-                    } catch let e {
-                        self.passwordPreferences.resetPasswordPreference(keyIdentifier: passwordKey)
-                        self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
-                    }
-                }
-            }, cancelHandler: { [weak self] () -> Void in
-                self?.tableView.reloadData()
-            })
-        }
+        // not sure we will need this
+        print("Got error: \(error)")
     }
     
     /*! Delegate method that invoked when any operation succeeded
@@ -178,24 +92,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         }
     }
     
-    /*! Delegate method invoked when we need to retry if user approves */
-    func onOperationRetry(operation: BaseOperation) {
-        // currently only put operation can have conditioned retry
-        guard operation.operationName == .put else {
-            return
-        }
-        guard SettingsConfig.showBackupWarning else {
-            return
-        }
-        let backupText = "Secrets are stored safely on YubiKey. Backups can only be created during set up. \nDo you want to add this account to another key for backup? " + (viewModel.keyPluggedIn ? "Unplug your inserted key and insert another one, then tap Backup button" : "")
-        self.showWarning(title: "Account added. Create a backup?", message: backupText, okButtonTitle: "Backup", style: .default) { [weak self] () -> Void in
-            guard let self = self else {
-                return
-            }
-//            self.viewModel.onRetry(operation: operation, suspendQueue: false)
-        }
-    }
-    
     func onShowToastMessage(message: String) {
         self.displayToast(message: message)
     }
@@ -206,6 +102,55 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             self.tableView.deleteSections([0], with: .fade)
         } else {
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func didValidatePassword(_ password: String, forKey key: String) {
+        // Cache password in memory
+        passwordCache.setPassword(password, forKey: key)
+        
+        // Check if we should save password in keychain
+        if !self.passwordPreferences.neverSavePassword(keyIdentifier: key) {
+            self.secureStore.getValue(for: key) { result in
+                let currentPassword = try? result.get()
+                if password != currentPassword {
+                    let passwordActionSheet = UIAlertController(passwordPreferences: self.passwordPreferences) { type in
+                        self.passwordPreferences.setPasswordPreference(saveType: type, keyIdentifier: key)
+                        if self.passwordPreferences.useSavedPassword(keyIdentifier: key) || self.passwordPreferences.useScreenLock(keyIdentifier: key) {
+                            do {
+                                try self.secureStore.setValue(password, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: key), for: key)
+                            } catch let e {
+                                self.passwordPreferences.resetPasswordPreference(keyIdentifier: key)
+                                self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
+                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.present(passwordActionSheet, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void) {
+        if let password = passwordCache.password(forKey: keyId) {
+            completion(password)
+            return
+        }
+        self.secureStore.getValue(for: keyId) { result in
+            let password = try? result.get()
+            completion(password)
+            return
+        }
+    }
+    
+    func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
+        DispatchQueue.main.async {
+            let passwordEntryAlert = UIAlertController(passwordEntryType: isPasswordEntryRetry ? .retryPassword : .password) { password in
+                completion(password)
+            }
+            self.present(passwordEntryAlert, animated: true)
         }
     }
 }

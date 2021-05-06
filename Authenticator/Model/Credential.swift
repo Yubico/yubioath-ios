@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CredentialExpirationDelegate : class {
+protocol CredentialExpirationDelegate : AnyObject {
     func calculateResultDidExpire(_ credential: Credential)
 }
 
