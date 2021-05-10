@@ -17,12 +17,6 @@ class SettingsViewController: UITableViewController {
     var passwordPreferences: PasswordPreferences? = nil
     var secureStore: SecureStore? = nil
     
-    @IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
-        if let sourceViewController = segue.source as? YubiKeyConfigurationConroller, let keyConfiguration = sourceViewController.keyConfiguration {
-//            self.viewModel.setConfiguration(configuration: keyConfiguration)
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
@@ -62,20 +56,6 @@ class SettingsViewController: UITableViewController {
         let webVC = stboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         
         switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            return
-//            if !self.viewModel.keyPluggedIn {
-//                self.viewModel.getKeyVersion()
-//            } else {
-                // Workaround for modal segue bug: segue is very slow and takes up to 6sec to appear.
-                // Here is a link: https://stackoverflow.com/questions/28509252/performseguewithidentifier-very-slow-when-segue-is-modal
-//                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
-//                }
-//            }
-        case (0, 2):
-            return;
-//            self.viewModel.getConfiguration()
         case (1, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
