@@ -83,15 +83,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         //self.viewModel.stopNfc()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == .tagConfig {
-            let destinationNavigationController = segue.destination as! UINavigationController
-            if let deviceInfoViewController = destinationNavigationController.topViewController as? YubiKeyConfigurationConroller, let keyConfig = self.viewModel.cachedKeyConfig {
-                deviceInfoViewController.keyConfiguration = keyConfig
-            }
-        }
-    }
-    
     func onShowToastMessage(message: String) {
         self.displayToast(message: message)
     }

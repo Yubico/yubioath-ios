@@ -55,7 +55,7 @@
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
 		A5B531F22437CD16008C501C /* AppVersionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */; };
 		A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */; };
-		A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */; };
+		A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */; };
 		A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -134,7 +134,7 @@
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionInfoViewController.swift; sourceTree = "<group>"; };
 		A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfoViewController.swift; sourceTree = "<group>"; };
-		A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationConroller.swift; sourceTree = "<group>"; };
+		A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPConfigurationController.swift; sourceTree = "<group>"; };
 		A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -313,7 +313,7 @@
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
-				A5D4E86C24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift */,
+				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
 				A5B531F12437CD16008C501C /* AppVersionInfoViewController.swift */,
 			);
@@ -551,7 +551,7 @@
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
-				A5D4E86D24083CF300FD63A0 /* YubiKeyConfigurationConroller.swift in Sources */,
+				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
 				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
