@@ -37,10 +37,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
         super.viewWillDisappear(animated)
     }
     
-    func activateNfc() {
-        self.viewModel.startNfc()
-    }
-    
     // MARK: - CredentialViewModelDelegate
     
     /*! Delegate method that invoked when any operation failed
@@ -79,8 +75,6 @@ class BaseOATHVIewController: UITableViewController, CredentialViewModelDelegate
             // other operations do not change list of credentials
             break
         }
-        
-        //self.viewModel.stopNfc()
     }
     
     func onShowToastMessage(message: String) {

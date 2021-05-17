@@ -10,6 +10,17 @@ import UIKit
 
 extension UIAlertController {
     
+    convenience init(title: String? = nil, message: String? = nil, completion: @escaping (() -> Void) = {}) {
+        self.init(title: title,
+                  message: message,
+                  preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
+            completion()
+            self?.dismiss(animated: true, completion: nil)
+        }
+        self.addAction(dismiss)
+    }
+    
     enum PasswordEntryType {
         case password
         case retryPassword
