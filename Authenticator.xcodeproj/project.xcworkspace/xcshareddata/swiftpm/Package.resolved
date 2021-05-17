@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/Yubico/yubikit-ios",
         "state": {
           "branch": "jens/add-timestamp-to-oath-calculate",
-          "revision": "b395a13dce4c209aca9d365d17f3f54c5d1add21",
+          "revision": "f361c97fe531036b67b993e8a5d6878768f139aa",
           "version": null
         }
       }

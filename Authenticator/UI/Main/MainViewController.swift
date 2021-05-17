@@ -316,13 +316,6 @@ class MainViewController: BaseOATHVIewController {
     @objc func refreshData() {
         viewModel.calculateAll()
         refreshControl?.endRefreshing()
-        return
-        if (YubiKitDeviceCapabilities.supportsMFIAccessoryKey && viewModel.keyPluggedIn) {
-            viewModel.calculateAll()
-        } else if (YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
-            activateNfc()
-        }
-        refreshControl?.endRefreshing()
     }
     
     //
@@ -498,31 +491,6 @@ class MainViewController: BaseOATHVIewController {
     }
 }
 
-//
-// MARK: - Key Session Observer
-//
-/*
-extension  MainViewController : AccessorySessionObserverDelegate {
-    
-    func accessorySessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFAccessorySessionState) {
-        DispatchQueue.main.async { [weak self] in
-            self?.refreshUIOnKeyStateUpdate()
-        }
-    }
-}
-
-extension  MainViewController: NfcSessionObserverDelegate {
-    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
-        guard #available(iOS 13.0, *) else {
-            fatalError()
-        }
-        viewModel.nfcStateChanged(state: state)
-        if state == .open {
-            viewModel.calculateAll()
-        }
-    }
-}
- */
 // MARK: ApplicationSessionObserverDelegate
 extension MainViewController: ApplicationSessionObserverDelegate {
     func didEnterBackground() {
@@ -533,7 +501,6 @@ extension MainViewController: ApplicationSessionObserverDelegate {
 //
 // MARK: - Search Results Extension
 //
-
 extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let filter = searchController.searchBar.text

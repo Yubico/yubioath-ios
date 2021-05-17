@@ -27,8 +27,8 @@ class OTPConfigurationController: UITableViewController {
         self.saveButton.isEnabled = configuration?.isEnabled != tagSwitch.isOn
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    func dismiss() {
+        performSegue(withIdentifier: "unwindToSettings", sender: self)
     }
     
     @IBAction func save(_ sender: Any) {
@@ -37,7 +37,7 @@ class OTPConfigurationController: UITableViewController {
                 guard error == nil else {
                     let alert = UIAlertController(title: "Error writing configuration", message: error?.localizedDescription, preferredStyle: .alert)
                     let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismiss()
                     }
                     alert.addAction(action)
                     DispatchQueue.main.async {
@@ -47,12 +47,12 @@ class OTPConfigurationController: UITableViewController {
                 }
                 if self.configuration?.transport == .NFC {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismiss()
                     }
                 } else {
                     let alert = UIAlertController(title: "New OTP configuration saved", message: nil, preferredStyle: .alert)
                     let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismiss()
                     }
                     alert.addAction(action)
                     self.present(alert, animated: true, completion: nil)
@@ -85,10 +85,10 @@ class OTPConfigurationController: UITableViewController {
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                     let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismiss()
                     }
                     alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
+                    self.dismiss()
                 }
             }
         }
@@ -98,7 +98,7 @@ class OTPConfigurationController: UITableViewController {
             if error != nil || (connection as? YKFAccessoryConnection) != nil {
                 let alert = UIAlertController(title: "YubiKey disconnected", message: error?.localizedDescription, preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                    self?.dismiss(animated: true, completion: nil)
+                    self?.dismiss()
                 }
                 alert.addAction(action)
                 DispatchQueue.main.async {

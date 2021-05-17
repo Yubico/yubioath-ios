@@ -84,7 +84,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
-        YubiKitManager.shared.delegate = self
+        resume()
     }
     
     /*!
@@ -260,19 +260,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    public func setCode(password: String) {
-        session { session in
-            guard let session = session else { return }
-            session.setPassword(password) { error in
-                guard error == nil else {
-                    self.onError(error: error!)
-                    return
-                }
-                YubiKitManager.shared.stopNFCConnection()
-            }
-        }
-    }
-    
     func unlock(withPassword password: String, isCached: Bool, completion: @escaping ((Error?) -> Void)) {
         session { session in
             guard let session = session else { return }
@@ -284,34 +271,15 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                 }
             }
-//            session.unlock(withPassword: password, completion: completion)
         }
     }
     
-    public func getConfiguration() {
-//        addOperation(operation: GetKeyConfigurationOperation())
-    }
-    
-    public func setConfiguration(configuration: YKFManagementInterfaceConfiguration) {
-//        addOperation(operation: SetKeyConfigurationOperation(configuration: configuration))
-    }
-    
-    public func reset() {
-//        addOperation(operation: ResetOperation())
-    }
-    
-    public func getKeyVersion() {
-//        addOperation(operation: GetKeyVersionOperation())
-    }
-    
     public func pause() {
-//        self.isPaused = true
-//        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
+        YubiKitManager.shared.delegate = nil
     }
     
     public func resume() {
-//        self.isPaused = false
-//        self.operationQueue.suspendQueue(suspendQueue: self.isPaused)
+        YubiKitManager.shared.delegate = self
     }
     
     public func cleanUp() {
@@ -480,12 +448,6 @@ extension OATHViewModel { //}: OperationDelegate {
                 return
             }
             self.delegate?.onOperationCompleted(operation: operation)
-            
-            // in case of put operation
-            // prompt user if he wants to retry this operation for another key
-//            if operation.operationName == .put {
-//                self.delegate?.onOperationRetry(operation: operation)
-//            }
         }
     }
     
@@ -604,19 +566,6 @@ extension OATHViewModel { //}: OperationDelegate {
             self.delegate?.onOperationCompleted(operation: .getKeyVersion)
         }
     }
-    
-//    func onRetry(operation: BaseOperation, suspendQueue: Bool = true) {
-//        let retryOperation = operation.createRetryOperation()
-//        self.addOperation(operation: retryOperation, suspendQueue: suspendQueue)
-//    }
-    
-//    func addOperation(operation: BaseOperation, suspendQueue: Bool = false) {
-//        if self.isPaused {
-//            return
-//        }
-//        operation.delegate = self
-//        self.operationQueue.add(operation: operation, suspendQueue: suspendQueue)
-//    }
 }
 
 // MARK: - Properties to YubikitManager sessions
@@ -642,61 +591,6 @@ extension OATHViewModel {
     var keyDescription: YKFAccessoryDescription? {
         return accessoryConnection?.accessoryDescription
     }
-    
-    func startNfc() {
-        YubiKitManager.shared.startNFCConnection()
-//        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-//            guard #available(iOS 13.0, *) else {
-//                fatalError()
-//            }
-//            if YubiKitManager.shared.nfcSession.iso7816SessionState != .closed {
-//                YubiKitManager.shared.nfcSession.stopIso7816Session()
-//            }
-//            YubiKitManager.shared.nfcSession.startIso7816Session()
-//        }
-    }
-
-    func stopNfc() {
-        YubiKitManager.shared.stopNFCConnection()
-//        if YubiKitDeviceCapabilities.supportsISO7816NFCTags && self.isQueueEmpty() && YubiKitManager.shared.nfcSession.iso7816SessionState != .closed{
-//            guard #available(iOS 13.0, *) else {
-//                fatalError()
-//            }
-//
-//            YubiKitManager.shared.nfcSession.stopIso7816Session()
-//        }
-    }
-        /*
-    func nfcStateChanged(state: YKFNFCISO7816SessionState) {
-
-        let oldState = self.nfcState
-        self.nfcState = state
-        guard #available(iOS 13.0, *) else {
-            fatalError()
-        }
-        print("NFC key session state: \(String(describing: state.rawValue))")
-        if state == .open {
-            YubiKitManager.shared.nfcSession.setAlertMessage("Reading the data")
-        } else if state == .pooling {
-            if oldState == .open {
-                // Closing session because YubiKey was removed from NFC reader.
-                self.stopNfc()
-            } else {
-                YubiKitManager.shared.nfcSession.setAlertMessage("Scan your YubiKey")
-            }
-        } else if state == .closed {
-            guard let error = YubiKitManager.shared.nfcSession.iso7816SessionError else {
-                return
-            }
-            let errorCode = (error as NSError).code
-            if errorCode == NFCReaderError.readerSessionInvalidationErrorUserCanceled.rawValue {
-                // if user pressed cancel button we won't proceed with queueed operations
-                self.operationQueue.cancelAllOperations()
-            }
-            print("NFC key session error: \(error.localizedDescription)")
-        }
-    }
-     */
 }
 
 // MARK: - Operations with Favorites set.

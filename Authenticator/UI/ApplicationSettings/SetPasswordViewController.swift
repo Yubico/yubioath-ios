@@ -8,46 +8,95 @@
 
 import UIKit
 
-class SetPasswordViewController: BaseOATHVIewController {
+class SetPasswordViewController: UITableViewController {
     
+    let viewModel = PasswordConfigurationViewModel()
+
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
 
-//    private var keySessionObserver: KeySessionObserver!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        keySessionObserver = KeySessionObserver(nfcDlegate: self)
+    @IBAction func passwordChanged(_ sender: UITextField) {
+        validatePasswords()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        keySessionObserver.observeSessionState = false
+    @IBAction func confirmPasswordChanged(_ sender: UITextField) {
+        validatePasswords()
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    func validatePasswords() {
+        saveButton.isEnabled = password.hasText && confirmPassword.hasText && password.text == confirmPassword.text
+    }
+    
+    func dismiss() {
+        performSegue(withIdentifier: "unwindToSettings", sender: self)
     }
     
     @IBAction func savePassword(_ sender: Any) {
-       if password.text != confirmPassword.text {
+        if !password.hasText && !confirmPassword.hasText {
+            self.showAlertDialog(title: "Error", message: "Password can not be an empty string")
+        } else if password.text != confirmPassword.text {
             self.showAlertDialog(title: "Error", message: "The passwords do not match")
         } else {
-            viewModel.setCode(password: password.text ?? "")
+            self.changePassword(password: password.text ?? "", oldPassword: nil)
+        }
+    }
+    
+    func changePassword(password: String, oldPassword: String?) {
+        viewModel.changePassword(password: password, oldPassword: oldPassword) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let message):
+                    if let message = message {
+                        let alert = UIAlertController(title: message) {
+                            self.dismiss()
+                        }
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.dismiss()
+                    }
+                case .authenticationRequired:
+                    let authenticationAlert = UIAlertController(passwordEntryType: .password) { oldPassword in
+                        guard let oldPassword = oldPassword else {
+                            self.dismiss()
+                            return
+                        }
+                        self.changePassword(password: password, oldPassword: oldPassword)
+                    }
+                    self.present(authenticationAlert, animated: true, completion: nil)
+                case .wrongPassword:
+                    let authenticationAlert = UIAlertController(passwordEntryType: .retryPassword) { oldPassword in
+                        guard let oldPassword = oldPassword else {
+                            self.dismiss()
+                            return
+                        }
+                        self.changePassword(password: password, oldPassword: oldPassword)
+                    }
+                    self.present(authenticationAlert, animated: true, completion: nil)
+                case .failure(let errorMessage):
+                    if let message = errorMessage {
+                        let alert = UIAlertController(title: message) {
+                            self.dismiss()
+                        }
+                        self.present(alert, animated: true, completion: nil)
+                    } else {
+                        self.dismiss()
+                    }
+                }
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // UITextViewDelegate added for switching resonder on return key on keyboard
+        // UITextViewDelegate added for switching responder on return key on keyboard
         self.password.delegate = self
         self.confirmPassword.delegate = self
     }
 }
 
 extension SetPasswordViewController: UITextFieldDelegate {
-    
+        
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case password:
@@ -61,13 +110,3 @@ extension SetPasswordViewController: UITextFieldDelegate {
         return false
     }
 }
-
-//extension  SetPasswordViewController: NfcSessionObserverDelegate {
-//    func nfcSessionObserver(_ observer: KeySessionObserver, sessionStateChangedTo state: YKFNFCISO7816SessionState) {
-//        viewModel.nfcStateChanged(state: state)
-//        if state == .open {
-//            viewModel.resume()
-//        }
-//    }
-//}
-
