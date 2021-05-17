@@ -33,7 +33,6 @@
 		818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818866BF22DFD72C006BC0A8 /* Assets.xcassets */; };
 		818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */; };
 		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
-		818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */; };
 		818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* OATHViewController.swift */; };
 		818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F422E23D9F006BC0A8 /* AddCredentialController.swift */; };
 		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
@@ -64,13 +63,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		818866CA22DFD72C006BC0A8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 818866B222DFD729006BC0A8;
-			remoteInfo = Authenticator;
-		};
-		818866D522DFD72C006BC0A8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
 			proxyType = 1;
@@ -109,9 +101,6 @@
 		818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorTests.swift; sourceTree = "<group>"; };
 		818866CF22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorUITests.swift; sourceTree = "<group>"; };
-		818866DA22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818866E822E18134006BC0A8 /* OATHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OATHViewController.swift; path = Authenticator/UI/Main/OATHViewController.swift; sourceTree = SOURCE_ROOT; };
 		818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Authenticator-Bridging-Header.h"; sourceTree = "<group>"; };
 		818866F422E23D9F006BC0A8 /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddCredentialController.swift; path = Authenticator/UI/AddCredential/AddCredentialController.swift; sourceTree = SOURCE_ROOT; };
@@ -152,13 +141,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		818866C622DFD72C006BC0A8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		818866D122DFD72C006BC0A8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,7 +198,6 @@
 			children = (
 				818866B522DFD729006BC0A8 /* Authenticator */,
 				818866CC22DFD72C006BC0A8 /* AuthenticatorTests */,
-				818866D722DFD72C006BC0A8 /* AuthenticatorUITests */,
 				818866B422DFD729006BC0A8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -226,7 +207,6 @@
 			children = (
 				818866B322DFD729006BC0A8 /* Authenticator.app */,
 				818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */,
-				818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -254,15 +234,6 @@
 				818866CF22DFD72C006BC0A8 /* Info.plist */,
 			);
 			path = AuthenticatorTests;
-			sourceTree = "<group>";
-		};
-		818866D722DFD72C006BC0A8 /* AuthenticatorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */,
-				818866DA22DFD72C006BC0A8 /* Info.plist */,
-			);
-			path = AuthenticatorUITests;
 			sourceTree = "<group>";
 		};
 		818BE8DA22F3485600061026 /* UI */ = {
@@ -372,11 +343,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 818866E022DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorTests" */;
 			buildPhases = (
-				BBFABF0A77B92CDD1967F3B0 /* [CP] Check Pods Manifest.lock */,
 				818866C522DFD72C006BC0A8 /* Sources */,
 				818866C622DFD72C006BC0A8 /* Frameworks */,
 				818866C722DFD72C006BC0A8 /* Resources */,
-				F7BDDD0FCF7314A800D0207D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -387,24 +356,6 @@
 			productName = AuthenticatorTests;
 			productReference = 818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		818866D322DFD72C006BC0A8 /* AuthenticatorUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 818866E322DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorUITests" */;
-			buildPhases = (
-				818866D022DFD72C006BC0A8 /* Sources */,
-				818866D122DFD72C006BC0A8 /* Frameworks */,
-				818866D222DFD72C006BC0A8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				818866D622DFD72C006BC0A8 /* PBXTargetDependency */,
-			);
-			name = AuthenticatorUITests;
-			productName = AuthenticatorUITests;
-			productReference = 818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -428,10 +379,6 @@
 						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 818866B222DFD729006BC0A8;
 					};
-					818866D322DFD72C006BC0A8 = {
-						CreatedOnToolsVersion = 10.2.1;
-						TestTargetID = 818866B222DFD729006BC0A8;
-					};
 				};
 			};
 			buildConfigurationList = 818866AE22DFD729006BC0A8 /* Build configuration list for PBXProject "Authenticator" */;
@@ -452,7 +399,6 @@
 			targets = (
 				818866B222DFD729006BC0A8 /* Authenticator */,
 				818866C822DFD72C006BC0A8 /* AuthenticatorTests */,
-				818866D322DFD72C006BC0A8 /* AuthenticatorUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -478,54 +424,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		818866D222DFD72C006BC0A8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		BBFABF0A77B92CDD1967F3B0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Authenticator-AuthenticatorTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F7BDDD0FCF7314A800D0207D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Authenticator-AuthenticatorTests/Pods-Authenticator-AuthenticatorTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		818866AF22DFD729006BC0A8 /* Sources */ = {
@@ -586,14 +485,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		818866D022DFD72C006BC0A8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -601,11 +492,6 @@
 			isa = PBXTargetDependency;
 			target = 818866B222DFD729006BC0A8 /* Authenticator */;
 			targetProxy = 818866CA22DFD72C006BC0A8 /* PBXContainerItemProxy */;
-		};
-		818866D622DFD72C006BC0A8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 818866B222DFD729006BC0A8 /* Authenticator */;
-			targetProxy = 818866D522DFD72C006BC0A8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -841,46 +727,6 @@
 			};
 			name = Release;
 		};
-		818866E422DFD72C006BC0A8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
-				INFOPLIST_FILE = AuthenticatorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Authenticator;
-			};
-			name = Debug;
-		};
-		818866E522DFD72C006BC0A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
-				INFOPLIST_FILE = AuthenticatorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Authenticator;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -907,15 +753,6 @@
 			buildConfigurations = (
 				818866E122DFD72C006BC0A8 /* Debug */,
 				818866E222DFD72C006BC0A8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		818866E322DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "AuthenticatorUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				818866E422DFD72C006BC0A8 /* Debug */,
-				818866E522DFD72C006BC0A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
