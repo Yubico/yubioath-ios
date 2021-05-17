@@ -34,12 +34,11 @@
 		818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */; };
 		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
 		818866D922DFD72C006BC0A8 /* AuthenticatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */; };
-		818866E922E18134006BC0A8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* MainViewController.swift */; };
+		818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* OATHViewController.swift */; };
 		818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F422E23D9F006BC0A8 /* AddCredentialController.swift */; };
 		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
 		818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* PieProgressBar.swift */; };
 		818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818BE8DE22F39A9000061026 /* GlobalTimer.swift */; };
-		81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */; };
 		81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* OATHViewModel.swift */; };
 		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
@@ -113,14 +112,13 @@
 		818866D422DFD72C006BC0A8 /* AuthenticatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866D822DFD72C006BC0A8 /* AuthenticatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorUITests.swift; sourceTree = "<group>"; };
 		818866DA22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		818866E822E18134006BC0A8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Authenticator/UI/Main/MainViewController.swift; sourceTree = SOURCE_ROOT; };
+		818866E822E18134006BC0A8 /* OATHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OATHViewController.swift; path = Authenticator/UI/Main/OATHViewController.swift; sourceTree = SOURCE_ROOT; };
 		818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Authenticator-Bridging-Header.h"; sourceTree = "<group>"; };
 		818866F422E23D9F006BC0A8 /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddCredentialController.swift; path = Authenticator/UI/AddCredential/AddCredentialController.swift; sourceTree = SOURCE_ROOT; };
 		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
 		818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CredentialTableViewCell.swift; path = Authenticator/UI/Main/CredentialTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		818866F922E96B47006BC0A8 /* PieProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PieProgressBar.swift; path = Authenticator/UI/Main/PieProgressBar.swift; sourceTree = SOURCE_ROOT; };
 		818BE8DE22F39A9000061026 /* GlobalTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTimer.swift; sourceTree = "<group>"; };
-		81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseOATHVIewController.swift; sourceTree = "<group>"; };
 		81C00FDA22EB70A500C54903 /* OATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHViewModel.swift; sourceTree = "<group>"; };
 		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
@@ -288,9 +286,9 @@
 				51EEC530246D34D800061A8F /* Extensions */,
 				816C684423430DC000209342 /* SecureStore */,
 				51F8E3BE263848E30010686B /* Connection.swift */,
+				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
 				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
-				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
 				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
@@ -329,8 +327,7 @@
 		81FA3C35231AF33E009C22AB /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				818866E822E18134006BC0A8 /* MainViewController.swift */,
-				81BE0C2A232991AD00C60E1D /* BaseOATHVIewController.swift */,
+				818866E822E18134006BC0A8 /* OATHViewController.swift */,
 				818866F922E96B47006BC0A8 /* PieProgressBar.swift */,
 				818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */,
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
@@ -550,7 +547,7 @@
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,
-				818866E922E18134006BC0A8 /* MainViewController.swift in Sources */,
+				818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
@@ -559,7 +556,6 @@
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
-				81BE0C2B232991AD00C60E1D /* BaseOATHVIewController.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
