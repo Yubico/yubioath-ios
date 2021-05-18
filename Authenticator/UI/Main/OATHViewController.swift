@@ -32,7 +32,6 @@ class OATHViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupCredentialsSearchController()
-        setupNavigationBar()
         setupRefreshControl()
         
 #if !DEBUG
@@ -339,22 +338,6 @@ class OATHViewController: UITableViewController {
         navigationItem.searchController = credentialsSearchController
         navigationItem.hidesSearchBarWhenScrolling = true
         definesPresentationContext = true
-    }
-    
-    /*! Adds Yubico logo on the place of title
-     */
-    private func setupNavigationBar() {
-        let titleView = UIView()
-        titleView.frame = CGRect(x: 0, y: 0, width: navigationItem.titleView?.frame.width ?? 40, height: navigationItem.titleView?.frame.height ?? 40)
-        
-        let imageView = UIImageView()
-        // image view within navigation bar needs some offsets/paddings from top and bottom
-        // using custom view to fill full navitation bar view and adding padding in imageView frame
-        imageView.frame = CGRect(x: 0, y: titleView.frame.height/4, width: titleView.frame.width, height: titleView.frame.height/2)
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "LogoText")
-        titleView.addSubview(imageView)
-        navigationItem.titleView = titleView
     }
     
     private func setupRefreshControl() {
