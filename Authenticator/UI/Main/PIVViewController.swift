@@ -7,18 +7,25 @@
 //
 
 import Foundation
+import Combine
 
 class PIVViewController: UITableViewController {
     
     let viewModel = PIVViewModel()
-    
     let keychainCerts = ["An important certificate", "Second Keychain certificate", "Third Keychain certificate"]
-    
     var certificates = [SecCertificate]()
+    
+    deinit {
+        print("deinit PIVViewController")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.sectionHeaderHeight = 80
+        tableView.sectionHeaderHeight = 80
+        tableView.estimatedRowHeight = 100
+        tableView.allowsSelection = false
+        tableView.register(CertificateCell.self, forCellReuseIdentifier: "CertificateCell")
+        
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             let refreshControl = UIRefreshControl()
             // setting background to refresh control changes behavior of spinner
@@ -45,11 +52,19 @@ class PIVViewController: UITableViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.certificatesCallback = nil
+    }
+    
     @objc func startNFC() {
         viewModel.startNFC()
         refreshControl?.endRefreshing()
     }
     
+    func copyCertificateToKeychain(certificate: SecCertificate) {
+        viewModel.copyCertificateToKeychain(certificate: certificate)
+    }
 }
 
 
@@ -80,23 +95,26 @@ extension PIVViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "foo")
-        
-        let title: String?
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
         if indexPath.section == 0 {
-            let cert = certificates[indexPath.row]
-            title = cert.commonName
+            let certificate = certificates[indexPath.row]
+            cell.name = certificate.commonName
+            cell.action = { [weak self] in
+                self?.copyCertificateToKeychain(certificate: certificate)
+            }
         } else {
-            title = keychainCerts[indexPath.row]
+            cell.name = keychainCerts[indexPath.row]
+            cell.setSymbol(symbol: "minus.circle")
+            cell.action = { [weak self] in
+                print("remove from keychain: \(self?.keychainCerts[indexPath.row])")
+            }
         }
-        cell.textLabel?.text = title
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? certificates.count : keychainCerts.count
     }
-    
 }
 
 extension SecCertificate {
@@ -104,5 +122,61 @@ extension SecCertificate {
         var name: CFString?
         SecCertificateCopyCommonName(self, &name)
         return name as String?
+    }
+}
+
+class CertificateCell: UITableViewCell {
+    private let nameLabel = UILabel()
+    private let button = UIButton(withSymbolName: "apps.iphone.badge.plus")
+    var cancellable: Cancellable?
+    
+    var name: String? {
+        set {
+            nameLabel.text = newValue
+        }
+        get {
+            return nameLabel.text
+        }
+    }
+    var action: (() -> Void)? {
+        set {
+            guard let action = newValue else { return }
+            self.cancellable = button.addHandler(for: .touchUpInside, block: action)
+        }
+        get {
+            return nil
+        }
+    }
+    
+    func setSymbol(symbol: String) {
+        button.setSymbol(symbol: symbol)
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        isUserInteractionEnabled = true
+        let stack = UIStackView(arrangedSubviews: [nameLabel, button])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:20),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+        ])
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        button.setSymbol(symbol: "apps.iphone.badge.plus")
+        cancellable?.cancel()
+    }
+    
+    deinit {
+        print("deinit CertificateCell")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
