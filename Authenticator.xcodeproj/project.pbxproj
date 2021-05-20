@@ -15,6 +15,8 @@
 		515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */; };
 		515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */; };
 		515542662653126700B19C59 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542652653126600B19C59 /* ServicesViewController.swift */; };
+		515542682654413600B19C59 /* PIVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542672654413600B19C59 /* PIVViewController.swift */; };
+		5155426A26554CAB00B19C59 /* PIVViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155426926554CAB00B19C59 /* PIVViewModel.swift */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -81,6 +83,8 @@
 		5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusViewModel.swift; sourceTree = "<group>"; };
 		515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordConfigurationViewModel.swift; sourceTree = "<group>"; };
 		515542652653126600B19C59 /* ServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
+		515542672654413600B19C59 /* PIVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIVViewController.swift; sourceTree = "<group>"; };
+		5155426926554CAB00B19C59 /* PIVViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIVViewModel.swift; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
@@ -258,17 +262,18 @@
 			children = (
 				51EEC530246D34D800061A8F /* Extensions */,
 				816C684423430DC000209342 /* SecureStore */,
-				51F8E3BE263848E30010686B /* Connection.swift */,
-				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
-				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
-				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
-				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
-				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
-				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
-				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
-				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
+				51F8E3BE263848E30010686B /* Connection.swift */,
+				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
+				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
+				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
+				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
+				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
+				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				51D1E84D26427F7600BDA3FF /* PasswordCache.swift */,
+				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
+				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
+				5155426926554CAB00B19C59 /* PIVViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */,
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
 				515542652653126600B19C59 /* ServicesViewController.swift */,
+				515542672654413600B19C59 /* PIVViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -458,7 +464,9 @@
 				A5E9DEA02379F3CD0011FBF4 /* WebViewController.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
+				5155426A26554CAB00B19C59 /* PIVViewModel.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
+				515542682654413600B19C59 /* PIVViewController.swift in Sources */,
 				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,

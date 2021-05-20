@@ -977,6 +977,34 @@
             </objects>
             <point key="canvasLocation" x="1136" y="-433"/>
         </scene>
+        <!--Safari PIV Extension-->
+        <scene sceneID="tIY-Rn-mT4">
+            <objects>
+                <tableViewController id="t28-TG-awK" customClass="PIVViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tmI-8c-SSH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Hpt-BD-9UJ">
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hpt-BD-9UJ" id="5WK-GS-L96">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="t28-TG-awK" id="ZDa-4v-tvB"/>
+                            <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Safari PIV Extension" id="fl4-8d-lD9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="juD-9u-B52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1059" y="-1144"/>
+        </scene>
         <!--EditCredential-->
         <scene sceneID="peD-eI-CIP">
             <objects>
@@ -1014,7 +1042,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502321" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="482.66666828502304" width="414" height="44.000000000000057"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1138,6 +1166,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="3Nh-1h-Gcu" secondAttribute="trailing" constant="5" id="jaa-hT-Vi6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="t28-TG-awK" kind="show" id="7Ae-AT-CQF"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
