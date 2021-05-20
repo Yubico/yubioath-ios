@@ -19,14 +19,23 @@ class PIVViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.sectionHeaderHeight = 80
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            let refreshControl = UIRefreshControl()
+            // setting background to refresh control changes behavior of spinner
+            // and it gets dragged with pull rather than sticks to the top of the view
+            refreshControl.backgroundColor = .clear
+            refreshControl.addTarget(self, action:  #selector(startNFC), for: .valueChanged)
+            self.refreshControl = refreshControl
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.listPIVCertificates { result in
+        
+        viewModel.certificatesCallback = { result in
             switch result {
-            case .success(let certificate):
-                self.certificates = [certificate]
+            case .success(let certificates):
+                self.certificates = certificates
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -36,6 +45,15 @@ class PIVViewController: UITableViewController {
         }
     }
     
+    @objc func startNFC() {
+        viewModel.startNFC()
+        refreshControl?.endRefreshing()
+    }
+    
+}
+
+
+extension PIVViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2

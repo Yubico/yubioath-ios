@@ -6,26 +6,90 @@
 //  Copyright © 2021 Yubico. All rights reserved.
 //
 
-import Foundation
-
-
-class PIVViewModel {
+class PIVViewModel: NSObject {
     
-    let connection = Connection()
+    private var nfcConnection: YKFNFCConnection?
+    private var accessoryConnection: YKFAccessoryConnection?
     
-    func didDisconnect(completion: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
-        connection.didDisconnect(completion: completion)
+    var certificatesCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
+    
+    override init() {
+        super.init()
+        YubiKitManager.shared.delegate = self
     }
     
-    func listPIVCertificates(completion: @escaping (_ result: Result<SecCertificate, Error>) -> Void) {
-        connection.startConnection { connection in
-            connection.pivSession { session, error in
-                guard let session = session else { completion(.failure(error!)); return }
-                session.getCertificateIn(.signature) { certificate, error in
-                    guard let certificate = certificate else { completion(.failure(error!)); return }
-                    completion(.success(certificate))
+    private func didConnect() {
+        updateCertificates()
+    }
+    
+    private func didDisconnect() {
+        self.certificatesCallback?(.success([SecCertificate]()))
+    }
+    
+    func startNFC() {
+        YubiKitManager.shared.startNFCConnection()
+    }
+    
+    private func updateCertificates() {
+        guard let connection = connection else { return }
+        connection.pivSession { session, error in
+            guard let session = session else { self.certificatesCallback?(.failure(error!)); return }
+            guard let callback = self.certificatesCallback else { return }
+            var certificates = [SecCertificate]()
+            session.getCertificateIn(slot: .authentication, callback: callback) { certificate in
+                if let certificate = certificate { certificates.append(certificate) }
+                callback(.success(certificates))
+                session.getCertificateIn(slot: .signature, callback: callback) { certificate in
+                    if let certificate = certificate { certificates.append(certificate) }
+                    callback(.success(certificates))
+                    YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
+                    return
                 }
             }
         }
+    }
+}
+
+extension YKFPIVSession {
+    func getCertificateIn(slot: YKFPIVSlot,
+                          callback: @escaping (_ result: Result<[SecCertificate], Error>) -> Void,
+                          completion: @escaping (_ certificate: SecCertificate?) -> Void) {
+        getCertificateIn(slot) { certificate, error in
+            guard let certificate = certificate else {
+                if (error! as NSError).code == 0x6A82 {
+                    completion(nil)
+                } else {
+                    callback(.failure(error!))
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                }
+                return
+            }
+            completion(certificate)
+        }
+    }
+}
+
+extension PIVViewModel: YKFManagerDelegate {
+    var connection: YKFConnectionProtocol? {
+        return accessoryConnection ?? nfcConnection
+    }
+    
+    func didConnectNFC(_ connection: YKFNFCConnection) {
+        nfcConnection = connection
+        didConnect()
+    }
+    
+    func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
+        nfcConnection = nil
+    }
+    
+    func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        accessoryConnection = connection
+        didConnect()
+    }
+    
+    func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+        accessoryConnection = nil
+        didDisconnect()
     }
 }

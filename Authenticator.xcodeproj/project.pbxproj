@@ -17,6 +17,11 @@
 		515542662653126700B19C59 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542652653126600B19C59 /* ServicesViewController.swift */; };
 		515542682654413600B19C59 /* PIVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542672654413600B19C59 /* PIVViewController.swift */; };
 		5155426A26554CAB00B19C59 /* PIVViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155426926554CAB00B19C59 /* PIVViewModel.swift */; };
+		515542722656706F00B19C59 /* CryptoTokenKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515542712656706F00B19C59 /* CryptoTokenKit.framework */; };
+		515542752656706F00B19C59 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542742656706F00B19C59 /* Token.swift */; };
+		515542772656707000B19C59 /* TokenDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542762656707000B19C59 /* TokenDriver.swift */; };
+		515542792656707000B19C59 /* TokenSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542782656707000B19C59 /* TokenSession.swift */; };
+		5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5155426F2656706F00B19C59 /* TokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -65,6 +70,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5155427B2656707000B19C59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5155426E2656706F00B19C59;
+			remoteInfo = TokenExtension;
+		};
 		818866CA22DFD72C006BC0A8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 818866AB22DFD729006BC0A8 /* Project object */;
@@ -73,6 +85,20 @@
 			remoteInfo = Authenticator;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		515542812656707000B19C59 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
@@ -85,6 +111,12 @@
 		515542652653126600B19C59 /* ServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
 		515542672654413600B19C59 /* PIVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIVViewController.swift; sourceTree = "<group>"; };
 		5155426926554CAB00B19C59 /* PIVViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PIVViewModel.swift; sourceTree = "<group>"; };
+		5155426F2656706F00B19C59 /* TokenExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TokenExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		515542712656706F00B19C59 /* CryptoTokenKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoTokenKit.framework; path = System/Library/Frameworks/CryptoTokenKit.framework; sourceTree = SDKROOT; };
+		515542742656706F00B19C59 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		515542762656707000B19C59 /* TokenDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDriver.swift; sourceTree = "<group>"; };
+		515542782656707000B19C59 /* TokenSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSession.swift; sourceTree = "<group>"; };
+		5155427A2656707000B19C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
@@ -137,6 +169,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5155426C2656706F00B19C59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				515542722656706F00B19C59 /* CryptoTokenKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		818866B022DFD729006BC0A8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,6 +205,25 @@
 				513F34C72464658F00FCE030 /* SettingsRowView.swift */,
 			);
 			path = EditCredential;
+			sourceTree = "<group>";
+		};
+		515542702656706F00B19C59 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				515542712656706F00B19C59 /* CryptoTokenKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		515542732656706F00B19C59 /* TokenExtension */ = {
+			isa = PBXGroup;
+			children = (
+				515542742656706F00B19C59 /* Token.swift */,
+				515542762656707000B19C59 /* TokenDriver.swift */,
+				515542782656707000B19C59 /* TokenSession.swift */,
+				5155427A2656707000B19C59 /* Info.plist */,
+			);
+			path = TokenExtension;
 			sourceTree = "<group>";
 		};
 		51EEC530246D34D800061A8F /* Extensions */ = {
@@ -204,6 +263,8 @@
 			children = (
 				818866B522DFD729006BC0A8 /* Authenticator */,
 				818866CC22DFD72C006BC0A8 /* AuthenticatorTests */,
+				515542732656706F00B19C59 /* TokenExtension */,
+				515542702656706F00B19C59 /* Frameworks */,
 				818866B422DFD729006BC0A8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -213,6 +274,7 @@
 			children = (
 				818866B322DFD729006BC0A8 /* Authenticator.app */,
 				818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */,
+				5155426F2656706F00B19C59 /* TokenExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -328,6 +390,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5155426E2656706F00B19C59 /* TokenExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5155427E2656707000B19C59 /* Build configuration list for PBXNativeTarget "TokenExtension" */;
+			buildPhases = (
+				5155426B2656706F00B19C59 /* Sources */,
+				5155426C2656706F00B19C59 /* Frameworks */,
+				5155426D2656706F00B19C59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TokenExtension;
+			productName = TokenExtension;
+			productReference = 5155426F2656706F00B19C59 /* TokenExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		818866B222DFD729006BC0A8 /* Authenticator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 818866DD22DFD72C006BC0A8 /* Build configuration list for PBXNativeTarget "Authenticator" */;
@@ -335,10 +414,12 @@
 				818866AF22DFD729006BC0A8 /* Sources */,
 				818866B022DFD729006BC0A8 /* Frameworks */,
 				818866B122DFD729006BC0A8 /* Resources */,
+				515542812656707000B19C59 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5155427C2656707000B19C59 /* PBXTargetDependency */,
 			);
 			name = Authenticator;
 			packageProductDependencies = (
@@ -372,10 +453,13 @@
 		818866AB22DFD729006BC0A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = Yubico;
 				TargetAttributes = {
+					5155426E2656706F00B19C59 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					818866B222DFD729006BC0A8 = {
 						CreatedOnToolsVersion = 10.2.1;
 						SystemCapabilities = {
@@ -408,11 +492,19 @@
 			targets = (
 				818866B222DFD729006BC0A8 /* Authenticator */,
 				818866C822DFD72C006BC0A8 /* AuthenticatorTests */,
+				5155426E2656706F00B19C59 /* TokenExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5155426D2656706F00B19C59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		818866B122DFD729006BC0A8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -436,6 +528,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5155426B2656706F00B19C59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				515542792656707000B19C59 /* TokenSession.swift in Sources */,
+				515542752656706F00B19C59 /* Token.swift in Sources */,
+				515542772656707000B19C59 /* TokenDriver.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		818866AF22DFD729006BC0A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -500,6 +602,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5155427C2656707000B19C59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5155426E2656706F00B19C59 /* TokenExtension */;
+			targetProxy = 5155427B2656707000B19C59 /* PBXContainerItemProxy */;
+		};
 		818866CB22DFD72C006BC0A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 818866B222DFD729006BC0A8 /* Authenticator */;
@@ -527,6 +634,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5155427F2656707000B19C59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = TokenExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		515542802656707000B19C59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				INFOPLIST_FILE = TokenExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		818866DB22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -648,6 +795,7 @@
 		818866DE22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -674,6 +822,7 @@
 		818866DF22DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -742,6 +891,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5155427E2656707000B19C59 /* Build configuration list for PBXNativeTarget "TokenExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5155427F2656707000B19C59 /* Debug */,
+				515542802656707000B19C59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		818866AE22DFD729006BC0A8 /* Build configuration list for PBXProject "Authenticator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
