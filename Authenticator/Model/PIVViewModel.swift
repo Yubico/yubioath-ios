@@ -30,6 +30,10 @@ class PIVViewModel: NSObject {
         YubiKitManager.shared.startNFCConnection()
     }
     
+    func copyCertificateToKeychain(certificate: SecCertificate) {
+        print("copy to keychain: \(certificate)")
+    }
+    
     private func updateCertificates() {
         guard let connection = connection else { return }
         connection.pivSession { session, error in

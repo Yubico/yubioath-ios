@@ -22,6 +22,8 @@
 		515542772656707000B19C59 /* TokenDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542762656707000B19C59 /* TokenDriver.swift */; };
 		515542792656707000B19C59 /* TokenSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542782656707000B19C59 /* TokenSession.swift */; };
 		5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5155426F2656706F00B19C59 /* TokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155428226569ADC00B19C59 /* UIControl+Extensions.swift */; };
+		515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542842656A30B00B19C59 /* UIButton+Extensions.swift */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -117,6 +119,8 @@
 		515542762656707000B19C59 /* TokenDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDriver.swift; sourceTree = "<group>"; };
 		515542782656707000B19C59 /* TokenSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSession.swift; sourceTree = "<group>"; };
 		5155427A2656707000B19C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5155428226569ADC00B19C59 /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
+		515542842656A30B00B19C59 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				A525965A23A45501006AA3C0 /* UIImageAdditions.swift */,
 				513F34DB246B144300FCE030 /* UIViewAdditions.swift */,
 				51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */,
+				5155428226569ADC00B19C59 /* UIControl+Extensions.swift */,
+				515542842656A30B00B19C59 /* UIButton+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -543,6 +549,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
+				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
@@ -569,6 +576,7 @@
 				5155426A26554CAB00B19C59 /* PIVViewModel.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				515542682654413600B19C59 /* PIVViewController.swift in Sources */,
+				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				A544948F23CE546B003E1E07 /* FrePagesViewControllers.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,
