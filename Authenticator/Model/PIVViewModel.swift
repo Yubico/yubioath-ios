@@ -6,12 +6,16 @@
 //  Copyright © 2021 Yubico. All rights reserved.
 //
 
+@available(iOS 14.0, *)
 class PIVViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
     
+    private let tokenStorage = TokenCertificateStorage()
+    
     var certificatesCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
+    var tokensCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
     
     override init() {
         super.init()
@@ -19,7 +23,7 @@ class PIVViewModel: NSObject {
     }
     
     private func didConnect() {
-        updateCertificates()
+        update()
     }
     
     private func didDisconnect() {
@@ -30,11 +34,20 @@ class PIVViewModel: NSObject {
         YubiKitManager.shared.startNFCConnection()
     }
     
-    func copyCertificateToKeychain(certificate: SecCertificate) {
-        print("copy to keychain: \(certificate)")
+    func storeTokenCertificate(certificate: SecCertificate) {
+        let result = tokenStorage.storeTokenCertificate(certificate: certificate)
+        result ? print("Sucessfully stored in keychain") : print("Failed storing certificate in keychain!")
     }
     
-    private func updateCertificates() {
+    func removeTokenCertificate(certificate: SecCertificate) {
+        let result = tokenStorage.removeTokenCertificate(certificate: certificate)
+        result ? print("Sucessfully removed certificate from keychain") : print("Failed removing certificate from keychain!")
+    }
+    
+    func update() {
+        let tokens = tokenStorage.listTokenCertificates()
+        tokensCallback?(.success(tokens))
+        
         guard let connection = connection else { return }
         connection.pivSession { session, error in
             guard let session = session else { self.certificatesCallback?(.failure(error!)); return }
@@ -42,7 +55,6 @@ class PIVViewModel: NSObject {
             var certificates = [SecCertificate]()
             session.getCertificateIn(slot: .authentication, callback: callback) { certificate in
                 if let certificate = certificate { certificates.append(certificate) }
-                callback(.success(certificates))
                 session.getCertificateIn(slot: .signature, callback: callback) { certificate in
                     if let certificate = certificate { certificates.append(certificate) }
                     callback(.success(certificates))
@@ -73,6 +85,7 @@ extension YKFPIVSession {
     }
 }
 
+@available(iOS 14.0, *)
 extension PIVViewModel: YKFManagerDelegate {
     var connection: YKFConnectionProtocol? {
         return accessoryConnection ?? nfcConnection

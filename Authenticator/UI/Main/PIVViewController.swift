@@ -9,11 +9,12 @@
 import Foundation
 import Combine
 
+@available(iOS 14.0, *)
 class PIVViewController: UITableViewController {
     
     let viewModel = PIVViewModel()
-    let keychainCerts = ["An important certificate", "Second Keychain certificate", "Third Keychain certificate"]
     var certificates = [SecCertificate]()
+    var tokens = [SecCertificate]()
     
     deinit {
         print("deinit PIVViewController")
@@ -50,11 +51,24 @@ class PIVViewController: UITableViewController {
                 print(error)
             }
         }
+        viewModel.tokensCallback = { result in
+            switch result {
+            case .success(let tokens):
+                self.tokens = tokens
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        viewModel.update()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.certificatesCallback = nil
+        viewModel.tokensCallback = nil
     }
     
     @objc func startNFC() {
@@ -62,13 +76,13 @@ class PIVViewController: UITableViewController {
         refreshControl?.endRefreshing()
     }
     
-    func copyCertificateToKeychain(certificate: SecCertificate) {
-        viewModel.copyCertificateToKeychain(certificate: certificate)
+    func storeTokenCertificate(certificate: SecCertificate) {
+        viewModel.storeTokenCertificate(certificate: certificate)
     }
-}
-
-
-extension PIVViewController {
+    
+    func removeTokenCertificate(certificate: SecCertificate) {
+        viewModel.removeTokenCertificate(certificate: certificate)
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -100,34 +114,29 @@ extension PIVViewController {
             let certificate = certificates[indexPath.row]
             cell.name = certificate.commonName
             cell.action = { [weak self] in
-                self?.copyCertificateToKeychain(certificate: certificate)
+                self?.storeTokenCertificate(certificate: certificate)
+                self?.viewModel.update()
             }
         } else {
-            cell.name = keychainCerts[indexPath.row]
+            let token = tokens[indexPath.row]
+            cell.name = token.commonName
             cell.setSymbol(symbol: "minus.circle")
             cell.action = { [weak self] in
-                print("remove from keychain: \(self?.keychainCerts[indexPath.row])")
+                self?.removeTokenCertificate(certificate: token)
+                self?.viewModel.update()
             }
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? certificates.count : keychainCerts.count
-    }
-}
-
-extension SecCertificate {
-    var commonName: String? {
-        var name: CFString?
-        SecCertificateCopyCommonName(self, &name)
-        return name as String?
+        return section == 0 ? certificates.count : tokens.count
     }
 }
 
 class CertificateCell: UITableViewCell {
     private let nameLabel = UILabel()
-    private let button = UIButton(withSymbolName: "apps.iphone.badge.plus")
+    private let button = UIButton(withSymbol: "apps.iphone.badge.plus")
     var cancellable: Cancellable?
     
     var name: String? {
