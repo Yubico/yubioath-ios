@@ -24,6 +24,9 @@
 		5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5155426F2656706F00B19C59 /* TokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155428226569ADC00B19C59 /* UIControl+Extensions.swift */; };
 		515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542842656A30B00B19C59 /* UIButton+Extensions.swift */; };
+		515542882656F64100B19C59 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542872656F64100B19C59 /* Data+Extensions.swift */; };
+		5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542892656F79500B19C59 /* SecCertificate+Extensions.swift */; };
+		5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155428C2657015D00B19C59 /* TokenCertificateStorage.swift */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -121,6 +124,10 @@
 		5155427A2656707000B19C59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5155428226569ADC00B19C59 /* UIControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Extensions.swift"; sourceTree = "<group>"; };
 		515542842656A30B00B19C59 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		515542862656F52000B19C59 /* TokenExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TokenExtension.entitlements; sourceTree = "<group>"; };
+		515542872656F64100B19C59 /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
+		515542892656F79500B19C59 /* SecCertificate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SecCertificate+Extensions.swift"; sourceTree = "<group>"; };
+		5155428C2657015D00B19C59 /* TokenCertificateStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCertificateStorage.swift; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
@@ -222,12 +229,21 @@
 		515542732656706F00B19C59 /* TokenExtension */ = {
 			isa = PBXGroup;
 			children = (
+				515542862656F52000B19C59 /* TokenExtension.entitlements */,
 				515542742656706F00B19C59 /* Token.swift */,
 				515542762656707000B19C59 /* TokenDriver.swift */,
 				515542782656707000B19C59 /* TokenSession.swift */,
 				5155427A2656707000B19C59 /* Info.plist */,
 			);
 			path = TokenExtension;
+			sourceTree = "<group>";
+		};
+		5155428B2656FCF600B19C59 /* CryptoTokenKit */ = {
+			isa = PBXGroup;
+			children = (
+				5155428C2657015D00B19C59 /* TokenCertificateStorage.swift */,
+			);
+			path = CryptoTokenKit;
 			sourceTree = "<group>";
 		};
 		51EEC530246D34D800061A8F /* Extensions */ = {
@@ -260,6 +276,8 @@
 				51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */,
 				5155428226569ADC00B19C59 /* UIControl+Extensions.swift */,
 				515542842656A30B00B19C59 /* UIButton+Extensions.swift */,
+				515542872656F64100B19C59 /* Data+Extensions.swift */,
+				515542892656F79500B19C59 /* SecCertificate+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -328,6 +346,7 @@
 		818BE8DB22F3486500061026 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5155428B2656FCF600B19C59 /* CryptoTokenKit */,
 				51EEC530246D34D800061A8F /* Extensions */,
 				816C684423430DC000209342 /* SecureStore */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
@@ -551,6 +570,7 @@
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
+				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				818866F522E23DA0006BC0A8 /* AddCredentialController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
@@ -567,6 +587,7 @@
 				818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
+				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
@@ -582,6 +603,7 @@
 				A5C708D82400A2BE0005704E /* DeviceInfoViewController.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
 				513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */,
+				5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
@@ -645,6 +667,7 @@
 		5155427F2656707000B19C59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
@@ -665,6 +688,7 @@
 		515542802656707000B19C59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
