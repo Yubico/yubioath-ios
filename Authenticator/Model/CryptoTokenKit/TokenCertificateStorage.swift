@@ -24,9 +24,9 @@ struct TokenCertificateStorage {
         tokenKeychainKey.canSign = true
         tokenKeychainKey.isSuitableForLogin = true
         
-        var tokenOperationConstraints = [NSNumber: TKTokenOperationConstraint]()
-        tokenOperationConstraints[NSNumber(value: TKTokenOperation.signData.rawValue)] = "PIN" as TKTokenOperationConstraint
-        tokenKeychainKey.constraints = tokenOperationConstraints
+//        var tokenOperationConstraints = [NSNumber: TKTokenOperationConstraint]()
+//        tokenOperationConstraints[NSNumber(value: TKTokenOperation.signData.rawValue)] = "PIN" as TKTokenOperationConstraint
+//        tokenKeychainKey.constraints = tokenOperationConstraints
 
         // TODO: figure out when there might be multiple driverConfigurations and how to handle it
         guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return false }

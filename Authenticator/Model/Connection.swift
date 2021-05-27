@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Connection: NSObject, YKFManagerDelegate {
+class Connection: NSObject {
     
     override init() {
         super.init()
@@ -25,8 +25,45 @@ class Connection: NSObject, YKFManagerDelegate {
         return accessoryConnection ?? nfcConnection
     }
     
-    var nfcConnection: YKFNFCConnection?
+    private var nfcConnection: YKFNFCConnection?
+    private var accessoryConnection: YKFAccessoryConnection?
+    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    
+    func startConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+        if let connection = accessoryConnection {
+            completion(connection)
+        } else if let connection = nfcConnection {
+            completion(connection)
+        } else {
+            connectionCallback = completion
+            YubiKitManager.shared.startNFCConnection()
+        }
+    }
+    
+    private var accessoryConnectionCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
+    
+    func accessoryConnection(handler: @escaping (_ connection: YKFAccessoryConnection?) -> Void) {
+        handler(accessoryConnection)
+        accessoryConnectionCallback = handler
+    }
+    
+    private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
+    
+    func nfcConnection(handler: @escaping (_ connection: YKFNFCConnection?) -> Void) {
+        handler(nfcConnection)
+        nfcConnectionCallback = handler
+    }
+    
+    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol, _ error: Error?) -> Void)?
+    
+    func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
+        disconnectionCallback = handler
+    }
+}
 
+
+extension Connection: YKFManagerDelegate {
+    
     func didConnectNFC(_ connection: YKFNFCConnection) {
         nfcConnection = connection
         if let callback = connectionCallback {
@@ -43,40 +80,18 @@ class Connection: NSObject, YKFManagerDelegate {
         nfcConnection = nil
     }
     
-    var accessoryConnection: YKFAccessoryConnection?
-
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection
-        if let callback = connectionCallback {
-            callback(connection)
-        }
+        accessoryConnectionCallback?(connection)
+        connectionCallback?(connection)
         connectionCallback = nil
     }
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
-        if let callback = disconnectionCallback {
-            callback(connection, error)
-        }
+        disconnectionCallback?(connection, error)
+        accessoryConnectionCallback?(nil)
         connectionCallback = nil
         accessoryConnection = nil
     }
     
-    var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
-    
-    func startConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
-        if let connection = accessoryConnection {
-            completion(connection)
-        } else if let connection = nfcConnection {
-            completion(connection)
-        } else {
-            connectionCallback = completion
-            YubiKitManager.shared.startNFCConnection()
-        }
-    }
-    
-    var disconnectionCallback: ((_ connection: YKFConnectionProtocol, _ error: Error?) -> Void)?
-    
-    func didDisconnect(completion: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
-        disconnectionCallback = completion
-    }
 }
