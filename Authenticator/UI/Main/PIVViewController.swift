@@ -40,6 +40,15 @@ class PIVViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                print("Authorized to send notifications - show PIV certificate UI")
+            } else {
+                print("Not authorized to send notifications - show authorize notification UI")
+            }
+        }
+        
         viewModel.certificatesCallback = { result in
             switch result {
             case .success(let certificates):

@@ -35,7 +35,7 @@ class ManagementViewModel {
     let connection = Connection()
 
     func didDisconnect(completion: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
-        connection.didDisconnect(completion: completion)
+        connection.didDisconnect(handler: completion)
     }
     
     func deviceInfo(completion: @escaping (_ result: Result<YKFManagementDeviceInfo, Error>) -> Void) {

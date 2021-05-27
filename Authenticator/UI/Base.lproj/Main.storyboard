@@ -1032,7 +1032,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502315" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502321" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1174,18 +1174,113 @@
                                 <segue destination="IqS-lg-whJ" kind="show" id="omV-SV-6lR"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="questionmark.circle" catalog="system" id="SMA-eA-OOL"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="questionmark.circle" catalog="system" id="SMA-eA-OOL">
+                            <connections>
+                                <action selector="showHelp:" destination="f2R-89-0Ns" id="OS9-iR-kQg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="imageAlignmentConstraint" destination="7mc-C3-xWV" id="IyQ-aP-Jh0"/>
                         <outlet property="imageHeightConstraint" destination="3ya-Qm-9ch" id="6aw-YU-iPO"/>
                         <outlet property="imageView" destination="XWC-z2-ef6" id="VIo-JR-2gz"/>
                         <outlet property="imageWidthConstraint" destination="LYj-Ho-fCv" id="8G9-vv-PNn"/>
+                        <segue destination="Nyo-53-XkV" kind="presentation" identifier="handleTokenRequest" id="0lP-gP-eUa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8r-Dk-z7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1178.2608695652175" y="-569.19642857142856"/>
+        </scene>
+        <!--Token Request View Controller-->
+        <scene sceneID="JyL-Dr-7Jm">
+            <objects>
+                <viewController id="Nyo-53-XkV" customClass="TokenRequestViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DLa-O0-aXc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insert your 5Ci YubiKey and enter PIN" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9r-o8-2xC">
+                                <rect key="frame" x="20" y="20" width="374" height="60"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4U-wZ-Sv5">
+                                <rect key="frame" x="197" y="88" width="20" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter PIN and tap your NFC YubiKey" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdS-2h-fXa">
+                                <rect key="frame" x="20" y="120" width="374" height="60"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhF-Zo-2iR">
+                                <rect key="frame" x="79.666666666666686" y="291" width="255" height="74"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JON-gB-7WG">
+                                        <rect key="frame" x="54" y="15" width="186" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="186" id="8Fp-M9-n9b"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                        <connections>
+                                            <action selector="submitPIN:" destination="Nyo-53-XkV" eventType="primaryActionTriggered" id="Ror-Fi-yJo"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uER-bO-lzj">
+                                        <rect key="frame" x="15" y="26.666666666666686" width="29" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstItem="uER-bO-lzj" firstAttribute="leading" secondItem="fhF-Zo-2iR" secondAttribute="leading" constant="15" id="2n0-uK-whs"/>
+                                    <constraint firstAttribute="bottom" secondItem="JON-gB-7WG" secondAttribute="bottom" constant="15" id="FGI-sX-jpn"/>
+                                    <constraint firstItem="uER-bO-lzj" firstAttribute="centerY" secondItem="JON-gB-7WG" secondAttribute="centerY" id="Jag-CX-tsQ"/>
+                                    <constraint firstItem="JON-gB-7WG" firstAttribute="top" secondItem="fhF-Zo-2iR" secondAttribute="top" constant="15" id="W9v-3x-gEb"/>
+                                    <constraint firstItem="JON-gB-7WG" firstAttribute="leading" secondItem="uER-bO-lzj" secondAttribute="trailing" constant="10" id="hS9-XN-DKF"/>
+                                    <constraint firstAttribute="trailing" secondItem="JON-gB-7WG" secondAttribute="trailing" constant="15" id="qjV-xp-dmU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="emp-iq-Rg0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="emp-iq-Rg0" firstAttribute="trailing" secondItem="b9r-o8-2xC" secondAttribute="trailing" constant="20" id="8PF-bP-u0q"/>
+                            <constraint firstItem="JdS-2h-fXa" firstAttribute="top" secondItem="S4U-wZ-Sv5" secondAttribute="bottom" constant="8" symbolic="YES" id="EYz-nj-QDj"/>
+                            <constraint firstItem="fhF-Zo-2iR" firstAttribute="top" secondItem="JdS-2h-fXa" secondAttribute="bottom" constant="111" id="MyA-4H-X5f"/>
+                            <constraint firstItem="emp-iq-Rg0" firstAttribute="trailing" secondItem="JdS-2h-fXa" secondAttribute="trailing" constant="20" id="UXl-Lv-5ds"/>
+                            <constraint firstItem="S4U-wZ-Sv5" firstAttribute="top" secondItem="b9r-o8-2xC" secondAttribute="bottom" constant="8" symbolic="YES" id="Vh3-61-Eik"/>
+                            <constraint firstItem="b9r-o8-2xC" firstAttribute="top" secondItem="emp-iq-Rg0" secondAttribute="top" constant="20" id="VlQ-Hy-Mao"/>
+                            <constraint firstItem="fhF-Zo-2iR" firstAttribute="centerX" secondItem="emp-iq-Rg0" secondAttribute="centerX" id="aNG-Xi-ttN"/>
+                            <constraint firstItem="JdS-2h-fXa" firstAttribute="leading" secondItem="emp-iq-Rg0" secondAttribute="leading" constant="20" id="g0g-9d-mRZ"/>
+                            <constraint firstItem="b9r-o8-2xC" firstAttribute="leading" secondItem="emp-iq-Rg0" secondAttribute="leading" constant="20" id="gZe-GG-Na7"/>
+                            <constraint firstItem="S4U-wZ-Sv5" firstAttribute="centerX" secondItem="emp-iq-Rg0" secondAttribute="centerX" id="zhe-OQ-GOR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hSV-Df-8kq"/>
+                    <connections>
+                        <outlet property="accessoryLabel" destination="b9r-o8-2xC" id="Bp4-xv-v68"/>
+                        <outlet property="nfcLabel" destination="JdS-2h-fXa" id="J5t-By-8Zg"/>
+                        <outlet property="orLabel" destination="S4U-wZ-Sv5" id="rrH-aA-VSv"/>
+                        <outlet property="passwordTextField" destination="JON-gB-7WG" id="2l7-Kt-RN9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EC1-9L-Mdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-188.40579710144928" y="-1336.6071428571429"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1222,6 +1317,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

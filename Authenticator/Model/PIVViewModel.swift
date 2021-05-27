@@ -86,6 +86,13 @@ extension YKFPIVSession {
 }
 
 @available(iOS 14.0, *)
+extension PIVViewModel {
+    func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String) {
+        
+    }
+}
+
+@available(iOS 14.0, *)
 extension PIVViewModel: YKFManagerDelegate {
     var connection: YKFConnectionProtocol? {
         return accessoryConnection ?? nfcConnection

@@ -7,16 +7,33 @@
 //
 
 import Foundation
-
+import UIKit
 
 class ServicesViewController: UITableViewController {
     @IBOutlet weak var imageAlignmentConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
+    
+    @IBAction func showHelp(_ sender: UIBarButtonItem) {
+        print("Show help...")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        UNUserNotificationCenter.current().delegate = self
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if #available(iOS 14.0, *) {
+            if let tokenRequestController = segue.destination as? TokenRequestViewController, let userInfo = sender as? [AnyHashable: Any] {
+                tokenRequestController.userInfo = userInfo
+            }
+        }
+    }
 }
 
-extension ServicesViewController { //}: UITableViewDelegate {
+extension ServicesViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yOffset = -scrollView.contentOffset.y
         if yOffset > 94 && yOffset < 170 {
@@ -27,5 +44,13 @@ extension ServicesViewController { //}: UITableViewDelegate {
             imageView.alpha = max(0, 1 + (yOffset - 70) / 60)
         }
         imageAlignmentConstraint.constant = (94 - yOffset) / 2.2
+    }
+}
+
+extension ServicesViewController: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        performSegue(withIdentifier: "handleTokenRequest", sender: response.notification.request.content.userInfo)
+        completionHandler()
     }
 }
