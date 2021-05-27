@@ -18,20 +18,14 @@ class TokenRequestViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     let viewModel = TokenRequestViewModel()
     var defaultAccessoryTest: String?
+    @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var arrowHintView: UIView!
     
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         defaultAccessoryTest = accessoryLabel.text
-    }
-    
-    @IBAction func submitPIN(_ sender: UITextField) {
-        guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
-        viewModel.handleTokenRequest(userInfo, password: sender.text!) { error in
-            guard error == nil else { print("Error: \(error!)"); return }
-            DispatchQueue.main.async {
-                self.passwordTextField.resignFirstResponder()
-            }
-        }
+        overlayView.alpha = 0
+        arrowHintView.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,9 +47,46 @@ class TokenRequestViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func submitPIN(_ sender: UITextField) {
+        guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
+        viewModel.handleTokenRequest(userInfo, password: sender.text!) { error in
+            guard error == nil else { print("Error: \(error!)"); return }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5) {
+                    self.overlayView.alpha = 1
+                }
+                self.animateHint()
+                self.passwordTextField.resignFirstResponder()
+            }
+        }
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("Deinit TokenRequestViewController")
     }
     
+}
+
+@available(iOS 14.0, *)
+extension TokenRequestViewController {
+    
+    func animateHint() {
+        UIView.animateKeyframes(withDuration: 4, delay: 0.5, options: .calculationModeCubicPaced) {
+            
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/3.0) {
+                self.arrowHintView.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 1.0/3.0, relativeDuration: 1.0/3.0) {
+                self.arrowHintView.alpha = 0
+            }
+            UIView.addKeyframe(withRelativeStartTime: 2.0/3.0, relativeDuration: 1.0/3.0) {
+                self.arrowHintView.alpha = 1
+            }
+        }
+    }
 }
