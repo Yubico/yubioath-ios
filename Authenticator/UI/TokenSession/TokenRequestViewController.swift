@@ -76,7 +76,7 @@ class TokenRequestViewController: UIViewController {
 extension TokenRequestViewController {
     
     func animateHint() {
-        UIView.animateKeyframes(withDuration: 4, delay: 0.5, options: .calculationModeCubicPaced) {
+        UIView.animateKeyframes(withDuration: 3, delay: 0.5, options: .calculationModeCubicPaced) {
             
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/3.0) {
                 self.arrowHintView.alpha = 1

@@ -1,5 +1,5 @@
 //
-//  ServicesViewController.swift
+//  MainViewController.swift
 //  Authenticator
 //
 //  Created by Jens Utbult on 2021-05-17.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ServicesViewController: UITableViewController {
+class MainViewController: UITableViewController {
     @IBOutlet weak var imageAlignmentConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
@@ -33,7 +33,7 @@ class ServicesViewController: UITableViewController {
     }
 }
 
-extension ServicesViewController {
+extension MainViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yOffset = -scrollView.contentOffset.y
         if yOffset > 94 && yOffset < 170 {
@@ -47,7 +47,7 @@ extension ServicesViewController {
     }
 }
 
-extension ServicesViewController: UNUserNotificationCenterDelegate {
+extension MainViewController: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         performSegue(withIdentifier: "handleTokenRequest", sender: response.notification.request.content.userInfo)
