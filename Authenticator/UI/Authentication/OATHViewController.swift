@@ -58,7 +58,7 @@ class OATHViewController: UITableViewController {
         // UserDefaults will store the latest FRE version and latest 'What's New' version that were shown to user.
         // For every new FRE or 'What's New' in the future releases we're going to increment .freVersion and .whatsNewVersion by 1.
         if .freVersion > SettingsConfig.lastFreVersionShown {
-            self.performSegue(withIdentifier: "StartFRE", sender: self)
+            self.performSegue(withIdentifier: .startTutorial, sender: self)
         } else if .whatsNewVersion > SettingsConfig.lastWhatsNewVersionShown {
             self.performSegue(withIdentifier: "ShowWhatsNew", sender: self)
         }
@@ -249,9 +249,9 @@ class OATHViewController: UITableViewController {
             destination.viewModel = viewModel
         }
 
-        if segue.identifier == .startFRE {
+        if segue.identifier == .startTutorial {
             guard let navigationController = segue.destination as? UINavigationController,
-                  let freViewController = navigationController.topViewController as? FrePageViewController else { assertionFailure(); return }
+                  let freViewController = navigationController.topViewController as? TutorialViewController else { assertionFailure(); return }
             // passing userFreVersion and then setting current freVersion to userDefaults.
             freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
             SettingsConfig.lastFreVersionShown = .freVersion

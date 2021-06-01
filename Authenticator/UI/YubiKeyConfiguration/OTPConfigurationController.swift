@@ -20,19 +20,14 @@ class OTPConfigurationController: UITableViewController {
 
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var tagTypeLabel: UILabel!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var tagSwitch: UISwitch!
     
-    @IBAction func tagSwitched(_ sender: UISwitch) {
-        self.saveButton.isEnabled = configuration?.isEnabled != tagSwitch.isOn
-    }
-    
     func dismiss() {
-        performSegue(withIdentifier: "unwindToSettings", sender: self)
+        performSegue(withIdentifier: "unwindToKeyConfiguration", sender: self)
     }
     
-    @IBAction func save(_ sender: Any) {
-        viewModel.setOTPEnabled(enabled: tagSwitch.isOn) { error in
+    @IBAction func changeSetting(_ sender: UISwitch) {
+        viewModel.setOTPEnabled(enabled: sender.isOn) { error in
             DispatchQueue.main.async {
                 guard error == nil else {
                     let alert = UIAlertController(title: "Error writing configuration", message: error?.localizedDescription, preferredStyle: .alert)
@@ -44,18 +39,6 @@ class OTPConfigurationController: UITableViewController {
                         self.present(alert, animated: true, completion: nil)
                     }
                     return
-                }
-                if self.configuration?.transport == .NFC {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.dismiss()
-                    }
-                } else {
-                    let alert = UIAlertController(title: "New OTP configuration saved", message: nil, preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.dismiss()
-                    }
-                    alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -92,7 +75,6 @@ class OTPConfigurationController: UITableViewController {
                 }
             }
         }
-        self.saveButton.isEnabled = false
         
         viewModel.didDisconnect { [weak self] connection, error in
             if error != nil || (connection as? YKFAccessoryConnection) != nil {
@@ -106,5 +88,9 @@ class OTPConfigurationController: UITableViewController {
                 }
             }
         }
+    }
+    
+    deinit {
+        print("deinit OTPConfigurationController")
     }
 }

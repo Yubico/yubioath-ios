@@ -16,7 +16,7 @@ extension Int {
 extension String {
     internal static let unwindToMainViewController = "unwindToMain"
     internal static let addCredentialSequeID = "AddCredentialSequeID"
-    internal static let startFRE = "StartFRE"
+    internal static let startTutorial = "StartTutorial"
     internal static let editCredential = "EditCredential"
     internal static let showSettings = "ShowSettings"
 }

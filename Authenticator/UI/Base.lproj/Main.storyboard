@@ -137,7 +137,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="0dB-Xx-crT"/>
+                        <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartTutorial" id="0dB-Xx-crT"/>
                         <segue destination="ffl-wX-lrv" kind="presentation" identifier="AddCredentialSequeID" id="qUJ-ak-UTT"/>
                         <segue destination="9wC-w2-Zzl" kind="presentation" identifier="EditCredential" id="iyd-zI-G00"/>
                         <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="0Gs-5m-Syj"/>
@@ -145,7 +145,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220.28985507246378" y="-569.19642857142856"/>
+            <point key="canvasLocation" x="-1065" y="-473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
@@ -161,7 +161,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uco-xh-UqE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2188" y="-569"/>
+            <point key="canvasLocation" x="-2154" y="-1248"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="R39-sG-fOM">
@@ -195,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3s1-M7-Tff" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1023" y="230"/>
+            <point key="canvasLocation" x="1009" y="-1248"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jy7-8d-TSq">
@@ -208,91 +208,10 @@
                         <color key="tintColor" red="0.60500001910000001" green="0.79299998279999995" blue="0.23600000139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexColor" red="0.60500001910000001" green="0.79299998279999995" blue="0.23600000139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="YubiKey" id="hY7-74-IiW">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LabelCell" textLabel="JBs-bm-LGT" style="IBUITableViewCellStyleDefault" id="X0E-5j-ah8" userLabel="Device information">
-                                        <rect key="frame" x="0.0" y="49" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X0E-5j-ah8" id="6Pd-d4-MCH">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="YubiKey information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="JBs-bm-LGT">
-                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="1tG-WR-gff" kind="show" id="dPl-up-hif"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Hpo-pk-kqn" style="IBUITableViewCellStyleDefault" id="uNC-3B-XiS" userLabel="Set password">
-                                        <rect key="frame" x="0.0" y="93" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uNC-3B-XiS" id="kLT-NV-ary">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Set password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Hpo-pk-kqn">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="lSw-49-AD0" kind="presentation" id="Cbs-in-hPw"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="X2r-hk-70N" style="IBUITableViewCellStyleDefault" id="UHX-HN-iaL" userLabel="Remove password">
-                                        <rect key="frame" x="0.0" y="137" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UHX-HN-iaL" id="bCM-x9-DzN">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Remove password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="X2r-hk-70N">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="Mt5-HY-Lej" style="IBUITableViewCellStyleDefault" id="gFB-9d-FwL" userLabel="Configure OTP interface">
-                                        <rect key="frame" x="0.0" y="181" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gFB-9d-FwL" id="x1g-80-fkg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Customize OTP interface" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="Mt5-HY-Lej">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="M7j-u9-SF2" kind="presentation" id="HFR-wn-pKl"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Application" id="raA-qu-ETm">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="d1L-jJ-b5g" style="IBUITableViewCellStyleDefault" id="X9m-Aq-idw">
-                                        <rect key="frame" x="0.0" y="274.66666603088379" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="49" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X9m-Aq-idw" id="JW2-gC-pQp">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -309,7 +228,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="y0i-iX-KLv" style="IBUITableViewCellStyleDefault" id="mCh-ga-VPI">
-                                        <rect key="frame" x="0.0" y="318.66666603088379" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="93" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mCh-ga-VPI" id="fec-zN-6fR">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -325,7 +244,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartFRE" id="UPN-tw-Bce"/>
+                                            <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="" id="UPN-tw-Bce"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -333,7 +252,7 @@
                             <tableViewSection headerTitle="Support" id="vn9-zq-1Ri">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="NnL-eZ-nHd" style="IBUITableViewCellStyleDefault" id="CIh-9j-hrx">
-                                        <rect key="frame" x="0.0" y="412.33333206176758" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="186.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CIh-9j-hrx" id="KuU-xd-o9N">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
@@ -350,7 +269,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tMr-aW-Doe" style="IBUITableViewCellStyleDefault" id="laH-Tj-Lw4">
-                                        <rect key="frame" x="0.0" y="456.33333206176758" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="230.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="laH-Tj-Lw4" id="mph-Wa-vPs">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
@@ -367,7 +286,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ybp-yE-Xgg" style="IBUITableViewCellStyleDefault" id="Jyf-AZ-5hK">
-                                        <rect key="frame" x="0.0" y="500.33333206176758" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="274.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jyf-AZ-5hK" id="09k-F9-FS1">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
@@ -388,7 +307,7 @@
                             <tableViewSection headerTitle="About" id="1aV-BN-kwv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="7vJ-dW-ag5" style="IBUITableViewCellStyleDefault" id="4yD-xK-A66">
-                                        <rect key="frame" x="0.0" y="593.99999809265137" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="368.33333206176758" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yD-xK-A66" id="TAD-Ru-NHF">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -407,8 +326,8 @@
                                             <segue destination="5YB-z2-cNJ" kind="presentation" identifier="ShowWhatsNew" id="CgE-gV-OlK"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
-                                        <rect key="frame" x="0.0" y="637.99999809265137" width="414" height="55"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" textLabel="NhA-gS-bWd" detailTextLabel="9sA-3C-5qt" rowHeight="55" style="IBUITableViewCellStyleSubtitle" id="uhk-Qp-xgv">
+                                        <rect key="frame" x="0.0" y="412.33333206176758" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uhk-Qp-xgv" id="zIl-32-rQz">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
@@ -440,21 +359,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="Hbq-O7-HqW"/>
-                    <connections>
-                        <outlet property="removePasswordTableCell" destination="UHX-HN-iaL" id="onz-dp-dBI"/>
-                        <outlet property="setPasswordTableCell" destination="uNC-3B-XiS" id="Dul-Pe-nuR"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHT-RQ-G62" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="230"/>
+            <point key="canvasLocation" x="-1926" y="-473"/>
         </scene>
         <!--Set Password-->
         <scene sceneID="a04-Iv-oTD">
             <objects>
                 <tableViewController storyboardIdentifier="SetPasswordViewController" id="fE6-O1-wZU" customClass="SetPasswordViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="EbR-vz-nXg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
                             <tableViewSection footerTitle="For additional security and to prevent unauthorized access the YubiKey can be protected with a password" id="hOr-gJ-fIa">
@@ -546,7 +461,7 @@
                     <navigationItem key="navigationItem" title="Set Password" id="eiF-JR-TAC">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Baw-cE-YKP">
                             <connections>
-                                <segue destination="z1Y-BT-s2P" kind="unwind" identifier="unwindToSettings" unwindAction="unwindToSettingsWithSegue:" id="cyz-cg-UlF"/>
+                                <segue destination="z1Y-BT-s2P" kind="unwind" identifier="unwindToKeyConfiguration" unwindAction="unwindToKeyConfigurationWithSegue:" id="cyz-cg-UlF"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="nUg-yo-cpw">
@@ -564,17 +479,17 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ihq-dp-VCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="z1Y-BT-s2P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1023" y="1702"/>
+            <point key="canvasLocation" x="670" y="1098"/>
         </scene>
-        <!--Fre-->
+        <!--Tutorial-->
         <scene sceneID="L6t-CP-u4G">
             <objects>
-                <viewControllerPlaceholder storyboardName="Fre" id="xYZ-Fp-gO1" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Tutorial" id="xYZ-Fp-gO1" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="SQd-4J-hAg"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go7-l6-NO6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400" y="-433"/>
+            <point key="canvasLocation" x="-190" y="-415"/>
         </scene>
         <!--AddCredential-->
         <scene sceneID="AGY-YY-5Yc">
@@ -582,7 +497,7 @@
                 <viewControllerPlaceholder storyboardName="AddCredential" id="ffl-wX-lrv" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcH-jA-mSQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780" y="-575"/>
+            <point key="canvasLocation" x="-141" y="-473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="McT-KE-rAN">
@@ -591,7 +506,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Mr3-al-vxx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lZq-BR-oKW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -601,14 +516,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ekW-UU-e4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1023" y="961"/>
+            <point key="canvasLocation" x="671" y="396"/>
         </scene>
-        <!--Configuration Controller-->
+        <!--Customize OTP interface-->
         <scene sceneID="Umn-5X-AQm">
             <objects>
                 <tableViewController storyboardIdentifier="YubiKeyConfigurationConroller" id="aoN-t0-WPq" customClass="OTPConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Eeq-g4-NeJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
@@ -647,7 +562,7 @@
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9Ud-nI-ukE">
                                                             <rect key="frame" x="325" y="9.6666666666666679" width="51" height="31.000000000000004"/>
                                                             <connections>
-                                                                <action selector="tagSwitched:" destination="aoN-t0-WPq" eventType="valueChanged" id="PKC-3K-rUk"/>
+                                                                <action selector="changeSetting:" destination="aoN-t0-WPq" eventType="valueChanged" id="DyM-Sf-518"/>
                                                             </connections>
                                                         </switch>
                                                     </subviews>
@@ -671,47 +586,16 @@
                             <outlet property="delegate" destination="aoN-t0-WPq" id="63n-64-Mle"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Inc-aD-fdW">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0oy-aL-1co">
-                            <connections>
-                                <segue destination="X1b-r2-E4c" kind="unwind" identifier="unwindToSettings" unwindAction="unwindToSettingsWithSegue:" id="oQn-rZ-ONZ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="A4I-mY-nuT">
-                            <connections>
-                                <action selector="save:" destination="aoN-t0-WPq" id="4Yn-ln-6aj"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Customize OTP interface" id="Inc-aD-fdW"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="WaV-Pv-SDy" id="zYk-LM-4Ar"/>
-                        <outlet property="saveButton" destination="A4I-mY-nuT" id="t78-32-VPQ"/>
                         <outlet property="tagSwitch" destination="9Ud-nI-ukE" id="1CA-Ag-w5S"/>
                         <outlet property="tagTypeLabel" destination="2F4-bO-NvX" id="MRf-Ju-zUe"/>
                     </connections>
                 </tableViewController>
-                <exit id="X1b-r2-E4c" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BrY-sS-eWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-186.95652173913044" y="1701.5625"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="04K-p5-vnp">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M7j-u9-SF2" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Od1-qx-jz4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="aoN-t0-WPq" kind="relationship" relationship="rootViewController" id="1Ko-Qs-DW4"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bhf-HL-Fi7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-186" y="961"/>
+            <point key="canvasLocation" x="1464" y="396"/>
         </scene>
         <!--YubiKey information-->
         <scene sceneID="5zl-0h-Mbi">
@@ -815,12 +699,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kc2-Hq-6wM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="893" y="220"/>
+            <point key="canvasLocation" x="-142" y="396"/>
         </scene>
-        <!--App Version Info View Controller-->
+        <!--Whats New View Controller-->
         <scene sceneID="nfx-Ct-jBs">
             <objects>
-                <viewController storyboardIdentifier="AppVersionInfoViewController" id="QUg-EH-bgx" customClass="AppVersionInfoViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppVersionInfoViewController" id="QUg-EH-bgx" customClass="WhatsNewViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8En-hR-f6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -957,7 +841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uEt-oD-dCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940.5797101449277" y="-433.92857142857139"/>
+            <point key="canvasLocation" x="-1733" y="1098"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uso-4J-URY">
@@ -975,25 +859,152 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qwb-7c-YDJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1136" y="-433"/>
+            <point key="canvasLocation" x="-1733" y="396"/>
         </scene>
-        <!--Safari PIV Extension-->
+        <!--YubiKey configuration-->
+        <scene sceneID="jUO-bC-anG">
+            <objects>
+                <tableViewController title="YubiKey configuration" id="09D-Aw-j1I" customClass="YubiKeyConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="aqu-ss-YQ6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection id="yed-kd-amP">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="y42-6g-KHY" style="IBUITableViewCellStyleDefault" id="wxn-q2-NZd" userLabel="Yubikey information">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wxn-q2-NZd" id="YvK-dT-UL6">
+                                            <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="About this YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y42-6g-KHY">
+                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="1tG-WR-gff" kind="show" id="Yyd-0R-dz5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="6ZL-u3-Njo" style="IBUITableViewCellStyleDefault" id="IpA-md-3Cc" userLabel="Set password">
+                                        <rect key="frame" x="0.0" y="62" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IpA-md-3Cc" id="eOl-Vg-ixI">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Set password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6ZL-u3-Njo">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="lSw-49-AD0" kind="show" id="YDb-VT-JLM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="BUV-Wu-CaQ" style="IBUITableViewCellStyleDefault" id="5gb-lj-sQa" userLabel="Remove password">
+                                        <rect key="frame" x="0.0" y="106" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5gb-lj-sQa" id="APr-yZ-hDz">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Remove password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BUV-Wu-CaQ">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="wJn-UK-fC7" style="IBUITableViewCellStyleDefault" id="dTk-r7-D3C" userLabel="Customize OTP interface">
+                                        <rect key="frame" x="0.0" y="150" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dTk-r7-D3C" id="QpO-l9-Gkz">
+                                            <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Customize OTP interface" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wJn-UK-fC7">
+                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="aoN-t0-WPq" kind="show" id="VRc-rK-aU8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="EvZ-0Q-UHH" style="IBUITableViewCellStyleDefault" id="d98-ZW-KsL" userLabel="SafariSmartCardAuth">
+                                        <rect key="frame" x="0.0" y="194" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="d98-ZW-KsL" id="dvR-K1-PkR">
+                                            <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Safari SmartCard (PIV) authentication" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EvZ-0Q-UHH">
+                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="t28-TG-awK" kind="show" id="LW6-MA-aEr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="09D-Aw-j1I" id="BZF-0S-pvm"/>
+                            <outlet property="delegate" destination="09D-Aw-j1I" id="CZ1-cy-RiI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="YubiKey configuration" id="e3s-bq-xAt"/>
+                    <connections>
+                        <outlet property="removePasswordTableCell" destination="5gb-lj-sQa" id="5H5-NN-bnf"/>
+                        <outlet property="setPasswordTableCell" destination="IpA-md-3Cc" id="qxw-bz-8lH"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qwI-hH-f3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="807" y="-473"/>
+        </scene>
+        <!--Safari SmartCard (PIV) authentication-->
         <scene sceneID="tIY-Rn-mT4">
             <objects>
-                <tableViewController id="t28-TG-awK" customClass="PIVViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="t28-TG-awK" customClass="SmartCardAuthController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="tmI-8c-SSH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <connections>
                             <outlet property="dataSource" destination="t28-TG-awK" id="ZDa-4v-tvB"/>
                             <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Safari PIV Extension" id="fl4-8d-lD9"/>
+                    <navigationItem key="navigationItem" title="Safari SmartCard (PIV) authentication" id="fl4-8d-lD9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juD-9u-B52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1059" y="-1144"/>
+            <point key="canvasLocation" x="2246" y="396"/>
         </scene>
         <!--EditCredential-->
         <scene sceneID="peD-eI-CIP">
@@ -1003,7 +1014,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qXT-1j-tOp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780" y="-700"/>
+            <point key="canvasLocation" x="-141" y="-516"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="XqE-6f-9Iy">
@@ -1032,7 +1043,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502304" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502309" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1111,21 +1122,22 @@
                                                     <rect key="frame" x="25" y="16" width="364" height="108"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jaV-wV-cOW">
-                                                            <rect key="frame" x="10" y="15.333333333333332" width="40" height="25.666666666666668"/>
+                                                            <rect key="frame" x="10" y="13.666666666666668" width="40" height="29.333333333333332"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="40" id="Iyw-UU-EkH"/>
                                                             </constraints>
-                                                            <imageReference key="image" image="signature" catalog="system" symbolScale="large"/>
+                                                            <imageReference key="image" image="key" catalog="system" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safari PIV extension" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-nm-IEk">
-                                                            <rect key="frame" x="60" y="14.999999999999998" width="205" height="26.333333333333329"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YubiKey configuration" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-nm-IEk">
+                                                            <rect key="frame" x="60.000000000000014" y="14.999999999999998" width="226.33333333333337" height="26.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use a certificate on your YubiKey to authenticate on a website" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
-                                                            <rect key="frame" x="60" y="46.333333333333343" width="275.33333333333331" height="40.666666666666657"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure passwords, OTP and Safari SmartCard authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
+                                                            <rect key="frame" x="60" y="46.333333333333343" width="288" height="40.666666666666657"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1138,7 +1150,7 @@
                                                         <constraint firstItem="74D-xo-kry" firstAttribute="leading" secondItem="Xag-nm-IEk" secondAttribute="leading" id="P0W-Vu-P13"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xag-nm-IEk" secondAttribute="trailing" constant="10" id="Qbq-w2-tXA"/>
                                                         <constraint firstItem="jaV-wV-cOW" firstAttribute="leading" secondItem="3Nh-1h-Gcu" secondAttribute="leading" constant="10" id="QzY-Dx-uIL"/>
-                                                        <constraint firstItem="jaV-wV-cOW" firstAttribute="top" secondItem="3Nh-1h-Gcu" secondAttribute="top" constant="16" id="TLt-qy-lU5"/>
+                                                        <constraint firstItem="jaV-wV-cOW" firstAttribute="top" secondItem="3Nh-1h-Gcu" secondAttribute="top" constant="18" id="TLt-qy-lU5"/>
                                                         <constraint firstItem="Xag-nm-IEk" firstAttribute="top" secondItem="3Nh-1h-Gcu" secondAttribute="top" constant="15" id="jj9-0h-cSP"/>
                                                         <constraint firstItem="74D-xo-kry" firstAttribute="top" secondItem="Xag-nm-IEk" secondAttribute="bottom" constant="5" id="mp5-x0-aMo"/>
                                                     </constraints>
@@ -1157,7 +1169,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="t28-TG-awK" kind="show" id="7Ae-AT-CQF"/>
+                                            <segue destination="09D-Aw-j1I" kind="show" id="loN-Au-pZb"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1176,7 +1188,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="questionmark.circle" catalog="system" id="SMA-eA-OOL">
                             <connections>
-                                <action selector="showHelp:" destination="f2R-89-0Ns" id="OS9-iR-kQg"/>
+                                <segue destination="xYZ-Fp-gO1" kind="presentation" id="2fr-EZ-NcC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1190,7 +1202,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8r-Dk-z7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1178.2608695652175" y="-569.19642857142856"/>
+            <point key="canvasLocation" x="-1178" y="-1248"/>
         </scene>
         <!--Token Request View Controller-->
         <scene sceneID="JyL-Dr-7Jm">
@@ -1318,12 +1330,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EC1-9L-Mdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188.40579710144928" y="-1336.6071428571429"/>
+            <point key="canvasLocation" x="-43" y="-1519"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0Gs-5m-Syj"/>
-        <segue reference="0dB-Xx-crT"/>
+        <segue reference="CgE-gV-OlK"/>
+        <segue reference="2fr-EZ-NcC"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
@@ -1332,10 +1344,10 @@
         <image name="biometric" width="63" height="63"/>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
+        <image name="key" catalog="system" width="86" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <image name="rectangle.and.pencil.and.ellipsis" catalog="system" width="128" height="81"/>
-        <image name="signature" catalog="system" width="128" height="90"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="switch.2" catalog="system" width="128" height="109"/>
         <image name="touch" width="24" height="24"/>

@@ -1,5 +1,5 @@
 //
-//  AppVersionInfoViewController.swift
+//  WhatsNewViewController.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 4/3/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppVersionInfoViewController: UIViewController {
+class WhatsNewViewController: UIViewController {
     
     @IBAction func done(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)

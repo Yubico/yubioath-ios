@@ -10,14 +10,14 @@ import Foundation
 import Combine
 
 @available(iOS 14.0, *)
-class PIVViewController: UITableViewController {
+class SmartCardAuthController: UITableViewController {
     
     let viewModel = PIVViewModel()
     var certificates = [SecCertificate]()
     var tokens = [SecCertificate]()
     
     deinit {
-        print("deinit PIVViewController")
+        print("deinit SmartCardAuthController")
     }
     
     override func viewDidLoad() {
