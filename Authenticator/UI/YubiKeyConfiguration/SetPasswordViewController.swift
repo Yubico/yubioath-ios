@@ -29,7 +29,7 @@ class SetPasswordViewController: UITableViewController {
     }
     
     func dismiss() {
-        performSegue(withIdentifier: "unwindToSettings", sender: self)
+        performSegue(withIdentifier: "unwindToKeyConfiguration", sender: self)
     }
     
     @IBAction func savePassword(_ sender: Any) {
@@ -92,6 +92,10 @@ class SetPasswordViewController: UITableViewController {
         // UITextViewDelegate added for switching responder on return key on keyboard
         self.password.delegate = self
         self.confirmPassword.delegate = self
+    }
+    
+    deinit {
+        print("deinit SetPasswordViewController")
     }
 }
 

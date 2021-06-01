@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Fre Nfc View Controller-->
+        <!--TutorialNFC View Controller-->
         <scene sceneID="e4H-Fp-gPi">
             <objects>
-                <viewController storyboardIdentifier="FreNfcViewController" id="CSb-J7-MFc" customClass="FreNfcViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreNfcViewController" id="CSb-J7-MFc" customClass="TutorialNFCViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3BX-Go-JES">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,15 +29,15 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Hold the key horizontally and tilt the iPhone towards the key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxy-Ot-GLA">
                                         <rect key="frame" x="24" y="328" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the center of the key to the edge of the phone." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkN-Lk-jMY">
                                         <rect key="frame" x="24" y="416" width="272" height="64"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -59,13 +60,13 @@
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC, pull down the main view to activate NFC." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hs-uc-a5r">
                                         <rect key="frame" x="24" y="240" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="0Ew-5d-tth" firstAttribute="centerX" secondItem="zfr-Ls-d7G" secondAttribute="centerX" id="1oP-eb-5Hc"/>
                                     <constraint firstItem="0Ew-5d-tth" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="4Kz-gx-5uq"/>
@@ -87,14 +88,14 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="P1K-OU-E0u"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zfr-Ls-d7G" firstAttribute="leading" secondItem="P1K-OU-E0u" secondAttribute="leading" id="BGr-ho-CEt"/>
                             <constraint firstItem="P1K-OU-E0u" firstAttribute="bottom" secondItem="zfr-Ls-d7G" secondAttribute="bottom" id="Ja5-i6-Zcr"/>
                             <constraint firstItem="P1K-OU-E0u" firstAttribute="trailing" secondItem="zfr-Ls-d7G" secondAttribute="trailing" id="KPm-Bf-Nh2"/>
                             <constraint firstItem="zfr-Ls-d7G" firstAttribute="top" secondItem="P1K-OU-E0u" secondAttribute="top" id="a51-7P-c41"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="P1K-OU-E0u"/>
                     </view>
                     <navigationItem key="navigationItem" id="Tuk-da-gmS"/>
                 </viewController>
@@ -102,19 +103,19 @@
             </objects>
             <point key="canvasLocation" x="2111.1999999999998" y="-1340.3940886699509"/>
         </scene>
-        <!--Fre Page View Controller-->
+        <!--Tutorial View Controller-->
         <scene sceneID="jCS-nU-7vP">
             <objects>
-                <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="FrePageViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="TutorialViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="jVl-UO-t9f">
                         <barButtonItem key="leftBarButtonItem" title="Skip" id="IVf-FH-Iqr">
-                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="skip:" destination="Nrf-fR-vCF" id="HPR-d7-OW9"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="N2W-CE-fPm">
-                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="next:" destination="Nrf-fR-vCF" id="A84-uD-pAO"/>
                             </connections>
@@ -129,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="-301" y="-1339"/>
         </scene>
-        <!--Fre Welcome View Controller-->
+        <!--Tutorial Welcome View Controller-->
         <scene sceneID="d8z-vL-FXx">
             <objects>
-                <viewController storyboardIdentifier="FreWelcomeViewController" id="5Xb-Tm-822" customClass="FreWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreWelcomeViewController" id="5Xb-Tm-822" customClass="TutorialWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PeX-o2-9zN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -148,15 +149,15 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
                                         <rect key="frame" x="24" y="354" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
                                         <rect key="frame" x="24" y="218.5" width="272" height="135.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -177,7 +178,7 @@
                                             <constraint firstItem="1gK-vv-YCZ" firstAttribute="centerY" secondItem="URL-XV-CW6" secondAttribute="centerY" id="pl1-49-PRM"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdE-m1-y3M" customClass="UrlButton" customModule="Authenticator" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdE-m1-y3M" customClass="UrlButton" customModule="Authenticator" customModuleProvider="target">
                                         <rect key="frame" x="109" y="446" width="102" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="kbn-VK-SK1"/>
@@ -213,7 +214,8 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="PPw-V1-S8d"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2OQ-lF-PWA" firstAttribute="bottom" secondItem="XdE-m1-y3M" secondAttribute="bottom" id="5xl-SX-KPB"/>
                             <constraint firstItem="2OQ-lF-PWA" firstAttribute="trailing" secondItem="PPw-V1-S8d" secondAttribute="trailing" id="FaR-e7-z38"/>
@@ -221,7 +223,6 @@
                             <constraint firstItem="2OQ-lF-PWA" firstAttribute="bottom" secondItem="PPw-V1-S8d" secondAttribute="bottom" id="b2d-Rc-mch"/>
                             <constraint firstItem="2OQ-lF-PWA" firstAttribute="leading" secondItem="PPw-V1-S8d" secondAttribute="leading" id="cKI-1f-zR4"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="PPw-V1-S8d"/>
                     </view>
                     <navigationItem key="navigationItem" id="E6I-M3-gRm"/>
                 </viewController>
@@ -229,10 +230,10 @@
             </objects>
             <point key="canvasLocation" x="573.60000000000002" y="-1339.8800599700151"/>
         </scene>
-        <!--FreQR View Controller-->
+        <!--TutorialQR View Controller-->
         <scene sceneID="7In-Oz-7Q5">
             <objects>
-                <viewController storyboardIdentifier="FreQRViewController" id="q4g-vH-Kej" customClass="FreQRViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreQRViewController" id="q4g-vH-Kej" customClass="TutorialQRViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Uis-Qp-bi1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,15 +249,15 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply scan the QR code when you add your YubiKey and generate your own security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBh-MF-9Fk">
                                         <rect key="frame" x="24" y="368.5" width="272" height="111.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="QR codes are available from the services you wish to secure." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-Sg-vD2">
                                         <rect key="frame" x="24" y="280.5" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -278,7 +279,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="6pA-e2-c5r" firstAttribute="top" secondItem="RUl-K8-lGO" secondAttribute="bottom" constant="20" id="1HS-8z-zVV"/>
                                     <constraint firstItem="RUl-K8-lGO" firstAttribute="centerX" secondItem="UZW-H3-WSN" secondAttribute="centerX" id="Crg-p0-vK3"/>
@@ -297,14 +298,14 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="FG2-a7-YeU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="FG2-a7-YeU" firstAttribute="bottom" secondItem="UZW-H3-WSN" secondAttribute="bottom" id="6Fq-fh-SS7"/>
                             <constraint firstItem="FG2-a7-YeU" firstAttribute="trailing" secondItem="UZW-H3-WSN" secondAttribute="trailing" id="OmQ-ei-PTm"/>
                             <constraint firstItem="UZW-H3-WSN" firstAttribute="leading" secondItem="FG2-a7-YeU" secondAttribute="leading" id="cZA-Fb-79z"/>
                             <constraint firstItem="UZW-H3-WSN" firstAttribute="top" secondItem="FG2-a7-YeU" secondAttribute="top" id="xz8-FR-pm1"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="FG2-a7-YeU"/>
                     </view>
                     <navigationItem key="navigationItem" id="Yga-xn-OBs"/>
                 </viewController>
@@ -318,7 +319,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YAz-Jp-vED" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="msq-uu-Qbj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -330,10 +331,10 @@
             </objects>
             <point key="canvasLocation" x="-1254" y="-1339"/>
         </scene>
-        <!--Fre5 Ci View Controller-->
+        <!--Tutorial5 Ci View Controller-->
         <scene sceneID="4q3-LE-id7">
             <objects>
-                <viewController storyboardIdentifier="Fre5CiViewController" id="kkp-Ao-3KZ" customClass="Fre5CiViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Fre5CiViewController" id="kkp-Ao-3KZ" customClass="Tutorial5CiViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SLj-kf-UpP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -349,15 +350,15 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey 5Ci, plug it in." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWb-g8-FRF">
                                         <rect key="frame" x="24" y="352" width="272" height="64"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the contacts on the sides when prompted." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paz-Es-tja">
                                         <rect key="frame" x="24" y="416" width="272" height="64"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -379,7 +380,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="mdG-o8-OXh" firstAttribute="centerX" secondItem="27b-Wg-3iK" secondAttribute="centerX" id="8TV-fB-IdR"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="UEm-Pv-1b5" secondAttribute="trailing" constant="16" id="Dyd-bw-T7f"/>
@@ -398,14 +399,14 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="wi6-ZF-chH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="27b-Wg-3iK" firstAttribute="leading" secondItem="wi6-ZF-chH" secondAttribute="leading" id="D7w-my-Nsd"/>
                             <constraint firstItem="27b-Wg-3iK" firstAttribute="trailing" secondItem="wi6-ZF-chH" secondAttribute="trailing" id="YCk-p5-znk"/>
                             <constraint firstItem="27b-Wg-3iK" firstAttribute="top" secondItem="wi6-ZF-chH" secondAttribute="top" id="mR1-RO-QCb"/>
                             <constraint firstItem="27b-Wg-3iK" firstAttribute="bottom" secondItem="wi6-ZF-chH" secondAttribute="bottom" id="uw5-Jj-nYs"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="wi6-ZF-chH"/>
                     </view>
                     <navigationItem key="navigationItem" id="5sy-f9-pMg"/>
                 </viewController>
@@ -413,10 +414,10 @@
             </objects>
             <point key="canvasLocation" x="1323.1884057971015" y="-1340.217391304348"/>
         </scene>
-        <!--Fre Favorites View Controller-->
+        <!--Tutorial Favorites View Controller-->
         <scene sceneID="syT-df-UON">
             <objects>
-                <viewController storyboardIdentifier="FreFavoritesViewController" id="Y7f-4B-LiD" customClass="FreFavoritesViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FreFavoritesViewController" id="Y7f-4B-LiD" customClass="TutorialFavoritesViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1iC-Mj-VCJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -432,23 +433,23 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply swipe all the way or swipe and tap the 'Add to Favorites' button." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcl-KI-PV4">
                                         <rect key="frame" x="24" y="392" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="You can mark your credentials as 'Favorite' and it will appear at the top of the list." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrc-MC-wya">
-                                        <rect key="frame" x="24" y="304" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="24" y="280.5" width="272" height="111.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="systemGrayColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWe-lc-Gum">
-                                        <rect key="frame" x="24" y="89" width="272" height="195"/>
+                                        <rect key="frame" x="24" y="89" width="272" height="171.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-5-favorites" translatesAutoresizingMaskIntoConstraints="NO" id="rxu-cE-Q8s">
-                                                <rect key="frame" x="15" y="0.0" width="242" height="195"/>
+                                                <rect key="frame" x="15" y="0.0" width="242" height="171.5"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -462,7 +463,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Tcl-KI-PV4" secondAttribute="bottom" id="5MQ-0y-cLi"/>
                                     <constraint firstItem="CWe-lc-Gum" firstAttribute="top" secondItem="Btv-aT-UwD" secondAttribute="bottom" constant="20" id="A8F-yZ-CR4"/>
@@ -481,14 +482,14 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="mDO-a8-K0a"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="mDO-a8-K0a" firstAttribute="trailing" secondItem="3K6-fP-bhK" secondAttribute="trailing" id="ej8-2s-fLz"/>
                             <constraint firstItem="mDO-a8-K0a" firstAttribute="bottom" secondItem="3K6-fP-bhK" secondAttribute="bottom" id="pyE-Kc-mqE"/>
                             <constraint firstItem="3K6-fP-bhK" firstAttribute="top" secondItem="mDO-a8-K0a" secondAttribute="top" id="sPW-3g-6Dl"/>
                             <constraint firstItem="3K6-fP-bhK" firstAttribute="leading" secondItem="mDO-a8-K0a" secondAttribute="leading" id="ynK-fu-YVB"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mDO-a8-K0a"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hhh-11-hdc"/>
                 </viewController>
@@ -506,5 +507,14 @@
         <namedColor name="YubiBlue">
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

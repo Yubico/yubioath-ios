@@ -10,7 +10,7 @@ import UIKit
 
 class DeviceInfoViewController: UITableViewController {
     
-    public var viewModel = ManagementViewModel()
+    public var viewModel: ManagementViewModel? = ManagementViewModel()
     
     @IBOutlet weak var serialNumberLabel: UILabel!
     @IBOutlet weak var modelLabel: UILabel!
@@ -21,7 +21,7 @@ class DeviceInfoViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.deviceInfo { result in
+        viewModel?.deviceInfo { result in
             switch result {
             case .success(let deviceInfo):
                 DispatchQueue.main.async {
@@ -34,6 +34,15 @@ class DeviceInfoViewController: UITableViewController {
                 print(error)
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.viewModel = nil
+    }
+    
+    deinit {
+        print("deinit DeviceInfoViewController")
     }
 }
 

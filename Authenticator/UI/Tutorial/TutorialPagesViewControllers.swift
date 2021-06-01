@@ -1,5 +1,5 @@
 //
-//  FreWelcomeViewController.swift
+//  TutorialPagesViewControllers.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 11/12/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class TutorialOpenUrlViewController: UIViewController {
     @IBAction func openUrl(_ sender: Any) {
         guard
             let button = sender as? UrlButton,
@@ -23,22 +23,22 @@ class UrlButton: UIButton {
     @IBInspectable var url : String?
 }
 
-class FreWelcomeViewController: WelcomeViewController {
+class TutorialWelcomeViewController: TutorialOpenUrlViewController {
     static let identifier = "FreWelcomeViewController"
 }
 
-class Fre5CiViewController: UIViewController {
+class Tutorial5CiViewController: UIViewController {
     static let identifier = "Fre5CiViewController"
 }
 
-class FreNfcViewController: UIViewController {
+class TutorialNFCViewController: UIViewController {
     static let identifier = "FreNfcViewController"
 }
 
-class FreQRViewController: UIViewController {
+class TutorialQRViewController: UIViewController {
     static let identifier = "FreQRViewController"
 }
 
-class FreFavoritesViewController: UIViewController {
+class TutorialFavoritesViewController: UIViewController {
     static let identifier = "FreFavoritesViewController"
 }

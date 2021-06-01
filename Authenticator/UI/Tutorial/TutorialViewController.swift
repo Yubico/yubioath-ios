@@ -1,5 +1,5 @@
 //
-//  FrePageViewController.swift
+//  TutorialViewController.swift
 //  Authenticator
 //
 //  Created by Irina Rakhmanova on 11/11/19.
@@ -12,7 +12,7 @@ import UIKit
  This class is presenting UIPageController with First User Experience information about app and features on first install. It's using 3 ViewControllers that you can scroll through with options of skipping or swiping down or using NextBarButton to go to the next page. It's located in Fre.storyboard and presented modally from MainViewController using segue.
  */
 
-class FrePageViewController: UIPageViewController {
+class TutorialViewController: UIPageViewController {
     
     @IBOutlet weak var nextBarButton: UIBarButtonItem!
     @IBOutlet weak var skipBarButton: UIBarButtonItem!
@@ -35,14 +35,14 @@ class FrePageViewController: UIPageViewController {
         var viewControllers: [UIViewController?] = []
         
         if userFreVersion < 1 {
-            viewControllers.append(self.createViewController(withIdentifier: FreWelcomeViewController.identifier))
-            viewControllers.append(self.createViewController(withIdentifier: Fre5CiViewController.identifier))
-            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: FreNfcViewController.identifier) : nil)
-            viewControllers.append(self.createViewController(withIdentifier: FreQRViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: TutorialWelcomeViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: Tutorial5CiViewController.identifier))
+            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: TutorialNFCViewController.identifier) : nil)
+            viewControllers.append(self.createViewController(withIdentifier: TutorialQRViewController.identifier))
         }
         
         if userFreVersion < 2 {
-            viewControllers.append(self.createViewController(withIdentifier: FreFavoritesViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: TutorialFavoritesViewController.identifier))
         }
         
         return viewControllers.compactMap { $0 }
@@ -86,7 +86,7 @@ class FrePageViewController: UIPageViewController {
     }
     
     private func createViewController(withIdentifier id: String) -> UIViewController {
-        let stboard = UIStoryboard(name: "Fre", bundle: nil)
+        let stboard = UIStoryboard(name: "Tutorial", bundle: nil)
         return stboard.instantiateViewController(withIdentifier: id)
     }
 }
@@ -95,7 +95,7 @@ class FrePageViewController: UIPageViewController {
 // MARK: - UIPageViewControllerDelegate
 //
 
-extension FrePageViewController: UIPageViewControllerDelegate {
+extension TutorialViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished, let currentViewController = pageViewController.viewControllers?[0] {
@@ -108,7 +108,7 @@ extension FrePageViewController: UIPageViewControllerDelegate {
 // MARK: - UIPageViewControllerDataSource
 //
 
-extension FrePageViewController: UIPageViewControllerDataSource {
+extension TutorialViewController: UIPageViewControllerDataSource {
     
     func  pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
