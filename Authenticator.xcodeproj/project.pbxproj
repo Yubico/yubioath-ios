@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF12660D6570022C53D /* AddCredentialController.swift */; };
 		513D4DF52660EBA40022C53D /* YubiKeyConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */; };
+		513D4DF7266634280022C53D /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF6266634280022C53D /* ShowTime.swift */; };
 		513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 513F34BD24633A7900FCE030 /* EditCredential.storyboard */; };
 		513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34BF2463F0C900FCE030 /* EditFieldController.swift */; };
 		513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C12463F44300FCE030 /* EditCredentialController.swift */; };
@@ -112,6 +113,7 @@
 /* Begin PBXFileReference section */
 		513D4DF12660D6570022C53D /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
 		513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationController.swift; sourceTree = "<group>"; };
+		513D4DF6266634280022C53D /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
 		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
 		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				A525965A23A45501006AA3C0 /* UIImageAdditions.swift */,
 				513F34DB246B144300FCE030 /* UIViewAdditions.swift */,
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
+				513D4DF6266634280022C53D /* ShowTime.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
+				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				513D4DF52660EBA40022C53D /* YubiKeyConfigurationController.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
@@ -1006,7 +1010,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				branch = "jens/add-timestamp-to-oath-calculate";
+				branch = "jens/yubikit-4.1";
 				kind = branch;
 			};
 		};

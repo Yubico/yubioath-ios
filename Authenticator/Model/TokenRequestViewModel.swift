@@ -7,7 +7,47 @@
 //
 
 @available(iOS 14.0, *)
+extension Error {
+    var tokenError: TokenRequestViewModel.TokenError {
+        let code = YKFPIVFErrorCode(rawValue: UInt((self as NSError).code))
+        switch code {
+        case .pinLocked:
+            return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: "PIN entry locked", text: "Use your PUK code to reset PIN attempts."))
+        case .invalidPin:
+            return .wrongPassword(TokenRequestViewModel.ErrorMessage(title: "Wrong PIN code", text: nil))
+        default:
+            return .notHandled(TokenRequestViewModel.ErrorMessage(title: self.localizedDescription, text: nil))
+        }
+    }
+}
+
+@available(iOS 14.0, *)
 class TokenRequestViewModel: NSObject {
+    
+    enum TokenError: Error {
+        case wrongPassword(ErrorMessage)
+        case passwordLocked(ErrorMessage)
+        case notHandled(ErrorMessage)
+        case alreadyHandled
+        
+        var message: ErrorMessage {
+            switch self {
+            case .wrongPassword(let message):
+                return message
+            case .passwordLocked(let message):
+                return message
+            case .notHandled(let message):
+                return message
+            case .alreadyHandled:
+                return ErrorMessage(title: "Already handled", text: nil)
+            }
+        }
+    }
+    
+    struct ErrorMessage {
+        var title: String
+        var text: String?
+    }
     
     private var connection = Connection()
     
@@ -26,18 +66,31 @@ class TokenRequestViewModel: NSObject {
         }
     }
 
-    func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String, completion: @escaping (Error?) -> Void) {
+    func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String, completion: @escaping (TokenError?) -> Void) {
         connection.startConnection { connection in
             connection.pivSession { session, error in
                 guard let session = session else { print("No session: \(error!)"); return }
                 session.verifyPin(password) { result, error in
-                    guard error == nil else { print("Wrong password: \(error!)"); return }
+                    guard error == nil else {
+                        let tokenError = error!.tokenError
+                        switch tokenError {
+                        case .wrongPassword(let message):
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: message.title)
+                            if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
+                            else { completion(tokenError) }
+                            return
+                        default:
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: tokenError.message.title)
+                            completion(error!.tokenError)
+                            return
+                        }
+                    }
                     guard let type = userInfo.keyType(),
                           let algorithm = userInfo.algorithm(),
                           let message = userInfo.data() else { print("No data to sign"); return }
                     session.signWithKey(in: .authentication, type: type, algorithm: algorithm, message: message) { data, error in
                         YubiKitManager.shared.stopNFCConnection()
-                        guard let data = data else { completion(error!); return }
+                        guard let data = data else { completion(error!.tokenError); return }
                         if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
                             print("Save data to userDefaults...")
                             userDefaults.setValue(data, forKey: "signedData")

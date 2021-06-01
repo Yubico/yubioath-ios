@@ -54,7 +54,19 @@ class TokenRequestViewController: UIViewController {
     @IBAction func submitPIN(_ sender: UITextField) {
         guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
         viewModel.handleTokenRequest(userInfo, password: sender.text!) { error in
-            guard error == nil else { print("Error: \(error!)"); return }
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    self.passwordTextField.text = nil
+                    switch error! {
+                    case .alreadyHandled:
+                        return
+                    default:
+                        let alert = UIAlertController(title: error?.message.title, message: error?.message.text) { }
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+                return
+            }
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.5) {
                     self.overlayView.alpha = 1
