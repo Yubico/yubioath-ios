@@ -17,21 +17,8 @@ extension SecCertificate {
         return name as String?
     }
     
-    var publicKey: SecKey? {
-        let publicKey = SecCertificateCopyKey(self)
-        return publicKey
-    }
-    
     func tokenObjectId() -> String {
         let data = SecCertificateCopyData(self) as Data
         return data.sha256Hash().map { String(format: "%02X", $0) }.joined()
-        
-        /*
-        var error:Unmanaged<CFError>?
-        guard let key = self.publicKey, let cfData = SecKeyCopyExternalRepresentation(key, &error) else { return nil }
-        let data = cfData as Data
-        let result = data.sha256Hash().map { String(format: "%02X", $0) }.joined()
-        return result
- */
     }
 }
