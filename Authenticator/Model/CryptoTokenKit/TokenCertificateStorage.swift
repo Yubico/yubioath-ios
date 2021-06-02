@@ -14,7 +14,7 @@ struct TokenCertificateStorage {
 
     func storeTokenCertificate(certificate: SecCertificate) -> Bool {
 
-        guard let label = certificate.tokenObjectId() else { return false }
+        let label = certificate.tokenObjectId()
         
         // Create token keychain certificate using the certificate and derived label
         guard let tokenKeychainCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: label) else { return false }
@@ -23,10 +23,6 @@ struct TokenCertificateStorage {
         tokenKeychainKey.label = label
         tokenKeychainKey.canSign = true
         tokenKeychainKey.isSuitableForLogin = true
-        
-//        var tokenOperationConstraints = [NSNumber: TKTokenOperationConstraint]()
-//        tokenOperationConstraints[NSNumber(value: TKTokenOperation.signData.rawValue)] = "PIN" as TKTokenOperationConstraint
-//        tokenKeychainKey.constraints = tokenOperationConstraints
 
         // TODO: figure out when there might be multiple driverConfigurations and how to handle it
         guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return false }
@@ -48,8 +44,7 @@ struct TokenCertificateStorage {
 
     func removeTokenCertificate(certificate: SecCertificate) -> Bool {
         guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return false }
-        guard let label = certificate.tokenObjectId() else { return false }
-        tokenDriverConfiguration.removeTokenConfiguration(for: label)
+        tokenDriverConfiguration.removeTokenConfiguration(for: certificate.tokenObjectId() )
         return true
     }
 }
