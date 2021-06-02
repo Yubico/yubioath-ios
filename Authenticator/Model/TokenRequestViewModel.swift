@@ -92,15 +92,14 @@ class TokenRequestViewModel: NSObject {
                           let objectId = userInfo.objectId(),
                           let algorithm = userInfo.algorithm(),
                           let message = userInfo.data() else { print("No data to sign"); return }
-                    session.getCertificateIn(.authentication) { certificate, error in
-                        guard let certificate = certificate else { return }
-                        if certificate.tokenObjectId() != objectId {
+                    print("Search for slot for \(objectId)")
+                    session.slotForObjectId(objectId) { slot in
+                        guard let slot = slot else {
                             completion(.missingCertificate(ErrorMessage(title: "Missing certificate", text: "The requested certificate is not stored on this YubiKey.")))
                             return
                         }
-                        
-                        session.signWithKey(in: .authentication, type: type, algorithm: algorithm, message: message) { data, error in
-                            YubiKitManager.shared.stopNFCConnection()
+                        session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { data, error in
+                            YubiKitManager.shared.stopNFCConnection(withMessage: "Successfully signed data")
                             guard let data = data else { completion(error!.tokenError); return }
                             print(data.hex)
                             if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
@@ -109,6 +108,34 @@ class TokenRequestViewModel: NSObject {
                                 completion(nil)
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private extension YKFPIVSession {
+    func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?) -> Void) {
+        self.getCertificateIn(.authentication) { certificate, error in
+            if let certificate = certificate, certificate.tokenObjectId() == objectId {
+                print("Found matching certificate")
+                completion(.authentication)
+                return
+            }
+            self.getCertificateIn(.signature) { certificate, error in
+                if let certificate = certificate, certificate.tokenObjectId() == objectId {
+                    print("Found matching certificate")
+                    completion(.signature)
+                    return
+                }
+                self.getCertificateIn(.cardAuth) { certificate, error in
+                    if let certificate = certificate, certificate.tokenObjectId() == objectId {
+                        print("Found matching certificate")
+                        completion(.cardAuth)
+                        return
+                    } else {
+                        completion(nil)
                     }
                 }
             }
