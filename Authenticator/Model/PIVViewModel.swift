@@ -57,9 +57,12 @@ class PIVViewModel: NSObject {
                 if let certificate = certificate { certificates.append(certificate) }
                 session.getCertificateIn(slot: .signature, callback: callback) { certificate in
                     if let certificate = certificate { certificates.append(certificate) }
-                    callback(.success(certificates))
-                    YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
-                    return
+                    session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
+                        if let certificate = certificate { certificates.append(certificate) }
+                        callback(.success(certificates))
+                        YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
+                        return
+                    }
                 }
             }
         }
