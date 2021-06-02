@@ -28,6 +28,7 @@ class TokenRequestViewModel: NSObject {
         case wrongPassword(ErrorMessage)
         case passwordLocked(ErrorMessage)
         case notHandled(ErrorMessage)
+        case missingCertificate(ErrorMessage)
         case alreadyHandled
         
         var message: ErrorMessage {
@@ -37,6 +38,8 @@ class TokenRequestViewModel: NSObject {
             case .passwordLocked(let message):
                 return message
             case .notHandled(let message):
+                return message
+            case .missingCertificate(let message):
                 return message
             case .alreadyHandled:
                 return ErrorMessage(title: "Already handled", text: nil)
@@ -86,15 +89,25 @@ class TokenRequestViewModel: NSObject {
                         }
                     }
                     guard let type = userInfo.keyType(),
+                          let objectId = userInfo.objectId(),
                           let algorithm = userInfo.algorithm(),
                           let message = userInfo.data() else { print("No data to sign"); return }
-                    session.signWithKey(in: .authentication, type: type, algorithm: algorithm, message: message) { data, error in
-                        YubiKitManager.shared.stopNFCConnection()
-                        guard let data = data else { completion(error!.tokenError); return }
-                        if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
-                            print("Save data to userDefaults...")
-                            userDefaults.setValue(data, forKey: "signedData")
-                            completion(nil)
+                    session.getCertificateIn(.authentication) { certificate, error in
+                        guard let certificate = certificate else { return }
+                        if certificate.tokenObjectId() != objectId {
+                            completion(.missingCertificate(ErrorMessage(title: "Missing certificate", text: "The requested certificate is not stored on this YubiKey.")))
+                            return
+                        }
+                        
+                        session.signWithKey(in: .authentication, type: type, algorithm: algorithm, message: message) { data, error in
+                            YubiKitManager.shared.stopNFCConnection()
+                            guard let data = data else { completion(error!.tokenError); return }
+                            print(data.hex)
+                            if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+                                print("Save data to userDefaults...")
+                                userDefaults.setValue(data, forKey: "signedData")
+                                completion(nil)
+                            }
                         }
                     }
                 }
@@ -106,6 +119,10 @@ class TokenRequestViewModel: NSObject {
 private extension Dictionary where Key == AnyHashable, Value: Any {
     func data() -> Data? {
         return self["data"] as? Data
+    }
+    
+    func objectId() -> String? {
+        return self["keyObjectID"] as? String
     }
     
     func keyType() -> YKFPIVKeyType? {
