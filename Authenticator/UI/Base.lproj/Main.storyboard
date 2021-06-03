@@ -527,7 +527,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="81" width="414" height="208"/>
+                            <rect key="frame" x="0.0" y="80.666666030883789" width="414" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -1043,7 +1043,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502304" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502315" width="414" height="44.000000000000057"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1082,7 +1082,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstItem="XKX-HK-ryX" firstAttribute="leading" secondItem="Juv-qn-Unx" secondAttribute="leading" constant="10" id="5DS-Q9-Lzj"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XIl-BC-e1v" secondAttribute="trailing" constant="10" id="Bgr-NI-iWP"/>
@@ -1122,12 +1122,13 @@
                                                     <rect key="frame" x="25" y="16" width="364" height="108"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jaV-wV-cOW">
-                                                            <rect key="frame" x="10" y="13.666666666666668" width="40" height="29.333333333333332"/>
+                                                            <rect key="frame" x="10" y="18" width="40" height="40"/>
                                                             <color key="tintColor" systemColor="labelColor"/>
                                                             <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="7sd-lC-1hy"/>
                                                                 <constraint firstAttribute="width" constant="40" id="Iyw-UU-EkH"/>
                                                             </constraints>
-                                                            <imageReference key="image" image="key" catalog="system" symbolScale="large"/>
+                                                            <imageReference key="image" image="yubikey-nfc" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YubiKey configuration" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-nm-IEk">
@@ -1143,7 +1144,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="74D-xo-kry" secondAttribute="trailing" constant="15" id="EGJ-WJ-cQA"/>
                                                         <constraint firstItem="Xag-nm-IEk" firstAttribute="leading" secondItem="jaV-wV-cOW" secondAttribute="trailing" constant="10" id="NwK-sd-zwX"/>
@@ -1202,7 +1203,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8r-Dk-z7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1178" y="-1248"/>
+            <point key="canvasLocation" x="-1178.2608695652175" y="-1248.2142857142856"/>
         </scene>
         <!--Token Request View Controller-->
         <scene sceneID="JyL-Dr-7Jm">
@@ -1334,7 +1335,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CgE-gV-OlK"/>
+        <segue reference="0Gs-5m-Syj"/>
         <segue reference="2fr-EZ-NcC"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
@@ -1344,13 +1345,13 @@
         <image name="biometric" width="63" height="63"/>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
-        <image name="key" catalog="system" width="86" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="questionmark.circle" catalog="system" width="128" height="121"/>
         <image name="rectangle.and.pencil.and.ellipsis" catalog="system" width="128" height="81"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="switch.2" catalog="system" width="128" height="109"/>
         <image name="touch" width="24" height="24"/>
+        <image name="yubikey-nfc" width="90" height="90"/>
         <namedColor name="Favorite">
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1371,6 +1372,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
