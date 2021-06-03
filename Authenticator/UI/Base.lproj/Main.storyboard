@@ -14,7 +14,7 @@
         <!--Accounts-->
         <scene sceneID="gXL-Ho-oJ5">
             <objects>
-                <tableViewController id="r4m-OO-XO1" customClass="OATHViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="oathAccounts" id="r4m-OO-XO1" customClass="OATHViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="92" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="FFY-H8-Wss">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,7 +150,7 @@
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
             <objects>
-                <navigationController id="ews-nc-Pdd" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="RootNavigationController" id="ews-nc-Pdd" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EZr-9j-3XK">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -200,7 +200,7 @@
         <!--Settings-->
         <scene sceneID="jy7-8d-TSq">
             <objects>
-                <tableViewController id="IqS-lg-whJ" customClass="SettingsViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="applicationSettings" id="IqS-lg-whJ" customClass="SettingsViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sHL-iT-zqk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -704,7 +704,7 @@
         <!--Whats New View Controller-->
         <scene sceneID="nfx-Ct-jBs">
             <objects>
-                <viewController storyboardIdentifier="AppVersionInfoViewController" id="QUg-EH-bgx" customClass="WhatsNewViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppVersionInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QUg-EH-bgx" customClass="WhatsNewViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8En-hR-f6f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -864,7 +864,7 @@
         <!--YubiKey configuration-->
         <scene sceneID="jUO-bC-anG">
             <objects>
-                <tableViewController title="YubiKey configuration" id="09D-Aw-j1I" customClass="YubiKeyConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="yubikeyConfiguration" title="YubiKey configuration" id="09D-Aw-j1I" customClass="YubiKeyConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="aqu-ss-YQ6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -987,7 +987,7 @@
             </objects>
             <point key="canvasLocation" x="807" y="-473"/>
         </scene>
-        <!--Safari SmartCard (PIV) authentication-->
+        <!--SmartCard (PIV) authentication-->
         <scene sceneID="tIY-Rn-mT4">
             <objects>
                 <tableViewController id="t28-TG-awK" customClass="SmartCardAuthController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
@@ -1000,7 +1000,7 @@
                             <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Safari SmartCard (PIV) authentication" id="fl4-8d-lD9"/>
+                    <navigationItem key="navigationItem" title="SmartCard (PIV) authentication" id="fl4-8d-lD9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juD-9u-B52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1019,7 +1019,7 @@
         <!--Main View Controller-->
         <scene sceneID="XqE-6f-9Iy">
             <objects>
-                <tableViewController id="f2R-89-0Ns" customClass="MainViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="RootTableViewController" id="f2R-89-0Ns" customClass="MainViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="1" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="75h-Iy-e2M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1069,8 +1069,8 @@
                                                             <imageReference key="image" image="rectangle.and.pencil.and.ellipsis" catalog="system" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OATH authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-BC-e1v">
-                                                            <rect key="frame" x="59.999999999999986" y="14.999999999999998" width="213.66666666666663" height="26.333333333333329"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-BC-e1v">
+                                                            <rect key="frame" x="60" y="14.999999999999998" width="152" height="26.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1137,8 +1137,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure passwords, OTP and Safari SmartCard authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
-                                                            <rect key="frame" x="60" y="46.333333333333343" width="288" height="40.666666666666657"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure passwords, OTP and SmartCard authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
+                                                            <rect key="frame" x="60" y="46.333333333333343" width="240" height="40.666666666666657"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1336,7 +1336,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0Gs-5m-Syj"/>
-        <segue reference="2fr-EZ-NcC"/>
+        <segue reference="0dB-Xx-crT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
