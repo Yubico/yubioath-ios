@@ -44,7 +44,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
+        coder.encode(1.6, forKey: "AppVersion")
+        return true
+    }
 
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
+        let version = coder.decodeFloat(forKey: "AppVersion")
+        if version == 1.6 {
+           return true
+        }
+        return false
+    }
 
 }
 
