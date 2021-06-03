@@ -62,7 +62,7 @@ class YubiKeyConfigurationController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if cell == setPasswordTableCell {
-            cell.textLabel?.text = self.passwordStatus == .noPassword ? "Set password" : "Change password"
+            cell.textLabel?.text = self.passwordStatus == .noPassword ? "Set OATH password" : "Change OATH password"
         }
         return cell
     }
@@ -70,7 +70,7 @@ class YubiKeyConfigurationController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
-            self.showWarning(title: "Remove password", message: "Remove password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
+            self.showWarning(title: "Remove password", message: "Remove OATH password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
                 self?.removeYubiKeyPassword(currentPassword: nil)
             }
         default:
