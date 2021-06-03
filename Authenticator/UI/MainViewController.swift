@@ -15,15 +15,6 @@ class MainViewController: UITableViewController {
     @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     
-    @IBAction func showHelp(_ sender: UIBarButtonItem) {
-        print("Show help...")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        UNUserNotificationCenter.current().delegate = self
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if #available(iOS 14.0, *) {
             if let tokenRequestController = segue.destination as? TokenRequestViewController, let userInfo = sender as? [AnyHashable: Any] {
