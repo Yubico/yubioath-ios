@@ -66,9 +66,6 @@ class OATHViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // notify view model that view in foreground and it can resume operations
-        self.viewModel.start()
-        
         // update view in case if state has changed
         self.tableView.reloadData()
         refreshUIOnKeyStateUpdate()
