@@ -62,6 +62,10 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
-        YubiKitManager.shared.delegate = self
+        DelegateStack.shared.setDelegate(self)
+    }
+    
+    deinit {
+        DelegateStack.shared.removeDelegate(self)
     }
 }

@@ -84,7 +84,11 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
-        start()
+        DelegateStack.shared.setDelegate(self)
+    }
+    
+    deinit {
+        DelegateStack.shared.removeDelegate(self)
     }
     
     /*!
@@ -276,14 +280,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func stop() {
         cleanUp()
-        YubiKitManager.shared.delegate = nil
         accessoryConnection = nil
         nfcConnection = nil
         session = nil
-    }
-    
-    public func start() {
-        YubiKitManager.shared.delegate = self
     }
     
     public func cleanUp() {

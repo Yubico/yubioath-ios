@@ -10,6 +10,7 @@
 		513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF12660D6570022C53D /* AddCredentialController.swift */; };
 		513D4DF52660EBA40022C53D /* YubiKeyConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */; };
 		513D4DF7266634280022C53D /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF6266634280022C53D /* ShowTime.swift */; };
+		513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF8266A21250022C53D /* DelegateStack.swift */; };
 		513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 513F34BD24633A7900FCE030 /* EditCredential.storyboard */; };
 		513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34BF2463F0C900FCE030 /* EditFieldController.swift */; };
 		513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C12463F44300FCE030 /* EditCredentialController.swift */; };
@@ -114,6 +115,7 @@
 		513D4DF12660D6570022C53D /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
 		513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationController.swift; sourceTree = "<group>"; };
 		513D4DF6266634280022C53D /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
+		513D4DF8266A21250022C53D /* DelegateStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateStack.swift; sourceTree = "<group>"; };
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
 		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
 		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
 				5155426926554CAB00B19C59 /* PIVViewModel.swift */,
 				5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */,
+				513D4DF8266A21250022C53D /* DelegateStack.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
+				513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
@@ -709,7 +713,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -732,7 +736,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -875,7 +879,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -902,7 +906,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;

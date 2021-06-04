@@ -58,6 +58,10 @@ class TokenRequestViewModel: NSObject {
         super.init()
     }
     
+    deinit {
+        print("Deinit TokenRequestViewModel")
+    }
+    
     var isAccessoryKeyConnectedHandler: ((Bool) -> Void)?
     
     func isAccessoryKeyConnected(handler: @escaping (Bool) -> Void) {
