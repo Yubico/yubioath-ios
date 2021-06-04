@@ -13,12 +13,12 @@ class Connection: NSObject {
     
     override init() {
         super.init()
-        YubiKitManager.shared.delegate = self
-        YubiKitManager.shared.startAccessoryConnection()
+        DelegateStack.shared.setDelegate(self)
     }
     
     deinit {
-        YubiKitManager.shared.delegate = nil
+        print("Deinit Connection")
+        DelegateStack.shared.removeDelegate(self)
     }
     
     var connection: YKFConnectionProtocol? {
