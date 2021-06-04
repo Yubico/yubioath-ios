@@ -16,7 +16,7 @@ class TokenRequestViewController: UIViewController {
     @IBOutlet weak var orLabel: UILabel!
     @IBOutlet weak var nfcLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
-    let viewModel = TokenRequestViewModel()
+    var viewModel: TokenRequestViewModel?
     var defaultAccessoryTest: String?
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var arrowHintView: UIView!
@@ -30,8 +30,9 @@ class TokenRequestViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
-        viewModel.isAccessoryKeyConnected { [weak self] connected in
+        viewModel?.isAccessoryKeyConnected { [weak self] connected in
             print("connected: \(connected)")
             self?.orLabel.isHidden = connected
             self?.nfcLabel.isHidden = connected
@@ -53,7 +54,7 @@ class TokenRequestViewController: UIViewController {
     
     @IBAction func submitPIN(_ sender: UITextField) {
         guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
-        viewModel.handleTokenRequest(userInfo, password: sender.text!) { error in
+        viewModel?.handleTokenRequest(userInfo, password: sender.text!) { error in
             guard error == nil else {
                 DispatchQueue.main.async {
                     self.passwordTextField.text = nil
