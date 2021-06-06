@@ -12,7 +12,7 @@ import Combine
 @available(iOS 14.0, *)
 class SmartCardAuthController: UITableViewController {
     
-    let viewModel = PIVViewModel()
+    let viewModel = SmartCardViewModel()
     var certificates = [SecCertificate]()
     var tokens = [SecCertificate]()
     
@@ -26,7 +26,8 @@ class SmartCardAuthController: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.allowsSelection = false
         tableView.register(CertificateCell.self, forCellReuseIdentifier: "CertificateCell")
-        
+        tableView.register(MessageCell.self, forCellReuseIdentifier: "MessageCell")
+
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             let refreshControl = UIRefreshControl()
             // setting background to refresh control changes behavior of spinner
@@ -118,32 +119,91 @@ class SmartCardAuthController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
         if indexPath.section == 0 {
-            let certificate = certificates[indexPath.row]
-            cell.name = certificate.commonName
-            cell.action = { [weak self] in
-                self?.storeTokenCertificate(certificate: certificate)
-                self?.viewModel.update()
+            if certificates.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
+                cell.message = viewModel.isKeyConnected ? "No SmartCard (PIV) certificates on this YubiKey." : "Insert a 5Ci YubiKey or pull down to scan for a NFC key."
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
+                let certificate = certificates[indexPath.row]
+                cell.name = certificate.commonName
+                cell.action = { [weak self] in
+                    self?.storeTokenCertificate(certificate: certificate)
+                    self?.viewModel.update()
+                }
+                return cell
             }
         } else {
-            let token = tokens[indexPath.row]
-            cell.name = token.commonName
-            cell.setSymbol(symbol: "minus.circle")
-            cell.action = { [weak self] in
-                self?.removeTokenCertificate(certificate: token)
-                self?.viewModel.update()
+            if tokens.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
+                cell.message = "There are no public certificates saved to the Keychain of this iPhone."
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
+                let token = tokens[indexPath.row]
+                cell.name = token.commonName
+                cell.setSymbol(symbol: "minus.circle")
+                cell.action = { [weak self] in
+                    self?.removeTokenCertificate(certificate: token)
+                    self?.viewModel.update()
+                }
+                return cell
             }
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? certificates.count : tokens.count
+        let rows = section == 0 ? certificates.count : tokens.count
+        return rows == 0 ? 1 : rows
     }
 }
 
-class CertificateCell: UITableViewCell {
+private class MessageCell: UITableViewCell {
+    private let messageLabel = UILabel()
+    
+    var message: String? {
+        set {
+            messageLabel.text = newValue
+        }
+        get {
+            return messageLabel.text
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        messageLabel.numberOfLines = 0
+        messageLabel.lineBreakMode = .byWordWrapping
+        messageLabel.textAlignment = .center
+        messageLabel.textColor = .gray
+        messageLabel.font = messageLabel.font.withSize(15)
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(messageLabel)
+        NSLayoutConstraint.activate([
+            messageLabel.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: -70),
+            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:20),
+            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+        ])
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        messageLabel.text = nil
+    }
+    
+    deinit {
+        print("deinit MessageCell")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private class CertificateCell: UITableViewCell {
     private let nameLabel = UILabel()
     private let button = UIButton(withSymbol: "apps.iphone.badge.plus")
     var cancellable: Cancellable?
