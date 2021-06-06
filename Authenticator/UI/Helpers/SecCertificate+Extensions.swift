@@ -9,7 +9,7 @@
 import Foundation
 import CommonCrypto
 
-extension SecCertificate {
+extension SecCertificate: Equatable {
     
     var commonName: String? {
         var name: CFString?
@@ -20,5 +20,9 @@ extension SecCertificate {
     func tokenObjectId() -> String {
         let data = SecCertificateCopyData(self) as Data
         return data.sha256Hash().map { String(format: "%02X", $0) }.joined()
+    }
+    
+    public static func ==(lhs: SecCertificate, rhs: SecCertificate) -> Bool {
+        return lhs.tokenObjectId() == rhs.tokenObjectId()
     }
 }

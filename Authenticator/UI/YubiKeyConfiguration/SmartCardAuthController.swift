@@ -128,9 +128,13 @@ class SmartCardAuthController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let certificate = certificates[indexPath.row]
                 cell.name = certificate.commonName
-                cell.action = { [weak self] in
-                    self?.storeTokenCertificate(certificate: certificate)
-                    self?.viewModel.update()
+                if !tokens.contains(certificate) {
+                     cell.action = { [weak self] in
+                        self?.storeTokenCertificate(certificate: certificate)
+                        self?.viewModel.update()
+                    }
+                } else {
+                    cell.setSymbol(symbol: "checkmark.circle")
                 }
                 return cell
             }
