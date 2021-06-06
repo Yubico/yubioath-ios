@@ -1,5 +1,5 @@
 //
-//  PIVViewModel.swift
+//  SmartCardViewModel.swift
 //  Authenticator
 //
 //  Created by Jens Utbult on 2021-05-19.
@@ -7,7 +7,7 @@
 //
 
 @available(iOS 14.0, *)
-class PIVViewModel: NSObject {
+class SmartCardViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
@@ -93,14 +93,12 @@ extension YKFPIVSession {
 }
 
 @available(iOS 14.0, *)
-extension PIVViewModel {
-    func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String) {
-        
+extension SmartCardViewModel: YKFManagerDelegate {
+    
+    var isKeyConnected: Bool {
+        return connection != nil
     }
-}
-
-@available(iOS 14.0, *)
-extension PIVViewModel: YKFManagerDelegate {
+    
     var connection: YKFConnectionProtocol? {
         return accessoryConnection ?? nfcConnection
     }
