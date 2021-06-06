@@ -39,6 +39,7 @@ struct TokenCertificateStorage {
             .compactMap { $0 as? TKTokenKeychainCertificate }
             .map { SecCertificateCreateWithData(nil, $0.data as CFData) }
             .compactMap { $0 }
+            .sorted { $0.commonName ?? "" < $1.commonName ?? "" }
         return certificates
     }
 
