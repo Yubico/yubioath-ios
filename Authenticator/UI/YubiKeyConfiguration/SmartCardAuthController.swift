@@ -13,7 +13,7 @@ import Combine
 class SmartCardAuthController: UITableViewController {
     
     let viewModel = SmartCardViewModel()
-    var certificates = [SecCertificate]()
+    var certificates = [SmartCardViewModel.Certificate]()
     var tokens = [SecCertificate]()
     
     deinit {
@@ -127,10 +127,10 @@ class SmartCardAuthController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let certificate = certificates[indexPath.row]
-                cell.name = certificate.commonName
-                if !tokens.contains(certificate) {
+                cell.name = "\(certificate.certificate.commonName ?? "")  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
+                if !tokens.contains(certificate.certificate) {
                      cell.action = { [weak self] in
-                        self?.storeTokenCertificate(certificate: certificate)
+                        self?.storeTokenCertificate(certificate: certificate.certificate)
                         self?.viewModel.update()
                     }
                 } else {

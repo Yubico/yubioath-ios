@@ -9,12 +9,17 @@
 @available(iOS 14.0, *)
 class SmartCardViewModel: NSObject {
     
+    struct Certificate {
+        let certificate: SecCertificate
+        let slot: YKFPIVSlot
+    }
+    
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
     
     private let tokenStorage = TokenCertificateStorage()
     
-    var certificatesCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
+    var certificatesCallback: ((_ result: Result<[Certificate], Error>) -> Void)?
     var tokensCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
     
     override init() {
@@ -31,7 +36,7 @@ class SmartCardViewModel: NSObject {
     }
     
     private func didDisconnect() {
-        self.certificatesCallback?(.success([SecCertificate]()))
+        self.certificatesCallback?(.success([Certificate]()))
     }
     
     func startNFC() {
@@ -56,13 +61,13 @@ class SmartCardViewModel: NSObject {
         connection.pivSession { session, error in
             guard let session = session else { self.certificatesCallback?(.failure(error!)); return }
             guard let callback = self.certificatesCallback else { return }
-            var certificates = [SecCertificate]()
+            var certificates = [Certificate]()
             session.getCertificateIn(slot: .authentication, callback: callback) { certificate in
-                if let certificate = certificate { certificates.append(certificate) }
+                if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .authentication)) }
                 session.getCertificateIn(slot: .signature, callback: callback) { certificate in
-                    if let certificate = certificate { certificates.append(certificate) }
+                    if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .signature)) }
                     session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
-                        if let certificate = certificate { certificates.append(certificate) }
+                        if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
                         callback(.success(certificates))
                         YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
                         return
@@ -73,9 +78,10 @@ class SmartCardViewModel: NSObject {
     }
 }
 
+@available(iOS 14.0, *)
 extension YKFPIVSession {
     func getCertificateIn(slot: YKFPIVSlot,
-                          callback: @escaping (_ result: Result<[SecCertificate], Error>) -> Void,
+                          callback: @escaping (_ result: Result<[SmartCardViewModel.Certificate], Error>) -> Void,
                           completion: @escaping (_ certificate: SecCertificate?) -> Void) {
         getCertificateIn(slot) { certificate, error in
             guard let certificate = certificate else {
