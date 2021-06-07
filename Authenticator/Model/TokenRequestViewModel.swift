@@ -12,7 +12,7 @@ extension Error {
         let code = YKFPIVFErrorCode(rawValue: UInt((self as NSError).code))
         switch code {
         case .pinLocked:
-            return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: "PIN entry locked", text: "Use your PUK code to reset PIN attempts."))
+            return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: "Your PIN has ben blocked", text: "Use your PUK code to reset PIN."))
         case .invalidPin:
             return .wrongPassword(TokenRequestViewModel.ErrorMessage(title: "Wrong PIN code", text: nil))
         default:
@@ -119,6 +119,13 @@ class TokenRequestViewModel: NSObject {
                     }
                 }
             }
+        }
+    }
+    
+    func cancel() {
+        if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+            print("Save canceledByUser to userDefaults...")
+            userDefaults.setValue(true, forKey: "canceledByUser")
         }
     }
 }

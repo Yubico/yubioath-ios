@@ -49,6 +49,7 @@ class TokenRequestViewController: UIViewController {
     }
     
     @IBAction func cancel(_ sender: Any) {
+        viewModel?.cancel()
         self.dismiss(animated: true, completion: nil)
     }
     

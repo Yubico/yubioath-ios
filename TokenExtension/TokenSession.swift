@@ -11,7 +11,7 @@ import UserNotifications
 
 class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     
-    var lastSessionTimeStamp: Date?
+    var sessionEndTime = Date(timeIntervalSinceNow: -10) // create endTime in the passed to force recreation of endTime when signing start
     
     // These cases match the YKFPIVKeyType in the SDK
     enum KeyType: UInt8 {
@@ -35,12 +35,16 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     
     func tokenSession(_ session: TKTokenSession, sign dataToSign: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
         // tokenSession() gets called multiple times even if we throw an error. This kludge make sure we only pop one notification.
-        if -(lastSessionTimeStamp?.timeIntervalSince(Date()) ?? -100) > 40 {
-            lastSessionTimeStamp = Date()
-        }
-        if -(lastSessionTimeStamp?.timeIntervalSince(Date()) ?? 0) > 20 {
+        
+        // if we're not passed sessionEndTime throw error and cancel all notifications
+        if sessionEndTime.timeIntervalSinceNow > 0 {
             cancelAllNotifications()
             throw NSError(domain: TKErrorDomain, code: TKError.Code.badParameter.rawValue, userInfo: nil)
+        }
+
+        // if we're past sessionEndTime set a new endtime
+        if sessionEndTime.timeIntervalSinceNow < 0 {
+            sessionEndTime = Date(timeIntervalSinceNow: 40)
         }
         
         guard let key = try? session.token.configuration.key(for: keyObjectID), let objectId = keyObjectID as? String else {
@@ -68,7 +72,7 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
 
         sendNotificationWithData(dataToSign, keyObjectID: objectId, keyType: keyType, algorithm: secKeyAlgorithm)
         
-        let endTime = Date().addingTimeInterval(30)
+        let loopEndTime = Date().addingTimeInterval(35)
         var runLoop = true
         while(runLoop) {
             Thread.sleep(forTimeInterval: 1)
@@ -76,7 +80,14 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
                 userDefaults.removeObject(forKey: "signedData")
                 return signedData
             }
-            if endTime < Date() {
+            if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator"), let _ = userDefaults.value(forKey: "canceledByUser") {
+                userDefaults.removeObject(forKey: "canceledByUser")
+                sessionEndTime = Date(timeIntervalSinceNow: 3)
+                cancelAllNotifications()
+                throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
+            }
+
+            if loopEndTime < Date() {
                 runLoop = false
             }
         }
