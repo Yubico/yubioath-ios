@@ -88,7 +88,7 @@ class TokenRequestViewModel: NSObject {
                             return
                         default:
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: tokenError.message.title)
-                            completion(error!.tokenError)
+                            completion(tokenError)
                             return
                         }
                     }
@@ -99,7 +99,11 @@ class TokenRequestViewModel: NSObject {
                     print("Search for slot for \(objectId)")
                     session.slotForObjectId(objectId) { slot in
                         guard let slot = slot else {
-                            completion(.missingCertificate(ErrorMessage(title: "Missing certificate", text: "The requested certificate is not stored on this YubiKey.")))
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "The requested certificate is not stored on this YubiKey!")
+                            if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
+                            else {
+                                completion(.missingCertificate(ErrorMessage(title: "Missing certificate", text: "The requested certificate is not stored on this YubiKey.")))
+                            }
                             return
                         }
                         session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { data, error in
