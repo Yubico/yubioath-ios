@@ -127,7 +127,7 @@ class SmartCardAuthController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let certificate = certificates[indexPath.row]
-                cell.name = "\(certificate.certificate.commonName ?? "")  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
+                cell.name = "\(certificate.certificate.commonName ?? "No name")  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
                 if !tokens.contains(certificate.certificate) {
                      cell.action = { [weak self] in
                         self?.storeTokenCertificate(certificate: certificate.certificate)
