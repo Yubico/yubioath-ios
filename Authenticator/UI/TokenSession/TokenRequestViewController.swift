@@ -20,12 +20,16 @@ class TokenRequestViewController: UIViewController {
     var defaultAccessoryTest: String?
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var arrowHintView: UIView!
-    
+    @IBOutlet weak var checkmarkView: UIView!
+    @IBOutlet weak var checkmarkTextView: UIView!
+
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         defaultAccessoryTest = accessoryLabel.text
         overlayView.alpha = 0
         arrowHintView.alpha = 0
+        checkmarkView.alpha = 0
+        checkmarkTextView.alpha = 0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,6 +49,7 @@ class TokenRequestViewController: UIViewController {
     }
     
     @objc func didEnterBackground() {
+        viewModel?.cancel()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -72,6 +77,10 @@ class TokenRequestViewController: UIViewController {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.5) {
                     self.overlayView.alpha = 1
+                }
+                UIView.animate(withDuration: 2) {
+                    self.checkmarkView.alpha = 1
+                    self.checkmarkTextView.alpha = 1
                 }
                 self.animateHint()
                 self.passwordTextField.resignFirstResponder()

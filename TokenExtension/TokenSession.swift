@@ -39,12 +39,13 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
         // if we're not passed sessionEndTime throw error and cancel all notifications
         if sessionEndTime.timeIntervalSinceNow > 0 {
             cancelAllNotifications()
-            throw NSError(domain: TKErrorDomain, code: TKError.Code.badParameter.rawValue, userInfo: nil)
+            throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
         }
 
-        // if we're past sessionEndTime set a new endtime
+        // if we're past sessionEndTime set a new endtime and reset
         if sessionEndTime.timeIntervalSinceNow < 0 {
-            sessionEndTime = Date(timeIntervalSinceNow: 40)
+            reset()
+            sessionEndTime = Date(timeIntervalSinceNow: 100)
         }
         
         guard let key = try? session.token.configuration.key(for: keyObjectID), let objectId = keyObjectID as? String else {
@@ -72,18 +73,18 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
 
         sendNotificationWithData(dataToSign, keyObjectID: objectId, keyType: keyType, algorithm: secKeyAlgorithm)
         
-        let loopEndTime = Date().addingTimeInterval(35)
+        let loopEndTime = Date(timeIntervalSinceNow: 95)
         var runLoop = true
         while(runLoop) {
             Thread.sleep(forTimeInterval: 1)
             if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator"), let signedData = userDefaults.value(forKey: "signedData") as? Data {
-                userDefaults.removeObject(forKey: "signedData")
+                sessionEndTime = Date(timeIntervalSinceNow: -10)
+                reset()
                 return signedData
             }
             if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator"), let _ = userDefaults.value(forKey: "canceledByUser") {
-                userDefaults.removeObject(forKey: "canceledByUser")
                 sessionEndTime = Date(timeIntervalSinceNow: 3)
-                cancelAllNotifications()
+                reset()
                 throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
             }
 
@@ -91,7 +92,7 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
                 runLoop = false
             }
         }
-        cancelAllNotifications()
+        reset()
         throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
     }
     
@@ -122,6 +123,14 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
             // If the operation failed for some reason, fill in an appropriate error like objectNotFound, corruptedData, etc.
             // Note that responding with TKErrorCodeAuthenticationNeeded will trigger user authentication after which the current operation will be re-attempted.
             throw NSError(domain: TKErrorDomain, code: TKError.Code.authenticationNeeded.rawValue, userInfo: nil)
+        }
+    }
+    
+    private func reset() {
+        cancelAllNotifications()
+        if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+            userDefaults.removeObject(forKey: "canceledByUser")
+            userDefaults.removeObject(forKey: "signedData")
         }
     }
     
