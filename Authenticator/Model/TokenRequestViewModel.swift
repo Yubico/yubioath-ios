@@ -29,6 +29,7 @@ class TokenRequestViewModel: NSObject {
         case passwordLocked(ErrorMessage)
         case notHandled(ErrorMessage)
         case missingCertificate(ErrorMessage)
+        case communicationError(ErrorMessage)
         case alreadyHandled
         
         var message: ErrorMessage {
@@ -40,6 +41,8 @@ class TokenRequestViewModel: NSObject {
             case .notHandled(let message):
                 return message
             case .missingCertificate(let message):
+                return message
+            case .communicationError(let message):
                 return message
             case .alreadyHandled:
                 return ErrorMessage(title: "Already handled", text: nil)
@@ -97,8 +100,15 @@ class TokenRequestViewModel: NSObject {
                           let algorithm = userInfo.algorithm(),
                           let message = userInfo.data() else { print("No data to sign"); return }
                     print("Search for slot for \(objectId)")
-                    session.slotForObjectId(objectId) { slot in
+                    session.slotForObjectId(objectId) { slot, error in
                         guard let slot = slot else {
+                            if let error = error {
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                                if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) } else {
+                                    completion(.communicationError(ErrorMessage(title: error.localizedDescription, text: nil)))
+                                }
+                                return
+                            }
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: "The requested certificate is not stored on this YubiKey!")
                             if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
                             else {
@@ -131,26 +141,26 @@ class TokenRequestViewModel: NSObject {
 }
 
 private extension YKFPIVSession {
-    func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?) -> Void) {
+    func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?, Error?) -> Void) {
         self.getCertificateIn(.authentication) { certificate, error in
             if let certificate = certificate, certificate.tokenObjectId() == objectId {
                 print("Found matching certificate")
-                completion(.authentication)
+                completion(.authentication, nil)
                 return
             }
             self.getCertificateIn(.signature) { certificate, error in
                 if let certificate = certificate, certificate.tokenObjectId() == objectId {
                     print("Found matching certificate")
-                    completion(.signature)
+                    completion(.signature, nil)
                     return
                 }
                 self.getCertificateIn(.cardAuth) { certificate, error in
                     if let certificate = certificate, certificate.tokenObjectId() == objectId {
                         print("Found matching certificate")
-                        completion(.cardAuth)
+                        completion(.cardAuth, nil)
                         return
                     } else {
-                        completion(nil)
+                        completion(nil, error!)
                     }
                 }
             }
