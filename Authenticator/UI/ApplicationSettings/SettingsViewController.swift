@@ -20,8 +20,6 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var removePasswordTableCell: UITableViewCell!
     @IBOutlet weak var setPasswordTableCell: UITableViewCell!
-    private let appVersion = UIApplication.appVersion
-    private let systemVersion = UIDevice().systemVersion
     
     var passwordPreferences = PasswordPreferences()
     var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
@@ -31,8 +29,8 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         switch (indexPath.section, indexPath.row) {
-        case (3, 1):
-            cell.textLabel?.text = "Yubico Authenticator \(self.appVersion)"
+        case (2, 1):
+            cell.textLabel?.text = "Yubico Authenticator \(UIApplication.appVersion) (build \(UIApplication.appBuildNumber))"
         default:
             break
         }
@@ -66,7 +64,7 @@ class SettingsViewController: UITableViewController {
             webViewController.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
             self.navigationController?.pushViewController(webViewController, animated: true)
         case (1, 2):
-            var title = "[iOS Authenticator] \(appVersion), iOS\(systemVersion)"
+            var title = "[iOS Authenticator] \(UIApplication.appVersion), iOS\(UIDevice().systemVersion)"
             //            if let description = viewModel.keyDescription {
             //                title += ", key \(description.firmwareRevision)"
             //            }
