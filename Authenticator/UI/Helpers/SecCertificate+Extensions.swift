@@ -22,6 +22,10 @@ extension SecCertificate: Equatable {
         return data.sha256Hash().map { String(format: "%02X", $0) }.joined()
     }
     
+    func publicKey() -> SecKey? {
+        return SecCertificateCopyKey(self)
+    }
+    
     public static func ==(lhs: SecCertificate, rhs: SecCertificate) -> Bool {
         return lhs.tokenObjectId() == rhs.tokenObjectId()
     }

@@ -31,6 +31,13 @@ struct TokenCertificateStorage {
         return true
     }
     
+    func getTokenCertificate(withObjectId objectId: String) -> SecCertificate? {
+        let certificates = listTokenCertificates()
+        return certificates.first { certificate in
+            return certificate.tokenObjectId() == objectId
+        }
+    }
+    
     func listTokenCertificates() -> [SecCertificate] {
         guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return [SecCertificate]() }
         let certificates = tokenDriverConfiguration.tokenConfigurations

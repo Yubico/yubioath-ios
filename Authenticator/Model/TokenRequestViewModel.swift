@@ -81,8 +81,8 @@ class TokenRequestViewModel: NSObject {
             connection.pivSession { session, error in
                 guard let session = session else { print("No session: \(error!)"); return }
                 session.verifyPin(password) { result, error in
-                    guard error == nil else {
-                        let tokenError = error!.tokenError
+                    if let error = error {
+                        let tokenError = error.tokenError
                         switch tokenError {
                         case .wrongPassword(let message):
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: message.title)
@@ -102,27 +102,33 @@ class TokenRequestViewModel: NSObject {
                     print("Search for slot for \(objectId)")
                     session.slotForObjectId(objectId) { slot, error in
                         guard let slot = slot else {
-                            if let error = error {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                                if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) } else {
-                                    completion(.communicationError(ErrorMessage(title: error.localizedDescription, text: nil)))
-                                }
-                                return
-                            }
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "The requested certificate is not stored on this YubiKey!")
-                            if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
-                            else {
-                                completion(.missingCertificate(ErrorMessage(title: "Missing certificate", text: "The requested certificate is not stored on this YubiKey.")))
-                            }
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.message.title)
+                            completion(error!)
                             return
                         }
-                        session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { data, error in
+                        session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { signature, error in
+                            // Handle any errors
+                            if let error = error, (error as NSError).code == 0x6a80 {
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Invalid signature")
+                                completion(.communicationError(ErrorMessage(title: "Invalid signature", text: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.")))
+                                return
+                            }
+                            guard let signature = signature else { fatalError() }
+                            // Verify signature
+                            let signatureError = self.verifySignature(signature, data: message, objectId: objectId, algorithm: algorithm)
+                            if signatureError != nil {
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Invalid signature")
+                                completion(.communicationError(ErrorMessage(title: "Invalid signature", text: "The private key on the YubiKey does not match the certificate.")))
+                                return
+                            }
+                            
                             YubiKitManager.shared.stopNFCConnection(withMessage: "Successfully signed data")
-                            guard let data = data else { completion(error!.tokenError); return }
-                            print(data.hex)
+                            
+                            print(signature.hex)
+                            
                             if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
                                 print("Save data to userDefaults...")
-                                userDefaults.setValue(data, forKey: "signedData")
+                                userDefaults.setValue(signature, forKey: "signedData")
                                 completion(nil)
                             }
                         }
@@ -138,10 +144,26 @@ class TokenRequestViewModel: NSObject {
             userDefaults.setValue(true, forKey: "canceledByUser")
         }
     }
+    
+    private func verifySignature(_ signature: Data, data: Data, objectId: String, algorithm: SecKeyAlgorithm) -> Error? {
+        guard let certificate = TokenCertificateStorage().getTokenCertificate(withObjectId: objectId) else { return "No certificate for objectId: \(objectId)" }
+        guard let publicKey = certificate.publicKey() else { return "No public key in this certificate" }
+        var error: Unmanaged<CFError>?
+        let result = SecKeyVerifySignature(publicKey, algorithm, data as CFData, signature as CFData, &error);
+        if !result {
+            return "Signature verification failed"
+        }
+        if let error = error {
+            return error.takeRetainedValue() as Error
+        } else {
+            return nil
+        }
+    }
 }
 
+@available(iOS 14.0, *)
 private extension YKFPIVSession {
-    func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?, Error?) -> Void) {
+    func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?, TokenRequestViewModel.TokenError?) -> Void) {
         self.getCertificateIn(.authentication) { certificate, error in
             if let certificate = certificate, certificate.tokenObjectId() == objectId {
                 print("Found matching certificate")
@@ -159,8 +181,12 @@ private extension YKFPIVSession {
                         print("Found matching certificate")
                         completion(.cardAuth, nil)
                         return
+                    } else if let error = error {
+                        let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: error.localizedDescription))
+                        completion(nil, tokenError)
                     } else {
-                        completion(nil, error!)
+                        let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
+                        completion(nil, tokenError)
                     }
                 }
             }
