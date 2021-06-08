@@ -527,7 +527,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="80.666666030883789" width="414" height="208"/>
+                            <rect key="frame" x="0.0" y="81" width="414" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -1043,7 +1043,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502315" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502304" width="414" height="44.000000000000057"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1290,6 +1290,18 @@
                                             </label>
                                         </subviews>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bdS-XV-Zpt">
+                                        <rect key="frame" x="87" y="186" width="240" height="174"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" name="Color10"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Succesfully signed in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pK-HU-1WC">
+                                        <rect key="frame" x="115" y="380" width="185" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -1323,6 +1335,8 @@
                     <connections>
                         <outlet property="accessoryLabel" destination="b9r-o8-2xC" id="Bp4-xv-v68"/>
                         <outlet property="arrowHintView" destination="AZ7-K2-xlR" id="tq0-vW-5Gn"/>
+                        <outlet property="checkmarkTextView" destination="2pK-HU-1WC" id="Bf7-Hg-S4s"/>
+                        <outlet property="checkmarkView" destination="bdS-XV-Zpt" id="55c-zg-GWZ"/>
                         <outlet property="nfcLabel" destination="JdS-2h-fXa" id="J5t-By-8Zg"/>
                         <outlet property="orLabel" destination="S4U-wZ-Sv5" id="rrH-aA-VSv"/>
                         <outlet property="overlayView" destination="KcB-wR-xCx" id="fWa-rv-ZY4"/>
@@ -1331,7 +1345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EC1-9L-Mdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-43" y="-1519"/>
+            <point key="canvasLocation" x="-43.478260869565219" y="-1519.4196428571429"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1343,6 +1357,7 @@
         <image name="LogoText" width="100" height="27.666666030883789"/>
         <image name="arrow.up.left" catalog="system" width="128" height="112"/>
         <image name="biometric" width="63" height="63"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -1352,6 +1367,9 @@
         <image name="switch.2" catalog="system" width="128" height="109"/>
         <image name="touch" width="24" height="24"/>
         <image name="yubikey-nfc" width="90" height="90"/>
+        <namedColor name="Color10">
+            <color red="0.2627450980392157" green="0.62745098039215685" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Favorite">
             <color red="1" green="0.83921568627450982" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
