@@ -80,31 +80,31 @@ class TokenRequestViewModel: NSObject {
         connection.startConnection { connection in
             connection.pivSession { session, error in
                 guard let session = session else { print("No session: \(error!)"); return }
-                session.verifyPin(password) { result, error in
-                    if let error = error {
-                        let tokenError = error.tokenError
-                        switch tokenError {
-                        case .wrongPassword(let message):
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: message.title)
-                            if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
-                            else { completion(tokenError) }
-                            return
-                        default:
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: tokenError.message.title)
-                            completion(tokenError)
-                            return
-                        }
+                guard let type = userInfo.keyType(),
+                      let objectId = userInfo.objectId(),
+                      let algorithm = userInfo.algorithm(),
+                      let message = userInfo.data() else { print("No data to sign"); return }
+                print("Search for slot for objectId: \(objectId)")
+                session.slotForObjectId(objectId) { slot, error in
+                    guard let slot = slot else {
+                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.message.title)
+                        completion(error!)
+                        return
                     }
-                    guard let type = userInfo.keyType(),
-                          let objectId = userInfo.objectId(),
-                          let algorithm = userInfo.algorithm(),
-                          let message = userInfo.data() else { print("No data to sign"); return }
-                    print("Search for slot for \(objectId)")
-                    session.slotForObjectId(objectId) { slot, error in
-                        guard let slot = slot else {
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.message.title)
-                            completion(error!)
-                            return
+                    session.verifyPin(password) { result, error in
+                        if let error = error {
+                            let tokenError = error.tokenError
+                            switch tokenError {
+                            case .wrongPassword(let message):
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: message.title)
+                                if connection as? YKFNFCConnection != nil { completion(.alreadyHandled) }
+                                else { completion(tokenError) }
+                                return
+                            default:
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: tokenError.message.title)
+                                completion(tokenError)
+                                return
+                            }
                         }
                         session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { signature, error in
                             // Handle any errors
@@ -180,9 +180,8 @@ private extension YKFPIVSession {
                     if let certificate = certificate, certificate.tokenObjectId() == objectId {
                         print("Found matching certificate")
                         completion(.cardAuth, nil)
-                        return
-                    } else if let error = error {
-                        let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: error.localizedDescription))
+                    } else if let apduError = error, (apduError as NSError).code != 0x6a82 {
+                        let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))
                         completion(nil, tokenError)
                     } else {
                         let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
