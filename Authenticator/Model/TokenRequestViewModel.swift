@@ -178,16 +178,23 @@ private extension YKFPIVSession {
                     completion(.signature, nil)
                     return
                 }
-                self.getCertificateIn(.cardAuth) { certificate, error in
+                self.getCertificateIn(.signature) { certificate, error in
                     if let certificate = certificate, certificate.tokenObjectId() == objectId {
                         print("Found matching certificate")
-                        completion(.cardAuth, nil)
-                    } else if let apduError = error, (apduError as NSError).code != 0x6a82 {
-                        let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))
-                        completion(nil, tokenError)
-                    } else {
-                        let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
-                        completion(nil, tokenError)
+                        completion(.keyManagement, nil)
+                        return
+                    }
+                    self.getCertificateIn(.cardAuth) { certificate, error in
+                        if let certificate = certificate, certificate.tokenObjectId() == objectId {
+                            print("Found matching certificate")
+                            completion(.cardAuth, nil)
+                        } else if let apduError = error, (apduError as NSError).code != 0x6a82 {
+                            let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))
+                            completion(nil, tokenError)
+                        } else {
+                            let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
+                            completion(nil, tokenError)
+                        }
                     }
                 }
             }
