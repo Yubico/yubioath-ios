@@ -13,7 +13,7 @@ import Combine
 class SmartCardAuthController: UITableViewController {
     
     let viewModel = SmartCardViewModel()
-    var certificates = [SmartCardViewModel.Certificate]()
+    var certificates: [SmartCardViewModel.Certificate]? = nil
     var tokens = [SecCertificate]()
     
     deinit {
@@ -120,9 +120,15 @@ class SmartCardAuthController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            guard let certificates = certificates else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
+                cell.message = "Insert a 5Ci YubiKey or pull down to scan for a NFC key."
+                return cell
+            }
+            
             if certificates.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = viewModel.isKeyConnected ? "No SmartCard (PIV) certificates on this YubiKey." : "Insert a 5Ci YubiKey or pull down to scan for a NFC key."
+                cell.message = "No SmartCard (PIV) certificates on this YubiKey."
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -158,7 +164,7 @@ class SmartCardAuthController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rows = section == 0 ? certificates.count : tokens.count
+        let rows = section == 0 ? certificates?.count ?? 0 : tokens.count
         return rows == 0 ? 1 : rows
     }
 }
