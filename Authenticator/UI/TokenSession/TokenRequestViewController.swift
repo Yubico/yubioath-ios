@@ -30,6 +30,7 @@ class TokenRequestViewController: UIViewController {
         arrowHintView.alpha = 0
         checkmarkView.alpha = 0
         checkmarkTextView.alpha = 0
+        passwordTextField.textContentType = .oneTimeCode
     }
     
     override func viewDidAppear(_ animated: Bool) {
