@@ -1043,7 +1043,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502304" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502321" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1305,14 +1305,6 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfR-WF-DhG">
-                                <rect key="frame" x="345" y="44" width="54" height="33"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancel:" destination="Nyo-53-XkV" eventType="touchUpInside" id="Inl-z9-zmE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="emp-iq-Rg0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1320,12 +1312,10 @@
                             <constraint firstItem="emp-iq-Rg0" firstAttribute="trailing" secondItem="b9r-o8-2xC" secondAttribute="trailing" constant="20" id="8PF-bP-u0q"/>
                             <constraint firstItem="JdS-2h-fXa" firstAttribute="top" secondItem="S4U-wZ-Sv5" secondAttribute="bottom" constant="8" symbolic="YES" id="EYz-nj-QDj"/>
                             <constraint firstItem="fhF-Zo-2iR" firstAttribute="top" secondItem="JdS-2h-fXa" secondAttribute="bottom" constant="111" id="MyA-4H-X5f"/>
-                            <constraint firstItem="emp-iq-Rg0" firstAttribute="trailing" secondItem="BfR-WF-DhG" secondAttribute="trailing" constant="15" id="O6e-Tq-6S1"/>
                             <constraint firstItem="emp-iq-Rg0" firstAttribute="trailing" secondItem="JdS-2h-fXa" secondAttribute="trailing" constant="20" id="UXl-Lv-5ds"/>
                             <constraint firstItem="S4U-wZ-Sv5" firstAttribute="top" secondItem="b9r-o8-2xC" secondAttribute="bottom" constant="8" symbolic="YES" id="Vh3-61-Eik"/>
                             <constraint firstItem="b9r-o8-2xC" firstAttribute="top" secondItem="emp-iq-Rg0" secondAttribute="top" constant="50" id="VlQ-Hy-Mao"/>
                             <constraint firstItem="fhF-Zo-2iR" firstAttribute="centerX" secondItem="emp-iq-Rg0" secondAttribute="centerX" id="aNG-Xi-ttN"/>
-                            <constraint firstItem="BfR-WF-DhG" firstAttribute="top" secondItem="emp-iq-Rg0" secondAttribute="top" id="aqi-TZ-f7l"/>
                             <constraint firstItem="JdS-2h-fXa" firstAttribute="leading" secondItem="emp-iq-Rg0" secondAttribute="leading" constant="20" id="g0g-9d-mRZ"/>
                             <constraint firstItem="b9r-o8-2xC" firstAttribute="leading" secondItem="emp-iq-Rg0" secondAttribute="leading" constant="20" id="gZe-GG-Na7"/>
                             <constraint firstItem="S4U-wZ-Sv5" firstAttribute="centerX" secondItem="emp-iq-Rg0" secondAttribute="centerX" id="zhe-OQ-GOR"/>

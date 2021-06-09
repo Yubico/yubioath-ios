@@ -54,11 +54,6 @@ class TokenRequestViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        viewModel?.cancel()
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func submitPIN(_ sender: UITextField) {
         guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
         viewModel?.handleTokenRequest(userInfo, password: sender.text!) { error in
@@ -82,6 +77,7 @@ class TokenRequestViewController: UIViewController {
                 UIView.animate(withDuration: 2) {
                     self.checkmarkView.alpha = 1
                     self.checkmarkTextView.alpha = 1
+                    self.arrowHintView.alpha = 1
                 }
                 self.animateHint()
                 self.passwordTextField.resignFirstResponder()
@@ -100,15 +96,11 @@ class TokenRequestViewController: UIViewController {
 extension TokenRequestViewController {
     
     func animateHint() {
-        UIView.animateKeyframes(withDuration: 3, delay: 0.5, options: .calculationModeCubicPaced) {
-            
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/3.0) {
-                self.arrowHintView.alpha = 1
-            }
-            UIView.addKeyframe(withRelativeStartTime: 1.0/3.0, relativeDuration: 1.0/3.0) {
+        UIView.animateKeyframes(withDuration: 2, delay: 4, options: .calculationModeCubicPaced) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/2.0) {
                 self.arrowHintView.alpha = 0
             }
-            UIView.addKeyframe(withRelativeStartTime: 2.0/3.0, relativeDuration: 1.0/3.0) {
+            UIView.addKeyframe(withRelativeStartTime: 1.0/2.0, relativeDuration: 1.0/2.0) {
                 self.arrowHintView.alpha = 1
             }
         }
