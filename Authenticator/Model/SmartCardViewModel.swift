@@ -66,11 +66,14 @@ class SmartCardViewModel: NSObject {
                 if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .authentication)) }
                 session.getCertificateIn(slot: .signature, callback: callback) { certificate in
                     if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .signature)) }
-                    session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
-                        if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
-                        callback(.success(certificates))
-                        YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
-                        return
+                    session.getCertificateIn(slot: .keyManagement, callback: callback) { certificate in
+                        if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .keyManagement)) }
+                        session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
+                            if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
+                            callback(.success(certificates))
+                            YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
+                            return
+                        }
                     }
                 }
             }
