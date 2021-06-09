@@ -19,7 +19,7 @@ class SmartCardViewModel: NSObject {
     
     private let tokenStorage = TokenCertificateStorage()
     
-    var certificatesCallback: ((_ result: Result<[Certificate], Error>) -> Void)?
+    var certificatesCallback: ((_ result: Result<[Certificate]?, Error>) -> Void)?
     var tokensCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
     
     override init() {
@@ -36,7 +36,7 @@ class SmartCardViewModel: NSObject {
     }
     
     private func didDisconnect() {
-        self.certificatesCallback?(.success([Certificate]()))
+        self.certificatesCallback?(.success(nil))
     }
     
     func startNFC() {
@@ -84,7 +84,7 @@ class SmartCardViewModel: NSObject {
 @available(iOS 14.0, *)
 extension YKFPIVSession {
     func getCertificateIn(slot: YKFPIVSlot,
-                          callback: @escaping (_ result: Result<[SmartCardViewModel.Certificate], Error>) -> Void,
+                          callback: @escaping (_ result: Result<[SmartCardViewModel.Certificate]?, Error>) -> Void,
                           completion: @escaping (_ certificate: SecCertificate?) -> Void) {
         getCertificateIn(slot) { certificate, error in
             guard let certificate = certificate else {
