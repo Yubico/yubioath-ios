@@ -104,7 +104,7 @@ class SmartCardAuthController: UITableViewController {
         header.font = UIFont.boldSystemFont(ofSize: 18)
   
         let text = UILabel()
-        text.text = section == 0 ? "Certificates stored in your YubiKey" : "Public certificates saved to the Keychain of your iPhone"
+        text.text = section == 0 ? "Certificates stored in your YubiKey" : "Public certificates saved to the keychain of your iPhone"
         text.textColor = .darkGray
         text.numberOfLines = 0
         text.lineBreakMode = .byWordWrapping
@@ -128,7 +128,7 @@ class SmartCardAuthController: UITableViewController {
             
             if certificates.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "No SmartCard (PIV) certificates on this YubiKey."
+                cell.message = "No Smart card (PIV) certificates on this YubiKey."
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -147,7 +147,7 @@ class SmartCardAuthController: UITableViewController {
         } else {
             if tokens.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "There are no public certificates saved to the Keychain of this iPhone."
+                cell.message = "There are no public certificates saved to the keychain of this iPhone."
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
