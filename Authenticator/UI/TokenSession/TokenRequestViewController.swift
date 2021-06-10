@@ -13,8 +13,8 @@ class TokenRequestViewController: UIViewController {
     var userInfo: [AnyHashable: Any]?
     
     @IBOutlet weak var accessoryLabel: UILabel!
-    @IBOutlet weak var orLabel: UILabel!
-    @IBOutlet weak var nfcLabel: UILabel!
+    @IBOutlet weak var orView: UIView!
+    @IBOutlet weak var nfcView: UIView!
     @IBOutlet weak var passwordTextField: UITextField!
     var viewModel: TokenRequestViewModel?
     var defaultAccessoryTest: String?
@@ -39,10 +39,10 @@ class TokenRequestViewController: UIViewController {
         passwordTextField.becomeFirstResponder()
         viewModel?.isAccessoryKeyConnected { [weak self] connected in
             print("connected: \(connected)")
-            self?.orLabel.isHidden = connected
-            self?.nfcLabel.isHidden = connected
+            self?.orView.isHidden = connected
+            self?.nfcView.isHidden = connected
             if connected {
-                self?.accessoryLabel.text = "Enter PIN"
+                self?.accessoryLabel.text = "Enter the PIN to access the certificate."
             } else {
                 self?.accessoryLabel.text = self?.defaultAccessoryTest
             }
@@ -77,7 +77,6 @@ class TokenRequestViewController: UIViewController {
                 UIView.animate(withDuration: 2) {
                     self.checkmarkView.alpha = 1
                     self.checkmarkTextView.alpha = 1
-                    self.arrowHintView.alpha = 1
                 }
                 self.animateHint()
                 self.passwordTextField.resignFirstResponder()
@@ -96,11 +95,26 @@ class TokenRequestViewController: UIViewController {
 extension TokenRequestViewController {
     
     func animateHint() {
-        UIView.animateKeyframes(withDuration: 2, delay: 4, options: .calculationModeCubicPaced) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/2.0) {
+        UIView.animateKeyframes(withDuration: 7, delay: 5, options: .calculationModeCubicPaced) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/7.0) {
+                self.arrowHintView.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 1.0/7.0, relativeDuration: 1.0/7.0) {
                 self.arrowHintView.alpha = 0
             }
-            UIView.addKeyframe(withRelativeStartTime: 1.0/2.0, relativeDuration: 1.0/2.0) {
+            UIView.addKeyframe(withRelativeStartTime: 2.0/7.0, relativeDuration: 1.0/7.0) {
+                self.arrowHintView.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 3.0/7.0, relativeDuration: 1.0/7.0) {
+                self.arrowHintView.alpha = 0
+            }
+            UIView.addKeyframe(withRelativeStartTime: 4.0/7.0, relativeDuration: 1.0/7.0) {
+                self.arrowHintView.alpha = 1
+            }
+            UIView.addKeyframe(withRelativeStartTime: 3.0/7.0, relativeDuration: 1.0/7.0) {
+                self.arrowHintView.alpha = 0
+            }
+            UIView.addKeyframe(withRelativeStartTime: 4.0/7.0, relativeDuration: 1.0/7.0) {
                 self.arrowHintView.alpha = 1
             }
         }
