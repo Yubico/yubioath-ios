@@ -43,9 +43,8 @@ class SmartCardViewModel: NSObject {
         YubiKitManager.shared.startNFCConnection()
     }
     
-    func storeTokenCertificate(certificate: SecCertificate) {
-        let result = tokenStorage.storeTokenCertificate(certificate: certificate)
-        result ? print("Sucessfully stored in keychain") : print("Failed storing certificate in keychain!")
+    func storeTokenCertificate(certificate: SecCertificate) -> Error? {
+        return tokenStorage.storeTokenCertificate(certificate: certificate)
     }
     
     func removeTokenCertificate(certificate: SecCertificate) {
