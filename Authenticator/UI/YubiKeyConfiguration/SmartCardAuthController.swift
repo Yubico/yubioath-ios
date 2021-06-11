@@ -109,7 +109,7 @@ class SmartCardAuthController: UITableViewController {
   
         let text = UILabel()
         text.text = section == 0 ? "Certificates stored in your YubiKey" : "Public certificates saved to the keychain of your iPhone"
-        text.textColor = .darkGray
+        text.textColor = .secondaryLabel
         text.numberOfLines = 0
         text.lineBreakMode = .byWordWrapping
         
@@ -190,7 +190,7 @@ private class MessageCell: UITableViewCell {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byWordWrapping
         messageLabel.textAlignment = .center
-        messageLabel.textColor = .gray
+        messageLabel.textColor = .secondaryLabel
         messageLabel.font = messageLabel.font.withSize(15)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(messageLabel)
