@@ -144,8 +144,8 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
         cancelAllNotifications()
         let categoryID = "SignData"
         let content = UNMutableNotificationContent()
-        content.title = "Authenticate with your YubiKey"
-        content.body = "Launch Yubico Authenticator to login to this service using your 5Ci or NFC YubiKey."
+        content.title = "YubiKey required"
+        content.body = "Tap here to complete the request using your YubiKey."
         content.categoryIdentifier = categoryID
         content.userInfo = ["data": data, "keyObjectID": keyObjectID, "algorithm": algorithm.rawValue, "keyType": keyType.rawValue];
         content.sound = UNNotificationSound.default
