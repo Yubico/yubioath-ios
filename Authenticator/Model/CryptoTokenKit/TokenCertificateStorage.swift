@@ -11,24 +11,36 @@ import CryptoTokenKit
 
 @available(iOS 14.0, *)
 struct TokenCertificateStorage {
+    
+    enum TokenCertificateStorageError: Error {
+        case failedCreatingTokenKeychainCertificate
+        case failedCreatingTokenKeychainKey
+        case missingDriverConfigurartion
+    }
 
-    func storeTokenCertificate(certificate: SecCertificate) -> Bool {
+    func storeTokenCertificate(certificate: SecCertificate) -> Error? {
 
         let label = certificate.tokenObjectId()
         
         // Create token keychain certificate using the certificate and derived label
-        guard let tokenKeychainCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: label) else { return false }
+        guard let tokenKeychainCertificate = TKTokenKeychainCertificate(certificate: certificate, objectID: label) else {
+            return TokenCertificateStorageError.failedCreatingTokenKeychainCertificate
+        }
 
-        guard let tokenKeychainKey = TKTokenKeychainKey(certificate: certificate, objectID: label) else { return false }
+        guard let tokenKeychainKey = TKTokenKeychainKey(certificate: certificate, objectID: label) else {
+            return TokenCertificateStorageError.failedCreatingTokenKeychainKey
+        }
         tokenKeychainKey.label = label
         tokenKeychainKey.canSign = true
         tokenKeychainKey.isSuitableForLogin = true
 
         // TODO: figure out when there might be multiple driverConfigurations and how to handle it
-        guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return false }
+        guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else {
+            return TokenCertificateStorageError.missingDriverConfigurartion
+        }
         let tokenConfiguration = tokenDriverConfiguration.addTokenConfiguration(for: label)
         tokenConfiguration.keychainItems.append(contentsOf: [tokenKeychainCertificate, tokenKeychainKey])
-        return true
+        return nil
     }
     
     func getTokenCertificate(withObjectId objectId: String) -> SecCertificate? {

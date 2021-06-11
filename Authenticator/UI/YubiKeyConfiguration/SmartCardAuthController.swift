@@ -87,7 +87,11 @@ class SmartCardAuthController: UITableViewController {
     }
     
     func storeTokenCertificate(certificate: SecCertificate) {
-        viewModel.storeTokenCertificate(certificate: certificate)
+        let error = viewModel.storeTokenCertificate(certificate: certificate)
+        if let error = error {
+            let alert = UIAlertController(title: "Failed storing certificate", message: "Error: \(error)", completion:{})
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func removeTokenCertificate(certificate: SecCertificate) {
