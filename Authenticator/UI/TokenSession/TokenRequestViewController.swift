@@ -23,6 +23,12 @@ class TokenRequestViewController: UIViewController {
     @IBOutlet weak var checkmarkView: UIView!
     @IBOutlet weak var checkmarkTextView: UIView!
 
+    @IBOutlet weak var topHeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headingAccessoryContstraint: NSLayoutConstraint!
+    @IBOutlet weak var accessoryOrConstraint: NSLayoutConstraint!
+    @IBOutlet weak var orNFCConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nfcPinInputConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         defaultAccessoryTest = accessoryLabel.text
@@ -31,6 +37,18 @@ class TokenRequestViewController: UIViewController {
         checkmarkView.alpha = 0
         checkmarkTextView.alpha = 0
         passwordTextField.textContentType = .oneTimeCode
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // We need to tighten the vertical spacing to make room for the keyboard on smaller screens
+        if UIScreen.main.bounds.width <= 320 {
+            topHeadingConstraint.constant = 40
+            headingAccessoryContstraint.constant = 35
+            accessoryOrConstraint.constant = 5
+            orNFCConstraint.constant = 5
+            nfcPinInputConstraint.constant = 35
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -118,5 +136,12 @@ extension TokenRequestViewController {
                 self.arrowHintView.alpha = 1
             }
         }
+    }
+}
+
+
+extension UIScreen {
+    static var isZoomed: Bool {
+        return self.main.scale < self.main.nativeScale
     }
 }
