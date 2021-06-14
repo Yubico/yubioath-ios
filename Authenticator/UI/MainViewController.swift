@@ -22,6 +22,11 @@ class MainViewController: UITableViewController {
             }
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        imageView.alpha = 1
+    }
 }
 
 extension MainViewController {
