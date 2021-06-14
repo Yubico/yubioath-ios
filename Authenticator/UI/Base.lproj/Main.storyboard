@@ -1354,7 +1354,7 @@
                                     <constraint firstItem="pD5-QU-h4Q" firstAttribute="leading" secondItem="uEK-pP-paH" secondAttribute="leading" id="vRd-js-QkK"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcB-wR-xCx">
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcB-wR-xCx">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -1401,13 +1401,18 @@
                     <navigationItem key="navigationItem" id="hSV-Df-8kq"/>
                     <connections>
                         <outlet property="accessoryLabel" destination="noy-hK-f0E" id="t0z-6e-uxz"/>
+                        <outlet property="accessoryOrConstraint" destination="uED-kI-i4l" id="FIC-iF-83z"/>
                         <outlet property="arrowHintView" destination="tsV-1n-dRV" id="dRQ-3o-afK"/>
                         <outlet property="checkmarkTextView" destination="2pK-HU-1WC" id="Bf7-Hg-S4s"/>
                         <outlet property="checkmarkView" destination="bdS-XV-Zpt" id="55c-zg-GWZ"/>
+                        <outlet property="headingAccessoryContstraint" destination="b1A-pn-5xt" id="qe6-Dc-ceT"/>
+                        <outlet property="nfcPinInputConstraint" destination="DLA-Bp-nDC" id="9gC-Ta-XeG"/>
                         <outlet property="nfcView" destination="LUC-vU-Hsv" id="2D3-cZ-RCe"/>
+                        <outlet property="orNFCConstraint" destination="VIc-6l-U84" id="X6p-0O-G1f"/>
                         <outlet property="orView" destination="uEK-pP-paH" id="WE0-1O-yRU"/>
                         <outlet property="overlayView" destination="KcB-wR-xCx" id="fWa-rv-ZY4"/>
                         <outlet property="passwordTextField" destination="JON-gB-7WG" id="2l7-Kt-RN9"/>
+                        <outlet property="topHeadingConstraint" destination="ldV-NV-mVu" id="fpu-aL-HUH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EC1-9L-Mdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
