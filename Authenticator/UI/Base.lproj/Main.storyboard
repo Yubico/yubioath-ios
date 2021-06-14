@@ -527,7 +527,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="80.666666030883789" width="414" height="208"/>
+                            <rect key="frame" x="0.0" y="81" width="414" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -1052,17 +1052,17 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502309" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="482.66666828502315" width="414" height="44.000000000000057"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <sections>
                             <tableViewSection id="ujV-Cq-gGk">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="140" id="K4d-ML-eUn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="K4d-ML-eUn">
                                         <rect key="frame" x="0.0" y="178.33333396911621" width="414" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K4d-ML-eUn" id="CRg-CM-6eg">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K4d-ML-eUn" id="CRg-CM-6eg">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -1078,14 +1078,14 @@
                                                             <imageReference key="image" image="rectangle.and.pencil.and.ellipsis" catalog="system" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-BC-e1v">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Authentication" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIl-BC-e1v">
                                                             <rect key="frame" x="60" y="14.999999999999998" width="152" height="26.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store and use OATH credentials on your YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9p-09-4Tj">
-                                                            <rect key="frame" x="60" y="46.333333333333343" width="269.66666666666669" height="40.666666666666657"/>
+                                                            <rect key="frame" x="60" y="46.333333333333343" width="269.66666666666669" height="46.666666666666657"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1095,12 +1095,14 @@
                                                     <constraints>
                                                         <constraint firstItem="XKX-HK-ryX" firstAttribute="leading" secondItem="Juv-qn-Unx" secondAttribute="leading" constant="10" id="5DS-Q9-Lzj"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XIl-BC-e1v" secondAttribute="trailing" constant="10" id="Bgr-NI-iWP"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="108" placeholder="YES" id="MkA-qf-fJ1"/>
                                                         <constraint firstItem="XKX-HK-ryX" firstAttribute="top" secondItem="Juv-qn-Unx" secondAttribute="top" constant="16" id="ZAu-9c-8hP"/>
                                                         <constraint firstItem="y9p-09-4Tj" firstAttribute="top" secondItem="XIl-BC-e1v" secondAttribute="bottom" constant="5" id="lFF-vn-14o"/>
                                                         <constraint firstItem="XIl-BC-e1v" firstAttribute="top" secondItem="Juv-qn-Unx" secondAttribute="top" constant="15" id="ocL-E7-YR1"/>
                                                         <constraint firstItem="y9p-09-4Tj" firstAttribute="leading" secondItem="XIl-BC-e1v" secondAttribute="leading" id="po4-wM-n7S"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y9p-09-4Tj" secondAttribute="trailing" constant="15" id="qjw-y6-wiR"/>
                                                         <constraint firstItem="XIl-BC-e1v" firstAttribute="leading" secondItem="XKX-HK-ryX" secondAttribute="trailing" constant="10" id="vyL-0N-Znp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="y9p-09-4Tj" secondAttribute="bottom" constant="15" id="ypC-PF-q2V"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1120,10 +1122,10 @@
                                             <segue destination="r4m-OO-XO1" kind="show" id="l7c-fT-208"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="140" id="9um-qz-k4l">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="9um-qz-k4l">
                                         <rect key="frame" x="0.0" y="318.33333396911621" width="414" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9um-qz-k4l" id="NFc-gl-pEh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9um-qz-k4l" id="NFc-gl-pEh">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -1140,14 +1142,14 @@
                                                             <imageReference key="image" image="yubikey-nfc" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YubiKey configuration" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-nm-IEk">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="YubiKey configuration" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-nm-IEk">
                                                             <rect key="frame" x="60.000000000000014" y="14.999999999999998" width="226.33333333333337" height="26.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure passwords, OTP and Smart card certificates" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
-                                                            <rect key="frame" x="60" y="46.333333333333343" width="289" height="40.666666666666657"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure passwords, OTP and Smart card certificates" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74D-xo-kry">
+                                                            <rect key="frame" x="60" y="46.333333333333343" width="289" height="46.666666666666657"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="systemGrayColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1156,10 +1158,12 @@
                                                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="74D-xo-kry" secondAttribute="trailing" constant="15" id="EGJ-WJ-cQA"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="108" placeholder="YES" id="IfG-hy-Evy"/>
                                                         <constraint firstItem="Xag-nm-IEk" firstAttribute="leading" secondItem="jaV-wV-cOW" secondAttribute="trailing" constant="10" id="NwK-sd-zwX"/>
                                                         <constraint firstItem="74D-xo-kry" firstAttribute="leading" secondItem="Xag-nm-IEk" secondAttribute="leading" id="P0W-Vu-P13"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xag-nm-IEk" secondAttribute="trailing" constant="10" id="Qbq-w2-tXA"/>
                                                         <constraint firstItem="jaV-wV-cOW" firstAttribute="leading" secondItem="3Nh-1h-Gcu" secondAttribute="leading" constant="10" id="QzY-Dx-uIL"/>
+                                                        <constraint firstAttribute="bottom" secondItem="74D-xo-kry" secondAttribute="bottom" constant="15" id="R5r-qD-rIs"/>
                                                         <constraint firstItem="jaV-wV-cOW" firstAttribute="top" secondItem="3Nh-1h-Gcu" secondAttribute="top" constant="18" id="TLt-qy-lU5"/>
                                                         <constraint firstItem="Xag-nm-IEk" firstAttribute="top" secondItem="3Nh-1h-Gcu" secondAttribute="top" constant="15" id="jj9-0h-cSP"/>
                                                         <constraint firstItem="74D-xo-kry" firstAttribute="top" secondItem="Xag-nm-IEk" secondAttribute="bottom" constant="5" id="mp5-x0-aMo"/>
