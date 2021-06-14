@@ -537,6 +537,14 @@
                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szl-yL-4ir">
+                                    <rect key="frame" x="159" y="170" width="97" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="UnwindButton"/>
+                                    <connections>
+                                        <segue destination="fSX-BI-gQd" kind="unwind" identifier="unwindToKeyConfiguration" unwindAction="unwindToKeyConfigurationWithSegue:" id="SFl-hQ-GJS"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -594,8 +602,9 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BrY-sS-eWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="fSX-BI-gQd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1464" y="396"/>
+            <point key="canvasLocation" x="1463.768115942029" y="395.75892857142856"/>
         </scene>
         <!--YubiKey information-->
         <scene sceneID="5zl-0h-Mbi">
@@ -1043,7 +1052,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Lpv-ad-FLE">
-                            <rect key="frame" x="0.0" y="482.66666828502315" width="414" height="44.000000000000057"/>
+                            <rect key="frame" x="0.0" y="482.66666828502309" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -1288,7 +1297,7 @@
                                 <rect key="frame" x="30" y="281" width="354" height="56.333333333333314"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the PIN, then tap your NFC enabled YubiKey against your iPhone to access the certificate." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGy-0e-K7w">
-                                        <rect key="frame" x="35" y="0.0" width="319" height="57"/>
+                                        <rect key="frame" x="35" y="0.0" width="319" height="57.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1314,14 +1323,14 @@
                                 <rect key="frame" x="20" y="236" width="374" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pD5-QU-h4Q">
-                                        <rect key="frame" x="0.0" y="15" width="374" height="1"/>
+                                        <rect key="frame" x="0.0" y="14.666666666666657" width="374" height="1"/>
                                         <color key="backgroundColor" systemColor="separatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="YxG-TX-GQd"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2j-ZW-Jbf">
-                                        <rect key="frame" x="170" y="5" width="35" height="20"/>
+                                        <rect key="frame" x="169.66666666666666" y="5" width="35" height="20"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="GQo-5y-4v5"/>
