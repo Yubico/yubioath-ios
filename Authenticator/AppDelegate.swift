@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             YubiKitManager.shared.startAccessoryConnection()
         }
-        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? MainViewController {
+        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
             UNUserNotificationCenter.current().delegate = main
         }
         return true
