@@ -14,12 +14,6 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-   
-    @IBAction func unwindToSettings(segue: UIStoryboardSegue) {
-    }
-    
-    @IBOutlet weak var removePasswordTableCell: UITableViewCell!
-    @IBOutlet weak var setPasswordTableCell: UITableViewCell!
     
     var passwordPreferences = PasswordPreferences()
     var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
@@ -53,10 +47,6 @@ class SettingsViewController: UITableViewController {
         let webViewController = storyBoard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
         
         switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
-                self?.removeStoredPasswords()
-            }
         case (1, 0):
             webViewController.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
             self.navigationController?.pushViewController(webViewController, animated: true)
@@ -79,20 +69,6 @@ class SettingsViewController: UITableViewController {
             }
         default:
             break
-        }
-    }
-    
-    private func removeStoredPasswords() {
-        passwordPreferences.resetPasswordPreferenceForAll()
-        do {
-            try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
-            })
-        } catch let e {
-            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
-            })
         }
     }
 }

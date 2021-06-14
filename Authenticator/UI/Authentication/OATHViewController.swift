@@ -15,6 +15,8 @@ class OATHViewController: UITableViewController {
     var passwordCache = PasswordCache()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     private var credentialsSearchController: UISearchController!
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
@@ -31,8 +33,41 @@ class OATHViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.delegate = self
-        setupCredentialsSearchController()
         setupRefreshControl()
+        if #available(iOS 14.0, *) {
+            let keyMenu = UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { _ in
+                    self.scanQR()
+                }),
+                UIAction(title: "Add manually", image: UIImage(systemName: "square.and.pencil"), handler: { _ in
+                    self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+                })
+            ])
+            let clearPasswordsMenu = UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: "Clear passwords", image: UIImage(systemName: "xmark.circle"), handler: { _ in
+                    self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
+                        self?.removeStoredPasswords()
+                    }
+
+                }),
+                UIAction(title: "Reset", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { _ in
+                    let alert = UIAlertController(title: "Not implemented yet", message: nil, completion:{})
+                    self.present(alert, animated: true, completion: nil)
+                })
+            ])
+            let helpMenu = UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: "YubiKey configuration", image: UIImage(systemName: "switch.2"), handler: { _ in
+                    self.performSegue(withIdentifier: "showConfiguration", sender: self)
+                }),
+                UIAction(title: "Help", image: UIImage(systemName: "questionmark.circle"), handler: { _ in
+                    self.performSegue(withIdentifier: "ShowSettings", sender: self)
+                })
+            ])
+            
+            menuButton.menu = UIMenu(title: "", children: [keyMenu, clearPasswordsMenu, helpMenu])
+        } else {
+            // Fallback on earlier versions
+        }
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -66,6 +101,7 @@ class OATHViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setupCredentialsSearchController()
         // update view in case if state has changed
         self.tableView.reloadData()
         refreshUIOnKeyStateUpdate()
@@ -232,8 +268,16 @@ class OATHViewController: UITableViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if #available(iOS 14.0, *) {
+            if segue.identifier == "handleTokenRequest" {
+                guard let tokenRequestController = segue.destination as? TokenRequestViewController, let userInfo = sender as? [AnyHashable: Any] else { assertionFailure(); return }
+                tokenRequestController.userInfo = userInfo
+            }
+        }
+    
         if segue.identifier == .showSettings {
-            guard let settingsViewController = segue.destination as? SettingsViewController else { assertionFailure(); return }
+            guard let navigationController = segue.destination as? UINavigationController,
+                  let settingsViewController = navigationController.topViewController as? SettingsViewController else { assertionFailure(); return }
             settingsViewController.secureStore = self.secureStore
             settingsViewController.passwordPreferences = self.passwordPreferences
         }
@@ -583,6 +627,20 @@ extension OATHViewController: CredentialViewModelDelegate {
             self.present(passwordEntryAlert, animated: true)
         }
     }
+    
+    private func removeStoredPasswords() {
+        passwordPreferences.resetPasswordPreferenceForAll()
+        do {
+            try secureStore.removeAllValues()
+            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            })
+        } catch let e {
+            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            })
+        }
+    }
 }
 
 // MARK: ApplicationSessionObserverDelegate
@@ -602,3 +660,11 @@ extension OATHViewController: UISearchResultsUpdating {
     }
 }
     
+
+extension OATHViewController: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        performSegue(withIdentifier: "handleTokenRequest", sender: response.notification.request.content.userInfo)
+        completionHandler()
+    }
+}
