@@ -40,7 +40,7 @@
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
 		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
 		51F8E3BF263848E30010686B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* Connection.swift */; };
-		811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* SettingsViewController.swift */; };
+		811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* HelpViewController.swift */; };
 		816C684623430E0700209342 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684523430E0700209342 /* SecureStore.swift */; };
 		816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684723430F8E00209342 /* SecureStoreQueryable.swift */; };
 		816C685023440D2200209342 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684F23440D2200209342 /* SecureStoreError.swift */; };
@@ -147,7 +147,7 @@
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
 		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
 		51F8E3BE263848E30010686B /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
-		811CD95622FB276A00E2BCBB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		811CD95622FB276A00E2BCBB /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		816C684523430E0700209342 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		816C684723430F8E00209342 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
 		816C684F23440D2200209342 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 		818BE8DA22F3485600061026 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				81FA3C30231AF198009C22AB /* ApplicationSettings */,
+				81FA3C30231AF198009C22AB /* Help */,
 				513D4DEF2660D5960022C53D /* Authentication */,
 				A544948A23CE546B003E1E07 /* Tutorial */,
 				513D4DF32660D8DC0022C53D /* TokenSession */,
@@ -426,15 +426,15 @@
 			path = AddCredential;
 			sourceTree = "<group>";
 		};
-		81FA3C30231AF198009C22AB /* ApplicationSettings */ = {
+		81FA3C30231AF198009C22AB /* Help */ = {
 			isa = PBXGroup;
 			children = (
-				811CD95622FB276A00E2BCBB /* SettingsViewController.swift */,
+				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
 				A5E9DE9F2379F3CD0011FBF4 /* WebViewController.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 				A5B531F12437CD16008C501C /* WhatsNewViewController.swift */,
 			);
-			path = ApplicationSettings;
+			path = Help;
 			sourceTree = "<group>";
 		};
 		A544948A23CE546B003E1E07 /* Tutorial */ = {
@@ -618,7 +618,7 @@
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
-				811CD95722FB276A00E2BCBB /* SettingsViewController.swift in Sources */,
+				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,
 				818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
