@@ -13,11 +13,8 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController {
-    
-    var passwordPreferences = PasswordPreferences()
-    var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
-    
+class HelpViewController: UITableViewController {
+
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

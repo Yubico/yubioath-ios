@@ -306,12 +306,12 @@ class OATHViewController: UITableViewController {
             }
         }
     
-        if segue.identifier == .showSettings {
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let settingsViewController = navigationController.topViewController as? SettingsViewController else { assertionFailure(); return }
-            settingsViewController.secureStore = self.secureStore
-            settingsViewController.passwordPreferences = self.passwordPreferences
-        }
+//        if segue.identifier == .showSettings {
+//            guard let navigationController = segue.destination as? UINavigationController,
+//                  let settingsViewController = navigationController.topViewController as? SettingsViewController else { assertionFailure(); return }
+//            settingsViewController.secureStore = self.secureStore
+//            settingsViewController.passwordPreferences = self.passwordPreferences
+//        }
         
         if segue.identifier == .editCredential {
             guard let navigationController = segue.destination as? UINavigationController,
