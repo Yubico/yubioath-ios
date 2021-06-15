@@ -542,9 +542,8 @@
                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szl-yL-4ir">
-                                    <rect key="frame" x="159" y="170" width="97" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szl-yL-4ir">
+                                    <rect key="frame" x="20" y="170" width="374" height="30"/>
                                     <state key="normal" title="UnwindButton"/>
                                     <connections>
                                         <segue destination="fSX-BI-gQd" kind="unwind" identifier="unwindToKeyConfiguration" unwindAction="unwindToKeyConfigurationWithSegue:" id="SFl-hQ-GJS"/>
@@ -552,6 +551,11 @@
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Szl-yL-4ir" firstAttribute="bottom" secondItem="ApK-64-tef" secondAttribute="bottomMargin" id="0RT-xN-Ub4"/>
+                                <constraint firstItem="Szl-yL-4ir" firstAttribute="trailing" secondItem="WaV-Pv-SDy" secondAttribute="trailing" id="5lP-mu-47x"/>
+                                <constraint firstItem="Szl-yL-4ir" firstAttribute="leading" secondItem="WaV-Pv-SDy" secondAttribute="leading" id="HlS-jk-BN6"/>
+                            </constraints>
                         </view>
                         <sections>
                             <tableViewSection footerTitle="" id="BkP-4C-tUY">
@@ -573,17 +577,22 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9Ud-nI-ukE">
-                                                            <rect key="frame" x="325" y="9.6666666666666679" width="51" height="31.000000000000004"/>
+                                                            <rect key="frame" x="325" y="9.6666666666666661" width="51" height="30.666666666666671"/>
                                                             <connections>
                                                                 <action selector="changeSetting:" destination="aoN-t0-WPq" eventType="valueChanged" id="DyM-Sf-518"/>
                                                             </connections>
                                                         </switch>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="9Ud-nI-ukE" firstAttribute="top" secondItem="SEg-oS-D09" secondAttribute="top" constant="9.6666666666666679" id="1iU-f7-GX2"/>
+                                                        <constraint firstItem="2F4-bO-NvX" firstAttribute="top" secondItem="SEg-oS-D09" secondAttribute="topMargin" id="wek-B7-AHJ"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="SEg-oS-D09" secondAttribute="trailing" id="ExO-RB-Uu3"/>
                                                 <constraint firstItem="SEg-oS-D09" firstAttribute="centerY" secondItem="AZZ-wS-i7w" secondAttribute="centerY" id="KWz-bu-iJw"/>
+                                                <constraint firstItem="SEg-oS-D09" firstAttribute="top" secondItem="AZZ-wS-i7w" secondAttribute="topMargin" constant="-14" id="Zdc-EZ-2cu"/>
                                                 <constraint firstItem="SEg-oS-D09" firstAttribute="leading" secondItem="AZZ-wS-i7w" secondAttribute="leadingMargin" id="ytp-4U-9zW"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -609,7 +618,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BrY-sS-eWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="fSX-BI-gQd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1463.768115942029" y="395.75892857142856"/>
+            <point key="canvasLocation" x="1462.3188405797102" y="395.75892857142856"/>
         </scene>
         <!--YubiKey information-->
         <scene sceneID="5zl-0h-Mbi">
@@ -1252,7 +1261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EC1-9L-Mdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-43.478260869565219" y="-1519.4196428571429"/>
+            <point key="canvasLocation" x="-242" y="-1969"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

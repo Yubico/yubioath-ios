@@ -36,37 +36,39 @@ class OATHViewController: UITableViewController {
         setupRefreshControl()
         if #available(iOS 14.0, *) {
             let keyMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { _ in
-                    self.scanQR()
+                UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
+                    self?.scanQR()
                 }),
-                UIAction(title: "Add manually", image: UIImage(systemName: "square.and.pencil"), handler: { _ in
-                    self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+                UIAction(title: "Add manually", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
+                    self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
                 })
             ])
             let clearPasswordsMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Clear passwords", image: UIImage(systemName: "xmark.circle"), handler: { _ in
-                    self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
+                UIAction(title: "Clear passwords", image: UIImage(systemName: "xmark.circle"), handler: { [weak self] _ in
+                    self?.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { () -> Void in
                         self?.removeStoredPasswords()
                     }
-
                 }),
-                UIAction(title: "Reset", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { _ in
-                    let alert = UIAlertController(title: "Not implemented yet", message: nil, completion:{})
-                    self.present(alert, animated: true, completion: nil)
+                UIAction(title: "Reset", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { [weak self] _ in
+                    let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
+                    self?.present(alert, animated: true, completion: nil)
                 })
             ])
             let helpMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "YubiKey configuration", image: UIImage(systemName: "switch.2"), handler: { _ in
+                UIAction(title: "YubiKey configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
+                    guard let self = self else { return }
                     self.performSegue(withIdentifier: "showConfiguration", sender: self)
                 }),
-                UIAction(title: "Help", image: UIImage(systemName: "questionmark.circle"), handler: { _ in
+                UIAction(title: "Help", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
+                    guard let self = self else { return }
                     self.performSegue(withIdentifier: "ShowSettings", sender: self)
                 })
             ])
             
             menuButton.menu = UIMenu(title: "", children: [keyMenu, clearPasswordsMenu, helpMenu])
         } else {
-            // Fallback on earlier versions
+            menuButton.target = self
+            menuButton.action = #selector(showLegacyMenu(_:))
         }
         
 #if !DEBUG
@@ -86,6 +88,35 @@ class OATHViewController: UITableViewController {
 //        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
+    }
+    
+    @objc func showLegacyMenu(_ sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Scan QR code", style: .default, handler: { [weak self] _ in
+            self?.scanQR()
+        }))
+        alert.addAction(UIAlertAction(title: "Add manually", style: .default, handler: { [weak self] _ in
+            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Clear passwords", style: .default, handler: { [weak self] _ in
+            self?.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { () -> Void in
+                self?.removeStoredPasswords()
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { [weak self] _ in
+            let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
+            self?.present(alert, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "YubiKey configuration", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.performSegue(withIdentifier: "showConfiguration", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Help", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
+            self.performSegue(withIdentifier: "ShowSettings", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
