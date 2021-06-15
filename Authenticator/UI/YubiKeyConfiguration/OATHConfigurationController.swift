@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class YubiKeyConfigurationController: UITableViewController {
+class OATHConfigurationController: UITableViewController {
     
     @IBOutlet weak var removePasswordTableCell: UITableViewCell!
     @IBOutlet weak var setPasswordTableCell: UITableViewCell!
@@ -18,10 +18,15 @@ class YubiKeyConfigurationController: UITableViewController {
     var passwordConfigurationViewModel: PasswordConfigurationViewModel? = nil
     var passwordStatus: PasswordStatusViewModel.PasswordStatus = .unknown
     
-    var passwordPreferences: PasswordPreferences? = nil
+    var passwordPreferences = PasswordPreferences()
+    var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
     @IBAction func unwindToKeyConfiguration(segue: UIStoryboardSegue) {
         start()
+    }
+    
+    deinit {
+        print("Deinit OATHConfigurationController")
     }
     
     func start() {
@@ -62,16 +67,23 @@ class YubiKeyConfigurationController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if cell == setPasswordTableCell {
-            cell.textLabel?.text = self.passwordStatus == .noPassword ? "Set OATH password" : "Change OATH password"
+            cell.textLabel?.text = self.passwordStatus == .noPassword ? "Set password" : "Change password"
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
-        case (0, 2):
-            self.showWarning(title: "Remove password", message: "Remove OATH password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
+        case (0, 1):
+            self.showWarning(title: "Remove password", message: "Remove password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
                 self?.removeYubiKeyPassword(currentPassword: nil)
+            }
+        case (1, 0):
+            let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
+            self.present(alert, animated: true, completion: nil)
+        case (2, 0):
+            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
+                self?.removeStoredPasswords()
             }
         default:
             break
@@ -126,4 +138,19 @@ class YubiKeyConfigurationController: UITableViewController {
             }
         })
     }
+    
+    private func removeStoredPasswords() {
+        passwordPreferences.resetPasswordPreferenceForAll()
+        do {
+            try secureStore.removeAllValues()
+            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            })
+        } catch let e {
+            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
+                self?.dismiss(animated: true, completion: nil)
+            })
+        }
+    }
 }
+

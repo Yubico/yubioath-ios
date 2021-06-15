@@ -35,7 +35,7 @@ class OATHViewController: UITableViewController {
         self.viewModel.delegate = self
         setupRefreshControl()
         if #available(iOS 14.0, *) {
-            let keyMenu = UIMenu(title: "", options: .displayInline, children: [
+            let oathMenu = UIMenu(title: "", options: .displayInline, children: [
                 UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
                     self?.scanQR()
                 }),
@@ -43,19 +43,8 @@ class OATHViewController: UITableViewController {
                     self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
                 })
             ])
-            let clearPasswordsMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Clear passwords", image: UIImage(systemName: "xmark.circle"), handler: { [weak self] _ in
-                    self?.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { () -> Void in
-                        self?.removeStoredPasswords()
-                    }
-                }),
-                UIAction(title: "Reset", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { [weak self] _ in
-                    let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
-                    self?.present(alert, animated: true, completion: nil)
-                })
-            ])
-            let helpMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "YubiKey configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
+            let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
+                UIAction(title: "Configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
                     guard let self = self else { return }
                     self.performSegue(withIdentifier: "showConfiguration", sender: self)
                 }),
@@ -65,7 +54,7 @@ class OATHViewController: UITableViewController {
                 })
             ])
             
-            menuButton.menu = UIMenu(title: "", children: [keyMenu, clearPasswordsMenu, helpMenu])
+            menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
         } else {
             menuButton.target = self
             menuButton.action = #selector(showLegacyMenu(_:))
@@ -107,7 +96,7 @@ class OATHViewController: UITableViewController {
             let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
             self?.present(alert, animated: true, completion: nil)
         }))
-        alert.addAction(UIAlertAction(title: "YubiKey configuration", style: .default, handler: { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Configuration", style: .default, handler: { [weak self] _ in
             guard let self = self else { return }
             self.performSegue(withIdentifier: "showConfiguration", sender: self)
         }))
