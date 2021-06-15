@@ -967,7 +967,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Smart card (PIV) extension" id="jjW-Eu-Ql6">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="VqQ-3s-C9j" style="IBUITableViewCellStyleDefault" id="3zI-mf-YFM" userLabel="Smart card (PIV)">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="VqQ-3s-C9j" detailTextLabel="XVv-hV-yZ1" style="IBUITableViewCellStyleValue1" id="3zI-mf-YFM" userLabel="Smart card (PIV)">
                                         <rect key="frame" x="0.0" y="298.99999809265137" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zI-mf-YFM" id="o4H-cs-Qyy">
@@ -975,16 +975,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Setup smart card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VqQ-3s-C9j">
-                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
+                                                    <rect key="frame" x="20.000000000000007" y="14" width="111.66666666666667" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XVv-hV-yZ1">
+                                                    <rect key="frame" x="324.33333333333331" y="14" width="52" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="t28-TG-awK" kind="show" id="NZ3-6m-bds"/>
+                                            <segue destination="t28-TG-awK" kind="show" identifier="showSmartCardCertificates" id="NZ3-6m-bds"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1002,6 +1009,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="smartCardEnabledLabel" destination="XVv-hV-yZ1" id="B3a-gw-Xdj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwI-hH-f3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="u0b-Xw-ySE" userLabel="Exit" sceneMemberID="exit"/>
