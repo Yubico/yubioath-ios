@@ -40,19 +40,19 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
 
     func subscribeToPasswordStatus(handler: @escaping (_ status: PasswordStatus) -> Void) {
         passwordStatusCallback = handler
-        connections { connection in
-            guard let connection = connection else { self.passwordStatusCallback?(.unknown); return }
+        connections { [weak self] connection in
+            guard let connection = connection else { self?.passwordStatusCallback?(.unknown); return }
             connection.managementSession { _, error in
-                guard error == nil else { self.passwordStatusCallback?(.unknown); return }
+                guard error == nil else { self?.passwordStatusCallback?(.unknown); return }
                 connection.oathSession { session, error in
-                    guard let session = session else { self.passwordStatusCallback?(.unknown); return }
+                    guard let session = session else { self?.passwordStatusCallback?(.unknown); return }
                     session.listCredentials { _, error in
-                        guard let error = error else { self.passwordStatusCallback?(.noPassword); return }
+                        guard let error = error else { self?.passwordStatusCallback?(.noPassword); return }
                         let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
                         if errorCode == .authenticationRequired {
-                            self.passwordStatusCallback?(.isProtected)
+                            self?.passwordStatusCallback?(.isProtected)
                         } else {
-                            self.passwordStatusCallback?(.unknown)
+                            self?.passwordStatusCallback?(.unknown)
                         }
                     }
                 }
@@ -66,6 +66,7 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     }
     
     deinit {
+        print("Deinit PasswordStatusViewModel")
         DelegateStack.shared.removeDelegate(self)
     }
 }

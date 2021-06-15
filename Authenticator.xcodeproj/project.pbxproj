@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF12660D6570022C53D /* AddCredentialController.swift */; };
-		513D4DF52660EBA40022C53D /* YubiKeyConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */; };
+		513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF42660EBA40022C53D /* ConfigurationController.swift */; };
 		513D4DF7266634280022C53D /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF6266634280022C53D /* ShowTime.swift */; };
 		513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF8266A21250022C53D /* DelegateStack.swift */; };
 		513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 513F34BD24633A7900FCE030 /* EditCredential.storyboard */; };
@@ -33,6 +33,7 @@
 		5156D05B265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */; };
 		5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */; };
 		5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */; };
+		51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -112,7 +113,7 @@
 
 /* Begin PBXFileReference section */
 		513D4DF12660D6570022C53D /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
-		513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyConfigurationController.swift; sourceTree = "<group>"; };
+		513D4DF42660EBA40022C53D /* ConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationController.swift; sourceTree = "<group>"; };
 		513D4DF6266634280022C53D /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
 		513D4DF8266A21250022C53D /* DelegateStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateStack.swift; sourceTree = "<group>"; };
 		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TKTokenAlgorithm+Extensions.swift"; sourceTree = "<group>"; };
 		5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestViewController.swift; sourceTree = "<group>"; };
 		5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestViewModel.swift; sourceTree = "<group>"; };
+		51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHConfigurationController.swift; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
@@ -234,11 +236,12 @@
 		513D4DF02660D5AB0022C53D /* YubiKeyConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				513D4DF42660EBA40022C53D /* YubiKeyConfigurationController.swift */,
+				513D4DF42660EBA40022C53D /* ConfigurationController.swift */,
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
 				515542672654413600B19C59 /* SmartCardAuthController.swift */,
+				51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */,
 			);
 			path = YubiKeyConfiguration;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
+				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
@@ -646,7 +650,7 @@
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
-				513D4DF52660EBA40022C53D /* YubiKeyConfigurationController.swift in Sources */,
+				513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
