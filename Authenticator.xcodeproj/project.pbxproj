@@ -18,7 +18,7 @@
 		513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34DB246B144300FCE030 /* UIViewAdditions.swift */; };
 		515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */; };
 		515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */; };
-		515542682654413600B19C59 /* SmartCardAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542672654413600B19C59 /* SmartCardAuthController.swift */; };
+		515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542672654413600B19C59 /* SmartCardConfigurationController.swift */; };
 		5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155426926554CAB00B19C59 /* SmartCardViewModel.swift */; };
 		515542722656706F00B19C59 /* CryptoTokenKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515542712656706F00B19C59 /* CryptoTokenKit.framework */; };
 		515542752656706F00B19C59 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542742656706F00B19C59 /* Token.swift */; };
@@ -123,7 +123,7 @@
 		513F34DB246B144300FCE030 /* UIViewAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAdditions.swift; sourceTree = "<group>"; };
 		5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusViewModel.swift; sourceTree = "<group>"; };
 		515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordConfigurationViewModel.swift; sourceTree = "<group>"; };
-		515542672654413600B19C59 /* SmartCardAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardAuthController.swift; sourceTree = "<group>"; };
+		515542672654413600B19C59 /* SmartCardConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardConfigurationController.swift; sourceTree = "<group>"; };
 		5155426926554CAB00B19C59 /* SmartCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardViewModel.swift; sourceTree = "<group>"; };
 		5155426F2656706F00B19C59 /* TokenExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TokenExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		515542712656706F00B19C59 /* CryptoTokenKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoTokenKit.framework; path = System/Library/Frameworks/CryptoTokenKit.framework; sourceTree = SDKROOT; };
@@ -240,7 +240,7 @@
 				A5C708D72400A2BE0005704E /* DeviceInfoViewController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
-				515542672654413600B19C59 /* SmartCardAuthController.swift */,
+				515542672654413600B19C59 /* SmartCardConfigurationController.swift */,
 				51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */,
 			);
 			path = YubiKeyConfiguration;
@@ -639,7 +639,7 @@
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,
 				5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
-				515542682654413600B19C59 /* SmartCardAuthController.swift in Sources */,
+				515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */,
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
