@@ -56,6 +56,7 @@ class TokenRequestViewController: UIViewController {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         viewModel?.isAccessoryKeyConnected { [weak self] connected in
+            if !connected && self?.orView.alpha == 1 { return }
             UIView.animate(withDuration: 0.2) {
                 self?.orView.alpha = 0
                 self?.nfcView.alpha = 0
