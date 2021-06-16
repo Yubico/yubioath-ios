@@ -22,6 +22,7 @@ class ConfigurationController: UITableViewController {
             default: break
             }
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

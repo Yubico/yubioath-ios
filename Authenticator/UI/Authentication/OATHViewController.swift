@@ -48,7 +48,7 @@ class OATHViewController: UITableViewController {
                     guard let self = self else { return }
                     self.performSegue(withIdentifier: "showConfiguration", sender: self)
                 }),
-                UIAction(title: "Help", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
+                UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
                     guard let self = self else { return }
                     self.performSegue(withIdentifier: "ShowSettings", sender: self)
                 })
@@ -100,7 +100,7 @@ class OATHViewController: UITableViewController {
             guard let self = self else { return }
             self.performSegue(withIdentifier: "showConfiguration", sender: self)
         }))
-        alert.addAction(UIAlertAction(title: "Help", style: .default, handler: { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "About", style: .default, handler: { [weak self] _ in
             guard let self = self else { return }
             self.performSegue(withIdentifier: "ShowSettings", sender: self)
         }))

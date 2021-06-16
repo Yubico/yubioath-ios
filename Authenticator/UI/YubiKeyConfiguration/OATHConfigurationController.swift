@@ -88,6 +88,7 @@ class OATHConfigurationController: UITableViewController {
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

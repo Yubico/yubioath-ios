@@ -11,14 +11,14 @@ import Foundation
 extension UIButton {
     convenience init(withSymbol symbol: String) {
         self.init()
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .medium)
-        let largeBoldDoc = UIImage(systemName: symbol, withConfiguration: largeConfig)
-        self.setImage(largeBoldDoc, for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .light, scale: .medium)
+        let image = UIImage(systemName: symbol, withConfiguration: config)
+        self.setImage(image, for: .normal)
     }
    
     func setSymbol(symbol: String) {
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .medium)
-        let largeBoldDoc = UIImage(systemName: symbol, withConfiguration: largeConfig)
-        self.setImage(largeBoldDoc, for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 26, weight: .light, scale: .medium)
+        let image = UIImage(systemName: symbol, withConfiguration: config)
+        self.setImage(image, for: .normal)
     }
 }
