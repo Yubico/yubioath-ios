@@ -22,7 +22,9 @@ class SmartCardConfigurationController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.sectionHeaderHeight = 80
+
+        tableView.sectionHeaderHeight = UITableView.automaticDimension;
+        tableView.estimatedSectionHeaderHeight = 80
         tableView.estimatedRowHeight = 100
         tableView.allowsSelection = false
         tableView.register(CertificateCell.self, forCellReuseIdentifier: "CertificateCell")
@@ -40,6 +42,8 @@ class SmartCardConfigurationController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.setupCustomHeaderView()
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
@@ -103,22 +107,21 @@ class SmartCardConfigurationController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UILabel()
-        header.text = section == 0 ? "YubiKey" : "Keychain"
-        header.font = UIFont.boldSystemFont(ofSize: 18)
-  
-        let text = UILabel()
-        text.text = section == 0 ? "Certificates stored in your YubiKey" : "Public certificates saved to the keychain of your iPhone"
-        text.textColor = .secondaryLabel
-        text.numberOfLines = 0
-        text.lineBreakMode = .byWordWrapping
+        let configuration = UIImage.SymbolConfiguration(pointSize: 55)
+        let image = UIImage(systemName: section == 0 ? "lock.circle.fill" : "key", withConfiguration: configuration)?.rotate(degrees: section == 0 ? 0 : -90)?.withTintColor(.yubiBlue)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
         
-        let stack = UIStackView(arrangedSubviews: [header, text])
+        let header = UILabel()
+        header.text = section == 0 ? "CERTIFICATES ON YUBIKEY" : "PUBLIC KEY CERTIFICATES ON IPHONE"
+        header.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        header.textColor = .secondaryLabel
+
+        let stack = UIStackView(arrangedSubviews: [imageView, header])
         stack.axis = .vertical
-        stack.spacing = 0
+        stack.spacing = 25
         stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20)
-        stack.backgroundColor = .systemGray6
+        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 35, leading: 15, bottom: 10, trailing: 15)
         return stack
     }
     
@@ -196,10 +199,10 @@ private class MessageCell: UITableViewCell {
         contentView.addSubview(messageLabel)
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: -70),
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:20),
+            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
             messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
         ])
     }
     
@@ -219,7 +222,7 @@ private class MessageCell: UITableViewCell {
 
 private class CertificateCell: UITableViewCell {
     private let nameLabel = UILabel()
-    private let button = UIButton(withSymbol: "apps.iphone.badge.plus")
+    private let button = UIButton(withSymbol: "plus.circle")
     var cancellable: Cancellable?
     
     var name: String? {
@@ -246,21 +249,22 @@ private class CertificateCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        nameLabel.font = .preferredFont(forTextStyle: .body)
         isUserInteractionEnabled = true
         let stack = UIStackView(arrangedSubviews: [nameLabel, button])
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:20),
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        button.setSymbol(symbol: "apps.iphone.badge.plus")
+        button.setSymbol(symbol: "plus.circle")
         cancellable?.cancel()
     }
     
@@ -270,5 +274,34 @@ private class CertificateCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+extension UITableView {
+    func setupCustomHeaderView() {
+        let headerView = UIView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+
+        let text = UILabel()
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.numberOfLines = 0
+        text.font = .preferredFont(forTextStyle: .subheadline)
+        text.textColor = .secondaryLabel
+        text.lineBreakMode = .byWordWrapping
+        text.text = "This extension enables other applications to use certificates stored on YubiKeys to authenticate or sign requests. A certificate on the YubiKey need its corresponding public certificate to be installed to the iPhone below."
+        
+        headerView.addSubview(text)
+        NSLayoutConstraint.activate([
+            text.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant:15),
+            text.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
+            text.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 40),
+            text.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
+        ])
+        
+        self.tableHeaderView = headerView
+        NSLayoutConstraint.activate([
+            headerView.widthAnchor.constraint(equalTo: self.widthAnchor)
+        ])
     }
 }
