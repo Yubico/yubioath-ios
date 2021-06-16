@@ -56,13 +56,21 @@ class TokenRequestViewController: UIViewController {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         viewModel?.isAccessoryKeyConnected { [weak self] connected in
-            print("connected: \(connected)")
-            self?.orView.isHidden = connected
-            self?.nfcView.isHidden = connected
-            if connected {
-                self?.accessoryLabel.text = "Enter the PIN to access the certificate."
-            } else {
-                self?.accessoryLabel.text = self?.defaultAccessoryTest
+            UIView.animate(withDuration: 0.2) {
+                self?.orView.alpha = 0
+                self?.nfcView.alpha = 0
+                self?.accessoryLabel.alpha = 0
+            } completion: { _ in
+                UIView.animate(withDuration: 0.2) {
+                    self?.accessoryLabel.alpha = 1
+                    if connected {
+                        self?.accessoryLabel.text = "Enter the PIN to access the certificate."
+                    } else {
+                        self?.accessoryLabel.text = self?.defaultAccessoryTest
+                        self?.orView.alpha = 1
+                        self?.nfcView.alpha = 1
+                    }
+                }
             }
         }
     }
