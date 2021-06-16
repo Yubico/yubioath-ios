@@ -67,5 +67,6 @@ class HelpViewController: UITableViewController {
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
