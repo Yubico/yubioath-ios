@@ -1,5 +1,5 @@
 //
-//  PIVViewController.swift
+//  SmartCardConfigurationController.swift
 //  Authenticator
 //
 //  Created by Jens Utbult on 2021-05-18.
@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 @available(iOS 14.0, *)
-class SmartCardAuthController: UITableViewController {
+class SmartCardConfigurationController: UITableViewController {
     
     let viewModel = SmartCardViewModel()
     var certificates: [SmartCardViewModel.Certificate]? = nil
