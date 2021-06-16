@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeviceInfoViewController: UITableViewController {
+class YubiKeyInfoViewController: UITableViewController {
     
     public var viewModel: ManagementViewModel? = ManagementViewModel()
     
