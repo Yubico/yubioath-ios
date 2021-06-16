@@ -9,7 +9,7 @@
 import Foundation
 
 @available(iOS 14.0, *)
-class TokenRequestViewController: UIViewController {
+class TokenRequestViewController: UIViewController, UITextFieldDelegate {
     var userInfo: [AnyHashable: Any]?
     
     @IBOutlet weak var accessoryLabel: UILabel!
@@ -55,6 +55,7 @@ class TokenRequestViewController: UIViewController {
         super.viewDidAppear(animated)
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
+        passwordTextField.delegate = self
         viewModel?.isAccessoryKeyConnected { [weak self] connected in
             if !connected && self?.orView.alpha == 1 { return }
             UIView.animate(withDuration: 0.2) {
@@ -116,6 +117,12 @@ class TokenRequestViewController: UIViewController {
         print("Deinit TokenRequestViewController")
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        return updatedText.count <= 8
+    }
 }
 
 @available(iOS 14.0, *)
