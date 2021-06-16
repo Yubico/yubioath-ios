@@ -684,7 +684,7 @@ extension OATHViewController: UISearchResultsUpdating {
 extension OATHViewController: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         performSegue(withIdentifier: "handleTokenRequest", sender: response.notification.request.content.userInfo)
         completionHandler()
     }
