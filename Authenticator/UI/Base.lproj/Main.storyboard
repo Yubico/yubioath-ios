@@ -466,7 +466,7 @@
                     <navigationItem key="navigationItem" title="Set Password" id="eiF-JR-TAC">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Baw-cE-YKP">
                             <connections>
-                                <segue destination="z1Y-BT-s2P" kind="unwind" identifier="unwindToKeyConfiguration" unwindAction="unwindToKeyConfigurationWithSegue:" id="cyz-cg-UlF"/>
+                                <action selector="cancel:" destination="fE6-O1-wZU" id="1f7-ik-w6r"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="nUg-yo-cpw">
@@ -482,7 +482,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ihq-dp-VCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="z1Y-BT-s2P" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="670" y="1098"/>
         </scene>
@@ -1018,7 +1017,7 @@
             </objects>
             <point key="canvasLocation" x="1306" y="-473"/>
         </scene>
-        <!--Smart card (PIV) certificates-->
+        <!--Setup smart card-->
         <scene sceneID="tIY-Rn-mT4">
             <objects>
                 <tableViewController id="t28-TG-awK" customClass="SmartCardConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
@@ -1031,7 +1030,7 @@
                             <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Smart card (PIV) certificates" id="fl4-8d-lD9"/>
+                    <navigationItem key="navigationItem" title="Setup smart card" id="fl4-8d-lD9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juD-9u-B52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

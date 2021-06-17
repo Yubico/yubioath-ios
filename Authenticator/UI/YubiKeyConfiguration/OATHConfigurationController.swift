@@ -21,10 +21,6 @@ class OATHConfigurationController: UITableViewController {
     var passwordPreferences = PasswordPreferences()
     var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
-    @IBAction func unwindToKeyConfiguration(segue: UIStoryboardSegue) {
-        start()
-    }
-    
     deinit {
         print("Deinit OATHConfigurationController")
     }

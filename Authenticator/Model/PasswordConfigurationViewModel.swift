@@ -78,6 +78,10 @@ class PasswordConfigurationViewModel {
     func removePassword(password: String?, completion: @escaping (_ result: PasswordResult) -> Void) {
         self.changePassword(password: "", oldPassword: password, completion: completion)
     }
+    
+    deinit {
+        print("Deinit PasswordConfigurationViewModel")
+    }
 }
 
 

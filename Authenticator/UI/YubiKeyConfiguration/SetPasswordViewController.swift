@@ -28,8 +28,12 @@ class SetPasswordViewController: UITableViewController {
         saveButton.isEnabled = password.hasText && confirmPassword.hasText && password.text == confirmPassword.text
     }
     
+    @IBAction func  cancel(_ sender: UIButton) {
+        dismiss()
+    }
+    
     func dismiss() {
-        performSegue(withIdentifier: "unwindToKeyConfiguration", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func savePassword(_ sender: Any) {

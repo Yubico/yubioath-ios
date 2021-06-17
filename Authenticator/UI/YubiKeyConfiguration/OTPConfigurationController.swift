@@ -23,7 +23,7 @@ class OTPConfigurationController: UITableViewController {
     @IBOutlet weak var tagSwitch: UISwitch!
     
     func dismiss() {
-        performSegue(withIdentifier: "unwindToKeyConfiguration", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func changeSetting(_ sender: UISwitch) {
