@@ -129,37 +129,45 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
 extension TokenRequestViewController {
     
     func animateHint() {
-        UIView.animateKeyframes(withDuration: 7, delay: 5) {
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1.0/14.0) {
-                self.arrowHintView.alpha = 1
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 1.0/14.0, relativeDuration: 1.0/7.0) {
+        UIView.animate(withDuration: 1, delay: 4, options: .curveEaseInOut) {
+            self.arrowHintView.alpha = 1
+            self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+        } completion: { _ in
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
                 self.arrowHintView.alpha = 0
                 self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 2.0/7.0 - 1.0/14.0, relativeDuration: 1.0/7.0) {
-                self.arrowHintView.alpha = 1
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 3.0/7.0 - 1.0/14.0, relativeDuration: 1.0/7.0) {
-                self.arrowHintView.alpha = 0
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 4.0/7.0 - 1.0/14.0, relativeDuration: 1.0/7.0) {
-                self.arrowHintView.alpha = 1
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 5.0/7.0 - 1.0/14.0, relativeDuration: 1.0/7.0) {
-                self.arrowHintView.alpha = 0
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 6.0/7.0 - 1.0/14.0, relativeDuration: 1.0/7.0) {
-                self.arrowHintView.alpha = 1
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
-            }
-            UIView.addKeyframe(withRelativeStartTime: 7.0/7.0 - 1.0/14.0, relativeDuration: 1.0/14.0) {
-                self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            } completion: { _ in
+                UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+                    self.arrowHintView.alpha = 1
+                    self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+                } completion: { _ in
+                    UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+                        self.arrowHintView.alpha = 0
+                        self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    } completion: { _ in
+                        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+                            self.arrowHintView.alpha = 1
+                            self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+                        } completion: { _ in
+                            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+                                self.arrowHintView.alpha = 0
+                                self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            } completion: { _ in
+                                UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut) {
+                                    self.arrowHintView.alpha = 1
+                                    self.arrowHintView.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
+                                } completion: { _ in
+                                    UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut) {
+                                        self.arrowHintView.alpha = 1
+                                        self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                    } completion: { _ in
+                                        print("done")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
