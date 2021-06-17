@@ -98,6 +98,11 @@ class SetPasswordViewController: UITableViewController {
         self.confirmPassword.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.password.becomeFirstResponder()
+    }
+    
     deinit {
         print("deinit SetPasswordViewController")
     }
