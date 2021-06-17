@@ -40,6 +40,8 @@ class DelegateStack {
             if let index = index {
                 weakDelegates.remove(at: index)
             }
+            // Remove any lingering nilled delegates that are in the middle of the stack
+            weakDelegates = weakDelegates.filter { nil != $0.value }
         }
     }
     

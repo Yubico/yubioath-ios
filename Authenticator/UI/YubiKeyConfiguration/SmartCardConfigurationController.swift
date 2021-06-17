@@ -129,13 +129,13 @@ class SmartCardConfigurationController: UITableViewController {
         if indexPath.section == 0 {
             guard let certificates = certificates else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "Insert a 5Ci YubiKey or pull down to scan for a NFC key."
+                cell.message = "Insert YubiKey or pull down to activate NFC"
                 return cell
             }
             
             if certificates.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "No Smart card (PIV) certificates on this YubiKey."
+                cell.message = "No Smart card (PIV) certificates on this YubiKey"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -154,7 +154,7 @@ class SmartCardConfigurationController: UITableViewController {
         } else {
             if tokens.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "There are no public certificates saved to the keychain of this iPhone."
+                cell.message = "There are no public key certificates saved to the keychain of this iPhone"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -193,12 +193,12 @@ private class MessageCell: UITableViewCell {
         messageLabel.numberOfLines = 0
         messageLabel.lineBreakMode = .byWordWrapping
         messageLabel.textAlignment = .center
+        messageLabel.font = .preferredFont(forTextStyle: .body)
         messageLabel.textColor = .secondaryLabel
-        messageLabel.font = messageLabel.font.withSize(15)
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(messageLabel)
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: -70),
+            messageLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 45),
             messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
             messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
