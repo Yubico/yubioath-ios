@@ -135,7 +135,7 @@ class SmartCardConfigurationController: UITableViewController {
             
             if certificates.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "No Smart card (PIV) certificates on this YubiKey"
+                cell.message = "No certificates on YubiKey"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -154,7 +154,7 @@ class SmartCardConfigurationController: UITableViewController {
         } else {
             if tokens.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "There are no public key certificates saved to the keychain of this iPhone"
+                cell.message = "No public key certificates in keychain"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
