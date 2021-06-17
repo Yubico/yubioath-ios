@@ -112,8 +112,10 @@ class TokenRequestViewModel: NSObject {
                                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Invalid signature")
                                 completion(.communicationError(ErrorMessage(title: "Invalid signature", text: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.")))
                                 return
-                            } else if let error = error {
+                            }
+                            if let error = error {
                                 completion(.communicationError(ErrorMessage(title: "Signing failed", text: error.localizedDescription)))
+                                return
                             }
                             guard let signature = signature else { fatalError() }
                             // Verify signature
