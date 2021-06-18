@@ -29,8 +29,7 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     }
     
     func tokenSession(_ session: TKTokenSession, supports operation: TKTokenOperation, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) -> Bool {
-        // Indicate whether the given key supports the specified operation and algorithm.
-        return true
+        return operation == .signData
     }
     
     func tokenSession(_ session: TKTokenSession, sign dataToSign: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
