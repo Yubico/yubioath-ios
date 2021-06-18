@@ -894,20 +894,71 @@
                         <sections>
                             <tableViewSection id="yed-kd-amP">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="y42-6g-KHY" style="IBUITableViewCellStyleDefault" id="wxn-q2-NZd" userLabel="Yubikey information">
-                                        <rect key="frame" x="0.0" y="18" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="y42-6g-KHY" rowHeight="120" style="IBUITableViewCellStyleDefault" id="wxn-q2-NZd" userLabel="Yubikey information">
+                                        <rect key="frame" x="0.0" y="18" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wxn-q2-NZd" id="YvK-dT-UL6">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wxn-q2-NZd" translatesAutoresizingMaskIntoConstraints="NO" id="YvK-dT-UL6">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="About this YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y42-6g-KHY">
-                                                    <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Insert YubiKey or pull down to activate NFC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y42-6g-KHY">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="120"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ds-ht-UbI">
+                                                    <rect key="frame" x="0.0" y="-4" width="414" height="128"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6g-ga-gf8" userLabel="Top content">
+                                                            <rect key="frame" x="0.0" y="8" width="414" height="43"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vxo-Lo-viY" userLabel="Horizontal divider">
+                                                            <rect key="frame" x="0.0" y="53" width="414" height="9"/>
+                                                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="EW7-tf-rfR"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="klt-52-lZH" userLabel="Left content">
+                                                            <rect key="frame" x="0.0" y="64" width="206.66666666666666" height="57"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dz-78-fYv" userLabel="Right content">
+                                                            <rect key="frame" x="207.66666666666663" y="67" width="206.33333333333337" height="53"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        </view>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w09-vC-gTe" userLabel="Vertical divider">
+                                                            <rect key="frame" x="206.66666666666666" y="65" width="1" height="57"/>
+                                                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="1" id="hOe-RI-VLC"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="G6g-ga-gf8" firstAttribute="leading" secondItem="9Ds-ht-UbI" secondAttribute="leading" id="443-03-rxP"/>
+                                                        <constraint firstItem="w09-vC-gTe" firstAttribute="leading" secondItem="klt-52-lZH" secondAttribute="trailing" id="6QL-Lb-4TW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4dz-78-fYv" secondAttribute="bottom" id="G6w-Gc-dMH"/>
+                                                        <constraint firstItem="4dz-78-fYv" firstAttribute="leading" secondItem="w09-vC-gTe" secondAttribute="trailing" id="KDc-R4-onD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="klt-52-lZH" secondAttribute="bottom" id="MZz-eX-1sK"/>
+                                                        <constraint firstItem="klt-52-lZH" firstAttribute="leading" secondItem="9Ds-ht-UbI" secondAttribute="leading" id="OqS-8u-btw"/>
+                                                        <constraint firstItem="vxo-Lo-viY" firstAttribute="top" secondItem="G6g-ga-gf8" secondAttribute="bottom" id="Rmp-le-t0D"/>
+                                                        <constraint firstAttribute="bottom" secondItem="w09-vC-gTe" secondAttribute="bottom" id="Uka-0s-Uty"/>
+                                                        <constraint firstItem="klt-52-lZH" firstAttribute="width" secondItem="4dz-78-fYv" secondAttribute="width" id="XKs-e2-wcz"/>
+                                                        <constraint firstItem="klt-52-lZH" firstAttribute="top" secondItem="vxo-Lo-viY" secondAttribute="bottom" id="Yrz-az-3Th"/>
+                                                        <constraint firstItem="G6g-ga-gf8" firstAttribute="top" secondItem="9Ds-ht-UbI" secondAttribute="top" id="bQf-Tn-Mti"/>
+                                                        <constraint firstItem="4dz-78-fYv" firstAttribute="top" secondItem="vxo-Lo-viY" secondAttribute="bottom" id="bgZ-cm-QdQ"/>
+                                                        <constraint firstItem="vxo-Lo-viY" firstAttribute="leading" secondItem="9Ds-ht-UbI" secondAttribute="leading" id="cWV-WC-aRx"/>
+                                                        <constraint firstItem="w09-vC-gTe" firstAttribute="top" secondItem="vxo-Lo-viY" secondAttribute="bottom" id="g5H-gJ-bfF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="vxo-Lo-viY" secondAttribute="trailing" id="h5O-mb-icg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="G6g-ga-gf8" secondAttribute="trailing" id="l05-yw-ZeT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4dz-78-fYv" secondAttribute="trailing" id="q3b-gY-QZo"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -919,7 +970,7 @@
                             <tableViewSection headerTitle="Authenticator (OATH)" id="C5n-jq-Mk9">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uP5-O2-d0d" style="IBUITableViewCellStyleDefault" id="WD1-EX-IYQ" userLabel="Authenticator (OATH)">
-                                        <rect key="frame" x="0.0" y="111.66666603088379" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="187.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WD1-EX-IYQ" id="8u6-79-GWX">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
@@ -943,7 +994,7 @@
                             <tableViewSection headerTitle="Interfaces" id="HXC-cf-VLg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CVY-FH-Ree" style="IBUITableViewCellStyleDefault" id="kFY-bS-WKg" userLabel="Customize OTP interface">
-                                        <rect key="frame" x="0.0" y="205.33333206176758" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="281.33333206176758" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kFY-bS-WKg" id="ZFv-Pq-SKO">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
@@ -967,21 +1018,21 @@
                             <tableViewSection headerTitle="Smart card (PIV) extension" id="jjW-Eu-Ql6">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="VqQ-3s-C9j" detailTextLabel="XVv-hV-yZ1" style="IBUITableViewCellStyleValue1" id="3zI-mf-YFM" userLabel="Smart card (PIV)">
-                                        <rect key="frame" x="0.0" y="298.99999809265137" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="374.99999809265137" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zI-mf-YFM" id="o4H-cs-Qyy">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Setup smart card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VqQ-3s-C9j">
-                                                    <rect key="frame" x="20" y="11.999999999999998" width="131.66666666666666" height="20.333333333333332"/>
+                                                    <rect key="frame" x="20.000000000000007" y="14" width="111.66666666666667" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XVv-hV-yZ1">
-                                                    <rect key="frame" x="315" y="11.999999999999998" width="61.333333333333336" height="20.333333333333332"/>
+                                                    <rect key="frame" x="324.33333333333331" y="14" width="52" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -1015,7 +1066,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwI-hH-f3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="u0b-Xw-ySE" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1306" y="-473"/>
+            <point key="canvasLocation" x="1305.7971014492755" y="-473.4375"/>
         </scene>
         <!--Setup smart card-->
         <scene sceneID="tIY-Rn-mT4">
@@ -1414,6 +1465,12 @@
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
