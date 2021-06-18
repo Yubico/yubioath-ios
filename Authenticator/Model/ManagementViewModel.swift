@@ -38,19 +38,6 @@ class ManagementViewModel {
         connection.didDisconnect(handler: completion)
     }
     
-    func deviceInfo(completion: @escaping (_ result: Result<YKFManagementDeviceInfo, Error>) -> Void) {
-        connection.startConnection { connection in
-            connection.managementSession { session, error in
-                guard let session = session else { completion(.failure(error!)); return }
-                session.getDeviceInfo { deviceInfo, error in
-                    guard let deviceInfo = deviceInfo else { completion(.failure(error!)); return }
-                    YubiKitManager.shared.stopNFCConnection(withMessage: "Read YubiKey device info")
-                    completion(.success(deviceInfo))
-                }
-            }
-        }
-    }
-    
     func isOTPEnabled(completion: @escaping (_ result: Result<OTPConfiguration, Error>) -> Void) {
         connection.startConnection { connection in
             connection.managementSession { session, error in
