@@ -930,7 +930,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Authenticator (OATH)" id="C5n-jq-Mk9">
+                            <tableViewSection headerTitle="Configuration" id="C5n-jq-Mk9">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="uP5-O2-d0d" style="IBUITableViewCellStyleDefault" id="WD1-EX-IYQ" userLabel="Authenticator (OATH)">
                                         <rect key="frame" x="0.0" y="207.66666603088379" width="414" height="44"/>
@@ -939,7 +939,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Manage passwords and reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uP5-O2-d0d">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Interfaces" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uP5-O2-d0d">
                                                     <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -949,21 +949,17 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Bxb-bg-K32" kind="show" id="myp-Os-5Tf"/>
+                                            <segue destination="aoN-t0-WPq" kind="show" id="NWw-XX-KRY"/>
                                         </connections>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Interfaces" id="HXC-cf-VLg">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CVY-FH-Ree" style="IBUITableViewCellStyleDefault" id="kFY-bS-WKg" userLabel="Customize OTP interface">
-                                        <rect key="frame" x="0.0" y="301.33333206176758" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="03k-jY-TEC" style="IBUITableViewCellStyleDefault" id="AR8-8Z-HlN" userLabel="Authenticator (OATH)">
+                                        <rect key="frame" x="0.0" y="251.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kFY-bS-WKg" id="ZFv-Pq-SKO">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AR8-8Z-HlN" id="TxQ-Ug-Vr0">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Customize OTP interface" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CVY-FH-Ree">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Passwords and reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="03k-jY-TEC">
                                                     <rect key="frame" x="20" y="0.0" width="356.33333333333331" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -973,28 +969,24 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="aoN-t0-WPq" kind="show" id="YtG-Xe-fhh"/>
+                                            <segue destination="Bxb-bg-K32" kind="show" id="NzB-4m-oA5"/>
                                         </connections>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Smart card (PIV) extension" id="jjW-Eu-Ql6">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="VqQ-3s-C9j" detailTextLabel="XVv-hV-yZ1" style="IBUITableViewCellStyleValue1" id="3zI-mf-YFM" userLabel="Smart card (PIV)">
-                                        <rect key="frame" x="0.0" y="394.99999809265137" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="D3g-ds-RCu" detailTextLabel="3c6-6X-83B" style="IBUITableViewCellStyleValue1" id="svK-Xu-OrL" userLabel="Authenticator (OATH)">
+                                        <rect key="frame" x="0.0" y="295.66666603088379" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zI-mf-YFM" id="o4H-cs-Qyy">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="svK-Xu-OrL" id="qml-JJ-Spa">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Setup smart card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VqQ-3s-C9j">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Setup smart card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D3g-ds-RCu">
                                                     <rect key="frame" x="20.000000000000007" y="14" width="111.66666666666667" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XVv-hV-yZ1">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3c6-6X-83B">
                                                     <rect key="frame" x="324.33333333333331" y="14" width="52" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -1004,7 +996,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="t28-TG-awK" kind="show" identifier="showSmartCardCertificates" id="NZ3-6m-bds"/>
+                                            <segue destination="t28-TG-awK" kind="show" id="sX5-7E-Qw3"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1015,7 +1007,7 @@
                             <outlet property="delegate" destination="09D-Aw-j1I" id="CZ1-cy-RiI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="YubiKey configuration" id="e3s-bq-xAt">
+                    <navigationItem key="navigationItem" title="Configuration" id="e3s-bq-xAt">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="D6R-wW-EtA">
                             <connections>
                                 <segue destination="u0b-Xw-ySE" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="yUc-Py-iTl"/>
@@ -1028,7 +1020,7 @@
                         <outlet property="firmwareVersionLabel" destination="QGj-16-s0W" id="Vrk-h8-h7d"/>
                         <outlet property="insertYubiKeyLabel" destination="Re8-TR-xIr" id="Gn8-dH-EFs"/>
                         <outlet property="serialNumberLabel" destination="MBv-4M-eos" id="xIZ-on-d43"/>
-                        <outlet property="smartCardEnabledLabel" destination="XVv-hV-yZ1" id="B3a-gw-Xdj"/>
+                        <outlet property="smartCardEnabledLabel" destination="3c6-6X-83B" id="Ch1-qV-2Ke"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwI-hH-f3x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
