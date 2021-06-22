@@ -17,7 +17,7 @@ class OATHViewController: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
-    private var credentialsSearchController: UISearchController!
+    private var searchBar = UISearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
     
@@ -121,7 +121,11 @@ class OATHViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupCredentialsSearchController()
+        if let navigationView = self.navigationController?.view {
+            searchBar.frame = CGRect(x: 0, y: 0, width: navigationView.frame.width, height: 44)
+            searchBar.install(inTopOf: navigationView)
+            searchBar.delegate = self
+        }
         // update view in case if state has changed
         self.tableView.reloadData()
         refreshUIOnKeyStateUpdate()
@@ -130,6 +134,12 @@ class OATHViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.viewModel.stop()
+    }
+    
+    
+    // MARK: - Show search
+    @IBAction func showSearch(_ sender: Any) {
+        searchBar.showInTop(true)
     }
     
     //
@@ -294,13 +304,6 @@ class OATHViewController: UITableViewController {
                 tokenRequestController.userInfo = userInfo
             }
         }
-    
-//        if segue.identifier == .showSettings {
-//            guard let navigationController = segue.destination as? UINavigationController,
-//                  let settingsViewController = navigationController.topViewController as? SettingsViewController else { assertionFailure(); return }
-//            settingsViewController.secureStore = self.secureStore
-//            settingsViewController.passwordPreferences = self.passwordPreferences
-//        }
         
         if segue.identifier == .editCredential {
             guard let navigationController = segue.destination as? UINavigationController,
@@ -391,15 +394,6 @@ class OATHViewController: UITableViewController {
     //
     // MARK: - UI Setup
     //
-    private func setupCredentialsSearchController() {
-        credentialsSearchController = UISearchController(searchResultsController: nil)
-        credentialsSearchController.searchResultsUpdater = self
-        credentialsSearchController.obscuresBackgroundDuringPresentation = false
-        credentialsSearchController.searchBar.placeholder = "Quick find"
-        navigationItem.searchController = credentialsSearchController
-        navigationItem.hidesSearchBarWhenScrolling = true
-        definesPresentationContext = true
-    }
     
     private func setupRefreshControl() {
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -670,22 +664,65 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     }
 }
 
-//
-// MARK: - Search Results Extension
-//
-extension OATHViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let filter = searchController.searchBar.text
-        viewModel.applyFilter(filter: filter)
+// MARK: - UISearchBarDelegate
+extension OATHViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showInTop(false)
+        searchBar.text = nil
+        viewModel.applyFilter(filter: nil)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        viewModel.applyFilter(filter: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showInTop(false)
+        viewModel.applyFilter(filter: nil)
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.text = nil
+        viewModel.applyFilter(filter: nil)
+        return true
     }
 }
-    
 
 extension OATHViewController: UNUserNotificationCenterDelegate {
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         view.window?.rootViewController?.dismiss(animated: false, completion: nil)
         performSegue(withIdentifier: "handleTokenRequest", sender: response.notification.request.content.userInfo)
         completionHandler()
+    }
+}
+
+// MARK: - UISerchBar extension
+extension UISearchBar {
+    func install(inTopOf view: UIView) {
+        self.placeholder = "Search accounts"
+        self.showsCancelButton = true
+        self.frame.origin.y = -self.frame.size.height
+        view.addSubview(self)
+        self.returnKeyType = .done
+        self.tintColor = .yubiBlue
+        self.backgroundImage = UIImage()
+        self.backgroundColor = UIColor(named: "SystemNavigationBar")!
+    }
+    
+    func showInTop(_ isVisible: Bool) {
+        let window = UIApplication.shared.windows[0]
+        let topPadding = window.safeAreaInsets.top
+        if isVisible {
+            self.becomeFirstResponder()
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+                self.frame.origin.y = topPadding
+            }
+        } else {
+            self.resignFirstResponder()
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+                self.frame.origin.y = -self.frame.size.height
+            }
+        }
     }
 }

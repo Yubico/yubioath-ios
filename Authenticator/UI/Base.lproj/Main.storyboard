@@ -14,13 +14,12 @@
         <scene sceneID="gXL-Ho-oJ5">
             <objects>
                 <tableViewController restorationIdentifier="oathAccounts" id="r4m-OO-XO1" customClass="OATHViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="92" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="FFY-H8-Wss">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FFY-H8-Wss">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CredentialCell" rowHeight="90" id="GKO-4h-cU9" customClass="CredentialTableViewCell" customModule="Authenticator" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="49" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GKO-4h-cU9" id="xsC-d5-U8J">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
@@ -129,7 +128,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Accounts" id="Ecq-ES-9eb">
-                        <barButtonItem key="rightBarButtonItem" title="Add Account" image="ellipsis.circle.fill" catalog="system" id="zlN-3Z-daV"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Menu" image="ellipsis.circle.fill" catalog="system" id="zlN-3Z-daV" userLabel="Menu"/>
+                            <barButtonItem title="Search" image="magnifyingglass.circle" catalog="system" id="w7Y-sR-4pm">
+                                <connections>
+                                    <action selector="showSearch:" destination="r4m-OO-XO1" id="gyA-ls-lhH"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="zlN-3Z-daV" id="4BA-rT-8PQ"/>
@@ -1396,6 +1402,7 @@
         <image name="deviceInfo" width="63" height="63"/>
         <image name="dot.radiowaves.forward" catalog="system" width="110" height="128"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="touch" width="24" height="24"/>
         <namedColor name="Color11">
