@@ -368,7 +368,7 @@
             </objects>
             <point key="canvasLocation" x="-2670" y="-473"/>
         </scene>
-        <!--Set Password-->
+        <!--Set password-->
         <scene sceneID="a04-Iv-oTD">
             <objects>
                 <tableViewController storyboardIdentifier="SetPasswordViewController" id="fE6-O1-wZU" customClass="SetPasswordViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
@@ -462,7 +462,7 @@
                             <outlet property="delegate" destination="fE6-O1-wZU" id="our-2q-fq8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Set Password" id="eiF-JR-TAC">
+                    <navigationItem key="navigationItem" title="Set password" id="eiF-JR-TAC">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Baw-cE-YKP">
                             <connections>
                                 <action selector="cancel:" destination="fE6-O1-wZU" id="1f7-ik-w6r"/>
