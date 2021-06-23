@@ -131,6 +131,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Menu" image="ellipsis.circle.fill" catalog="system" id="zlN-3Z-daV" userLabel="Menu"/>
                             <barButtonItem title="Search" image="magnifyingglass.circle" catalog="system" id="w7Y-sR-4pm">
+                                <inset key="imageInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
                                 <connections>
                                     <action selector="showSearch:" destination="r4m-OO-XO1" id="gyA-ls-lhH"/>
                                 </connections>
@@ -263,14 +264,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="CQW-KX-Ywe">
-                                                    <rect key="frame" x="20.000000000000004" y="15" width="48.333333333333336" height="17"/>
+                                                    <rect key="frame" x="20.000000000000004" y="14" width="48.333333333333336" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Otr-GD-QTk">
-                                                    <rect key="frame" x="350.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="356.66666666666669" y="14" width="37.333333333333336" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -1388,8 +1389,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ale-0H-6Xr"/>
-        <segue reference="UPN-tw-Bce"/>
+        <segue reference="0Gs-5m-Syj"/>
+        <segue reference="0dB-Xx-crT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
