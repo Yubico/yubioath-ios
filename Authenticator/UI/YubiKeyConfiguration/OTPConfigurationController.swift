@@ -19,7 +19,6 @@ class OTPConfigurationController: UITableViewController {
     var configuration: ManagementViewModel.OTPConfiguration? = nil
 
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var tagTypeLabel: UILabel!
     @IBOutlet weak var tagSwitch: UISwitch!
     
     func dismiss() {
@@ -53,13 +52,12 @@ class OTPConfigurationController: UITableViewController {
                     self.configuration = configuration
                     self.tagSwitch.isOn = configuration.isEnabled
                     self.tagSwitch.isEnabled = configuration.isSupported && !configuration.isConfigurationLocked
-                    self.tagTypeLabel.text = configuration.transport == .NFC ? "NFC tag" : "Touch tag"
                     if self.tagSwitch.isEnabled {
                         if configuration.transport == .USB {
-                            self.descriptionLabel.text = "This setting turns on/off printing key string in text fields when you touch the YubiKey."
+                            self.descriptionLabel.text = "Turn on/off typing your OTP when touching a YubiKey."
                         }
                         if configuration.transport == .NFC {
-                            self.descriptionLabel.text = "This setting turns on/off printing key string in text fields when you touch the YubiKey."
+                            self.descriptionLabel.text = "Turn on/off opening Safari to copy your OTP when scanning a NFC YubiKey."
                         }
                     } else {
                         self.descriptionLabel.text = "This setting is not supported on your YubiKey."
