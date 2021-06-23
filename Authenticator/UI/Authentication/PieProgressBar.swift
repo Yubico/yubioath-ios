@@ -31,7 +31,7 @@ class PieProgressBar: UIView {
                 else { return progressConstant }
             }
         }
-        
+        shapeLayer.fillColor = self.tintColor.cgColor
         self.shapeLayer.path = getArchPath(progress: CGFloat(progress))
     }
     
