@@ -47,7 +47,7 @@ class CredentialTableViewCell: UITableViewCell {
         favoriteIcon.isHidden = !isFavorite
         self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
         credentialIcon.backgroundColor = self.credentialIconColor
-        progress.tintColor = self.credentialIconColor
+        progress.tintColor = .secondaryLabel
         progress.setupView()
         refreshCode()
         refreshProgress()
