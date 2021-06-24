@@ -40,7 +40,13 @@ class CredentialTableViewCell: UITableViewCell {
     func updateView(credential: Credential, isFavorite: Bool) {
         self.credential = credential
         name.text = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
-        actionIcon.image = UIImage(named: credential.type == .HOTP ? "refresh" : "touch")?.withRenderingMode(.alwaysTemplate)
+        if credential.type == .HOTP {
+            let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .medium)
+            actionIcon.image = UIImage(systemName: "arrow.clockwise.circle.fill", withConfiguration: config)
+        } else {
+            let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .medium, scale: .medium)
+            actionIcon.image = UIImage(systemName: "hand.tap.fill", withConfiguration: config)
+        }
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.issuer?.isEmpty == false ? String(credential.issuer!.first!).uppercased() : "Y"
