@@ -13,6 +13,7 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var code: UILabel!
     @IBOutlet weak var progress: PieProgressBar!
+    @IBOutlet weak var favouriteIcon: UIImageView!
     @IBOutlet weak var actionIcon: UIImageView!
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -28,11 +29,18 @@ class CredentialTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         actionIcon.isHidden = true
+        favouriteIcon.isHidden = true
         progress.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.startAnimating()
+    }
+    
+    override func prepareForReuse() {
+        actionIcon.isHidden = true
+        favouriteIcon.isHidden = true
+        progress.isHidden = true
+        activityIndicator.isHidden = true
     }
     
     // this method is invoked when table view reloaded and UI got data/list of credentials
@@ -125,10 +133,6 @@ class CredentialTableViewCell: UITableViewCell {
                 self.code.textColor = requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
                 self.credentialIcon.backgroundColor = requiresRefresh ? UIColor.secondaryText : self.credentialIconColor
             }
-
-        } else if credential.type == .HOTP {
-            actionIcon.isHidden = !requiresRefresh
-            self.activityIndicator.isHidden = true
         }
     }
     
