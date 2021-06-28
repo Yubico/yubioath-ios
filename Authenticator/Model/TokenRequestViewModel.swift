@@ -180,7 +180,7 @@ private extension YKFPIVSession {
                     completion(.signature, nil)
                     return
                 }
-                self.getCertificateIn(.signature) { certificate, error in
+                self.getCertificateIn(.keyManagement) { certificate, error in
                     if let certificate = certificate, certificate.tokenObjectId() == objectId {
                         print("Found matching certificate")
                         completion(.keyManagement, nil)
