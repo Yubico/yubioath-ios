@@ -184,6 +184,14 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func calculate(credential: Credential) {
+        if credential.type == .TOTP {
+            calculateTOTP(credential: credential)
+        } else {
+            calculateHOTP(credential: credential)
+        }
+    }
+    
+    public func calculateTOTP(credential: Credential) {
         session { session in
             guard let session = session else { return }
             
@@ -198,6 +206,37 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             // Even if the user is very quick to enter and submit the code to the server,
             // it is very likely that it will be accepted as servers typically allow for some clock drift.
             session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
+                guard error == nil else {
+                    self.onError(error: error!) {
+                        self.calculate(credential: credential)
+                    }
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
+                guard let code = code, let otp = code.otp else {
+                    if let error = error {
+                        self.onError(error: error)
+                    }
+                    return
+                }
+                credential.setCode(code: otp, validity: code.validity)
+                credential.state = .active
+                self.onUpdate(credential: credential)
+            }
+        }
+    }
+    
+    public func calculateHOTP(credential: Credential) {
+        session { session in
+            guard let session = session else { return }
+
+            // We can't know if a HOTP requires touch. Instead we wait for 0.5 seconds for a response and if
+            // the key doesn't return we assume it requires touch.
+            let showTouchAlert = DispatchWorkItem { self.onTouchRequired() }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: showTouchAlert)
+            
+            session.calculate(credential.ykCredential) { code, error in
+                showTouchAlert.cancel()
                 guard error == nil else {
                     self.onError(error: error!) {
                         self.calculate(credential: credential)
@@ -531,10 +570,6 @@ extension OATHViewModel { //}: OperationDelegate {
             }
             
             delegate.onOperationCompleted(operation: .calculate)
-            
-            if credential.type == .HOTP {
-                self.copyToClipboard(credential: credential)
-            }
         }
     }
     
