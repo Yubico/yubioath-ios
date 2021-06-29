@@ -200,14 +200,11 @@ class OATHViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             let credential = viewModel.credentials[indexPath.row]
-            if credential.type == .HOTP && credential.activeTime > 5 {
-                // refresh HOTP on touch
-                print("HOTP active for \(String(format:"%f", credential.activeTime)) seconds")
-                viewModel.calculate(credential: credential)
-            } else if credential.code.isEmpty || credential.remainingTime <= 0 {
-                // refresh items that require touch
+            if credential.code.isEmpty || credential.type == .HOTP && credential.activeTime > 10 || credential.remainingTime <= 0 {
+                print("Calculate OTP")
                 viewModel.calculate(credential: credential)
             } else {
+                print("Copy OTP")
                 viewModel.copyToClipboard(credential: credential)
             }
         }
