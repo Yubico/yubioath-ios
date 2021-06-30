@@ -120,27 +120,36 @@
                                             <blurEffect style="regular"/>
                                         </visualEffectView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kOh-LL-9oy">
-                                            <rect key="frame" x="20" y="32.666666666666664" width="374" height="25"/>
+                                            <rect key="frame" x="15" y="32.666666666666664" width="384" height="25"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVP-3L-P8o">
-                                                    <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="25"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVP-3L-P8o">
+                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8Tq-eL-aBX"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" title=" Generate OTP">
+                                                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                    <state key="normal" title="Generate">
                                                         <color key="titleColor" name="YubiBlue"/>
                                                         <imageReference key="image" image="arrow.clockwise.circle" catalog="system" symbolScale="large"/>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aI9-m9-atz">
-                                                    <rect key="frame" x="188" y="0.0" width="72" height="25"/>
+                                                    <rect key="frame" x="181" y="0.0" width="68" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" title=" Copy" image="doc.on.doc" catalog="system">
+                                                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                    <state key="normal" title="Copy" image="doc.on.doc" catalog="system">
                                                         <color key="titleColor" name="YubiBlue"/>
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Q3-8M-aPO">
-                                                    <rect key="frame" x="294.66666666666669" y="0.0" width="79.333333333333314" height="25"/>
+                                                    <rect key="frame" x="309.66666666666669" y="0.0" width="74.333333333333314" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <state key="normal" title=" Close">
+                                                    <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
+                                                    <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="5" maxY="0.0"/>
+                                                    <state key="normal" title="Close">
                                                         <color key="titleColor" name="YubiBlue"/>
                                                         <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
                                                     </state>
@@ -151,12 +160,12 @@
                                     <constraints>
                                         <constraint firstItem="kOh-LL-9oy" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="DRF-E3-mto"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="leading" secondItem="f1d-cl-SEY" secondAttribute="leading" id="Grd-0D-FIi"/>
-                                        <constraint firstAttribute="trailing" secondItem="kOh-LL-9oy" secondAttribute="trailing" constant="20" id="Q3u-dM-AuV"/>
+                                        <constraint firstAttribute="trailing" secondItem="kOh-LL-9oy" secondAttribute="trailing" constant="15" id="Q3u-dM-AuV"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" id="Ru7-f1-dFd"/>
                                         <constraint firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" constant="14" id="XnO-xZ-lb1"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="leading" secondItem="0ds-kQ-Fq4" secondAttribute="trailing" constant="20" id="ZfA-4O-6Rm"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="b6B-aO-PTb"/>
-                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="20" id="faf-4J-V78"/>
+                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="15" id="faf-4J-V78"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="top" secondItem="0ds-kQ-Fq4" secondAttribute="top" constant="-3" id="pVr-za-mAo"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="15" id="sOs-nW-lS7"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="bottom" secondItem="0ds-kQ-Fq4" secondAttribute="bottom" id="xnM-co-fMO"/>
@@ -168,6 +177,7 @@
                                     <outlet property="blurView" destination="n5q-0x-Xis" id="IAX-VA-6KY"/>
                                     <outlet property="closeButton" destination="0Q3-8M-aPO" id="n5x-Hm-YGS"/>
                                     <outlet property="code" destination="8KS-av-uoB" id="1qE-ia-43d"/>
+                                    <outlet property="contextMenuView" destination="kOh-LL-9oy" id="v6Z-Hk-Vkf"/>
                                     <outlet property="copyCodeButton" destination="aI9-m9-atz" id="HY9-SE-l38"/>
                                     <outlet property="credentialIcon" destination="0ds-kQ-Fq4" id="UDd-Ps-HoU"/>
                                     <outlet property="favoriteIcon" destination="d1h-ks-NrA" id="qw9-EV-2PV"/>
@@ -320,14 +330,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="CQW-KX-Ywe">
-                                                    <rect key="frame" x="20.000000000000004" y="15" width="48.333333333333336" height="17"/>
+                                                    <rect key="frame" x="20.000000000000004" y="14" width="48.333333333333336" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Otr-GD-QTk">
-                                                    <rect key="frame" x="350.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="356.66666666666669" y="14" width="37.333333333333336" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -593,7 +603,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="81" width="414" height="208"/>
+                            <rect key="frame" x="0.0" y="80.666666030883789" width="414" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">

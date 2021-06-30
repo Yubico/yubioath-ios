@@ -25,6 +25,7 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var generateCodeButton: UIButton!
     @IBOutlet weak var copyCodeButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var contextMenuView: UIView!
     
     @IBOutlet weak var favoriteIcon: UIImageView!
     
@@ -36,11 +37,13 @@ class CredentialTableViewCell: UITableViewCell {
     private var credentialIconColor: UIColor = .primaryText
     
     private var bag = [Cancellable]()
+    private var originalTitleFont: UIFont!
+    private var originalTitleColor: UIColor!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        copyCodeButton.adjustsImageWhenDisabled = true
-//        copyCodeButton.tintAdjustmentMode = .dimmed
+        originalTitleFont = generateCodeButton.titleLabel!.font
+        originalTitleColor = generateCodeButton.currentTitleColor
         prepareForReuse()
         activityIndicator.startAnimating()
         bag.append(closeButton.addHandler(for: .touchUpInside) {
@@ -53,12 +56,8 @@ class CredentialTableViewCell: UITableViewCell {
             self.setSelected(false, animated: true)
         })
         bag.append(generateCodeButton.addHandler(for: .touchUpInside) {
-            self.setSelected(false, animated: true)
             if let credential = self.credential {
-                // Slight delay for calculating HOTP so the user can see the code updating
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + (credential.type == .HOTP ? 0.4 : 0)) {
-                    self.viewModel.calculate(credential: credential)
-                }
+                self.viewModel.calculate(credential: credential)
             }
         })
     }
@@ -69,43 +68,24 @@ class CredentialTableViewCell: UITableViewCell {
         favouriteIcon.isHidden = true
         progress.isHidden = true
         activityIndicator.isHidden = true
-        generateCodeButton.alpha = 0
+        contextMenuView.alpha = 0
+        generateCodeButton.alpha = 1
         copyCodeButton.alpha = 0
-        closeButton.alpha = 0
+        closeButton.alpha = 1.0
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         print("setSelected \(selected) for \(self.credential!.account)")
-        guard let credential = credential else { return }
-
         if selected {
             UIView.animate(withDuration: 0.5) {
                 self.blurView.effect = UIBlurEffect(style: .light)
-                if credential.code.isEmpty || credential.type == .HOTP {
-                    self.generateCodeButton.alpha = 1.0
-                    self.generateCodeButton.isEnabled = true
-                } else {
-                    self.generateCodeButton.alpha = 0.3
-                    self.generateCodeButton.isEnabled = false
-                }
-                if !credential.code.isEmpty {
-                    self.copyCodeButton.alpha = 1
-                    self.copyCodeButton.isEnabled = true
-                } else {
-                    self.copyCodeButton.alpha = 0.3
-                    self.copyCodeButton.isEnabled = false
-                }
-                
-
-                self.closeButton.alpha = 1
+                self.contextMenuView.alpha = 1.0
             }
         } else {
             UIView.animate(withDuration: 0.3) {
                 self.blurView.effect = nil
-                self.generateCodeButton.alpha = 0
-                self.copyCodeButton.alpha = 0
-                self.closeButton.alpha = 0
+                self.contextMenuView.alpha = 0
             }
         }
     }
@@ -209,20 +189,40 @@ class CredentialTableViewCell: UITableViewCell {
         }
 
         var otp = credential.code.isEmpty ? "******" : credential.code
-        
-        if self.isSelected && credential.code.isEmpty {
-            self.copyCodeButton.isEnabled = false
-            self.copyCodeButton.alpha = 0.3
-            self.generateCodeButton.isEnabled = true
-            self.generateCodeButton.alpha = 1.0
-        }
-
         if credential.isSteam {
             self.code.text = otp
         } else {
             // make it pretty by splitting in halves
             otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
             self.code.text = otp
+        }
+        
+        generateCodeButton.setTitle(credential.code.isEmpty ? "Generate" : otp, for: .normal)
+        
+        if credential.code.isEmpty || credential.type == .HOTP {
+            generateCodeButton.tintColor = originalTitleColor
+            generateCodeButton.setTitleColor(originalTitleColor, for: .normal)
+            generateCodeButton.titleLabel?.font = originalTitleFont
+            generateCodeButton.isEnabled = true
+            generateCodeButton.imageView?.alpha = 1.0
+        } else {
+            generateCodeButton.tintColor = .black
+            generateCodeButton.setTitleColor(.black, for: .normal)
+            generateCodeButton.titleLabel?.font = originalTitleFont?.withSize(originalTitleFont.pointSize + 4)
+            generateCodeButton.isEnabled = false
+            generateCodeButton.imageView?.alpha = 0.3
+        }
+        
+        if credential.type == .HOTP && !credential.code.isEmpty {
+            generateCodeButton.titleLabel?.font = originalTitleFont?.withSize(originalTitleFont.pointSize + 4)
+        }
+        
+        if !credential.code.isEmpty {
+            copyCodeButton.alpha = 1.0
+            copyCodeButton.isEnabled = true
+        } else {
+            copyCodeButton.alpha = 0.3
+            copyCodeButton.isEnabled = false
         }
     }
 }
