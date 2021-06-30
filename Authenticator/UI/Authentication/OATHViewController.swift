@@ -190,25 +190,32 @@ class OATHViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
+        cell.viewModel = viewModel
         let credential = viewModel.credentials[indexPath.row]
         let isFavorite = self.viewModel.isFavorite(credential: credential)
         cell.updateView(credential: credential, isFavorite: isFavorite)
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 {
-            let credential = viewModel.credentials[indexPath.row]
-            if credential.code.isEmpty || credential.type == .HOTP && credential.activeTime > 10 || credential.remainingTime <= 0 {
-                print("Calculate OTP")
-                viewModel.calculate(credential: credential)
-            } else {
-                print("Copy OTP")
-                viewModel.copyToClipboard(credential: credential)
-            }
-        }
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////        tableView.deselectRow(at: indexPath, animated: true)
+//        if let cell = tableView.cellForRow(at: indexPath) as? CredentialTableViewCell {
+//                        
+//        }
+//        
+//        
+//        
+//        if indexPath.section == 0 {
+//            let credential = viewModel.credentials[indexPath.row]
+//            if credential.code.isEmpty || credential.type == .HOTP && credential.activeTime > 10 || credential.remainingTime <= 0 {
+//                print("Calculate OTP")
+//                viewModel.calculate(credential: credential)
+//            } else {
+//                print("Copy OTP")
+//                viewModel.copyToClipboard(credential: credential)
+//            }
+//        }
+//    }
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -109,13 +110,53 @@
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n5q-0x-Xis">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SDG-YV-wOH">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <blurEffect style="regular"/>
+                                        </visualEffectView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kOh-LL-9oy">
+                                            <rect key="frame" x="20" y="32.666666666666664" width="374" height="25"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVP-3L-P8o">
+                                                    <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <state key="normal" title=" Generate OTP">
+                                                        <color key="titleColor" name="YubiBlue"/>
+                                                        <imageReference key="image" image="arrow.clockwise.circle" catalog="system" symbolScale="large"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aI9-m9-atz">
+                                                    <rect key="frame" x="188" y="0.0" width="72" height="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <state key="normal" title=" Copy" image="doc.on.doc" catalog="system">
+                                                        <color key="titleColor" name="YubiBlue"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Q3-8M-aPO">
+                                                    <rect key="frame" x="294.66666666666669" y="0.0" width="79.333333333333314" height="25"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <state key="normal" title=" Close">
+                                                        <color key="titleColor" name="YubiBlue"/>
+                                                        <imageReference key="image" image="xmark.circle" catalog="system" symbolScale="large"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="DRF-E3-mto"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="leading" secondItem="f1d-cl-SEY" secondAttribute="leading" id="Grd-0D-FIi"/>
+                                        <constraint firstAttribute="trailing" secondItem="kOh-LL-9oy" secondAttribute="trailing" constant="20" id="Q3u-dM-AuV"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" id="Ru7-f1-dFd"/>
                                         <constraint firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" constant="14" id="XnO-xZ-lb1"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="leading" secondItem="0ds-kQ-Fq4" secondAttribute="trailing" constant="20" id="ZfA-4O-6Rm"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="b6B-aO-PTb"/>
+                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="20" id="faf-4J-V78"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="top" secondItem="0ds-kQ-Fq4" secondAttribute="top" constant="-3" id="pVr-za-mAo"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="15" id="sOs-nW-lS7"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="bottom" secondItem="0ds-kQ-Fq4" secondAttribute="bottom" id="xnM-co-fMO"/>
@@ -124,10 +165,14 @@
                                 <connections>
                                     <outlet property="actionIcon" destination="4WS-8i-Uyp" id="3t1-fs-oFz"/>
                                     <outlet property="activityIndicator" destination="Gvn-Oe-FZH" id="K4C-QO-u7L"/>
+                                    <outlet property="blurView" destination="n5q-0x-Xis" id="IAX-VA-6KY"/>
+                                    <outlet property="closeButton" destination="0Q3-8M-aPO" id="n5x-Hm-YGS"/>
                                     <outlet property="code" destination="8KS-av-uoB" id="1qE-ia-43d"/>
+                                    <outlet property="copyCodeButton" destination="aI9-m9-atz" id="HY9-SE-l38"/>
                                     <outlet property="credentialIcon" destination="0ds-kQ-Fq4" id="UDd-Ps-HoU"/>
                                     <outlet property="favoriteIcon" destination="d1h-ks-NrA" id="qw9-EV-2PV"/>
                                     <outlet property="favouriteIcon" destination="d1h-ks-NrA" id="MOb-dq-FAb"/>
+                                    <outlet property="generateCodeButton" destination="qVP-3L-P8o" id="sFs-LZ-tJL"/>
                                     <outlet property="name" destination="ocK-d8-Mjy" id="ksH-mE-exz"/>
                                     <outlet property="progress" destination="8el-ru-Cbt" id="WVN-6C-REt"/>
                                 </connections>
@@ -162,7 +207,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WAD-bq-Z5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1133" y="-1248"/>
+            <point key="canvasLocation" x="-1133.3333333333335" y="-1248.2142857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="W6h-8B-Wlh">
@@ -275,14 +320,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="CQW-KX-Ywe">
-                                                    <rect key="frame" x="20.000000000000004" y="14" width="48.333333333333336" height="17"/>
+                                                    <rect key="frame" x="20.000000000000004" y="15" width="48.333333333333336" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Otr-GD-QTk">
-                                                    <rect key="frame" x="356.66666666666669" y="14" width="37.333333333333336" height="17"/>
+                                                    <rect key="frame" x="350.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -1406,16 +1451,19 @@
     <color key="tintColor" name="YubiBlue"/>
     <resources>
         <image name="InsertKey" width="39" height="124"/>
+        <image name="arrow.clockwise.circle" catalog="system" width="128" height="121"/>
         <image name="arrow.turn.left.up" catalog="system" width="120" height="128"/>
         <image name="biometric" width="63" height="63"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
+        <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="dot.radiowaves.forward" catalog="system" width="110" height="128"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="hand.tap.fill" catalog="system" width="115" height="128"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="xmark.circle" catalog="system" width="128" height="121"/>
         <namedColor name="Color11">
             <color red="0.48627450980392156" green="0.70196078431372544" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
