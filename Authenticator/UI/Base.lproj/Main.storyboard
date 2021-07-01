@@ -120,7 +120,7 @@
                                             <blurEffect style="regular"/>
                                         </visualEffectView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kOh-LL-9oy">
-                                            <rect key="frame" x="15" y="32.666666666666664" width="384" height="25"/>
+                                            <rect key="frame" x="13" y="32.666666666666664" width="379" height="25"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVP-3L-P8o">
                                                     <rect key="frame" x="0.0" y="0.0" width="120" height="25"/>
@@ -136,7 +136,7 @@
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aI9-m9-atz">
-                                                    <rect key="frame" x="181" y="0.0" width="68" height="25"/>
+                                                    <rect key="frame" x="178.33333333333334" y="0.0" width="68" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="5" maxY="0.0"/>
@@ -145,7 +145,7 @@
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Q3-8M-aPO">
-                                                    <rect key="frame" x="309.66666666666669" y="0.0" width="74.333333333333314" height="25"/>
+                                                    <rect key="frame" x="304.66666666666669" y="0.0" width="74.333333333333314" height="25"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
                                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="5" maxY="0.0"/>
@@ -160,12 +160,12 @@
                                     <constraints>
                                         <constraint firstItem="kOh-LL-9oy" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="DRF-E3-mto"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="leading" secondItem="f1d-cl-SEY" secondAttribute="leading" id="Grd-0D-FIi"/>
-                                        <constraint firstAttribute="trailing" secondItem="kOh-LL-9oy" secondAttribute="trailing" constant="15" id="Q3u-dM-AuV"/>
+                                        <constraint firstAttribute="trailing" secondItem="kOh-LL-9oy" secondAttribute="trailing" constant="22" id="Q3u-dM-AuV"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" id="Ru7-f1-dFd"/>
                                         <constraint firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" constant="14" id="XnO-xZ-lb1"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="leading" secondItem="0ds-kQ-Fq4" secondAttribute="trailing" constant="20" id="ZfA-4O-6Rm"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="b6B-aO-PTb"/>
-                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="15" id="faf-4J-V78"/>
+                                        <constraint firstItem="kOh-LL-9oy" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="13" id="faf-4J-V78"/>
                                         <constraint firstItem="f1d-cl-SEY" firstAttribute="top" secondItem="0ds-kQ-Fq4" secondAttribute="top" constant="-3" id="pVr-za-mAo"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="leading" secondItem="xsC-d5-U8J" secondAttribute="leading" constant="15" id="sOs-nW-lS7"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="bottom" secondItem="0ds-kQ-Fq4" secondAttribute="bottom" id="xnM-co-fMO"/>
