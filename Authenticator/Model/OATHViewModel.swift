@@ -298,7 +298,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
-                self.calculateAll()
+                credential.issuer = issuer
+                credential.account = account
+                self.onUpdate(credential: credential)
             }
         }
     }
@@ -362,22 +364,20 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func emulateSomeRecords() {
-        let credential = Credential(account: "account@gmail.com", issuer: "Google", code: "061361", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        credential.setupTimerObservation()
-        self._credentials.append(credential)
+        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "061361", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential2 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.2.6", code: "778725", keyVersion: YKFVersion(string: "5.2.6"))
+        let credential3 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(string: "5.4.2"))
+        let credential4 = Credential(account: "account@yubico.com", issuer: "Yubico", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
+        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "453322", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential6 = Credential(account: "account@dropbox.com", issuer: "Dropbox", code: "552134", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential7 = Credential(type: .HOTP, account: "hotp@yubico.com", issuer: "HOTP", code: "343344", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential8 = Credential(account: "account@tesla.com", issuer: "Tesla", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
         
-        let credential2 = Credential(account: "account@gmail.com", issuer: "Facebook", code: "778725", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        credential2.setupTimerObservation()
-        self._credentials.append(credential2)
-        
-        let credential4 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        credential4.setupTimerObservation()
-        self._credentials.append(credential4)
-        
-        let credential3 = Credential(account: "account@outlook.com", issuer: "Microsoft", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        credential3.setupTimerObservation()
-        self._credentials.append(credential3)
-        self.delegate?.onOperationCompleted(operation: .calculateAll)
+        credentials.forEach { credential in
+            credential.setupTimerObservation()
+        }
+        let credentials = [credential1, credential2, credential3, credential4, credential5, credential6, credential7, credential8]
+        self.onUpdate(credentials: credentials)
     }
 }
 
@@ -639,16 +639,16 @@ extension OATHViewModel {
         return self.favorites.contains(credential.uniqueId)
     }
     
-    func addFavorite(credential: Credential) -> IndexPath {
+    func addFavorite(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
-        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
+        calculateAll()
     }
     
-    func removeFavorite(credential: Credential) -> IndexPath {
+    func removeFavorite(credential: Credential) {
         self.favorites.remove(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
-        return IndexPath(row: self.credentials.firstIndex { $0 == credential } ?? 0, section: 0)
+        calculateAll()
     }
 }
 

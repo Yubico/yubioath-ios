@@ -39,7 +39,7 @@ class Credential: NSObject {
      The Issuer of the credential as defined in the Key URI Format specifications:
      https://github.com/google/google-authenticator/wiki/Key-Uri-Format
      */
-    let issuer: String?
+    @objc dynamic var issuer: String?
     
     /*!
      The validity period for a TOTP code, in seconds. The default value for this property is 30.
@@ -51,7 +51,7 @@ class Credential: NSObject {
      The account name extracted from the label. If the label does not contain the issuer, the
      name is the same as the label.
      */
-    let account: String
+    @objc dynamic var account: String
     
     
     let requiresTouch: Bool
@@ -261,5 +261,22 @@ class Credential: NSObject {
         case calculating
         case expired
         case active
+    }
+}
+
+extension Credential {
+    var formattedName: String {
+        return issuer?.isEmpty == false ? "\(issuer!) (\(account))" : account
+    }
+    
+    var formattedCode: String {
+        var otp = self.code.isEmpty ? "******" : self.code
+        if self.isSteam {
+            return otp
+        } else {
+            // make it pretty by splitting in halves
+            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
+            return otp
+        }
     }
 }
