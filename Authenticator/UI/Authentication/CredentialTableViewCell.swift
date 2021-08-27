@@ -20,74 +20,28 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var actionIcon: UIImageView!
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    @IBOutlet weak var blurView: UIVisualEffectView!
-    @IBOutlet weak var generateCodeButton: UIButton!
-    @IBOutlet weak var copyCodeButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var contextMenuView: UIView!
-    
     @IBOutlet weak var favoriteIcon: UIImageView!
     
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
     private var otpObservation: NSKeyValueObservation?
     private var progressObservation: NSKeyValueObservation?
+    private var issuerObservation: NSKeyValueObservation?
+    private var accountObservation: NSKeyValueObservation?
 
     private var credentialIconColor: UIColor = .primaryText
     
-    private var bag = [Cancellable]()
-    private var originalTitleFont: UIFont!
-    private var originalTitleColor: UIColor!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        originalTitleFont = generateCodeButton.titleLabel!.font
-        originalTitleColor = generateCodeButton.currentTitleColor
         prepareForReuse()
         activityIndicator.startAnimating()
-        bag.append(closeButton.addHandler(for: .touchUpInside) {
-            self.setSelected(false, animated: true)
-        })
-        bag.append(copyCodeButton.addHandler(for: .touchUpInside) {
-            if let credential = self.credential {
-                self.viewModel.copyToClipboard(credential: credential)
-            }
-            self.setSelected(false, animated: true)
-        })
-        bag.append(generateCodeButton.addHandler(for: .touchUpInside) {
-            if let credential = self.credential {
-                self.viewModel.calculate(credential: credential)
-            }
-        })
     }
     
     override func prepareForReuse() {
-        blurView.effect = nil
         actionIcon.isHidden = true
         favouriteIcon.isHidden = true
         progress.isHidden = true
         activityIndicator.isHidden = true
-        contextMenuView.alpha = 0
-        generateCodeButton.alpha = 1
-        copyCodeButton.alpha = 0
-        closeButton.alpha = 1.0
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        print("setSelected \(selected) for \(self.credential!.account)")
-        if selected {
-            UIView.animate(withDuration: 0.5) {
-                self.blurView.effect = UIBlurEffect(style: .light)
-                self.contextMenuView.alpha = 1.0
-            }
-        } else {
-            UIView.animate(withDuration: 0.3) {
-                self.blurView.effect = nil
-                self.contextMenuView.alpha = 0
-            }
-        }
     }
     
     // this method is invoked when table view reloaded and UI got data/list of credentials
@@ -151,10 +105,24 @@ class CredentialTableViewCell: UITableViewCell {
                 self?.refreshProgress()
             }
         })
+        accountObservation = observe(\.credential?.account, options: [], changeHandler: { (object, change) in
+            DispatchQueue.main.async { [weak self] in
+                self?.refreshName()
+            }
+        })
+        issuerObservation = observe(\.credential?.issuer, options: [], changeHandler: { (object, change) in
+            DispatchQueue.main.async { [weak self] in
+                self?.refreshName()
+            }
+        })
     }
 
-
     // MARK: - UI Refresh
+    func refreshName() {
+        guard let credential = self.credential else { return }
+        name.text = credential.formattedName
+    }
+    
     func refreshProgress() {
         guard let credential = self.credential else {
             return
@@ -187,42 +155,7 @@ class CredentialTableViewCell: UITableViewCell {
         guard let credential = self.credential else {
             return
         }
-
-        var otp = credential.code.isEmpty ? "******" : credential.code
-        if credential.isSteam {
-            self.code.text = otp
-        } else {
-            // make it pretty by splitting in halves
-            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
-            self.code.text = otp
-        }
-        
-        generateCodeButton.setTitle(credential.code.isEmpty ? "Generate" : otp, for: .normal)
-        
-        if credential.code.isEmpty || credential.type == .HOTP {
-            generateCodeButton.tintColor = originalTitleColor
-            generateCodeButton.setTitleColor(originalTitleColor, for: .normal)
-            generateCodeButton.titleLabel?.font = originalTitleFont
-            generateCodeButton.isEnabled = true
-            generateCodeButton.imageView?.alpha = 1.0
-        } else {
-            generateCodeButton.tintColor = .black
-            generateCodeButton.setTitleColor(.black, for: .normal)
-            generateCodeButton.titleLabel?.font = originalTitleFont?.withSize(originalTitleFont.pointSize + 4)
-            generateCodeButton.isEnabled = false
-            generateCodeButton.imageView?.alpha = 0.3
-        }
-        
-        if credential.type == .HOTP && !credential.code.isEmpty {
-            generateCodeButton.titleLabel?.font = originalTitleFont?.withSize(originalTitleFont.pointSize + 4)
-        }
-        
-        if !credential.code.isEmpty {
-            copyCodeButton.alpha = 1.0
-            copyCodeButton.isEnabled = true
-        } else {
-            copyCodeButton.alpha = 0.3
-            copyCodeButton.isEnabled = false
-        }
+        let otp = credential.formattedCode
+        self.code.text = otp
     }
 }

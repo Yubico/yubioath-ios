@@ -15,6 +15,8 @@ class OATHViewController: UITableViewController {
     var passwordCache = PasswordCache()
     let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
+    var detailView: OATHCodeDetailsView?
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     private var searchBar = UISearchBar()
@@ -197,108 +199,23 @@ class OATHViewController: UITableViewController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        tableView.deselectRow(at: indexPath, animated: true)
-//        if let cell = tableView.cellForRow(at: indexPath) as? CredentialTableViewCell {
-//                        
-//        }
-//        
-//        
-//        
-//        if indexPath.section == 0 {
-//            let credential = viewModel.credentials[indexPath.row]
-//            if credential.code.isEmpty || credential.type == .HOTP && credential.activeTime > 10 || credential.remainingTime <= 0 {
-//                print("Calculate OTP")
-//                viewModel.calculate(credential: credential)
-//            } else {
-//                print("Copy OTP")
-//                viewModel.copyToClipboard(credential: credential)
-//            }
-//        }
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 {
+            let credential = viewModel.credentials[indexPath.row]
+            let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
+            let rect = tableView.rectForRow(at: indexPath)
+            details.present(from: CGPoint(x: rect.midX, y: rect.midY))
+            self.detailView = details
+        }
+    }
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
 
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let credential = self.viewModel.credentials[indexPath.row]
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
-             // Delete the row from the data source
-             // show warning that user will delete credential to prevent accident removals
-             // we also won't update UI until
-             // the actual removal happen (for example when user tapped key over NFC)
-             let name = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
-             self.showWarning(title: "Delete \(name)?", message: "This will permanently delete the credential from the YubiKey, and your ability to generate codes for it", okButtonTitle: "Delete") { [weak self] () -> Void in
-                 self?.viewModel.deleteCredential(credential: credential)
-            }
-        }
-        deleteAction.image = UIImage(nameOrSystemName: "trash")
-        deleteAction.backgroundColor = UIColor(named: "Color1")
-
-        var editAction: UIContextualAction? = nil
-        if credential.keyVersion >= YKFVersion(bytes: 5, minor: 3, micro: 0)  {
-            editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, handler in
-                self.performSegue(withIdentifier: .editCredential, sender: credential)
-                handler(true)
-            }
-            editAction?.image = UIImage(nameOrSystemName: "square.and.pencil")
-            editAction?.backgroundColor = UIColor(named: "Color18")
-        }
-        
-        let configuration = UISwipeActionsConfiguration(actions: [editAction, deleteAction].compactMap { $0 })
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
-    }
-    
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let credential = self.viewModel.credentials[indexPath.row]
-        var action = UIContextualAction()
-        if self.viewModel.isFavorite(credential: credential) {
-            // Remove credential from the set of Favorites.
-            action = UIContextualAction(style: .normal, title: "Remove from Favorites") { [weak self] _, _, _ in
-                guard let self = self else {
-                    return
-                }
-                let destinationIndexPath = self.viewModel.removeFavorite(credential: credential)
-                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
-            }
-
-            action.image = UIImage(nameOrSystemName: "star")
-        } else {
-            // Add credential to the set of Favorites.
-            action = UIContextualAction(style: .normal, title: "Add to Favorites") { [weak self] _, _, _ in
-                guard let self = self else {
-                    return
-                }
-                let destinationIndexPath = self.viewModel.addFavorite(credential: credential)
-                self.animateAction(indexPath: indexPath, destinationIndexPath: destinationIndexPath)
-            }
-            
-            action.backgroundColor = UIColor(named: "Favorite")
-            action.image = UIImage(nameOrSystemName: "star.fill")
-        }
-        
-        let configuration = UISwipeActionsConfiguration(actions: [action])
-        configuration.performsFirstActionWithFullSwipe = true
-        return configuration
-    }
-    
-    // Animation for moving row when pin/unpin favorites to/from the top.
-    private func animateAction(indexPath: IndexPath, destinationIndexPath: IndexPath) {
-        tableView.performBatchUpdates({ () -> Void in
-            tableView.deleteRows(at: [indexPath], with: .right)
-            tableView.insertRows(at: [destinationIndexPath], with: .right)
-       }, completion: { [weak self] (finished) -> Void in
-            self?.tableView.reloadData()
-       })
-    }
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
