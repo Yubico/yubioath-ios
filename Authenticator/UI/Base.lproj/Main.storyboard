@@ -1043,20 +1043,19 @@
             </objects>
             <point key="canvasLocation" x="1305.7971014492755" y="-473.4375"/>
         </scene>
-        <!--Setup smart card-->
+        <!--Smart card (PIV) extension-->
         <scene sceneID="tIY-Rn-mT4">
             <objects>
                 <tableViewController id="t28-TG-awK" customClass="SmartCardConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tmI-8c-SSH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="tmI-8c-SSH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="t28-TG-awK" id="ZDa-4v-tvB"/>
                             <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Setup smart card" id="fl4-8d-lD9"/>
+                    <navigationItem key="navigationItem" title="Smart card (PIV) extension" id="fl4-8d-lD9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="juD-9u-B52" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

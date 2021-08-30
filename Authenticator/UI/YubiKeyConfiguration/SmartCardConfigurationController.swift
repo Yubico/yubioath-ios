@@ -15,6 +15,7 @@ class SmartCardConfigurationController: UITableViewController {
     let viewModel = SmartCardViewModel()
     var certificates: [SmartCardViewModel.Certificate]? = nil
     var tokens = [SecCertificate]()
+    let headerView = TableHeaderView()
     
     deinit {
         print("deinit SmartCardAuthController")
@@ -23,12 +24,12 @@ class SmartCardConfigurationController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.sectionHeaderHeight = UITableView.automaticDimension;
-        tableView.estimatedSectionHeaderHeight = 80
         tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         tableView.register(CertificateCell.self, forCellReuseIdentifier: "CertificateCell")
         tableView.register(MessageCell.self, forCellReuseIdentifier: "MessageCell")
+        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
 
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             let refreshControl = UIRefreshControl()
@@ -43,7 +44,10 @@ class SmartCardConfigurationController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableView.setupCustomHeaderView()
+        tableView.tableHeaderView = headerView
+        NSLayoutConstraint.activate([
+            headerView.widthAnchor.constraint(equalTo: tableView.widthAnchor)
+        ])
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
@@ -71,6 +75,7 @@ class SmartCardConfigurationController: UITableViewController {
                 self.tokens = tokens
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.headerView.status = tokens.count > 0 ? .enabled : .notEnabled
                 }
             case .failure(let error):
                 print(error)
@@ -106,27 +111,14 @@ class SmartCardConfigurationController: UITableViewController {
         return 2
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 55)
-        let image = UIImage(systemName: section == 0 ? "lock.circle.fill" : "key", withConfiguration: configuration)?.rotate(degrees: section == 0 ? 0 : -90)?.withTintColor(.yubiBlue)
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        
-        let header = UILabel()
-        header.text = section == 0 ? "CERTIFICATES ON YUBIKEY" : "PUBLIC KEY CERTIFICATES ON IPHONE"
-        header.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        header.textColor = .secondaryLabel
-
-        let stack = UIStackView(arrangedSubviews: [imageView, header])
-        stack.axis = .vertical
-        stack.spacing = 25
-        stack.isLayoutMarginsRelativeArrangement = true
-        stack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 35, leading: 15, bottom: 10, trailing: 15)
-        return stack
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
+                cell.type = .onYubiKey
+                return cell
+            }
+            
             guard let certificates = certificates else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
                 cell.message = "Insert YubiKey or pull down to activate NFC"
@@ -139,7 +131,7 @@ class SmartCardConfigurationController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
-                let certificate = certificates[indexPath.row]
+                let certificate = certificates[indexPath.row - 1]
                 cell.name = "\(certificate.certificate.commonName ?? "No name")  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
                 if !tokens.contains(certificate.certificate) {
                      cell.action = { [weak self] in
@@ -152,13 +144,19 @@ class SmartCardConfigurationController: UITableViewController {
                 return cell
             }
         } else {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
+                cell.type = .onDevice
+                return cell
+            }
+            
             if tokens.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
                 cell.message = "No public key certificates in keychain"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
-                let token = tokens[indexPath.row]
+                let token = tokens[indexPath.row - 1]
                 cell.name = token.commonName
                 cell.setSymbol(symbol: "minus.circle")
                 cell.action = { [weak self] in
@@ -172,7 +170,83 @@ class SmartCardConfigurationController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let rows = section == 0 ? certificates?.count ?? 0 : tokens.count
-        return rows == 0 ? 1 : rows
+        return (rows == 0 ? 1 : rows) + 1
+    }
+}
+
+private class HeaderCell: UITableViewCell {
+    enum `Type` {
+        case onYubiKey
+        case onDevice
+    }
+    
+    var type: Type {
+        willSet {
+            let configuration = UIImage.SymbolConfiguration(pointSize: 55)
+            switch newValue {
+            case .onYubiKey:
+                icon.image = UIImage(systemName: "lock.circle.fill", withConfiguration: configuration)
+                title.text = "Certificates on YubiKey".uppercased()
+                text.text = "This extension enables other applications to use certificates stored on YubiKeys to authenticate or sign requests."
+            case .onDevice:
+                icon.image = UIImage(systemName: "key", withConfiguration: configuration)?.rotate(degrees: 90)?.withTintColor(.yubiBlue)
+                title.text = "Public key certificates on iPhone".uppercased()
+                text.text = "A certificate on the YubiKey need its corresponding public certificate to be installed to the iPhone below."
+            }
+        }
+    }
+
+    let title: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    let text: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.font = label.font.withSize(label.font.pointSize - 2)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let icon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .yubiBlue
+        return imageView
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        self.type = .onYubiKey
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.addSubview(icon)
+        self.contentView.addSubview(title)
+        self.contentView.addSubview(text)
+
+        NSLayoutConstraint.activate([
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            icon.heightAnchor.constraint(equalToConstant: 50),
+            icon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15),
+            title.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            title.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
+            text.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
+            text.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+        ])
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -277,31 +351,67 @@ private class CertificateCell: UITableViewCell {
     }
 }
 
-
-extension UITableView {
-    func setupCustomHeaderView() {
-        let headerView = UIView()
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-
-        let text = UILabel()
-        text.translatesAutoresizingMaskIntoConstraints = false
-        text.numberOfLines = 0
-        text.font = .preferredFont(forTextStyle: .subheadline)
-        text.textColor = .secondaryLabel
-        text.lineBreakMode = .byWordWrapping
-        text.text = "This extension enables other applications to use certificates stored on YubiKeys to authenticate or sign requests. A certificate on the YubiKey need its corresponding public certificate to be installed to the iPhone below."
-        
-        headerView.addSubview(text)
+class TableHeaderView: UIView {
+    
+    private var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private var label: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(imageView)
+        self.addSubview(label)
         NSLayoutConstraint.activate([
-            text.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant:15),
-            text.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
-            text.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 40),
-            text.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
+            imageView.heightAnchor.constraint(equalToConstant: 50),
+            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
+            label.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
+            label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
+            self.widthAnchor.constraint(equalToConstant: 200)
         ])
         
-        self.tableHeaderView = headerView
-        NSLayoutConstraint.activate([
-            headerView.widthAnchor.constraint(equalTo: self.widthAnchor)
-        ])
+        defer {
+            status = .notEnabled
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    enum Status {
+        case enabled
+        case notEnabled
+    }
+    
+    var status: Status = .notEnabled {
+        didSet {
+            let configuration = UIImage.SymbolConfiguration(pointSize: 55)
+            switch status {
+            case .notEnabled:
+                imageView.image = UIImage(systemName: "minus.circle.fill", withConfiguration: configuration)
+                imageView.tintColor = .secondaryLabel
+                label.text = "Not Enabled".uppercased()
+            case .enabled:
+                imageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
+                imageView.tintColor = UIColor(named: "Color11")
+                label.text = "Enabled".uppercased()
+            }
+        }
     }
 }
