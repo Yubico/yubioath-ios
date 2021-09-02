@@ -33,7 +33,7 @@ class SetPasswordViewController: UITableViewController {
     }
     
     func dismiss() {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "unwindToParent", sender: self)
     }
     
     @IBAction func savePassword(_ sender: Any) {
