@@ -21,11 +21,18 @@ class OATHConfigurationController: UITableViewController {
     var passwordPreferences = PasswordPreferences()
     var secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     
+    var resetViewModel: ResetOATHViewModel?
+    
     deinit {
         print("Deinit OATHConfigurationController")
     }
     
+    @IBAction func unwind( _ seg: UIStoryboardSegue) {
+        start()
+    }
+    
     func start() {
+        resetViewModel = nil
         passwordConfigurationViewModel = nil
         passwordStatus = .unknown
         passwordStatusViewModel = PasswordStatusViewModel()
@@ -75,8 +82,9 @@ class OATHConfigurationController: UITableViewController {
                 self?.removeYubiKeyPassword(currentPassword: nil)
             }
         case (1, 0):
-            let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
-            self.present(alert, animated: true, completion: nil)
+            self.showWarning(title: "Reset YubiKey?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
+                self?.resetOATH()
+            }
         case (2, 0):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
@@ -149,5 +157,25 @@ class OATHConfigurationController: UITableViewController {
             })
         }
     }
+    
+    private func resetOATH() {
+        pause()
+        Thread.sleep(forTimeInterval: TimeInterval(0.1)) // This is a kludge to let the delegates switch to the correct one
+        resetViewModel = ResetOATHViewModel()
+        resetViewModel?.reset { result in
+            DispatchQueue.main.async {
+                self.start()
+                switch result {
+                case .success(let message):
+                    if let message = message {
+                        self.showAlertDialog(title: "Reset complete", message: message)
+                    }
+                case .failure(let error):
+                    if let message = error {
+                        self.showAlertDialog(title: "Failed to reset YubiKey", message: message)
+                    }
+                }
+            }
+        }
+    }
 }
-
