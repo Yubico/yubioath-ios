@@ -63,7 +63,7 @@ class OATHConfigurationController: UITableViewController {
         if cell == removePasswordTableCell && self.passwordStatus == .noPassword {
             return 0
         } else {
-            return 42
+            return UITableView.automaticDimension
         }
     }
     
@@ -77,17 +77,17 @@ class OATHConfigurationController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
-        case (0, 1):
+        case (0, 2):
             self.showWarning(title: "Remove password", message: "Remove password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
                 self?.removeYubiKeyPassword(currentPassword: nil)
             }
-        case (1, 0):
-            self.showWarning(title: "Reset YubiKey?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
-                self?.resetOATH()
-            }
-        case (2, 0):
+        case (1, 1):
             self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
+            }
+        case (2, 1):
+            self.showWarning(title: "Reset YubiKey?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
+                self?.resetOATH()
             }
         default:
             break
