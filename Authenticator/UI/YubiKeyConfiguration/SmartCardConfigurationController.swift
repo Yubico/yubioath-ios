@@ -182,14 +182,14 @@ private class HeaderCell: UITableViewCell {
     
     var type: Type {
         willSet {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 55)
+            let configuration = UIImage.SymbolConfiguration(pointSize: 60)
             switch newValue {
             case .onYubiKey:
-                icon.image = UIImage(systemName: "lock.circle.fill", withConfiguration: configuration)
+                icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
                 title.text = "Certificates on YubiKey".uppercased()
                 text.text = "This extension enables other applications to use certificates stored on YubiKeys to authenticate or sign requests."
             case .onDevice:
-                icon.image = UIImage(systemName: "key", withConfiguration: configuration)?.rotate(degrees: 90)?.withTintColor(.yubiBlue)
+                icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
                 title.text = "Public key certificates on iPhone".uppercased()
                 text.text = "A certificate on the YubiKey need its corresponding public certificate to be installed to the iPhone below."
             }
@@ -210,7 +210,7 @@ private class HeaderCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .secondaryLabel
-        label.font = label.font.withSize(label.font.pointSize - 2)
+        label.font = UIFont.preferredFont(forTextStyle: .callout)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
@@ -233,7 +233,7 @@ private class HeaderCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            icon.heightAnchor.constraint(equalToConstant: 50),
+            icon.heightAnchor.constraint(equalToConstant: 60),
             icon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15),
             title.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
@@ -241,7 +241,7 @@ private class HeaderCell: UITableViewCell {
             text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             text.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             text.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            text.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
         ])
     }
     
@@ -273,10 +273,10 @@ private class MessageCell: UITableViewCell {
         contentView.addSubview(messageLabel)
         NSLayoutConstraint.activate([
             messageLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 45),
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
+            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:10),
             messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
     }
     
@@ -329,7 +329,7 @@ private class CertificateCell: UITableViewCell {
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:10),
             stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
