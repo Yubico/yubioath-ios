@@ -233,7 +233,7 @@ private class HeaderCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            icon.heightAnchor.constraint(equalToConstant: 60),
+            icon.heightAnchor.constraint(equalToConstant: 45),
             icon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15),
             title.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
