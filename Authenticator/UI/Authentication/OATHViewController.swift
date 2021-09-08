@@ -116,9 +116,9 @@ class OATHViewController: UITableViewController {
         // For every new FRE or 'What's New' in the future releases we're going to increment .freVersion and .whatsNewVersion by 1.
         if .freVersion > SettingsConfig.lastFreVersionShown {
             self.performSegue(withIdentifier: .startTutorial, sender: self)
-        } else if .whatsNewVersion > SettingsConfig.lastWhatsNewVersionShown {
+        }/* else if .whatsNewVersion > SettingsConfig.lastWhatsNewVersionShown {
             self.performSegue(withIdentifier: "ShowWhatsNew", sender: self)
-        }
+        }*/
     }
     
     override func viewDidAppear(_ animated: Bool) {

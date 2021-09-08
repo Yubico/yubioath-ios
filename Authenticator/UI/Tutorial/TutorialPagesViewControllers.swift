@@ -38,7 +38,3 @@ class TutorialNFCViewController: UIViewController {
 class TutorialQRViewController: UIViewController {
     static let identifier = "FreQRViewController"
 }
-
-class TutorialFavoritesViewController: UIViewController {
-    static let identifier = "FreFavoritesViewController"
-}
