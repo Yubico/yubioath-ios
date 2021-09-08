@@ -41,10 +41,6 @@ class TutorialViewController: UIPageViewController {
             viewControllers.append(self.createViewController(withIdentifier: TutorialQRViewController.identifier))
         }
         
-        if userFreVersion < 2 {
-            viewControllers.append(self.createViewController(withIdentifier: TutorialFavoritesViewController.identifier))
-        }
-        
         return viewControllers.compactMap { $0 }
     }()
     
