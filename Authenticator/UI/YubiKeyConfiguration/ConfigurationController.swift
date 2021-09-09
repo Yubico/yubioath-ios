@@ -17,7 +17,10 @@ class ConfigurationController: UITableViewController {
     @IBOutlet weak var firmwareVersionLabel: UILabel!
     @IBOutlet weak var deviceTypeLabel: UILabel!
     @IBOutlet weak var insertYubiKeyLabel: UILabel!
-    @IBOutlet weak var deviceInfoContainerView: UIView!
+    
+    @IBOutlet weak var keyPlaceholderImage: UIImageView!
+    @IBOutlet weak var keyImage: UIImageView!
+//    @IBOutlet weak var deviceInfoContainerView: UIView!
     
     let infoViewModel = YubiKeyInformationViewModel()
     
@@ -49,22 +52,33 @@ class ConfigurationController: UITableViewController {
         self.refreshControl = refreshControl
         infoViewModel.deviceInfo { [weak self] result in
             DispatchQueue.main.async {
-                self?.deviceInfoContainerView.isHidden = true
+                guard let result = result else { self?.reset(); return }
                 self?.insertYubiKeyLabel.isHidden = false
-                guard let result = result else { return }
                 switch result {
                 case .success(let info):
-                    self?.deviceInfoContainerView.isHidden = false
+                    self?.keyPlaceholderImage.isHidden = true
+                    self?.keyImage.image = info.deviceImage
+                    self?.keyImage.isHidden = false
                     self?.insertYubiKeyLabel.isHidden = true
                     self?.serialNumberLabel.text = "\(info.serialNumber)"
                     self?.deviceTypeLabel.text = info.deviceName
                     self?.firmwareVersionLabel.text = info.version.description
                 case .failure(let error):
+                    self?.reset()
                     let alert = UIAlertController(title: "Error reading YubiKey", message: error.localizedDescription) { }
                     self?.present(alert, animated: true, completion: nil)
                 }
             }
         }
+    }
+    
+    func reset() {
+        self.keyPlaceholderImage.isHidden = false
+        self.keyImage.isHidden = true
+        self.insertYubiKeyLabel.isHidden = false
+        self.serialNumberLabel.text = "N/A"
+        self.deviceTypeLabel.text = "N/A"
+        self.firmwareVersionLabel.text = "N/A"
     }
     
     @objc func startNFC() {
@@ -99,6 +113,19 @@ extension YKFManagementDeviceInfo {
             return "YubiKey 5Ci"
         default:
             return "Unknown key"
+        }
+    }
+    
+    var deviceImage: UIImage? {
+        switch formFactor {
+        case .usbaKeychain:
+            return UIImage(named: "yk5nfc")
+        case .usbcKeychain:
+            return UIImage(named: "yk5cnfc")
+        case .usbcLightning:
+            return UIImage(named: "yk5ci")
+        default:
+            return nil
         }
     }
 }
