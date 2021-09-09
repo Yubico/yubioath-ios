@@ -413,7 +413,7 @@ class OATHViewController: UITableViewController {
                 return UIImage(nameOrSystemName: "exclamationmark.circle")
            default:
                 // YubiKey image
-                return UIImage(named: "InsertKey")
+                return UIImage(named: "yubikey")
         }
     }
     
