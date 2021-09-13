@@ -214,7 +214,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
             self.container.alpha = 1
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
             self.codeLabelTopConstraint?.constant = 20
             self.codeLabel.applyTransform(withScale: 1, anchorPoint: CGPoint(x: 0, y: 0.5))
@@ -228,26 +228,23 @@ class OATHCodeDetailsView: UIVisualEffectView {
             self.containerTopConstraint?.constant = 200
             self.containerHeightConstraint.constant = 160
             self.layoutIfNeeded()
-        } completion: { _ in
-            UIView.animate(withDuration: 0.2) {
-                self.progress.alpha = self.credential.type == .TOTP ? 1 : 0
-            }
         }
 
-        UIView.animate(withDuration: 0.15, delay: 0.2, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.1, delay: 0.15, options: .curveEaseInOut) {
+            self.progress.alpha = self.credential.type == .TOTP ? 1 : 0
             self.menu.transform = .identity
             self.menu.alpha = 1
         }
     }
     
     @objc func dismiss() {
-        UIView.animate(withDuration: 0.1, delay: 0.25) {
+        UIView.animate(withDuration: 0.1, delay: 0.15, options: .curveEaseOut) {
             self.container.alpha = 0
         } completion: { _ in
             self.removeFromSuperview()
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.effect = nil
             self.containerTopConstraint?.constant = self.containerOrigin
             self.containerHeightConstraint.constant = 88
@@ -323,7 +320,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
     
     func refreshName() {
         nameLabel.text = credential.formattedName
-        nameLabel.sizeToFit()
     }
     
     func refreshCode() {
@@ -332,6 +328,9 @@ class OATHCodeDetailsView: UIVisualEffectView {
         let otp = credential.formattedCode
         self.codeLabel.text = otp
         self.codeLabel.textColor = credential.code.isEmpty ? .secondaryLabel : .label
+        layoutIfNeeded()
+        self.codeLabel.applyTransform(withScale: 1, anchorPoint: CGPoint(x: 0, y: 0.5))
+        self.codeLabelLeftConstraint?.constant = (self.container.frame.width - self.codeLabel.frame.width) / 2
     }
 }
 
