@@ -15,7 +15,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
     var containerTopConstraint: NSLayoutConstraint?
     var codeLabelLeftConstraint: NSLayoutConstraint?
     var codeLabelTopConstraint: NSLayoutConstraint?
-    var codeLabelCenterConstraint: NSLayoutConstraint?
     var nameLabelLeftConstraint: NSLayoutConstraint?
     var nameLabelTopConstraint: NSLayoutConstraint?
     var nameLabelCenterConstraint: NSLayoutConstraint?
@@ -52,8 +51,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
     var codeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle).withSize(40)
-        label.transform = CGAffineTransform(scaleX: 0.55, y: 0.55)
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle).withSize(45)
         return label
     }()
     var nameLabel: UILabel = {
@@ -156,10 +154,8 @@ class OATHCodeDetailsView: UIVisualEffectView {
 
         self.containerTopConstraint = container.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0)
         
-        self.codeLabelTopConstraint = codeLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 8)
-        self.codeLabelLeftConstraint = codeLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 17)
-        self.codeLabelCenterConstraint = codeLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
-        self.codeLabelCenterConstraint?.priority = .defaultLow
+        self.codeLabelTopConstraint = codeLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 5)
+        self.codeLabelLeftConstraint = codeLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 49)
         
         self.nameLabelTopConstraint = nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 49)
         self.nameLabelLeftConstraint = nameLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 50)
@@ -172,7 +168,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
                                      containerHeightConstraint,
                                      codeLabelTopConstraint,
                                      codeLabelLeftConstraint,
-                                     codeLabelCenterConstraint,
                                      nameLabelTopConstraint,
                                      nameLabelLeftConstraint,
                                      nameLabelCenterConstraint,
@@ -212,8 +207,8 @@ class OATHCodeDetailsView: UIVisualEffectView {
         refreshCode()
         refreshName()
         refreshProgress()
-
         layoutIfNeeded()
+        codeLabel.applyTransform(withScale: 0.5, anchorPoint: CGPoint(x: 0, y: 0.5))
 
         UIView.animate(withDuration: 0.1) {
             self.container.alpha = 1
@@ -221,15 +216,15 @@ class OATHCodeDetailsView: UIVisualEffectView {
         
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             self.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-            self.codeLabelLeftConstraint?.priority = .defaultLow
-            self.codeLabelCenterConstraint?.priority = .required
             self.codeLabelTopConstraint?.constant = 20
-            
+            self.codeLabel.applyTransform(withScale: 1, anchorPoint: CGPoint(x: 0, y: 0.5))
+            // The anchor point is on the middle left side so we have to calculate the margin manually
+            self.codeLabelLeftConstraint?.constant = (self.container.frame.width - self.codeLabel.frame.width) / 2
+
             self.nameLabelLeftConstraint?.priority = .defaultLow
             self.nameLabelCenterConstraint?.priority = .required
             self.nameLabelTopConstraint?.constant = 75
             
-            self.codeLabel.transform = .identity
             self.containerTopConstraint?.constant = 200
             self.containerHeightConstraint.constant = 160
             self.layoutIfNeeded()
@@ -257,10 +252,9 @@ class OATHCodeDetailsView: UIVisualEffectView {
             self.containerTopConstraint?.constant = self.containerOrigin
             self.containerHeightConstraint.constant = 88
             
-            self.codeLabel.transform = CGAffineTransform(scaleX: 0.55, y: 0.55)
-            self.codeLabelLeftConstraint?.priority = .required
-            self.codeLabelCenterConstraint?.priority = .defaultLow
-            self.codeLabelTopConstraint?.constant = 8
+            self.codeLabel.applyTransform(withScale: 0.5, anchorPoint: CGPoint(x: 0, y: 0.5))
+            self.codeLabelTopConstraint?.constant = 6
+            self.codeLabelLeftConstraint?.constant = 49
             
             self.nameLabelLeftConstraint?.priority = .required
             self.nameLabelCenterConstraint?.priority = .defaultLow
@@ -337,9 +331,16 @@ class OATHCodeDetailsView: UIVisualEffectView {
         calculateMenuAction?.isEnabled = credential.type == .HOTP || credential.code.isEmpty
         let otp = credential.formattedCode
         self.codeLabel.text = otp
-        self.codeLabel.sizeToFit()
         self.codeLabel.textColor = credential.code.isEmpty ? .secondaryLabel : .label
     }
 }
 
-
+extension UIView {
+    func applyTransform(withScale scale: CGFloat, anchorPoint: CGPoint) {
+        layer.anchorPoint = anchorPoint
+        let scale = scale != 0 ? scale : CGFloat.leastNonzeroMagnitude
+        let xPadding = 1 / scale * (anchorPoint.x - 0.5) * bounds.width
+        let yPadding = 1 / scale * (anchorPoint.y - 0.5) * bounds.height
+        transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: xPadding, y: yPadding)
+    }
+}
