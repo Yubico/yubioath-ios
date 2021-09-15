@@ -270,7 +270,7 @@ extension Credential {
     }
     
     var formattedCode: String {
-        var otp = self.code.isEmpty ? "******" : self.code
+        var otp = self.code.isEmpty ? "••••••" : self.code
         if self.isSteam {
             return otp
         } else {

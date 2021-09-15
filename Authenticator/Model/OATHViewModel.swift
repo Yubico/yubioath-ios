@@ -360,16 +360,16 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func copyToClipboard(credential: Credential) {
         // copy to clipbboard
         UIPasteboard.general.string = credential.code
-        self.delegate?.onShowToastMessage(message: "Copied to clipboard!")
+        self.delegate?.onShowToastMessage(message: "Copied to clipboard")
     }
     
     public func emulateSomeRecords() {
-        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "061361", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential2 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.2.6", code: "778725", keyVersion: YKFVersion(string: "5.2.6"))
+        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "0613", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential2 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.2.6", code: "77872544", keyVersion: YKFVersion(string: "5.2.6"))
         let credential3 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(string: "5.4.2"))
         let credential4 = Credential(account: "account@yubico.com", issuer: "Yubico", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "453322", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential6 = Credential(account: "account@dropbox.com", issuer: "Dropbox", code: "552134", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "4533224444", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential6 = Credential(account: "account@dropbox.com", issuer: "Dropbox with a loonger naaame", code: "55", keyVersion: YKFVersion(string: "5.4.2"))
         let credential7 = Credential(type: .HOTP, account: "hotp@yubico.com", issuer: "HOTP", code: "343344", keyVersion: YKFVersion(string: "5.4.2"))
         let credential8 = Credential(account: "account@tesla.com", issuer: "Tesla", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
         

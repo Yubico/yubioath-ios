@@ -37,11 +37,12 @@ class Menu: UIView {
 
         actions.forEach { action in
             let label = UILabel()
+            label.font = .preferredFont(forTextStyle: .body)
             if action.style == .destructive {
                 label.textColor = .systemRed
             }
             label.text = action.title
-            let image = action.image?.withRenderingMode(.alwaysTemplate)
+            let image = action.image?.withRenderingMode(.alwaysTemplate).withConfiguration(UIImage.SymbolConfiguration(pointSize: label.font.pointSize))
             let imageView = UIImageView(image: image)
             imageView.tintColor = label.textColor
             imageView.contentMode = .center

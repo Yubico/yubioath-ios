@@ -23,6 +23,8 @@ class OATHViewController: UITableViewController {
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
     
+    private var coverView: UIView?
+    
     private var backgroundView: UIView? {
         willSet {
             backgroundView?.removeFromSuperview()
@@ -177,7 +179,6 @@ class OATHViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.credentials.count > 0 {
             self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .singleLine
             backgroundView = nil
             return 1
         } else {
@@ -340,75 +341,39 @@ class OATHViewController: UITableViewController {
     
     // MARK: - Custom empty table view
     private func showBackgroundView() {
-        // using this background view to show on background when the table is empty
-        // this background view contains 3 parts: image, title and optionally subtitle
+        self.tableView.setContentOffset(.zero, animated: false)
         
-        let width = self.view.bounds.size.width
-        let height = self.view.bounds.size.height - 300
-        
-        let marginFromParent: CGFloat = 50.0
-        let marginFromNeighbour: CGFloat = 20.0
-        let horizontalMargin: CGFloat = width > 400 ? width * 0.4 : 20.0
-
         let backgroundView = UIView()
+        backgroundView.frame.size = tableView.frame.size
         backgroundView.center = tableView.center
-        backgroundView.frame = CGRect(x: 0, y:0, width: width, height: height)
-        
-        
-        // 1. image is in the middle of screen
+
         let imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: width/2, height:124)
-        imageView.contentMode = .scaleAspectFit
-        if let image = getBackgroundImage() {
-            imageView.image = image.withRenderingMode(.alwaysTemplate)
-        }
+        imageView.contentMode = .bottom
+        imageView.image = getBackgroundImage()?.withRenderingMode(.alwaysTemplate).withConfiguration(UIImage.SymbolConfiguration(pointSize: 100))
         imageView.tintColor = UIColor.yubiBlue
-        imageView.center = backgroundView.center
-        backgroundView.addSubview(imageView)
+        backgroundView.embedView(imageView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 140, right: 0), pinToEdges: [], layoutPriority: .defaultHigh)
         
-        // 2. title is below the image
-        let messageLabel = UILabel()
-        messageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - horizontalMargin, height:height/4)
-        messageLabel.textAlignment = NSTextAlignment.center
-        messageLabel.text = getTitle()
-        messageLabel.textColor = UIColor.secondaryText
-        messageLabel.font = messageLabel.font.withSize(CGFloat(20.0))
-        messageLabel.sizeToFit()
-
-        messageLabel.center.y = imageView.frame.maxY + messageLabel.frame.height/2 + marginFromNeighbour
-        messageLabel.center.x = backgroundView.center.x
-        backgroundView.addSubview(messageLabel)
-
-        // 3. subtitle (optional) is below the title
-        if let subtitle = getSubtitle() {
-            let secondaryMessageLabel = UILabel()
-            // setting frame here because multiple lines label requires bounds,
-            // otherwise it spreads outside of view boundaries in 1 line
-            secondaryMessageLabel.frame =  CGRect(x: marginFromParent, y: 0, width: width - horizontalMargin, height:height/4)
-            secondaryMessageLabel.textAlignment = NSTextAlignment.center
-            secondaryMessageLabel.numberOfLines = 3
-            secondaryMessageLabel.text = subtitle
-            secondaryMessageLabel.textColor = UIColor.secondaryText
-            secondaryMessageLabel.sizeToFit()
-            
-            secondaryMessageLabel.center.y = messageLabel.frame.maxY + secondaryMessageLabel.frame.height/2 + marginFromNeighbour
-            secondaryMessageLabel.center.x = backgroundView.center.x
-            backgroundView.addSubview(secondaryMessageLabel)
-        }
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.textColor = .label
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        label.text = getSubtitle()
+        backgroundView.embedView(label, edgeInsets: UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30), pinToEdges: [.left, .right])
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OATHViewController.onBackgroundClick))
         backgroundView.isUserInteractionEnabled = true
         backgroundView.addGestureRecognizer(gestureRecognizer)
 
         self.backgroundView = backgroundView
-        self.tableView.separatorStyle = .none
     }
        
     private func getBackgroundImage() -> UIImage? {
         switch viewModel.state {
             case .loaded:
                 // No accounts view
-                return UIImage(nameOrSystemName: "person.fill.badge.plus")
+                return UIImage(nameOrSystemName: "person.crop.circle.badge.plus")
             case .notSupported:
                 return UIImage(nameOrSystemName: "exclamationmark.circle")
            default:
@@ -436,10 +401,9 @@ class OATHViewController: UITableViewController {
     private func getSubtitle() -> String? {
         switch viewModel.state {
             case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil : NSLocalizedString("Pull down to refresh or activate NFC", comment: "Main view subtitle, instructions to activate NFC reader or to refresh table data.")
+                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil :"Insert YubiKey or pull down to activate NFC"
             case .loaded:
-                return viewModel.hasFilter ? NSLocalizedString("No accounts matching your search criteria.", comment: "Main view subtitle when filter is applied and has no results.")
-                    : NSLocalizedString("No accounts have been set up for this YubiKey. Tap + button to add an account.", comment: "Main view subtitle when the key doesn't have any accounts.")
+            return viewModel.hasFilter ? "No accounts matching your search criteria." : "No accounts have been set up for this YubiKey"
             case .notSupported:
                 return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a lightning port."
             default:
@@ -583,6 +547,27 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     func didEnterBackground() {
         viewModel.cleanUp()
     }
+    
+    func willResignActive() {
+        return // disable cover view until we can stop it from showing when we start nfc scanning
+        let coverView = UIView()
+        coverView.backgroundColor = .background // UIColor(named: "DetailsBackground")
+        coverView.frame.size = self.view.bounds.size
+        coverView.center = tableView.center
+        
+        let logo = UIImageView(image: UIImage(named: "LogoText"))
+
+        coverView.embedView(logo, pinToEdges: [])
+        // Add cover to superview to avoid it being offset depending of the table scroll view
+        tableView.superview?.addSubview(coverView)
+        self.coverView = coverView
+    }
+    
+    func didBecomeActive() {
+        coverView?.removeFromSuperview()
+        coverView = nil
+    }
+    
 }
 
 // MARK: - UISearchBarDelegate

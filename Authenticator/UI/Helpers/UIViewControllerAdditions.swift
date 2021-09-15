@@ -57,16 +57,17 @@ extension UIViewController {
         }
         
         // TODO: calculate width dynamically depending on message
-        let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width*3.0/4.0, height: 50.0))
+        let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width*3.0/4.0, height: 40.0))
         toastView.text = message;
         toastView.numberOfLines = 0
         toastView.lineBreakMode = .byWordWrapping
         toastView.textAlignment = .center;
-        toastView.layer.cornerRadius = 10;
+        toastView.layer.cornerRadius = 20;
         toastView.layer.masksToBounds = true;
-        toastView.textColor = UIColor.white
+        toastView.textColor = .white
+        toastView.font = .preferredFont(forTextStyle: .body)
         toastView.backgroundColor = UIColor.yubiBlue
-        toastView.center = CGPoint(x: keyWindow.center.x, y: keyWindow.bounds.height - toastView.bounds.height/2 - keyWindow.layoutMargins.bottom)
+        toastView.center = CGPoint(x: keyWindow.center.x, y: keyWindow.layoutMargins.top + 20 + toastView.frame.height / 2)
         DispatchQueue.main.async {
             keyWindow.addSubview(toastView)
             UIView.animate(withDuration: 5.0, animations: {
