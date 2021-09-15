@@ -13,12 +13,12 @@ class OATHCodeDetailsView: UIVisualEffectView {
     
     let containerHeightConstraint: NSLayoutConstraint
     var containerTopConstraint: NSLayoutConstraint?
+    var containerCenterYConstraint: NSLayoutConstraint?
     var codeLabelLeftConstraint: NSLayoutConstraint?
     var codeLabelTopConstraint: NSLayoutConstraint?
     var nameLabelLeftConstraint: NSLayoutConstraint?
     var nameLabelTopConstraint: NSLayoutConstraint?
     var nameLabelCenterConstraint: NSLayoutConstraint?
-    var containerOrigin: CGFloat = 0
 
     private var timerObservation: NSKeyValueObservation?
     private var otpObservation: NSKeyValueObservation?
@@ -117,7 +117,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
                     editController.viewModel = viewModel
                     parentViewController.present(navigationController, animated: true)
                 }
-                return MenuAction(title: "Edit", image: UIImage(systemName: "square.and.pencil"), action: action)
+                return MenuAction(title: "Rename", image: UIImage(systemName: "square.and.pencil"), action: action)
             } else {
                 return nil
             }}()
@@ -153,21 +153,29 @@ class OATHCodeDetailsView: UIVisualEffectView {
         self.contentView.addSubview(menu)
 
         self.containerTopConstraint = container.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0)
+        self.containerCenterYConstraint = container.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor, constant: -70)
+        self.containerCenterYConstraint?.priority = .defaultLow
         
         self.codeLabelTopConstraint = codeLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 5)
         self.codeLabelLeftConstraint = codeLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 49)
-        
+
+        let nameLabelRightMarginConstraint = nameLabel.rightAnchor.constraint(lessThanOrEqualTo: container.rightAnchor, constant: -20)
+        let nameLabelLeftMarginConstraint = nameLabel.leftAnchor.constraint(lessThanOrEqualTo: container.rightAnchor, constant: 20)
+
         self.nameLabelTopConstraint = nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 49)
         self.nameLabelLeftConstraint = nameLabel.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 50)
         self.nameLabelCenterConstraint = nameLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
         self.nameLabelCenterConstraint?.priority = .defaultLow
         
         NSLayoutConstraint.activate([self.containerTopConstraint,
+                                     self.containerCenterYConstraint,
                                      container.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30),
                                      container.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -30),
                                      containerHeightConstraint,
                                      codeLabelTopConstraint,
                                      codeLabelLeftConstraint,
+                                     nameLabelLeftMarginConstraint,
+                                     nameLabelRightMarginConstraint,
                                      nameLabelTopConstraint,
                                      nameLabelLeftConstraint,
                                      nameLabelCenterConstraint,
@@ -201,19 +209,18 @@ class OATHCodeDetailsView: UIVisualEffectView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismiss))
         self.contentView.addGestureRecognizer(tap)
         
-        containerOrigin = from.y + 50
-        containerTopConstraint?.constant = containerOrigin
+        containerTopConstraint?.constant = from.y + 50
         
         refreshCode()
         refreshName()
         refreshProgress()
         layoutIfNeeded()
         codeLabel.applyTransform(withScale: 0.5, anchorPoint: CGPoint(x: 0, y: 0.5))
-
+        
         UIView.animate(withDuration: 0.1) {
             self.container.alpha = 1
         }
-        
+
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
             self.codeLabelTopConstraint?.constant = 20
@@ -224,8 +231,9 @@ class OATHCodeDetailsView: UIVisualEffectView {
             self.nameLabelLeftConstraint?.priority = .defaultLow
             self.nameLabelCenterConstraint?.priority = .required
             self.nameLabelTopConstraint?.constant = 75
-            
-            self.containerTopConstraint?.constant = 200
+
+            self.containerTopConstraint?.priority = .defaultLow
+            self.containerCenterYConstraint?.priority = .required
             self.containerHeightConstraint.constant = 160
             self.layoutIfNeeded()
         }
@@ -246,7 +254,10 @@ class OATHCodeDetailsView: UIVisualEffectView {
         
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
             self.effect = nil
-            self.containerTopConstraint?.constant = self.containerOrigin
+            
+            self.containerTopConstraint?.priority = .required
+            self.containerCenterYConstraint?.priority = .defaultLow
+            
             self.containerHeightConstraint.constant = 88
             
             self.codeLabel.applyTransform(withScale: 0.5, anchorPoint: CGPoint(x: 0, y: 0.5))
@@ -281,7 +292,13 @@ class OATHCodeDetailsView: UIVisualEffectView {
         }
         otpObservation = observe(\.credential.code, options: [], changeHandler: { (object, change) in
             DispatchQueue.main.async { [weak self] in
-                self?.refreshCode()
+                guard let self = self else { return }
+                self.refreshCode()
+                self.layoutIfNeeded()
+                // Changing the code changes the frame of the label and hence the anchorpoint will be off
+                self.codeLabel.applyTransform(withScale: 1, anchorPoint: CGPoint(x: 0, y: 0.5))
+                // The anchor point is on the middle left side so we have to calculate the margin manually
+                self.codeLabelLeftConstraint?.constant = (self.container.frame.width - self.codeLabel.frame.width) / 2
             }
         })
         progressObservation = observe(\.credential.state, options: [], changeHandler: { (object, change) in
@@ -328,9 +345,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
         let otp = credential.formattedCode
         self.codeLabel.text = otp
         self.codeLabel.textColor = credential.code.isEmpty ? .secondaryLabel : .label
-        layoutIfNeeded()
-        self.codeLabel.applyTransform(withScale: 1, anchorPoint: CGPoint(x: 0, y: 0.5))
-        self.codeLabelLeftConstraint?.constant = (self.container.frame.width - self.codeLabel.frame.width) / 2
     }
 }
 
