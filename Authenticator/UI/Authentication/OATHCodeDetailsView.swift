@@ -30,7 +30,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
         let progress = PieProgressBar()
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.alpha = 0
-        progress.tintColor = .secondaryLabel
+        progress.tintColor = .placeholderText
         progress.frame.size = CGSize(width: 30, height: 30)
         return progress
     }()
@@ -76,7 +76,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
         self.containerHeightConstraint = container.heightAnchor.constraint(equalToConstant: 88)
         super.init(effect: nil)
         
-        calculateMenuAction = credential.type == .HOTP || credential.requiresTouch ? MenuAction(title: "Calculate", image: UIImage(systemName: "arrow.clockwise"), action: {
+        calculateMenuAction = credential.type == .HOTP || credential.requiresTouch || !viewModel.keyPluggedIn ? MenuAction(title: "Calculate", image: UIImage(systemName: "arrow.clockwise"), action: {
             viewModel.calculate(credential: credential)
             print("calculate")
         }) : nil
@@ -90,14 +90,14 @@ class OATHCodeDetailsView: UIVisualEffectView {
         
         let favoriteAction: MenuAction = {
             if viewModel.isFavorite(credential: credential) {
-                return MenuAction(title: "Remove favorite",
+                return MenuAction(title: "Unfavorite",
                                   image: UIImage(systemName: "star.fill"),
                                   action: { [weak self] in
                                     viewModel.removeFavorite(credential: credential)
                                     self?.dismiss()
                                   })
             } else {
-                return MenuAction(title: "Add favorite",
+                return MenuAction(title: "Favorite",
                                   image: UIImage(systemName: "star"),
                                   action: { [weak self] in
                                     viewModel.addFavorite(credential: credential)
@@ -180,7 +180,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
                                      nameLabelLeftConstraint,
                                      nameLabelCenterConstraint,
                                      menu.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0),
-                                     menu.centerYAnchor.constraint(equalTo: container.bottomAnchor, constant: 10), // Need to anchor to center since we have changed the anchorPoint
+                                     menu.centerYAnchor.constraint(equalTo: container.bottomAnchor, constant: 15), // Need to anchor to center since we have changed the anchorPoint
                                      progress.widthAnchor.constraint(equalToConstant: 30),
                                      progress.heightAnchor.constraint(equalToConstant: 30),
                                      progress.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20),
@@ -238,7 +238,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
             self.layoutIfNeeded()
         }
 
-        UIView.animate(withDuration: 0.1, delay: 0.15, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseInOut) {
             self.progress.alpha = self.credential.type == .TOTP ? 1 : 0
             self.menu.transform = .identity
             self.menu.alpha = 1
@@ -321,9 +321,11 @@ class OATHCodeDetailsView: UIVisualEffectView {
     }
     
     func refreshProgress() {
+        self.copyMenuAction.isEnabled = !credential.requiresRefresh
         if credential.state == .calculating {
             self.progress.isHidden = true
         } else if credential.type == .TOTP {
+            self.calculateMenuAction?.isEnabled = credential.requiresRefresh
             if credential.remainingTime > 0 && !credential.code.isEmpty {
                 UIView.animate(withDuration: 1) {
                     self.progress.setProgress(to: self.credential.remainingTime / Double(self.credential.period))
@@ -331,6 +333,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
             } else {
                 // keeping old value of code on screen even if it's expired already
                 self.progress.setProgress(to: Double(0.0))
+                self.codeLabel.textColor = credential.requiresRefresh ? .secondaryLabel : .label
             }
         }
     }
@@ -340,11 +343,13 @@ class OATHCodeDetailsView: UIVisualEffectView {
     }
     
     func refreshCode() {
-        copyMenuAction.isEnabled = !credential.code.isEmpty
-        calculateMenuAction?.isEnabled = credential.type == .HOTP || credential.code.isEmpty
         let otp = credential.formattedCode
         self.codeLabel.text = otp
-        self.codeLabel.textColor = credential.code.isEmpty ? .secondaryLabel : .label
+        if credential.type == .TOTP {
+            self.codeLabel.textColor = credential.requiresRefresh ? .secondaryLabel : .label
+        } else {
+            self.codeLabel.textColor = credential.code.isEmpty ? .secondaryLabel : .label
+        }
     }
 }
 

@@ -409,7 +409,7 @@ class TableHeaderView: UIView {
                 label.text = "Not Enabled".uppercased()
             case .enabled:
                 imageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
-                imageView.tintColor = UIColor(named: "Color11")
+                imageView.tintColor = .systemGreen
                 label.text = "Enabled".uppercased()
             }
         }
