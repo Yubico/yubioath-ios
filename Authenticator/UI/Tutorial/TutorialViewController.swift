@@ -71,11 +71,11 @@ class TutorialViewController: UIPageViewController {
         pageControl.pageIndicatorTintColor = .secondaryText
     }
     
-    // When it's the last page changing 'Skip' to 'Done' and disabling 'Next'.
+    // When it's the last page changing 'Skip' to 'Close' and disabling 'Next'.
     private func setNavigationBar(nextViewController: UIViewController) {
         if nextViewController == orderedViewControllers.last {
             self.nextBarButton.isEnabled = false
-            self.skipBarButton.title = "Done"
+            self.skipBarButton.title = "Close"
         } else {
             self.nextBarButton.isEnabled = true
         }

@@ -187,11 +187,11 @@ private class HeaderCell: UITableViewCell {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
                 title.text = "Certificates on YubiKey".uppercased()
-                text.text = "This extension enables other applications to use certificates stored on YubiKeys to authenticate or sign requests."
+                text.text = "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this iPhone."
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
                 title.text = "Public key certificates on iPhone".uppercased()
-                text.text = "A certificate on the YubiKey need its corresponding public certificate to be installed to the iPhone below."
+                text.text = "These certificates has been added to this iPhone and can be used by other applications."
             }
         }
     }
