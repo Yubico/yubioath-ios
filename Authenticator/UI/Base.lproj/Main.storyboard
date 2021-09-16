@@ -43,7 +43,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1d-cl-SEY">
-                                            <rect key="frame" x="282" y="15" width="76" height="30"/>
+                                            <rect key="frame" x="284" y="15" width="76" height="30"/>
                                             <subviews>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="d1h-ks-NrA" userLabel="Favourite icon">
                                                     <rect key="frame" x="2" y="0.0" width="27" height="27"/>
@@ -85,7 +85,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="8KS-av-uoB" firstAttribute="top" secondItem="xsC-d5-U8J" secondAttribute="top" constant="15" id="76j-xg-VuA"/>
-                                        <constraint firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" constant="17" id="FoU-0i-aNp"/>
+                                        <constraint firstAttribute="trailing" secondItem="f1d-cl-SEY" secondAttribute="trailing" constant="15" id="FoU-0i-aNp"/>
                                         <constraint firstItem="0ds-kQ-Fq4" firstAttribute="centerY" secondItem="xsC-d5-U8J" secondAttribute="centerY" id="Iez-9t-30g"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="top" secondItem="8KS-av-uoB" secondAttribute="bottom" constant="2" id="Py1-mq-22D"/>
                                         <constraint firstItem="ocK-d8-Mjy" firstAttribute="leading" secondItem="8KS-av-uoB" secondAttribute="leading" id="RVu-Fe-yGg"/>
@@ -116,7 +116,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Yubico Authenticator" id="Ecq-ES-9eb">
                         <rightBarButtonItems>
-                            <barButtonItem title="Menu" image="ellipsis.circle.fill" catalog="system" id="zlN-3Z-daV" userLabel="Menu"/>
+                            <barButtonItem title="Menu" image="ellipsis.circle" catalog="system" id="zlN-3Z-daV" userLabel="Menu"/>
                             <barButtonItem title="Search" image="magnifyingglass.circle" catalog="system" id="w7Y-sR-4pm">
                                 <inset key="imageInsets" minX="10" minY="0.0" maxX="-10" maxY="0.0"/>
                                 <connections>
@@ -533,7 +533,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="252.33333396911621" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="252" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -1461,7 +1461,7 @@ All rights reserved.</string>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Passwords that has been remembered on this iPhone. Clearing these will prompt for the password next time." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-vW-fFN">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-vW-fFN">
                                                     <rect key="frame" x="10" y="107" width="354" height="34"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
@@ -1591,7 +1591,7 @@ All rights reserved.</string>
         <image name="customize" width="63" height="63"/>
         <image name="deviceInfo" width="63" height="63"/>
         <image name="dot.radiowaves.forward" catalog="system" width="117" height="128"/>
-        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.rectangle" catalog="system" width="128" height="81"/>
         <image name="hand.tap.fill" catalog="system" width="115" height="128"/>
         <image name="icon" width="60" height="60"/>

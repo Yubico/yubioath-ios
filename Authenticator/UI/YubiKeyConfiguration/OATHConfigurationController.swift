@@ -73,7 +73,7 @@ class OATHConfigurationController: UITableViewController {
                 self?.removeYubiKeyPassword(currentPassword: nil)
             }
         case (1, 1):
-            self.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { [weak self] () -> Void in
+            self.showWarning(title: "Clear passwords?", message: "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.", okButtonTitle: "Clear") { [weak self] () -> Void in
                 self?.removeStoredPasswords()
             }
         case (2, 1):
@@ -143,7 +143,7 @@ class OATHConfigurationController: UITableViewController {
                 self?.dismiss(animated: true, completion: nil)
             })
         } catch let e {
-            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
+            self.showAlertDialog(title: "Failed to clear passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
         }
