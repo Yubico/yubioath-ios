@@ -44,6 +44,10 @@ import UIKit
     func setup() {
         valueLabel.textColor = .systemGray // UIColor(named: "Color18")
         self.backgroundColor = .clear
+        self.titleLabel.font = .preferredFont(forTextStyle: .body)
+        self.valueLabel.font = .preferredFont(forTextStyle: .body)
+        self.titleLabel.textColor = .label
+        self.valueLabel.textColor = .secondaryLabel
         self.addSubview(titleLabel)
         self.addSubview(valueLabel)
         self.addConstraints([self.leftAnchor.constraint(equalTo: titleLabel.leftAnchor, constant: 0),

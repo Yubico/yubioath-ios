@@ -58,7 +58,7 @@ class CredentialTableViewCell: UITableViewCell {
         }
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
-        credentialIcon.text = credential.issuer?.isEmpty == false ? String(credential.issuer!.first!).uppercased() : "Y"
+        credentialIcon.text = credential.iconLetter
         favoriteIcon.isHidden = !isFavorite
         self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
         credentialIcon.backgroundColor = self.credentialIconColor
@@ -126,27 +126,20 @@ class CredentialTableViewCell: UITableViewCell {
         guard let credential = self.credential else {
             return
         }
-        let requiresRefresh = credential.requiresRefresh
-        if credential.state == .calculating {
-            self.progress.isHidden = true
-            self.actionIcon.isHidden = true
-            self.activityIndicator.isHidden = false
-        } else if credential.type == .TOTP {
+        
+        if credential.type == .TOTP {
             if credential.remainingTime > 0 {
                 self.progress.setProgress(to: credential.remainingTime / Double(credential.period))
             } else {
                 // keeping old value of code on screen even if it's expired already
                 self.progress.setProgress(to: Double(0.0))
             }
-            self.progress.isHidden = requiresRefresh
+            self.progress.isHidden = credential.requiresRefresh
             self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
             self.activityIndicator.isHidden = true
-
-            // logic of changing color when timout expiration
-            if !credential.requiresTouch {
-                self.code.textColor = requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
-                self.credentialIcon.backgroundColor = requiresRefresh ? UIColor.secondaryText : self.credentialIconColor
-            }
+            self.code.textColor = credential.requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
+        } else if credential.type == .HOTP {
+            self.code.textColor = credential.code.isEmpty ? UIColor.secondaryText : UIColor.primaryText
         }
     }
     

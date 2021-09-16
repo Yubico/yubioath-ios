@@ -12,7 +12,6 @@ import UIKit
 class OATHConfigurationController: UITableViewController {
     
     @IBOutlet weak var removePasswordTableCell: UITableViewCell!
-    @IBOutlet weak var setPasswordTableCell: UITableViewCell!
 
     var passwordStatusViewModel: PasswordStatusViewModel? = nil
     var passwordConfigurationViewModel: PasswordConfigurationViewModel? = nil
@@ -65,14 +64,6 @@ class OATHConfigurationController: UITableViewController {
         } else {
             return UITableView.automaticDimension
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        if cell == setPasswordTableCell {
-            cell.textLabel?.text = self.passwordStatus == .noPassword ? "Set password" : "Change password"
-        }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

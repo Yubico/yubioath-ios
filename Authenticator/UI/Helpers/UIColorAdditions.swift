@@ -63,8 +63,5 @@ extension UIColor {
                                           UIColor(named: "Color13"),
                                           UIColor(named: "Color14"),
                                           UIColor(named: "Color15"),
-                                          UIColor(named: "Color16"),
-                                          UIColor(named: "Color17"),
-                                          UIColor(named: "Color18"),
-                                          UIColor(named: "Color19")]
+                                          UIColor(named: "Color16")]
 }

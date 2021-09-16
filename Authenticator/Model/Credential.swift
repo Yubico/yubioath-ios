@@ -145,7 +145,7 @@ class Credential: NSObject {
             if state == .expired || state == .idle {
                 return true
             }
-            if type == .TOTP && self.remainingTime <= 0 {
+            if type == .TOTP && self.remainingTime < -100 { // kludge of the week
                 return true
             }
             if type == .HOTP && self.activeTime > 10 {
@@ -226,7 +226,6 @@ class Credential: NSObject {
                     if !self.requiresTouch {
                         self.delegate?.calculateResultDidExpire(self)
                     } else {
-                        self.code = ""
                         self.state = .expired
                     }
 
@@ -277,6 +276,16 @@ extension Credential {
             // make it pretty by splitting in halves
             otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
             return otp
+        }
+    }
+    
+    var iconLetter: String {
+        if let issuer = issuer?.first?.uppercased() {
+            return issuer
+        } else if let account = account.first?.uppercased() {
+            return account
+        } else {
+            return "Y"
         }
     }
 }

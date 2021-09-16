@@ -18,7 +18,8 @@ class OATHViewController: UITableViewController {
     var detailView: OATHCodeDetailsView?
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+
     private var searchBar = UISearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
@@ -43,7 +44,7 @@ class OATHViewController: UITableViewController {
                 UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
                     self?.scanQR()
                 }),
-                UIAction(title: "Add manually", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
+                UIAction(title: "Add account", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
                     self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
                 })
             ])
@@ -178,10 +179,14 @@ class OATHViewController: UITableViewController {
     //
     override func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.credentials.count > 0 {
+            self.title = "Accounts"
+            self.searchButton.isEnabled = true
             self.tableView.backgroundView = nil
             backgroundView = nil
             return 1
         } else {
+            self.title = "Yubico Authenticator"
+            self.searchButton.isEnabled = false
             showBackgroundView()
             return 0
         }
@@ -359,11 +364,11 @@ class OATHViewController: UITableViewController {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
-        label.text = getSubtitle()
+        label.text = getTitle()
         backgroundView.embedView(label, edgeInsets: UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30), pinToEdges: [.left, .right])
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OATHViewController.onBackgroundClick))
-        backgroundView.isUserInteractionEnabled = true
+        backgroundView.isUserInteractionEnabled = viewModel.state == .loaded && !viewModel.hasFilter
         backgroundView.addGestureRecognizer(gestureRecognizer)
 
         self.backgroundView = backgroundView
@@ -373,7 +378,7 @@ class OATHViewController: UITableViewController {
         switch viewModel.state {
             case .loaded:
                 // No accounts view
-                return UIImage(nameOrSystemName: "person.crop.circle.badge.plus")
+            return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.crop.circle.badge.plus")
             case .notSupported:
                 return UIImage(nameOrSystemName: "exclamationmark.circle")
            default:
@@ -382,30 +387,14 @@ class OATHViewController: UITableViewController {
         }
     }
     
-    private func getTitle() -> String {
-        switch viewModel.state {
-            case .idle:
-                return viewModel.keyPluggedIn ? NSLocalizedString("Loading...", comment: "Main view title while the key plugged in and  loading data.") : NSLocalizedString("Insert your YubiKey", comment: "Main view title if the key not plugged in, asking to insert the key.")
-            case .loading:
-                return  NSLocalizedString("Loading...", comment: "Main view title while loading data.")
-            case .locked:
-                return NSLocalizedString("Authentication is required", comment: "Main view title when the key has password.")
-            case .notSupported:
-                return "Device not supported"
-            
-            default:
-                return viewModel.hasFilter ? NSLocalizedString("No accounts found", comment: "Main view title when filter is applied and has no results") : NSLocalizedString("Add accounts", comment: "Main view title when the key doesn't have any accounts.")
-        }
-    }
-    
-    private func getSubtitle() -> String? {
+    private func getTitle() -> String? {
         switch viewModel.state {
             case .idle:
                 return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil :"Insert YubiKey or pull down to activate NFC"
             case .loaded:
-            return viewModel.hasFilter ? "No accounts matching your search criteria." : "No accounts have been set up for this YubiKey"
+            return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
             case .notSupported:
-                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a lightning port."
+                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a Lightning port."
             default:
                 return nil
         }
