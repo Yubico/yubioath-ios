@@ -179,13 +179,25 @@ class OATHViewController: UITableViewController {
     //
     override func numberOfSections(in tableView: UITableView) -> Int {
         if viewModel.credentials.count > 0 {
+            self.navigationItem.titleView = nil
             self.title = "Accounts"
             self.searchButton.isEnabled = true
             self.tableView.backgroundView = nil
             backgroundView = nil
             return 1
         } else {
-            self.title = "Yubico Authenticator"
+            guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
+            let imageView = UIImageView(image: image)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.tintColor = UIColor(named: "NavbarLogoColor")
+            imageView.contentMode = .scaleAspectFit
+            let aspectRatio = image.size.width / image.size.height
+            NSLayoutConstraint.activate([
+                imageView.heightAnchor.constraint(equalToConstant: 18),
+                imageView.widthAnchor.constraint(equalToConstant: 18 * aspectRatio)
+            ])
+            self.navigationItem.titleView = imageView
+
             self.searchButton.isEnabled = false
             showBackgroundView()
             return 0

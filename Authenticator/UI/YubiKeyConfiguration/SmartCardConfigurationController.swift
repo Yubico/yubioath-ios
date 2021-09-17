@@ -191,7 +191,7 @@ private class HeaderCell: UITableViewCell {
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
                 title.text = "Public key certificates on iPhone".uppercased()
-                text.text = "These certificates has been added to this iPhone and can be used by other applications."
+                text.text = "These certificates have been added to this iPhone and can be used by other applications."
             }
         }
     }

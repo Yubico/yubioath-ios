@@ -54,10 +54,10 @@ class OTPConfigurationController: UITableViewController {
                     self.tagSwitch.isEnabled = configuration.isSupported && !configuration.isConfigurationLocked
                     if self.tagSwitch.isEnabled {
                         if configuration.transport == .USB {
-                            self.descriptionLabel.text = "Turn on/off typing your OTP when touching a YubiKey."
+                            self.descriptionLabel.text = "Turn on/off output of OTP codes when touching the YubiKey."
                         }
                         if configuration.transport == .NFC {
-                            self.descriptionLabel.text = "Turn on/off opening Safari to copy your OTP when scanning a NFC YubiKey."
+                            self.descriptionLabel.text = "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."
                         }
                     } else {
                         self.descriptionLabel.text = "This setting is not supported on your YubiKey."
