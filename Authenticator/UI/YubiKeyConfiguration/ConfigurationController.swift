@@ -49,6 +49,9 @@ class ConfigurationController: UITableViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = .clear
         refreshControl.addTarget(self, action:  #selector(startNFC), for: .valueChanged)
+        
+        insertYubiKeyLabel.text = YubiKitDeviceCapabilities.supportsISO7816NFCTags ? "Insert YubiKey or pull down to activate NFC" : "Insert YubiKey"
+        
         self.refreshControl = refreshControl
         infoViewModel.deviceInfo { [weak self] result in
             DispatchQueue.main.async {

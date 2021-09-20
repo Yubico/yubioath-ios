@@ -60,21 +60,13 @@ class CredentialTableViewCell: UITableViewCell {
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.iconLetter
         favoriteIcon.isHidden = !isFavorite
-        self.credentialIconColor = self.getCredentiaIconlColor(credential: credential)
+        self.credentialIconColor = credential.iconColor
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.setupView()
         refreshCode()
         refreshProgress()
 
         setupModelObservation()
-    }
-    
-    // picking up color for icon from set of colors using hash of unique Id,
-    // so that user keeps seeing the same color for item every time he launches the app
-    // and we don't need to have map between credential and colors
-    private func getCredentiaIconlColor(credential: Credential) -> UIColor {
-        let value = abs(credential.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
-        return UIColor.colorSetForAccountIcons[value] ?? UIColor.primaryText
     }
     
     // MARK: - Model Observation
@@ -149,5 +141,31 @@ class CredentialTableViewCell: UITableViewCell {
         }
         let otp = credential.formattedCode
         self.code.text = otp
+    }
+}
+
+extension Credential {
+    
+    // picking up color for icon from set of colors using hash of unique Id,
+    // so that user keeps seeing the same color for item every time he launches the app
+    // and we don't need to have map between credential and colors
+    var iconColor: UIColor {
+#if DEBUG
+        // return hard coded nice looking colors for app store screen shots
+        if let issuer = self.issuer {
+            switch issuer {
+            case "Twitter":
+                return UIColor(named: "Color5")!
+            case "Microsoft":
+                return UIColor(named: "Color7")!
+            case "GitHub":
+                return UIColor(named: "Color8")!
+            default:
+                break
+            }
+        }
+#endif
+        let value = abs(self.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+        return UIColor.colorSetForAccountIcons[value] ?? .primaryText
     }
 }
