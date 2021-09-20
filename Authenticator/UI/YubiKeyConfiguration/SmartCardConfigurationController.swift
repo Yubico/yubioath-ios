@@ -51,10 +51,29 @@ class SmartCardConfigurationController: UITableViewController {
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-            if granted {
-                print("Authorized to send notifications - show PIV certificate UI")
-            } else {
-                print("Not authorized to send notifications - show authorize notification UI")
+            if !granted {
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController (title: "Notifications disabled", message: "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings.", preferredStyle: .alert)
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .default) {_ in
+                        self.dismiss(animated: true)
+                    }
+                    alertController.addAction(cancelAction)
+                    
+                    let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                                self.dismiss(animated: true)
+                            })
+                        }
+                    }
+                    alertController.addAction(settingsAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
         
