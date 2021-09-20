@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
     <device id="retina3_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -22,30 +22,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YubiKey 5 Series NFC authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ew-5d-tth">
-                                        <rect key="frame" x="24" y="40" width="272" height="57.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <rect key="frame" x="24" y="40" width="272" height="61"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Hold the key horizontally and tilt the iPhone towards the key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxy-Ot-GLA">
-                                        <rect key="frame" x="24" y="328" width="272" height="88"/>
+                                        <rect key="frame" x="24" y="372" width="272" height="54"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the center of the key to the edge of the phone." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkN-Lk-jMY">
-                                        <rect key="frame" x="24" y="416" width="272" height="64"/>
+                                        <rect key="frame" x="24" y="426" width="272" height="54"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdG-yt-Z34">
-                                        <rect key="frame" x="24" y="117.5" width="288" height="102.5"/>
+                                        <rect key="frame" x="24" y="121" width="288" height="177"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="102.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="177"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -59,10 +59,10 @@
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC, pull down the main view to activate NFC." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hs-uc-a5r">
-                                        <rect key="frame" x="24" y="240" width="272" height="88"/>
+                                        <rect key="frame" x="24" y="318" width="272" height="54"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
@@ -109,13 +109,11 @@
                 <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="TutorialViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="jVl-UO-t9f">
                         <barButtonItem key="leftBarButtonItem" title="Skip" id="IVf-FH-Iqr">
-                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="skip:" destination="Nrf-fR-vCF" id="HPR-d7-OW9"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="N2W-CE-fPm">
-                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <action selector="next:" destination="Nrf-fR-vCF" id="A84-uD-pAO"/>
                             </connections>
@@ -142,30 +140,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="How it works" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ub0-A4-vpe">
-                                        <rect key="frame" x="24" y="40" width="272" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <rect key="frame" x="24" y="40" width="272" height="30"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
-                                        <rect key="frame" x="24" y="354" width="272" height="88"/>
+                                        <rect key="frame" x="24" y="369" width="272" height="73"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
-                                        <rect key="frame" x="24" y="218.5" width="272" height="135.5"/>
+                                        <rect key="frame" x="24" y="277" width="272" height="92"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URL-XV-CW6">
-                                        <rect key="frame" x="24" y="89" width="272" height="109.5"/>
+                                        <rect key="frame" x="24" y="90" width="272" height="167"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-img-light" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-vv-YCZ">
-                                                <rect key="frame" x="15" y="0.0" width="242" height="109.5"/>
+                                                <rect key="frame" x="15" y="0.0" width="242" height="167"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -179,14 +177,12 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdE-m1-y3M" customClass="UrlButton" customModule="Authenticator" customModuleProvider="target">
-                                        <rect key="frame" x="109" y="446" width="102" height="34"/>
+                                        <rect key="frame" x="117" y="446" width="86" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="kbn-VK-SK1"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Read more...">
-                                            <color key="titleColor" name="YubiBlue"/>
-                                        </state>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <state key="normal" title="Read more..."/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="url" value="https://www.yubico.com/"/>
                                         </userDefinedRuntimeAttributes>
@@ -241,31 +237,31 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-H3-WSN">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Where to get QR codes" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-K8-lGO">
-                                        <rect key="frame" x="24" y="40" width="272" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="Where to get QR codes" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-K8-lGO">
+                                        <rect key="frame" x="21" y="40" width="279" height="34"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply scan the QR code when you add your YubiKey and generate your own security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBh-MF-9Fk">
-                                        <rect key="frame" x="24" y="368.5" width="272" height="111.5"/>
+                                        <rect key="frame" x="24" y="407" width="272" height="73"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="QR codes are available from the services you wish to secure." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-Sg-vD2">
-                                        <rect key="frame" x="24" y="280.5" width="272" height="88"/>
+                                        <rect key="frame" x="24" y="353" width="272" height="54"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pA-e2-c5r">
-                                        <rect key="frame" x="24" y="89" width="272" height="171.5"/>
+                                        <rect key="frame" x="24" y="90" width="272" height="243"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-4-qr-code" translatesAutoresizingMaskIntoConstraints="NO" id="m5C-iy-rJD">
-                                                <rect key="frame" x="49" y="0.0" width="174" height="171.5"/>
+                                                <rect key="frame" x="49" y="0.0" width="174" height="243"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -343,30 +339,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YubiKey 5Ci authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdG-o8-OXh">
-                                        <rect key="frame" x="24" y="40" width="272" height="57.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <rect key="frame" x="24" y="40" width="272" height="61"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" name="YubiBlue"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey 5Ci, plug it in." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWb-g8-FRF">
-                                        <rect key="frame" x="24" y="352" width="272" height="64"/>
+                                        <rect key="frame" x="24" y="391" width="272" height="35"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the contacts on the sides when prompted." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paz-Es-tja">
-                                        <rect key="frame" x="24" y="416" width="272" height="64"/>
+                                        <rect key="frame" x="24" y="426" width="272" height="54"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEm-Pv-1b5">
-                                        <rect key="frame" x="24" y="117.5" width="272" height="214.5"/>
+                                        <rect key="frame" x="24" y="121" width="272" height="250"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-2-yk5ci" translatesAutoresizingMaskIntoConstraints="NO" id="uJY-Sf-sBz">
-                                                <rect key="frame" x="60" y="0.0" width="152" height="214.5"/>
+                                                <rect key="frame" x="60" y="0.0" width="152" height="250"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -414,107 +410,21 @@
             </objects>
             <point key="canvasLocation" x="1323.1884057971015" y="-1340.217391304348"/>
         </scene>
-        <!--Tutorial Favorites View Controller-->
-        <scene sceneID="syT-df-UON">
-            <objects>
-                <viewController storyboardIdentifier="FreFavoritesViewController" id="Y7f-4B-LiD" customClass="TutorialFavoritesViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1iC-Mj-VCJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3K6-fP-bhK">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Favorites" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Btv-aT-UwD">
-                                        <rect key="frame" x="24" y="40" width="272" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <color key="textColor" name="YubiBlue"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply swipe all the way or swipe and tap the 'Add to Favorites' button." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcl-KI-PV4">
-                                        <rect key="frame" x="24" y="392" width="272" height="88"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="You can mark your credentials as 'Favorite' and it will appear at the top of the list." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrc-MC-wya">
-                                        <rect key="frame" x="24" y="280.5" width="272" height="111.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWe-lc-Gum">
-                                        <rect key="frame" x="24" y="89" width="272" height="171.5"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-5-favorites" translatesAutoresizingMaskIntoConstraints="NO" id="rxu-cE-Q8s">
-                                                <rect key="frame" x="15" y="0.0" width="242" height="171.5"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rxu-cE-Q8s" secondAttribute="bottom" id="L0U-RH-tTF"/>
-                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CWe-lc-Gum" secondAttribute="leading" id="aAx-2S-EBt"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rxu-cE-Q8s" secondAttribute="trailing" id="hI3-H0-7PT"/>
-                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="centerY" secondItem="CWe-lc-Gum" secondAttribute="centerY" id="q78-8l-rh5"/>
-                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="centerX" secondItem="CWe-lc-Gum" secondAttribute="centerX" id="qJp-zP-Rk8"/>
-                                            <constraint firstItem="rxu-cE-Q8s" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CWe-lc-Gum" secondAttribute="top" id="ttF-Ak-mZG"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Tcl-KI-PV4" secondAttribute="bottom" id="5MQ-0y-cLi"/>
-                                    <constraint firstItem="CWe-lc-Gum" firstAttribute="top" secondItem="Btv-aT-UwD" secondAttribute="bottom" constant="20" id="A8F-yZ-CR4"/>
-                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="centerX" secondItem="3K6-fP-bhK" secondAttribute="centerX" id="B8j-k6-hXh"/>
-                                    <constraint firstItem="Tcl-KI-PV4" firstAttribute="top" secondItem="yrc-MC-wya" secondAttribute="bottom" id="DMH-7d-Kxb"/>
-                                    <constraint firstItem="yrc-MC-wya" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="KjF-QQ-ij8"/>
-                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="top" secondItem="3K6-fP-bhK" secondAttribute="top" constant="40" id="Upd-RL-VlB"/>
-                                    <constraint firstItem="Btv-aT-UwD" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="iN8-AQ-YwK"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="yrc-MC-wya" secondAttribute="trailing" constant="16" id="jU9-Wf-dtW"/>
-                                    <constraint firstItem="yrc-MC-wya" firstAttribute="top" secondItem="CWe-lc-Gum" secondAttribute="bottom" constant="20" id="mSA-C0-1Hu"/>
-                                    <constraint firstItem="Tcl-KI-PV4" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="n4d-sN-GVO"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Tcl-KI-PV4" secondAttribute="trailing" constant="16" id="ruB-2d-hcp"/>
-                                    <constraint firstItem="CWe-lc-Gum" firstAttribute="leading" secondItem="3K6-fP-bhK" secondAttribute="leadingMargin" constant="16" id="u5J-4i-TYz"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Btv-aT-UwD" secondAttribute="trailing" constant="16" id="vlT-cI-QLR"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="CWe-lc-Gum" secondAttribute="trailing" constant="16" id="zqY-oi-Dh9"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="mDO-a8-K0a"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="mDO-a8-K0a" firstAttribute="trailing" secondItem="3K6-fP-bhK" secondAttribute="trailing" id="ej8-2s-fLz"/>
-                            <constraint firstItem="mDO-a8-K0a" firstAttribute="bottom" secondItem="3K6-fP-bhK" secondAttribute="bottom" id="pyE-Kc-mqE"/>
-                            <constraint firstItem="3K6-fP-bhK" firstAttribute="top" secondItem="mDO-a8-K0a" secondAttribute="top" id="sPW-3g-6Dl"/>
-                            <constraint firstItem="3K6-fP-bhK" firstAttribute="leading" secondItem="mDO-a8-K0a" secondAttribute="leading" id="ynK-fu-YVB"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Hhh-11-hdc"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="54k-Ya-hhC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3690" y="-1340"/>
-        </scene>
     </scenes>
+    <color key="tintColor" name="YubiBlue"/>
     <resources>
         <image name="auth-app-img-light" width="242" height="222"/>
         <image name="auth-app-intro-2-yk5ci" width="152" height="362"/>
         <image name="auth-app-intro-3-yk-nfc" width="318" height="352"/>
         <image name="auth-app-intro-4-qr-code" width="174" height="338"/>
-        <image name="auth-app-intro-5-favorites" width="242" height="294"/>
         <namedColor name="YubiBlue">
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -36,9 +36,9 @@ class TutorialViewController: UIPageViewController {
         
         if userFreVersion < 1 {
             viewControllers.append(self.createViewController(withIdentifier: TutorialWelcomeViewController.identifier))
-            viewControllers.append(self.createViewController(withIdentifier: Tutorial5CiViewController.identifier))
-            viewControllers.append(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? self.createViewController(withIdentifier: TutorialNFCViewController.identifier) : nil)
             viewControllers.append(self.createViewController(withIdentifier: TutorialQRViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: Tutorial5CiViewController.identifier))
+            viewControllers.append(self.createViewController(withIdentifier: TutorialNFCViewController.identifier))
         }
         
         return viewControllers.compactMap { $0 }

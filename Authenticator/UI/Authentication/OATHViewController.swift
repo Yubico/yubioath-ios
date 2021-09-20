@@ -388,42 +388,47 @@ class OATHViewController: UITableViewController {
        
     private func getBackgroundImage() -> UIImage? {
         switch viewModel.state {
-            case .loaded:
-                // No accounts view
+        case .loaded:
+            // No accounts view
             return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.crop.circle.badge.plus")
-            case .notSupported:
-                return UIImage(nameOrSystemName: "exclamationmark.circle")
-           default:
-                // YubiKey image
-                return UIImage(named: "yubikey")
+        case .notSupported:
+            return UIImage(nameOrSystemName: "exclamationmark.circle")
+        default:
+            // YubiKey image
+            return UIImage(named: "yubikey")
         }
     }
     
     private func getTitle() -> String? {
         switch viewModel.state {
-            case .idle:
-                return viewModel.keyPluggedIn || !YubiKitDeviceCapabilities.supportsISO7816NFCTags ? nil :"Insert YubiKey or pull down to activate NFC"
-            case .loaded:
-            return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
-            case .notSupported:
-                return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a Lightning port."
-            default:
+        case .idle:
+            if viewModel.keyPluggedIn {
                 return nil
+            } else {
+                return YubiKitDeviceCapabilities.supportsISO7816NFCTags ? "Insert YubiKey or pull down to activate NFC" : "Insert YubiKey"
+            }
+        case .loaded:
+            return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
+        case .notSupported:
+            return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a Lightning port."
+        default:
+            return nil
         }
     }
     
     @objc func onBackgroundClick() {
         switch viewModel.state {
-            case .loaded:
-                self.onAddCredentialClick(self)
-            case .locked:
-                let error = NSError(domain: "", code: Int(YKFOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
-                self.onError(error: error)
-            default:
-                break
+        case .loaded:
+            self.onAddCredentialClick(self)
+        case .locked:
+            let error = NSError(domain: "", code: Int(YKFOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
+            self.onError(error: error)
+        default:
+            break
         }
     }
 }
+
 extension OATHViewController: CredentialViewModelDelegate {
     
     // MARK: - CredentialViewModelDelegate
