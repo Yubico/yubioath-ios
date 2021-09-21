@@ -39,31 +39,26 @@ class OATHViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
-        if #available(iOS 14.0, *) {
-            let oathMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
-                    self?.scanQR()
-                }),
-                UIAction(title: "Add account", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
-                    self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-                })
-            ])
-            let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
-                UIAction(title: "Configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.performSegue(withIdentifier: "showConfiguration", sender: self)
-                }),
-                UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.performSegue(withIdentifier: "ShowSettings", sender: self)
-                })
-            ])
-            
-            menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
-        } else {
-            menuButton.target = self
-            menuButton.action = #selector(showLegacyMenu(_:))
-        }
+        let oathMenu = UIMenu(title: "", options: .displayInline, children: [
+            UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
+                self?.scanQR()
+            }),
+            UIAction(title: "Add account", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
+                self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+            })
+        ])
+        let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
+            UIAction(title: "Configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "showConfiguration", sender: self)
+            }),
+            UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "ShowSettings", sender: self)
+            })
+        ])
+        
+        menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
         
 #if !DEBUG
         if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
@@ -82,35 +77,6 @@ class OATHViewController: UITableViewController {
 //        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
-    }
-    
-    @objc func showLegacyMenu(_ sender: AnyObject) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Scan QR code", style: .default, handler: { [weak self] _ in
-            self?.scanQR()
-        }))
-        alert.addAction(UIAlertAction(title: "Add manually", style: .default, handler: { [weak self] _ in
-            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-        }))
-        alert.addAction(UIAlertAction(title: "Clear passwords", style: .default, handler: { [weak self] _ in
-            self?.showWarning(title: "Clear stored passwords?", message: "If you have set a password on any of your YubiKeys you will be prompted for it the next time you use those YubiKeys on this Yubico Authenticator.", okButtonTitle: "Clear") { () -> Void in
-                self?.removeStoredPasswords()
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { [weak self] _ in
-            let alert = UIAlertController(title: "Not implemented yet", message: nil, completion: {})
-            self?.present(alert, animated: true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "Configuration", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.performSegue(withIdentifier: "showConfiguration", sender: self)
-        }))
-        alert.addAction(UIAlertAction(title: "About", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.performSegue(withIdentifier: "ShowSettings", sender: self)
-        }))
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,33 +111,6 @@ class OATHViewController: UITableViewController {
     // MARK: - Show search
     @IBAction func showSearch(_ sender: Any) {
         searchBar.showInTop(true)
-    }
-    
-    //
-    // MARK: - Add credential
-    //
-    @IBAction func onAddCredentialClick(_ sender: Any) {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        if YubiKitDeviceCapabilities.supportsQRCodeScanning {
-            // if QR codes are unavailable on device disable option
-            actionSheet.addAction(UIAlertAction(title: "Scan QR code", style: .default) { [weak self]  (action) in
-                self?.scanQR()
-            })
-        }
-        actionSheet.addAction(UIAlertAction(title: "Enter manually", style: .default) { [weak self]  (action) in
-            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-        })
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
-            self?.dismiss(animated: true, completion: nil)
-        })
-        
-        // The action sheet requires a presentation popover on iPad.
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            actionSheet.modalPresentationStyle = .popover
-            actionSheet.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        }
-        
-        present(actionSheet, animated: true, completion: nil)
     }
     
     //
@@ -378,10 +317,6 @@ class OATHViewController: UITableViewController {
         label.textAlignment = .center
         label.text = getTitle()
         backgroundView.embedView(label, edgeInsets: UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30), pinToEdges: [.left, .right])
-        
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(OATHViewController.onBackgroundClick))
-        backgroundView.isUserInteractionEnabled = viewModel.state == .loaded && !viewModel.hasFilter
-        backgroundView.addGestureRecognizer(gestureRecognizer)
 
         self.backgroundView = backgroundView
     }
@@ -390,7 +325,7 @@ class OATHViewController: UITableViewController {
         switch viewModel.state {
         case .loaded:
             // No accounts view
-            return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.crop.circle.badge.plus")
+            return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.circle")
         case .notSupported:
             return UIImage(nameOrSystemName: "exclamationmark.circle")
         default:
@@ -413,18 +348,6 @@ class OATHViewController: UITableViewController {
             return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a Lightning port."
         default:
             return nil
-        }
-    }
-    
-    @objc func onBackgroundClick() {
-        switch viewModel.state {
-        case .loaded:
-            self.onAddCredentialClick(self)
-        case .locked:
-            let error = NSError(domain: "", code: Int(YKFOATHErrorCode.authenticationRequired.rawValue), userInfo:nil)
-            self.onError(error: error)
-        default:
-            break
         }
     }
 }
