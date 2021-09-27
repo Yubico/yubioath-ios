@@ -35,25 +35,31 @@ class OATHViewController: UITableViewController {
         }
     }
     
+    private var hintView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
         let oathMenu = UIMenu(title: "", options: .displayInline, children: [
             UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
+                self?.userFoundMenu()
                 self?.scanQR()
             }),
             UIAction(title: "Add account", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
+                self?.userFoundMenu()
                 self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
             })
         ])
         let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
             UIAction(title: "Configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
                 guard let self = self else { return }
+                self.userFoundMenu()
                 self.performSegue(withIdentifier: "showConfiguration", sender: self)
             }),
             UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
                 guard let self = self else { return }
+                self.userFoundMenu()
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
             })
         ])
@@ -123,6 +129,7 @@ class OATHViewController: UITableViewController {
             self.searchButton.isEnabled = true
             self.tableView.backgroundView = nil
             backgroundView = nil
+            self.showHintView(false)
             return 1
         } else {
             guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
@@ -139,6 +146,19 @@ class OATHViewController: UITableViewController {
 
             self.searchButton.isEnabled = false
             showBackgroundView()
+            
+            if viewModel.state == .loaded {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                    guard SettingsConfig.userHasFoundMenu == false
+                            && self.viewModel.state == .loaded
+                            && self.viewModel.credentials.count == 0
+                    else { return }
+                    self.showHintView(true)
+                }
+            } else {
+                self.showHintView(false)
+            }
+
             return 0
         }
     }
@@ -293,6 +313,44 @@ class OATHViewController: UITableViewController {
         #endif
         
         refreshCredentials()
+    }
+    
+    private func userFoundMenu() {
+        showHintView(false)
+        SettingsConfig.userHasFoundMenu = true
+    }
+    
+    private func showHintView(_ visible: Bool) {
+        if !visible {
+            hintView?.removeFromSuperview()
+            hintView = nil
+            return
+        }
+        guard hintView == nil else { return }
+        let hintView = UIView()
+        hintView.alpha = 0
+        let label = UILabel()
+        label.text = "Add accounts here"
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .secondaryLabel
+        label.sizeToFit()
+        hintView.addSubview(label)
+        let imageView = UIImageView()
+        imageView.tintColor = .secondaryLabel
+        let configuration = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "arrow.turn.right.up")?.withConfiguration(configuration)
+        imageView.image = image
+        imageView.frame.size = image?.size ?? .zero
+        imageView.frame.origin = CGPoint(x: label.frame.width + 5, y: -7)
+        hintView.addSubview(imageView)
+        hintView.frame = CGRect(x: self.view.frame.width - (label.frame.width + 5 + imageView.frame.width + 18) , y: 20, width: label.frame.width + 5 + imageView.frame.width
+                                , height: label.frame.height)
+        self.hintView = hintView
+        self.view.addSubview(hintView)
+        
+        UIView.animate(withDuration: 0.3) {
+            hintView.alpha = 1
+        }
     }
     
     // MARK: - Custom empty table view
