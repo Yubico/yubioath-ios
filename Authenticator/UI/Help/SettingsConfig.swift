@@ -16,6 +16,16 @@ class SettingsConfig {
     static private let allowBackup = "backup"
     static private let freVersion = "freVersion"
     static private let whatsNewVersion = "whatsNewVersion"
+    static private let userFoundMenu = "userFoundMenu"
+    
+    static var userHasFoundMenu: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: userFoundMenu)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: userFoundMenu)
+        }
+    }
 
     static var showNoServiceWarning: Bool {
         get {
