@@ -407,7 +407,7 @@ class OATHViewController: UITableViewController {
         switch viewModel.state {
         case .loaded:
             // No accounts view
-            return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.circle")
+            return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.crop.circle")
         case .notSupported:
             return UIImage(nameOrSystemName: "info.circle")
         default:
