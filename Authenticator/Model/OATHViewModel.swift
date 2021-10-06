@@ -183,15 +183,15 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    public func calculate(credential: Credential) {
+    public func calculate(credential: Credential, completion: ((String) -> Void)? = nil) {
         if credential.type == .TOTP {
-            calculateTOTP(credential: credential)
+            calculateTOTP(credential: credential, completion: completion)
         } else {
-            calculateHOTP(credential: credential)
+            calculateHOTP(credential: credential, completion: completion)
         }
     }
     
-    public func calculateTOTP(credential: Credential) {
+    public func calculateTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
             guard let session = session else { return }
             
@@ -221,12 +221,15 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 credential.setCode(code: otp, validity: code.validity)
                 credential.state = .active
+                if let completion = completion {
+                    completion(otp)
+                }
                 self.onUpdate(credential: credential)
             }
         }
     }
     
-    public func calculateHOTP(credential: Credential) {
+    public func calculateHOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
             guard let session = session else { return }
 
@@ -252,6 +255,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 credential.setCode(code: otp, validity: code.validity)
                 credential.state = .active
+                if let completion = completion {
+                    completion(otp)
+                }
                 self.onUpdate(credential: credential)
             }
         }
