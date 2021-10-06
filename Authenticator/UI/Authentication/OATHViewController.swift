@@ -42,17 +42,26 @@ class OATHViewController: UITableViewController {
         self.viewModel.delegate = self
         setupRefreshControl()
         let oathMenu = UIMenu(title: "", options: .displayInline, children: [
-            UIAction(title: "Scan QR code", image: UIImage(systemName: "qrcode"), handler: { [weak self] _ in
+            UIAction(title: "Scan QR code",
+                     image: UIImage(systemName: "qrcode"),
+                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     handler: { [weak self] _ in
                 self?.userFoundMenu()
                 self?.scanQR()
             }),
-            UIAction(title: "Add account", image: UIImage(systemName: "square.and.pencil"), handler: { [weak self] _ in
+            UIAction(title: "Add account",
+                     image: UIImage(systemName: "square.and.pencil"),
+                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     handler: { [weak self] _ in
                 self?.userFoundMenu()
                 self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
             })
         ])
         let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
-            UIAction(title: "Configuration", image: UIImage(systemName: "switch.2"), handler: { [weak self] _ in
+            UIAction(title: "Configuration",
+                     image: UIImage(systemName: "switch.2"),
+                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.userFoundMenu()
                 self.performSegue(withIdentifier: "showConfiguration", sender: self)
@@ -63,15 +72,9 @@ class OATHViewController: UITableViewController {
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
             })
         ])
-        
+
         menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
         
-#if !DEBUG
-        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            let message = "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") has no support for NFC nor a Lightning port for the YubiKey to connect to."
-            self.showAlertDialog(title: "Device not supported", message: message)
-        }
-#endif
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -277,7 +280,7 @@ class OATHViewController: UITableViewController {
         } else {
 #if DEBUG
             // show some credentials on emulator
-            viewModel.emulateSomeRecords()
+//            viewModel.emulateSomeRecords()
 #endif
         }
 
@@ -360,12 +363,17 @@ class OATHViewController: UITableViewController {
         let backgroundView = UIView()
         backgroundView.frame.size = tableView.frame.size
         backgroundView.center = tableView.center
+        
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.addSubview(contentView)
 
         let imageView = UIImageView()
         imageView.contentMode = .bottom
         imageView.image = getBackgroundImage()?.withRenderingMode(.alwaysTemplate).withConfiguration(UIImage.SymbolConfiguration(pointSize: 100))
         imageView.tintColor = UIColor.yubiBlue
-        backgroundView.embedView(imageView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 140, right: 0), pinToEdges: [], layoutPriority: .defaultHigh)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
         
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
@@ -374,8 +382,24 @@ class OATHViewController: UITableViewController {
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
         label.text = getTitle()
-        backgroundView.embedView(label, edgeInsets: UIEdgeInsets(top: 0, left: 30, bottom: 20, right: 30), pinToEdges: [.left, .right])
-
+        label.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(label)
+        
+          
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 25),
+            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
+            label.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 20),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            label.widthAnchor.constraint(lessThanOrEqualToConstant: 600),
+            contentView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: -100), // we need to move the anchor up a bit since the table extends below the screen
+            contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
+        ])
+        
         self.backgroundView = backgroundView
     }
        
@@ -385,7 +409,7 @@ class OATHViewController: UITableViewController {
             // No accounts view
             return viewModel.hasFilter ? UIImage(nameOrSystemName: "person.crop.circle.badge.questionmark") :  UIImage(nameOrSystemName: "person.circle")
         case .notSupported:
-            return UIImage(nameOrSystemName: "exclamationmark.circle")
+            return UIImage(nameOrSystemName: "info.circle")
         default:
             // YubiKey image
             return UIImage(named: "yubikey")
@@ -403,7 +427,7 @@ class OATHViewController: UITableViewController {
         case .loaded:
             return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
         case .notSupported:
-            return "This \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") is not supported since it has no NFC reader nor a Lightning port for the YubiKey to connect to. To use Yubico Authenticator for iOS you need an iPhone or iPad with a Lightning port."
+            return "Yubico Authenticator cannot work on this \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") as it has no NFC reader nor Lightning port for the YubiKey to connect via.\n\nThe External Accessory protocol required for this app to function is unfortunately not supported over USB-C on iOS.\n\n😞"
         default:
             return nil
         }
@@ -445,6 +469,8 @@ extension OATHViewController: CredentialViewModelDelegate {
                 self?.performSegue(withIdentifier: "ShowDeviceInfo", sender: self)
             }
         case .calculateAll, .cleanup, .filter:
+            detailView?.dismiss()
+            detailView = nil
             self.tableView.reloadData()
         default:
             // other operations do not change list of credentials
@@ -618,4 +644,11 @@ extension UISearchBar {
             }
         }
     }
+}
+
+extension YubiKitDeviceCapabilities {
+    static var isDeviceSupported: Bool {
+        return Self.supportsMFIAccessoryKey || Self.supportsISO7816NFCTags
+    }
+    
 }

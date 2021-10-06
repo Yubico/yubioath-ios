@@ -25,25 +25,23 @@ class HelpViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let webViewController = storyBoard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
-        
         switch (indexPath.section, indexPath.row) {
+        case (0, 1):
+            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/") {
+                UIApplication.shared.open(url)
+            }
+        case (0, 2):
+            if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/") {
+                UIApplication.shared.open(url)
+            }
         case (1, 0):
-            webViewController.url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")
-            self.navigationController?.pushViewController(webViewController, animated: true)
+            if let url = URL(string: "https://support.yubico.com/") {
+                UIApplication.shared.open(url)
+            }
         case (1, 1):
-            webViewController.url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/")
-            self.navigationController?.pushViewController(webViewController, animated: true)
-        case (1, 2):
-            var title = "[iOS Authenticator] \(UIApplication.appVersion), iOS\(UIDevice().systemVersion)"
-            //            if let description = viewModel.keyDescription {
-            //                title += ", key \(description.firmwareRevision)"
-            //            }
-            
-            title = title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "[iOSAuthenticator]"
-            webViewController.url = URL(string: "https://support.yubico.com/support/tickets/new?setField-helpdesk_ticket_subject=\(title)")
-            self.navigationController?.pushViewController(webViewController, animated: true)
+            if let url = URL(string: "https://support.yubico.com/support/tickets/new") {
+                UIApplication.shared.open(url)
+            }
         default:
             break
         }

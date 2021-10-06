@@ -21,6 +21,20 @@ class SmartCardConfigurationController: UITableViewController {
         print("deinit SmartCardAuthController")
     }
     
+    
+    @IBAction func showHelp(sender: Any) {
+        let alert = UIAlertController(title: "Smart card extension", message: "Other applications can use client certificates on your YubiKey for authentication and signing purposes.", preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: "Close", style: .cancel)
+        alert.addAction(closeAction)
+        let readMoreAction = UIAlertAction(title: "Read more...", style: .default) {_ in
+            if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
+                UIApplication.shared.open(url)
+            }
+        }
+        alert.addAction(readMoreAction)
+        self.present(alert, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
