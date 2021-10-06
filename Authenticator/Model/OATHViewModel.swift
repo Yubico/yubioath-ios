@@ -300,6 +300,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 credential.issuer = issuer
                 credential.account = account
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Credential renamed")
                 self.onUpdate(credential: credential)
             }
         }

@@ -73,7 +73,19 @@ class Credential: NSObject {
         }
     }
     
-    @objc dynamic var code: String
+    private var _code: String = ""
+    @objc dynamic var code: String {
+        get {
+            return _code
+        }
+        set(newCode) {
+            if isSteam {
+                _code = Credential.formatSteamCode(value:newCode)
+            } else {
+                _code = newCode
+            }
+        }
+    }
     @objc dynamic var remainingTime : Double
     @objc dynamic var activeTime : Double
     @objc dynamic var state : CredentialState = .idle
@@ -90,13 +102,14 @@ class Credential: NSObject {
         self.account = account
         self.issuer = issuer
         self.period = period
-        self.code = code
         self.validity = type == .TOTP ? DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(period)) :
             DateInterval(start: Date(timeIntervalSinceNow: 0), end: Date.distantFuture)
         self.requiresTouch  = requiresTouch
         self.remainingTime = validity.end.timeIntervalSince(Date())
         self.activeTime = 0
         
+        super.init()
+        self.code = code
         if !code.isEmpty {
             state = .active
         }
@@ -108,13 +121,13 @@ class Credential: NSObject {
         account = credential.credential.accountName
         issuer = credential.credential.issuer
         period = credential.credential.period
-        
-        code = credential.code?.otp ?? ""
         validity = credential.code?.validity ?? DateInterval()
         remainingTime = credential.code?.validity.end.timeIntervalSince(Date()) ?? 0
         activeTime = 0
         requiresTouch = credential.credential.requiresTouch
         
+        super.init()
+        code = credential.code?.otp ?? ""
         if !code.isEmpty {
             state = .active
         }
@@ -156,11 +169,7 @@ class Credential: NSObject {
     }
     
     func setCode(code: String, validity : DateInterval) {
-        if isSteam {
-            self.code = Credential.formatSteamCode(value:code)
-        } else {
-            self.code = code
-        }
+        self.code = code
         self.validity = validity
         remainingTime = validity.end.timeIntervalSince(Date())
         activeTime = 0
