@@ -180,6 +180,14 @@ class OATHViewController: UITableViewController {
         let credential = viewModel.credentials[indexPath.row]
         let isFavorite = self.viewModel.isFavorite(credential: credential)
         cell.updateView(credential: credential, isFavorite: isFavorite)
+        
+        let backgroundContainerView = UIView()
+        let backgroundView = UIView()
+        backgroundView.layer.cornerRadius = 15
+        backgroundView.backgroundColor = UIColor(named: "TableSelection")
+        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), pinToEdges: .all)
+        cell.selectedBackgroundView = backgroundContainerView
+        
         return cell
     }
     
