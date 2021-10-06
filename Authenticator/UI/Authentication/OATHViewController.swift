@@ -85,6 +85,10 @@ class OATHViewController: UITableViewController {
         // to make sure we don't leave credentials on screen when key was unplugged
 //        keySessionObserver = KeySessionObserver(accessoryDelegate: self, nfcDlegate: self)
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 0.5
+        self.tableView.addGestureRecognizer(longPressGesture)
+        
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
@@ -241,6 +245,27 @@ class OATHViewController: UITableViewController {
     }
     
     // MARK: - private methods
+    @objc private func handleLongPress(longPressGesture: UILongPressGestureRecognizer) {
+        guard longPressGesture.state == .began else { return }
+        let location = longPressGesture.location(in: self.tableView)
+        let indexPath = self.tableView.indexPathForRow(at: location)
+        guard let indexPath = indexPath else {
+            return
+        }
+        let credential = viewModel.credentials[indexPath.row]
+        
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+
+        if credential.requiresRefresh {
+            viewModel.calculate(credential: credential) { [self] _ in
+                self.viewModel.copyToClipboard(credential: credential)
+            }
+        } else {
+            viewModel.copyToClipboard(credential: credential)
+        }
+    }
+    
     private func scanQR() {
         YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
             [weak self] (payload, error) in
