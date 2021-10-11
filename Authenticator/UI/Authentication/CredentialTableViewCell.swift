@@ -21,6 +21,7 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var favoriteIcon: UIImageView!
+    @IBOutlet weak var iconScalingConstraint: NSLayoutConstraint!
     
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
@@ -35,6 +36,17 @@ class CredentialTableViewCell: UITableViewCell {
         super.awakeFromNib()
         prepareForReuse()
         activityIndicator.startAnimating()
+        
+        // Dynamic type adjustment of icons is only done when up-scaling
+        let progressSize = UIFontMetrics.default.scaledValue(for: progress.frame.size.height)
+        if progressSize > progress.frame.size.height {
+            progress.frame.size = CGSize(width: progressSize, height: progressSize)
+        }
+        
+        let iconScaling = UIFontMetrics.default.scaledValue(for: iconScalingConstraint.constant)
+        if iconScaling > iconScalingConstraint.constant {
+            iconScalingConstraint.constant = iconScaling
+        }
     }
     
     override func prepareForReuse() {
@@ -50,10 +62,10 @@ class CredentialTableViewCell: UITableViewCell {
         self.credential = credential
         name.text = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
         if credential.type == .HOTP {
-            let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .medium)
+            let config = UIImage.SymbolConfiguration(pointSize: 40, weight: .medium, scale: .medium)
             actionIcon.image = UIImage(systemName: "arrow.clockwise.circle.fill", withConfiguration: config)
         } else {
-            let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .medium, scale: .medium)
+            let config = UIImage.SymbolConfiguration(pointSize: 40, weight: .medium, scale: .medium)
             actionIcon.image = UIImage(systemName: "hand.tap.fill", withConfiguration: config)
         }
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
