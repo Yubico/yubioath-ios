@@ -155,7 +155,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="zlN-3Z-daV" id="4BA-rT-8PQ"/>
-                        <outlet property="searchButton" destination="w7Y-sR-4pm" id="zbc-L9-ZMt"/>
                         <segue destination="xYZ-Fp-gO1" kind="presentation" identifier="StartTutorial" id="0dB-Xx-crT"/>
                         <segue destination="ffl-wX-lrv" kind="presentation" identifier="AddCredentialSequeID" id="qUJ-ak-UTT"/>
                         <segue destination="9wC-w2-Zzl" kind="presentation" identifier="EditCredential" id="iyd-zI-G00"/>
@@ -578,7 +577,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="252" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="252.33333396911621" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -920,7 +919,7 @@ All rights reserved.</string>
                                         <rect key="frame" x="16" y="238" width="343" height="120.33333587646484"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y9d-ef-M2r" id="N1J-CN-YzV">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="120.33333587646484"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEI-Vx-DRc">
