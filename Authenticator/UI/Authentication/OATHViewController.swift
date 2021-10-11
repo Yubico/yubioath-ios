@@ -18,7 +18,6 @@ class OATHViewController: UITableViewController {
     var detailView: OATHCodeDetailsView?
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var searchButton: UIBarButtonItem!
 
     private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
@@ -134,7 +133,6 @@ class OATHViewController: UITableViewController {
         if viewModel.credentials.count > 0 {
             self.navigationItem.titleView = nil
             self.title = "Accounts"
-            self.searchButton.isEnabled = true
             self.tableView.backgroundView = nil
             backgroundView = nil
             self.showHintView(false)
@@ -152,7 +150,6 @@ class OATHViewController: UITableViewController {
             ])
             self.navigationItem.titleView = imageView
 
-            self.searchButton.isEnabled = false
             showBackgroundView()
             
             if viewModel.state == .loaded {
