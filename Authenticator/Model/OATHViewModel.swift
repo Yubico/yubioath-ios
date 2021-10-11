@@ -553,7 +553,7 @@ extension OATHViewModel { //}: OperationDelegate {
             if let row = self._credentials.firstIndex(where: { $0 == credential }) {
                 self._credentials.remove(at: row)
                 if self.isFavorite(credential: credential) {
-                    _ = self.removeFavorite(credential: credential)
+                    self.removeFavorite(credential: credential)
                 }
                 self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
             }

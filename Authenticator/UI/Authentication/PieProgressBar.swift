@@ -53,8 +53,8 @@ class PieProgressBar: UIView {
     private let shapeLayer = CAShapeLayer()
     private var radius: CGFloat {
         get{
-            if self.frame.width < self.frame.height { return self.frame.width / 3 }
-            else { return self.frame.height / 3 }
+            if self.frame.width < self.frame.height { return self.frame.width / 2.5 }
+            else { return self.frame.height / 2.5 }
         }
     }
     

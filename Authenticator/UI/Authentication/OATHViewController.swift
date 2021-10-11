@@ -20,7 +20,7 @@ class OATHViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
 
-    private var searchBar = UISearchBar()
+    private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
     
@@ -106,7 +106,8 @@ class OATHViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let navigationView = self.navigationController?.view {
-            searchBar.frame = CGRect(x: 0, y: 0, width: navigationView.frame.width, height: 44)
+            let height = UIFontMetrics.default.scaledValue(for: 51)
+            searchBar.frame = CGRect(x: 0, y: 0, width: navigationView.frame.width, height: height)
             searchBar.install(inTopOf: navigationView)
             searchBar.delegate = self
         }
@@ -123,7 +124,7 @@ class OATHViewController: UITableViewController {
     
     // MARK: - Show search
     @IBAction func showSearch(_ sender: Any) {
-        searchBar.showInTop(true)
+        searchBar.isVisible = true
     }
     
     //
@@ -194,6 +195,7 @@ class OATHViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
+            _ = searchBar.resignFirstResponder()
             let credential = viewModel.credentials[indexPath.row]
             let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
             let rect = tableView.rectForRow(at: indexPath)
@@ -613,32 +615,6 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
         coverView?.removeFromSuperview()
         coverView = nil
     }
-    
-}
-
-// MARK: - UISearchBarDelegate
-extension OATHViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showInTop(false)
-        searchBar.text = nil
-        viewModel.applyFilter(filter: nil)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
-        viewModel.applyFilter(filter: searchText)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.showInTop(false)
-        viewModel.applyFilter(filter: nil)
-    }
-    
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.text = nil
-        viewModel.applyFilter(filter: nil)
-        return true
-    }
 }
 
 extension OATHViewController: UNUserNotificationCenterDelegate {
@@ -649,33 +625,19 @@ extension OATHViewController: UNUserNotificationCenterDelegate {
     }
 }
 
-// MARK: - UISerchBar extension
-extension UISearchBar {
+extension OATHViewController: SearchBarDelegate {
+    func searchBarDidChangeText(_ text: String) {
+        viewModel.applyFilter(filter: text)
+    }
+    func searchBarDidCancel() {
+        viewModel.applyFilter(filter: nil)
+    }
+}
+
+extension SearchBar {
     func install(inTopOf view: UIView) {
-        self.placeholder = "Search accounts"
-        self.showsCancelButton = true
         self.frame.origin.y = -self.frame.size.height
         view.addSubview(self)
-        self.returnKeyType = .done
-        self.tintColor = .yubiBlue
-        self.backgroundImage = UIImage()
-        self.backgroundColor = UIColor(named: "SystemNavigationBar")!
-    }
-    
-    func showInTop(_ isVisible: Bool) {
-        let window = UIApplication.shared.windows[0]
-        let topPadding = window.safeAreaInsets.top
-        if isVisible {
-            self.becomeFirstResponder()
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-                self.frame.origin.y = topPadding
-            }
-        } else {
-            self.resignFirstResponder()
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-                self.frame.origin.y = -self.frame.size.height
-            }
-        }
     }
 }
 
