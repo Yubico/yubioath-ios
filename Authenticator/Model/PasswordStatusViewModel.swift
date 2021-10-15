@@ -14,17 +14,18 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
         case unknown;
     }
     
-    internal func didConnectNFC(_ connection: YKFNFCConnection) { assert(false, "NFC did connect!") }
-    internal func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) { assert(false, "NFC did disconnect!") }
-
+    func didConnectNFC(_ connection: YKFNFCConnection) { assert(false, "NFC did connect!") }
+    func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) { assert(false, "NFC did disconnect!") }
+    func didFailConnectingNFC(_ error: Error) {}
+    
     private var accessoryConnection: YKFAccessoryConnection?
 
-    internal func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+    func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection
         connectionsCallback?(connection)
     }
     
-    internal func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+    func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
         connectionsCallback?(nil)
     }
     

@@ -18,7 +18,7 @@ class SmartCardConfigurationController: UITableViewController {
     let headerView = TableHeaderView()
     
     deinit {
-        print("deinit SmartCardAuthController")
+        print("deinit SmartCardConfigurationController")
     }
     
     

@@ -139,7 +139,7 @@ class CredentialTableViewCell: UITableViewCell {
                 self.progress.setProgress(to: Double(0.0))
             }
             self.progress.isHidden = credential.requiresRefresh
-            self.actionIcon.isHidden = !(self.progress.isHidden && credential.requiresTouch)
+            self.actionIcon.isHidden = !(credential.requiresRefresh && credential.requiresTouch && !SettingsConfig.isBypassTouchEnabled)
             self.activityIndicator.isHidden = true
             self.code.textColor = credential.requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
         } else if credential.type == .HOTP {

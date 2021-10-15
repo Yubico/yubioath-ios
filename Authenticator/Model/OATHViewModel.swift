@@ -26,7 +26,14 @@ protocol CredentialViewModelDelegate: AnyObject {
 class OATHViewModel: NSObject, YKFManagerDelegate {
     
     var nfcConnection: YKFNFCConnection?
+    
+    private var lastNFCEndingTimestamp: Date?
 
+    var didNFCEndRecently: Bool {
+        guard let ts = lastNFCEndingTimestamp else { return false }
+        return ts.addingTimeInterval(5) > Date()
+    }
+    
     func didConnectNFC(_ connection: YKFNFCConnection) {
         nfcConnection = connection
         if let callback = connectionCallback {
@@ -35,8 +42,13 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
+        lastNFCEndingTimestamp = Date()
         nfcConnection = nil
         session = nil
+    }
+    
+    func didFailConnectingNFC(_ error: Error) {
+        lastNFCEndingTimestamp = Date()
     }
     
     var accessoryConnection: YKFAccessoryConnection?
@@ -166,8 +178,18 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    // Calculate TOTP credentials with time period != 30 individually
-                    if credential.type == .TOTP && !credential.requiresTouch && credential.period != 30 {
+                    if credential.type == .TOTP &&
+                        credential.requiresTouch &&
+                        SettingsConfig.isBypassTouchEnabled &&
+                        self.nfcConnection != nil {
+                        session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
+                            guard let code = code, let otp = code.otp else { return }
+                            credential.setCode(code: otp, validity: code.validity)
+                            credential.state = .active
+                        }
+                    } else if credential.type == .TOTP &&
+                                !credential.requiresTouch && credential.period != 30 {
+                        // Calculate TOTP credentials with time period != 30 individually
                         session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
                             guard let code = code, let otp = code.otp else { return }
                             credential.setCode(code: otp, validity: code.validity)
@@ -521,7 +543,7 @@ extension OATHViewModel { //}: OperationDelegate {
             let oldCredentials = Dictionary(uniqueKeysWithValues: self._credentials.compactMap { $0 }.map { ($0.uniqueId, $0) })
             // not adding credentials with '_hidden' prefix to our list.
             self._credentials = credentials.filter { !$0.uniqueId.starts(with: "_hidden:") }.map {
-                if $0.requiresTouch || $0.type == .HOTP {
+                if $0.type == .HOTP {
                     // make update smarter and update only those that need to be updated
                     // in case HOTP and require touch keep old credential objects, because calculate all doesn't have them
                     if let oldCredential = oldCredentials[$0.uniqueId] {

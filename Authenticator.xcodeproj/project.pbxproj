@@ -41,6 +41,8 @@
 		5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180974226DE185100A122C1 /* ResetOATHViewModel.swift */; };
 		51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */; };
 		51AFD4D227103E36008F2630 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D127103E36008F2630 /* SearchBar.swift */; };
+		51AFD4D42716FC78008F2630 /* ApplicationSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* ApplicationSettingsController.swift */; };
+		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -156,6 +158,8 @@
 		5180974226DE185100A122C1 /* ResetOATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOATHViewModel.swift; sourceTree = "<group>"; };
 		51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHConfigurationController.swift; sourceTree = "<group>"; };
 		51AFD4D127103E36008F2630 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		51AFD4D32716FC78008F2630 /* ApplicationSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsController.swift; sourceTree = "<group>"; };
+		51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHCodeDetailsView.swift; sourceTree = "<group>"; };
@@ -254,6 +258,7 @@
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
 				515542672654413600B19C59 /* SmartCardConfigurationController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
+				51AFD4D32716FC78008F2630 /* ApplicationSettingsController.swift */,
 			);
 			path = YubiKeyConfiguration;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 				513D4DF8266A21250022C53D /* DelegateStack.swift */,
 				51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */,
 				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
+				51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -624,6 +630,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */,
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
@@ -663,6 +670,7 @@
 				515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */,
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
+				51AFD4D42716FC78008F2630 /* ApplicationSettingsController.swift in Sources */,
 				51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */,
@@ -737,7 +745,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -746,7 +754,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -760,7 +768,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -769,7 +777,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -903,7 +911,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -913,7 +921,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -931,7 +939,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 58;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -941,7 +949,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
