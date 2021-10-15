@@ -20,7 +20,6 @@ class ConfigurationController: UITableViewController {
     
     @IBOutlet weak var keyPlaceholderImage: UIImageView!
     @IBOutlet weak var keyImage: UIImageView!
-//    @IBOutlet weak var deviceInfoContainerView: UIView!
     
     let infoViewModel = YubiKeyInformationViewModel()
     

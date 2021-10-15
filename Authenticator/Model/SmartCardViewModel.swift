@@ -120,6 +120,8 @@ extension SmartCardViewModel: YKFManagerDelegate {
         nfcConnection = nil
     }
     
+    func didFailConnectingNFC(_ error: Error) {}
+    
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection
         didConnect()

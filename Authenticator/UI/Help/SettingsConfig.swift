@@ -17,6 +17,8 @@ class SettingsConfig {
     static private let freVersion = "freVersion"
     static private let whatsNewVersion = "whatsNewVersion"
     static private let userFoundMenu = "userFoundMenu"
+    static private let bypassTouch = "bypassTouch"
+    static private let nfcOnAppLaunch = "nfcOnAppLaunch"
     
     static var userHasFoundMenu: Bool {
         get {
@@ -60,6 +62,24 @@ class SettingsConfig {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: whatsNewVersion)
+        }
+    }
+    
+    static var isBypassTouchEnabled: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: bypassTouch)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: bypassTouch)
+        }
+    }
+    
+    static var isNFCOnAppLaunchEnabled: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: nfcOnAppLaunch)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: nfcOnAppLaunch)
         }
     }
 }

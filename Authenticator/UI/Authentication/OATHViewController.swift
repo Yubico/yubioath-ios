@@ -19,6 +19,8 @@ class OATHViewController: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
+    private var lastDidResignActiveTimeStamp: Date?
+    
     private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
@@ -594,6 +596,7 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     }
     
     func willResignActive() {
+        lastDidResignActiveTimeStamp = Date()
         return // disable cover view until we can stop it from showing when we start nfc scanning
         let coverView = UIView()
         coverView.backgroundColor = .background // UIColor(named: "DetailsBackground")
@@ -611,6 +614,23 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     func didBecomeActive() {
         coverView?.removeFromSuperview()
         coverView = nil
+        
+        if SettingsConfig.isNFCOnAppLaunchEnabled && !viewModel.didNFCEndRecently {
+            guard let lastDidResignActiveTimeStamp = lastDidResignActiveTimeStamp else {
+                refreshData()
+                return
+            }
+            
+            if Date() > lastDidResignActiveTimeStamp.addingTimeInterval(10) {
+                if let presented = presentedViewController {
+                    presented.dismiss(animated: false) {
+                        self.refreshData()
+                    }
+                } else {
+                    refreshData()
+                }
+            }
+        }
     }
 }
 
