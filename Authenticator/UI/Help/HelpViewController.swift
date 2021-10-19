@@ -27,10 +27,14 @@ class HelpViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 1):
+            let whatsNewController = VersionHistoryViewController()
+            whatsNewController.modalPresentationStyle = .popover
+            self.present(whatsNewController, animated: true)
+        case (0, 2):
             if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/") {
                 UIApplication.shared.open(url)
             }
-        case (0, 2):
+        case (0, 3):
             if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/") {
                 UIApplication.shared.open(url)
             }

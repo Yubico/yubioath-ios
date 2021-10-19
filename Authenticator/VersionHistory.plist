@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+        <key>version</key>
+        <string>1.6.3</string>
+		<key>date</key>
+		<date>2021-10-22T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<true/>
+		<key>changes</key>
+		<string>This time we've improved the ease of use of NFC YubiKeys by adding settings to minimize the number of NFC scans needed. These new settings can be found in the configuration menu.
+ - Setting to turn off the extra NFC scan for accounts that require touch.
+ - Setting to automatically initiate NFC when the application starts.
+ - Version history is now accessible from the application.</string>
+	</dict>
+	<dict>
+        <key>version</key>
+        <string>1.6.2</string>
+		<key>date</key>
+		<date>2021-10-13T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>In this version we've improved the search functionality based on user feedback:
+ - Search is now available before scanning credentials, and the on-screen keyboard will no longer obscure the account details.
+ - We've also introduced the ability to quickly copy a code to the clipboard by long-pressing on an account.</string>
+	</dict>
+	<dict>
+        <key>version</key>
+        <string>1.6.1</string>
+		<key>date</key>
+		<date>2021-10-06T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>In this version we've made more UI improvements, such as better support for different text sizes (Dynamic Type) and general improvements here and there to make the app easier to use. We've also fixed a few minor bugs: one with renaming accounts over NFC and one that initially displayed the wrong codes for Steam accounts.</string>
+	</dict>
+    <dict>
+        <key>version</key>
+        <string>1.6.0</string>
+        <key>date</key>
+        <date>2020-09-28T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <true/>
+        <key>changes</key>
+        <string>In this version we have improved the user interface making the app both easier to use and better looking. We have also added support for Apple's new CryptoTokenKit Extension making it possible to use Smart Card certificates stored on your YubiKey to authenticate with other apps and sites.</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.5.0</string>
+        <key>date</key>
+        <date>2021-03-08T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>In this version we have made some minor user experience improvements and clarified the messaging in the app regarding support for iPad and iPad Pro.</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.4.0</string>
+        <key>date</key>
+        <date>2020-09-28T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>Bug fixes and general improvements.</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.3.0</string>
+        <key>date</key>
+        <date>2020-06-09T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>Now enhancing the fast and easy user experience, with added convenience of biometric support with users leveraging TouchID and FaceID to unlock their YubiKey
+ - Users can view additional YubiKey device info such as model number, serial number and firmware version
+ - Users can change their One Time Passcode (OTP) settings by opting in or out of viewing the full OTP code string when interacting with their YubiKey
+ - Bug fixes.</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.2.0</string>
+        <key>date</key>
+        <date>2020-01-20T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>Now you can sort your accounts by marking the most frequently used as favorite.
+ - Fixed an issue when failed to change or remove password on YubiKey when it was already set up
+ - Fixed an issue that sometimes failed the name change during registration of account</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.1.0</string>
+        <key>date</key>
+        <date>2019-12-09T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+ - Supports NFC-enabled YubiKeys
+ - Allows to store the password to YubiKey on your phone.</string>
+    </dict>
+    <dict>
+        <key>version</key>
+        <string>1.0.0</string>
+        <key>date</key>
+        <date>2019-10-31T10:00:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>Inital release! 🎉</string>
+    </dict>
+</array>
+</plist>

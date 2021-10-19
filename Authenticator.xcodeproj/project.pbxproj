@@ -43,6 +43,8 @@
 		51AFD4D227103E36008F2630 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D127103E36008F2630 /* SearchBar.swift */; };
 		51AFD4D42716FC78008F2630 /* ApplicationSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* ApplicationSettingsController.swift */; };
 		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
+		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
+		51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AFD4D9271D4277008F2630 /* QuartzCore.framework */; };
 		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
@@ -82,7 +84,7 @@
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
-		A5B531F22437CD16008C501C /* WhatsNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* WhatsNewViewController.swift */; };
+		A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */; };
 		A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -160,6 +162,8 @@
 		51AFD4D127103E36008F2630 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		51AFD4D32716FC78008F2630 /* ApplicationSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsController.swift; sourceTree = "<group>"; };
 		51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
+		51AFD4D727196AB6008F2630 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
+		51AFD4D9271D4277008F2630 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHCodeDetailsView.swift; sourceTree = "<group>"; };
@@ -204,7 +208,7 @@
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A5B531F12437CD16008C501C /* WhatsNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewViewController.swift; sourceTree = "<group>"; };
+		A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewController.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPConfigurationController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -224,6 +228,7 @@
 			files = (
 				51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
+				51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +290,7 @@
 		515542702656706F00B19C59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51AFD4D9271D4277008F2630 /* QuartzCore.framework */,
 				515542712656706F00B19C59 /* CryptoTokenKit.framework */,
 				51554293265BB65100B19C59 /* UserNotifications.framework */,
 				51554295265BB65100B19C59 /* UserNotificationsUI.framework */,
@@ -386,6 +392,7 @@
 				818866B622DFD729006BC0A8 /* AppDelegate.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
+				51AFD4D727196AB6008F2630 /* VersionHistory.plist */,
 			);
 			path = Authenticator;
 			sourceTree = "<group>";
@@ -440,6 +447,7 @@
 				51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */,
 				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
 				51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */,
+				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -458,8 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
-				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
-				A5B531F12437CD16008C501C /* WhatsNewViewController.swift */,
+				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -597,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
+				51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */,
 				513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */,
 				A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
@@ -685,7 +693,7 @@
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				51394C5826CFE15F009F366D /* Menu.swift in Sources */,
-				A5B531F22437CD16008C501C /* WhatsNewViewController.swift in Sources */,
+				A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */,
 				5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */,
@@ -745,7 +753,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -768,7 +776,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -911,7 +919,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -939,7 +947,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
