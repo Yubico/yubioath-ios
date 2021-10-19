@@ -1545,7 +1545,7 @@ All rights reserved.</string>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL7-OO-oMR">
                                                     <rect key="frame" x="10" y="117" width="323" height="88"/>
-                                                    <string key="text">Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimises the number of NFC taps needed. Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active.</string>
+                                                    <string key="text">Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed. Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active.</string>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
