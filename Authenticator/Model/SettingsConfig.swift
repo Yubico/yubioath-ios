@@ -56,9 +56,9 @@ class SettingsConfig {
         }
     }
     
-    static var lastWhatsNewVersionShown : Int {
+    static var lastWhatsNewVersionShown : String? {
         get {
-            return UserDefaults.standard.integer(forKey: whatsNewVersion)
+            return UserDefaults.standard.string(forKey: whatsNewVersion)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: whatsNewVersion)

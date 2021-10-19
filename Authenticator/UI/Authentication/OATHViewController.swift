@@ -39,6 +39,9 @@ class OATHViewController: UITableViewController {
     private var hintView: UIView?
     
     override func viewDidLoad() {
+        
+        
+//        SettingsConfig.lastWhatsNewVersionShown = "1"
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
@@ -93,19 +96,24 @@ class OATHViewController: UITableViewController {
         applicationSessionObserver = ApplicationSessionObserver(delegate: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // UserDefaults will store the latest FRE version and latest 'What's New' version that were shown to user.
-        // For every new FRE or 'What's New' in the future releases we're going to increment .freVersion and .whatsNewVersion by 1.
-        if .freVersion > SettingsConfig.lastFreVersionShown {
-            self.performSegue(withIdentifier: .startTutorial, sender: self)
-        }/* else if .whatsNewVersion > SettingsConfig.lastWhatsNewVersionShown {
-            self.performSegue(withIdentifier: "ShowWhatsNew", sender: self)
-        }*/
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if .freVersion > SettingsConfig.lastFreVersionShown {
+            self.performSegue(withIdentifier: .startTutorial, sender: self)
+        } else if VersionHistoryViewController.shouldShowOnAppLaunch {
+            let whatsNewController = VersionHistoryViewController()
+            whatsNewController.modalPresentationStyle = .popover
+            whatsNewController.titleText = "What's new in\nYubico Authenticator"
+            whatsNewController.closeButtonText = "Continue"
+            whatsNewController.closeBlock = { [weak self] in
+                if SettingsConfig.isNFCOnAppLaunchEnabled {
+                    self?.refreshData()
+                }
+            }
+            self.present(whatsNewController, animated: true)
+        }
+        
         if let navigationView = self.navigationController?.view {
             let height = UIFontMetrics.default.scaledValue(for: 51)
             searchBar.frame = CGRect(x: 0, y: 0, width: navigationView.frame.width, height: height)
@@ -233,7 +241,6 @@ class OATHViewController: UITableViewController {
             // passing userFreVersion and then setting current freVersion to userDefaults.
             freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
             SettingsConfig.lastFreVersionShown = .freVersion
-            SettingsConfig.lastWhatsNewVersionShown = .whatsNewVersion
         }
         
         if segue.identifier == .addCredentialSequeID {
@@ -614,6 +621,8 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     func didBecomeActive() {
         coverView?.removeFromSuperview()
         coverView = nil
+        
+        guard !VersionHistoryViewController.shouldShowOnAppLaunch else { return }
         
         if SettingsConfig.isNFCOnAppLaunchEnabled && !viewModel.didNFCEndRecently {
             guard let lastDidResignActiveTimeStamp = lastDidResignActiveTimeStamp else {
