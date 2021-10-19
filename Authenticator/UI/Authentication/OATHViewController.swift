@@ -39,9 +39,6 @@ class OATHViewController: UITableViewController {
     private var hintView: UIView?
     
     override func viewDidLoad() {
-        
-        
-//        SettingsConfig.lastWhatsNewVersionShown = "1"
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
