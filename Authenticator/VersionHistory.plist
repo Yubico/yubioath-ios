@@ -6,12 +6,12 @@
         <key>version</key>
         <string>1.6.3</string>
 		<key>date</key>
-		<date>2021-10-22T10:00:00Z</date>
+		<date>2021-10-19T10:00:00Z</date>
 		<key>shouldPromptUser</key>
 		<true/>
 		<key>changes</key>
-		<string>This time we've improved the ease of use of NFC YubiKeys by adding settings to minimize the number of NFC scans needed. These new settings can be found in the configuration menu.
- - Setting to turn off the extra NFC scan for accounts that require touch.
+		<string>This time we've improved the ease of use of NFC YubiKeys by adding settings to minimize the number of NFC taps needed. These new settings can be found in the configuration menu.
+ - Setting to turn off the extra NFC tap for accounts that require touch.
  - Setting to automatically initiate NFC when the application starts.
  - Version history is now accessible from the application.</string>
 	</dict>
