@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CredentialExpirationDelegate : class {
+protocol CredentialExpirationDelegate : AnyObject {
     func calculateResultDidExpire(_ credential: Credential)
 }
 
@@ -28,7 +28,7 @@ class Credential: NSObject {
     /*!
      Firmware version of the key that generated the credential.
      */
-    let keyVersion: YKFKeyVersion
+    let keyVersion: YKFVersion
     
     /*!
      The credential type (HOTP or TOTP).
@@ -39,7 +39,7 @@ class Credential: NSObject {
      The Issuer of the credential as defined in the Key URI Format specifications:
      https://github.com/google/google-authenticator/wiki/Key-Uri-Format
      */
-    let issuer: String?
+    @objc dynamic var issuer: String?
     
     /*!
      The validity period for a TOTP code, in seconds. The default value for this property is 30.
@@ -51,7 +51,7 @@ class Credential: NSObject {
      The account name extracted from the label. If the label does not contain the issuer, the
      name is the same as the label.
      */
-    let account: String
+    @objc dynamic var account: String
     
     
     let requiresTouch: Bool
@@ -73,7 +73,19 @@ class Credential: NSObject {
         }
     }
     
-    @objc dynamic var code: String
+    private var _code: String = ""
+    @objc dynamic var code: String {
+        get {
+            return _code
+        }
+        set(newCode) {
+            if isSteam {
+                _code = Credential.formatSteamCode(value:newCode)
+            } else {
+                _code = newCode
+            }
+        }
+    }
     @objc dynamic var remainingTime : Double
     @objc dynamic var activeTime : Double
     @objc dynamic var state : CredentialState = .idle
@@ -84,37 +96,38 @@ class Credential: NSObject {
      */
     @objc dynamic private var globalTimer = GlobalTimer.shared
 
-    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false, keyVersion: YKFKeyVersion) {
+    init(type: YKFOATHCredentialType = .TOTP, account: String, issuer: String, period: UInt = DEFAULT_PERIOD,  code: String, requiresTouch: Bool = false, keyVersion: YKFVersion) {
         self.keyVersion = keyVersion
         self.type = type
         self.account = account
         self.issuer = issuer
         self.period = period
-        self.code = code
         self.validity = type == .TOTP ? DateInterval(start: Date(timeIntervalSinceNow: 0), duration: TimeInterval(period)) :
             DateInterval(start: Date(timeIntervalSinceNow: 0), end: Date.distantFuture)
         self.requiresTouch  = requiresTouch
         self.remainingTime = validity.end.timeIntervalSince(Date())
         self.activeTime = 0
         
+        super.init()
+        self.code = code
         if !code.isEmpty {
             state = .active
         }
     }
     
-    init(fromYKFOATHCredentialCalculateResult credential:YKFOATHCredentialCalculateResult, keyVersion: YKFKeyVersion) {
+    init(credential: YKFOATHCredentialWithCode, keyVersion: YKFVersion) {
         self.keyVersion = keyVersion
-        type = credential.type
-        account = credential.account
-        issuer = credential.issuer
-        period = credential.period
-        
-        code = credential.otp ?? ""
-        validity = credential.validity
-        remainingTime = credential.validity.end.timeIntervalSince(Date())
+        type = credential.credential.type
+        account = credential.credential.accountName
+        issuer = credential.credential.issuer
+        period = credential.credential.period
+        validity = credential.code?.validity ?? DateInterval()
+        remainingTime = credential.code?.validity.end.timeIntervalSince(Date()) ?? 0
         activeTime = 0
-        requiresTouch = credential.requiresTouch
+        requiresTouch = credential.credential.requiresTouch
         
+        super.init()
+        code = credential.code?.otp ?? ""
         if !code.isEmpty {
             state = .active
         }
@@ -145,7 +158,7 @@ class Credential: NSObject {
             if state == .expired || state == .idle {
                 return true
             }
-            if type == .TOTP && self.remainingTime <= 0 {
+            if type == .TOTP && self.remainingTime < -100 { // kludge of the week
                 return true
             }
             if type == .HOTP && self.activeTime > 10 {
@@ -156,11 +169,7 @@ class Credential: NSObject {
     }
     
     func setCode(code: String, validity : DateInterval) {
-        if isSteam {
-            self.code = Credential.formatSteamCode(value:code)
-        } else {
-            self.code = code
-        }
+        self.code = code
         self.validity = validity
         remainingTime = validity.end.timeIntervalSince(Date())
         activeTime = 0
@@ -168,7 +177,7 @@ class Credential: NSObject {
     
     var ykCredential : YKFOATHCredential {
         let credential = YKFOATHCredential()
-        credential.account = account
+        credential.accountName = account
         credential.type = type
         credential.issuer = issuer
         credential.period = period
@@ -226,7 +235,6 @@ class Credential: NSObject {
                     if !self.requiresTouch {
                         self.delegate?.calculateResultDidExpire(self)
                     } else {
-                        self.code = ""
                         self.state = .expired
                     }
 
@@ -261,5 +269,32 @@ class Credential: NSObject {
         case calculating
         case expired
         case active
+    }
+}
+
+extension Credential {
+    var formattedName: String {
+        return issuer?.isEmpty == false ? "\(issuer!) (\(account))" : account
+    }
+    
+    var formattedCode: String {
+        var otp = self.code.isEmpty ? "••••••" : self.code
+        if self.isSteam {
+            return otp
+        } else {
+            // make it pretty by splitting in halves
+            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
+            return otp
+        }
+    }
+    
+    var iconLetter: String {
+        if let issuer = issuer?.first?.uppercased() {
+            return issuer
+        } else if let account = account.first?.uppercased() {
+            return account
+        } else {
+            return "Y"
+        }
     }
 }

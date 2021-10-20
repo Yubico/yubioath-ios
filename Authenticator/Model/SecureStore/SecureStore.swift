@@ -77,6 +77,41 @@ class SecureStore {
     /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
     validating password with device's biometric or passcode protection.
     */
+    public func getValue(for userAccount: String, completion: @escaping (Result<String, Error>) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let useAuthentication = self.hasValueProtected(for: userAccount)
+            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+            query[String(kSecMatchLimit)] = kSecMatchLimitOne
+            query[String(kSecReturnAttributes)] = kCFBooleanTrue
+            query[String(kSecReturnData)] = kCFBooleanTrue
+            query[String(kSecAttrAccount)] = userAccount
+            
+            var queryResult: AnyObject?
+            let status = withUnsafeMutablePointer(to: &queryResult) {
+                SecItemCopyMatching(query as CFDictionary, $0)
+            }
+            switch status {
+            case errSecSuccess:
+                guard let queriedItem = queryResult as? [String: Any],
+                    let passwordData = queriedItem[String(kSecValueData)] as? Data,
+                    let password = String(data: passwordData, encoding: .utf8)
+                else {
+                    completion(.failure(SecureStoreError.data2StringConversionError))
+                    return
+                }
+                completion(.success(password))
+            case errSecItemNotFound:
+                completion(.failure(SecureStoreError.itemNotFound))
+            default:
+                completion(.failure(self.error(from: status)))
+            }
+        }
+    }
+    
+    /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
+    validating password with device's biometric or passcode protection.
+    */
     public func getValueAsync(for userAccount: String, useAuthentication: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }

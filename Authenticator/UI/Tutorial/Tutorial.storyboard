@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="YAz-Jp-vED">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--TutorialNFC View Controller-->
+        <scene sceneID="e4H-Fp-gPi">
+            <objects>
+                <viewController storyboardIdentifier="FreNfcViewController" id="CSb-J7-MFc" customClass="TutorialNFCViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3BX-Go-JES">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfr-Ls-d7G">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YubiKey 5 Series NFC authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ew-5d-tth">
+                                        <rect key="frame" x="24" y="40" width="272" height="61"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Hold the key horizontally and tilt the iPhone towards the key." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxy-Ot-GLA">
+                                        <rect key="frame" x="24" y="372" width="272" height="54"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the center of the key to the edge of the phone." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkN-Lk-jMY">
+                                        <rect key="frame" x="24" y="426" width="272" height="54"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdG-yt-Z34">
+                                        <rect key="frame" x="24" y="121" width="288" height="177"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="auth-app-intro-3-yk-nfc" translatesAutoresizingMaskIntoConstraints="NO" id="D2o-L4-HE3">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="177"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D2o-L4-HE3" secondAttribute="trailing" id="QEx-28-Gzu"/>
+                                            <constraint firstItem="D2o-L4-HE3" firstAttribute="centerX" secondItem="kdG-yt-Z34" secondAttribute="centerX" id="T7j-mr-kMO"/>
+                                            <constraint firstItem="D2o-L4-HE3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kdG-yt-Z34" secondAttribute="leading" id="a1y-bk-nYT"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="D2o-L4-HE3" secondAttribute="bottom" id="jxR-g7-mPm"/>
+                                            <constraint firstItem="D2o-L4-HE3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kdG-yt-Z34" secondAttribute="top" id="rdT-id-bu6"/>
+                                            <constraint firstItem="D2o-L4-HE3" firstAttribute="centerY" secondItem="kdG-yt-Z34" secondAttribute="centerY" id="yYB-RN-Ea4"/>
+                                        </constraints>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey with NFC, pull down the main view to activate NFC." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hs-uc-a5r">
+                                        <rect key="frame" x="24" y="318" width="272" height="54"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="0Ew-5d-tth" firstAttribute="centerX" secondItem="zfr-Ls-d7G" secondAttribute="centerX" id="1oP-eb-5Hc"/>
+                                    <constraint firstItem="0Ew-5d-tth" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="4Kz-gx-5uq"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Bxy-Ot-GLA" secondAttribute="trailing" constant="16" id="4zY-g2-fTh"/>
+                                    <constraint firstItem="Bxy-Ot-GLA" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="9PR-Vg-ooO"/>
+                                    <constraint firstItem="4hs-uc-a5r" firstAttribute="top" secondItem="kdG-yt-Z34" secondAttribute="bottom" constant="20" id="Jlj-uO-akm"/>
+                                    <constraint firstItem="Bxy-Ot-GLA" firstAttribute="top" secondItem="4hs-uc-a5r" secondAttribute="bottom" id="LXH-jH-2Rq"/>
+                                    <constraint firstItem="bkN-Lk-jMY" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="TnD-PW-dhZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="bkN-Lk-jMY" secondAttribute="bottom" id="Ucs-ee-LlW"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="4hs-uc-a5r" secondAttribute="trailing" constant="16" id="az2-jB-im6"/>
+                                    <constraint firstItem="0Ew-5d-tth" firstAttribute="top" secondItem="zfr-Ls-d7G" secondAttribute="top" constant="40" id="cmf-UN-FOb"/>
+                                    <constraint firstItem="kdG-yt-Z34" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="gOu-CU-c9n"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="0Ew-5d-tth" secondAttribute="trailing" constant="16" id="iao-Z3-dRQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="kdG-yt-Z34" secondAttribute="trailingMargin" constant="16" id="kIJ-L7-6po"/>
+                                    <constraint firstItem="kdG-yt-Z34" firstAttribute="top" secondItem="0Ew-5d-tth" secondAttribute="bottom" constant="20" id="oah-Jo-d3c"/>
+                                    <constraint firstItem="bkN-Lk-jMY" firstAttribute="top" secondItem="Bxy-Ot-GLA" secondAttribute="bottom" id="oke-Tx-vWb"/>
+                                    <constraint firstItem="4hs-uc-a5r" firstAttribute="leading" secondItem="zfr-Ls-d7G" secondAttribute="leadingMargin" constant="16" id="vhC-t6-Uj0"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="bkN-Lk-jMY" secondAttribute="trailing" constant="16" id="wPJ-CY-ofM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="P1K-OU-E0u"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zfr-Ls-d7G" firstAttribute="leading" secondItem="P1K-OU-E0u" secondAttribute="leading" id="BGr-ho-CEt"/>
+                            <constraint firstItem="P1K-OU-E0u" firstAttribute="bottom" secondItem="zfr-Ls-d7G" secondAttribute="bottom" id="Ja5-i6-Zcr"/>
+                            <constraint firstItem="P1K-OU-E0u" firstAttribute="trailing" secondItem="zfr-Ls-d7G" secondAttribute="trailing" id="KPm-Bf-Nh2"/>
+                            <constraint firstItem="zfr-Ls-d7G" firstAttribute="top" secondItem="P1K-OU-E0u" secondAttribute="top" id="a51-7P-c41"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Tuk-da-gmS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqH-ut-UBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2111.1999999999998" y="-1340.3940886699509"/>
+        </scene>
+        <!--Tutorial View Controller-->
+        <scene sceneID="jCS-nU-7vP">
+            <objects>
+                <pageViewController storyboardIdentifier="FrePageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Nrf-fR-vCF" customClass="TutorialViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="jVl-UO-t9f">
+                        <barButtonItem key="leftBarButtonItem" title="Skip" id="IVf-FH-Iqr">
+                            <connections>
+                                <action selector="skip:" destination="Nrf-fR-vCF" id="HPR-d7-OW9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="N2W-CE-fPm">
+                            <connections>
+                                <action selector="next:" destination="Nrf-fR-vCF" id="A84-uD-pAO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nextBarButton" destination="N2W-CE-fPm" id="Y9X-R6-pcT"/>
+                        <outlet property="skipBarButton" destination="IVf-FH-Iqr" id="ayX-HN-nki"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv2-AP-3Mo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-301" y="-1339"/>
+        </scene>
+        <!--Tutorial Welcome View Controller-->
+        <scene sceneID="d8z-vL-FXx">
+            <objects>
+                <viewController storyboardIdentifier="FreWelcomeViewController" id="5Xb-Tm-822" customClass="TutorialWelcomeViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PeX-o2-9zN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OQ-lF-PWA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="How it works" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ub0-A4-vpe">
+                                        <rect key="frame" x="24" y="40" width="272" height="30"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-vn-fpt">
+                                        <rect key="frame" x="24" y="369" width="272" height="73"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYg-TD-NqH">
+                                        <rect key="frame" x="24" y="277" width="272" height="92"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URL-XV-CW6">
+                                        <rect key="frame" x="24" y="90" width="272" height="167"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-img-light" translatesAutoresizingMaskIntoConstraints="NO" id="1gK-vv-YCZ">
+                                                <rect key="frame" x="15" y="0.0" width="242" height="167"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1gK-vv-YCZ" secondAttribute="trailing" id="4Zi-gG-iS5"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1gK-vv-YCZ" secondAttribute="bottom" id="KBc-iE-zaO"/>
+                                            <constraint firstItem="1gK-vv-YCZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="URL-XV-CW6" secondAttribute="leading" id="KaL-3U-el3"/>
+                                            <constraint firstItem="1gK-vv-YCZ" firstAttribute="centerX" secondItem="URL-XV-CW6" secondAttribute="centerX" id="RQD-Xo-s49"/>
+                                            <constraint firstItem="1gK-vv-YCZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="URL-XV-CW6" secondAttribute="top" id="bwS-71-AAk"/>
+                                            <constraint firstItem="1gK-vv-YCZ" firstAttribute="centerY" secondItem="URL-XV-CW6" secondAttribute="centerY" id="pl1-49-PRM"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XdE-m1-y3M" customClass="UrlButton" customModule="Authenticator" customModuleProvider="target">
+                                        <rect key="frame" x="117" y="446" width="86" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="kbn-VK-SK1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <state key="normal" title="Read more..."/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="url" value="https://www.yubico.com/"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openUrl:" destination="5Xb-Tm-822" eventType="touchUpInside" id="g11-E8-nqp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailingMargin" secondItem="URL-XV-CW6" secondAttribute="trailing" constant="16" id="0ae-h6-oAh"/>
+                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="4B4-Ka-gkZ"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="ub0-A4-vpe" secondAttribute="trailing" constant="16" id="A6B-yo-6ZD"/>
+                                    <constraint firstItem="bYg-TD-NqH" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="Gct-gq-fqE"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="agV-vn-fpt" secondAttribute="trailing" constant="16" id="Gw3-zM-UHs"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="bYg-TD-NqH" secondAttribute="trailing" constant="16" id="OjS-SZ-eG8"/>
+                                    <constraint firstItem="ub0-A4-vpe" firstAttribute="top" secondItem="2OQ-lF-PWA" secondAttribute="top" constant="40" id="TP5-yQ-DSX"/>
+                                    <constraint firstItem="agV-vn-fpt" firstAttribute="top" secondItem="bYg-TD-NqH" secondAttribute="bottom" id="Uty-7g-H6z"/>
+                                    <constraint firstItem="URL-XV-CW6" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="aQg-x2-cq1"/>
+                                    <constraint firstItem="XdE-m1-y3M" firstAttribute="centerX" secondItem="2OQ-lF-PWA" secondAttribute="centerX" id="f9G-2h-NJu"/>
+                                    <constraint firstItem="agV-vn-fpt" firstAttribute="leading" secondItem="2OQ-lF-PWA" secondAttribute="leadingMargin" constant="16" id="gTF-hm-qwr"/>
+                                    <constraint firstItem="bYg-TD-NqH" firstAttribute="top" secondItem="URL-XV-CW6" secondAttribute="bottom" constant="20" id="hqY-Xv-7di"/>
+                                    <constraint firstItem="XdE-m1-y3M" firstAttribute="top" secondItem="agV-vn-fpt" secondAttribute="bottom" constant="4" id="i6x-Ff-k2p"/>
+                                    <constraint firstItem="URL-XV-CW6" firstAttribute="top" secondItem="ub0-A4-vpe" secondAttribute="bottom" constant="20" id="kHc-bu-epu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PPw-V1-S8d"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2OQ-lF-PWA" firstAttribute="bottom" secondItem="XdE-m1-y3M" secondAttribute="bottom" id="5xl-SX-KPB"/>
+                            <constraint firstItem="2OQ-lF-PWA" firstAttribute="trailing" secondItem="PPw-V1-S8d" secondAttribute="trailing" id="FaR-e7-z38"/>
+                            <constraint firstItem="2OQ-lF-PWA" firstAttribute="top" secondItem="PPw-V1-S8d" secondAttribute="top" id="Ptp-kO-rgd"/>
+                            <constraint firstItem="2OQ-lF-PWA" firstAttribute="bottom" secondItem="PPw-V1-S8d" secondAttribute="bottom" id="b2d-Rc-mch"/>
+                            <constraint firstItem="2OQ-lF-PWA" firstAttribute="leading" secondItem="PPw-V1-S8d" secondAttribute="leading" id="cKI-1f-zR4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="E6I-M3-gRm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GCI-k7-aiA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="573.60000000000002" y="-1339.8800599700151"/>
+        </scene>
+        <!--TutorialQR View Controller-->
+        <scene sceneID="7In-Oz-7Q5">
+            <objects>
+                <viewController storyboardIdentifier="FreQRViewController" id="q4g-vH-Kej" customClass="TutorialQRViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uis-Qp-bi1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-H3-WSN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="Where to get QR codes" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUl-K8-lGO">
+                                        <rect key="frame" x="21" y="40" width="279" height="34"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Simply scan the QR code when you add your YubiKey and generate your own security codes." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBh-MF-9Fk">
+                                        <rect key="frame" x="24" y="407" width="272" height="73"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="QR codes are available from the services you wish to secure." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-Sg-vD2">
+                                        <rect key="frame" x="24" y="353" width="272" height="54"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pA-e2-c5r">
+                                        <rect key="frame" x="24" y="90" width="272" height="243"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-4-qr-code" translatesAutoresizingMaskIntoConstraints="NO" id="m5C-iy-rJD">
+                                                <rect key="frame" x="49" y="0.0" width="174" height="243"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="m5C-iy-rJD" firstAttribute="centerX" secondItem="6pA-e2-c5r" secondAttribute="centerX" id="3mb-VI-yXX"/>
+                                            <constraint firstItem="m5C-iy-rJD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6pA-e2-c5r" secondAttribute="leading" id="Par-o1-Sqr"/>
+                                            <constraint firstItem="m5C-iy-rJD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6pA-e2-c5r" secondAttribute="top" id="UWf-Yh-mfy"/>
+                                            <constraint firstItem="m5C-iy-rJD" firstAttribute="centerY" secondItem="6pA-e2-c5r" secondAttribute="centerY" id="dTe-pB-oGY"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="m5C-iy-rJD" secondAttribute="trailing" id="iDP-Pk-SOb"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="m5C-iy-rJD" secondAttribute="bottom" id="zwn-qa-6fc"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="6pA-e2-c5r" firstAttribute="top" secondItem="RUl-K8-lGO" secondAttribute="bottom" constant="20" id="1HS-8z-zVV"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="centerX" secondItem="UZW-H3-WSN" secondAttribute="centerX" id="Crg-p0-vK3"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="6pA-e2-c5r" secondAttribute="trailing" constant="16" id="Gyy-cb-h8A"/>
+                                    <constraint firstItem="jBh-MF-9Fk" firstAttribute="top" secondItem="cSo-Sg-vD2" secondAttribute="bottom" id="H1k-F4-oVh"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="jBh-MF-9Fk" secondAttribute="trailing" constant="16" id="Ja5-Vg-bFp"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="top" secondItem="UZW-H3-WSN" secondAttribute="top" constant="40" id="Nqa-lY-rKL"/>
+                                    <constraint firstAttribute="bottom" secondItem="jBh-MF-9Fk" secondAttribute="bottom" id="Z6F-ch-Y5L"/>
+                                    <constraint firstItem="6pA-e2-c5r" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="cqb-wF-7dk"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="cSo-Sg-vD2" secondAttribute="trailing" constant="16" id="eze-E0-crV"/>
+                                    <constraint firstItem="cSo-Sg-vD2" firstAttribute="top" secondItem="6pA-e2-c5r" secondAttribute="bottom" constant="20" id="fzm-hJ-aOx"/>
+                                    <constraint firstItem="cSo-Sg-vD2" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="nW2-BQ-nrq"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="RUl-K8-lGO" secondAttribute="trailing" constant="16" id="qKI-Ng-oC8"/>
+                                    <constraint firstItem="RUl-K8-lGO" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="sFt-oy-0ZH"/>
+                                    <constraint firstItem="jBh-MF-9Fk" firstAttribute="leading" secondItem="UZW-H3-WSN" secondAttribute="leadingMargin" constant="16" id="x5H-VH-aSx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="FG2-a7-YeU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FG2-a7-YeU" firstAttribute="bottom" secondItem="UZW-H3-WSN" secondAttribute="bottom" id="6Fq-fh-SS7"/>
+                            <constraint firstItem="FG2-a7-YeU" firstAttribute="trailing" secondItem="UZW-H3-WSN" secondAttribute="trailing" id="OmQ-ei-PTm"/>
+                            <constraint firstItem="UZW-H3-WSN" firstAttribute="leading" secondItem="FG2-a7-YeU" secondAttribute="leading" id="cZA-Fb-79z"/>
+                            <constraint firstItem="UZW-H3-WSN" firstAttribute="top" secondItem="FG2-a7-YeU" secondAttribute="top" id="xz8-FR-pm1"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Yga-xn-OBs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NqD-aa-CWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2895.1999999999998" y="-1339.8800599700151"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cN6-XN-tgq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YAz-Jp-vED" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="msq-uu-Qbj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nrf-fR-vCF" kind="relationship" relationship="rootViewController" id="aaC-jO-fTJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QXC-7a-Yo3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1254" y="-1339"/>
+        </scene>
+        <!--Tutorial5 Ci View Controller-->
+        <scene sceneID="4q3-LE-id7">
+            <objects>
+                <viewController storyboardIdentifier="Fre5CiViewController" id="kkp-Ao-3KZ" customClass="Tutorial5CiViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SLj-kf-UpP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27b-Wg-3iK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="YubiKey 5Ci authentication" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdG-o8-OXh">
+                                        <rect key="frame" x="24" y="40" width="272" height="61"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" name="YubiBlue"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="If you have a YubiKey 5Ci, plug it in." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWb-g8-FRF">
+                                        <rect key="frame" x="24" y="391" width="272" height="35"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" scrollEnabled="NO" editable="NO" text="Touch the contacts on the sides when prompted." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Paz-Es-tja">
+                                        <rect key="frame" x="24" y="426" width="272" height="54"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEm-Pv-1b5">
+                                        <rect key="frame" x="24" y="121" width="272" height="250"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="auth-app-intro-2-yk5ci" translatesAutoresizingMaskIntoConstraints="NO" id="uJY-Sf-sBz">
+                                                <rect key="frame" x="60" y="0.0" width="152" height="250"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="uJY-Sf-sBz" firstAttribute="centerY" secondItem="UEm-Pv-1b5" secondAttribute="centerY" id="AY3-jY-4rO"/>
+                                            <constraint firstItem="uJY-Sf-sBz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UEm-Pv-1b5" secondAttribute="leading" id="PDl-sI-sRR"/>
+                                            <constraint firstItem="uJY-Sf-sBz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UEm-Pv-1b5" secondAttribute="top" id="PUD-PN-RyG"/>
+                                            <constraint firstItem="uJY-Sf-sBz" firstAttribute="centerX" secondItem="UEm-Pv-1b5" secondAttribute="centerX" id="m1j-xS-knD"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="uJY-Sf-sBz" secondAttribute="bottom" id="rMP-HL-YHb"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uJY-Sf-sBz" secondAttribute="trailing" id="sWd-s2-3Lo"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="centerX" secondItem="27b-Wg-3iK" secondAttribute="centerX" id="8TV-fB-IdR"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="UEm-Pv-1b5" secondAttribute="trailing" constant="16" id="Dyd-bw-T7f"/>
+                                    <constraint firstItem="UEm-Pv-1b5" firstAttribute="top" secondItem="mdG-o8-OXh" secondAttribute="bottom" constant="20" id="FjT-0R-Sq0"/>
+                                    <constraint firstItem="KWb-g8-FRF" firstAttribute="top" secondItem="UEm-Pv-1b5" secondAttribute="bottom" constant="20" id="HFW-jH-BfW"/>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="IFh-zX-Ldh"/>
+                                    <constraint firstItem="UEm-Pv-1b5" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="QJm-Zp-z1c"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Paz-Es-tja" secondAttribute="trailing" constant="16" id="SMU-TI-HhE"/>
+                                    <constraint firstItem="Paz-Es-tja" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="Tgb-M5-bLg"/>
+                                    <constraint firstItem="Paz-Es-tja" firstAttribute="top" secondItem="KWb-g8-FRF" secondAttribute="bottom" id="V2b-It-lB5"/>
+                                    <constraint firstItem="mdG-o8-OXh" firstAttribute="top" secondItem="27b-Wg-3iK" secondAttribute="top" constant="40" id="YyX-7p-o4G"/>
+                                    <constraint firstAttribute="bottom" secondItem="Paz-Es-tja" secondAttribute="bottom" id="h2M-k8-vvW"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="KWb-g8-FRF" secondAttribute="trailing" constant="16" id="mdz-pT-F3r"/>
+                                    <constraint firstItem="KWb-g8-FRF" firstAttribute="leading" secondItem="27b-Wg-3iK" secondAttribute="leadingMargin" constant="16" id="xIB-g6-X1c"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="mdG-o8-OXh" secondAttribute="trailing" constant="16" id="xkr-EQ-QdK"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wi6-ZF-chH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="leading" secondItem="wi6-ZF-chH" secondAttribute="leading" id="D7w-my-Nsd"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="trailing" secondItem="wi6-ZF-chH" secondAttribute="trailing" id="YCk-p5-znk"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="top" secondItem="wi6-ZF-chH" secondAttribute="top" id="mR1-RO-QCb"/>
+                            <constraint firstItem="27b-Wg-3iK" firstAttribute="bottom" secondItem="wi6-ZF-chH" secondAttribute="bottom" id="uw5-Jj-nYs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5sy-f9-pMg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGt-tp-lOj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1323.1884057971015" y="-1340.217391304348"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" name="YubiBlue"/>
+    <resources>
+        <image name="auth-app-img-light" width="242" height="222"/>
+        <image name="auth-app-intro-2-yk5ci" width="152" height="362"/>
+        <image name="auth-app-intro-3-yk-nfc" width="318" height="352"/>
+        <image name="auth-app-intro-4-qr-code" width="174" height="338"/>
+        <namedColor name="YubiBlue">
+            <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            YubiKitManager.shared.accessorySession.startSession()
+            YubiKitManager.shared.startAccessoryConnection()
         }
-
+        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
+            UNUserNotificationCenter.current().delegate = main
+        }
         return true
     }
 
@@ -44,7 +46,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
+        coder.encode(1.6, forKey: "AppVersion")
+        return true
+    }
 
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
+        let version = coder.decodeFloat(forKey: "AppVersion")
+        if version == 1.6 {
+           return true
+        }
+        return false
+    }
 
 }
 
