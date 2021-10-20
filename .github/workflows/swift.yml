@@ -11,5 +11,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test on emulator
-        run: xcrun simctl list --json devices available; xcodebuild -version; xcodebuild clean test -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=14.5,name=iPhone 12" | xcpretty --test --color && exit ${PIPESTATUS[0]}
+        run: xcrun simctl list --json devices available; xcodebuild -version; xcodebuild clean test -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=14.4,name=iPhone 12" | xcpretty --test --color && exit ${PIPESTATUS[0]}
 
