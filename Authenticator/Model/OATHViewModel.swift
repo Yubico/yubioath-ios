@@ -297,43 +297,18 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 self.onTouchRequired()
             }
             
-            var challenge = Data()
-            let timestamp = Date().addingTimeInterval(10)
-            let value: UInt64 = UInt64(timestamp.timeIntervalSince1970 / TimeInterval(credential.period))
-            var bigEndianVal = value.bigEndian
-            withUnsafePointer(to: &bigEndianVal) {
-                challenge.append(UnsafeBufferPointer(start: $0, count: 1))
-            }
-            session.calculateResponse(forCredentialID: Data(credential.uniqueId.utf8), challenge: challenge) { response, error in
-                guard error == nil else {
+            session.calculateSteamTOTP(credential: credential) { code, validity, error in
+                guard let code = code, let validity = validity else {
                     self.onError(error: error!) {
                         self.calculate(credential: credential)
                     }
                     return
                 }
                 YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
-                guard let response = response else {
-                    if let error = error {
-                        self.onError(error: error)
-                    }
-                    return
-                }
-
-                let offset = Int(response.last! & 0x0F)
-                let subdata = response.subdata(in: offset..<Int(offset + 4))
-                let steamChars = Array("23456789BCDFGHJKMNPQRTVWXY")
-                var number = UInt32(bigEndian: subdata.uint32 ?? 0) & 0x7fffffff
-                var steamCode = ""
-                for _ in 0...4 {
-                    steamCode.append(steamChars[Int(number) % steamChars.count])
-                    number /= UInt32(steamChars.count)
-                }
-                let startDate = Date(timeIntervalSince1970: TimeInterval(Int(timestamp.timeIntervalSince1970) - Int(timestamp.timeIntervalSince1970) % 30))
-                let validity = DateInterval(start: startDate, duration: 30)
-                credential.setCode(code: steamCode, validity: validity)
+                credential.setCode(code: code, validity: validity)
                 credential.state = .active
                 if let completion = completion {
-                    completion(steamCode)
+                    completion(code)
                 }
                 self.onUpdate(credential: credential)
             }
