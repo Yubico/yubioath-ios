@@ -178,7 +178,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.type == .TOTP &&
+                    if credential.isSteam && !credential.requiresTouch {
+                        self.calculateSteamTOTP(credential: credential)
+                    } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
                         SettingsConfig.isBypassTouchEnabled &&
                         self.nfcConnection != nil {
@@ -206,7 +208,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func calculate(credential: Credential, completion: ((String) -> Void)? = nil) {
-        if credential.type == .TOTP {
+        if credential.isSteam {
+            calculateSteamTOTP(credential: credential, completion: completion)
+        } else if credential.type == .TOTP {
             calculateTOTP(credential: credential, completion: completion)
         } else {
             calculateHOTP(credential: credential, completion: completion)
@@ -279,6 +283,57 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 credential.state = .active
                 if let completion = completion {
                     completion(otp)
+                }
+                self.onUpdate(credential: credential)
+            }
+        }
+    }
+    
+    public func calculateSteamTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
+        session { session in
+            guard let session = session else { return }
+
+            if credential.requiresTouch {
+                self.onTouchRequired()
+            }
+            
+            var challenge = Data()
+            let timestamp = Date().addingTimeInterval(10)
+            let value: UInt64 = UInt64(timestamp.timeIntervalSince1970 / TimeInterval(credential.period))
+            var bigEndianVal = value.bigEndian
+            withUnsafePointer(to: &bigEndianVal) {
+                challenge.append(UnsafeBufferPointer(start: $0, count: 1))
+            }
+            session.calculateResponse(forCredentialID: Data(credential.uniqueId.utf8), challenge: challenge) { response, error in
+                guard error == nil else {
+                    self.onError(error: error!) {
+                        self.calculate(credential: credential)
+                    }
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
+                guard let response = response else {
+                    if let error = error {
+                        self.onError(error: error)
+                    }
+                    return
+                }
+
+                let offset = Int(response.last! & 0x0F)
+                let subdata = response.subdata(in: offset..<Int(offset + 4))
+                let steamChars = Array("23456789BCDFGHJKMNPQRTVWXY")
+                var number = UInt32(bigEndian: subdata.uint32 ?? 0) & 0x7fffffff
+                var steamCode = ""
+                for _ in 0...4 {
+                    steamCode.append(steamChars[Int(number) % steamChars.count])
+                    number /= UInt32(steamChars.count)
+                }
+                let startDate = Date(timeIntervalSince1970: TimeInterval(Int(timestamp.timeIntervalSince1970) - Int(timestamp.timeIntervalSince1970) % 30))
+                let validity = DateInterval(start: startDate, duration: 30)
+                credential.setCode(code: steamCode, validity: validity)
+                credential.state = .active
+                if let completion = completion {
+                    completion(steamCode)
                 }
                 self.onUpdate(credential: credential)
             }

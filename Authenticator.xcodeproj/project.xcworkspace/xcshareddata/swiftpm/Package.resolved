@@ -5,8 +5,8 @@
         "package": "YubiKit",
         "repositoryURL": "https://github.com/Yubico/yubikit-ios",
         "state": {
-          "branch": "jens/yubikit-4.1",
-          "revision": "1bbfb755b7c79514cd0d319837d12a195f0997ed",
+          "branch": "jens/non-truncated-hmac-signature",
+          "revision": "af0b93f4115fe141b1f6443aef93f0bcae6af4f0",
           "version": null
         }
       }

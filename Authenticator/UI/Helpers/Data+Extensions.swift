@@ -16,3 +16,15 @@ extension Data {
         return Data(bytes)
     }
 }
+
+extension Data {
+    var uint32: UInt32? {
+        guard self.count == MemoryLayout<UInt32>.size else { return nil }
+        return withUnsafeBytes { $0.load(as: UInt32.self) }
+    }
+
+    var uint64: UInt64? {
+        guard self.count == MemoryLayout<UInt64>.size else { return nil }
+        return withUnsafeBytes { $0.load(as: UInt64.self) }
+    }
+}
