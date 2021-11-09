@@ -3,7 +3,7 @@ name: AuthenticatorTests
 on: [push]
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_13.1.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_13.2.app/Contents/Developer
 
 jobs:
   build:
@@ -11,6 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Show Xcode version and simulators
-        run: xcode-select -p; xcodebuild -version; xcrun simctl list
+        run: xcode-select -p; xcodebuild -version; xcrun simctl list; echo $DEVELOPER_DIR
       - name: Test on emulator
         run: xcodebuild clean test -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=latest,name=iPhone 12 Pro" | xcpretty --test --color && exit ${PIPESTATUS[0]}
