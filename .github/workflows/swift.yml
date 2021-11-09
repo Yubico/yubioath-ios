@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          xcode-version: '13.1'
+          xcode-version: '12.4'
       - name: Show Xcode version and simulators
         run: xcode-select -p; xcodebuild -version; xcrun simctl list
       - name: Test on emulator
