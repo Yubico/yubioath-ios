@@ -13,4 +13,4 @@ jobs:
       - name: Show Xcode version and simulators
         run: xcode-select -p; xcodebuild -version; xcrun simctl list
       - name: Test on emulator
-        run: xcodebuild clean test -disablePackageRepositoryCache -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=14.4,name=iPhone 12" | xcpretty --test --color && exit ${PIPESTATUS[0]}
+        run: xcodebuild clean test -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=14.4,name=iPhone 12" | xcpretty --test --color && exit ${PIPESTATUS[0]}
