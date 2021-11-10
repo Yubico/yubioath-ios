@@ -10,7 +10,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
+      - name: List Xcode versions
+        run: ls -n /Applications/ | grep Xcode*
       - name: Show Xcode version and simulators
-        run: xcode-select -p; xcodebuild -version; xcrun simctl list; ls /Applications/Xcode_13.2.app/Contents/Developer
+        run: xcode-select -p; xcodebuild -version; xcrun simctl list
       - name: Test on emulator
         run: xcodebuild clean test -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=latest,name=iPhone 12 Pro" | xcpretty --test --color && exit ${PIPESTATUS[0]}
