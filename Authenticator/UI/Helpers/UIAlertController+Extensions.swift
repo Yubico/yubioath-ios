@@ -57,7 +57,7 @@ extension UIAlertController {
         
         self.init(title: "Would you like to save this password for YubiKey for next usage in this application?",
                   message: "You can remove saved password in Settings.",
-                  preferredStyle: .actionSheet)
+                  preferredStyle: UIDevice.current.userInterfaceIdiom == .pad ? .alert : .actionSheet)
 
         let save = UIAlertAction(title: "Save Password", style: .default) { _ in completion(.save) }
         let biometric = UIAlertAction(title: "Save and protect with \(authenticationType.title)", style: .default) { _ in completion(.lock) }
@@ -72,15 +72,5 @@ extension UIAlertController {
         }
         self.addAction(never)
         self.addAction(notNow)
-        
-        // The action sheet requires a presentation popover on iPad.
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            self.modalPresentationStyle = .popover
-            if let popoverController = self.popoverPresentationController {
-//                popoverController.sourceView = self.view.superview
-//                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-                popoverController.permittedArrowDirections = []
-            }
-        }
     }
 }
