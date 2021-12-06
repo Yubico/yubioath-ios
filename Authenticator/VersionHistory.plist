@@ -4,6 +4,16 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.6.5</string>
+        <key>date</key>
+        <date>2021-12-08T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>In this version we've fixed a crash occurring on iPadOS when showing the version history.</string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.6.4</string>
         <key>date</key>
         <date>2021-11-10T09:41:00Z</date>

@@ -100,7 +100,6 @@ class OATHViewController: UITableViewController {
             self.performSegue(withIdentifier: .startTutorial, sender: self)
         } else if VersionHistoryViewController.shouldShowOnAppLaunch {
             let whatsNewController = VersionHistoryViewController()
-            whatsNewController.modalPresentationStyle = .popover
             whatsNewController.titleText = "What's new in\nYubico Authenticator"
             whatsNewController.closeButtonText = "Continue"
             whatsNewController.closeBlock = { [weak self] in

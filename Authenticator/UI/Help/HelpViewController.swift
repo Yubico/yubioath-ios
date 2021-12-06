@@ -28,7 +28,6 @@ class HelpViewController: UITableViewController {
         switch (indexPath.section, indexPath.row) {
         case (0, 1):
             let whatsNewController = VersionHistoryViewController()
-            whatsNewController.modalPresentationStyle = .popover
             self.present(whatsNewController, animated: true)
         case (0, 2):
             if let url = URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/") {

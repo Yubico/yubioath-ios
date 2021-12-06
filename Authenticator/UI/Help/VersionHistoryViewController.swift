@@ -79,7 +79,7 @@ class VersionHistoryViewController: UIViewController {
                                      scrollView.bottomAnchor.constraint(equalTo: closeButton.topAnchor),
                                      closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
                                      closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-                                     closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+                                     closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
                                      maskView.bottomAnchor.constraint(equalTo: closeButton.topAnchor),
                                      maskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      maskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
