@@ -178,7 +178,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.type == .TOTP &&
+                    if credential.isSteam && !credential.requiresTouch {
+                        self.calculateSteamTOTP(credential: credential)
+                    } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
                         SettingsConfig.isBypassTouchEnabled &&
                         self.nfcConnection != nil {
@@ -206,7 +208,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func calculate(credential: Credential, completion: ((String) -> Void)? = nil) {
-        if credential.type == .TOTP {
+        if credential.isSteam {
+            calculateSteamTOTP(credential: credential, completion: completion)
+        } else if credential.type == .TOTP {
             calculateTOTP(credential: credential, completion: completion)
         } else {
             calculateHOTP(credential: credential, completion: completion)
@@ -279,6 +283,32 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 credential.state = .active
                 if let completion = completion {
                     completion(otp)
+                }
+                self.onUpdate(credential: credential)
+            }
+        }
+    }
+    
+    public func calculateSteamTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
+        session { session in
+            guard let session = session else { return }
+
+            if credential.requiresTouch {
+                self.onTouchRequired()
+            }
+            
+            session.calculateSteamTOTP(credential: credential) { code, validity, error in
+                guard let code = code, let validity = validity else {
+                    self.onError(error: error!) {
+                        self.calculate(credential: credential)
+                    }
+                    return
+                }
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
+                credential.setCode(code: code, validity: validity)
+                credential.state = .active
+                if let completion = completion {
+                    completion(code)
                 }
                 self.onUpdate(credential: credential)
             }

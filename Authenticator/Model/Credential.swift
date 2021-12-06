@@ -22,8 +22,6 @@ protocol CredentialExpirationDelegate : AnyObject {
 class Credential: NSObject {
     static let DEFAULT_PERIOD: UInt = 30
     private static let STEAM_ISSUER = "steam"
-    private static let STEAM_CHARS = Array("23456789BCDFGHJKMNPQRTVWXY")
-    
     
     /*!
      Firmware version of the key that generated the credential.
@@ -60,32 +58,13 @@ class Credential: NSObject {
     weak var delegate: CredentialExpirationDelegate?
     private var timerObservation: NSKeyValueObservation?
 
-    /*!
-     Steam credentials are specific that they represented by letters and digits from STEAM_CHARS array
-     We calculate them differently:
-     - not truncating to digits number (digits is being ignored)
-     - getting INT32 value from Yubikit as string
-     - 5 symbols being calculated in algorithm described in formatSteamCode
-     */
     var isSteam: Bool {
         get {
-            return issuer?.lowercased() == Credential.STEAM_ISSUER
+            return type == .TOTP && issuer?.lowercased() == Credential.STEAM_ISSUER
         }
     }
     
-    private var _code: String = ""
-    @objc dynamic var code: String {
-        get {
-            return _code
-        }
-        set(newCode) {
-            if isSteam {
-                _code = Credential.formatSteamCode(value:newCode)
-            } else {
-                _code = newCode
-            }
-        }
-    }
+    @objc dynamic var code: String
     @objc dynamic var remainingTime : Double
     @objc dynamic var activeTime : Double
     @objc dynamic var state : CredentialState = .idle
@@ -107,9 +86,9 @@ class Credential: NSObject {
         self.requiresTouch  = requiresTouch
         self.remainingTime = validity.end.timeIntervalSince(Date())
         self.activeTime = 0
-        
-        super.init()
         self.code = code
+
+        super.init()
         if !code.isEmpty {
             state = .active
         }
@@ -125,9 +104,9 @@ class Credential: NSObject {
         remainingTime = credential.code?.validity.end.timeIntervalSince(Date()) ?? 0
         activeTime = 0
         requiresTouch = credential.credential.requiresTouch
-        
-        super.init()
         code = credential.code?.otp ?? ""
+
+        super.init()
         if !code.isEmpty {
             state = .active
         }
@@ -181,25 +160,7 @@ class Credential: NSObject {
         credential.type = type
         credential.issuer = issuer
         credential.period = period
-        
-        // STEAM users want to have special type of OTP
-        if isSteam {
-            credential.notTruncated = true
-        }
         return credential
-    }
-    
-    private static func formatSteamCode(value: String) -> String {
-        guard !value.isEmpty else {
-            return value
-        }
-        var steamCode = ""
-        var intCode = Int(value) ?? 0
-        for _ in 0...4 {
-            steamCode.append(Credential.STEAM_CHARS[abs(intCode) % STEAM_CHARS.count])
-            intCode /= Credential.STEAM_CHARS.count
-        }
-        return steamCode
     }
     
     // MARK: - Observation

@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
+    <dict>
+        <key>version</key>
+        <string>1.6.4</string>
+        <key>date</key>
+        <date>2021-11-10T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>This version contains a fix to the Steam code generation.</string>
+    </dict>
 	<dict>
         <key>version</key>
         <string>1.6.3</string>
@@ -112,7 +122,7 @@
         <key>shouldPromptUser</key>
         <false/>
         <key>changes</key>
-        <string>Inital release! 🎉</string>
+        <string>Initial release! 🎉</string>
     </dict>
 </array>
 </plist>
