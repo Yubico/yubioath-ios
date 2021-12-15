@@ -25,7 +25,8 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     func tokenSession(_ session: TKTokenSession, beginAuthFor operation: TKTokenOperation, constraint: Any) throws -> TKTokenAuthOperation {
         // Insert code here to create an instance of TKTokenAuthOperation based on the specified operation and constraint.
         // Note that the constraint was previously established when creating token configuration with keychain items.
-        return TKTokenPasswordAuthOperation()
+        
+        return YubikeyPinOperation()
     }
     
     func tokenSession(_ session: TKTokenSession, supports operation: TKTokenOperation, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) -> Bool {
@@ -33,6 +34,15 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     }
     
     func tokenSession(_ session: TKTokenSession, sign dataToSign: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
+        if YubiKeyPIVSession.shared.yubiKeyConnected {
+            if YubiKeyPIVSession.shared.pinVerified {
+                // sign the data here
+            } else {
+                throw TKError(.authenticationNeeded)
+            }
+        }
+              
+              
         // tokenSession() gets called multiple times even if we throw an error. This kludge make sure we only pop one notification.
         
         // if we're not passed sessionEndTime throw error and cancel all notifications
