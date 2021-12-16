@@ -130,7 +130,6 @@
 		B48DE4D8276A217800E363D8 /* YKFPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = B48DE4AB276A217800E363D8 /* YKFPermissions.m */; };
 		B48DE4D9276A217800E363D8 /* YubiKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B48DE4B1276A217800E363D8 /* YubiKitManager.m */; };
 		B48DE4DA276A217800E363D8 /* YubiKitLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B48DE4B2276A217800E363D8 /* YubiKitLogger.m */; };
-		B48DE4DC276A304600E363D8 /* YubiKeyPINOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48DE4DB276A304600E363D8 /* YubiKeyPINOperation.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -360,7 +359,6 @@
 		B48DE4B0276A217800E363D8 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		B48DE4B1276A217800E363D8 /* YubiKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YubiKitManager.m; sourceTree = "<group>"; };
 		B48DE4B2276A217800E363D8 /* YubiKitLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YubiKitLogger.m; sourceTree = "<group>"; };
-		B48DE4DB276A304600E363D8 /* YubiKeyPINOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyPINOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,7 +458,6 @@
 				515542782656707000B19C59 /* TokenSession.swift */,
 				5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */,
 				B48DE433276A1B4F00E363D8 /* YubiKeyPIVSession.swift */,
-				B48DE4DB276A304600E363D8 /* YubiKeyPINOperation.swift */,
 				5155427A2656707000B19C59 /* Info.plist */,
 			);
 			path = TokenExtension;
@@ -1104,7 +1101,6 @@
 				B48DE4B8276A217800E363D8 /* YKFRequest.m in Sources */,
 				B48DE4C4276A217800E363D8 /* YKFU2FError.m in Sources */,
 				B48DE4C6276A217800E363D8 /* YKFFIDO2Error.m in Sources */,
-				B48DE4DC276A304600E363D8 /* YubiKeyPINOperation.swift in Sources */,
 				B48DE4BA276A217800E363D8 /* YKFPIVKeyType.m in Sources */,
 				B48DE4C5276A217800E363D8 /* YKFChallengeResponseError.m in Sources */,
 				B48DE4CB276A217800E363D8 /* YKFAccessoryConnection+Debugging.m in Sources */,

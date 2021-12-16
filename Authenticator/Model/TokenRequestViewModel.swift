@@ -78,7 +78,9 @@ class TokenRequestViewModel: NSObject {
 
     func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String, completion: @escaping (TokenError?) -> Void) {
         connection.startConnection { connection in
+            print("🦠 Got connection \(connection)")
             connection.pivSession { session, error in
+                print("🦠 Got session \(session)")
                 guard let session = session else { print("No session: \(error!)"); return }
                 guard let type = userInfo.keyType(),
                       let objectId = userInfo.objectId(),

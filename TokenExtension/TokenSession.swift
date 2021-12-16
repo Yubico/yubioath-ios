@@ -25,8 +25,7 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     func tokenSession(_ session: TKTokenSession, beginAuthFor operation: TKTokenOperation, constraint: Any) throws -> TKTokenAuthOperation {
         // Insert code here to create an instance of TKTokenAuthOperation based on the specified operation and constraint.
         // Note that the constraint was previously established when creating token configuration with keychain items.
-        
-        return YubikeyPinOperation()
+        return TKTokenAuthOperation()
     }
     
     func tokenSession(_ session: TKTokenSession, supports operation: TKTokenOperation, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) -> Bool {
@@ -34,28 +33,6 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
     }
     
     func tokenSession(_ session: TKTokenSession, sign dataToSign: Data, keyObjectID: Any, algorithm: TKTokenKeyAlgorithm) throws -> Data {
-        if YubiKeyPIVSession.shared.yubiKeyConnected {
-            if YubiKeyPIVSession.shared.pinVerified {
-                // sign the data here
-            } else {
-                throw TKError(.authenticationNeeded)
-            }
-        }
-              
-              
-        // tokenSession() gets called multiple times even if we throw an error. This kludge make sure we only pop one notification.
-        
-        // if we're not passed sessionEndTime throw error and cancel all notifications
-        if sessionEndTime.timeIntervalSinceNow > 0 {
-            cancelAllNotifications()
-            throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
-        }
-
-        // if we're past sessionEndTime set a new endtime and reset
-        if sessionEndTime.timeIntervalSinceNow < 0 {
-            reset()
-            sessionEndTime = Date(timeIntervalSinceNow: 100)
-        }
         
         guard let key = try? session.token.configuration.key(for: keyObjectID), let objectId = keyObjectID as? String else {
             throw "No key for you!"
@@ -79,6 +56,33 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
         guard let keyType = possibleKeyType, let secKeyAlgorithm = algorithm.secKeyAlgorithm else {
             throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
         }
+        
+        if let pin = UserDefaults(suiteName: "group.com.yubico.Authenticator")?.string(forKey: "pin") {
+            if pin.count > 4 && YubiKeyPIVSession.shared.yubiKeyConnected {
+                if let signedData = YubiKeyPIVSession.shared.sign(objectId: objectId, type: keyType, algorithm: secKeyAlgorithm, message: dataToSign, password: pin) {
+                    YubiKeyPIVSession.shared.stop()
+                    return signedData
+                }
+            }
+        }
+    
+        YubiKeyPIVSession.shared.stop()
+
+        // tokenSession() gets called multiple times even if we throw an error. This kludge make sure we only pop one notification.
+        
+        // if we're not passed sessionEndTime throw error and cancel all notifications
+        if sessionEndTime.timeIntervalSinceNow > 0 {
+            cancelAllNotifications()
+            throw NSError(domain: TKErrorDomain, code: TKError.Code.canceledByUser.rawValue, userInfo: nil)
+        }
+
+        // if we're past sessionEndTime set a new endtime and reset
+        if sessionEndTime.timeIntervalSinceNow < 0 {
+            reset()
+            sessionEndTime = Date(timeIntervalSinceNow: 100)
+        }
+        
+
 
         sendNotificationWithData(dataToSign, keyObjectID: objectId, keyType: keyType, algorithm: secKeyAlgorithm)
         
@@ -171,3 +175,5 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
 }
 
 extension String: Error {}
+
+

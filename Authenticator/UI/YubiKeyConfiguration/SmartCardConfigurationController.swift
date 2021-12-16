@@ -42,6 +42,7 @@ class SmartCardConfigurationController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         tableView.register(CertificateCell.self, forCellReuseIdentifier: "CertificateCell")
+        tableView.register(PINCell.self, forCellReuseIdentifier: "PINCell")
         tableView.register(MessageCell.self, forCellReuseIdentifier: "MessageCell")
         tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
 
@@ -141,11 +142,11 @@ class SmartCardConfigurationController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        if indexPath.section == 1 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
                 cell.type = .onYubiKey
@@ -176,7 +177,7 @@ class SmartCardConfigurationController: UITableViewController {
                 }
                 return cell
             }
-        } else {
+        } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
                 cell.type = .onDevice
@@ -198,12 +199,28 @@ class SmartCardConfigurationController: UITableViewController {
                 }
                 return cell
             }
+        } else {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! HeaderCell
+                cell.type = .onDevice
+                let configuration = UIImage.SymbolConfiguration(pointSize: 55)
+                cell.icon.image = UIImage(systemName: "ladybug", withConfiguration: configuration)
+                cell.title.text = "Experimental PIN storage"
+                cell.text.text = "PIN will temporary be stored by the application so the CryptoTokeKit extension can use it to unlock the PIV application."
+                return cell
+            } else {
+                return tableView.dequeueReusableCell(withIdentifier: "PINCell", for: indexPath) as! PINCell
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let rows = section == 0 ? certificates?.count ?? 0 : tokens.count
-        return (rows == 0 ? 1 : rows) + 1
+        if section > 1 {
+            let rows = section == 0 ? certificates?.count ?? 0 : tokens.count
+            return (rows == 0 ? 1 : rows) + 1
+        } else {
+            return 2
+        }
     }
 }
 
@@ -373,6 +390,72 @@ private class CertificateCell: UITableViewCell {
         super.prepareForReuse()
         button.setSymbol(symbol: "plus.circle")
         cancellable?.cancel()
+    }
+    
+    deinit {
+        print("deinit CertificateCell")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+private class PINCell: UITableViewCell, UITextFieldDelegate {
+        
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Stored PIN"
+        label.font = .preferredFont(forTextStyle: .body)
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        return label
+    }()
+    
+    private var pinTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "PIN"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .preferredFont(forTextStyle: .headline)
+        textField.keyboardType = .asciiCapable
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        return textField
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        isUserInteractionEnabled = true
+        pinTextField.delegate = self
+        pinTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        let stack = UIStackView(arrangedSubviews: [titleLabel, pinTextField])
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:10),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        ])
+    }
+    
+    override func prepareForReuse() {
+        if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+            pinTextField.text = userDefaults.string(forKey: "pin")
+        }
+        pinTextField.becomeFirstResponder()
+        super.prepareForReuse()
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+            userDefaults.setValue(textField.text, forKey: "pin")
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     deinit {
