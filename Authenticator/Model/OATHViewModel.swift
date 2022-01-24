@@ -179,7 +179,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 
                 credentials.forEach { credential in
                     if credential.isSteam && !credential.requiresTouch {
-                        self.calculateSteamTOTP(credential: credential)
+                        self.calculateSteamTOTP(credential: credential, stopNFCWhenDone: false)
                     } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
                         SettingsConfig.isBypassTouchEnabled &&
@@ -209,7 +209,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculate(credential: Credential, completion: ((String) -> Void)? = nil) {
         if credential.isSteam {
-            calculateSteamTOTP(credential: credential, completion: completion)
+            calculateSteamTOTP(credential: credential, stopNFCWhenDone: true, completion: completion)
         } else if credential.type == .TOTP {
             calculateTOTP(credential: credential, completion: completion)
         } else {
@@ -289,7 +289,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    public func calculateSteamTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
+    public func calculateSteamTOTP(credential: Credential, stopNFCWhenDone: Bool, completion: ((String) -> Void)? = nil) {
         session { session in
             guard let session = session else { return }
 
@@ -304,7 +304,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
+                if stopNFCWhenDone {
+                    YubiKitManager.shared.stopNFCConnection(withMessage: "Code calculated")
+                }
                 credential.setCode(code: code, validity: validity)
                 credential.state = .active
                 if let completion = completion {
