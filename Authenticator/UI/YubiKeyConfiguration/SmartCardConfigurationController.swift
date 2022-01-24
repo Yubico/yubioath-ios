@@ -328,8 +328,18 @@ private class MessageCell: UITableViewCell {
 }
 
 private class CertificateCell: UITableViewCell {
-    private let nameLabel = UILabel()
-    private let button = UIButton(withSymbol: "plus.circle")
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.lineBreakMode = .byTruncatingTail
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        return label
+    }()
+    private let button: UIButton = {
+        let button = UIButton(withSymbol: "plus.circle")
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        return button
+    }()
     var cancellable: Cancellable?
     
     var name: String? {
@@ -356,16 +366,15 @@ private class CertificateCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        nameLabel.font = .preferredFont(forTextStyle: .body)
         isUserInteractionEnabled = true
         let stack = UIStackView(arrangedSubviews: [nameLabel, button])
         stack.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stack)
         NSLayoutConstraint.activate([
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:10),
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant:15),
             stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
         ])
     }
     
