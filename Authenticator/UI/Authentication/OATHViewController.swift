@@ -42,39 +42,37 @@ class OATHViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
-        let oathMenu = UIMenu(title: "", options: .displayInline, children: [
-            UIAction(title: "Scan QR code",
+        menuButton.menu = UIMenu(title: "", children: [
+            UIAction(title: "Add account",
                      image: UIImage(systemName: "qrcode"),
                      attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
                      handler: { [weak self] _ in
-                self?.userFoundMenu()
-                self?.scanQR()
-            }),
-            UIAction(title: "Add account",
-                     image: UIImage(systemName: "square.and.pencil"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
-                     handler: { [weak self] _ in
-                self?.userFoundMenu()
-                self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-            })
-        ])
-        let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
+                         guard let self = self else { return }
+                         let scanController = ScanAccountController() { result in
+                             guard let result = result else {
+                                 self.credentailToAdd = nil
+                                 self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+                                 return
+                             }
+                             self.credentailToAdd = result
+                             self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
+                         }
+                         self.userFoundMenu()
+                         self.present(scanController, animated: true)
+                     }),
             UIAction(title: "Configuration",
                      image: UIImage(systemName: "switch.2"),
                      attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
                      handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.userFoundMenu()
-                self.performSegue(withIdentifier: "showConfiguration", sender: self)
-            }),
+                         guard let self = self else { return }
+                         self.userFoundMenu()
+                         self.performSegue(withIdentifier: "showConfiguration", sender: self)
+                     }),
             UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.userFoundMenu()
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
-            })
-        ])
-
-        menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
+        })])
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -278,33 +276,6 @@ class OATHViewController: UITableViewController {
         }
     }
     
-    private func scanQR() {
-        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
-            [weak self] (payload, error) in
-            guard self != nil else {
-                return
-            }
-            guard error == nil else {
-                self?.onError(error: error!)
-                return
-            }
-            
-            // This is an URL conforming to Key URI Format specs.
-            guard let url = URL(string: payload!) else {
-                self?.onError(error: KeySessionError.invalidUri)
-                return
-            }
-            
-            guard let credential = YKFOATHCredentialTemplate(url: url) else {
-                self?.onError(error: KeySessionError.invalidCredentialUri)
-                return
-            }
-            
-            self?.credentailToAdd = credential
-            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-        }
-    }
-
     private func refreshCredentials() {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             if viewModel.keyPluggedIn {
