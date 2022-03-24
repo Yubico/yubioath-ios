@@ -12,6 +12,9 @@ import Combine
 
 class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    private static let scanMessage = "Point your camera at a QR code to scan it"
+    private static let errorMessage = "No account information found!"
+
     init(completionHandler: @escaping (YKFOATHCredentialTemplate?) -> ()) {
         self.completionHandler = completionHandler
         super.init(nibName: nil, bundle: nil)
@@ -64,23 +67,23 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
     private let textLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Point your camera at a QR code to scan it"
+        label.text = ScanAccountController.scanMessage
         label.textColor = .white
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .footnote).withSymbolicTraits(.traitBold)
         return label
     }()
     
-    private let errorLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "No account information in QR code!"
-        label.textColor = .red
-        label.textAlignment = .center
-        label.font = .preferredFont(forTextStyle: .title3).withSymbolicTraits(.traitBold)
-        label.alpha = 0
-        return label
+    private let checkboxImageView: UIImageView = {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 80)
+        let image = UIImage(systemName: "checkmark.circle")?.withConfiguration(configuration)
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .yubiGreen
+        imageView.alpha = 0
+        return imageView
     }()
+    
+    private var errorOverlay: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +114,10 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
         overlay.addSubview(addAccountLabel)
         overlay.addSubview(addManuallyButton)
         overlay.addSubview(textLabel)
-        overlay.addSubview(errorLabel)
+        
+        view.addSubview(checkboxImageView)
+        let rect = captureRect()
+        checkboxImageView.center = CGPoint(x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2)
 
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: overlay.topAnchor, constant: 10),
@@ -122,13 +128,15 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
             addManuallyButton.bottomAnchor.constraint(equalTo: overlay.safeAreaLayoutGuide.bottomAnchor, constant: -55),
             textLabel.leadingAnchor.constraint(equalTo: overlay.leadingAnchor, constant: 10),
             textLabel.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -10),
-            textLabel.topAnchor.constraint(equalTo: overlay.topAnchor, constant: overlay.frame.height / 1.6),
-            errorLabel.leadingAnchor.constraint(equalTo: overlay.leadingAnchor, constant: 10),
-            errorLabel.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -10),
-            errorLabel.topAnchor.constraint(equalTo: overlay.topAnchor, constant: overlay.frame.height / 5.0)
+            textLabel.topAnchor.constraint(equalTo: overlay.topAnchor, constant: overlay.frame.height / 1.6)
         ])
         
+        
         view.addSubview(overlay)
+        
+        errorOverlay = createOverlay(frameColor: .red, background: .clear)
+        errorOverlay?.alpha = 0
+        view.addSubview(errorOverlay!)
         
         captureSession.startRunning()
     }
@@ -149,8 +157,9 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard lastScanDate.timeIntervalSinceNow < -5 else { return }
+        guard lastScanDate.timeIntervalSinceNow < -2 else { return }
         lastScanDate = Date()
+        self.view.layer.removeAllAnimations()
         guard let metadataObject = metadataObjects.first,
               let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
               let stringValue = readableObject.stringValue else { return }
@@ -160,18 +169,31 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
             showError()
             return
         }
-        captureSession.stopRunning()
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        dismiss(animated: true)
-        completionHandler(credential)
+        self.errorOverlay?.isHidden = true
+        UIView.animate(withDuration: 0.5) {
+            self.textLabel.text = Self.scanMessage
+            self.checkboxImageView.alpha = 1
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.captureSession.stopRunning()
+            self.dismiss(animated: true)
+            self.completionHandler(credential)
+        }
     }
     
     func showError() {
         UIView.animate(withDuration: 0.5) {
-            self.errorLabel.alpha = 1
-        } completion: { _ in
+            self.errorOverlay?.alpha = 1
+            self.textLabel.text = Self.errorMessage
+        } completion: { completed in
+            guard completed else { return }
             UIView.animate(withDuration: 0.5, delay: 4.0) {
-              self.errorLabel.alpha = 0
+                self.errorOverlay?.alpha = 0
+            } completion: { completed in
+                guard completed else { return }
+                self.textLabel.text = Self.scanMessage
             }
         }
     }
@@ -193,10 +215,10 @@ extension ScanAccountController {
                       height: size)
     }
     
-    func createOverlay() -> UIView {
+    func createOverlay(frameColor: UIColor = .yubiGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
         
         let overlayView = UIView(frame: view.frame)
-        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        overlayView.backgroundColor = background
         
         let path = CGMutablePath()
         path.addRoundedRect(in: captureRect(), cornerWidth: 15, cornerHeight: 15)
@@ -204,9 +226,9 @@ extension ScanAccountController {
         
         let shape = CAShapeLayer()
         shape.path = path
-        shape.lineWidth = 5.0
-        shape.strokeColor = UIColor.yubiGreen.cgColor
-        shape.fillColor = UIColor.yubiGreen.cgColor
+        shape.lineWidth = 6.0
+        shape.strokeColor = frameColor.cgColor
+        shape.fillColor = UIColor.clear.cgColor
         
         overlayView.layer.addSublayer(shape)
         
