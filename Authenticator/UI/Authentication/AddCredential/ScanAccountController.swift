@@ -9,6 +9,7 @@
 import AVFoundation
 import UIKit
 import Combine
+import CloudKit
 
 class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -75,10 +76,11 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }()
     
     private let checkboxImageView: UIImageView = {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 80)
-        let image = UIImage(systemName: "checkmark.circle")?.withConfiguration(configuration)
+        let configuration = UIImage.SymbolConfiguration(pointSize: 250)
+        let image = UIImage(systemName: "checkmark.circle.fill")?.withConfiguration(configuration)
         let imageView = UIImageView(image: image)
         imageView.tintColor = .yubiGreen
+        imageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         imageView.alpha = 0
         return imageView
     }()
@@ -115,10 +117,6 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
         overlay.addSubview(addManuallyButton)
         overlay.addSubview(textLabel)
         
-        view.addSubview(checkboxImageView)
-        let rect = captureRect()
-        checkboxImageView.center = CGPoint(x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2)
-
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: overlay.topAnchor, constant: 10),
             closeButton.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -20),
@@ -138,6 +136,10 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
         errorOverlay?.alpha = 0
         view.addSubview(errorOverlay!)
         
+        view.addSubview(checkboxImageView)
+        let rect = captureRect()
+        checkboxImageView.center = CGPoint(x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2)
+
         captureSession.startRunning()
     }
     
@@ -171,12 +173,21 @@ class ScanAccountController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         self.errorOverlay?.isHidden = true
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
             self.textLabel.text = Self.scanMessage
             self.checkboxImageView.alpha = 1
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+            self.textLabel.text = Self.scanMessage
+            self.checkboxImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }
+        
+        UIView.animate(withDuration: 0.3, delay: 0.7, options: .curveEaseIn) {
+            self.checkboxImageView.alpha = 0
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.captureSession.stopRunning()
             self.dismiss(animated: true)
             self.completionHandler(credential)
