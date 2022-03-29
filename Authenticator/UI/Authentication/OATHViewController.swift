@@ -48,17 +48,9 @@ class OATHViewController: UITableViewController {
                      attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
                      handler: { [weak self] _ in
                          guard let self = self else { return }
-                         let scanController = ScanAccountController() { result in
-                             guard let result = result else {
-                                 self.credentailToAdd = nil
-                                 self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-                                 return
-                             }
-                             self.credentailToAdd = result
-                             self.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-                         }
-                         self.userFoundMenu()
-                         self.present(scanController, animated: true)
+                         let storyboard = UIStoryboard(name: "AddCredential", bundle: nil)
+                         let vc = storyboard.instantiateViewController(withIdentifier: "AddCredential")
+                         self.present(vc, animated: true)
                      }),
             UIAction(title: "Configuration",
                      image: UIImage(systemName: "switch.2"),
