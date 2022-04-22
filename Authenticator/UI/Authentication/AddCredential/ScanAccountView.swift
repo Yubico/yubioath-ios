@@ -168,7 +168,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             credential = try YKFOATHCredentialTemplate(url: url, error: ())
         } catch {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            showError(error.localizedDescription)
+            showError("\(error.localizedDescription)!")
             return
         }
         
