@@ -112,41 +112,30 @@ class AddCredentialController: UITableViewController {
         if let button = sender as? UIBarButtonItem, button == saveButton {
             // Set the credential to be passed to MainViewController after the unwind segue.
             if let credential = self.credential {
-            // Credential is pupolated from QR code, apply user changes
-                if (self.issuerManualText.text?.isEmpty == false) {
-                    credential.issuer = self.issuerManualText.text!
-                }
-                credential.accountName = self.accountManualText.text ?? ""
+                // Credential is pupolated from QR code, apply user changes
+                self.credential = YKFOATHCredentialTemplate(type: credential.type,
+                                                            algorithm: credential.algorithm,
+                                                            secret: credential.secret,
+                                                            issuer: self.issuerManualText.text ?? "",
+                                                            accountName: self.accountManualText.text ?? "",
+                                                            digits: credential.digits,
+                                                            period: credential.period,
+                                                            counter: credential.counter)
                 self.requiresTouch = self.requireTouchManual.isOn
             } else {
-            // Create the credential from manual input
-                
-                let credential = YKFOATHCredentialTemplate()
-                
-                // Set the credential to be passed to MainViewController after the unwind segue.
-                if (self.issuerManualText.text?.isEmpty == false) {
-                    credential.issuer = self.issuerManualText.text!
-                }
-                credential.accountName = self.accountManualText.text ?? ""
-                self.requiresTouch = self.requireTouchManual.isOn
+                // Create the credential from manual input
+                let type: YKFOATHCredentialType = getSelectedIndex(row: 0) == 0 ? .TOTP : .HOTP
+                let algorithm = YKFOATHCredentialAlgorithm.init(rawValue: UInt(getSelectedIndex(row: 1) + 1)) ?? .SHA1
+                let secret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") ?? Data()
+                self.credential = YKFOATHCredentialTemplate(type: type,
+                                                            algorithm: algorithm,
+                                                            secret: secret,
+                                                            issuer: self.issuerManualText.text ?? "",
+                                                            accountName: self.accountManualText.text ?? "",
+                                                            digits: UInt(getSelectedIndex(row: 2) + 6),
+                                                            period: UInt(periodManualText.text ?? "30") ?? 0,
+                                                            counter: 0)
 
-                // use the base32DecodeData (of type Data) and set it on the credential:
-                guard let base32DecodedSecret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") else {
-                    // we already validated input before enabling action button, so this should never happen
-                    // but better to notify with error alert
-                    print("Invalid Base32 encoded string")
-                    return
-                }
-                credential.secret = base32DecodedSecret
-                
-                credential.type = getSelectedIndex(row: 0) == 0 ? .TOTP : .HOTP
-                credential.algorithm = YKFOATHCredentialAlgorithm.init(rawValue: UInt(getSelectedIndex(row: 1) + 1)) ?? .SHA1
-                credential.digits = UInt(getSelectedIndex(row: 2) + 6)
-                if credential.type == .TOTP {
-                    credential.period = UInt(periodManualText.text ?? "30") ?? 30
-                }
-                self.credential = credential
-                
                 // reset all advanced settings to default
                 resetDefaults()
             }

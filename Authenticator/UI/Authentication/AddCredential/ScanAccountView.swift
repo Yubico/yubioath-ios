@@ -18,7 +18,6 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     private static let scanMessage = "Point your camera at a QR code to scan it"
-    private static let errorMessage = "No account information found!"
 
     private let completionHandler: (ScanResult) -> ()
     private let captureSession = AVCaptureSession()
@@ -158,12 +157,21 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         guard let metadataObject = metadataObjects.first,
               let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
               let stringValue = readableObject.stringValue else { return }
-        guard let url = URL(string: stringValue),
-              let credential = YKFOATHCredentialTemplate(url: url) else {
+        guard let url = URL(string: stringValue) else {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            showError()
+            showError("No account information found!")
             return
         }
+        
+        let credential: YKFOATHCredentialTemplate
+        do {
+            credential = try YKFOATHCredentialTemplate(url: url, error: ())
+        } catch {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            showError(error.localizedDescription)
+            return
+        }
+        
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         self.errorOverlay?.isHidden = true
         UIView.animate(withDuration: 0.2) {
@@ -187,10 +195,10 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func showError() {
+    func showError(_ message: String) {
         UIView.animate(withDuration: 0.5) {
             self.errorOverlay?.alpha = 1
-            self.textLabel.text = Self.errorMessage
+            self.textLabel.text = message
         } completion: { completed in
             guard completed else { return }
             UIView.animate(withDuration: 0.5, delay: 4.0) {

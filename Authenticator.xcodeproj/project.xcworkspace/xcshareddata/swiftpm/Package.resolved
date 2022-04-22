@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "YubiKit",
-        "repositoryURL": "https://github.com/Yubico/yubikit-ios",
-        "state": {
-          "branch": null,
-          "revision": "7b19be11a362d9e52eac0d76b5d904560b9e5ea7",
-          "version": "4.2.0"
-        }
+  "pins" : [
+    {
+      "identity" : "yubikit-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Yubico/yubikit-ios",
+      "state" : {
+        "branch" : "jens/oath-account-creation",
+        "revision" : "5b307ff5524e637845b6541c2fa24e22b72d6efb"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

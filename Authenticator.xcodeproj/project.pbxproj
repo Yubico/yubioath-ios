@@ -1066,8 +1066,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.2.0;
+				branch = "jens/oath-account-creation";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
