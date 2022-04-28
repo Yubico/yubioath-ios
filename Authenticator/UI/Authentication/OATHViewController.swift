@@ -186,11 +186,11 @@ class OATHViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if (viewModel.pinnedCredentials.count > 0 && section == 0) {
+        if viewModel.pinnedCredentials.count > 0 && section == 0 {
             return "Pinned"
         }
         
-        if (viewModel.pinnedCredentials.count == 0 && section == 0) {
+        if viewModel.pinnedCredentials.count == 0 && section == 0 {
             return "Accounts"
         }
         
@@ -198,11 +198,8 @@ class OATHViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            if viewModel.pinnedCredentials.count > 0 {
-                return viewModel.pinnedCredentials.count
-            }
-            return viewModel.credentials.count
+        if section == 0 && viewModel.pinnedCredentials.count > 0 {
+            return viewModel.pinnedCredentials.count
         }
         
         return viewModel.credentials.count
