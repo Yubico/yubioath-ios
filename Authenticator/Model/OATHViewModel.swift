@@ -350,6 +350,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func renameCredential(credential: Credential, issuer: String, account: String) {
         session { session in
             guard let session = session else { return }
+            
+            let wasPinned = self.isPinned(credential: credential)
+            
             session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -357,9 +360,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
+                
+                if wasPinned {
+                    self.unPin(credential: credential)
+                }
+                
                 credential.issuer = issuer
                 credential.account = account
                 YubiKitManager.shared.stopNFCConnection(withMessage: "Credential renamed")
+                
+                if wasPinned {
+                    self.pin(credential: credential)
+                }
+                
                 self.onUpdate(credential: credential)
             }
         }
