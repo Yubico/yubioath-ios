@@ -211,14 +211,6 @@ class Credential: NSObject {
     func removeTimerObservation() {
         timerObservation = nil
     }
-    
-    static func == (lhs: Credential, rhs: Credential) -> Bool {
-        return lhs.uniqueId == rhs.uniqueId
-    }
-
-    static func < (lhs: Credential, rhs: Credential) -> Bool {
-        return lhs.uniqueId.lowercased() < rhs.uniqueId.lowercased()
-    }
 
     /*! Variation of states for credential
      * idle - just created from list
@@ -230,6 +222,16 @@ class Credential: NSObject {
         case calculating
         case expired
         case active
+    }
+}
+
+extension Credential: Comparable {
+    static func == (lhs: Credential, rhs: Credential) -> Bool {
+        return lhs.uniqueId == rhs.uniqueId
+    }
+
+    static func < (lhs: Credential, rhs: Credential) -> Bool {
+        return lhs.uniqueId.lowercased() < rhs.uniqueId.lowercased()
     }
 }
 

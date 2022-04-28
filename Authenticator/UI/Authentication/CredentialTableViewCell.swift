@@ -16,11 +16,9 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var code: UILabel!
     @IBOutlet weak var progress: PieProgressBar!
-    @IBOutlet weak var favouriteIcon: UIImageView!
     @IBOutlet weak var actionIcon: UIImageView!
     @IBOutlet weak var credentialIcon: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var favoriteIcon: UIImageView!
     @IBOutlet weak var iconScalingConstraint: NSLayoutConstraint!
     
     @objc dynamic private var credential: Credential?
@@ -51,14 +49,13 @@ class CredentialTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         actionIcon.isHidden = true
-        favouriteIcon.isHidden = true
         progress.isHidden = true
         activityIndicator.isHidden = true
     }
     
     // this method is invoked when table view reloaded and UI got data/list of credentials
     // each cell is responsible to show 1 credential and cell can be reused by updating credential with this method
-    func updateView(credential: Credential, isFavorite: Bool) {
+    func updateView(credential: Credential) {
         self.credential = credential
         name.text = credential.issuer?.isEmpty == false ? "\(credential.issuer!) (\(credential.account))" : credential.account
         if credential.type == .HOTP {
@@ -71,7 +68,6 @@ class CredentialTableViewCell: UITableViewCell {
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
         progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
         credentialIcon.text = credential.iconLetter
-        favoriteIcon.isHidden = !isFavorite
         self.credentialIconColor = credential.iconColor
         credentialIcon.backgroundColor = self.credentialIconColor
         progress.setupView()

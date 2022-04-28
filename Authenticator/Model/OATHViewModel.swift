@@ -127,25 +127,24 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: [Credential] {
-        // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
-        if self.favorites.count > 0 {
-            self._credentials.sort {
-                if isFavorite(credential: $0) == isFavorite(credential: $1) {
-                    return $0 < $1
-                }
-                return isFavorite(credential: $0)
+        return credentials(pinned: false)
+    }
+    
+    var pinnedCredentials: [Credential] {
+        return credentials(pinned: true)
+    }
+    
+    private func credentials(pinned: Bool) -> [Credential] {
+        let credentials = _credentials.filter {
+            pinned == isPinned(credential: $0)
+        }.sorted()
+        
+        if let filter = filter, !filter.isEmpty {
+            return credentials.filter {
+                $0.issuer?.lowercased().contains(filter) == true || $0.account.lowercased().contains(filter)
             }
         } else {
-            self._credentials.sort {
-                $0 < $1
-            }
-        }
-        
-        if self.filter == nil || self.filter!.isEmpty {
-            return self._credentials
-        }
-        return self._credentials.filter {
-            $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
+            return credentials
         }
     }
 
@@ -606,8 +605,8 @@ extension OATHViewModel { //}: OperationDelegate {
             // If remove credential from favorites first and then from credentials list, the wrong indexPath will be returned.
             if let row = self._credentials.firstIndex(where: { $0 == credential }) {
                 self._credentials.remove(at: row)
-                if self.isFavorite(credential: credential) {
-                    self.removeFavorite(credential: credential)
+                if self.isPinned(credential: credential) {
+                    self.unPin(credential: credential)
                 }
                 self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
             }
@@ -697,17 +696,17 @@ extension OATHViewModel {
 
 extension OATHViewModel {
     
-    func isFavorite(credential: Credential) -> Bool {
+    func isPinned(credential: Credential) -> Bool {
         return self.favorites.contains(credential.uniqueId)
     }
     
-    func addFavorite(credential: Credential) {
+    func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         calculateAll()
     }
     
-    func removeFavorite(credential: Credential) {
+    func unPin(credential: Credential) {
         self.favorites.remove(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         calculateAll()

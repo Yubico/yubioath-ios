@@ -136,13 +136,25 @@ class OATHViewController: UITableViewController {
     // MARK: - Table view data source
     //
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if viewModel.credentials.count > 0 {
+        
+        var sections = 0
+        // only pinned accounts or only non pinned accounts
+        if (viewModel.credentials.count > 0 && viewModel.pinnedCredentials.count == 0)
+            || (viewModel.credentials.count == 0 && viewModel.pinnedCredentials.count > 0) {
+            sections = 1
+        }
+        
+        // pinned and non pinned accounts
+        if viewModel.credentials.count > 0 && viewModel.pinnedCredentials.count > 0 {
+            sections = 2
+        }
+        
+        if sections > 0 {
             self.navigationItem.titleView = nil
             self.title = "Accounts"
             self.tableView.backgroundView = nil
             backgroundView = nil
             self.showHintView(false)
-            return 1
         } else {
             guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
             let imageView = UIImageView(image: image)
@@ -169,21 +181,38 @@ class OATHViewController: UITableViewController {
             } else {
                 self.showHintView(false)
             }
-
-            return 0
         }
+        return sections
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (viewModel.pinnedCredentials.count > 0 && section == 0) {
+            return "Pinned accounts"
+        }
+        
+        if (viewModel.pinnedCredentials.count == 0 && section == 0) {
+            return "Accounts"
+        }
+        
+        return "Accounts"
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            if viewModel.pinnedCredentials.count > 0 {
+                return viewModel.pinnedCredentials.count
+            }
+            return viewModel.credentials.count
+        }
+        
         return viewModel.credentials.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         cell.viewModel = viewModel
-        let credential = viewModel.credentials[indexPath.row]
-        let isFavorite = self.viewModel.isFavorite(credential: credential)
-        cell.updateView(credential: credential, isFavorite: isFavorite)
+        let credential = credentialAt(indexPath)
+        cell.updateView(credential: credential)
         
         let backgroundContainerView = UIView()
         let backgroundView = UIView()
@@ -197,14 +226,12 @@ class OATHViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 {
-            _ = searchBar.resignFirstResponder()
-            let credential = viewModel.credentials[indexPath.row]
-            let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
-            let rect = tableView.rectForRow(at: indexPath)
-            details.present(from: CGPoint(x: rect.midX, y: rect.midY))
-            self.detailView = details
-        }
+        _ = searchBar.resignFirstResponder()
+        let credential = credentialAt(indexPath)
+        let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
+        let rect = tableView.rectForRow(at: indexPath)
+        details.present(from: CGPoint(x: rect.midX, y: rect.midY))
+        self.detailView = details
     }
 
     // Override to support conditional editing of the table view.
@@ -264,7 +291,7 @@ class OATHViewController: UITableViewController {
         guard let indexPath = indexPath else {
             return
         }
-        let credential = viewModel.credentials[indexPath.row]
+        let credential = credentialAt(indexPath)
         
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
@@ -588,6 +615,14 @@ extension OATHViewController: CredentialViewModelDelegate {
             self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
+        }
+    }
+    
+    private func credentialAt(_ indexPath: IndexPath) -> Credential {
+        if viewModel.pinnedCredentials.count > 0 && indexPath.section == 0 {
+            return viewModel.pinnedCredentials[indexPath.row]
+        } else {
+            return viewModel.credentials[indexPath.row]
         }
     }
 }

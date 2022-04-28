@@ -89,20 +89,20 @@ class OATHCodeDetailsView: UIVisualEffectView {
         }()
         
         let favoriteAction: MenuAction = {
-            if viewModel.isFavorite(credential: credential) {
-                return MenuAction(title: "Unfavorite",
-                                  image: UIImage(systemName: "star.fill"),
+            if viewModel.isPinned(credential: credential) {
+                return MenuAction(title: "Unpin",
+                                  image: UIImage(systemName: "pin.slash"),
                                   action: { [weak self] in
-                                    viewModel.removeFavorite(credential: credential)
-                                    self?.dismiss()
-                                  })
+                                      viewModel.unPin(credential: credential)
+                                      self?.dismiss()
+                })
             } else {
-                return MenuAction(title: "Favorite",
-                                  image: UIImage(systemName: "star"),
+                return MenuAction(title: "Pin",
+                                  image: UIImage(systemName: "pin"),
                                   action: { [weak self] in
-                                    viewModel.addFavorite(credential: credential)
-                                    self?.dismiss()
-                                  })
+                                      viewModel.pin(credential: credential)
+                                      self?.dismiss()
+                })
             }
         }()
         
