@@ -76,6 +76,18 @@ class OATHViewController: UITableViewController {
 
         menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
         
+        guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = UIColor(named: "NavbarLogoColor")
+        imageView.contentMode = .scaleAspectFit
+        let aspectRatio = image.size.width / image.size.height
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 18),
+            imageView.widthAnchor.constraint(equalToConstant: 18 * aspectRatio)
+        ])
+        self.navigationItem.titleView = imageView
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -150,23 +162,10 @@ class OATHViewController: UITableViewController {
         }
         
         if sections > 0 {
-            self.navigationItem.titleView = nil
-            self.title = "Accounts"
             self.tableView.backgroundView = nil
             backgroundView = nil
             self.showHintView(false)
         } else {
-            guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
-            let imageView = UIImageView(image: image)
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.tintColor = UIColor(named: "NavbarLogoColor")
-            imageView.contentMode = .scaleAspectFit
-            let aspectRatio = image.size.width / image.size.height
-            NSLayoutConstraint.activate([
-                imageView.heightAnchor.constraint(equalToConstant: 18),
-                imageView.widthAnchor.constraint(equalToConstant: 18 * aspectRatio)
-            ])
-            self.navigationItem.titleView = imageView
 
             showBackgroundView()
             
@@ -213,9 +212,9 @@ class OATHViewController: UITableViewController {
         
         let backgroundContainerView = UIView()
         let backgroundView = UIView()
-        backgroundView.layer.cornerRadius = 15
+        backgroundView.layer.cornerRadius = 10
         backgroundView.backgroundColor = UIColor(named: "TableSelection")
-        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), pinToEdges: .all)
+        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), pinToEdges: .all)
         cell.selectedBackgroundView = backgroundContainerView
         
         return cell
@@ -295,9 +294,16 @@ class OATHViewController: UITableViewController {
 
         if credential.requiresRefresh {
             viewModel.calculate(credential: credential) { [self] _ in
+                DispatchQueue.main.async {
+                    let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+                    cell?.animateCode()
+
+                }
                 self.viewModel.copyToClipboard(credential: credential)
             }
         } else {
+            let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+            cell?.animateCode()
             viewModel.copyToClipboard(credential: credential)
         }
     }
