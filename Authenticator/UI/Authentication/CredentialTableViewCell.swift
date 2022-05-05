@@ -22,9 +22,8 @@ class CredentialTableViewCell: UITableViewCell {
     @IBOutlet weak var progress: PieProgressBar!
     @IBOutlet weak var actionIcon: UIImageView!
     @IBOutlet weak var credentialIcon: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var iconScalingConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var progressScalingConstraint: NSLayoutConstraint!
+
     @objc dynamic private var credential: Credential?
     private var timerObservation: NSKeyValueObservation?
     private var otpObservation: NSKeyValueObservation?
@@ -37,18 +36,13 @@ class CredentialTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         prepareForReuse()
-        activityIndicator.startAnimating()
         
         // Dynamic type adjustment of icons is only done when up-scaling
-        let progressSize = UIFontMetrics.default.scaledValue(for: progress.frame.size.height)
-        if progressSize > progress.frame.size.height {
-            progress.frame.size = CGSize(width: progressSize, height: progressSize)
+        let progressScaling = UIFontMetrics.default.scaledValue(for: progressScalingConstraint.constant)
+        if progressScaling >  progressScalingConstraint.constant {
+            progressScalingConstraint.constant = progressScaling
         }
         
-        let iconScaling = UIFontMetrics.default.scaledValue(for: iconScalingConstraint.constant)
-        if iconScaling > iconScalingConstraint.constant {
-            iconScalingConstraint.constant = iconScaling
-        }
         codeView.layer.borderWidth = 1
         codeView.layer.borderColor = UIColor(named: "CodeBorder")?.cgColor
     }
@@ -70,7 +64,6 @@ class CredentialTableViewCell: UITableViewCell {
         code.adjustsFontForContentSizeCategory = true
         actionIcon.isHidden = true
         progress.isHidden = true
-        activityIndicator.isHidden = true
     }
     
     // this method is invoked when table view reloaded and UI got data/list of credentials
@@ -79,10 +72,12 @@ class CredentialTableViewCell: UITableViewCell {
         self.credential = credential
         refreshName()
         if credential.type == .HOTP {
-            let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium, scale: .medium)
+            let size = UIFontMetrics.default.scaledValue(for: 17)
+            let config = UIImage.SymbolConfiguration(pointSize: size, weight: .medium, scale: .medium)
             actionIcon.image = UIImage(systemName: "arrow.clockwise.circle.fill", withConfiguration: config)
         } else {
-            let config = UIImage.SymbolConfiguration(pointSize: 17, weight: .medium, scale: .medium)
+            let size = UIFontMetrics.default.scaledValue(for: 15)
+            let config = UIImage.SymbolConfiguration(pointSize: size, weight: .medium, scale: .medium)
             actionIcon.image = UIImage(systemName: "hand.tap.fill", withConfiguration: config)
         }
         actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
@@ -101,7 +96,7 @@ class CredentialTableViewCell: UITableViewCell {
         UIView.animate(withDuration: 0.1, animations: {
             self.codeView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }, completion: { _ in
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) {
                 self.codeView.transform = CGAffineTransform.identity
             }
         })
@@ -176,9 +171,14 @@ class CredentialTableViewCell: UITableViewCell {
                 // keeping old value of code on screen even if it's expired already
                 self.progress.setProgress(to: Double(0.0))
             }
-            self.progress.isHidden = credential.requiresRefresh
             self.actionIcon.isHidden = !(credential.requiresRefresh && credential.requiresTouch && !SettingsConfig.isBypassTouchEnabled)
-            self.activityIndicator.isHidden = true
+            if self.actionIcon.isHidden {
+                UIView.animate(withDuration: 0.5) {
+                    self.progress.isHidden = credential.requiresRefresh
+                }
+            } else {
+                self.progress.isHidden = credential.requiresRefresh
+            }
             self.code.textColor = credential.requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
         } else if credential.type == .HOTP {
             self.code.textColor = credential.code.isEmpty ? UIColor.secondaryText : UIColor.primaryText
