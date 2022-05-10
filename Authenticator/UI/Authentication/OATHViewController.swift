@@ -347,7 +347,7 @@ class OATHViewController: UITableViewController {
         } else {
 #if DEBUG
             // show some credentials on emulator
-//            viewModel.emulateSomeRecords()
+            viewModel.emulateSomeRecords()
 #endif
         }
 

@@ -437,19 +437,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func emulateSomeRecords() {
-        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "0613", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential2 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.2.6", code: "77872544", keyVersion: YKFVersion(string: "5.2.6"))
+        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "063313", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential2 = Credential(account: "john.b.doe@gmail.com", issuer: "YubiKey 5.2.6", code: "87254433", keyVersion: YKFVersion(string: "5.2.6"))
         let credential3 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(string: "5.4.2"))
         let credential4 = Credential(account: "account@yubico.com", issuer: "Yubico", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "4533224444", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential6 = Credential(account: "account@dropbox.com", issuer: "Dropbox with a loonger naaame", code: "55", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "740921", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential6 = Credential(account: "jane.elaine.doe@dropbox.com", issuer: "Dropbox with a much loonger name", code: "555555", keyVersion: YKFVersion(string: "5.4.2"))
         let credential7 = Credential(type: .HOTP, account: "hotp@yubico.com", issuer: "HOTP", code: "343344", keyVersion: YKFVersion(string: "5.4.2"))
         let credential8 = Credential(account: "account@tesla.com", issuer: "Tesla", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
-        
+        let credential9 = Credential(account: "jane.elaine.doe@yubico.com", issuer: "", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
         credentials.forEach { credential in
             credential.setupTimerObservation()
         }
-        let credentials = [credential1, credential2, credential3, credential4, credential5, credential6, credential7, credential8]
+        let credentials = [credential1, credential2, credential3, credential4, credential5, credential6, credential7, credential8, credential9]
         self.onUpdate(credentials: credentials)
     }
 }

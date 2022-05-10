@@ -45,6 +45,10 @@ class CredentialTableViewCell: UITableViewCell {
         
         codeView.layer.borderWidth = 1
         codeView.layer.borderColor = UIColor(named: "CodeBorder")?.cgColor
+        
+        code.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 17, weight: .regular))
+        issuer.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 17, weight: .regular))
+        onlyAccount.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 17, weight: .regular))
     }
     
     override open func layoutSubviews() {
@@ -56,12 +60,6 @@ class CredentialTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        code.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 19, weight: .regular))
-        
-        issuer.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 19, weight: .regular))
-        onlyAccount.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.monospacedDigitSystemFont(ofSize: 19, weight: .regular))
-        
-        code.adjustsFontForContentSizeCategory = true
         actionIcon.isHidden = true
         progress.isHidden = true
     }
@@ -80,11 +78,11 @@ class CredentialTableViewCell: UITableViewCell {
             let config = UIImage.SymbolConfiguration(pointSize: size, weight: .medium, scale: .medium)
             actionIcon.image = UIImage(systemName: "hand.tap.fill", withConfiguration: config)
         }
-        actionIcon.isHidden = !(credential.requiresTouch || credential.type == .HOTP)
-        progress.isHidden = !actionIcon.isHidden || credential.code.isEmpty
+        actionIcon.isHidden = !credential.showActionIcon
+        progress.isHidden = !credential.showProgress
         credentialIcon.text = credential.iconLetter
-        self.credentialIconColor = credential.iconColor
-        credentialIcon.backgroundColor = self.credentialIconColor
+        credentialIconColor = credential.iconColor
+        credentialIcon.backgroundColor = credentialIconColor
         progress.setupView()
         refreshCode()
         refreshProgress()
@@ -163,26 +161,19 @@ class CredentialTableViewCell: UITableViewCell {
         guard let credential = self.credential else {
             return
         }
-        
         if credential.type == .TOTP {
             if credential.remainingTime > 0 {
-                self.progress.setProgress(to: credential.remainingTime / Double(credential.period))
+                progress.setProgress(to: credential.remainingTime / Double(credential.period))
             } else {
                 // keeping old value of code on screen even if it's expired already
-                self.progress.setProgress(to: Double(0.0))
+                progress.setProgress(to: Double(0.0))
             }
-            self.actionIcon.isHidden = !(credential.requiresRefresh && credential.requiresTouch && !SettingsConfig.isBypassTouchEnabled)
-            if self.actionIcon.isHidden {
-                UIView.animate(withDuration: 0.5) {
-                    self.progress.isHidden = credential.requiresRefresh
-                }
-            } else {
-                self.progress.isHidden = credential.requiresRefresh
-            }
-            self.code.textColor = credential.requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
-        } else if credential.type == .HOTP {
-            self.code.textColor = credential.code.isEmpty ? UIColor.secondaryText : UIColor.primaryText
         }
+        self.actionIcon.isHidden = !credential.showActionIcon
+        UIView.animate(withDuration: 0.3) {
+            self.progress.isHidden = !credential.showProgress
+        }
+        code.textColor = credential.codeColor
     }
     
     func refreshCode() {
@@ -193,12 +184,12 @@ class CredentialTableViewCell: UITableViewCell {
         if credential.code == "" {
             noCodeCalculated.isHidden = false
             code.isHidden = true
-            self.code.text = "111 111"
+            code.text = "111 111"
         } else {
             noCodeCalculated.isHidden = true
             code.isHidden = false
             let otp = credential.formattedCode
-            self.code.text = otp
+            code.text = otp
         }
     }
 }
@@ -224,7 +215,30 @@ extension Credential {
             }
         }
 #endif
-        let value = abs(self.uniqueId.hash) % UIColor.colorSetForAccountIcons.count
+        let value = abs(uniqueId.hash) % UIColor.colorSetForAccountIcons.count
         return UIColor.colorSetForAccountIcons[value] ?? .primaryText
+    }
+    
+    var showProgress: Bool {
+        if showActionIcon {
+            return false
+        } else {
+            return !requiresRefresh
+        }
+    }
+    
+    var showActionIcon: Bool {
+        return type == .HOTP || (requiresRefresh && requiresTouch && !SettingsConfig.isBypassTouchEnabled)
+    }
+    
+    var codeColor: UIColor {
+        switch type {
+        case .HOTP:
+            return code.isEmpty ? UIColor.secondaryText : UIColor.primaryText
+        case .TOTP:
+            return requiresRefresh ? UIColor.secondaryText : UIColor.primaryText
+        default:
+            return .label // fallback to safe default color
+        }
     }
 }
