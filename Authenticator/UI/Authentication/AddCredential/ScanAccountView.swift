@@ -42,7 +42,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let addManuallyButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Manual entry", for: .normal)
+        button.setTitle("Enter manually", for: .normal)
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
@@ -74,6 +74,15 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         label.text = "Add account"
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body).withSymbolicTraits(.traitBold)
+        return label
+    }()
+    
+    private let noQRCodeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "No QR code?"
+        label.textColor = .white
+        label.font = .preferredFont(forTextStyle: .footnote).withSymbolicTraits(.traitBold)
         return label
     }()
     
@@ -164,8 +173,9 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
         addSubview(closeButton)
         addSubview(addAccountLabel)
-        addSubview(addManuallyButton)
         addSubview(textLabel)
+        addSubview(noQRCodeLabel)
+        addSubview(addManuallyButton)
         addSubview(permissionView)
         
         NSLayoutConstraint.activate([
@@ -173,6 +183,8 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             closeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             addAccountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             addAccountLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noQRCodeLabel.bottomAnchor.constraint(equalTo: addManuallyButton.topAnchor, constant: -15),
+            noQRCodeLabel.centerXAnchor.constraint(equalTo: addManuallyButton.centerXAnchor),
             addManuallyButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             addManuallyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -55),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
