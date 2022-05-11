@@ -47,7 +47,21 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.layer.cornerRadius = 20
-        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 2
+        button.contentEdgeInsets =  UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        return button
+    }()
+    
+    private let openSettingsButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Open iOS Settings app", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .body)
+        button.layer.cornerRadius = 20
+        button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 2
         button.contentEdgeInsets =  UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -86,24 +100,51 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         return imageView
     }()
     
+    private lazy var permissionView: UIView = {
+        let view = UIStackView()
+        view.alpha = 0
+        view.isHidden = true
+        view.axis = .vertical
+        view.spacing = 15
+        view.alignment = .center
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.numberOfLines = 0
+        title.font = .preferredFont(forTextStyle: .title2)
+        title.textAlignment = .center
+        title.text = "No camera permissions"
+        title.textColor = .white
+        view.addArrangedSubview(title)
+        let text = UILabel()
+        text.font = .preferredFont(forTextStyle: .body)
+        text.translatesAutoresizingMaskIntoConstraints = false
+        text.numberOfLines = 0
+        text.text = "To scan a QR code you need to enable camera permissions for the Authenticator app."
+        text.textColor = .lightGray
+        text.textAlignment = .center
+        view.addArrangedSubview(text)
+        view.setCustomSpacing(25, after: text)
+        view.addArrangedSubview(openSettingsButton)
+        return view
+    }()
+    
     private var errorOverlay: UIView?
     
     init(frame: CGRect, completionHandler: @escaping (ScanResult) -> ()) {
         self.completionHandler = completionHandler
         super.init(frame: frame)
-
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else { return }
-        guard captureSession.canAddInput(videoInput) else { return }
-        captureSession.addInput(videoInput)
-        guard captureSession.canAddOutput(metadataOutput) else { return }
-        captureSession.addOutput(metadataOutput)
-        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        metadataOutput.metadataObjectTypes = [.qr]
         
         previewLayer.frame = layer.bounds
         layer.addSublayer(previewLayer)
-        let overlay = createOverlay()
+        
+        addSubview(createOverlay())
+        
+        errorOverlay = createOverlay(frameColor: .red, background: .clear)
+        errorOverlay?.alpha = 0
+        if let errorOverlay = errorOverlay {
+            addSubview(errorOverlay)
+        }
         
         cancellables.append(closeButton.addHandler(for: .touchUpInside) { [weak self] in
             self?.completionHandler(.cancel)
@@ -114,39 +155,72 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             self?.removeFromSuperview()
         })
         
-        overlay.addSubview(closeButton)
-        overlay.addSubview(addAccountLabel)
-        overlay.addSubview(addManuallyButton)
-        overlay.addSubview(textLabel)
+        cancellables.append(openSettingsButton.addHandler(for: .touchUpInside) {
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) else {
+                return
+            }
+            UIApplication.shared.open(settingsUrl)
+        })
+        
+        addSubview(closeButton)
+        addSubview(addAccountLabel)
+        addSubview(addManuallyButton)
+        addSubview(textLabel)
+        addSubview(permissionView)
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: overlay.topAnchor, constant: 10),
-            closeButton.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -20),
-            addAccountLabel.topAnchor.constraint(equalTo: overlay.topAnchor, constant: 15),
-            addAccountLabel.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
-            addManuallyButton.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
-            addManuallyButton.bottomAnchor.constraint(equalTo: overlay.safeAreaLayoutGuide.bottomAnchor, constant: -55),
-            textLabel.leadingAnchor.constraint(equalTo: overlay.leadingAnchor, constant: 10),
-            textLabel.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -10),
-            textLabel.topAnchor.constraint(equalTo: overlay.topAnchor, constant: overlay.frame.height / 1.55)
+            closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            closeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            addAccountLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            addAccountLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            addManuallyButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            addManuallyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -55),
+            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: frame.height / 1.55),
+            permissionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            permissionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
+            permissionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50)
         ])
-        
-        addSubview(overlay)
-        
-        errorOverlay = createOverlay(frameColor: .red, background: .clear)
-        errorOverlay?.alpha = 0
-        addSubview(errorOverlay!)
         
         addSubview(checkboxImageView)
         
         let rect = captureRect()
         checkboxImageView.center = CGPoint(x: rect.origin.x + rect.size.width / 2, y: rect.origin.y + rect.size.height / 2)
+    
+        previewLayer.backgroundColor = UIColor(white: 0.2, alpha: 1).cgColor
+        
+        AVCaptureDevice.requestAccess(for: .video) { result in
+            DispatchQueue.main.async {
+                if result {
+                    guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+                        self.showPermissionError()
+                        return
+                    }
+                    guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
+                        self.showPermissionError()
+                        return
+                    }
+                    guard self.captureSession.canAddInput(videoInput) else {
+                        self.showPermissionError()
+                        return
+                    }
+                    self.captureSession.addInput(videoInput)
+                    guard self.captureSession.canAddOutput(self.metadataOutput) else { return }
+                    self.captureSession.addOutput(self.metadataOutput)
+                    self.metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+                    self.metadataOutput.metadataObjectTypes = [.qr]
+                    
+                    self.captureSession.startRunning()
 
-        captureSession.startRunning()
-
-        metadataOutput.rectOfInterest =  previewLayer.metadataOutputRectConverted(fromLayerRect: captureRect())
-        if (captureSession.isRunning == false) {
-            captureSession.startRunning()
+                    self.metadataOutput.rectOfInterest =  self.previewLayer.metadataOutputRectConverted(fromLayerRect: self.captureRect())
+                    if (self.captureSession.isRunning == false) {
+                        self.captureSession.startRunning()
+                    }
+                } else {
+                    self.showPermissionError()
+                }
+            }
         }
     }
     
@@ -195,7 +269,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    func showError(_ message: String) {
+    private func showError(_ message: String) {
         UIView.animate(withDuration: 0.5) {
             self.errorOverlay?.alpha = 1
             self.textLabel.text = message
@@ -210,6 +284,17 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
+    private func showPermissionError() {
+        if self.permissionView.isHidden {
+            self.permissionView.isHidden = false
+            UIView.animate(withDuration: 0.7) {
+                self.permissionView.alpha = 1
+                self.errorOverlay?.alpha = 1
+                self.textLabel.textColor = .darkGray
+            }
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -218,7 +303,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
 extension ScanAccountView {
     
-    func captureRect() -> CGRect {
+    private func captureRect() -> CGRect {
         let margin = 50.0
         let size = frame.width - margin * 2
         return CGRect(x: margin,
@@ -227,7 +312,7 @@ extension ScanAccountView {
                       height: size)
     }
     
-    func createOverlay(frameColor: UIColor = .yubiGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
+    private func createOverlay(frameColor: UIColor = .yubiGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
         
         let overlayView = UIView(frame: frame)
         overlayView.backgroundColor = background
