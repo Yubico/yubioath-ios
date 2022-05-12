@@ -4,6 +4,20 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.6.8</string>
+        <key>date</key>
+        <date>2022-04-16T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>Lots of user interface and visual improvements in this version.
+        - The scan QR code view has been rewritten from scratch making it nicer looking and easier to use.
+        - Account table cells and detail view got a major visual overhaul that makes the account information easier to read.
+        - Pinned accounts are now presented in a separate table section for easier identification.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.6.7</string>
         <key>date</key>
         <date>2022-01-30T09:41:00Z</date>
