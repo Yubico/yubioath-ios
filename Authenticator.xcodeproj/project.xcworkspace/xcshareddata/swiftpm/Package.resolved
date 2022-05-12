@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "YubiKit",
-        "repositoryURL": "https://github.com/Yubico/yubikit-ios",
-        "state": {
-          "branch": "jens/non-truncated-hmac-signature",
-          "revision": "af0b93f4115fe141b1f6443aef93f0bcae6af4f0",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "yubikit-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Yubico/yubikit-ios",
+      "state" : {
+        "branch" : "jens/oath-account-creation",
+        "revision" : "5b307ff5524e637845b6541c2fa24e22b72d6efb"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

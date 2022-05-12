@@ -127,25 +127,24 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     /*! Property that should give you a list of credentials with applied filter (if user is searching) */
     var credentials: [Credential] {
-        // sorting credentials: 1) favorites 2) alphabetically (issuer first, name second)
-        if self.favorites.count > 0 {
-            self._credentials.sort {
-                if isFavorite(credential: $0) == isFavorite(credential: $1) {
-                    return $0 < $1
-                }
-                return isFavorite(credential: $0)
+        return credentials(pinned: false)
+    }
+    
+    var pinnedCredentials: [Credential] {
+        return credentials(pinned: true)
+    }
+    
+    private func credentials(pinned: Bool) -> [Credential] {
+        let credentials = _credentials.filter {
+            pinned == isPinned(credential: $0)
+        }.sorted()
+        
+        if let filter = filter, !filter.isEmpty {
+            return credentials.filter {
+                $0.issuer?.lowercased().contains(filter) == true || $0.account.lowercased().contains(filter)
             }
         } else {
-            self._credentials.sort {
-                $0 < $1
-            }
-        }
-        
-        if self.filter == nil || self.filter!.isEmpty {
-            return self._credentials
-        }
-        return self._credentials.filter {
-            $0.issuer?.lowercased().contains(self.filter!) == true || $0.account.lowercased().contains(self.filter!)
+            return credentials
         }
     }
 
@@ -351,6 +350,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func renameCredential(credential: Credential, issuer: String, account: String) {
         session { session in
             guard let session = session else { return }
+            
+            let wasPinned = self.isPinned(credential: credential)
+            
             session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -358,9 +360,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
+                
+                if wasPinned {
+                    self.unPin(credential: credential)
+                }
+                
                 credential.issuer = issuer
                 credential.account = account
                 YubiKitManager.shared.stopNFCConnection(withMessage: "Credential renamed")
+                
+                if wasPinned {
+                    self.pin(credential: credential)
+                }
+                
                 self.onUpdate(credential: credential)
             }
         }
@@ -425,19 +437,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func emulateSomeRecords() {
-        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "0613", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential2 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.2.6", code: "77872544", keyVersion: YKFVersion(string: "5.2.6"))
+        let credential1 = Credential(account: "account@gmail.com", issuer: "YubiKey 5.4.2", code: "063313", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential2 = Credential(account: "john.b.doe@gmail.com", issuer: "YubiKey 5.2.6", code: "87254433", keyVersion: YKFVersion(string: "5.2.6"))
         let credential3 = Credential(account: "account@gmail.com", issuer: "Github", code: "", requiresTouch: true, keyVersion: YKFVersion(string: "5.4.2"))
         let credential4 = Credential(account: "account@yubico.com", issuer: "Yubico", code: "767691", keyVersion: YKFVersion(bytes: 5, minor: 1, micro: 1))
-        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "4533224444", keyVersion: YKFVersion(string: "5.4.2"))
-        let credential6 = Credential(account: "account@dropbox.com", issuer: "Dropbox with a loonger naaame", code: "55", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential5 = Credential(account: "short-period@yubico.com", issuer: "15 sec period", period: 15, code: "740921", keyVersion: YKFVersion(string: "5.4.2"))
+        let credential6 = Credential(account: "jane.elaine.doe@dropbox.com", issuer: "Dropbox with a much loonger name", code: "555555", keyVersion: YKFVersion(string: "5.4.2"))
         let credential7 = Credential(type: .HOTP, account: "hotp@yubico.com", issuer: "HOTP", code: "343344", keyVersion: YKFVersion(string: "5.4.2"))
         let credential8 = Credential(account: "account@tesla.com", issuer: "Tesla", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
-        
+        let credential9 = Credential(account: "jane.elaine.doe@yubico.com", issuer: "", code: "420420", keyVersion: YKFVersion(string: "5.4.2"))
         credentials.forEach { credential in
             credential.setupTimerObservation()
         }
-        let credentials = [credential1, credential2, credential3, credential4, credential5, credential6, credential7, credential8]
+        let credentials = [credential1, credential2, credential3, credential4, credential5, credential6, credential7, credential8, credential9]
         self.onUpdate(credentials: credentials)
     }
 }
@@ -606,8 +618,8 @@ extension OATHViewModel { //}: OperationDelegate {
             // If remove credential from favorites first and then from credentials list, the wrong indexPath will be returned.
             if let row = self._credentials.firstIndex(where: { $0 == credential }) {
                 self._credentials.remove(at: row)
-                if self.isFavorite(credential: credential) {
-                    self.removeFavorite(credential: credential)
+                if self.isPinned(credential: credential) {
+                    self.unPin(credential: credential)
                 }
                 self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
             }
@@ -697,17 +709,17 @@ extension OATHViewModel {
 
 extension OATHViewModel {
     
-    func isFavorite(credential: Credential) -> Bool {
+    func isPinned(credential: Credential) -> Bool {
         return self.favorites.contains(credential.uniqueId)
     }
     
-    func addFavorite(credential: Credential) {
+    func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         calculateAll()
     }
     
-    func removeFavorite(credential: Credential) {
+    func unPin(credential: Credential) {
         self.favorites.remove(credential.uniqueId)
         self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
         calculateAll()

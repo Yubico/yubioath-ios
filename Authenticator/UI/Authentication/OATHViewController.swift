@@ -42,39 +42,41 @@ class OATHViewController: UITableViewController {
         super.viewDidLoad()
         self.viewModel.delegate = self
         setupRefreshControl()
-        let oathMenu = UIMenu(title: "", options: .displayInline, children: [
-            UIAction(title: "Scan QR code",
+        menuButton.menu = UIMenu(title: "", children: [
+            UIAction(title: "Add account",
                      image: UIImage(systemName: "qrcode"),
                      attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
                      handler: { [weak self] _ in
-                self?.userFoundMenu()
-                self?.scanQR()
-            }),
-            UIAction(title: "Add account",
-                     image: UIImage(systemName: "square.and.pencil"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
-                     handler: { [weak self] _ in
-                self?.userFoundMenu()
-                self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-            })
-        ])
-        let configurationMenu = UIMenu(title: "", options: .displayInline, children: [
+                         guard let self = self else { return }
+                         let storyboard = UIStoryboard(name: "AddCredential", bundle: nil)
+                         let vc = storyboard.instantiateViewController(withIdentifier: "AddCredential")
+                         self.present(vc, animated: true)
+                     }),
             UIAction(title: "Configuration",
                      image: UIImage(systemName: "switch.2"),
                      attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
                      handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.userFoundMenu()
-                self.performSegue(withIdentifier: "showConfiguration", sender: self)
-            }),
+                         guard let self = self else { return }
+                         self.userFoundMenu()
+                         self.performSegue(withIdentifier: "showConfiguration", sender: self)
+                     }),
             UIAction(title: "About", image: UIImage(systemName: "questionmark.circle"), handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.userFoundMenu()
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
-            })
+        })])
+        
+        guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = UIColor(named: "NavbarLogoColor")
+        imageView.contentMode = .scaleAspectFit
+        let aspectRatio = image.size.width / image.size.height
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 18),
+            imageView.widthAnchor.constraint(equalToConstant: 18 * aspectRatio)
         ])
-
-        menuButton.menu = UIMenu(title: "", children: [oathMenu, configurationMenu])
+        self.navigationItem.titleView = imageView
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -136,25 +138,24 @@ class OATHViewController: UITableViewController {
     // MARK: - Table view data source
     //
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if viewModel.credentials.count > 0 {
-            self.navigationItem.titleView = nil
-            self.title = "Accounts"
+        
+        var sections = 0
+        // only pinned accounts or only non pinned accounts
+        if (viewModel.credentials.count > 0 && viewModel.pinnedCredentials.count == 0)
+            || (viewModel.credentials.count == 0 && viewModel.pinnedCredentials.count > 0) {
+            sections = 1
+        }
+        
+        // pinned and non pinned accounts
+        if viewModel.credentials.count > 0 && viewModel.pinnedCredentials.count > 0 {
+            sections = 2
+        }
+        
+        if sections > 0 {
             self.tableView.backgroundView = nil
             backgroundView = nil
             self.showHintView(false)
-            return 1
         } else {
-            guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
-            let imageView = UIImageView(image: image)
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.tintColor = UIColor(named: "NavbarLogoColor")
-            imageView.contentMode = .scaleAspectFit
-            let aspectRatio = image.size.width / image.size.height
-            NSLayoutConstraint.activate([
-                imageView.heightAnchor.constraint(equalToConstant: 18),
-                imageView.widthAnchor.constraint(equalToConstant: 18 * aspectRatio)
-            ])
-            self.navigationItem.titleView = imageView
 
             showBackgroundView()
             
@@ -169,27 +170,41 @@ class OATHViewController: UITableViewController {
             } else {
                 self.showHintView(false)
             }
-
-            return 0
         }
+        return sections
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if viewModel.pinnedCredentials.count > 0 && section == 0 {
+            return "Pinned"
+        }
+        
+        if viewModel.pinnedCredentials.count == 0 && section == 0 {
+            return "Accounts"
+        }
+        
+        return "Accounts"
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 && viewModel.pinnedCredentials.count > 0 {
+            return viewModel.pinnedCredentials.count
+        }
+        
         return viewModel.credentials.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
         cell.viewModel = viewModel
-        let credential = viewModel.credentials[indexPath.row]
-        let isFavorite = self.viewModel.isFavorite(credential: credential)
-        cell.updateView(credential: credential, isFavorite: isFavorite)
+        let credential = credentialAt(indexPath)
+        cell.updateView(credential: credential)
         
         let backgroundContainerView = UIView()
         let backgroundView = UIView()
-        backgroundView.layer.cornerRadius = 15
+        backgroundView.layer.cornerRadius = 10
         backgroundView.backgroundColor = UIColor(named: "TableSelection")
-        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), pinToEdges: .all)
+        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), pinToEdges: .all)
         cell.selectedBackgroundView = backgroundContainerView
         
         return cell
@@ -197,14 +212,12 @@ class OATHViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 {
-            _ = searchBar.resignFirstResponder()
-            let credential = viewModel.credentials[indexPath.row]
-            let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
-            let rect = tableView.rectForRow(at: indexPath)
-            details.present(from: CGPoint(x: rect.midX, y: rect.midY))
-            self.detailView = details
-        }
+        _ = searchBar.resignFirstResponder()
+        let credential = credentialAt(indexPath)
+        let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
+        let rect = tableView.rectForRow(at: indexPath)
+        details.present(from: CGPoint(x: rect.midX, y: rect.midY))
+        self.detailView = details
     }
 
     // Override to support conditional editing of the table view.
@@ -264,47 +277,27 @@ class OATHViewController: UITableViewController {
         guard let indexPath = indexPath else {
             return
         }
-        let credential = viewModel.credentials[indexPath.row]
+        let credential = credentialAt(indexPath)
         
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
 
         if credential.requiresRefresh {
             viewModel.calculate(credential: credential) { [self] _ in
+                DispatchQueue.main.async {
+                    let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+                    cell?.animateCode()
+
+                }
                 self.viewModel.copyToClipboard(credential: credential)
             }
         } else {
+            let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+            cell?.animateCode()
             viewModel.copyToClipboard(credential: credential)
         }
     }
     
-    private func scanQR() {
-        YKFQRReaderSession.shared.scanQrCode(withPresenter: self) {
-            [weak self] (payload, error) in
-            guard self != nil else {
-                return
-            }
-            guard error == nil else {
-                self?.onError(error: error!)
-                return
-            }
-            
-            // This is an URL conforming to Key URI Format specs.
-            guard let url = URL(string: payload!) else {
-                self?.onError(error: KeySessionError.invalidUri)
-                return
-            }
-            
-            guard let credential = YKFOATHCredentialTemplate(url: url) else {
-                self?.onError(error: KeySessionError.invalidCredentialUri)
-                return
-            }
-            
-            self?.credentailToAdd = credential
-            self?.performSegue(withIdentifier: .addCredentialSequeID, sender: self)
-        }
-    }
-
     private func refreshCredentials() {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             if viewModel.keyPluggedIn {
@@ -317,7 +310,7 @@ class OATHViewController: UITableViewController {
         } else {
 #if DEBUG
             // show some credentials on emulator
-//            viewModel.emulateSomeRecords()
+            viewModel.emulateSomeRecords()
 #endif
         }
 
@@ -588,6 +581,14 @@ extension OATHViewController: CredentialViewModelDelegate {
             self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
+        }
+    }
+    
+    private func credentialAt(_ indexPath: IndexPath) -> Credential {
+        if viewModel.pinnedCredentials.count > 0 && indexPath.section == 0 {
+            return viewModel.pinnedCredentials[indexPath.row]
+        } else {
+            return viewModel.credentials[indexPath.row]
         }
     }
 }
