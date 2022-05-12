@@ -111,7 +111,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
     @objc dynamic let credential: Credential
     
     var menu = Menu(actions: [])
-    var copyMenuAction = MenuAction(title: "", image: nil, action: {})
+    var copyMenuAction: MenuAction?
     var calculateMenuAction: MenuAction?
     
     init(credential: Credential, viewModel: OATHViewModel, parentViewController: UIViewController) {
@@ -259,6 +259,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
         
         containerTopConstraint?.constant = from.y + 50
         
+        updateMenuItems()
         refreshCode()
         refreshName()
         
@@ -381,7 +382,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
     }
     
     func refreshProgress() {
-        copyMenuAction.isEnabled = !credential.requiresRefresh
+        updateMenuItems()
         
         if credential.type == .TOTP {
             if credential.remainingTime > 0 {
@@ -413,6 +414,11 @@ class OATHCodeDetailsView: UIVisualEffectView {
         let otp = credential.formattedCode
         codeLabel.text = otp
         codeLabel.textColor = credential.codeColor
+    }
+    
+    func updateMenuItems() {
+        copyMenuAction?.isEnabled = (credential.type == .HOTP  && credential.code != "") || (credential.type == .TOTP && !credential.requiresRefresh)
+        calculateMenuAction?.isEnabled = credential.type == .HOTP || credential.requiresRefresh
     }
 }
 
