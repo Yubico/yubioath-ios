@@ -238,13 +238,13 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         guard lastScanDate.timeIntervalSinceNow < -2 else { return }
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         lastScanDate = Date()
         self.layer.removeAllAnimations()
         guard let metadataObject = metadataObjects.first,
               let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
               let stringValue = readableObject.stringValue else { return }
         guard let url = URL(string: stringValue) else {
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             showError("No account information found!")
             return
         }
@@ -253,12 +253,10 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         do {
             credential = try YKFOATHCredentialTemplate(url: url, error: ())
         } catch {
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             showError("\(error.localizedDescription)!")
             return
         }
         
-        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         self.errorOverlay?.isHidden = true
         UIView.animate(withDuration: 0.2) {
             self.textLabel.text = Self.scanMessage

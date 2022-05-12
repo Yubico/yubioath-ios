@@ -112,7 +112,7 @@ class AddCredentialController: UITableViewController {
         if let button = sender as? UIBarButtonItem, button == saveButton {
             // Set the credential to be passed to MainViewController after the unwind segue.
             if let credential = self.credential {
-                // Credential is pupolated from QR code, apply user changes
+                // Credential is populated from QR code, apply user changes
                 self.credential = YKFOATHCredentialTemplate(type: credential.type,
                                                             algorithm: credential.algorithm,
                                                             secret: credential.secret,
