@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */; };
-		5127BD2226EF9E7F00236311 /* UIView+Embedding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127BD2126EF9E7F00236311 /* UIView+Embedding.swift */; };
 		51394C5826CFE15F009F366D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5726CFE15F009F366D /* Menu.swift */; };
 		51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */; };
 		51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */; };
@@ -46,7 +45,6 @@
 		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
 		51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AFD4D9271D4277008F2630 /* QuartzCore.framework */; };
 		51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */; };
-		51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = 51BFF0632625847B00ECFA6A /* YubiKit */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
 		51E9BE3A26D9038C00F9E2FC /* OATHCodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */; };
@@ -88,6 +86,7 @@
 		A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */; };
 		A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
+		B4A53539282D45FC009BD7EB /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4A53538282D45FC009BD7EB /* YubiKit */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -125,7 +124,6 @@
 
 /* Begin PBXFileReference section */
 		51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyInformationViewModel.swift; sourceTree = "<group>"; };
-		5127BD2126EF9E7F00236311 /* UIView+Embedding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Embedding.swift"; sourceTree = "<group>"; };
 		51394C5726CFE15F009F366D /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -230,7 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51BFF0642625847B00ECFA6A /* YubiKit in Frameworks */,
+				B4A53539282D45FC009BD7EB /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
 				51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */,
 			);
@@ -360,7 +358,6 @@
 				51394C5726CFE15F009F366D /* Menu.swift */,
 				51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */,
 				51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */,
-				5127BD2126EF9E7F00236311 /* UIView+Embedding.swift */,
 				51AFD4D127103E36008F2630 /* SearchBar.swift */,
 			);
 			path = Helpers;
@@ -523,7 +520,7 @@
 			);
 			name = Authenticator;
 			packageProductDependencies = (
-				51BFF0632625847B00ECFA6A /* YubiKit */,
+				B4A53538282D45FC009BD7EB /* YubiKit */,
 			);
 			productName = Authenticator;
 			productReference = 818866B322DFD729006BC0A8 /* Authenticator.app */;
@@ -584,7 +581,7 @@
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
-				51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */,
+				B4A53537282D45FC009BD7EB /* XCRemoteSwiftPackageReference "yubikit-ios" */,
 			);
 			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
 			projectDirPath = "";
@@ -676,7 +673,6 @@
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
 				513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */,
-				5127BD2226EF9E7F00236311 /* UIView+Embedding.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,
@@ -1062,20 +1058,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
+		B4A53537282D45FC009BD7EB /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				branch = "jens/oath-account-creation";
+				branch = master;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		51BFF0632625847B00ECFA6A /* YubiKit */ = {
+		B4A53538282D45FC009BD7EB /* YubiKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 51BFF0622625847B00ECFA6A /* XCRemoteSwiftPackageReference "yubikit-ios" */;
+			package = B4A53537282D45FC009BD7EB /* XCRemoteSwiftPackageReference "yubikit-ios" */;
 			productName = YubiKit;
 		};
 /* End XCSwiftPackageProductDependency section */

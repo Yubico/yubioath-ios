@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Yubico/yubikit-ios",
       "state" : {
-        "branch" : "jens/oath-account-creation",
-        "revision" : "5b307ff5524e637845b6541c2fa24e22b72d6efb"
+        "branch" : "master",
+        "revision" : "948457ae8ea0dbe7ca8cdef8b090b978afb38aee"
       }
     }
   ],

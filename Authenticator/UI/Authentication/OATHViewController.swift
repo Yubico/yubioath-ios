@@ -204,7 +204,14 @@ class OATHViewController: UITableViewController {
         let backgroundView = UIView()
         backgroundView.layer.cornerRadius = 10
         backgroundView.backgroundColor = UIColor(named: "TableSelection")
-        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), pinToEdges: .all)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundContainerView.addSubview(backgroundView)
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor)
+        ])
         cell.selectedBackgroundView = backgroundContainerView
         
         return cell
@@ -608,8 +615,13 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
         coverView.center = tableView.center
         
         let logo = UIImageView(image: UIImage(named: "LogoText"))
-
-        coverView.embedView(logo, pinToEdges: [])
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            logo.leadingAnchor.constraint(equalTo: coverView.leadingAnchor),
+            logo.trailingAnchor.constraint(equalTo: coverView.trailingAnchor),
+            logo.topAnchor.constraint(equalTo: coverView.topAnchor),
+            logo.bottomAnchor.constraint(equalTo: coverView.bottomAnchor)
+        ])
         // Add cover to superview to avoid it being offset depending of the table scroll view
         tableView.superview?.addSubview(coverView)
         self.coverView = coverView
