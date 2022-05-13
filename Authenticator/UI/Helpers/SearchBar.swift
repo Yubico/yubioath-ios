@@ -39,8 +39,13 @@ class SearchBar: UIView {
         let image = UIImage(systemName: "magnifyingglass")?.withConfiguration(configuration)
         let imageView = UIImageView(image: image)
         imageView.tintColor = .secondaryLabel
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         let imageContainer = UIView()
-        imageContainer.embedView(imageView, edgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10), pinToEdges: .all)
+        imageContainer.addSubview(imageView)
+        NSLayoutConstraint.activate([imageView.leadingAnchor.constraint(equalTo: imageContainer.leadingAnchor, constant: 10),
+                                     imageView.trailingAnchor.constraint(equalTo: imageContainer.trailingAnchor, constant: -10),
+                                     imageView.topAnchor.constraint(equalTo: imageContainer.topAnchor),
+                                     imageView.bottomAnchor.constraint(equalTo: imageContainer.bottomAnchor)])
         textField.leftViewMode = .always
         textField.leftView = imageContainer
         textField.translatesAutoresizingMaskIntoConstraints = false

@@ -25,8 +25,6 @@ class OATHViewController: UITableViewController {
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
     
-    private var coverView: UIView?
-    
     private var backgroundView: UIView? {
         willSet {
             backgroundView?.removeFromSuperview()
@@ -204,7 +202,14 @@ class OATHViewController: UITableViewController {
         let backgroundView = UIView()
         backgroundView.layer.cornerRadius = 10
         backgroundView.backgroundColor = UIColor(named: "TableSelection")
-        backgroundContainerView.embedView(backgroundView, edgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), pinToEdges: .all)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundContainerView.addSubview(backgroundView)
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor)
+        ])
         cell.selectedBackgroundView = backgroundContainerView
         
         return cell
@@ -601,24 +606,9 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     
     func willResignActive() {
         lastDidResignActiveTimeStamp = Date()
-        return // disable cover view until we can stop it from showing when we start nfc scanning
-        let coverView = UIView()
-        coverView.backgroundColor = .background // UIColor(named: "DetailsBackground")
-        coverView.frame.size = self.view.bounds.size
-        coverView.center = tableView.center
-        
-        let logo = UIImageView(image: UIImage(named: "LogoText"))
-
-        coverView.embedView(logo, pinToEdges: [])
-        // Add cover to superview to avoid it being offset depending of the table scroll view
-        tableView.superview?.addSubview(coverView)
-        self.coverView = coverView
     }
     
     func didBecomeActive() {
-        coverView?.removeFromSuperview()
-        coverView = nil
-        
         guard !VersionHistoryViewController.shouldShowOnAppLaunch else { return }
         
         if SettingsConfig.isNFCOnAppLaunchEnabled && !viewModel.didNFCEndRecently {
