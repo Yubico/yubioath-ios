@@ -25,8 +25,6 @@ class OATHViewController: UITableViewController {
     private var applicationSessionObserver: ApplicationSessionObserver!
     private var credentailToAdd: YKFOATHCredentialTemplate?
     
-    private var coverView: UIView?
-    
     private var backgroundView: UIView? {
         willSet {
             backgroundView?.removeFromSuperview()
@@ -608,29 +606,9 @@ extension OATHViewController: ApplicationSessionObserverDelegate {
     
     func willResignActive() {
         lastDidResignActiveTimeStamp = Date()
-        return // disable cover view until we can stop it from showing when we start nfc scanning
-        let coverView = UIView()
-        coverView.backgroundColor = .background // UIColor(named: "DetailsBackground")
-        coverView.frame.size = self.view.bounds.size
-        coverView.center = tableView.center
-        
-        let logo = UIImageView(image: UIImage(named: "LogoText"))
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            logo.leadingAnchor.constraint(equalTo: coverView.leadingAnchor),
-            logo.trailingAnchor.constraint(equalTo: coverView.trailingAnchor),
-            logo.topAnchor.constraint(equalTo: coverView.topAnchor),
-            logo.bottomAnchor.constraint(equalTo: coverView.bottomAnchor)
-        ])
-        // Add cover to superview to avoid it being offset depending of the table scroll view
-        tableView.superview?.addSubview(coverView)
-        self.coverView = coverView
     }
     
     func didBecomeActive() {
-        coverView?.removeFromSuperview()
-        coverView = nil
-        
         guard !VersionHistoryViewController.shouldShowOnAppLaunch else { return }
         
         if SettingsConfig.isNFCOnAppLaunchEnabled && !viewModel.didNFCEndRecently {
