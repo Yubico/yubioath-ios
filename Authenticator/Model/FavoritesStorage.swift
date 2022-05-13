@@ -10,18 +10,21 @@ import Foundation
 
 // This class is for storing a set of favorite credentials in UserDefaults by keyIdentifier.
 class FavoritesStorage: NSObject {
-
+    
     func saveFavorites(userAccount: String?, favorites: Set<String>) {
-        if let keyId = userAccount {
-            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: favorites)
-            UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + keyId)
+        guard let keyId = userAccount,
+              let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: favorites, requiringSecureCoding: true) else {
+            return
         }
+        UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + keyId)
     }
-
+    
     func readFavorites(userAccount: String?) -> Set<String> {
-        if let keyId = userAccount, let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyId) {
-            return NSKeyedUnarchiver.unarchiveObject(with: encodedData) as! Set<String>
+        guard let keyId = userAccount,
+              let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyId),
+              let favorites = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(encodedData) as? Set<String> else {
+            return Set<String>()
         }
-        return []
+        return favorites
     }
 }
