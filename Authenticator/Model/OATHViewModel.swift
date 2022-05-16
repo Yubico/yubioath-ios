@@ -200,7 +200,8 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 
                 session.dispatchAfterCurrentCommands {
                     self.onUpdate(credentials: credentials)
-                    YubiKitManager.shared.stopNFCConnection(withMessage: "Credentials successfully read")
+                    let message = SettingsConfig.showNFCSwipeHint ? "Success!\nSwipe down to dismiss" : "Credentials successfully read"
+                    YubiKitManager.shared.stopNFCConnection(withMessage: message)
                 }
             }
         }
