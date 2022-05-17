@@ -200,7 +200,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 
                 session.dispatchAfterCurrentCommands {
                     self.onUpdate(credentials: credentials)
-                    let message = SettingsConfig.showNFCSwipeHint ? "Success!\nSwipe down to dismiss" : "Credentials successfully read"
+                    let message = SettingsConfig.showNFCSwipeHint ? "Success!\nSwipe down to dismiss" : "Successfully read"
                     YubiKitManager.shared.stopNFCConnection(withMessage: message)
                 }
             }
@@ -342,7 +342,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Credential deleted")
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Account deleted")
                 self.onDelete(credential: credential)
             }
         }
@@ -368,7 +368,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 
                 credential.issuer = issuer
                 credential.account = account
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Credential renamed")
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Account renamed")
                 
                 if wasPinned {
                     self.pin(credential: credential)
