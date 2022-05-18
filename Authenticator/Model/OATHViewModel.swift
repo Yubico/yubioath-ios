@@ -546,6 +546,7 @@ extension OATHViewModel { //}: OperationDelegate {
             retry?()
         } else {
             // Stop everything and pass error to delegate
+            session = nil
             cleanUp()
             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
             delegate?.onError(error: error)
