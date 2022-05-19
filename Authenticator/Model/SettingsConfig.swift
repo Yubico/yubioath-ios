@@ -19,6 +19,21 @@ class SettingsConfig {
     static private let userFoundMenu = "userFoundMenu"
     static private let bypassTouch = "bypassTouch"
     static private let nfcOnAppLaunch = "nfcOnAppLaunch"
+    static private let showNFCSwipeHintCounter = "showNFCSwipeHintCounter"
+
+    
+    static var showNFCSwipeHint: Bool {
+        get {
+            let counter = UserDefaults.standard.integer(forKey: showNFCSwipeHintCounter)
+            // Show swipe down hint the first 4 times
+            if counter > 3 {
+                return false
+            } else {
+                UserDefaults.standard.set(counter + 1, forKey: showNFCSwipeHintCounter)
+                return true
+            }
+        }
+    }
     
     static var userHasFoundMenu: Bool {
         get {
