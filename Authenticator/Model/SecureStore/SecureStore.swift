@@ -29,6 +29,7 @@
 /// https://www.raywenderlich.com/9240-keychain-services-api-tutorial-for-passwords-in-swift
 
 import Foundation
+import LocalAuthentication
 
 /*! Represents storage for secure information (e.g. user password/pin)
  Uses KeyChain as permanent storage
@@ -172,8 +173,9 @@ class SecureStore {
     private func getStatus(for userAccount: String) -> OSStatus {
         var query = secureStoreQueryable.setUpQuery(useAuthentication: false)
         query[String(kSecAttrAccount)] = userAccount
-        query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
-        
+        let context = LAContext()
+        context.interactionNotAllowed = true
+        query[String(kSecUseAuthenticationContext)] = context
         return SecItemCopyMatching(query as CFDictionary, nil)
     }
     

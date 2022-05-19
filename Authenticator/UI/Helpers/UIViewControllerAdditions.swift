@@ -53,7 +53,7 @@ extension UIViewController {
      */
     func displayToast(message: String) {
         DispatchQueue.main.async {
-            guard let keyWindow = UIApplication.shared.keyWindow else {
+            guard let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first else {
                 return
             }
             // TODO: calculate width dynamically depending on message
