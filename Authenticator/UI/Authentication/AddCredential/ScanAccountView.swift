@@ -92,6 +92,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         label.text = ScanAccountView.scanMessage
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.font = .preferredFont(forTextStyle: .footnote).withSymbolicTraits(.traitBold)
         return label
     }()
@@ -251,7 +252,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
         let credential: YKFOATHCredentialTemplate
         do {
-            credential = try YKFOATHCredentialTemplate(url: url, error: ())
+            credential = try YKFOATHCredentialTemplate(url: url, skip: [.issuer, .label])
         } catch {
             showError("\(error.localizedDescription)!")
             return
@@ -351,4 +352,16 @@ extension ScanAccountView {
         
         return overlayView
     }
+}
+
+
+struct OATHCredentialData {
+    let type: YKFOATHCredentialType
+    let algorithm: YKFOATHCredentialAlgorithm
+    let accountName: String
+    let issuer: String
+    let secret: Data
+    let digits: UInt
+    let period: UInt
+    let counter: UInt32
 }

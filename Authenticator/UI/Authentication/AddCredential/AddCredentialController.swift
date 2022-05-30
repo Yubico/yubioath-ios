@@ -74,7 +74,6 @@ class AddCredentialController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         self.tableView.reloadData()
     }
     
@@ -84,64 +83,45 @@ class AddCredentialController: UITableViewController {
         credential = details
     }
     
-    //
     // MARK: - Button handlers
-    //
     
     @IBAction func cancel(_ sender: Any) {
-        // reset all advanced settings to default
-        resetDefaults()
-
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func save(_ sender: Any) {
-        let (valid, message) = validate()
-        if !valid {
-            showAlertDialog(title: "Not valid credential information", message: message ?? "")
-        } else {
-            self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
-        }
-    }
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-        if let button = sender as? UIBarButtonItem, button == saveButton {
-            // Set the credential to be passed to MainViewController after the unwind segue.
-            if let credential = self.credential {
-                // Credential is populated from QR code, apply user changes
-                self.credential = YKFOATHCredentialTemplate(type: credential.type,
-                                                            algorithm: credential.algorithm,
-                                                            secret: credential.secret,
-                                                            issuer: self.issuerManualText.text ?? "",
-                                                            accountName: self.accountManualText.text ?? "",
-                                                            digits: credential.digits,
-                                                            period: credential.period,
-                                                            counter: credential.counter)
-                self.requiresTouch = self.requireTouchManual.isOn
-            } else {
-                // Create the credential from manual input
+        do {
+            switch mode {
+            case .manual:
                 let type: YKFOATHCredentialType = getSelectedIndex(row: 0) == 0 ? .TOTP : .HOTP
                 let algorithm = YKFOATHCredentialAlgorithm.init(rawValue: UInt(getSelectedIndex(row: 1) + 1)) ?? .SHA1
                 let secret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") ?? Data()
-                self.credential = YKFOATHCredentialTemplate(type: type,
-                                                            algorithm: algorithm,
-                                                            secret: secret,
-                                                            issuer: self.issuerManualText.text ?? "",
-                                                            accountName: self.accountManualText.text ?? "",
-                                                            digits: UInt(getSelectedIndex(row: 2) + 6),
-                                                            period: UInt(periodManualText.text ?? "30") ?? 0,
-                                                            counter: 0)
-
-                // reset all advanced settings to default
-                resetDefaults()
+                self.credential = try YKFOATHCredentialTemplate(type: type,
+                                                                algorithm: algorithm,
+                                                                secret: secret,
+                                                                issuer: self.issuerManualText.text ?? "",
+                                                                accountName: self.accountManualText.text ?? "",
+                                                                digits: UInt(getSelectedIndex(row: 2) + 6),
+                                                                period: UInt(periodManualText.text ?? "30") ?? 0,
+                                                                counter: 0,
+                                                                skip: [])
+            case .scanQR:
+                guard let credential = credential else { return }
+                self.credential = try YKFOATHCredentialTemplate(type: credential.type,
+                                                                algorithm: credential.algorithm,
+                                                                secret: credential.secret,
+                                                                issuer: self.issuerManualText.text ?? "",
+                                                                accountName: self.accountManualText.text ?? "",
+                                                                digits: credential.digits,
+                                                                period: credential.period,
+                                                                counter: credential.counter,
+                                                                skip: [])
             }
-        } else {
-            print("The save button was not pressed, cancelling")
+        } catch {
+            showAlertDialog(title: "Not valid credential information", message: error.localizedDescription)
+            return
         }
+        self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
     }
     
     // MARK: - Table view cell sizes
@@ -205,44 +185,6 @@ class AddCredentialController: UITableViewController {
             controller = PeriodTableViewController()
         }
         return controller.selectedRow
-    }
-    
-    fileprivate func validate() -> (Bool, String?) {
-        let textFields:[UITextField] = mode == .manual ? allManualTextFields : [accountManualText]
-        var formIsValid = true
-        var formMessage: String? = nil
-        for textField in textFields {
-            // Validate Text Field
-            let (valid, message) = validate(textField)
-
-            guard valid else {
-                formIsValid = false
-                formMessage = message
-                break
-            }
-        }
-        
-        return (formIsValid, formMessage)
-    }
-    
-    fileprivate func validate(_ textField: UITextField) -> (Bool, String?) {
-        guard let text = textField.text else {
-            return (false, nil)
-        }
-        
-        if textField == secretManualText && text.count > 0 {
-            let base32DecodedSecret = NSData.ykf_data(withBase32String: text)
-            return (base32DecodedSecret != nil, "Invalid Base32 encoded string. For secret use symbols A-Z and numbers 2-7.")
-        }
-        
-        return (text.count > 0, "Required fields cannot be empty.")
-    }
-    
-    fileprivate func resetDefaults() {
-        let defaults = UserDefaults.standard
-        AdvancedSettingsViewController.ALL_KEYS.forEach { key in
-            defaults.removeObject(forKey: key)
-        }
     }
 }
 
