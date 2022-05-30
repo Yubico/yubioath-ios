@@ -353,15 +353,3 @@ extension ScanAccountView {
         return overlayView
     }
 }
-
-
-struct OATHCredentialData {
-    let type: YKFOATHCredentialType
-    let algorithm: YKFOATHCredentialAlgorithm
-    let accountName: String
-    let issuer: String
-    let secret: Data
-    let digits: UInt
-    let period: UInt
-    let counter: UInt32
-}
