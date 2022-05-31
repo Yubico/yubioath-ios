@@ -20,7 +20,25 @@ class SettingsConfig {
     static private let bypassTouch = "bypassTouch"
     static private let nfcOnAppLaunch = "nfcOnAppLaunch"
     static private let showNFCSwipeHintCounter = "showNFCSwipeHintCounter"
+    static private let showWhatsNewCounter = "showWhatsNewCounter"
 
+    
+    static var showWhatsNewText: Bool {
+        get {
+            let counter = UserDefaults.standard.integer(forKey: showWhatsNewCounter + UIApplication.appVersion)
+            // Show whats new text the first 3 times app is started
+            if counter > 2 {
+                return false
+            } else {
+                UserDefaults.standard.set(counter + 1, forKey: showWhatsNewCounter + UIApplication.appVersion)
+                return true
+            }
+        }
+    }
+    
+    static func didShowWhatsNewText() {
+        UserDefaults.standard.set(100, forKey: showWhatsNewCounter + UIApplication.appVersion)
+    }
     
     static var showNFCSwipeHint: Bool {
         get {
