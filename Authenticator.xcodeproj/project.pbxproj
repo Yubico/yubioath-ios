@@ -86,6 +86,8 @@
 		A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */; };
 		A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
+		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
+		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B4A53539282D45FC009BD7EB /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4A53538282D45FC009BD7EB /* YubiKit */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -212,6 +214,8 @@
 		A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewController.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPConfigurationController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
+		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
+		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -395,6 +399,7 @@
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
 				51AFD4D727196AB6008F2630 /* VersionHistory.plist */,
+				B40327752847AE0A00DF4DB0 /* Licensing.md */,
 			);
 			path = Authenticator;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 			children = (
 				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
 				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
+				B40327732847AB5000DF4DB0 /* LicensingViewController.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -613,6 +619,7 @@
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
 				A544949023CE546B003E1E07 /* Tutorial.storyboard in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
+				B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +667,7 @@
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
+				B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */,
 				51AFD4D227103E36008F2630 /* SearchBar.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
 				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,

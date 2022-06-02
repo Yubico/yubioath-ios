@@ -40,6 +40,9 @@ class HelpViewController: UITableViewController {
             if let url = URL(string: "https://www.yubico.com/support/terms-conditions/privacy-notice/") {
                 UIApplication.shared.open(url)
             }
+        case (0, 4):
+            let licensingViewController = LicensingViewController()
+            self.navigationController?.pushViewController(licensingViewController, animated: true)
         case (1, 0):
             if let url = URL(string: "https://support.yubico.com/") {
                 UIApplication.shared.open(url)
