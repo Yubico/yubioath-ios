@@ -21,23 +21,28 @@ class SettingsConfig {
     static private let nfcOnAppLaunch = "nfcOnAppLaunch"
     static private let showNFCSwipeHintCounter = "showNFCSwipeHintCounter"
     static private let showWhatsNewCounter = "showWhatsNewCounter"
+    static private let showWhatsNewCounterAppVersion = "showWhatsNewCounterAppVersion"
 
     
     static var showWhatsNewText: Bool {
         get {
-            let counter = UserDefaults.standard.integer(forKey: showWhatsNewCounter + UIApplication.appVersion)
+            if UIApplication.appVersion != UserDefaults.standard.string(forKey: showWhatsNewCounterAppVersion) {
+                UserDefaults.standard.set(0, forKey: showWhatsNewCounter)
+                UserDefaults.standard.set(UIApplication.appVersion, forKey: showWhatsNewCounterAppVersion)
+            }
+            let counter = UserDefaults.standard.integer(forKey: showWhatsNewCounter)
             // Show whats new text the first 3 times app is started
             if counter > 2 {
                 return false
             } else {
-                UserDefaults.standard.set(counter + 1, forKey: showWhatsNewCounter + UIApplication.appVersion)
+                UserDefaults.standard.set(counter + 1, forKey: showWhatsNewCounter)
                 return true
             }
         }
     }
     
     static func didShowWhatsNewText() {
-        UserDefaults.standard.set(100, forKey: showWhatsNewCounter + UIApplication.appVersion)
+        UserDefaults.standard.set(100, forKey: showWhatsNewCounter)
     }
     
     static var showNFCSwipeHint: Bool {
