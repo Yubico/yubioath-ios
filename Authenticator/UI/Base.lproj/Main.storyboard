@@ -382,12 +382,29 @@ All rights reserved.</string>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="wvt-LS-lIS" style="IBUITableViewCellStyleDefault" id="M7k-HK-wqZ">
+                                        <rect key="frame" x="16" y="471.66667175292969" width="343" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="M7k-HK-wqZ" id="uc9-ZJ-yl6">
+                                            <rect key="frame" x="0.0" y="0.0" width="318.33333333333331" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Licensing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="wvt-LS-lIS">
+                                                    <rect key="frame" x="16" y="0.0" width="294.33333333333331" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" name="YubiBlue"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Support" id="vn9-zq-1Ri">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="NnL-eZ-nHd" style="IBUITableViewCellStyleDefault" id="CIh-9j-hrx">
-                                        <rect key="frame" x="16" y="521.33333778381348" width="343" height="43.666667938232422"/>
+                                        <rect key="frame" x="16" y="565.0000057220459" width="343" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CIh-9j-hrx" id="KuU-xd-o9N">
                                             <rect key="frame" x="0.0" y="0.0" width="318.33333333333331" height="43.666667938232422"/>
@@ -404,7 +421,7 @@ All rights reserved.</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tMr-aW-Doe" style="IBUITableViewCellStyleDefault" id="laH-Tj-Lw4">
-                                        <rect key="frame" x="16" y="565.0000057220459" width="343" height="43.666667938232422"/>
+                                        <rect key="frame" x="16" y="608.66667366027832" width="343" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="laH-Tj-Lw4" id="mph-Wa-vPs">
                                             <rect key="frame" x="0.0" y="0.0" width="318.33333333333331" height="43.666667938232422"/>
@@ -1694,23 +1711,23 @@ All rights reserved.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0dB-Xx-crT"/>
+        <segue reference="UPN-tw-Bce"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
         <image name="Info Icon" width="20" height="20"/>
         <image name="InsertKey" width="39" height="124"/>
-        <image name="arrow.turn.left.up" catalog="system" width="120" height="128"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="dot.radiowaves.forward" catalog="system" width="117" height="128"/>
-        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
-        <image name="ellipsis.rectangle" catalog="system" width="128" height="81"/>
+        <image name="arrow.turn.left.up" catalog="system" width="32" height="32"/>
+        <image name="checkmark.circle" catalog="system" width="32" height="32"/>
+        <image name="dot.radiowaves.forward" catalog="system" width="32" height="32"/>
+        <image name="ellipsis.circle" catalog="system" width="32" height="32"/>
+        <image name="ellipsis.rectangle" catalog="system" width="32" height="32"/>
         <image name="icon" width="60" height="60"/>
-        <image name="iphone" catalog="system" width="108" height="128"/>
-        <image name="iphone.radiowaves.left.and.right" catalog="system" width="128" height="85"/>
-        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
-        <image name="questionmark.circle" catalog="system" width="128" height="121"/>
-        <image name="xmark.circle" catalog="system" width="128" height="121"/>
+        <image name="iphone" catalog="system" width="32" height="32"/>
+        <image name="iphone.radiowaves.left.and.right" catalog="system" width="32" height="32"/>
+        <image name="magnifyingglass.circle" catalog="system" width="32" height="32"/>
+        <image name="questionmark.circle" catalog="system" width="32" height="32"/>
+        <image name="xmark.circle" catalog="system" width="32" height="32"/>
         <image name="yubikey" width="7" height="15"/>
         <namedColor name="Color1">
             <color red="0.89803921568627454" green="0.22352941176470589" blue="0.20784313725490197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
