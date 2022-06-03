@@ -15,6 +15,7 @@
  */
 
 import UIKit
+import Combine
 
 class OATHViewController: UITableViewController {
 
@@ -28,6 +29,8 @@ class OATHViewController: UITableViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
     private var lastDidResignActiveTimeStamp: Date?
+    private var cancellables = [Cancellable]()
+    private var showWhatsNewButton = SettingsConfig.showWhatsNewText
     
     private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
@@ -428,7 +431,34 @@ class OATHViewController: UITableViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         
-          
+        let whatsNewButton = UIButton()
+        whatsNewButton.translatesAutoresizingMaskIntoConstraints = false
+        whatsNewButton.isHidden = !showWhatsNewButton
+        cancellables.append(whatsNewButton.addHandler(for: .touchUpInside, block: { [weak self] in
+            SettingsConfig.didShowWhatsNewText()
+            let whatsNewController = VersionHistoryViewController()
+            whatsNewController.titleText = "What's new in\nYubico Authenticator"
+            self?.present(whatsNewController, animated: true)
+        }))
+        if #available(iOS 15, *) {
+            var see = AttributedString("See ")
+            see.foregroundColor = .secondaryLabel
+            see.font = .preferredFont(forTextStyle: .footnote)
+            var whatsNew = AttributedString("what's new ")
+            whatsNew.foregroundColor = .yubiBlue
+            whatsNew.font = .preferredFont(forTextStyle: .footnote)
+            var inThisVersion = AttributedString("in this version")
+            inThisVersion.foregroundColor = .secondaryLabel
+            inThisVersion.font =  .preferredFont(forTextStyle: .footnote)
+            let attributedString = NSAttributedString(see + whatsNew + inThisVersion)
+            whatsNewButton.setAttributedTitle(attributedString, for: .normal)
+        } else {
+            whatsNewButton.setTitle("See what's new in this version", for: .normal)
+            whatsNewButton.setTitleColor(.yubiBlue, for: .normal)
+            whatsNewButton.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
+        }
+        backgroundView.addSubview(whatsNewButton)
+        
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -440,7 +470,9 @@ class OATHViewController: UITableViewController {
             label.widthAnchor.constraint(lessThanOrEqualToConstant: 600),
             contentView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor, constant: -100), // we need to move the anchor up a bit since the table extends below the screen
             contentView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
+            contentView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor),
+            whatsNewButton.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
+            whatsNewButton.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: -150)
         ])
         
         self.backgroundView = backgroundView
