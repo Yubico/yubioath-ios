@@ -100,6 +100,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         label.text = ScanAccountView.scanMessage
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.font = .preferredFont(forTextStyle: .footnote).withSymbolicTraits(.traitBold)
         return label
     }()
@@ -259,7 +260,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         
         let credential: YKFOATHCredentialTemplate
         do {
-            credential = try YKFOATHCredentialTemplate(url: url, error: ())
+            credential = try YKFOATHCredentialTemplate(url: url, skip: [.issuer, .label])
         } catch {
             showError("\(error.localizedDescription)!")
             return
