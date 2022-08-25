@@ -72,10 +72,25 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         self.cleanUp()
     }
     
+    var smartCardConnection: YKFSmartCardConnection?
+
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnection = connection
+        calculateAll()
+    }
+    
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        smartCardConnection = nil
+        session = nil
+        self.cleanUp()
+    }
+    
     var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     
     func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
         if let connection = accessoryConnection {
+            completion(connection)
+        } else if let connection = smartCardConnection {
             completion(connection)
         } else {
             connectionCallback = completion
@@ -404,6 +419,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func stop() {
         cleanUp()
         accessoryConnection = nil
+        smartCardConnection = nil
         nfcConnection = nil
         session = nil
     }
@@ -697,7 +713,7 @@ extension OATHViewModel {
      * Checks if accessory key is plugged in
      */
     var keyPluggedIn: Bool {
-        return accessoryConnection != nil
+        return accessoryConnection != nil || smartCardConnection != nil
     }
     
     var keyIdentifier: String? {

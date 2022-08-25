@@ -18,8 +18,17 @@ class YubiKeyInformationViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
-
-    var handler: ((_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void)?
+    private var smartCardConnection: YKFSmartCardConnection?
+    
+    var handler: ((_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void)? {
+        didSet {
+            if let info = deviceInfo {
+                handler?(.success(info))
+            }
+        }
+    }
+    
+    var deviceInfo: YKFManagementDeviceInfo?
     
     override init() {
         super.init()
@@ -36,6 +45,7 @@ class YubiKeyInformationViewModel: NSObject {
             guard let session = session else { self.handleError(error!, forConnection: connection); return }
             session.getDeviceInfo { info, error in
                 guard let info = info else { self.handleError(error!, forConnection: connection); return }
+                self.deviceInfo = info
                 YubiKitManager.shared.stopNFCConnection(withMessage: "YubiKey information read")
                 self.handler?(.success(info))
             }
@@ -69,7 +79,7 @@ extension YubiKeyInformationViewModel: YKFManagerDelegate {
     }
     
     var connection: YKFConnectionProtocol? {
-        return accessoryConnection ?? nfcConnection
+        return accessoryConnection ?? smartCardConnection ?? nfcConnection
     }
     
     func didConnectNFC(_ connection: YKFNFCConnection) {
@@ -90,6 +100,16 @@ extension YubiKeyInformationViewModel: YKFManagerDelegate {
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
         accessoryConnection = nil
+        didDisconnect()
+    }
+    
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnection = connection
+        didConnect(connection)
+    }
+    
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        smartCardConnection = nil
         didDisconnect()
     }
 }
