@@ -139,7 +139,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
      * Allows to detect whether credentials list empty because device doesn't have any credentials or it's not loaded from device yet
      */
     var state: State = {
-        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+            && !YubiKitDeviceCapabilities.supportsISO7816NFCTags
+            && !YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
             return .notSupported
         } else {
             return .idle

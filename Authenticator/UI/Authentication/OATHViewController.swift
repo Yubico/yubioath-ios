@@ -502,7 +502,11 @@ class OATHViewController: UITableViewController {
         case .loaded:
             return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
         case .notSupported:
-            return "Yubico Authenticator cannot work on this \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") as it has no NFC reader nor Lightning port for the YubiKey to connect via.\n\nThe External Accessory protocol required for this app to function is unfortunately not supported over USB-C on iOS.\n\n😞"
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return "Yubico Authenticator requires iPadOS 16 for iPad with USB-C port."
+            } else {
+                return "Yubico Authenticator is not supported on this device."
+            }
         default:
             return nil
         }
