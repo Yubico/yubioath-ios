@@ -4,6 +4,17 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.0</string>
+        <key>date</key>
+        <date>2022-09-14T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <true/>
+        <key>changes</key>
+        <string>The major news for this version is added USB-C support on iPads running iPadOS 16! 🎉
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.6.9</string>
         <key>date</key>
         <date>2022-06-07T09:41:00Z</date>
