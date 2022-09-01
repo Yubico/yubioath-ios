@@ -31,6 +31,17 @@ class ConfigurationController: UITableViewController {
     
     let infoViewModel = YubiKeyInformationViewModel()
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // remove last cell for devices with USB-C and no NFC support
+        if section == 1
+            && YubiKitDeviceCapabilities.supportsSmartCardOverUSBC
+            && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                return super.tableView(tableView, numberOfRowsInSection: section) - 1
+        } else {
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if #available(iOS 14.5, *) { } else {
             switch (indexPath.section, indexPath.row) {
@@ -53,13 +64,15 @@ class ConfigurationController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = .clear
-        refreshControl.addTarget(self, action:  #selector(startNFC), for: .valueChanged)
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            let refreshControl = UIRefreshControl()
+            refreshControl.backgroundColor = .clear
+            refreshControl.addTarget(self, action:  #selector(startNFC), for: .valueChanged)
+            self.refreshControl = refreshControl
+        }
         
         insertYubiKeyLabel.text = YubiKitDeviceCapabilities.supportsISO7816NFCTags ? "Insert YubiKey or pull down to activate NFC" : "Insert YubiKey"
         
-        self.refreshControl = refreshControl
         infoViewModel.deviceInfo { [weak self] result in
             DispatchQueue.main.async {
                 guard let result = result else { self?.reset(); return }
