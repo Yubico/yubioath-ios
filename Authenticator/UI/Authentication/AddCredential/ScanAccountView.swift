@@ -198,7 +198,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             addManuallyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -55),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: frame.height / 1.55),
+            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: UIDevice.current.userInterfaceIdiom == .pad ? 540.0 : frame.height / 1.55),
             permissionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             permissionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             permissionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50)
@@ -231,18 +231,51 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
                     self.captureSession.addOutput(self.metadataOutput)
                     self.metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
                     self.metadataOutput.metadataObjectTypes = [.qr]
-                    
-                    self.captureSession.startRunning()
-
-                    self.metadataOutput.rectOfInterest =  self.previewLayer.metadataOutputRectConverted(fromLayerRect: self.captureRect())
-                    if (self.captureSession.isRunning == false) {
-                        self.captureSession.startRunning()
+                    self.updateVideoOrientation()
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        if (self.captureSession.isRunning == false) {
+                            self.captureSession.startRunning()
+                        }
                     }
                 } else {
                     self.showPermissionError()
                 }
             }
         }
+    }
+    
+    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(
+            alongsideTransition: { _ in
+                // Depending on if we grow or shrink the previewLayer we need to do it after or before the transition.
+                if UIDevice.current.orientation.isPortrait {
+                    self.previewLayer.frame = self.layer.bounds
+                }
+            },
+            completion: { _ in
+                if UIDevice.current.orientation.isLandscape {
+                    self.previewLayer.frame = self.layer.bounds
+                }
+                self.updateVideoOrientation()
+            }
+        )
+    }
+    
+    func updateVideoOrientation() {
+        switch (UIDevice.current.orientation) {
+         case .portrait:
+            self.previewLayer.connection?.videoOrientation = .portrait
+         case .landscapeLeft:
+            self.previewLayer.connection?.videoOrientation = .landscapeRight
+         case .landscapeRight:
+            self.previewLayer.connection?.videoOrientation = .landscapeLeft
+        case .portraitUpsideDown:
+            self.previewLayer.connection?.videoOrientation = .portraitUpsideDown
+         default:
+             // This will be fallback when device is placed flat on i.e a table
+            self.previewLayer.connection?.videoOrientation = .portrait
+         }
+        self.metadataOutput.rectOfInterest =  self.previewLayer.metadataOutputRectConverted(fromLayerRect: self.captureRect())
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -323,17 +356,18 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 extension ScanAccountView {
     
     private func captureRect() -> CGRect {
-        let margin = 50.0
+        let margin = UIDevice.current.userInterfaceIdiom == .pad  ? 150.0 : 50.0
         let size = frame.width - margin * 2
-        return CGRect(x: margin,
-                      y: center.y - size / 1.5,
-                      width: size,
-                      height: size)
+        let result = CGRect(x: margin,
+                            y: UIDevice.current.userInterfaceIdiom == .pad ? 120.0 : center.y - size / 1.5,
+                            width: size,
+                            height: size)
+        return result
     }
     
     private func createOverlay(frameColor: UIColor = .yubiGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
         
-        let overlayView = UIView(frame: frame)
+        let overlayView = UIView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.height * 1.5)) // make size 50% larger than needed to handle orientation changes from landscape to portrait
         overlayView.backgroundColor = background
         
         let path = CGMutablePath()

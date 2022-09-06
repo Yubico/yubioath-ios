@@ -42,7 +42,7 @@ class AddCredentialController: UITableViewController {
 
     var advancedSettings: [[String]] = [["TOTP", "HOTP"],
                                         ["SHA1", "SHA256", "SHA512",],
-                                        ["6", "7", "8"],
+                                        ["6", "8"],
                                         ["15", "30", "60"]]
     /*
      This value is either passed by `MainViewController` in `prepare(for:sender:)`
@@ -50,10 +50,11 @@ class AddCredentialController: UITableViewController {
      */
     var credential: YKFOATHCredentialTemplate?
     var requiresTouch: Bool = false
+    var scanAccountView: ScanAccountView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // UITextViewDelegate added for switching resonder on return key on keyboard
+        // UITextViewDelegate added for switching responder on return key on keyboard
         self.issuerManualText.delegate = self
         self.accountManualText.delegate = self
         self.secretManualText.delegate = self
@@ -62,7 +63,7 @@ class AddCredentialController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if mode == .scanQR {
-            let scanView = ScanAccountView(frame: self.view.frame) { [weak self] result in
+            let scanAccountView = ScanAccountView(frame: self.view.frame) { [weak self] result in
                 guard let self = self else { return }
                 self.navigationController?.navigationBar.layer.zPosition = 0
                 switch result {
@@ -75,7 +76,9 @@ class AddCredentialController: UITableViewController {
                     self.mode = .scanQR
                 }
             }
-            self.navigationController?.view.addSubview(scanView)
+            self.scanAccountView = scanAccountView
+            self.navigationController?.view.addSubview(scanAccountView)
+            scanAccountView.autoresizingMask = .flexibleHeight
             self.navigationController?.navigationBar.layer.zPosition = -1 // Move buttons behind scanview
         }
     }
@@ -84,6 +87,11 @@ class AddCredentialController: UITableViewController {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        scanAccountView?.viewWillTransition(to: size, with: coordinator)
+        super.viewWillTransition(to: size, with: coordinator)
+     }
     
     // MARK: - Public methods
     

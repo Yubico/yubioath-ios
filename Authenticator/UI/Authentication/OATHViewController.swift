@@ -34,7 +34,6 @@ class OATHViewController: UITableViewController {
     
     private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
-    private var credentailToAdd: YKFOATHCredentialTemplate?
     
     private var backgroundView: UIView? {
         willSet {
@@ -266,15 +265,6 @@ class OATHViewController: UITableViewController {
             // passing userFreVersion and then setting current freVersion to userDefaults.
             freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
             SettingsConfig.lastFreVersionShown = .freVersion
-        }
-        
-        if segue.identifier == .addCredentialSequeID {
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let addViewController = navigationController.topViewController as? AddCredentialController else { assertionFailure(); return }
-            if let credential = credentailToAdd {
-                addViewController.displayCredential(details: credential)
-            }
-            credentailToAdd = nil
         }
     }
     
@@ -700,7 +690,7 @@ extension SearchBar {
 
 extension YubiKitDeviceCapabilities {
     static var isDeviceSupported: Bool {
-        return Self.supportsMFIAccessoryKey || Self.supportsISO7816NFCTags
+        return Self.supportsMFIAccessoryKey || Self.supportsISO7816NFCTags || Self.supportsSmartCardOverUSBC
     }
     
 }

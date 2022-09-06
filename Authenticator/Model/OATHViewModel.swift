@@ -429,7 +429,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func cleanUp() {
-        guard YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags else {
+        guard YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+                || YubiKitDeviceCapabilities.supportsSmartCardOverUSBC
+                || YubiKitDeviceCapabilities.supportsISO7816NFCTags else {
             return
         }
 
