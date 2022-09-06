@@ -94,7 +94,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             completion(connection)
         } else {
             connectionCallback = completion
-            YubiKitManager.shared.startNFCConnection()
+            if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                YubiKitManager.shared.startNFCConnection()
+            }
         }
     }
     

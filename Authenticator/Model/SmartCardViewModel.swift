@@ -49,7 +49,9 @@ class SmartCardViewModel: NSObject {
     }
     
     func startNFC() {
-        YubiKitManager.shared.startNFCConnection()
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            YubiKitManager.shared.startNFCConnection()
+        }
     }
     
     func storeTokenCertificate(certificate: SecCertificate) -> Error? {
