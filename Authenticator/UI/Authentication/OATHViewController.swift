@@ -551,13 +551,8 @@ extension OATHViewController: CredentialViewModelDelegate {
         self.displayToast(message: message)
     }
     
-    func onCredentialDelete(indexPath: IndexPath) {
-        // Removal of last element in section requires to remove the section.
-        if self.viewModel.credentials.count == 0 {
-            self.tableView.deleteSections([0], with: .fade)
-        } else {
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+    func onCredentialDelete(credential: Credential) {
+        self.tableView.reloadData()
     }
     
     func didValidatePassword(_ password: String, forKey key: String) {

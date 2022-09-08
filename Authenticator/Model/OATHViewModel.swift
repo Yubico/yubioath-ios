@@ -20,7 +20,7 @@ protocol CredentialViewModelDelegate: AnyObject {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
-    func onCredentialDelete(indexPath: IndexPath)
+    func onCredentialDelete(credential: Credential)
     func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
     func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void)
     func didValidatePassword(_ password: String, forKey key: String)
@@ -369,7 +369,11 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Account deleted")
+                if self.isPinned(credential: credential) {
+                    self.unPin(credential: credential)
+                } else {
+                    self.calculateAll()
+                }
                 self.onDelete(credential: credential)
             }
         }
@@ -645,16 +649,17 @@ extension OATHViewModel { //}: OperationDelegate {
             guard let self = self else {
                 return
             }
-            
             credential.removeTimerObservation()
-            // If remove credential from favorites first and then from credentials list, the wrong indexPath will be returned.
-            if let row = self._credentials.firstIndex(where: { $0 == credential }) {
-                self._credentials.remove(at: row)
-                if self.isPinned(credential: credential) {
-                    self.unPin(credential: credential)
-                }
-                self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
-            }
+            self.delegate?.onCredentialDelete(credential: credential)
+
+            
+//
+//            if self.isPinned(credential: credential) {
+//                self.unPin(credential: credential)
+//            } else {
+//                self.calculateAll()
+//                self.delegate?.onCredentialDelete(credential: credential)
+//            }
         }
     }
     
