@@ -651,15 +651,6 @@ extension OATHViewModel { //}: OperationDelegate {
             }
             credential.removeTimerObservation()
             self.delegate?.onCredentialDelete(credential: credential)
-
-            
-//
-//            if self.isPinned(credential: credential) {
-//                self.unPin(credential: credential)
-//            } else {
-//                self.calculateAll()
-//                self.delegate?.onCredentialDelete(credential: credential)
-//            }
         }
     }
     
