@@ -204,7 +204,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.isSteam && !credential.requiresTouch {
+                    if credential.isSteam && (!credential.requiresTouch || SettingsConfig.isBypassTouchEnabled) {
                         self.calculateSteamTOTP(credential: credential, stopNFCWhenDone: false)
                     } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
