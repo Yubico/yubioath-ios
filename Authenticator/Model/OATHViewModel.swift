@@ -33,7 +33,7 @@ protocol CredentialViewModelDelegate: AnyObject {
  */
 class OATHViewModel: NSObject, YKFManagerDelegate {
     
-    var nfcConnection: YKFNFCConnection?
+    private var nfcConnection: YKFNFCConnection?
     
     private var lastNFCEndingTimestamp: Date?
 
@@ -59,7 +59,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         lastNFCEndingTimestamp = Date()
     }
     
-    var accessoryConnection: YKFAccessoryConnection?
+    private var accessoryConnection: YKFAccessoryConnection?
 
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection
@@ -72,22 +72,31 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         self.cleanUp()
     }
     
-    var smartCardConnection: YKFSmartCardConnection?
+    private var smartCardConnection: YKFSmartCardConnection?
 
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
         smartCardConnection = connection
+        if let callback = connectionCallback {
+            callback(connection)
+        }
         calculateAll()
     }
     
     func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        smartCardConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
         smartCardConnection = nil
         session = nil
         self.cleanUp()
     }
     
-    var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     
-    func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+    private func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
         if let connection = accessoryConnection {
             completion(connection)
         } else if let connection = smartCardConnection {
@@ -100,9 +109,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    var session: YKFOATHSession?
+    private var session: YKFOATHSession?
 
-    func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+    private func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
         if let session = session {
             completion(session)
             return
@@ -126,6 +135,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     deinit {
         DelegateStack.shared.removeDelegate(self)
+    }
+    
+    enum SmartCardConnectionStatus {
+        case connected
+        case disconnected
+    }
+    
+    typealias SmartCardConnectionStatusCallback = (SmartCardConnectionStatus) -> ()
+    
+    private var smartCardConnectionStatusCallbacks = [SmartCardConnectionStatusCallback]()
+    
+    func smartCardConnectionStatus(callback: @escaping SmartCardConnectionStatusCallback) {
+        smartCardConnectionStatusCallbacks.append(callback)
     }
     
     /*!
@@ -535,7 +557,7 @@ extension OATHViewModel { //}: OperationDelegate {
         let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
         // Try cached passwords and then ask user for password
         if errorCode == .authenticationRequired {
-            delegate?.cachedPasswordFor(keyId: keyIdentifier!) { password in
+            delegate?.cachedPasswordFor(keyId: keyIdentifier ?? "") { password in
                 if let password = password {
                     // Got cached password from either memory or keychain
                     self.unlock(withPassword: password, isCached: true) { error in
@@ -719,10 +741,15 @@ extension OATHViewModel {
     }
     
     var keyIdentifier: String? {
-        if let accessoryConnection = accessoryConnection {
+        if let accessoryConnection {
             return accessoryConnection.accessoryDescription?.serialNumber
         }
-        if let nfcConnection = nfcConnection {
+        if let smartCardConnection {
+            // TODO: add an identifier for SmartCardConnection
+            print("No identifier for SmartCardConnection!")
+            return nil
+        }
+        if let nfcConnection {
             return nfcConnection.tagDescription?.identifier.hex
         }
         return nil
