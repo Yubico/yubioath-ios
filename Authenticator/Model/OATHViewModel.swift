@@ -204,12 +204,12 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.isSteam && (!credential.requiresTouch || (self.nfcConnection != nil && SettingsConfig.isBypassTouchEnabled)) {
+                    let bypassTouch = (self.nfcConnection != nil && SettingsConfig.isBypassTouchEnabled)
+                    if credential.isSteam && (!credential.requiresTouch || bypassTouch) {
                         self.calculateSteamTOTP(credential: credential, stopNFCWhenDone: false)
                     } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
-                        SettingsConfig.isBypassTouchEnabled &&
-                        self.nfcConnection != nil {
+                        bypassTouch {
                         session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
                             guard let code = code, let otp = code.otp else { return }
                             credential.setCode(code: otp, validity: code.validity)
