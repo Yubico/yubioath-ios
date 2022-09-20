@@ -62,11 +62,17 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     private var accessoryConnection: YKFAccessoryConnection?
 
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
         accessoryConnection = connection
         calculateAll()
     }
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
         accessoryConnection = nil
         session = nil
         self.cleanUp()
@@ -75,7 +81,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     private var smartCardConnection: YKFSmartCardConnection?
 
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
-        smartCardConnectionStatusCallbacks.forEach { callback in
+        wiredConnectionStatusCallbacks.forEach { callback in
             callback(.connected)
         }
         smartCardConnection = connection
@@ -86,7 +92,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
-        smartCardConnectionStatusCallbacks.forEach { callback in
+        wiredConnectionStatusCallbacks.forEach { callback in
             callback(.disconnected)
         }
         smartCardConnection = nil
@@ -137,17 +143,17 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         DelegateStack.shared.removeDelegate(self)
     }
     
-    enum SmartCardConnectionStatus {
+    enum WiredConnectionStatus {
         case connected
         case disconnected
     }
     
-    typealias SmartCardConnectionStatusCallback = (SmartCardConnectionStatus) -> ()
+    typealias WiredConnectionStatusCallback = (WiredConnectionStatus) -> ()
     
-    private var smartCardConnectionStatusCallbacks = [SmartCardConnectionStatusCallback]()
+    private var wiredConnectionStatusCallbacks = [WiredConnectionStatusCallback]()
     
-    func smartCardConnectionStatus(callback: @escaping SmartCardConnectionStatusCallback) {
-        smartCardConnectionStatusCallbacks.append(callback)
+    func wiredConnectionStatus(callback: @escaping WiredConnectionStatusCallback) {
+        wiredConnectionStatusCallbacks.append(callback)
     }
     
     /*!

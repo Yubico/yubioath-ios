@@ -80,7 +80,7 @@ class OATHViewController: UITableViewController {
         setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || viewModel.keyPluggedIn)
         setupRefreshControl()
         
-        viewModel.smartCardConnectionStatus { [weak self] _ in
+        viewModel.wiredConnectionStatus { [weak self] _ in
             guard let self else { return }
             DispatchQueue.main.async {
                 self.setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || self.viewModel.keyPluggedIn)
