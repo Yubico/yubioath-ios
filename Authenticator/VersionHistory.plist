@@ -17,7 +17,7 @@
         <key>version</key>
         <string>1.6.9</string>
         <key>date</key>
-        <date>2022-06-07T09:41:00Z</date>
+        <date>2022-06-30T09:41:00Z</date>
         <key>shouldPromptUser</key>
         <false/>
         <key>changes</key>
@@ -27,6 +27,7 @@
         - Improved validation and error messages when scanning QR codes.
         - Added button displaying this change log to the start page.
         - Solved an issue where NFC might be unresponsive if interrupted during communication with a YubiKey.
+        - Fixes issue where the requires touch setting was ignored when addding credential.
         </string>
     </dict>
     <dict>

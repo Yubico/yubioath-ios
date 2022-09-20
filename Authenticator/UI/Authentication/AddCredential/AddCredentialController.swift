@@ -137,6 +137,7 @@ class AddCredentialController: UITableViewController {
             showAlertDialog(title: "Not valid credential information", message: error.localizedDescription)
             return
         }
+        self.requiresTouch = self.requireTouchManual.isOn
         self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
     }
     
