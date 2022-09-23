@@ -36,8 +36,7 @@ class AddCredentialController: UITableViewController {
     @IBOutlet weak var issuerManualText: UITextField!
     @IBOutlet weak var accountManualText: UITextField!
     @IBOutlet weak var secretManualText: UITextField!
-    @IBOutlet weak var requireTouchManual: UISwitch!
-    @IBOutlet var allManualTextFields: [UITextField]!
+    @IBOutlet weak var requiresTouchSwitch: UISwitch!
     @IBOutlet weak var periodManualText: UILabel!
 
     var advancedSettings: [[String]] = [["TOTP", "HOTP"],
@@ -51,6 +50,11 @@ class AddCredentialController: UITableViewController {
     var credential: YKFOATHCredentialTemplate?
     var requiresTouch: Bool = false
     var scanAccountView: ScanAccountView?
+
+    var typeIndex = 0
+    var algorithmIndex = 0
+    var digitsIndex = 0
+    var periodIndex = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,10 +85,6 @@ class AddCredentialController: UITableViewController {
             scanAccountView.autoresizingMask = .flexibleHeight
             self.navigationController?.navigationBar.layer.zPosition = -1 // Move buttons behind scanview
         }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
     
@@ -109,16 +109,17 @@ class AddCredentialController: UITableViewController {
         do {
             switch mode {
             case .manual:
-                let type: YKFOATHCredentialType = getSelectedIndex(row: 0) == 0 ? .TOTP : .HOTP
-                let algorithm = YKFOATHCredentialAlgorithm.init(rawValue: UInt(getSelectedIndex(row: 1) + 1)) ?? .SHA1
                 let secret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") ?? Data()
-                self.credential = try YKFOATHCredentialTemplate(type: type,
+                let credentialType = YKFOATHCredentialType.typeFromString(advancedSettings[0][typeIndex])
+                let algorithm = YKFOATHCredentialAlgorithm.algorithmFromString(advancedSettings[1][algorithmIndex])
+                
+                self.credential = try YKFOATHCredentialTemplate(type: credentialType,
                                                                 algorithm: algorithm,
                                                                 secret: secret,
                                                                 issuer: self.issuerManualText.text ?? "",
                                                                 accountName: self.accountManualText.text ?? "",
-                                                                digits: UInt(getSelectedIndex(row: 2) + 6),
-                                                                period: UInt(periodManualText.text ?? "30") ?? 0,
+                                                                digits: UInt(advancedSettings[2][digitsIndex]) ?? 6,
+                                                                period: UInt(advancedSettings[3][periodIndex]) ?? 30,
                                                                 counter: 0,
                                                                 skip: [])
             case .scanQR:
@@ -137,7 +138,7 @@ class AddCredentialController: UITableViewController {
             showAlertDialog(title: "Not valid credential information", message: error.localizedDescription)
             return
         }
-        self.requiresTouch = self.requireTouchManual.isOn
+        self.requiresTouch = requiresTouchSwitch.isOn
         self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
     }
     
@@ -152,7 +153,7 @@ class AddCredentialController: UITableViewController {
         
         // hide period for HOTP
         if (indexPath.section == 1 && indexPath.row == 3) {
-            return getSelectedIndex(row: 0) == 0 ? 44.0 : 0.0
+            return typeIndex == 0 ? 44.0 : 0.0
         }
         
         return height
@@ -180,28 +181,54 @@ class AddCredentialController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if ("AdvancedSettings" == cell.reuseIdentifier) {
-            let selectedIndex = getSelectedIndex(row: indexPath.row)
-            cell.detailTextLabel?.text = advancedSettings[indexPath.row][selectedIndex]
+            switch(indexPath.row) {
+            case 0:
+                cell.detailTextLabel?.text = advancedSettings[0][typeIndex]
+            case 1:
+                cell.detailTextLabel?.text = advancedSettings[1][algorithmIndex]
+            case 2:
+                cell.detailTextLabel?.text = advancedSettings[2][digitsIndex]
+            default:
+                cell.detailTextLabel?.text = advancedSettings[3][periodIndex]
+            }
         }
         return cell
     }
     
-    //
-    // MARK: - Helper Methods
-    //
-    fileprivate func getSelectedIndex(row: Int) -> Int {
-        let controller: AdvancedSettingsViewController
-        switch(row) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section == 1 else { return }
+        switch indexPath.row {
         case 0:
-            controller = TypeTableViewController()
+            let table = AdvancedSettingsViewController(title: "Type",
+                                                       rows: advancedSettings[0],
+                                                       selected: typeIndex) { [weak self] result in
+                self?.typeIndex = result
+            }
+            self.navigationController?.pushViewController(table, animated: true)
         case 1:
-            controller = AlgorithmTableViewController()
+            let table = AdvancedSettingsViewController(title: "Algorithm",
+                                                       rows: advancedSettings[1],
+                                                       selected: algorithmIndex) { [weak self] result in
+                self?.algorithmIndex = result
+            }
+            self.navigationController?.pushViewController(table, animated: true)
         case 2:
-            controller = DigitsTableViewController()
-        default:
-            controller = PeriodTableViewController()
+            let table = AdvancedSettingsViewController(title: "Digits",
+                                                       rows: advancedSettings[2],
+                                                       selected: digitsIndex) { [weak self] result in
+                self?.digitsIndex = result
+            }
+            self.navigationController?.pushViewController(table, animated: true)
+        case 3:
+            let table = AdvancedSettingsViewController(title: "Period",
+                                                       rows: advancedSettings[3],
+                                                       selected: periodIndex) { [weak self] result in
+                self?.periodIndex = result
+            }
+            self.navigationController?.pushViewController(table, animated: true)
+         default:
+            return
         }
-        return controller.selectedRow
     }
 }
 
@@ -227,5 +254,34 @@ extension AddCredentialController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return false
+    }
+}
+
+extension YKFOATHCredentialType {
+    static func typeFromString(_ string: String) -> YKFOATHCredentialType {
+        switch string {
+        case "TOTP":
+            return .TOTP
+        case "HOTP":
+            return .HOTP
+        default:
+            return .unknown
+        }
+    }
+}
+
+extension YKFOATHCredentialAlgorithm {
+    
+    static func algorithmFromString(_ string: String) -> YKFOATHCredentialAlgorithm {
+        switch string {
+        case "SHA1":
+            return .SHA1
+        case "SHA256":
+            return .SHA256
+        case "SHA512":
+            return .SHA512
+        default:
+            return .unknown
+        }
     }
 }

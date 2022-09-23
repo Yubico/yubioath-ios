@@ -46,14 +46,12 @@ class OATHViewController: UITableViewController {
     
     private var hintView: UIView?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewModel.delegate = self
-        setupRefreshControl()
-        menuButton.menu = UIMenu(title: "", children: [
+    private func setupMenu(enabled: Bool) {
+        self.menuButton.menu = nil
+        self.menuButton.menu = UIMenu(title: "", children: [
             UIAction(title: "Add account",
                      image: UIImage(systemName: "qrcode"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     attributes: enabled ? [] : .disabled,
                      handler: { [weak self] _ in
                          guard let self = self else { return }
                          let storyboard = UIStoryboard(name: "AddCredential", bundle: nil)
@@ -62,7 +60,7 @@ class OATHViewController: UITableViewController {
                      }),
             UIAction(title: "Configuration",
                      image: UIImage(systemName: "switch.2"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     attributes: enabled ? [] : [.disabled],
                      handler: { [weak self] _ in
                          guard let self = self else { return }
                          self.userFoundMenu()
@@ -72,7 +70,22 @@ class OATHViewController: UITableViewController {
                 guard let self = self else { return }
                 self.userFoundMenu()
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
-        })])
+            })])
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.delegate = self
+           
+        setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || viewModel.keyPluggedIn)
+        setupRefreshControl()
+        
+        viewModel.wiredConnectionStatus { [weak self] _ in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || self.viewModel.keyPluggedIn)
+            }
+        }
         
         guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
         let imageView = UIImageView(image: image)
@@ -305,7 +318,7 @@ class OATHViewController: UITableViewController {
     }
     
     private func refreshCredentials() {
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
             if viewModel.keyPluggedIn {
                 viewModel.calculateAll()
                 tableView.reloadData()

@@ -33,7 +33,7 @@ protocol CredentialViewModelDelegate: AnyObject {
  */
 class OATHViewModel: NSObject, YKFManagerDelegate {
     
-    var nfcConnection: YKFNFCConnection?
+    private var nfcConnection: YKFNFCConnection?
     
     private var lastNFCEndingTimestamp: Date?
 
@@ -59,35 +59,50 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         lastNFCEndingTimestamp = Date()
     }
     
-    var accessoryConnection: YKFAccessoryConnection?
+    private var accessoryConnection: YKFAccessoryConnection?
 
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
         accessoryConnection = connection
         calculateAll()
     }
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
         accessoryConnection = nil
         session = nil
         self.cleanUp()
     }
     
-    var smartCardConnection: YKFSmartCardConnection?
+    private var smartCardConnection: YKFSmartCardConnection?
 
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
         smartCardConnection = connection
+        if let callback = connectionCallback {
+            callback(connection)
+        }
         calculateAll()
     }
     
     func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
         smartCardConnection = nil
         session = nil
         self.cleanUp()
     }
     
-    var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     
-    func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+    private func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
         if let connection = accessoryConnection {
             completion(connection)
         } else if let connection = smartCardConnection {
@@ -100,9 +115,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    var session: YKFOATHSession?
+    private var session: YKFOATHSession?
 
-    func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+    private func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
         if let session = session {
             completion(session)
             return
@@ -126,6 +141,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     deinit {
         DelegateStack.shared.removeDelegate(self)
+    }
+    
+    enum WiredConnectionStatus {
+        case connected
+        case disconnected
+    }
+    
+    typealias WiredConnectionStatusCallback = (WiredConnectionStatus) -> ()
+    
+    private var wiredConnectionStatusCallbacks = [WiredConnectionStatusCallback]()
+    
+    func wiredConnectionStatus(callback: @escaping WiredConnectionStatusCallback) {
+        wiredConnectionStatusCallbacks.append(callback)
     }
     
     /*!
@@ -204,12 +232,12 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.isSteam && !credential.requiresTouch {
+                    let bypassTouch = (self.nfcConnection != nil && SettingsConfig.isBypassTouchEnabled)
+                    if credential.isSteam && (!credential.requiresTouch || bypassTouch) {
                         self.calculateSteamTOTP(credential: credential, stopNFCWhenDone: false)
                     } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
-                        SettingsConfig.isBypassTouchEnabled &&
-                        self.nfcConnection != nil {
+                        bypassTouch {
                         session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
                             guard let code = code, let otp = code.otp else { return }
                             credential.setCode(code: otp, validity: code.validity)
@@ -535,7 +563,7 @@ extension OATHViewModel { //}: OperationDelegate {
         let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
         // Try cached passwords and then ask user for password
         if errorCode == .authenticationRequired {
-            delegate?.cachedPasswordFor(keyId: keyIdentifier!) { password in
+            delegate?.cachedPasswordFor(keyId: keyIdentifier ?? "") { password in
                 if let password = password {
                     // Got cached password from either memory or keychain
                     self.unlock(withPassword: password, isCached: true) { error in
@@ -719,10 +747,15 @@ extension OATHViewModel {
     }
     
     var keyIdentifier: String? {
-        if let accessoryConnection = accessoryConnection {
+        if let accessoryConnection {
             return accessoryConnection.accessoryDescription?.serialNumber
         }
-        if let nfcConnection = nfcConnection {
+        if let smartCardConnection {
+            // TODO: add an identifier for SmartCardConnection
+            print("No identifier for SmartCardConnection!")
+            return nil
+        }
+        if let nfcConnection {
             return nfcConnection.tagDescription?.identifier.hex
         }
         return nil
