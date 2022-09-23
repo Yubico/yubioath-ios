@@ -750,10 +750,8 @@ extension OATHViewModel {
         if let accessoryConnection {
             return accessoryConnection.accessoryDescription?.serialNumber
         }
-        if let smartCardConnection {
-            // TODO: add an identifier for SmartCardConnection
-            print("No identifier for SmartCardConnection!")
-            return nil
+        if smartCardConnection != nil {
+            return self.session?.deviceId
         }
         if let nfcConnection {
             return nfcConnection.tagDescription?.identifier.hex
