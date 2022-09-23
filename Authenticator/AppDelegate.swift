@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             YubiKitManager.shared.startAccessoryConnection()
         }
+        if #available(iOS 16, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
         if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
             UNUserNotificationCenter.current().delegate = main
         }

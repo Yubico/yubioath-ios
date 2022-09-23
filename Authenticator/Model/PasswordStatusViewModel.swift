@@ -16,6 +16,9 @@
 
 class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     
+    private var accessoryConnection: YKFAccessoryConnection?
+    private var smartCardConnection: YKFSmartCardConnection?
+
     enum PasswordStatus {
         case isProtected;
         case noPassword;
@@ -26,7 +29,6 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) { assert(false, "NFC did disconnect!") }
     func didFailConnectingNFC(_ error: Error) {}
     
-    private var accessoryConnection: YKFAccessoryConnection?
 
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection
@@ -37,10 +39,19 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
         connectionsCallback?(nil)
     }
     
-    private var connectionsCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnection = connection
+        connectionsCallback?(connection)
+    }
+    
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        connectionsCallback?(nil)
+    }
+    
+    private var connectionsCallback: ((_ connection: YKFConnectionProtocol?) -> Void)?
     private var passwordStatusCallback: ((_ status: PasswordStatus) -> Void)?
 
-    private func connections(handler: @escaping (_ connection: YKFAccessoryConnection?) -> Void) {
+    private func connections(handler: @escaping (_ connection: YKFConnectionProtocol?) -> Void) {
         connectionsCallback = handler
         if let connection = accessoryConnection {
             handler(connection)

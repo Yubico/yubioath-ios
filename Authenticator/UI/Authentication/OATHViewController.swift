@@ -34,7 +34,6 @@ class OATHViewController: UITableViewController {
     
     private var searchBar = SearchBar()
     private var applicationSessionObserver: ApplicationSessionObserver!
-    private var credentailToAdd: YKFOATHCredentialTemplate?
     
     private var backgroundView: UIView? {
         willSet {
@@ -47,14 +46,12 @@ class OATHViewController: UITableViewController {
     
     private var hintView: UIView?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewModel.delegate = self
-        setupRefreshControl()
-        menuButton.menu = UIMenu(title: "", children: [
+    private func setupMenu(enabled: Bool) {
+        self.menuButton.menu = nil
+        self.menuButton.menu = UIMenu(title: "", children: [
             UIAction(title: "Add account",
                      image: UIImage(systemName: "qrcode"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     attributes: enabled ? [] : .disabled,
                      handler: { [weak self] _ in
                          guard let self = self else { return }
                          let storyboard = UIStoryboard(name: "AddCredential", bundle: nil)
@@ -63,7 +60,7 @@ class OATHViewController: UITableViewController {
                      }),
             UIAction(title: "Configuration",
                      image: UIImage(systemName: "switch.2"),
-                     attributes: YubiKitDeviceCapabilities.isDeviceSupported ? [] : .disabled,
+                     attributes: enabled ? [] : [.disabled],
                      handler: { [weak self] _ in
                          guard let self = self else { return }
                          self.userFoundMenu()
@@ -73,7 +70,22 @@ class OATHViewController: UITableViewController {
                 guard let self = self else { return }
                 self.userFoundMenu()
                 self.performSegue(withIdentifier: "ShowSettings", sender: self)
-        })])
+            })])
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.delegate = self
+           
+        setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || viewModel.keyPluggedIn)
+        setupRefreshControl()
+        
+        viewModel.wiredConnectionStatus { [weak self] _ in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.setupMenu(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags || self.viewModel.keyPluggedIn)
+            }
+        }
         
         guard let image = UIImage(named: "NavbarLogo.png") else { fatalError() }
         let imageView = UIImageView(image: image)
@@ -267,15 +279,6 @@ class OATHViewController: UITableViewController {
             freViewController.userFreVersion = SettingsConfig.lastFreVersionShown
             SettingsConfig.lastFreVersionShown = .freVersion
         }
-        
-        if segue.identifier == .addCredentialSequeID {
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let addViewController = navigationController.topViewController as? AddCredentialController else { assertionFailure(); return }
-            if let credential = credentailToAdd {
-                addViewController.displayCredential(details: credential)
-            }
-            credentailToAdd = nil
-        }
     }
     
     @IBAction func unwindToMainViewController(segue: UIStoryboardSegue) {
@@ -315,7 +318,7 @@ class OATHViewController: UITableViewController {
     }
     
     private func refreshCredentials() {
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
             if viewModel.keyPluggedIn {
                 viewModel.calculateAll()
                 tableView.reloadData()
@@ -502,7 +505,11 @@ class OATHViewController: UITableViewController {
         case .loaded:
             return viewModel.hasFilter ? "No matching accounts" : "No accounts on YubiKey"
         case .notSupported:
-            return "Yubico Authenticator cannot work on this \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone") as it has no NFC reader nor Lightning port for the YubiKey to connect via.\n\nThe External Accessory protocol required for this app to function is unfortunately not supported over USB-C on iOS.\n\n😞"
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return "Yubico Authenticator requires iPadOS 16 for iPad with USB-C port."
+            } else {
+                return "Yubico Authenticator is not supported on this device."
+            }
         default:
             return nil
         }
@@ -557,13 +564,8 @@ extension OATHViewController: CredentialViewModelDelegate {
         self.displayToast(message: message)
     }
     
-    func onCredentialDelete(indexPath: IndexPath) {
-        // Removal of last element in section requires to remove the section.
-        if self.viewModel.credentials.count == 0 {
-            self.tableView.deleteSections([0], with: .fade)
-        } else {
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+    func onCredentialDelete(credential: Credential) {
+        self.tableView.reloadData()
     }
     
     func didValidatePassword(_ password: String, forKey key: String) {
@@ -696,7 +698,7 @@ extension SearchBar {
 
 extension YubiKitDeviceCapabilities {
     static var isDeviceSupported: Bool {
-        return Self.supportsMFIAccessoryKey || Self.supportsISO7816NFCTags
+        return Self.supportsMFIAccessoryKey || Self.supportsISO7816NFCTags || Self.supportsSmartCardOverUSBC
     }
     
 }

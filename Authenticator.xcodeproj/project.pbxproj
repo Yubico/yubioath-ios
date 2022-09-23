@@ -88,7 +88,7 @@
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
-		B4149681284A158B00D7E95C /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4149680284A158B00D7E95C /* YubiKit */; };
+		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -217,6 +217,7 @@
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
+		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,7 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4149681284A158B00D7E95C /* YubiKit in Frameworks */,
+				B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
 				51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */,
 			);
@@ -370,6 +371,7 @@
 		818866AA22DFD729006BC0A8 = {
 			isa = PBXGroup;
 			children = (
+				B4E9D45928B65A6E00D51FFC /* Packages */,
 				818866B522DFD729006BC0A8 /* Authenticator */,
 				818866CC22DFD72C006BC0A8 /* AuthenticatorTests */,
 				515542732656706F00B19C59 /* TokenExtension */,
@@ -490,6 +492,14 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		B4E9D45928B65A6E00D51FFC /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				B4E9D46228B65B5100D51FFC /* yubikit-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -526,7 +536,7 @@
 			);
 			name = Authenticator;
 			packageProductDependencies = (
-				B4149680284A158B00D7E95C /* YubiKit */,
+				B432B1BE28B65B8600A7182F /* YubiKit */,
 			);
 			productName = Authenticator;
 			productReference = 818866B322DFD729006BC0A8 /* Authenticator.app */;
@@ -587,7 +597,7 @@
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
-				B414967F284A158B00D7E95C /* XCRemoteSwiftPackageReference "yubikit-ios" */,
+				B432B1BD28B65B8600A7182F /* XCRemoteSwiftPackageReference "yubikit-ios" */,
 			);
 			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
 			projectDirPath = "";
@@ -765,7 +775,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -774,7 +784,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.9;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -788,7 +798,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -797,7 +807,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.6.9;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -858,7 +868,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -914,7 +924,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -931,7 +941,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -941,7 +951,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.6.9;
+				MARKETING_VERSION = 1.7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -959,7 +969,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 81;
+				CURRENT_PROJECT_VERSION = 82;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -969,7 +979,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.6.9;
+				MARKETING_VERSION = 1.7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1066,20 +1076,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B414967F284A158B00D7E95C /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
+		B432B1BD28B65B8600A7182F /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				branch = main;
+				branch = "jens/tk-smart-card";
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B4149680284A158B00D7E95C /* YubiKit */ = {
+		B432B1BE28B65B8600A7182F /* YubiKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B414967F284A158B00D7E95C /* XCRemoteSwiftPackageReference "yubikit-ios" */;
+			package = B432B1BD28B65B8600A7182F /* XCRemoteSwiftPackageReference "yubikit-ios" */;
 			productName = YubiKit;
 		};
 /* End XCSwiftPackageProductDependency section */
