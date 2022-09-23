@@ -17,66 +17,42 @@
 import UIKit
 
 class AdvancedSettingsViewController: UITableViewController {
-    public static let ALL_KEYS = [AlgorithmTableViewController.KEY, TypeTableViewController.KEY, DigitsTableViewController.KEY, PeriodTableViewController.KEY]
     
-    var key: String {
-        // default value than needs to be overriden
-        fatalError("Override the key value")
+    init(title: String, rows: [String], selected: Int, completion: @escaping (Int) -> Void) {
+        self.rows = rows
+        self.selectedRow = selected
+        self.completion = completion
+        super.init(style: .insetGrouped)
+        self.title = title
     }
     
-    var defaultSelectedRow : Int {
-        return 0;
+    let rows: [String]
+    var selectedRow: Int
+    let completion: (Int) -> Void
+
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    var selectedRow: Int {
-        guard UserDefaults.standard.object(forKey: key) != nil else {
-            return defaultSelectedRow
-        }
-        return UserDefaults.standard.integer(forKey: key)
-    }
-    
-    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "advancedSettings")
+        cell.textLabel?.text = rows[indexPath.row]
         cell.accessoryType = indexPath.row == selectedRow ? .checkmark : .none
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UserDefaults.standard.set(indexPath.row, forKey: key)
-        self.tableView.reloadData()
-
-    }
-}
-
-class AlgorithmTableViewController: AdvancedSettingsViewController {
-    public static let KEY = "algorithm"
-    override var key:String {
-        return AlgorithmTableViewController.KEY
-    }
-}
-
-class TypeTableViewController: AdvancedSettingsViewController {
-    public static let KEY = "type"
-    override var key:String {
-        return TypeTableViewController.KEY
-    }
-}
-
-class DigitsTableViewController: AdvancedSettingsViewController {
-    public static let KEY = "digits"
-    override var key:String {
-        return DigitsTableViewController.KEY
-    }
-}
-
-class PeriodTableViewController: AdvancedSettingsViewController {
-    public static let KEY = "period"
-    override var key:String {
-        return PeriodTableViewController.KEY
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return rows.count
     }
     
-    override var defaultSelectedRow : Int {
-        return 1;
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath.row
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        completion(selectedRow)
+        super.viewWillDisappear(animated)
     }
 }
