@@ -89,6 +89,7 @@
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
+		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -216,6 +217,7 @@
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
+		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -448,6 +450,7 @@
 				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
 				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				51D1E84D26427F7600BDA3FF /* PasswordCache.swift */,
+				B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */,
 				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
 				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
 				5155426926554CAB00B19C59 /* SmartCardViewModel.swift */,
@@ -675,6 +678,7 @@
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
+				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */,

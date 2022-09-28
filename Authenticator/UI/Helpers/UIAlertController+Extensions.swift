@@ -60,8 +60,8 @@ extension UIAlertController {
         self.addAction(cancel)
     }
     
-    convenience init(passwordPreferences preferences: PasswordPreferences, completion: @escaping (PasswordSaveType) -> Void) {
-        let authenticationType = preferences.evaluatedAuthenticationType()
+    convenience init(completion: @escaping (PasswordSaveType) -> Void) {
+        let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
         
         self.init(title: "Would you like to save this password for YubiKey for next usage in this application?",
                   message: "You can remove saved password in Settings.",

@@ -52,7 +52,7 @@ class PasswordPreferences {
     /* This method returns what biometric authentiacation type set on user's device.
     canEvaluatePolicy should be called before getting the biometryType.
     */
-    func evaluatedAuthenticationType() -> AuthenticationType {
+    static func evaluatedAuthenticationType() -> AuthenticationType {
         let context = LAContext()
         var errorPolicy: NSError?
         var errorBiometricPolicy: NSError?
@@ -83,6 +83,14 @@ class PasswordPreferences {
         return .touchId
     }
     
+    func migrate(fromKeyIdentifier: String, toKeyIdentifier: String) {
+        if UserDefaults.standard.value(forKey: UIViewController.PasswordUserDefaultsKey + fromKeyIdentifier) != nil {
+            let value = UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + fromKeyIdentifier)
+            UserDefaults.standard.set(value, forKey: UIViewController.PasswordUserDefaultsKey + toKeyIdentifier)
+            UserDefaults.standard.removeObject(forKey: UIViewController.PasswordUserDefaultsKey + fromKeyIdentifier)
+        }
+    }
+    
     func neverSavePassword(keyIdentifier: String) -> Bool {
         return UserDefaults.standard.integer(forKey: UIViewController.PasswordUserDefaultsKey + keyIdentifier) == PasswordSaveType.never.rawValue
     }
@@ -108,7 +116,7 @@ class PasswordPreferences {
     func resetPasswordPreferenceForAll() {
         for key in UserDefaults.standard.dictionaryRepresentation().keys {
             if key.starts(with: UIViewController.PasswordUserDefaultsKey) {
-                UserDefaults.standard.set(PasswordSaveType.none.rawValue, forKey: key)
+                UserDefaults.standard.removeObject(forKey: key)
             }
         }
     }
