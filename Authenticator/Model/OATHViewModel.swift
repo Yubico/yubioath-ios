@@ -121,19 +121,22 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     private var session: YKFOATHSession?
 
-    private func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+    private func session(completion: @escaping (_ session: YKFOATHSession) -> Void) {
         if let session = session {
             completion(session)
             return
         }
         connection { connection in
             connection.oathSession { session, error in
-                if let error = error {
+                if let error {
                     self.onError(error: error)
+                } else if let session {
+                    self.cachedKeyIdentifier = session.deviceId
+                    self.session = session
+                    completion(session)
+                } else {
+                    fatalError("YubiKit returned neither a session nor an error.")
                 }
-                self.cachedKeyIdentifier = session?.deviceId
-                self.session = session
-                completion(session)
             }
         }
     }
@@ -223,8 +226,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateAll() {
         session { session in
-            guard let session = session else { return }
-
             // migration needs to happen when there's an active session to get the legacy key identifier
             if let legacyKeyIdentifier = self.legacyKeyIdentifier {
                 self.favoritesStorage.migrate(fromKeyIdentifier: legacyKeyIdentifier, toKeyIdentifier: session.deviceId)
@@ -284,8 +285,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-            
             if credential.requiresTouch {
                 self.onTouchRequired()
             }
@@ -322,8 +321,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateHOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-
             // We can't know if a HOTP requires touch. Instead we wait for 0.5 seconds for a response and if
             // the key doesn't return we assume it requires touch.
             let showTouchAlert = DispatchWorkItem { self.onTouchRequired() }
@@ -356,8 +353,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateSteamTOTP(credential: Credential, stopNFCWhenDone: Bool, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-
             if credential.requiresTouch {
                 self.onTouchRequired()
             }
@@ -384,7 +379,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func addCredential(credential: YKFOATHCredentialTemplate, requiresTouch: Bool) {
         session { session in
-            guard let session = session else { return }
             session.put(credential, requiresTouch: requiresTouch) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -399,7 +393,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func deleteCredential(credential: Credential) {
         session { session in
-            guard let session = session else { return }
             session.delete(credential.ykCredential) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -419,8 +412,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func renameCredential(credential: Credential, issuer: String, account: String) {
         session { session in
-            guard let session = session else { return }
-            
             let wasPinned = self.isPinned(credential: credential)
             
             session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
@@ -450,7 +441,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     func cachedAccessKey(completion: @escaping (Data?) -> Void) {
         session { session in
-            guard let session else { return }
             let keyIdentifier = session.deviceId
             // access key memory cach
             if let accessKey = self.accessKeyMemoryCache.accessKey(forKey: keyIdentifier) {
@@ -595,16 +585,13 @@ extension OATHViewModel { //}: OperationDelegate {
     
     func unlock(withPassword password: String, completion: (() -> Void)? = nil) {
         session { session in
-            guard let accessKey = session?.deriveAccessKey(password) else {
-                fatalError("Failed to derive an access key")
-            }
+            let accessKey = session.deriveAccessKey(password)
             self.unlock(withAccessKey: accessKey, cachedKey: false, completion: completion)
         }
     }
     
     func unlock(withAccessKey accessKey: Data, cachedKey: Bool = true, completion: (() -> Void)? = nil) {
         session { session in
-            guard let session else { fatalError("Failed to get an OATH session") }
             session.unlock(withAccessKey: accessKey, completion: { error in
                 if let error {
                     self.onError(error: error, retry: completion)
