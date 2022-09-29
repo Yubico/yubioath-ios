@@ -224,6 +224,12 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func calculateAll() {
         session { session in
             guard let session = session else { return }
+
+            // migration needs to happen when there's an active session to get the legacy key identifier
+            if let legacyKeyIdentifier = self.legacyKeyIdentifier {
+                self.favoritesStorage.migrate(fromKeyIdentifier: legacyKeyIdentifier, toKeyIdentifier: session.deviceId)
+            }
+            
             session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { result, error in
                 guard let result = result else {
                     self.onError(error: error!, retry: {
@@ -716,9 +722,7 @@ extension OATHViewModel { //}: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
-            
-            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cachedKeyIdentifier)
-            
+            self.favorites = self.favoritesStorage.readFavorites(keyIdentifier: self.cachedKeyIdentifier)
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
@@ -823,13 +827,13 @@ extension OATHViewModel {
     
     func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyIdentifier, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(keyIdentifier: self.cachedKeyIdentifier, favorites: self.favorites)
         calculateAll()
     }
     
     func unPin(credential: Credential) {
         self.favorites.remove(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyIdentifier, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(keyIdentifier: self.cachedKeyIdentifier, favorites: self.favorites)
         calculateAll()
     }
 }
