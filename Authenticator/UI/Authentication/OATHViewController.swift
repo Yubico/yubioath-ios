@@ -572,7 +572,7 @@ extension OATHViewController: CredentialViewModelDelegate {
         }
     }
 
-    func collectUserPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
+    func collectPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
         DispatchQueue.main.async {
             let passwordEntryAlert = UIAlertController(passwordEntryType: isPasswordEntryRetry ? .retryPassword : .password) { password in
                 completion(password)

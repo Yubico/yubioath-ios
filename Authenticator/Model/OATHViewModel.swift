@@ -22,7 +22,7 @@ protocol CredentialViewModelDelegate: AnyObject {
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
     func onCredentialDelete(credential: Credential)
-    func collectUserPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
+    func collectPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
     func collectPasswordPreferences(completion: @escaping (PasswordSaveType) -> Void)
 }
 
@@ -637,7 +637,7 @@ extension OATHViewModel { //}: OperationDelegate {
                     self.unlock(withAccessKey: accessKey, completion: retry)
                 } else {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                    self.delegate?.collectUserPassword(isPasswordEntryRetry: false) { password in
+                    self.delegate?.collectPassword(isPasswordEntryRetry: false) { password in
                         guard let password else { fatalError("No password") }
                         self.unlock(withPassword: password, completion: retry)
                     }
@@ -645,7 +645,7 @@ extension OATHViewModel { //}: OperationDelegate {
             }
         // Ask user for the correct password
         } else if errorCode == .wrongPassword {
-            self.delegate?.collectUserPassword(isPasswordEntryRetry: true) { password in
+            self.delegate?.collectPassword(isPasswordEntryRetry: true) { password in
                 guard let password else { fatalError("No password") }
                 self.unlock(withPassword: password, completion: retry)
             }
