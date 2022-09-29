@@ -25,17 +25,15 @@ class FavoritesStorage: NSObject {
         UserDefaults.standard.removeObject(forKey: "Favorites-" + fromKeyIdentifier)
     }
     
-    func saveFavorites(keyIdentifier: String?, favorites: Set<String>) {
-        guard let keyIdentifier,
-              let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: favorites, requiringSecureCoding: true) else {
+    func saveFavorites(keyIdentifier: String, favorites: Set<String>) {
+        guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: favorites, requiringSecureCoding: true) else {
             return
         }
         UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + keyIdentifier)
     }
     
-    func readFavorites(keyIdentifier: String?) -> Set<String> {
-        guard let keyIdentifier,
-              let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyIdentifier),
+    func readFavorites(keyIdentifier: String) -> Set<String> {
+        guard let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyIdentifier),
               let favorites = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(encodedData) as? Set<String> else {
             return Set<String>()
         }

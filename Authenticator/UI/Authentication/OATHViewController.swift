@@ -516,7 +516,7 @@ extension OATHViewController: CredentialViewModelDelegate {
     
     // MARK: - CredentialViewModelDelegate
     
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String?) {
         self.showAlertDialog(title: title, message: message, okHandler:  { [weak self] () -> Void in
             self?.dismiss(animated: true, completion: nil)
         })

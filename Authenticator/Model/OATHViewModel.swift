@@ -17,7 +17,7 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: AnyObject {
-    func showAlert(title: String, message: String)
+    func showAlert(title: String, message: String?)
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
@@ -722,7 +722,9 @@ extension OATHViewModel { //}: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
-            self.favorites = self.favoritesStorage.readFavorites(keyIdentifier: self.cachedKeyIdentifier)
+            if let keyIdentifier = self.cachedKeyIdentifier {
+                self.favorites = self.favoritesStorage.readFavorites(keyIdentifier: keyIdentifier)
+            }
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
@@ -827,13 +829,21 @@ extension OATHViewModel {
     
     func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(keyIdentifier: self.cachedKeyIdentifier, favorites: self.favorites)
+        guard let keyIdentifier = self.cachedKeyIdentifier else {
+            delegate?.showAlert(title: "Failed pinning account", message: nil)
+            return
+        }
+        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
         calculateAll()
     }
     
     func unPin(credential: Credential) {
+        guard let keyIdentifier = self.cachedKeyIdentifier else {
+            delegate?.showAlert(title: "Failed unpinning account", message: nil)
+            return
+        }
         self.favorites.remove(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(keyIdentifier: self.cachedKeyIdentifier, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
         calculateAll()
     }
 }
