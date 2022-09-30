@@ -1084,7 +1084,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				branch = "jens/spm-symlinks";
+				branch = main;
 				kind = branch;
 			};
 		};
