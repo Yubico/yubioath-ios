@@ -33,6 +33,7 @@ import Foundation
 public enum SecureStoreError: Error {
     case string2DataConversionError
     case data2StringConversionError
+    case dataCastError
     case unhandledError(message: String)
     case itemNotFound
 }
@@ -46,6 +47,8 @@ extension SecureStoreError: LocalizedError {
             return NSLocalizedString("String to Data conversion error", comment: "")
         case .data2StringConversionError:
             return NSLocalizedString("Data to String conversion error", comment: "")
+        case .dataCastError:
+            return NSLocalizedString("Failed to cast object to Data error", comment: "")
         case .unhandledError(let message):
             return NSLocalizedString(message, comment: "")
         case .itemNotFound:

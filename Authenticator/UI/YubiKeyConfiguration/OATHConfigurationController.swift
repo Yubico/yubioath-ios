@@ -150,8 +150,8 @@ class OATHConfigurationController: UITableViewController {
             self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
-        } catch let e {
-            self.showAlertDialog(title: "Failed to clear passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
+        } catch {
+            self.showAlertDialog(title: "Failed to clear passwords", message: error.localizedDescription, okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
         }

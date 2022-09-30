@@ -41,6 +41,67 @@ class SecureStore {
         self.secureStoreQueryable = secureStoreQueryable
     }
     
+    public func setValue(_ value: Data, useAuthentication: Bool, for userAccount: String) throws {
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+        query[String(kSecAttrAccount)] = userAccount
+        
+        var status = SecItemCopyMatching(query as CFDictionary, nil)
+        
+        switch status {
+        case errSecSuccess:
+            var attributesToUpdate: [String: Any] = [:]
+            attributesToUpdate[String(kSecValueData)] = value
+            
+            status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)
+            
+            if status != errSecSuccess {
+                throw error(from: status)
+            }
+            
+        case errSecItemNotFound:
+            query[String(kSecValueData)] = value
+            
+            status = SecItemAdd(query as CFDictionary, nil)
+            if status != errSecSuccess {
+                throw error(from: status)
+            }
+            
+        default:
+            throw error(from: status)
+        }
+    }
+    
+    public func getValue(for userAccount: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            let useAuthentication = self.hasValueProtected(for: userAccount)
+            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+            query[String(kSecMatchLimit)] = kSecMatchLimitOne
+            query[String(kSecReturnAttributes)] = kCFBooleanTrue
+            query[String(kSecReturnData)] = kCFBooleanTrue
+            query[String(kSecAttrAccount)] = userAccount
+            
+            var queryResult: AnyObject?
+            let status = withUnsafeMutablePointer(to: &queryResult) {
+                SecItemCopyMatching(query as CFDictionary, $0)
+            }
+            switch status {
+            case errSecSuccess:
+                guard let queriedItem = queryResult as? [String: Any],
+                    let data = queriedItem[String(kSecValueData)] as? Data
+                else {
+                    completion(.failure(SecureStoreError.dataCastError))
+                    return
+                }
+                completion(.success(data))
+            case errSecItemNotFound:
+                completion(.failure(SecureStoreError.itemNotFound))
+            default:
+                completion(.failure(self.error(from: status)))
+            }
+        }
+    }
+    
     public func setValue(_ value: String, useAuthentication: Bool, for userAccount: String) throws {
         guard let encodedPassword = value.data(using: .utf8) else {
             throw SecureStoreError.string2DataConversionError

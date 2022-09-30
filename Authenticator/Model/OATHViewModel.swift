@@ -17,13 +17,13 @@
 import Foundation
 
 protocol CredentialViewModelDelegate: AnyObject {
+    func showAlert(title: String, message: String?)
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
     func onCredentialDelete(credential: Credential)
-    func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
-    func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void)
-    func didValidatePassword(_ password: String, forKey key: String)
+    func collectPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
+    func collectPasswordPreferences(completion: @escaping (PasswordSaveType) -> Void)
 }
 
 
@@ -36,6 +36,10 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     private var nfcConnection: YKFNFCConnection?
     
     private var lastNFCEndingTimestamp: Date?
+    
+    var accessKeyMemoryCache = AccessKeyCache()
+    let accessKeySecureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
+    let passwordPreferences = PasswordPreferences()
 
     var didNFCEndRecently: Bool {
         guard let ts = lastNFCEndingTimestamp else { return false }
@@ -117,19 +121,22 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     private var session: YKFOATHSession?
 
-    private func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+    private func session(completion: @escaping (_ session: YKFOATHSession) -> Void) {
         if let session = session {
             completion(session)
             return
         }
         connection { connection in
             connection.oathSession { session, error in
-                if let error = error {
+                if let error {
                     self.onError(error: error)
+                } else if let session {
+                    self.cachedKeyIdentifier = session.deviceId
+                    self.session = session
+                    completion(session)
+                } else {
+                    fatalError("YubiKit returned neither a session nor an error.")
                 }
-                self.cachedKeyId = self.keyIdentifier
-                self.session = session
-                completion(session)
             }
         }
     }
@@ -207,7 +214,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     private var favorites: Set<String> = []
     
     // cashedId is used as a key to store a set of Favorites in UserDefaults.
-    var cachedKeyId: String?
+    var cachedKeyIdentifier: String?
     var cachedKeyConfig: YKFManagementInterfaceConfiguration?
     var cachedKeyVersion: YKFVersion?
     
@@ -219,7 +226,11 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateAll() {
         session { session in
-            guard let session = session else { return }
+            // migration needs to happen when there's an active session to get the legacy key identifier
+            if let legacyKeyIdentifier = self.legacyKeyIdentifier {
+                self.favoritesStorage.migrate(fromKeyIdentifier: legacyKeyIdentifier, toKeyIdentifier: session.deviceId)
+            }
+            
             session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { result, error in
                 guard let result = result else {
                     self.onError(error: error!, retry: {
@@ -274,8 +285,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateTOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-            
             if credential.requiresTouch {
                 self.onTouchRequired()
             }
@@ -312,8 +321,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateHOTP(credential: Credential, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-
             // We can't know if a HOTP requires touch. Instead we wait for 0.5 seconds for a response and if
             // the key doesn't return we assume it requires touch.
             let showTouchAlert = DispatchWorkItem { self.onTouchRequired() }
@@ -346,8 +353,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateSteamTOTP(credential: Credential, stopNFCWhenDone: Bool, completion: ((String) -> Void)? = nil) {
         session { session in
-            guard let session = session else { return }
-
             if credential.requiresTouch {
                 self.onTouchRequired()
             }
@@ -374,7 +379,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func addCredential(credential: YKFOATHCredentialTemplate, requiresTouch: Bool) {
         session { session in
-            guard let session = session else { return }
             session.put(credential, requiresTouch: requiresTouch) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -389,7 +393,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func deleteCredential(credential: Credential) {
         session { session in
-            guard let session = session else { return }
             session.delete(credential.ykCredential) { error in
                 guard error == nil else {
                     self.onError(error: error!) {
@@ -399,9 +402,8 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 if self.isPinned(credential: credential) {
                     self.unPin(credential: credential)
-                } else {
-                    self.calculateAll()
                 }
+                self.calculateAll()
                 self.onDelete(credential: credential)
             }
         }
@@ -409,8 +411,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func renameCredential(credential: Credential, issuer: String, account: String) {
         session { session in
-            guard let session = session else { return }
-            
             let wasPinned = self.isPinned(credential: credential)
             
             session.renameCredential(credential.ykCredential, newIssuer: issuer, newAccount: account) { error in
@@ -438,15 +438,39 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         }
     }
     
-    func unlock(withPassword password: String, isCached: Bool, completion: @escaping ((Error?) -> Void)) {
+    func cachedAccessKey(completion: @escaping (Data?) -> Void) {
         session { session in
-            guard let session = session else { return }
-            session.unlock(withPassword: password) { error in
-                completion(error)
-                if !isCached {
-                    if error == nil, let key = self.keyIdentifier {
-                        self.delegate?.didValidatePassword(password, forKey: key)
+            let keyIdentifier = session.deviceId
+            // access key memory cach
+            if let accessKey = self.accessKeyMemoryCache.accessKey(forKey: keyIdentifier) {
+                completion(accessKey)
+                return
+            }
+            
+            // persistent legacy password cache
+            if let legacyKeyIdentifier = self.legacyKeyIdentifier {
+                self.accessKeySecureStore.getValue(for: legacyKeyIdentifier) { legacyResult in
+                    switch legacyResult {
+                    case .success(let password):
+                        self.passwordPreferences.migrate(fromKeyIdentifier: legacyKeyIdentifier, toKeyIdentifier: keyIdentifier)
+                        let accesskey = session.deriveAccessKey(password)
+                        try? self.accessKeySecureStore.removeValue(for: legacyKeyIdentifier) // remove legacy password
+                        try? self.accessKeySecureStore.setValue(accesskey, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier), for: keyIdentifier) // store access key instead
+                        completion(accesskey)
+                    case .failure(_):
+                        // persistent access key cache
+                        self.accessKeySecureStore.getValue(for: keyIdentifier) { result in
+                            let accessKey = try? result.get()
+                            completion(accessKey)
+                            return
+                        }
                     }
+                }
+            } else {
+                self.accessKeySecureStore.getValue(for: keyIdentifier) { result in
+                    let accessKey = try? result.get()
+                    completion(accessKey)
+                    return
                 }
             }
         }
@@ -480,7 +504,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
             }
             
             self._credentials.removeAll()
-            self.cachedKeyId = nil
+            self.cachedKeyIdentifier = nil
             self.favorites = []
             
             self.state = .idle
@@ -558,51 +582,71 @@ extension OATHViewModel { //}: OperationDelegate {
         }
     }
     
+    func unlock(withPassword password: String, completion: (() -> Void)? = nil) {
+        session { session in
+            let accessKey = session.deriveAccessKey(password)
+            self.unlock(withAccessKey: accessKey, cachedKey: false, completion: completion)
+        }
+    }
+    
+    func unlock(withAccessKey accessKey: Data, cachedKey: Bool = true, completion: (() -> Void)? = nil) {
+        session { session in
+            session.unlock(withAccessKey: accessKey, completion: { error in
+                if let error {
+                    self.onError(error: error, retry: completion)
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
+                } else {
+                    self.accessKeyMemoryCache.setAccessKey(accessKey, forKey: session.deviceId)
+                    if !cachedKey {
+                        self.handleAccessKeyStorage(accessKey: accessKey, forKey: session.deviceId)
+                    }
+                    completion?()
+                }
+            })
+        }
+    }
+    
+    func handleAccessKeyStorage(accessKey: Data, forKey keyIdentifier: String) {
+        guard !self.passwordPreferences.neverSavePassword(keyIdentifier: keyIdentifier) else { return }
+        self.accessKeySecureStore.getValue(for: keyIdentifier) { (result: Result<Data, Error>) -> Void in
+            let currentAccessKey: Data? = try? result.get()
+            if accessKey != currentAccessKey {
+                self.delegate?.collectPasswordPreferences { type in
+                    self.passwordPreferences.setPasswordPreference(saveType: type, keyIdentifier: keyIdentifier)
+                    if self.passwordPreferences.useSavedPassword(keyIdentifier: keyIdentifier) || self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier) {
+                        do {
+                            try self.accessKeySecureStore.setValue(accessKey, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier), for: keyIdentifier)
+                        } catch {
+                            self.passwordPreferences.resetPasswordPreference(keyIdentifier: keyIdentifier)
+                            self.delegate?.showAlert(title: "Password was not saved", message: error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     /*! Invoked when operation/request to YubiKey failed */
     func onError(error: Error, retry: (() -> Void)? = nil) {
         let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
         // Try cached passwords and then ask user for password
         if errorCode == .authenticationRequired {
-            delegate?.cachedPasswordFor(keyId: keyIdentifier ?? "") { password in
-                if let password = password {
-                    // Got cached password from either memory or keychain
-                    self.unlock(withPassword: password, isCached: true) { error in
-                        if let error = error {
-                            self.onError(error: error, retry: retry)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
-                        } else {
-                            retry?()
-                        }
-                    }
+            self.cachedAccessKey { accessKey in
+                if let accessKey {
+                    self.unlock(withAccessKey: accessKey, completion: retry)
                 } else {
-                    // No cached password, ask user for password
-                    let keyId = self.keyIdentifier!
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                    self.delegate?.passwordFor(keyId: keyId, isPasswordEntryRetry: false) { password in
-                        guard let password = password else { return }
-                        self.unlock(withPassword: password, isCached: false) { error in
-                            if let error = error {
-                                self.onError(error: error, retry: retry)
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
-                            } else {
-                                retry?()
-                            }
-                        }
+                    self.delegate?.collectPassword(isPasswordEntryRetry: false) { password in
+                        guard let password else { fatalError("No password") }
+                        self.unlock(withPassword: password, completion: retry)
                     }
                 }
             }
         // Ask user for the correct password
         } else if errorCode == .wrongPassword {
-            self.delegate?.passwordFor(keyId: self.keyIdentifier!, isPasswordEntryRetry: true) { password in
-                guard let password = password else { return }
-                self.unlock(withPassword: password, isCached: false) { error in
-                    if let error = error {
-                        self.onError(error: error, retry: retry)
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
-                    } else {
-                        retry?()
-                    }
-                }
+            self.delegate?.collectPassword(isPasswordEntryRetry: true) { password in
+                guard let password else { fatalError("No password") }
+                self.unlock(withPassword: password, completion: retry)
             }
         } else if let error = error as? YKFSessionError, YKFSessionErrorCode(rawValue: UInt(error.code)) == .invalidSessionStateStatusCode {
             session = nil
@@ -664,9 +708,9 @@ extension OATHViewModel { //}: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
-            
-            self.favorites = self.favoritesStorage.readFavorites(userAccount: self.cachedKeyId)
-            
+            if let keyIdentifier = self.cachedKeyIdentifier {
+                self.favorites = self.favoritesStorage.readFavorites(keyIdentifier: keyIdentifier)
+            }
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
@@ -746,14 +790,9 @@ extension OATHViewModel {
         return accessoryConnection != nil || smartCardConnection != nil
     }
     
-    var keyIdentifier: String? {
+    var legacyKeyIdentifier: String? {
         if let accessoryConnection {
             return accessoryConnection.accessoryDescription?.serialNumber
-        }
-        if let smartCardConnection {
-            // TODO: add an identifier for SmartCardConnection
-            print("No identifier for SmartCardConnection!")
-            return nil
         }
         if let nfcConnection {
             return nfcConnection.tagDescription?.identifier.hex
@@ -776,14 +815,20 @@ extension OATHViewModel {
     
     func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
-        calculateAll()
+        guard let keyIdentifier = self.cachedKeyIdentifier else {
+            delegate?.showAlert(title: "Failed pinning account", message: nil)
+            return
+        }
+        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
     }
     
     func unPin(credential: Credential) {
+        guard let keyIdentifier = self.cachedKeyIdentifier else {
+            delegate?.showAlert(title: "Failed unpinning account", message: nil)
+            return
+        }
         self.favorites.remove(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(userAccount: self.cachedKeyId, favorites: self.favorites)
-        calculateAll()
+        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
     }
 }
 

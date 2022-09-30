@@ -20,10 +20,6 @@ import Combine
 class OATHViewController: UITableViewController {
 
     let viewModel = OATHViewModel()
-    let passwordPreferences = PasswordPreferences()
-    var passwordCache = PasswordCache()
-    let secureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
-    
     var detailView: OATHCodeDetailsView?
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -520,17 +516,16 @@ extension OATHViewController: CredentialViewModelDelegate {
     
     // MARK: - CredentialViewModelDelegate
     
-    /*! Delegate method that invoked when any operation failed
-     * Operation could be from YubiKit operations (e.g. calculate) or QR scanning (e.g. scan code)
-     */
+    func showAlert(title: String, message: String?) {
+        self.showAlertDialog(title: title, message: message, okHandler:  { [weak self] () -> Void in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
+
     func onError(error: Error) {
-        // not sure we will need this
-        print("Got error: \(error)")
+        showAlert(title: "Something went wrong", message: error.localizedDescription)
     }
     
-    /*! Delegate method that invoked when any operation succeeded
-     * Operation could be from YubiKit (e.g. calculate) or local (e.g. filter)
-     */
     func onOperationCompleted(operation: OperationName) {
         switch operation {
         case .setCode:
@@ -568,66 +563,21 @@ extension OATHViewController: CredentialViewModelDelegate {
         self.tableView.reloadData()
     }
     
-    func didValidatePassword(_ password: String, forKey key: String) {
-        // Cache password in memory
-        passwordCache.setPassword(password, forKey: key)
-        
-        // Check if we should save password in keychain
-        if !self.passwordPreferences.neverSavePassword(keyIdentifier: key) {
-            self.secureStore.getValue(for: key) { result in
-                let currentPassword = try? result.get()
-                if password != currentPassword {
-                    let passwordActionSheet = UIAlertController(passwordPreferences: self.passwordPreferences) { type in
-                        self.passwordPreferences.setPasswordPreference(saveType: type, keyIdentifier: key)
-                        if self.passwordPreferences.useSavedPassword(keyIdentifier: key) || self.passwordPreferences.useScreenLock(keyIdentifier: key) {
-                            do {
-                                try self.secureStore.setValue(password, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: key), for: key)
-                            } catch let e {
-                                self.passwordPreferences.resetPasswordPreference(keyIdentifier: key)
-                                self.showAlertDialog(title: "Password was not saved", message: e.localizedDescription)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.present(passwordActionSheet, animated: true, completion: nil)
-                    }
-                }
-            }
+    func collectPasswordPreferences(completion: @escaping (PasswordSaveType) -> Void) {
+        let passwordActionSheet = UIAlertController { type in
+            completion(type)
+        }
+        DispatchQueue.main.async {
+            self.present(passwordActionSheet, animated: true)
         }
     }
-    
-    func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void) {
-        if let password = passwordCache.password(forKey: keyId) {
-            completion(password)
-            return
-        }
-        self.secureStore.getValue(for: keyId) { result in
-            let password = try? result.get()
-            completion(password)
-            return
-        }
-    }
-    
-    func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
+
+    func collectPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
         DispatchQueue.main.async {
             let passwordEntryAlert = UIAlertController(passwordEntryType: isPasswordEntryRetry ? .retryPassword : .password) { password in
                 completion(password)
             }
             self.present(passwordEntryAlert, animated: true)
-        }
-    }
-    
-    private func removeStoredPasswords() {
-        passwordPreferences.resetPasswordPreferenceForAll()
-        do {
-            try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
-            })
-        } catch let e {
-            self.showAlertDialog(title: "Failed to clear stored passwords.", message: e.localizedDescription, okHandler:  { [weak self] () -> Void in
-                self?.dismiss(animated: true, completion: nil)
-            })
         }
     }
     
