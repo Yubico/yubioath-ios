@@ -24,6 +24,7 @@ class SmartCardViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
+    private var smartCardConnection: YKFSmartCardConnection?
     
     private let tokenStorage = TokenCertificateStorage()
     
@@ -48,7 +49,9 @@ class SmartCardViewModel: NSObject {
     }
     
     func startNFC() {
-        YubiKitManager.shared.startNFCConnection()
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            YubiKitManager.shared.startNFCConnection()
+        }
     }
     
     func storeTokenCertificate(certificate: SecCertificate) -> Error? {
@@ -116,7 +119,7 @@ extension SmartCardViewModel: YKFManagerDelegate {
     }
     
     var connection: YKFConnectionProtocol? {
-        return accessoryConnection ?? nfcConnection
+        return accessoryConnection ?? smartCardConnection ?? nfcConnection
     }
     
     func didConnectNFC(_ connection: YKFNFCConnection) {
@@ -137,6 +140,16 @@ extension SmartCardViewModel: YKFManagerDelegate {
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
         accessoryConnection = nil
+        didDisconnect()
+    }
+    
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnection = connection
+        didConnect()
+    }
+    
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        smartCardConnection = nil
         didDisconnect()
     }
 }

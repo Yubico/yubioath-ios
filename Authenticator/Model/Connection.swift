@@ -30,15 +30,18 @@ class Connection: NSObject {
     }
     
     var connection: YKFConnectionProtocol? {
-        return accessoryConnection ?? nfcConnection
+        return accessoryConnection ?? smartCardConnection ?? nfcConnection
     }
     
     private var nfcConnection: YKFNFCConnection?
+    private var smartCardConnection: YKFSmartCardConnection?
     private var accessoryConnection: YKFAccessoryConnection?
     private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     
     func startConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
         if let connection = accessoryConnection {
+            completion(connection)
+        } else if let connection = smartCardConnection {
             completion(connection)
         } else if let connection = nfcConnection {
             completion(connection)
@@ -55,6 +58,12 @@ class Connection: NSObject {
     func accessoryConnection(handler: @escaping (_ connection: YKFAccessoryConnection?) -> Void) {
         handler(accessoryConnection)
         accessoryConnectionCallback = handler
+    }
+    
+    private var smartCardConnectionCallback: ((_ connection: YKFSmartCardConnection?) -> Void)?
+    func smartCardConnection(handler: @escaping (_ connection: YKFSmartCardConnection?) -> Void) {
+        handler(smartCardConnection)
+        smartCardConnectionCallback = handler
     }
     
     private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
@@ -104,6 +113,20 @@ extension Connection: YKFManagerDelegate {
         accessoryConnectionCallback?(nil)
         connectionCallback = nil
         accessoryConnection = nil
+    }
+    
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        smartCardConnection = connection
+        smartCardConnectionCallback?(connection)
+        connectionCallback?(connection)
+        connectionCallback = nil
+    }
+    
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        disconnectionCallback?(connection, error)
+        smartCardConnectionCallback?(nil)
+        connectionCallback = nil
+        smartCardConnection = nil
     }
     
 }

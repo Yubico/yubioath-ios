@@ -20,7 +20,7 @@ protocol CredentialViewModelDelegate: AnyObject {
     func onError(error: Error)
     func onOperationCompleted(operation: OperationName)
     func onShowToastMessage(message: String)
-    func onCredentialDelete(indexPath: IndexPath)
+    func onCredentialDelete(credential: Credential)
     func passwordFor(keyId: String, isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void)
     func cachedPasswordFor(keyId: String, completion: @escaping (String?) -> Void)
     func didValidatePassword(_ password: String, forKey key: String)
@@ -33,7 +33,7 @@ protocol CredentialViewModelDelegate: AnyObject {
  */
 class OATHViewModel: NSObject, YKFManagerDelegate {
     
-    var nfcConnection: YKFNFCConnection?
+    private var nfcConnection: YKFNFCConnection?
     
     private var lastNFCEndingTimestamp: Date?
 
@@ -59,33 +59,65 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         lastNFCEndingTimestamp = Date()
     }
     
-    var accessoryConnection: YKFAccessoryConnection?
+    private var accessoryConnection: YKFAccessoryConnection?
 
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
         accessoryConnection = connection
         calculateAll()
     }
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
         accessoryConnection = nil
         session = nil
         self.cleanUp()
     }
     
-    var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    private var smartCardConnection: YKFSmartCardConnection?
+
+    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.connected)
+        }
+        smartCardConnection = connection
+        if let callback = connectionCallback {
+            callback(connection)
+        }
+        calculateAll()
+    }
     
-    func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        wiredConnectionStatusCallbacks.forEach { callback in
+            callback(.disconnected)
+        }
+        smartCardConnection = nil
+        session = nil
+        self.cleanUp()
+    }
+    
+    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    
+    private func connection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
         if let connection = accessoryConnection {
+            completion(connection)
+        } else if let connection = smartCardConnection {
             completion(connection)
         } else {
             connectionCallback = completion
-            YubiKitManager.shared.startNFCConnection()
+            if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                YubiKitManager.shared.startNFCConnection()
+            }
         }
     }
     
-    var session: YKFOATHSession?
+    private var session: YKFOATHSession?
 
-    func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
+    private func session(completion: @escaping (_ session: YKFOATHSession?) -> Void) {
         if let session = session {
             completion(session)
             return
@@ -111,6 +143,19 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         DelegateStack.shared.removeDelegate(self)
     }
     
+    enum WiredConnectionStatus {
+        case connected
+        case disconnected
+    }
+    
+    typealias WiredConnectionStatusCallback = (WiredConnectionStatus) -> ()
+    
+    private var wiredConnectionStatusCallbacks = [WiredConnectionStatusCallback]()
+    
+    func wiredConnectionStatus(callback: @escaping WiredConnectionStatusCallback) {
+        wiredConnectionStatusCallbacks.append(callback)
+    }
+    
     /*!
      * The OperationDelegate callbacks and the completion block handlers for OATH operation will be dispatched on this queue.
      */
@@ -124,7 +169,9 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
      * Allows to detect whether credentials list empty because device doesn't have any credentials or it's not loaded from device yet
      */
     var state: State = {
-        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if !YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+            && !YubiKitDeviceCapabilities.supportsISO7816NFCTags
+            && !YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
             return .notSupported
         } else {
             return .idle
@@ -185,12 +232,12 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 
                 credentials.forEach { credential in
-                    if credential.isSteam && !credential.requiresTouch {
+                    let bypassTouch = (self.nfcConnection != nil && SettingsConfig.isBypassTouchEnabled)
+                    if credential.isSteam && (!credential.requiresTouch || bypassTouch) {
                         self.calculateSteamTOTP(credential: credential, stopNFCWhenDone: false)
                     } else if credential.type == .TOTP &&
                         credential.requiresTouch &&
-                        SettingsConfig.isBypassTouchEnabled &&
-                        self.nfcConnection != nil {
+                        bypassTouch {
                         session.calculate(credential.ykCredential, timestamp: Date().addingTimeInterval(10)) { code, error in
                             guard let code = code, let otp = code.otp else { return }
                             credential.setCode(code: otp, validity: code.validity)
@@ -350,7 +397,11 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                     }
                     return
                 }
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Account deleted")
+                if self.isPinned(credential: credential) {
+                    self.unPin(credential: credential)
+                } else {
+                    self.calculateAll()
+                }
                 self.onDelete(credential: credential)
             }
         }
@@ -404,12 +455,15 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     public func stop() {
         cleanUp()
         accessoryConnection = nil
+        smartCardConnection = nil
         nfcConnection = nil
         session = nil
     }
     
     public func cleanUp() {
-        guard YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags else {
+        guard YubiKitDeviceCapabilities.supportsMFIAccessoryKey
+                || YubiKitDeviceCapabilities.supportsSmartCardOverUSBC
+                || YubiKitDeviceCapabilities.supportsISO7816NFCTags else {
             return
         }
 
@@ -509,7 +563,7 @@ extension OATHViewModel { //}: OperationDelegate {
         let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
         // Try cached passwords and then ask user for password
         if errorCode == .authenticationRequired {
-            delegate?.cachedPasswordFor(keyId: keyIdentifier!) { password in
+            delegate?.cachedPasswordFor(keyId: keyIdentifier ?? "") { password in
                 if let password = password {
                     // Got cached password from either memory or keychain
                     self.unlock(withPassword: password, isCached: true) { error in
@@ -623,16 +677,8 @@ extension OATHViewModel { //}: OperationDelegate {
             guard let self = self else {
                 return
             }
-            
             credential.removeTimerObservation()
-            // If remove credential from favorites first and then from credentials list, the wrong indexPath will be returned.
-            if let row = self._credentials.firstIndex(where: { $0 == credential }) {
-                self._credentials.remove(at: row)
-                if self.isPinned(credential: credential) {
-                    self.unPin(credential: credential)
-                }
-                self.delegate?.onCredentialDelete(indexPath: IndexPath(row: row, section: 0))
-            }
+            self.delegate?.onCredentialDelete(credential: credential)
         }
     }
     
@@ -697,14 +743,19 @@ extension OATHViewModel {
      * Checks if accessory key is plugged in
      */
     var keyPluggedIn: Bool {
-        return accessoryConnection != nil
+        return accessoryConnection != nil || smartCardConnection != nil
     }
     
     var keyIdentifier: String? {
-        if let accessoryConnection = accessoryConnection {
+        if let accessoryConnection {
             return accessoryConnection.accessoryDescription?.serialNumber
         }
-        if let nfcConnection = nfcConnection {
+        if let smartCardConnection {
+            // TODO: add an identifier for SmartCardConnection
+            print("No identifier for SmartCardConnection!")
+            return nil
+        }
+        if let nfcConnection {
             return nfcConnection.tagDescription?.identifier.hex
         }
         return nil
