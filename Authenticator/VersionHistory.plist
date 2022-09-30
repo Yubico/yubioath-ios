@@ -15,7 +15,7 @@
             - Fixes bug in Steam account creation when bypass touch was enabled for NFC keys.
             - When deleting an account the correct one would be deleted on the YubiKey, but the list of accounts in the app would be out of sync.
             - Storage of passwords in the keychain has been improved and now uses the derived access key. Old stored passwords will be migrated automatically.
-            - Account creation view refactored and no longer use the settings from the previous account creation when creating a new account.
+            - The the previous settings for account creation are no longer re-used for the next account.
             - Menu items for account and configuration are now disabled on iPads when no YubiKey is inserted into the device.
         </string>
     </dict>
