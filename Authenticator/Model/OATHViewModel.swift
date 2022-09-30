@@ -402,9 +402,8 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 }
                 if self.isPinned(credential: credential) {
                     self.unPin(credential: credential)
-                } else {
-                    self.calculateAll()
                 }
+                self.calculateAll()
                 self.onDelete(credential: credential)
             }
         }
@@ -821,7 +820,6 @@ extension OATHViewModel {
             return
         }
         self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
-        calculateAll()
     }
     
     func unPin(credential: Credential) {
@@ -831,7 +829,6 @@ extension OATHViewModel {
         }
         self.favorites.remove(credential.uniqueId)
         self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
-        calculateAll()
     }
 }
 
