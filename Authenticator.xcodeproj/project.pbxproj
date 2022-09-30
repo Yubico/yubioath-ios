@@ -1080,7 +1080,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yubico/yubikit-ios";
 			requirement = {
-				branch = "jens/tk-smart-card";
+				branch = main;
 				kind = branch;
 			};
 		};
