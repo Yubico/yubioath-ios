@@ -20,6 +20,7 @@ import Foundation
 class FavoritesStorage: NSObject {
     
     func migrate() {
+        // merge and save old favorites
         let favorites = UserDefaults.standard.dictionaryRepresentation()
         let merged = favorites.filter { dict in
             dict.key.starts(with: "Favorites-")
@@ -34,7 +35,18 @@ class FavoritesStorage: NSObject {
         }.flatMap {
             $0
         }
-        saveFavorites(Set(merged))
+        if !merged.isEmpty {
+            saveFavorites(Set(merged))
+            // remove old favorites
+            let keys = favorites.filter { dict in
+                dict.key.starts(with: "Favorites-")
+            }.map { dict in
+                dict.key
+            }
+            keys.forEach { key in
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
     }
     
     func saveFavorites(_ favorites: Set<String>) {
