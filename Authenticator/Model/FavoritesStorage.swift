@@ -19,21 +19,45 @@ import Foundation
 // This class is for storing a set of favorite credentials in UserDefaults by keyIdentifier.
 class FavoritesStorage: NSObject {
     
-    func migrate(fromKeyIdentifier: String, toKeyIdentifier: String) {
-        guard let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + fromKeyIdentifier) else { return }
-        UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + toKeyIdentifier)
-        UserDefaults.standard.removeObject(forKey: "Favorites-" + fromKeyIdentifier)
+    func migrate() {
+        // merge and save old favorites
+        let favorites = UserDefaults.standard.dictionaryRepresentation()
+        let merged = favorites.filter { dict in
+            dict.key.starts(with: "Favorites-")
+        }.map { dict in
+            dict.value as? Data
+        }.compactMap {
+            $0
+        }.map { data in
+            try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Set<String>
+        }.compactMap {
+            $0
+        }.flatMap {
+            $0
+        }
+        if !merged.isEmpty {
+            saveFavorites(Set(merged))
+            // remove old favorites
+            let keys = favorites.filter { dict in
+                dict.key.starts(with: "Favorites-")
+            }.map { dict in
+                dict.key
+            }
+            keys.forEach { key in
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
     }
     
-    func saveFavorites(keyIdentifier: String, favorites: Set<String>) {
+    func saveFavorites(_ favorites: Set<String>) {
         guard let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: favorites, requiringSecureCoding: true) else {
             return
         }
-        UserDefaults.standard.setValue(encodedData, forKey: "Favorites-" + keyIdentifier)
+        UserDefaults.standard.setValue(encodedData, forKey: "Favorites")
     }
     
-    func readFavorites(keyIdentifier: String) -> Set<String> {
-        guard let encodedData = UserDefaults.standard.data(forKey: "Favorites-" + keyIdentifier),
+    func readFavorites() -> Set<String> {
+        guard let encodedData = UserDefaults.standard.data(forKey: "Favorites"),
               let favorites = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(encodedData) as? Set<String> else {
             return Set<String>()
         }

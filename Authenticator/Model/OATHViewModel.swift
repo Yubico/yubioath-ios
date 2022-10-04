@@ -143,6 +143,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
+        self.favoritesStorage.migrate()
         DelegateStack.shared.setDelegate(self)
     }
     
@@ -226,11 +227,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func calculateAll() {
         session { session in
-            // migration needs to happen when there's an active session to get the legacy key identifier
-            if let legacyKeyIdentifier = self.legacyKeyIdentifier {
-                self.favoritesStorage.migrate(fromKeyIdentifier: legacyKeyIdentifier, toKeyIdentifier: session.deviceId)
-            }
-            
             session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { result, error in
                 guard let result = result else {
                     self.onError(error: error!, retry: {
@@ -399,9 +395,6 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                         self.deleteCredential(credential: credential)
                     }
                     return
-                }
-                if self.isPinned(credential: credential) {
-                    self.unPin(credential: credential)
                 }
                 self.calculateAll()
                 self.onDelete(credential: credential)
@@ -708,9 +701,7 @@ extension OATHViewModel { //}: OperationDelegate {
                 $0.delegate = self
                 return $0
             }
-            if let keyIdentifier = self.cachedKeyIdentifier {
-                self.favorites = self.favoritesStorage.readFavorites(keyIdentifier: keyIdentifier)
-            }
+            self.favorites = self.favoritesStorage.readFavorites()
             self.state = .loaded
             delegate.onOperationCompleted(operation: .calculateAll)
         }
@@ -815,20 +806,12 @@ extension OATHViewModel {
     
     func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
-        guard let keyIdentifier = self.cachedKeyIdentifier else {
-            delegate?.showAlert(title: "Failed pinning account", message: nil)
-            return
-        }
-        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(self.favorites)
     }
     
     func unPin(credential: Credential) {
-        guard let keyIdentifier = self.cachedKeyIdentifier else {
-            delegate?.showAlert(title: "Failed unpinning account", message: nil)
-            return
-        }
         self.favorites.remove(credential.uniqueId)
-        self.favoritesStorage.saveFavorites(keyIdentifier: keyIdentifier, favorites: self.favorites)
+        self.favoritesStorage.saveFavorites(self.favorites)
     }
 }
 
