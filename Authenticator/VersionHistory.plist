@@ -6,14 +6,14 @@
         <key>version</key>
         <string>1.7.0</string>
         <key>date</key>
-        <date>2022-10-17T09:41:00Z</date>
+        <date>2022-10-24T09:41:00Z</date>
         <key>shouldPromptUser</key>
-        <false/>
+        <true/>
         <key>changes</key>
-        <string>The major news for this version is added USB-C support on iPads running iPadOS 16! We've also made the following changes to the app:
-            - Fixes bug where requires touch setting was ignored when creating a new account.
-            - Fixes bug in Steam account creation when bypass touch was enabled for NFC keys.
-            - When deleting an account the correct one would be deleted on the YubiKey, but the list of accounts in the app would be out of sync.
+        <string>The major update for this version is added USB-C support on iPads running iPadOS 16. We've also made the following changes to the app:
+            - Fixed the bug where the required touch setting was ignored when creating a new account.
+            - Fixed the bug in Steam account creation when bypass touch was enabled for NFC keys.
+            - Fixed the bug where deleting an account would cause a sync issue between the YubiKey and Yubico Authenticator.
             - Storage of passwords in the keychain has been improved and now uses the derived access key. Old stored passwords will be migrated automatically.
             - The previous settings for account creation are no longer re-used for the next account.
             - Menu items for account and configuration are now disabled on iPads when no YubiKey is inserted into the device.

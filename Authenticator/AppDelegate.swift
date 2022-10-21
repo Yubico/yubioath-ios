@@ -26,9 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             YubiKitManager.shared.startAccessoryConnection()
         }
-        if #available(iOS 16, *) {
-            YubiKitManager.shared.startSmartCardConnection()
-        }
         if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
             UNUserNotificationCenter.current().delegate = main
         }
@@ -41,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        if #available(iOS 16.0, *) {
+            YubiKitManager.shared.stopSmartCardConnection()
+        }
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
@@ -50,7 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if #available(iOS 16, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

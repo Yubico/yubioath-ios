@@ -621,9 +621,8 @@ extension OATHViewModel { //}: OperationDelegate {
     
     /*! Invoked when operation/request to YubiKey failed */
     func onError(error: Error, retry: (() -> Void)? = nil) {
-        let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
         // Try cached passwords and then ask user for password
-        if errorCode == .authenticationRequired {
+        if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
             self.cachedAccessKey { accessKey in
                 if let accessKey {
                     self.unlock(withAccessKey: accessKey, completion: retry)
@@ -636,7 +635,7 @@ extension OATHViewModel { //}: OperationDelegate {
                 }
             }
         // Ask user for the correct password
-        } else if errorCode == .wrongPassword {
+        } else if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
             self.delegate?.collectPassword(isPasswordEntryRetry: true) { password in
                 guard let password else { fatalError("No password") }
                 self.unlock(withPassword: password, completion: retry)

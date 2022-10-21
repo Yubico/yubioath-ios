@@ -68,8 +68,7 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
                     guard let session = session else { self?.passwordStatusCallback?(.unknown); return }
                     session.listCredentials { _, error in
                         guard let error = error else { self?.passwordStatusCallback?(.noPassword); return }
-                        let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
-                        if errorCode == .authenticationRequired {
+                        if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
                             self?.passwordStatusCallback?(.isProtected)
                         } else {
                             self?.passwordStatusCallback?(.unknown)

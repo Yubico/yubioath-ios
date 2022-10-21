@@ -43,8 +43,7 @@ class PasswordConfigurationViewModel {
                     // This unlock is a local extension that accepts an optional String as password
                     session.unlock(password: oldPassword) { error in
                         if let error = error {
-                            let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
-                            if errorCode == .wrongPassword {
+                            if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
                                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
                                 completion(.wrongPassword)
                                 return
@@ -55,8 +54,7 @@ class PasswordConfigurationViewModel {
                         }
                         session.setPassword(password) { error in
                             if let error = error {
-                                let errorCode = YKFOATHErrorCode(rawValue: UInt((error as NSError).code))
-                                if errorCode == .authenticationRequired {
+                                if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
                                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Authentication required")
                                     completion(.authenticationRequired)
                                     return
