@@ -16,6 +16,7 @@
 
 import UIKit
 import Combine
+import CryptoTokenKit
 
 class OATHViewController: UITableViewController {
 
@@ -294,8 +295,10 @@ class OATHViewController: UITableViewController {
         }
         let credential = credentialAt(indexPath)
         
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+        }
 
         if credential.requiresRefresh {
             viewModel.calculate(credential: credential) { [self] _ in
@@ -523,6 +526,11 @@ extension OATHViewController: CredentialViewModelDelegate {
     }
 
     func onError(error: Error) {
+        let nsError = error as NSError
+        if nsError.domain == TKErrorDomain && nsError.code == -2 {
+            showAlert(title: "Require Touch currently unsupported on iPad", message: "Due to a limitation in the current USB smart card implementation for iPad, require touch unfortunately does not yet work on this device.")
+            return
+        }
         showAlert(title: "Something went wrong", message: error.localizedDescription)
     }
     
