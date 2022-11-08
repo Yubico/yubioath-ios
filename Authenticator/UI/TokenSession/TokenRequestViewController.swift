@@ -45,6 +45,10 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         checkmarkView.alpha = 0
         checkmarkTextView.alpha = 0
         passwordTextField.textContentType = .oneTimeCode
+        if !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            orView.alpha = 0
+            nfcView.alpha = 0
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +68,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         passwordTextField.delegate = self
-        viewModel?.isAccessoryKeyConnected { [weak self] connected in
+        viewModel?.isWiredKeyConnected { [weak self] connected in
             if !connected && self?.orView.alpha == 1 { return }
             UIView.animate(withDuration: 0.2) {
                 self?.orView.alpha = 0
@@ -77,8 +81,10 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
                         self?.accessoryLabel.text = "Enter the PIN to access the certificate."
                     } else {
                         self?.accessoryLabel.text = self?.defaultAccessoryTest
-                        self?.orView.alpha = 1
-                        self?.nfcView.alpha = 1
+                        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                            self?.orView.alpha = 1
+                            self?.nfcView.alpha = 1
+                        }
                     }
                 }
             }
