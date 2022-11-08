@@ -640,7 +640,8 @@ extension OATHViewModel { //}: OperationDelegate {
                 guard let password else { fatalError("No password") }
                 self.unlock(withPassword: password, completion: retry)
             }
-        } else if let error = error as? YKFSessionError, YKFSessionErrorCode(rawValue: UInt(error.code)) == .invalidSessionStateStatusCode {
+        } else if let sessionError = error as? YKFSessionError, sessionError.code == YKFSessionErrorCode
+            .invalidSessionStateStatusCode.rawValue {
             session = nil
             retry?()
         } else {
