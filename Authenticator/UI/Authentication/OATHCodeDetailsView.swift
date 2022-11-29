@@ -148,7 +148,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
                                   image: UIImage(systemName: "pin.slash"),
                                   action: { [weak self] in
                     viewModel.unPin(credential: credential)
-                    viewModel.calculateAll()
                     self?.dismiss()
                 })
             } else {
@@ -156,7 +155,6 @@ class OATHCodeDetailsView: UIVisualEffectView {
                                   image: UIImage(systemName: "pin"),
                                   action: { [weak self] in
                     viewModel.pin(credential: credential)
-                    viewModel.calculateAll()
                     self?.dismiss()
                 })
             }

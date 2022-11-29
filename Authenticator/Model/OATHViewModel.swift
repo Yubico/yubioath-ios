@@ -807,11 +807,13 @@ extension OATHViewModel {
     func pin(credential: Credential) {
         self.favorites.insert(credential.uniqueId)
         self.favoritesStorage.saveFavorites(self.favorites)
+        delegate?.onOperationCompleted(operation: .calculateAll)
     }
     
     func unPin(credential: Credential) {
         self.favorites.remove(credential.uniqueId)
         self.favoritesStorage.saveFavorites(self.favorites)
+        delegate?.onOperationCompleted(operation: .calculateAll)
     }
 }
 
