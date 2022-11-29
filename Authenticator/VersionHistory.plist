@@ -11,8 +11,7 @@
         <false/>
         <key>changes</key>
         <string>
-            In this version we've added the Smart card extension to iPads with USB-C port. We've also fixed a bug that could cause
-            the app to crash when pinning an account on a NFC YubiKey.
+            In this version we've added the Smart card extension to iPads with USB-C port. We've also fixed a bug that could cause the app to crash when pinning an account on a NFC YubiKey.
         </string>
     </dict>
     <dict>
