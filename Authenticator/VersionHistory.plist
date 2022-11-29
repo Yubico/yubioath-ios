@@ -4,6 +4,19 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.1</string>
+        <key>date</key>
+        <date>2022-12-01T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            In this version we've added the Smart card extension to iPads with USB-C port. We've also fixed a bug that could cause
+            the app to crash when pinning an account on a NFC YubiKey.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.0</string>
         <key>date</key>
         <date>2022-10-24T09:41:00Z</date>
