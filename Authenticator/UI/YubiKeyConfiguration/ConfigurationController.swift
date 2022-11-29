@@ -31,17 +31,6 @@ class ConfigurationController: UITableViewController {
     
     let infoViewModel = YubiKeyInformationViewModel()
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // remove last cell for devices with USB-C and no NFC support
-        if section == 1
-            && YubiKitDeviceCapabilities.supportsSmartCardOverUSBC
-            && !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-                return super.tableView(tableView, numberOfRowsInSection: section) - 1
-        } else {
-            return super.tableView(tableView, numberOfRowsInSection: section)
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if #available(iOS 14.5, *) { } else {
             switch (indexPath.section, indexPath.row) {
@@ -52,6 +41,14 @@ class ConfigurationController: UITableViewController {
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !YubiKitDeviceCapabilities.supportsISO7816NFCTags && indexPath.section == 1 && indexPath.row == 2 {
+            return 0
+        } else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

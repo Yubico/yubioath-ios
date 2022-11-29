@@ -224,15 +224,16 @@ private class HeaderCell: UITableViewCell {
     var type: Type {
         willSet {
             let configuration = UIImage.SymbolConfiguration(pointSize: 60)
+            let device =  UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
             switch newValue {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
                 title.text = "Certificates on YubiKey".uppercased()
-                text.text = "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this iPhone."
+                text.text = "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this \(device)."
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
-                title.text = "Public key certificates on iPhone".uppercased()
-                text.text = "These certificates have been added to this iPhone and can be used by other applications."
+                title.text = "Public key certificates on \(device)".uppercased()
+                text.text = "These certificates have been added to this \(device) and can be used by other applications."
             }
         }
     }

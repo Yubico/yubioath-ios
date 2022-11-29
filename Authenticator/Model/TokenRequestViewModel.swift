@@ -73,13 +73,18 @@ class TokenRequestViewModel: NSObject {
         print("Deinit TokenRequestViewModel")
     }
     
-    var isAccessoryKeyConnectedHandler: ((Bool) -> Void)?
+    var isWiredKeyConnectedHandler: ((Bool) -> Void)?
     
-    func isAccessoryKeyConnected(handler: @escaping (Bool) -> Void) {
-        isAccessoryKeyConnectedHandler = handler
+    func isWiredKeyConnected(handler: @escaping (Bool) -> Void) {
+        isWiredKeyConnectedHandler = handler
+        connection.smartCardConnection { [weak self] connection in
+            DispatchQueue.main.async {
+                self?.isWiredKeyConnectedHandler?(connection != nil)
+            }
+        }
         connection.accessoryConnection { [weak self] connection in
             DispatchQueue.main.async {
-                self?.isAccessoryKeyConnectedHandler?(connection != nil)
+                self?.isWiredKeyConnectedHandler?(connection != nil)
             }
         }
     }

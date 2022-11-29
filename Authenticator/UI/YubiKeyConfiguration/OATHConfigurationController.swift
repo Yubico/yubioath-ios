@@ -20,7 +20,8 @@ import UIKit
 class OATHConfigurationController: UITableViewController {
     
     @IBOutlet weak var removePasswordTableCell: UITableViewCell!
-
+    @IBOutlet weak var clearPasswordsOnDeviceLabel: UILabel!
+    
     var passwordStatusViewModel: PasswordStatusViewModel? = nil
     var passwordConfigurationViewModel: PasswordConfigurationViewModel? = nil
     var passwordStatus: PasswordStatusViewModel.PasswordStatus = .unknown
@@ -49,6 +50,11 @@ class OATHConfigurationController: UITableViewController {
                 self?.tableView.reloadData()
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        clearPasswordsOnDeviceLabel.text = "Clear passwords saved on \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"). This will prompt for a password next time a password protected YubiKey is used."
     }
     
     func pause() {
