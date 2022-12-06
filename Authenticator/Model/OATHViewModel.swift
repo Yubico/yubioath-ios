@@ -26,6 +26,23 @@ protocol CredentialViewModelDelegate: AnyObject {
     func collectPasswordPreferences(completion: @escaping (PasswordSaveType) -> Void)
 }
 
+enum OATHViewModelModelError: Error, LocalizedError {
+    case credentialAlreadyPresent(YKFOATHCredentialTemplate);
+    
+    public var errorDescription: String? {
+        switch self {
+        case .credentialAlreadyPresent(let credential):
+            return "There's already an account named \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) on this YubiKey."
+        }
+    }
+    
+    var shouldClearState: Bool {
+        switch self {
+        case .credentialAlreadyPresent(_):
+            return false
+        }
+    }
+}
 
 /*! This is main view model class that talks to YubiKit
  * It's recommended to use only methods of this class to talk to YubiKitManager (even if it's a singleton and can be accessed anywhere in code)
@@ -375,14 +392,32 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     public func addCredential(credential: YKFOATHCredentialTemplate, requiresTouch: Bool) {
         session { session in
-            session.put(credential, requiresTouch: requiresTouch) { error in
-                guard error == nil else {
+            session.listCredentials { credentials, error in
+                guard let credentials else {
                     self.onError(error: error!) {
                         self.addCredential(credential: credential, requiresTouch: requiresTouch)
                     }
                     return
                 }
-                self.calculateAll()
+                
+                let key = YKFOATHCredentialUtils.key(fromAccountName: credential.accountName, issuer: credential.issuer, period: credential.period, type: credential.type)
+                
+                let keys = credentials.map { YKFOATHCredentialUtils.key(fromAccountName: $0.accountName, issuer: $0.issuer, period: $0.period, type: $0.type) }
+                
+                guard !keys.contains(key) else {
+                    self.onError(error: OATHViewModelModelError.credentialAlreadyPresent(credential))
+                    return
+                }
+                
+                session.put(credential, requiresTouch: requiresTouch) { error in
+                    guard error == nil else {
+                        self.onError(error: error!) {
+                            self.addCredential(credential: credential, requiresTouch: requiresTouch)
+                        }
+                        return
+                    }
+                    self.calculateAll()
+                }
             }
         }
     }
@@ -646,8 +681,15 @@ extension OATHViewModel { //}: OperationDelegate {
             retry?()
         } else {
             // Stop everything and pass error to delegate
-            session = nil
-            cleanUp()
+            if let viewModelError = error as? OATHViewModelModelError {
+                if viewModelError.shouldClearState {
+                    session = nil
+                    cleanUp()
+                }
+            } else {
+                session = nil
+                cleanUp()
+            }
             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
             delegate?.onError(error: error)
         }
