@@ -629,7 +629,7 @@ extension OATHViewModel { //}: OperationDelegate {
                 } else {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                     self.delegate?.collectPassword(isPasswordEntryRetry: false) { password in
-                        guard let password else { fatalError("No password") }
+                        guard let password else { return }
                         self.unlock(withPassword: password, completion: retry)
                     }
                 }
@@ -637,7 +637,7 @@ extension OATHViewModel { //}: OperationDelegate {
         // Ask user for the correct password
         } else if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
             self.delegate?.collectPassword(isPasswordEntryRetry: true) { password in
-                guard let password else { fatalError("No password") }
+                guard let password else { return }
                 self.unlock(withPassword: password, completion: retry)
             }
         } else if let sessionError = error as? YKFSessionError, sessionError.code == YKFSessionErrorCode
