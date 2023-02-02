@@ -90,6 +90,9 @@
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
+		B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B16298AA6E7006CDAEA /* MainView.swift */; };
+		B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */; };
+		B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B1A298AB641006CDAEA /* MainViewModel.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B4EE055F2A0CDB3C002F30D4 /* OTPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -219,6 +222,9 @@
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
+		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorApp.swift; sourceTree = "<group>"; };
+		B4719B1A298AB641006CDAEA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
@@ -403,6 +409,7 @@
 				818866F622E7A877006BC0A8 /* Authenticator.entitlements */,
 				818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */,
 				818866B622DFD729006BC0A8 /* AppDelegate.swift */,
+				B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
 				51AFD4D727196AB6008F2630 /* VersionHistory.plist */,
@@ -434,6 +441,7 @@
 				A591412023835F4600CCCF67 /* Constants.swift */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
+				B4719B16298AA6E7006CDAEA /* MainView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -463,6 +471,7 @@
 				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
 				51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
+				B4719B1A298AB641006CDAEA /* MainViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -671,6 +680,7 @@
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,
+				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
@@ -708,6 +718,8 @@
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
 				51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */,
+				B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */,
+				51AFD4D42716FC78008F2630 /* ApplicationSettingsController.swift in Sources */,
 				51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */,
@@ -722,6 +734,7 @@
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
+				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,
 				51394C5826CFE15F009F366D /* Menu.swift in Sources */,
 				A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
@@ -876,7 +889,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -932,7 +945,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -953,7 +966,7 @@
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -981,7 +994,7 @@
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
