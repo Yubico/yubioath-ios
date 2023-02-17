@@ -18,17 +18,20 @@ import SwiftUI
 
 struct MainView: View {
     
-    @StateObject var model: MainViewModel
+    @StateObject var model = MainViewModel()
+    @State var showAccountDetails: AccountDetailsData? = nil
+    @State var password: String = ""
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(model.accounts, id: \.id) { account in
-                    Text(account.name)
+                    AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                 }
             }
+            .listStyle(.inset)
             .refreshable {
-                model.refresh()
+                model.updateAccountsOverNFC()
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -49,6 +52,23 @@ struct MainView: View {
                 }
             }
             .navigationTitle(model.accountsLoaded ? "Accounts" : "")
+        }.overlay {
+            if showAccountDetails != nil {
+                AccountDetailsView(data: $showAccountDetails)
+            }
         }
+        .alert("Enter password", isPresented: $model.presentPasswordEntry) {
+            SecureField("Password", text: $password)
+            Button("Cancel", role: .cancel) { password = ""; print("👾 Cancel") }
+            Button("Ok") {
+                model.password.send(password)
+                password = ""
+                print("👾 Ok")
+            }
+        } message: {
+            Text(model.passwordEntryMessage)
+        }
+        .errorAlert(error: $model.error)
+        .environmentObject(model)
     }
 }

@@ -16,64 +16,109 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
-
-struct Account {
-    let id = UUID()
-    let name: String
-}
 
 class MainViewModel: ObservableObject {
     
     @Published var accounts: [Account] = []
     @Published var accountsLoaded: Bool = false
+    @Published var presentPasswordEntry: Bool = false
+    @Published var passwordEntryMessage: String = ""
+    @Published var error: Error?
+        
+    public var password = PassthroughSubject<String?, Never>()
     
-    private let oathModel = OATHViewModel()
+    private var sessionTask: Task<(), Never>? = nil
+    private var passwordCancellable: AnyCancellable? = nil
     
     init() {
-        oathModel.delegate = self
+        sessionTask = Task {
+            for await session in OATHSessionHandler.shared.wiredSessions() {
+                await updateAccounts(using: session)
+                let error = await session.sessionDidEnd()
+                await MainActor.run { [weak self] in
+                    self?.accounts.removeAll()
+                    self?.accountsLoaded = false
+                    self?.error = error
+                }
+            }
+        }
     }
     
-    func refresh() {
-        oathModel.calculateAll()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.accountsLoaded = self.accounts.count > 0
+    private func updateAccounts(using session: OATHSession? = nil) async {
+        do {
+            let useSession: OATHSession
+            if let session {
+                useSession = session
+            } else {
+                useSession = try await OATHSessionHandler.shared.anySession()
+            }
+            
+            let credentials = try await useSession.calculateAll()
+            DispatchQueue.main.async { [weak self] in
+                self?.accounts = credentials.map { credential in
+                    Account(credential: credential.credential, code: credential.code)
+                }
+                self?.accountsLoaded = !credentials.isEmpty
+                useSession.endNFC(message: "Hepp")
+            }
+        } catch {
+            print("updateAccounts error: \(error)")
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+        }
+    }
+
+    func updateAccountsOverNFC() {
+        print("👾 updateAccountsOverNFC")
+        Task {
+            do {
+                print("👾 get session")
+                let session = try await OATHSessionHandler.shared.nfcSession()
+                print("👾 updateAccounts with: \(session)")
+                await updateAccounts(using: session)
+            } catch {
+                await MainActor.run {
+                    print("Set error: \(error)")
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                    self.error = error
+                }
+            }
+        }
+    }
+    
+    func handle(error: Error, retry: (() -> Void)? = nil) {
+        YubiKitManager.shared.stopNFCConnection()
+        
+        if let oathError = error as? YKFOATHError,
+           oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue || oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
+            DispatchQueue.main.async {
+                self.passwordEntryMessage = oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue ? "To prevent unauthorized access this YubiKey is protected with a password." : "Incorrect password. Re-enter password."
+                self.presentPasswordEntry = true
+                self.passwordCancellable = self.password.sink { password in
+                    if let password {
+                        Task {
+                            print("👾 password: \(password)")
+                            let session = try await OATHSessionHandler.shared.anySession()
+                            print("👾 unlock with: \(session)")
+                            do {
+                                try await session.unlock(password: password)
+                                retry?()
+                            } catch {
+                                self.handle(error: error, retry: retry)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            self.error = error
         }
     }
 }
 
-extension MainViewModel: CredentialViewModelDelegate {
-    
-    func showAlert(title: String, message: String?) {
-        print("showAlert")
-    }
-    
-    func onError(error: Error) {
-        print(error)
-    }
-    
-    func onOperationCompleted(operation: OperationName) {
-        accounts = oathModel.credentials.map { credential in
-            Account(name: credential.formattedName)
-        }
-        self.accountsLoaded = self.accounts.count > 0
-
-        print("onOperationCompleted")
-    }
-    
-    func onShowToastMessage(message: String) {
-        print("onShowToastMessage")
-    }
-    
-    func onCredentialDelete(credential: Credential) {
-        print("onCredentialDelete")
-    }
-    
-    func collectPassword(isPasswordEntryRetry: Bool, completion: @escaping (String?) -> Void) {
-        print("collectPassword")
-    }
-    
-    func collectPasswordPreferences(completion: @escaping (PasswordSaveType) -> Void) {
-        print("collectPasswordPreferences")
+extension YKFOATHCredential {
+    var id: String {
+        YKFOATHCredentialUtils.key(fromAccountName: accountName, issuer: issuer, period: period, type: type)
     }
 }

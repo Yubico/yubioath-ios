@@ -20,11 +20,10 @@ import SwiftUI
 struct AuthenticatorApp: App {
     
     @Environment(\.scenePhase) var scenePhase
-    let mainViewModel = MainViewModel()
     
     var body: some Scene {
         WindowGroup {
-            MainView(model: mainViewModel)
+            MainView()
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .active {
                         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
