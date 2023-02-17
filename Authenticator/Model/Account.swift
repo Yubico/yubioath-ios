@@ -32,15 +32,11 @@ class Account: ObservableObject {
     
     init(credential: YKFOATHCredential, code: YKFOATHCode?) {
         id = credential.id
-        if let issuer = credential.issuer, issuer.count > 9 {
+        if let issuer = credential.issuer {
             title = issuer
-        } else {
-            title = credential.accountName
-        }
-        if let issuer = credential.issuer, issuer.count > 9 {
             subTitle = credential.accountName
         } else {
-            subTitle = credential.issuer
+            title = credential.accountName
         }
         
         if let code {
