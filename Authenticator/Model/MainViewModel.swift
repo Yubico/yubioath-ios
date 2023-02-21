@@ -28,9 +28,12 @@ class MainViewModel: ObservableObject {
     @Published var error: Error?
         
     public var password = PassthroughSubject<String?, Never>()
-    
-    private var sessionTask: Task<(), Never>? = nil
     private var passwordCancellable: AnyCancellable? = nil
+    
+    private var requestRefresh = PassthroughSubject<Void, Never>()
+    private var requestRefreshCancellable: AnyCancellable? = nil
+
+    private var sessionTask: Task<(), Never>? = nil
     
     init() {
         sessionTask = Task {
@@ -44,6 +47,13 @@ class MainViewModel: ObservableObject {
                 }
             }
         }
+        requestRefreshCancellable = requestRefresh
+            .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
+            .sink {
+                Task {
+                    await self.updateAccounts()
+                }
+            }
     }
     
     @MainActor private func updateAccounts(using session: OATHSession? = nil) async {
@@ -60,9 +70,9 @@ class MainViewModel: ObservableObject {
                 if credential.credential.type == .TOTP && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
-                    return Account(credential: credential.credential, code: code)
+                    return Account(credential: credential.credential, code: code, requestRefresh: requestRefresh)
                 } else {
-                    return Account(credential: credential.credential, code: credential.code)
+                    return Account(credential: credential.credential, code: credential.code, requestRefresh: requestRefresh)
                 }
             }
             self.accountsLoaded = !credentials.isEmpty

@@ -15,6 +15,7 @@
  */
 
 import SwiftUI
+import Combine
 
 class Account: ObservableObject {
     
@@ -29,8 +30,9 @@ class Account: ObservableObject {
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
+    var requestRefresh: PassthroughSubject<Void, Never>
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?) {
+    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Void, Never>) {
         id = credential.id
         if let issuer = credential.issuer {
             title = issuer
@@ -46,7 +48,15 @@ class Account: ObservableObject {
         }
         
         self.validInterval = code?.validity
-        self.timeLeft = self.validInterval?.end.timeIntervalSince(Date())
+        self.timeLeft = self.validInterval?.end.timeIntervalSinceNow
+        self.requestRefresh = requestRefresh
+        
+        if let timeLeft {
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
+                self?.requestRefresh.send()
+            }
+        }
+        
         updateRemaining()
         startTimer()
     }
