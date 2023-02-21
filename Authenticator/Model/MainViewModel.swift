@@ -66,20 +66,30 @@ class MainViewModel: ObservableObject {
             }
             
             let credentials = try await useSession.calculateAll()
-            self.accounts = try await credentials.asyncMap { credential in
+            let updatedAccounts = try await credentials.asyncMap { credential in
                 if credential.credential.type == .TOTP && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
-                    return Account(credential: credential.credential, code: code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
+                    return self.account(credential: credential.credential, code: code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
                 } else {
-                    return Account(credential: credential.credential, code: credential.code, requestRefresh:  useSession.type == .wired ? requestRefresh : nil)
+                    return self.account(credential: credential.credential, code: credential.code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
                 }
             }
+            self.accounts = updatedAccounts
             self.accountsLoaded = !credentials.isEmpty
             useSession.endNFC(message: "Hepp")
         } catch {
             print("updateAccounts error: \(error)")
             handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+        }
+    }
+    
+    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>?) -> Account {
+        if let account = (accounts.filter { $0.id == credential.id }).first {
+            account.update(code: code)
+            return account
+        } else {
+            return Account(credential: credential, code: code, requestRefresh: requestRefresh)
         }
     }
 

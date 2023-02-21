@@ -19,7 +19,7 @@ import Combine
 
 class Account: ObservableObject {
     
-    @Published var code: String
+    @Published var code: String = ""
     @Published var remaining: Double = 0
     @Published var title: String
     @Published var subTitle: String?
@@ -41,6 +41,29 @@ class Account: ObservableObject {
             title = credential.accountName
         }
         
+//        if let code {
+//            self.code = code.otp ?? ""
+//        } else {
+//            self.code = ""
+//        }
+//
+//        self.validInterval = code?.validity
+//        self.timeLeft = self.validInterval?.end.timeIntervalSinceNow
+        self.requestRefresh = requestRefresh
+        
+//        if let requestRefresh, let timeLeft {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [requestRefresh] in
+//                requestRefresh.send(nil) // refresh all accounts signaled by sending nil
+//            }
+//        }
+        self.update(code: code)
+        
+        updateRemaining()
+        startTimer()
+    }
+    
+    func update(code: YKFOATHCode?) {
+        
         if let code {
             self.code = code.otp ?? ""
         } else {
@@ -49,7 +72,6 @@ class Account: ObservableObject {
         
         self.validInterval = code?.validity
         self.timeLeft = self.validInterval?.end.timeIntervalSinceNow
-        self.requestRefresh = requestRefresh
         
         if let requestRefresh, let timeLeft {
             DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [requestRefresh] in
@@ -57,8 +79,6 @@ class Account: ObservableObject {
             }
         }
         
-        updateRemaining()
-        startTimer()
     }
     
     func pin(_ flag: Bool) async throws {
