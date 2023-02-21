@@ -30,9 +30,9 @@ class Account: ObservableObject {
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
-    var requestRefresh: PassthroughSubject<Void, Never>
+    var requestRefresh: PassthroughSubject<Account?, Never>?
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Void, Never>) {
+    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>?) {
         id = credential.id
         if let issuer = credential.issuer {
             title = issuer
@@ -51,9 +51,9 @@ class Account: ObservableObject {
         self.timeLeft = self.validInterval?.end.timeIntervalSinceNow
         self.requestRefresh = requestRefresh
         
-        if let timeLeft {
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
-                self?.requestRefresh.send()
+        if let requestRefresh, let timeLeft {
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [requestRefresh] in
+                requestRefresh.send(nil) // refresh all accounts signaled by sending nil
             }
         }
         

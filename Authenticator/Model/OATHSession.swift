@@ -100,13 +100,14 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     func anySession() async throws -> OATHSession {
         if let currentSession {
-            return OATHSession(session: currentSession)
+            let type: OATHSession.SessionType = accessoryConnection == nil && smartCardConnection == nil ? .nfc : .wired
+            return OATHSession(session: currentSession, type: type)
         } else if let smartCardConnection {
             let session = try await smartCardConnection.oathSession()
-            return OATHSession(session: session)
+            return OATHSession(session: session, type: .wired)
         } else if let accessoryConnection {
             let session = try await accessoryConnection.oathSession()
-            return OATHSession(session: session)
+            return OATHSession(session: session, type: .wired)
         } else {
             return try await nfcSession()
         }
@@ -116,12 +117,12 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
             if useCached {
                 if let currentSession {
-                    continuation.resume(returning: OATHSession(session: currentSession))
+                    continuation.resume(returning: OATHSession(session: currentSession, type: .wired))
                 } else if let connection: YKFConnectionProtocol = smartCardConnection ?? accessoryConnection {
                     connection.oathSession { session, error in
                         if let session {
                             self.currentSession = session
-                            continuation.resume(returning: OATHSession(session: session))
+                            continuation.resume(returning: OATHSession(session: session, type: .wired))
                         } else {
                             continuation.resume(throwing: error!)
                         }
@@ -133,7 +134,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                 connection.oathSession { session, error in
                     if let session {
                         self.currentSession = session
-                        continuation.resume(returning: OATHSession(session: session))
+                        continuation.resume(returning: OATHSession(session: session, type: .wired))
                     } else {
                         continuation.resume(throwing: error!)
                     }
@@ -149,7 +150,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                     connection.oathSession { session, error in
                         if let session {
                             self.currentSession = session
-                            continuation.resume(returning: OATHSession(session: session))
+                            continuation.resume(returning: OATHSession(session: session, type: .nfc))
                         } else {
                             continuation.resume(throwing: error!)
                         }
@@ -167,10 +168,17 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
 
 class OATHSession {
     
+    enum SessionType {
+        case nfc
+        case wired
+    }
+    
     private let session: YKFOATHSession
+    public let type: SessionType
 
-    init(session: YKFOATHSession) {
+    init(session: YKFOATHSession, type: SessionType) {
         self.session = session
+        self.type = type
     }
     
     func sessionDidEnd() async -> Error? {

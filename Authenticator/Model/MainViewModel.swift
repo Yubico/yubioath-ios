@@ -30,7 +30,7 @@ class MainViewModel: ObservableObject {
     public var password = PassthroughSubject<String?, Never>()
     private var passwordCancellable: AnyCancellable? = nil
     
-    private var requestRefresh = PassthroughSubject<Void, Never>()
+    private var requestRefresh = PassthroughSubject<Account?, Never>()
     private var requestRefreshCancellable: AnyCancellable? = nil
 
     private var sessionTask: Task<(), Never>? = nil
@@ -49,7 +49,7 @@ class MainViewModel: ObservableObject {
         }
         requestRefreshCancellable = requestRefresh
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
-            .sink {
+            .sink { _ in
                 Task {
                     await self.updateAccounts()
                 }
@@ -70,9 +70,9 @@ class MainViewModel: ObservableObject {
                 if credential.credential.type == .TOTP && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
-                    return Account(credential: credential.credential, code: code, requestRefresh: requestRefresh)
+                    return Account(credential: credential.credential, code: code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
                 } else {
-                    return Account(credential: credential.credential, code: credential.code, requestRefresh: requestRefresh)
+                    return Account(credential: credential.credential, code: credential.code, requestRefresh:  useSession.type == .wired ? requestRefresh : nil)
                 }
             }
             self.accountsLoaded = !credentials.isEmpty
