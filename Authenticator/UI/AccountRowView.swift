@@ -71,7 +71,7 @@ struct PieProgressView: View {
     var body: some View {
         PieShape(progress: self.progress)
             .foregroundColor(.gray)
-            .animation(.linear(duration: 1.0), value: self.progress)
+            .animation(.linear(duration: self.progress == 1.0 ? 0.0 : 1.0), value: self.progress)
     }
 }
 

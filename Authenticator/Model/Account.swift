@@ -47,21 +47,19 @@ class Account: ObservableObject {
     }
     
     func update(code: YKFOATHCode?) {
-        if let code {
-            self.code = code.otp ?? ""
-        } else {
-            self.code = ""
-        }
-        
-        self.validInterval = code?.validity
-        self.timeLeft = self.validInterval?.end.timeIntervalSinceNow
+        guard let code, let otp = code.otp else { self.code = ""; return }
+        guard self.code != code.otp else { return }
+
+        self.code = otp
+        self.remaining = 1.0
+        self.validInterval = code.validity
+        self.timeLeft = code.validity.end.timeIntervalSinceNow
         
         if let requestRefresh, let timeLeft {
             DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [requestRefresh] in
                 requestRefresh.send(nil) // refresh all accounts signaled by sending nil
             }
         }
-        
     }
     
     func pin(_ flag: Bool) async throws {
