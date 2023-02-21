@@ -181,11 +181,25 @@ class OATHSession {
         }
     }
     
-    func calculateAll() async throws -> [YKFOATHCredentialWithCode] {
+    func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [YKFOATHCredentialWithCode] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[YKFOATHCredentialWithCode], Error>) in
-            session.calculateAll(withTimestamp: Date().addingTimeInterval(10)) { credentials, error in
+            session.calculateAll(withTimestamp: timestamp) { credentials, error in
                 if let credentials {
                     continuation.resume(returning: credentials)
+                } else if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    fatalError()
+                }
+            }
+        }
+    }
+    
+    func calculate(credential: YKFOATHCredential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> YKFOATHCode {
+        return try await withCheckedThrowingContinuation { continuation in
+            session.calculate(credential, timestamp: timestamp) { code, error in
+                if let code {
+                    continuation.resume(returning: code)
                 } else if let error {
                     continuation.resume(throwing: error)
                 } else {

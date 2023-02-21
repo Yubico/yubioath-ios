@@ -46,7 +46,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    private func updateAccounts(using session: OATHSession? = nil) async {
+    @MainActor private func updateAccounts(using session: OATHSession? = nil) async {
         do {
             let useSession: OATHSession
             if let session {
@@ -56,13 +56,17 @@ class MainViewModel: ObservableObject {
             }
             
             let credentials = try await useSession.calculateAll()
-            DispatchQueue.main.async { [weak self] in
-                self?.accounts = credentials.map { credential in
-                    Account(credential: credential.credential, code: credential.code)
+            self.accounts = try await credentials.asyncMap { credential in
+                if credential.credential.type == .TOTP && credential.credential.period != 30 {
+                    print("👾 \(credential.credential.accountName)")
+                    let code = try await useSession.calculate(credential: credential.credential)
+                    return Account(credential: credential.credential, code: code)
+                } else {
+                    return Account(credential: credential.credential, code: credential.code)
                 }
-                self?.accountsLoaded = !credentials.isEmpty
-                useSession.endNFC(message: "Hepp")
             }
+            self.accountsLoaded = !credentials.isEmpty
+            useSession.endNFC(message: "Hepp")
         } catch {
             print("updateAccounts error: \(error)")
             handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
@@ -120,5 +124,16 @@ class MainViewModel: ObservableObject {
 extension YKFOATHCredential {
     var id: String {
         YKFOATHCredentialUtils.key(fromAccountName: accountName, issuer: issuer, period: period, type: type)
+    }
+}
+
+
+extension Sequence {
+    func asyncMap<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
+        var values = [T]()
+        for element in self {
+            try await values.append(transform(element))
+        }
+        return values
     }
 }
