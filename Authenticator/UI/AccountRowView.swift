@@ -23,6 +23,7 @@ struct AccountRowView: View {
     @Binding var showAccountDetails: AccountDetailsData?
     @State private var contentSize: CGSize = .zero
     @State private var codeFrame: CGRect = .zero
+    @State private var statusIconFrame: CGRect = .zero
     @State private var cellFrame: CGRect = .zero
 
     var body: some View {
@@ -41,6 +42,7 @@ struct AccountRowView: View {
                 HStack {
                     PieProgressView(progress: $account.remaining)
                         .frame(width: 22, height: 22)
+                        .readFrame($statusIconFrame)
                     Text(account.formattedCode)
                         .font(Font.system(size: 17))
                         .bold()
@@ -57,7 +59,7 @@ struct AccountRowView: View {
             }
             .listRowSeparator(.hidden)
             .onTapGesture {
-                let data = AccountDetailsData(account: account, codeFrame: codeFrame, cellFrame: cellFrame)
+                let data = AccountDetailsData(account: account, codeFrame: codeFrame, statusIconFrame: statusIconFrame, cellFrame: cellFrame)
                 showAccountDetails = data
             }
             .readFrame($cellFrame)

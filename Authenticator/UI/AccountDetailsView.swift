@@ -16,9 +16,14 @@
 
 import SwiftUI
 
-struct AccountDetailsData {
-    let account: Account
+struct AccountDetailsData: Equatable {
+    static func == (lhs: AccountDetailsData, rhs: AccountDetailsData) -> Bool {
+        lhs.account.id == rhs.account.id
+    }
+    
+    @ObservedObject var account: Account
     let codeFrame: CGRect
+    let statusIconFrame: CGRect
     let cellFrame: CGRect
 }
 
@@ -26,19 +31,23 @@ struct AccountDetailsView: View {
     
     @EnvironmentObject var model: MainViewModel
     @Binding var data: AccountDetailsData?
+    @ObservedObject var account: Account
     @State private var backgroundAlpha = 0.0
     @State private var codeOrigin: CGPoint
+    @State private var statusIconOrigin: CGPoint
     @State private var modalAlpha: CGFloat
     @State private var modalRect: CGRect
     @State private var codeFontSize: CGFloat
     
     init(data: Binding<AccountDetailsData?>) {
+        guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
         self._data = data
-        codeOrigin = CGRect.adjustedPosition(from: data.wrappedValue?.codeFrame)
+        account = detailsData.account
+        codeOrigin = CGRect.adjustedPosition(from: detailsData.codeFrame)
         codeFontSize = 17
-        modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.wrappedValue?.cellFrame), size: data.wrappedValue?.cellFrame.size ?? .zero)
+        statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
+        modalRect = CGRect(origin: CGRect.adjustedPosition(from: detailsData.cellFrame), size: detailsData.cellFrame.size)
         modalAlpha = 0.1
-        print("cellFrame: \(modalRect)")
     }
     
     var body: some View {
@@ -52,7 +61,9 @@ struct AccountDetailsView: View {
                             withAnimation {
                                 backgroundAlpha = 0
                                 codeFontSize = 17
-                                codeOrigin = CGRect.adjustedPosition(from: data.codeFrame)
+                                // I have no idea where these two points are coming from
+                                codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2)
+                                statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
                                 modalAlpha = 0.1
                                 modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.cellFrame), size: data.cellFrame.size)
                             }
@@ -73,13 +84,17 @@ struct AccountDetailsView: View {
                         .foregroundColor(.gray)
                         .position(codeOrigin)
                         .ignoresSafeArea()
-                    
+                    PieProgressView(progress: $account.remaining)
+                        .frame(width: 22, height: 22)
+                        .position(statusIconOrigin)
+                        .ignoresSafeArea()
                 }.onAppear {
                     withAnimation {
                         backgroundAlpha = 1.0
                         codeFontSize = 30
                         modalAlpha = 1
-                        codeOrigin = CGPoint(x: reader.size.width / 2 , y: reader.size.height / 2)
+                        codeOrigin = CGPoint(x: reader.size.width / 2 , y: reader.size.height / 2 - 10)
+                        statusIconOrigin = CGPoint(x: reader.size.width / 2 , y: reader.size.height / 2 + 30)
                         modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 120)
                     }
                 }
@@ -89,9 +104,7 @@ struct AccountDetailsView: View {
 }
 
 extension CGRect {
-    static func adjustedPosition(from rect: CGRect?) -> CGPoint {
-        guard let rect else { return .zero }
-        // I have no idea where these two points are coming from
-        return CGPoint(x: rect.origin.x + rect.size.width / 2 - 2, y: rect.origin.y + rect.size.height / 2)
+    static func adjustedPosition(from rect: CGRect, xAdjustment: CGFloat = 0.0) -> CGPoint {
+        return CGPoint(x: rect.origin.x + rect.size.width / 2 + xAdjustment, y: rect.origin.y + rect.size.height / 2)
     }
 }
