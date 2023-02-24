@@ -27,6 +27,8 @@ class Account: ObservableObject {
     var color: Color = .red
     var isSteam: Bool = false
     
+    var isResigned: Bool = false
+    
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
@@ -46,6 +48,10 @@ class Account: ObservableObject {
         startTimer()
     }
     
+    func resign() {
+        isResigned = true
+    }
+    
     func update(code: YKFOATHCode?) {
         guard let code, let otp = code.otp else { self.code = ""; return }
         guard self.code != code.otp else { return }
@@ -55,9 +61,10 @@ class Account: ObservableObject {
         self.validInterval = code.validity
         self.timeLeft = code.validity.end.timeIntervalSinceNow
         
-        if let requestRefresh, let timeLeft {
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [requestRefresh] in
-                requestRefresh.send(nil) // refresh all accounts signaled by sending nil
+        if let timeLeft, requestRefresh != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
+                guard self?.isResigned == false else { return }
+                self?.requestRefresh?.send(nil) // refresh all accounts signaled by sending nil
             }
         }
     }

@@ -63,6 +63,9 @@ struct AccountRowView: View {
                 showAccountDetails = data
             }
             .readFrame($cellFrame)
+            .onDisappear {
+                account.resign()
+            }
     }
 }
 
