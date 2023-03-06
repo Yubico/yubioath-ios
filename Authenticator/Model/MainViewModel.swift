@@ -67,7 +67,7 @@ class MainViewModel: ObservableObject {
             
             let credentials = try await useSession.calculateAll()
             let updatedAccounts = try await credentials.asyncMap { credential in
-                if credential.credential.type == .TOTP && credential.credential.period != 30 {
+                if credential.credential.type == .TOTP && !credential.credential.requiresTouch && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
                     return self.account(credential: credential.credential, code: code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)

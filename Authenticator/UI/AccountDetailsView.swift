@@ -84,10 +84,25 @@ struct AccountDetailsView: View {
                         .foregroundColor(.gray)
                         .position(codeOrigin)
                         .ignoresSafeArea()
-                    PieProgressView(progress: $account.remaining)
-                        .frame(width: 22, height: 22)
-                        .position(statusIconOrigin)
-                        .ignoresSafeArea()
+                    switch(account.state) {
+                    case .requiresTouch:
+                        Image(systemName: "hand.tap.fill")
+                            .font(.system(size: 18))
+                            .foregroundStyle(.gray)
+                            .position(statusIconOrigin)
+                            .ignoresSafeArea()
+                    case .calculate:
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.gray)
+                            .position(statusIconOrigin)
+                            .ignoresSafeArea()
+                    case .counter(let remaining):
+                        PieProgressView(progress: remaining)
+                            .frame(width: 22, height: 22)
+                            .position(statusIconOrigin)
+                            .ignoresSafeArea()
+                    }
                 }.onAppear {
                     withAnimation {
                         backgroundAlpha = 1.0

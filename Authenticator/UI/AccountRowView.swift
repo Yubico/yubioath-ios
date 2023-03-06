@@ -40,11 +40,24 @@ struct AccountRowView: View {
                 }
                 Spacer()
                 HStack {
-                    PieProgressView(progress: $account.remaining)
-                        .frame(width: 22, height: 22)
-                        .readFrame($statusIconFrame)
+                    switch(account.state) {
+                    case .requiresTouch:
+                        Image(systemName: "hand.tap.fill")
+                            .font(.system(size: 18))
+                            .foregroundStyle(.gray)
+                            .readFrame($statusIconFrame)
+                    case .calculate:
+                        Image(systemName: "arrow.clockwise.circle.fill")
+                            .font(.system(size: 22))
+                            .foregroundStyle(.gray)
+                            .readFrame($statusIconFrame)
+                    case .counter(let remaining):
+                        PieProgressView(progress: remaining)
+                            .frame(width: 22, height: 22)
+                            .readFrame($statusIconFrame)
+                    }
                     Text(account.formattedCode)
-                        .font(Font.system(size: 17))
+                        .font(.system(size: 17))
                         .bold()
                         .foregroundColor(.gray)
                         .padding(.trailing, 4)
@@ -71,7 +84,7 @@ struct AccountRowView: View {
 
 struct PieProgressView: View {
     
-    @Binding var progress: Double
+    var progress: Double
     
     var body: some View {
         PieShape(progress: self.progress)

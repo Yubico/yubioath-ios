@@ -19,16 +19,21 @@ import Combine
 
 class Account: ObservableObject {
     
+    enum AccountState {
+        case counter(Double)
+        case requiresTouch
+        case calculate
+    }
+    
     @Published var code: String = ""
-    @Published var remaining: Double = 0
     @Published var title: String
     @Published var subTitle: String?
+    @Published var state: AccountState
+    
     let id: String
     var color: Color = .red
     var isSteam: Bool = false
-    
     var isResigned: Bool = false
-    
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
@@ -42,6 +47,15 @@ class Account: ObservableObject {
         } else {
             title = credential.accountName
         }
+        
+        if credential.requiresTouch {
+            state = .requiresTouch
+        } else if credential.type == .HOTP {
+            state = .calculate
+        } else {
+            state = .counter(1.0)
+        }
+        
         self.requestRefresh = requestRefresh
         self.update(code: code)
         updateRemaining()
@@ -57,7 +71,6 @@ class Account: ObservableObject {
         guard self.code != code.otp else { return }
 
         self.code = otp
-        self.remaining = 1.0
         self.validInterval = code.validity
         self.timeLeft = code.validity.end.timeIntervalSinceNow
         
@@ -115,9 +128,9 @@ class Account: ObservableObject {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft
             if timeLeft > 0 {
-                self.remaining = timeLeft / validInterval.duration
-            } else {
-                self.remaining = 0
+                self.state = .counter(timeLeft / validInterval.duration)
+            } else if requestRefresh == nil { // If no request refresh pass through this account is from a NFC key
+                self.state = .calculate
             }
         }
     }
