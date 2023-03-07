@@ -25,6 +25,8 @@ struct AccountDetailsData: Equatable {
     let codeFrame: CGRect
     let statusIconFrame: CGRect
     let cellFrame: CGRect
+    let titleFrame: CGRect
+    let subTitleFrame: CGRect
 }
 
 struct AccountDetailsView: View {
@@ -36,7 +38,10 @@ struct AccountDetailsView: View {
     @Binding var data: AccountDetailsData?
     @ObservedObject var account: Account
     @State private var backgroundAlpha = 0.0
+    @State private var titleOrigin: CGPoint
+    @State private var subTitleOrigin: CGPoint
     @State private var codeOrigin: CGPoint
+    @State private var codeBackgroundOrigin: CGPoint
     @State private var statusIconOrigin: CGPoint
     @State private var modalAlpha: CGFloat
     @State private var modalRect: CGRect
@@ -49,7 +54,10 @@ struct AccountDetailsView: View {
         guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
         self._data = data
         account = detailsData.account
+        titleOrigin = CGRect.adjustedPosition(from: detailsData.titleFrame)
+        subTitleOrigin = CGRect.adjustedPosition(from: detailsData.subTitleFrame)
         codeOrigin = CGRect.adjustedPosition(from: detailsData.codeFrame)
+        codeBackgroundOrigin = CGRect.adjustedPosition(from: detailsData.cellFrame)
         codeFontSize = initialCodeFontSize
         statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
         modalRect = CGRect(origin: CGRect.adjustedPosition(from: detailsData.cellFrame), size: detailsData.cellFrame.size)
@@ -67,8 +75,11 @@ struct AccountDetailsView: View {
                             withAnimation {
                                 backgroundAlpha = 0
                                 codeFontSize = initialCodeFontSize
-                                // I have no idea where these two points are coming from
+                                titleOrigin = CGRect.adjustedPosition(from: data.titleFrame)
+                                subTitleOrigin = CGRect.adjustedPosition(from: data.subTitleFrame)
+                                // I have no idea where these two points are coming from but a guess is the scale change has something to do with it
                                 codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2)
+                                codeBackgroundOrigin = CGRect.adjustedPosition(from: data.cellFrame)
                                 statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
                                 modalAlpha = 0.1
                                 modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.cellFrame), size: data.cellFrame.size)
@@ -77,13 +88,33 @@ struct AccountDetailsView: View {
                                 self.data = nil
                             }
                         }
-                    Color(.secondarySystemBackground) // details view background
+                    Color(.systemBackground) // details view background
                         .cornerRadius(15)
                         .shadow(color: .black.opacity(0.15), radius: 3)
                         .opacity(modalAlpha)
                         .frame(width: modalRect.size.width, height: modalRect.size.height)
                         .position(modalRect.origin)
                         .ignoresSafeArea()
+                    Color(.secondarySystemBackground) // Code background
+                        .cornerRadius(10)
+                        .opacity(modalAlpha)
+                        .frame(width:modalRect.size.width - 30, height: 50)
+                        .position(codeBackgroundOrigin)
+                        .ignoresSafeArea()
+                    Text(data.account.title)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
+                        .position(titleOrigin)
+                        .ignoresSafeArea()
+                    data.account.subTitle.map {
+                        Text($0)
+                            .font(.footnote)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.1)
+                            .position(subTitleOrigin)
+                            .ignoresSafeArea()
+                    }
                     Text(data.account.formattedCode) // code
                         .font(Font.system(size: codeFontSize))
                         .bold()
@@ -119,9 +150,17 @@ struct AccountDetailsView: View {
                             backgroundAlpha = 1.0
                             codeFontSize = finalCodeFontSize
                             modalAlpha = 1
-                            codeOrigin = CGPoint(x: reader.size.width / 2 + 5 + statusIconFrame.width / 2, y: reader.size.height / 2)
-                            statusIconOrigin = CGPoint(x: (reader.size.width / 2) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2 - 5, y: reader.size.height / 2)
-                            modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 120)
+                            titleOrigin = CGPoint(x: reader.size.width / 2,
+                                                  y: reader.size.height / 2 - (self.account.subTitle == nil ? 25 : 40))
+                            subTitleOrigin = CGPoint(x: reader.size.width / 2,
+                                                     y: reader.size.height / 2 - 15)
+                            codeOrigin = CGPoint(x: reader.size.width / 2 + 5 + statusIconFrame.width / 2,
+                                                 y: reader.size.height / 2 + 35)
+                            codeBackgroundOrigin = CGPoint(x: reader.size.width / 2,
+                                                           y: reader.size.height / 2 + 35)
+                            statusIconOrigin = CGPoint(x: (reader.size.width / 2) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2 - 5,
+                                                       y: reader.size.height / 2 + 35)
+                            modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 150)
                         }
                     }
                 }

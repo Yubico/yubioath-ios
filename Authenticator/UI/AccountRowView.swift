@@ -25,6 +25,8 @@ struct AccountRowView: View {
     @State private var codeFrame: CGRect = .zero
     @State private var statusIconFrame: CGRect = .zero
     @State private var cellFrame: CGRect = .zero
+    @State private var titleFrame: CGRect = .zero
+    @State private var subTitleFrame: CGRect = .zero
 
     var body: some View {
             HStack {
@@ -34,8 +36,10 @@ struct AccountRowView: View {
                     .cornerRadius(20)
                 VStack(alignment: .leading) {
                     Text(account.title).font(.headline).lineLimit(1).minimumScaleFactor(0.1)
+                        .readFrame($titleFrame)
                     account.subTitle.map {
                         Text($0).font(.footnote).lineLimit(1).minimumScaleFactor(0.1)
+                            .readFrame($subTitleFrame)
                     }
                 }
                 Spacer()
@@ -72,7 +76,12 @@ struct AccountRowView: View {
             }
             .listRowSeparator(.hidden)
             .onTapGesture {
-                let data = AccountDetailsData(account: account, codeFrame: codeFrame, statusIconFrame: statusIconFrame, cellFrame: cellFrame)
+                let data = AccountDetailsData(account: account,
+                                              codeFrame: codeFrame,
+                                              statusIconFrame: statusIconFrame,
+                                              cellFrame: cellFrame,
+                                              titleFrame: titleFrame,
+                                              subTitleFrame: subTitleFrame)
                 showAccountDetails = data
             }
             .readFrame($cellFrame)
