@@ -29,6 +29,9 @@ struct AccountDetailsData: Equatable {
 
 struct AccountDetailsView: View {
     
+    private let initialCodeFontSize = 17.0
+    private let finalCodeFontSize = 30.0
+
     @EnvironmentObject var model: MainViewModel
     @Binding var data: AccountDetailsData?
     @ObservedObject var account: Account
@@ -39,12 +42,15 @@ struct AccountDetailsView: View {
     @State private var modalRect: CGRect
     @State private var codeFontSize: CGFloat
     
+    @State private var codeFrame: CGRect = .zero
+    @State private var statusIconFrame: CGRect = .zero
+    
     init(data: Binding<AccountDetailsData?>) {
         guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
         self._data = data
         account = detailsData.account
         codeOrigin = CGRect.adjustedPosition(from: detailsData.codeFrame)
-        codeFontSize = 17
+        codeFontSize = initialCodeFontSize
         statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
         modalRect = CGRect(origin: CGRect.adjustedPosition(from: detailsData.cellFrame), size: detailsData.cellFrame.size)
         modalAlpha = 0.1
@@ -54,13 +60,13 @@ struct AccountDetailsView: View {
         if let data {
             GeometryReader { reader in
                 ZStack {
-                    Color.clear
+                    Color.clear // full screen cover
                         .background(.ultraThinMaterial.opacity(backgroundAlpha))
                         .ignoresSafeArea()
                         .onTapGesture {
                             withAnimation {
                                 backgroundAlpha = 0
-                                codeFontSize = 17
+                                codeFontSize = initialCodeFontSize
                                 // I have no idea where these two points are coming from
                                 codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2)
                                 statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
@@ -71,16 +77,17 @@ struct AccountDetailsView: View {
                                 self.data = nil
                             }
                         }
-                    Color(.secondarySystemBackground)
-                        .cornerRadius(10)
-                        .shadow(color: .black.opacity(0.2), radius: 3)
+                    Color(.secondarySystemBackground) // details view background
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.15), radius: 3)
                         .opacity(modalAlpha)
                         .frame(width: modalRect.size.width, height: modalRect.size.height)
                         .position(modalRect.origin)
                         .ignoresSafeArea()
-                    Text(data.account.formattedCode)
+                    Text(data.account.formattedCode) // code
                         .font(Font.system(size: codeFontSize))
                         .bold()
+                        .readFrame($codeFrame)
                         .foregroundColor(.gray)
                         .position(codeOrigin)
                         .ignoresSafeArea()
@@ -89,28 +96,33 @@ struct AccountDetailsView: View {
                         Image(systemName: "hand.tap.fill")
                             .font(.system(size: 18))
                             .foregroundStyle(.gray)
+                            .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     case .calculate:
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .font(.system(size: 22))
                             .foregroundStyle(.gray)
+                            .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     case .counter(let remaining):
                         PieProgressView(progress: remaining)
                             .frame(width: 22, height: 22)
+                            .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     }
                 }.onAppear {
-                    withAnimation {
-                        backgroundAlpha = 1.0
-                        codeFontSize = 30
-                        modalAlpha = 1
-                        codeOrigin = CGPoint(x: reader.size.width / 2 , y: reader.size.height / 2 - 10)
-                        statusIconOrigin = CGPoint(x: reader.size.width / 2 , y: reader.size.height / 2 + 30)
-                        modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 120)
+                    DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
+                        withAnimation {
+                            backgroundAlpha = 1.0
+                            codeFontSize = finalCodeFontSize
+                            modalAlpha = 1
+                            codeOrigin = CGPoint(x: reader.size.width / 2 + 5 + statusIconFrame.width / 2, y: reader.size.height / 2)
+                            statusIconOrigin = CGPoint(x: (reader.size.width / 2) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2 - 5, y: reader.size.height / 2)
+                            modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 120)
+                        }
                     }
                 }
             }
