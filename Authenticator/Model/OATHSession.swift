@@ -100,7 +100,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     func anySession() async throws -> OATHSession {
         if let currentSession {
-            let type: OATHSession.SessionType = accessoryConnection == nil && smartCardConnection == nil ? .nfc : .wired
+            let type: OATHSession.ConnectionType = accessoryConnection == nil && smartCardConnection == nil ? .nfc : .wired
             return OATHSession(session: currentSession, type: type)
         } else if let smartCardConnection {
             let session = try await smartCardConnection.oathSession()
@@ -168,15 +168,15 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
 
 class OATHSession {
     
-    enum SessionType {
+    enum ConnectionType {
         case nfc
         case wired
     }
     
     private let session: YKFOATHSession
-    public let type: SessionType
+    public let type: ConnectionType
 
-    init(session: YKFOATHSession, type: SessionType) {
+    init(session: YKFOATHSession, type: ConnectionType) {
         self.session = session
         self.type = type
     }

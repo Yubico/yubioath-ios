@@ -49,11 +49,38 @@ class MainViewModel: ObservableObject {
         }
         requestRefreshCancellable = requestRefresh
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
-            .sink { _ in
-                Task {
-                    await self.updateAccounts()
+            .sink { account in
+                if let account {
+                    Task {
+                        await self.updateAccount(account)
+                    }
+                } else {
+                    Task {
+                        await self.updateAccounts()
+                    }
                 }
             }
+    }
+    
+    @MainActor private func updateAccount(_ account: Account, using session: OATHSession? = nil) async {
+        do {
+            let useSession: OATHSession
+            if let session {
+                useSession = session
+            } else {
+                useSession = try await OATHSessionHandler.shared.anySession()
+            }
+            let code = try await useSession.calculate(credential: account.credential)
+            
+            if let account = (accounts.filter { $0.id == account.id }).first {
+                account.update(code: code)
+            }
+
+            useSession.endNFC(message: "Code calculated")
+        } catch {
+            print("updateAccounts error: \(error)")
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+        }
     }
     
     @MainActor private func updateAccounts(using session: OATHSession? = nil) async {
@@ -70,26 +97,26 @@ class MainViewModel: ObservableObject {
                 if credential.credential.type == .TOTP && !credential.credential.requiresTouch && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
-                    return self.account(credential: credential.credential, code: code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
+                    return self.account(credential: credential.credential, code: code, requestRefresh: requestRefresh, connectionType: useSession.type)
                 } else {
-                    return self.account(credential: credential.credential, code: credential.code, requestRefresh: useSession.type == .wired ? requestRefresh : nil)
+                    return self.account(credential: credential.credential, code: credential.code, requestRefresh: requestRefresh, connectionType: useSession.type)
                 }
             }
             self.accounts = updatedAccounts
             self.accountsLoaded = !credentials.isEmpty
-            useSession.endNFC(message: "Hepp")
+            useSession.endNFC(message: "Codes calculated")
         } catch {
             print("updateAccounts error: \(error)")
             handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
         }
     }
     
-    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>?) -> Account {
+    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
         if let account = (accounts.filter { $0.id == credential.id }).first {
             account.update(code: code)
             return account
         } else {
-            return Account(credential: credential, code: code, requestRefresh: requestRefresh)
+            return Account(credential: credential, code: code, requestRefresh: requestRefresh, connectionType: connectionType)
         }
     }
 

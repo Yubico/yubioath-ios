@@ -20,7 +20,7 @@ import UIKit
 private let defaultTextColor = UIColor.label
 private let defaultDisabledTextColor = UIColor.tertiaryLabel
 
-class Menu: UIView {
+class YubiMenu: UIView {
 
     let actions: [MenuAction]
 

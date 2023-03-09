@@ -101,13 +101,13 @@ struct AccountDetailsView: View {
                         .frame(width:modalRect.size.width - 30, height: 50)
                         .position(codeBackgroundOrigin)
                         .ignoresSafeArea()
-                    Text(data.account.title)
+                    Text(data.account.title) // Title
                         .font(.headline)
                         .lineLimit(1)
                         .minimumScaleFactor(0.1)
                         .position(titleOrigin)
                         .ignoresSafeArea()
-                    data.account.subTitle.map {
+                    data.account.subTitle.map { // Subtitle
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
@@ -144,6 +144,25 @@ struct AccountDetailsView: View {
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     }
+                    
+                    DetachedMenu(menuActions: [
+                        DetachedMenuAction(style: .default, isEnabled: true, title: "Calculate", systemImage: "arrow.clockwise", action: {
+                            self.account.requestRefresh.send(self.account)
+                            print("refresh \(self.account.requestRefresh)")
+                        }),
+                        DetachedMenuAction(style: .default, isEnabled: true, title: "Copy", systemImage: "square.and.arrow.up", action: {
+                            print("cnfiguratino")
+                        }),
+                        DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: {
+                            print("about")
+                        }),
+                        DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
+                            print("delete")
+                        })
+                    ])
+                    .position(CGPoint(x: reader.size.width / 2,
+                                      y: reader.size.height / 2 + 120))
+                    
                 }.onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
                         withAnimation {

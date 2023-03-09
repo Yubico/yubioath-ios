@@ -46,8 +46,18 @@ struct MainView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Menu") {
-                        print("Show menu")
+                    Menu {
+                        Button(action: { }) {
+                            Label("Add account", systemImage: "qrcode")
+                        }
+                        Button(action: { }) {
+                            Label("Configuration", systemImage: "switch.2")
+                        }
+                        Button(action: { }) {
+                            Label("About", systemImage: "questionmark.circle")
+                        }
+                    } label: {
+                        Label("Menu", systemImage: "ellipsis.circle")
                     }
                 }
             }

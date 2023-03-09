@@ -118,7 +118,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
     
     @objc dynamic let credential: Credential
     
-    var menu = Menu(actions: [])
+    var menu = YubiMenu(actions: [])
     var copyMenuAction: MenuAction?
     var calculateMenuAction: MenuAction?
     
@@ -190,7 +190,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
                        style: .destructive)
         }()
         
-        menu = Menu(actions: [calculateMenuAction,
+        menu = YubiMenu(actions: [calculateMenuAction,
                               copyMenuAction,
                               favoriteAction,
                               editAction,

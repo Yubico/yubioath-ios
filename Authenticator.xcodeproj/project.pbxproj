@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */; };
-		51394C5826CFE15F009F366D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5726CFE15F009F366D /* Menu.swift */; };
+		51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5726CFE15F009F366D /* YubiMenu.swift */; };
 		51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */; };
 		51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */; };
 		513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF12660D6570022C53D /* AddCredentialController.swift */; };
@@ -100,6 +100,7 @@
 		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
+		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -137,7 +138,7 @@
 
 /* Begin PBXFileReference section */
 		51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyInformationViewModel.swift; sourceTree = "<group>"; };
-		51394C5726CFE15F009F366D /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		51394C5726CFE15F009F366D /* YubiMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiMenu.swift; sourceTree = "<group>"; };
 		51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuGestureRecognizer.swift; sourceTree = "<group>"; };
 		513D4DF12660D6570022C53D /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
@@ -237,6 +238,7 @@
 		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
@@ -383,11 +385,12 @@
 				513F34DB246B144300FCE030 /* UIViewAdditions.swift */,
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
 				513D4DF6266634280022C53D /* ShowTime.swift */,
-				51394C5726CFE15F009F366D /* Menu.swift */,
+				51394C5726CFE15F009F366D /* YubiMenu.swift */,
 				51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */,
 				51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */,
 				51AFD4D127103E36008F2630 /* SearchBar.swift */,
 				B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */,
+				B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -752,12 +755,13 @@
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */,
+				B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,
-				51394C5826CFE15F009F366D /* Menu.swift in Sources */,
+				51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */,
 				A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */,
 				B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,

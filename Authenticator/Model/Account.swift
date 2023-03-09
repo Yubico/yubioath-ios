@@ -37,10 +37,13 @@ class Account: ObservableObject {
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
-    var requestRefresh: PassthroughSubject<Account?, Never>?
+    var requestRefresh: PassthroughSubject<Account?, Never>
+    var connectionType: OATHSession.ConnectionType
+    var credential: YKFOATHCredential
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>?) {
+    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) {
         id = credential.id
+        self.credential = credential
         if let issuer = credential.issuer {
             title = issuer
             subTitle = credential.accountName
@@ -48,18 +51,16 @@ class Account: ObservableObject {
             title = credential.accountName
         }
         
-        if credential.requiresTouch {
+        if credential.requiresTouch && code != nil {
             state = .requiresTouch
         } else if credential.type == .HOTP {
             state = .calculate
         } else {
             state = .counter(1.0)
         }
-        
+        self.connectionType = connectionType
         self.requestRefresh = requestRefresh
         self.update(code: code)
-        updateRemaining()
-        startTimer()
     }
     
     func resign() {
@@ -74,12 +75,16 @@ class Account: ObservableObject {
         self.validInterval = code.validity
         self.timeLeft = code.validity.end.timeIntervalSinceNow
         
-        if let timeLeft, requestRefresh != nil {
+        // Schedule refresh if connection is wired
+        if let timeLeft, connectionType == .wired {
             DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
                 guard self?.isResigned == false else { return }
-                self?.requestRefresh?.send(nil) // refresh all accounts signaled by sending nil
+                self?.requestRefresh.send(nil) // refresh all accounts signaled by sending nil
             }
         }
+        
+        updateRemaining()
+        startTimer()
     }
     
     func pin(_ flag: Bool) async throws {
@@ -117,6 +122,7 @@ class Account: ObservableObject {
 
     
     func startTimer() {
+        self.timer?.invalidate()
         guard validInterval != nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateRemaining()
@@ -129,8 +135,12 @@ class Account: ObservableObject {
             self.timeLeft = timeLeft
             if timeLeft > 0 {
                 self.state = .counter(timeLeft / validInterval.duration)
-            } else if requestRefresh == nil { // If no request refresh pass through this account is from a NFC key
-                self.state = .calculate
+            } else if connectionType == .nfc { // If no request refresh pass through this account is from a NFC key
+                self.state = self.credential.requiresTouch ? .requiresTouch : .calculate
+                self.timer?.invalidate()
+                self.timer = nil
+            } else {
+                self.state = .counter(1.0)
             }
         }
     }
