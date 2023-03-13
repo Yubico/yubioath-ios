@@ -40,13 +40,14 @@ struct DetachedMenuAction: View, Identifiable, Equatable {
             action()
         } label: {
             HStack{
-                Text(title).foregroundColor(color)
+                Text(title).foregroundColor(color.opacity(isEnabled ? 1 : 0.3))
                 Spacer()
-                Image(systemName: systemImage).foregroundColor(color)
+                Image(systemName: systemImage).foregroundColor(color.opacity(isEnabled ? 1 : 0.3))
             }
             .padding(8)
             .background(Color(.secondarySystemBackground))
         }
+        .disabled(!isEnabled)
     }
 }
 
@@ -84,7 +85,7 @@ struct DetachedMenu_Previews: PreviewProvider {
             Color(.systemBackground)
                 .ignoresSafeArea()
             DetachedMenu(menuActions: [
-                DetachedMenuAction(style: .default, isEnabled: true, title: "Calculate", systemImage: "arrow.clockwise", action: { } ),
+                DetachedMenuAction(style: .default, isEnabled: false, title: "Calculate", systemImage: "arrow.clockwise", action: { } ),
                 DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: { } ),
                 DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: { } ),
             ])

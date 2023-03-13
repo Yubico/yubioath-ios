@@ -146,12 +146,11 @@ struct AccountDetailsView: View {
                     }
                     
                     DetachedMenu(menuActions: [
-                        DetachedMenuAction(style: .default, isEnabled: true, title: "Calculate", systemImage: "arrow.clockwise", action: {
+                        DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: "Calculate", systemImage: "arrow.clockwise", action: {
                             self.account.requestRefresh.send(self.account)
-                            print("refresh \(self.account.requestRefresh)")
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: true, title: "Copy", systemImage: "square.and.arrow.up", action: {
-                            print("cnfiguratino")
+                        DetachedMenuAction(style: .default, isEnabled: !account.enableRefresh, title: "Copy", systemImage: "square.and.arrow.up", action: {
+                            UIPasteboard.general.string = account.code
                         }),
                         DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: {
                             print("about")

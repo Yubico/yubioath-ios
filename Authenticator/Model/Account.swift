@@ -34,6 +34,7 @@ class Account: ObservableObject {
     var color: Color = .red
     var isSteam: Bool = false
     var isResigned: Bool = false
+    var enableRefresh: Bool = true
     var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
@@ -56,6 +57,7 @@ class Account: ObservableObject {
         } else if credential.type == .HOTP {
             state = .calculate
         } else {
+            enableRefresh = false
             state = .counter(1.0)
         }
         self.connectionType = connectionType
@@ -135,12 +137,15 @@ class Account: ObservableObject {
             self.timeLeft = timeLeft
             if timeLeft > 0 {
                 self.state = .counter(timeLeft / validInterval.duration)
+                self.enableRefresh = false
             } else if connectionType == .nfc { // If no request refresh pass through this account is from a NFC key
                 self.state = self.credential.requiresTouch ? .requiresTouch : .calculate
                 self.timer?.invalidate()
                 self.timer = nil
+                self.enableRefresh = true
             } else {
                 self.state = .counter(1.0)
+                self.enableRefresh = false
             }
         }
     }
