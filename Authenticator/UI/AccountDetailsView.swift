@@ -46,7 +46,9 @@ struct AccountDetailsView: View {
     @State private var modalAlpha: CGFloat
     @State private var modalRect: CGRect
     @State private var codeFontSize: CGFloat
-    
+    @State private var menuAlpha: CGFloat = 0.0
+    @State private var menuScale: CGFloat = 0.3
+
     @State private var codeFrame: CGRect = .zero
     @State private var statusIconFrame: CGRect = .zero
     
@@ -72,33 +74,38 @@ struct AccountDetailsView: View {
                         .background(.ultraThinMaterial.opacity(backgroundAlpha))
                         .ignoresSafeArea()
                         .onTapGesture {
-                            withAnimation {
-                                backgroundAlpha = 0
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                backgroundAlpha = 0.0
                                 codeFontSize = initialCodeFontSize
                                 titleOrigin = CGRect.adjustedPosition(from: data.titleFrame)
                                 subTitleOrigin = CGRect.adjustedPosition(from: data.subTitleFrame)
                                 // I have no idea where these two points are coming from but a guess is the scale change has something to do with it
-                                codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2)
+                                codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2.0)
                                 codeBackgroundOrigin = CGRect.adjustedPosition(from: data.cellFrame)
                                 statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
                                 modalAlpha = 0.1
                                 modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.cellFrame), size: data.cellFrame.size)
                             }
+                            withAnimation(.easeInOut(duration: 0.15)) {
+                                menuScale = 0.3
+                                menuAlpha = 0.0
+                            }
+                            
                             Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
                                 self.data = nil
                             }
                         }
                     Color(.systemBackground) // details view background
-                        .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.15), radius: 3)
+                        .cornerRadius(15.0)
+                        .shadow(color: .black.opacity(0.15), radius: 3.0)
                         .opacity(modalAlpha)
                         .frame(width: modalRect.size.width, height: modalRect.size.height)
                         .position(modalRect.origin)
                         .ignoresSafeArea()
                     Color(.secondarySystemBackground) // Code background
-                        .cornerRadius(10)
+                        .cornerRadius(10.0)
                         .opacity(modalAlpha)
-                        .frame(width:modalRect.size.width - 30, height: 50)
+                        .frame(width:modalRect.size.width - 30.0, height: 50.0)
                         .position(codeBackgroundOrigin)
                         .ignoresSafeArea()
                     Text(data.account.title) // Title
@@ -125,21 +132,21 @@ struct AccountDetailsView: View {
                     switch(account.state) {
                     case .requiresTouch:
                         Image(systemName: "hand.tap.fill")
-                            .font(.system(size: 18))
+                            .font(.system(size: 18.0))
                             .foregroundStyle(.gray)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     case .calculate:
                         Image(systemName: "arrow.clockwise.circle.fill")
-                            .font(.system(size: 22))
+                            .font(.system(size: 22.0))
                             .foregroundStyle(.gray)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
                     case .counter(let remaining):
                         PieProgressView(progress: remaining)
-                            .frame(width: 22, height: 22)
+                            .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
@@ -159,27 +166,33 @@ struct AccountDetailsView: View {
                             print("delete")
                         })
                     ])
-                    .position(CGPoint(x: reader.size.width / 2,
-                                      y: reader.size.height / 2 + 120))
+                    .position(CGPoint(x: reader.size.width / 2.0,
+                                      y: reader.size.height / 2.0 + 120.0))
+                    .opacity(menuAlpha)
+                    .scaleEffect(menuScale, anchor: UnitPoint(x: 0.5, y: 0.55))
                     
                 }.onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
-                        withAnimation {
+                        withAnimation(.easeInOut(duration: 0.3)) {
                             backgroundAlpha = 1.0
                             codeFontSize = finalCodeFontSize
-                            modalAlpha = 1
-                            titleOrigin = CGPoint(x: reader.size.width / 2,
-                                                  y: reader.size.height / 2 - (self.account.subTitle == nil ? 25 : 40))
-                            subTitleOrigin = CGPoint(x: reader.size.width / 2,
-                                                     y: reader.size.height / 2 - 15)
-                            codeOrigin = CGPoint(x: reader.size.width / 2 + 5 + statusIconFrame.width / 2,
-                                                 y: reader.size.height / 2 + 35)
-                            codeBackgroundOrigin = CGPoint(x: reader.size.width / 2,
-                                                           y: reader.size.height / 2 + 35)
-                            statusIconOrigin = CGPoint(x: (reader.size.width / 2) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2 - 5,
-                                                       y: reader.size.height / 2 + 35)
-                            modalRect = CGRect(x: reader.size.width / 2, y: reader.size.height / 2, width: 300, height: 150)
+                            modalAlpha = 1.0
+                            titleOrigin = CGPoint(x: reader.size.width / 2.0,
+                                                  y: reader.size.height / 2.0 - (self.account.subTitle == nil ? 25.0 : 40.0))
+                            subTitleOrigin = CGPoint(x: reader.size.width / 2.0,
+                                                     y: reader.size.height / 2.0 - 15.0)
+                            codeOrigin = CGPoint(x: reader.size.width / 2.0 + 5.0 + statusIconFrame.width / 2.0,
+                                                 y: reader.size.height / 2.0 + 35.0)
+                            codeBackgroundOrigin = CGPoint(x: reader.size.width / 2.0,
+                                                           y: reader.size.height / 2.0 + 35.0)
+                            statusIconOrigin = CGPoint(x: (reader.size.width / 2.0) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2.0 - 5.0,
+                                                       y: reader.size.height / 2.0 + 35.0)
+                            modalRect = CGRect(x: reader.size.width / 2.0, y: reader.size.height / 2.0, width: 300.0, height: 150.0)
                         }
+                    }
+                    withAnimation(.easeInOut(duration: 0.15).delay(0.2)) {
+                        menuAlpha = 1.0
+                        menuScale = 1.0
                     }
                 }
             }
@@ -189,6 +202,6 @@ struct AccountDetailsView: View {
 
 extension CGRect {
     static func adjustedPosition(from rect: CGRect, xAdjustment: CGFloat = 0.0) -> CGPoint {
-        return CGPoint(x: rect.origin.x + rect.size.width / 2 + xAdjustment, y: rect.origin.y + rect.size.height / 2)
+        return CGPoint(x: rect.origin.x + rect.size.width / 2.0 + xAdjustment, y: rect.origin.y + rect.size.height / 2.0)
     }
 }
