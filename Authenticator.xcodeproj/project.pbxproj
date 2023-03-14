@@ -101,6 +101,7 @@
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
 		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
+		B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -239,6 +240,7 @@
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
+		B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		513D4DF02660D5AB0022C53D /* YubiKeyConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */,
 				513D4DF42660EBA40022C53D /* ConfigurationController.swift */,
 				51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
@@ -733,6 +736,7 @@
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
 				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
+				B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */,
 				513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,

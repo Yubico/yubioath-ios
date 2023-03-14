@@ -20,6 +20,7 @@ struct MainView: View {
     
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
+    @State var showConfiguration: Bool = false
     @State var password: String = ""
     
     var body: some View {
@@ -50,7 +51,7 @@ struct MainView: View {
                         Button(action: { }) {
                             Label("Add account", systemImage: "qrcode")
                         }
-                        Button(action: { }) {
+                        Button(action: { showConfiguration.toggle() }) {
                             Label("Configuration", systemImage: "switch.2")
                         }
                         Button(action: { }) {
@@ -62,10 +63,14 @@ struct MainView: View {
                 }
             }
             .navigationTitle(model.accountsLoaded ? "Accounts" : "")
-        }.overlay {
+        }
+        .overlay {
             if showAccountDetails != nil {
                 AccountDetailsView(data: $showAccountDetails)
             }
+        }
+        .fullScreenCover(isPresented: $showConfiguration) {
+            ConfigurationView(showConfiguration: $showConfiguration)
         }
         .alert("Enter password", isPresented: $model.presentPasswordEntry) {
             SecureField("Password", text: $password)
@@ -79,6 +84,11 @@ struct MainView: View {
             Text(model.passwordEntryMessage)
         }
         .errorAlert(error: $model.error)
+        .onAppear {
+            if ApplicationSettingsViewModel().isNFCOnAppLaunchEnabled {
+                model.updateAccountsOverNFC()
+            }
+        }
         .environmentObject(model)
     }
 }
