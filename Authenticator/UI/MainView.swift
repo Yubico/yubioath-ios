@@ -21,6 +21,7 @@ struct MainView: View {
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
     @State var showConfiguration: Bool = false
+    @State var showAbout: Bool = false
     @State var password: String = ""
     
     var body: some View {
@@ -54,7 +55,7 @@ struct MainView: View {
                         Button(action: { showConfiguration.toggle() }) {
                             Label("Configuration", systemImage: "switch.2")
                         }
-                        Button(action: { }) {
+                        Button(action: { showAbout.toggle() }) {
                             Label("About", systemImage: "questionmark.circle")
                         }
                     } label: {
@@ -71,6 +72,9 @@ struct MainView: View {
         }
         .fullScreenCover(isPresented: $showConfiguration) {
             ConfigurationView(showConfiguration: $showConfiguration)
+        }
+        .fullScreenCover(isPresented: $showAbout) {
+            AboutView(showHelp: $showAbout)
         }
         .alert("Enter password", isPresented: $model.presentPasswordEntry) {
             SecureField("Password", text: $password)

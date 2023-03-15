@@ -102,6 +102,7 @@
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
 		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
 		B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */; };
+		B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -241,6 +242,7 @@
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
 		B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWrapper.swift; sourceTree = "<group>"; };
+		B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 		81FA3C30231AF198009C22AB /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */,
 				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
 				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
 				B40327732847AB5000DF4DB0 /* LicensingViewController.swift */,
@@ -742,6 +745,7 @@
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,
 				5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */,
+				B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */,
 				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
 				515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */,
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
