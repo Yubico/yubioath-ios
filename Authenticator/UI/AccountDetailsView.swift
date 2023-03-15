@@ -163,7 +163,9 @@ struct AccountDetailsView: View {
                             print("about")
                         }),
                         DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
-                            print("delete")
+                            model.deleteAccount(account) {
+                                self.data = nil
+                            }
                         })
                     ])
                     .position(CGPoint(x: reader.size.width / 2.0,

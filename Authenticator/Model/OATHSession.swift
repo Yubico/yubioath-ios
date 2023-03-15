@@ -200,6 +200,17 @@ class OATHSession {
         }
     }
     
+    func deleteAccount(account: YKFOATHCredential) async throws {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            session.delete(account) { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                }
+                continuation.resume(returning: Void())
+            }
+        }
+    }
+    
     func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [YKFOATHCredentialWithCode] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[YKFOATHCredentialWithCode], Error>) in
             session.calculateAll(withTimestamp: timestamp) { credentials, error in
