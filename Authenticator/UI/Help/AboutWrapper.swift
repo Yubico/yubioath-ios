@@ -23,14 +23,12 @@ struct AboutView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                HelpWrapper()
-                    .navigationTitle("About")
-                    .navigationBarItems(trailing: Button("Close") {
-                        showAbout.toggle()
-                    })
-                    .ignoresSafeArea(.all, edges: .bottom)
-            }
+            HelpWrapper()
+                .navigationTitle("About")
+                .navigationBarItems(trailing: Button("Close") {
+                    showAbout.toggle()
+                })
+                .ignoresSafeArea(.all, edges: .bottom)
         }
     }
 }

@@ -614,7 +614,7 @@ All rights reserved.</string>
                             <outlet property="delegate" destination="fE6-O1-wZU" id="our-2q-fq8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Set password" id="eiF-JR-TAC">
+                    <navigationItem key="navigationItem" title="Set password" largeTitleDisplayMode="never" id="eiF-JR-TAC">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Baw-cE-YKP">
                             <connections>
                                 <action selector="cancel:" destination="fE6-O1-wZU" id="1f7-ik-w6r"/>
@@ -661,7 +661,7 @@ All rights reserved.</string>
             <objects>
                 <navigationController storyboardIdentifier="ShowPassword" automaticallyAdjustsScrollViewInsets="NO" id="lSw-49-AD0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Mr3-al-vxx"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Mr3-al-vxx"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lZq-BR-oKW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -804,7 +804,7 @@ All rights reserved.</string>
                             <outlet property="delegate" destination="aoN-t0-WPq" id="63n-64-Mle"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Toggle One-Time Password" id="Inc-aD-fdW"/>
+                    <navigationItem key="navigationItem" title="Toggle One-Time Password" largeTitleDisplayMode="never" id="Inc-aD-fdW"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="vjs-4B-RzZ" id="DIm-zS-KC4"/>
                         <outlet property="tagSwitch" destination="E8d-45-7V7" id="lzf-es-xYu"/>
@@ -1127,7 +1127,7 @@ All rights reserved.</string>
                             <outlet property="delegate" destination="t28-TG-awK" id="50S-IB-UyD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Smart card extension" id="fl4-8d-lD9">
+                    <navigationItem key="navigationItem" title="Smart card extension" largeTitleDisplayMode="never" id="fl4-8d-lD9">
                         <barButtonItem key="rightBarButtonItem" title="Item" image="questionmark.circle" catalog="system" id="hBA-XE-Ib1">
                             <connections>
                                 <action selector="showHelpWithSender:" destination="t28-TG-awK" id="maJ-50-zVg"/>
@@ -1588,7 +1588,7 @@ All rights reserved.</string>
                             <outlet property="delegate" destination="Bxb-bg-K32" id="aIQ-5A-RoE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Passwords and reset" id="9NQ-7X-HqZ"/>
+                    <navigationItem key="navigationItem" title="Passwords and reset" largeTitleDisplayMode="never" id="9NQ-7X-HqZ"/>
                     <connections>
                         <outlet property="clearPasswordsOnDeviceLabel" destination="gYP-vW-fFN" id="g5X-Ys-HDw"/>
                         <outlet property="removePasswordTableCell" destination="MHs-Sj-2EY" id="jo8-Xu-BAB"/>
@@ -1786,7 +1786,7 @@ All rights reserved.</string>
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="NFC settings" id="PCq-PC-KyX"/>
+                    <navigationItem key="navigationItem" title="NFC settings" largeTitleDisplayMode="never" id="PCq-PC-KyX"/>
                     <connections>
                         <outlet property="bypassTouchSwitch" destination="Fuy-PU-CzD" id="JRt-G1-l5M"/>
                         <outlet property="copyOTPSwitch" destination="Jjo-aP-iV6" id="OSd-G7-Rk5"/>

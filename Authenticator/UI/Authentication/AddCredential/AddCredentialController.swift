@@ -15,8 +15,11 @@
  */
 
 import UIKit
+import Combine
 
 class AddCredentialController: UITableViewController {
+    
+    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>?
     
     enum EntryMode {
         case manual, prefilled
@@ -147,7 +150,8 @@ class AddCredentialController: UITableViewController {
             return
         }
         self.requiresTouch = requiresTouchSwitch.isOn
-        self.performSegue(withIdentifier: .unwindToMainViewController, sender: sender)
+        self.accountSubject?.send((credential!, requiresTouchSwitch.isOn))
+        self.dismiss(animated: true)
     }
     
     // MARK: - Table view cell sizes

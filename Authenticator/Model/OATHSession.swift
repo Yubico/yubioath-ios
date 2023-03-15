@@ -189,6 +189,17 @@ class OATHSession {
         }
     }
     
+    func addAccount(template: YKFOATHCredentialTemplate, requiresTouch: Bool) async throws {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            session.put(template, requiresTouch: requiresTouch) { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                }
+                continuation.resume(returning: Void())
+            }
+        }
+    }
+    
     func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [YKFOATHCredentialWithCode] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[YKFOATHCredentialWithCode], Error>) in
             session.calculateAll(withTimestamp: timestamp) { credentials, error in

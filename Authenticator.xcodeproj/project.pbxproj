@@ -103,6 +103,7 @@
 		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
 		B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */; };
 		B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */; };
+		B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
@@ -243,6 +244,7 @@
 		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
 		B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWrapper.swift; sourceTree = "<group>"; };
 		B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWrapper.swift; sourceTree = "<group>"; };
+		B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 		81FA3C2B2319839B009C22AB /* AddCredential */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */,
 				513D4DF12660D6570022C53D /* AddCredentialController.swift */,
 				B4B1711727DF8C48002A62DE /* ScanAccountView.swift */,
 				81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */,
@@ -760,6 +763,7 @@
 				513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */,
 				5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
+				B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */,

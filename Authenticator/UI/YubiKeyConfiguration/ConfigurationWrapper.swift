@@ -23,14 +23,12 @@ struct ConfigurationView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                ConfigurationWrapper()
-                    .navigationTitle("Configuration")
-                    .navigationBarItems(trailing: Button("Close") {
-                        showConfiguration.toggle()
-                    })
-                    .ignoresSafeArea(.all, edges: .bottom)
-            }
+            ConfigurationWrapper()
+                .navigationTitle("Configuration")
+                .navigationBarItems(trailing: Button("Close") {
+                    showConfiguration.toggle()
+                })
+                .ignoresSafeArea(.all, edges: .bottom)
         }
     }
 }

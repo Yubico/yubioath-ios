@@ -24,6 +24,7 @@ class LicensingViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Licensing"
         self.view = textView
+        self.navigationItem.largeTitleDisplayMode = .never
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         guard let filepath = Bundle.main.path(forResource: "Licensing", ofType: "md"),
               let licensingMarkdown = try? String(contentsOfFile: filepath) else { return }

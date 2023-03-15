@@ -138,6 +138,24 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func addAccount(_ template: YKFOATHCredentialTemplate, requiresTouch: Bool) {
+        Task {
+            do {
+                print("👾 get session")
+                let session = try await OATHSessionHandler.shared.nfcSession()
+                print("👾 addAccount with: \(session)")
+                try await session.addAccount(template: template, requiresTouch: requiresTouch)
+                await updateAccounts(using: session)
+            } catch {
+                await MainActor.run {
+                    print("Set error: \(error)")
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                    self.error = error
+                }
+            }
+        }
+    }
+    
     func handle(error: Error, retry: (() -> Void)? = nil) {
         YubiKitManager.shared.stopNFCConnection()
         

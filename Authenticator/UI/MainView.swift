@@ -15,11 +15,15 @@
  */
 
 import SwiftUI
+import Combine
 
 struct MainView: View {
     
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
+    @State var showAddAccount: Bool = false
+    @State var addAccountCancellable: AnyCancellable?
+    @State var addAccountSubject = PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>()
     @State var showConfiguration: Bool = false
     @State var showAbout: Bool = false
     @State var password: String = ""
@@ -49,7 +53,7 @@ struct MainView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button(action: { }) {
+                        Button(action: { showAddAccount.toggle() }) {
                             Label("Add account", systemImage: "qrcode")
                         }
                         Button(action: { showConfiguration.toggle() }) {
@@ -69,6 +73,9 @@ struct MainView: View {
             if showAccountDetails != nil {
                 AccountDetailsView(data: $showAccountDetails)
             }
+        }
+        .sheet(isPresented: $showAddAccount) {
+            AddAccountView(showAddCredential: $showAddAccount, accountSubject: addAccountSubject)
         }
         .fullScreenCover(isPresented: $showConfiguration) {
             ConfigurationView(showConfiguration: $showConfiguration)
@@ -91,6 +98,9 @@ struct MainView: View {
         .onAppear {
             if ApplicationSettingsViewModel().isNFCOnAppLaunchEnabled {
                 model.updateAccountsOverNFC()
+            }
+            addAccountCancellable = addAccountSubject.sink { (template, requiresTouch) in
+                model.addAccount(template, requiresTouch: requiresTouch)
             }
         }
         .environmentObject(model)
