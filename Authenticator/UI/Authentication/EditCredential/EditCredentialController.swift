@@ -17,15 +17,14 @@
 import UIKit
 
 class EditCredentialController: UITableViewController {
-    public var credential: Credential?
-    public var viewModel: OATHViewModel?
-    public var model: CredentialViewModelDelegate?
+    public var account: Account?
+    public var viewModel: MainViewModel?
     @IBOutlet weak var issuerRow: SettingsRowView!
     @IBOutlet weak var accountRow: SettingsRowView!
     
     override func viewDidLoad() {
-        issuerRow.value = credential?.issuer
-        accountRow.value = credential?.account
+        issuerRow.value = account?.credential.issuer
+        accountRow.value = account?.credential.accountName
         super.viewDidLoad()
     }
     
@@ -37,12 +36,16 @@ class EditCredentialController: UITableViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        guard let credential = credential, let issuer = issuerRow.value, let account = accountRow.value, account.count > 0 else {
+        guard let account, let issuer = issuerRow.value, let accountName = accountRow.value, accountName.count > 0 else {
             showAlertDialog(title: "Account not set", message: "Account name can not be empty")
             return
         }
-        
-        viewModel?.renameCredential(credential: credential, issuer: issuer, account: account)
+        viewModel?.renameAccount(account, issuer: issuer, accountName: accountName) {
+            let credential = account.credential
+            credential.issuer = issuer
+            credential.accountName = accountName
+            account.credential = credential
+        }
         self.dismiss(animated: true)
     }
     

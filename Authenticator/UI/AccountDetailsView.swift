@@ -48,9 +48,12 @@ struct AccountDetailsView: View {
     @State private var codeFontSize: CGFloat
     @State private var menuAlpha: CGFloat = 0.0
     @State private var menuScale: CGFloat = 0.3
+    
+    @State private var showEditing = false
 
     @State private var codeFrame: CGRect = .zero
     @State private var statusIconFrame: CGRect = .zero
+    @State private var menuFrame: CGRect = .zero
     
     init(data: Binding<AccountDetailsData?>) {
         guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
@@ -162,18 +165,26 @@ struct AccountDetailsView: View {
                         DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: {
                             print("about")
                         }),
+                        DetachedMenuAction(style: .default, isEnabled: true, title: "Rename", systemImage: "square.and.pencil", action: {
+                            showEditing.toggle()
+                        }),
                         DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
                             model.deleteAccount(account) {
                                 self.data = nil
                             }
                         })
                     ])
+                    .readFrame($menuFrame)
                     .position(CGPoint(x: reader.size.width / 2.0,
-                                      y: reader.size.height / 2.0 + 120.0))
+                                      y: reader.size.height / 2.0 + 2.0 + menuFrame.size.height / 2.0 + 40.0))
                     .opacity(menuAlpha)
-                    .scaleEffect(menuScale, anchor: UnitPoint(x: 0.5, y: 0.55))
+                    .scaleEffect(menuScale, anchor: UnitPoint(x: 0.5, y: 0.5))
                     
-                }.onAppear {
+                }
+                .sheet(isPresented: $showEditing) {
+                    EditView(account: account, viewModel: model, showEditing: $showEditing)
+                }
+                .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
                         withAnimation(.easeInOut(duration: 0.3)) {
                             backgroundAlpha = 1.0

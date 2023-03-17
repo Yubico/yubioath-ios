@@ -309,8 +309,8 @@ class OATHViewController: UITableViewController {
             guard let navigationController = segue.destination as? UINavigationController,
                   let destination = navigationController.topViewController as? EditCredentialController,
                   let credential = sender as? Credential else { assertionFailure(); return }
-            destination.credential = credential
-            destination.viewModel = viewModel
+//            destination.credential = credential
+//            destination.viewModel = viewModel
         }
 
         if segue.identifier == .startTutorial {

@@ -89,6 +89,7 @@
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
+		B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
 		B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B16298AA6E7006CDAEA /* MainView.swift */; };
 		B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */; };
@@ -231,6 +232,7 @@
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
+		B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountWrapper.swift; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
 		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorApp.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		513F34BC24633A4A00FCE030 /* EditCredential */ = {
 			isa = PBXGroup;
 			children = (
+				B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */,
 				513F34C12463F44300FCE030 /* EditCredentialController.swift */,
 				513F34C72464658F00FCE030 /* SettingsRowView.swift */,
 				513F34BF2463F0C900FCE030 /* EditFieldController.swift */,
@@ -722,6 +725,7 @@
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
+				B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */,
 				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,

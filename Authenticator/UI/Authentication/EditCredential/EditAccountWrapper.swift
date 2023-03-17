@@ -15,43 +15,49 @@
  */
 
 import SwiftUI
-import Combine
 
-struct AddAccountView: View {
+
+struct EditView: View {
     
-    @Binding var showAddAccount: Bool
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>
+    @Binding var showEditing: Bool
+    
+    let viewModel: MainViewModel
+    let account: Account
+    
     let navigationBarAppearance = UINavigationBarAppearance()
 
-    init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>) {
-        _showAddAccount = showAddCredential
-        self.accountSubject = accountSubject
+    init(account: Account, viewModel: MainViewModel, showEditing: Binding<Bool> ) {
+        self.account = account
+        self.viewModel = viewModel
+        _showEditing = showEditing
         navigationBarAppearance.shadowColor = .secondarySystemBackground
         navigationBarAppearance.backgroundColor = .secondarySystemBackground
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     var body: some View {
-        AddCredentialWrapper(accountSubject: accountSubject)
+        EditAccountWrapper(account: account, viewModel: viewModel)
             .navigationTitle("Add Credential")
-            .navigationBarItems(trailing: Button("Close") {
-                showAddAccount.toggle()
+            .navigationBarItems(trailing: Button("WAAAT") {
+                showEditing.toggle()
             })
             .ignoresSafeArea(.all, edges: .bottom)
     }
 }
 
-struct AddCredentialWrapper: UIViewControllerRepresentable {
+struct EditAccountWrapper: UIViewControllerRepresentable {
     
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>
+    
+    let account: Account
+    let viewModel: MainViewModel
     
     func makeUIViewController(context: Context) -> UINavigationController {
-        let sb = UIStoryboard(name: "AddCredential", bundle: nil)
-        let vc = sb.instantiateViewController(identifier: "AddCredentialController") as! UINavigationController
+        let sb = UIStoryboard(name: "EditCredential", bundle: nil)
+        let vc = sb.instantiateViewController(identifier: "EditCredentialController") as! UINavigationController
         
-        guard let credentialController = vc.topViewController as? AddCredentialController else { fatalError() }
-        
-        credentialController.accountSubject = accountSubject
+        guard let editCredentialController = vc.topViewController as? EditCredentialController else { fatalError() }
+        editCredentialController.account = account
+        editCredentialController.viewModel = viewModel
         
         return vc
     }
@@ -62,8 +68,3 @@ struct AddCredentialWrapper: UIViewControllerRepresentable {
     typealias UIViewControllerType = UINavigationController
 }
 
-struct AddCredentialWrapper_Previews: PreviewProvider {
-    static var previews: some View {
-        HelpWrapper()
-    }
-}

@@ -167,8 +167,8 @@ class OATHCodeDetailsView: UIVisualEffectView {
                     guard let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController,
                           let editController = navigationController.children.first as? EditCredentialController
                     else { return }
-                    editController.credential = credential
-                    editController.viewModel = viewModel
+//                    editController.credential = credential
+//                    editController.viewModel = viewModel
                     parentViewController.present(navigationController, animated: true)
                 }
                 return MenuAction(title: "Rename", image: UIImage(systemName: "square.and.pencil"), action: action)

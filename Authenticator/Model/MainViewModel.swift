@@ -120,7 +120,7 @@ class MainViewModel: ObservableObject {
         }
     }
 
-    func updateAccountsOverNFC() {
+    @MainActor func updateAccountsOverNFC() {
         print("👾 updateAccountsOverNFC")
         Task {
             do {
@@ -129,11 +129,9 @@ class MainViewModel: ObservableObject {
                 print("👾 updateAccounts with: \(session)")
                 await updateAccounts(using: session)
             } catch {
-                await MainActor.run {
-                    print("Set error: \(error)")
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                    self.error = error
-                }
+                print("Set error: \(error)")
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                self.error = error
             }
         }
     }
@@ -142,16 +140,32 @@ class MainViewModel: ObservableObject {
         Task {
             do {
                 print("👾 get session")
-                let session = try await OATHSessionHandler.shared.nfcSession()
+                let session = try await OATHSessionHandler.shared.anySession()
                 print("👾 addAccount with: \(session)")
                 try await session.addAccount(template: template, requiresTouch: requiresTouch)
                 await updateAccounts(using: session)
             } catch {
-                await MainActor.run {
-                    print("Set error: \(error)")
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                    self.error = error
-                }
+                print("Set error: \(error)")
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                self.error = error
+            }
+        }
+    }
+    
+    @MainActor func renameAccount(_ account: Account, issuer: String, accountName: String, completion: @escaping () -> Void) {
+        Task {
+            do {
+                let session = try await OATHSessionHandler.shared.anySession()
+                try await session.renameAccount(account: account, issuer: issuer, accountName: accountName)
+                account.credential.issuer = issuer
+                account.credential.accountName = accountName
+                account.updateTitles()
+                await updateAccounts(using: session)
+                YubiKitManager.shared.stopNFCConnection(withMessage: "Account renamed")
+                completion()
+            } catch {
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                self.error = error
             }
         }
     }
@@ -160,18 +174,16 @@ class MainViewModel: ObservableObject {
         Task {
             do {
                 print("👾 get session")
-                let session = try await OATHSessionHandler.shared.nfcSession()
+                let session = try await OATHSessionHandler.shared.anySession()
                 print("👾 deleteAccount with: \(session)")
                 try await session.deleteAccount(account: account.credential)
                 accounts.removeAll { $0.id == account.id }
                 session.endNFC(message: "Account deleted")
                 completion()
             } catch {
-                await MainActor.run {
-                    print("Set error: \(error)")
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                    self.error = error
-                }
+                print("Set error: \(error)")
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                self.error = error
             }
         }
     }

@@ -30,7 +30,7 @@ class Account: ObservableObject {
     @Published var subTitle: String?
     @Published var state: AccountState
     
-    let id: String
+    var id: String { credential.id }
     var color: Color = .red
     var isSteam: Bool = false
     var isResigned: Bool = false
@@ -43,14 +43,9 @@ class Account: ObservableObject {
     var credential: YKFOATHCredential
     
     init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) {
-        id = credential.id
         self.credential = credential
-        if let issuer = credential.issuer {
-            title = issuer
-            subTitle = credential.accountName
-        } else {
-            title = credential.accountName
-        }
+        title = credential.title
+        subTitle = credential.subTitle
         
         if credential.requiresTouch && code != nil {
             state = .requiresTouch
@@ -67,6 +62,11 @@ class Account: ObservableObject {
     
     func resign() {
         isResigned = true
+    }
+    
+    func updateTitles() {
+        title = credential.title
+        subTitle = credential.subTitle
     }
     
     func update(code: YKFOATHCode?) {
@@ -147,6 +147,23 @@ class Account: ObservableObject {
                 self.state = .counter(1.0)
                 self.enableRefresh = false
             }
+        }
+    }
+}
+
+extension YKFOATHCredential {
+    var title: String {
+        if let issuer, issuer.isEmpty == false {
+            return issuer
+        } else {
+            return accountName
+        }
+    }
+    var subTitle: String? {
+        if issuer != nil && issuer?.isEmpty == false {
+            return accountName
+        } else {
+            return nil
         }
     }
 }

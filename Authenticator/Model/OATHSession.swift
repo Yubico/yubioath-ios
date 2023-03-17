@@ -211,6 +211,18 @@ class OATHSession {
         }
     }
     
+    func renameAccount(account: Account, issuer: String, accountName: String) async throws {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            session.renameCredential(account.credential, newIssuer: issuer, newAccount: accountName) { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume(returning: Void())
+            }
+        }
+    }
+    
     func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [YKFOATHCredentialWithCode] {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[YKFOATHCredentialWithCode], Error>) in
             session.calculateAll(withTimestamp: timestamp) { credentials, error in
