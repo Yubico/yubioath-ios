@@ -165,15 +165,15 @@ struct AccountDetailsView: View {
                         DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: {
                             print("about")
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: true, title: "Rename", systemImage: "square.and.pencil", action: {
+                        account.keyVersion >= YKFVersion(string: "5.3.0") ? DetachedMenuAction(style: .default, isEnabled: true, title: "Rename", systemImage: "square.and.pencil", action: {
                             showEditing.toggle()
-                        }),
+                        }) : nil,
                         DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
                             model.deleteAccount(account) {
                                 self.data = nil
                             }
                         })
-                    ])
+                    ].compactMap { $0 } )
                     .readFrame($menuFrame)
                     .position(CGPoint(x: reader.size.width / 2.0,
                                       y: reader.size.height / 2.0 + 2.0 + menuFrame.size.height / 2.0 + 40.0))

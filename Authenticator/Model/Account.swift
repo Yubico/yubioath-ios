@@ -41,11 +41,13 @@ class Account: ObservableObject {
     var requestRefresh: PassthroughSubject<Account?, Never>
     var connectionType: OATHSession.ConnectionType
     var credential: YKFOATHCredential
+    var keyVersion: YKFVersion
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) {
+    init(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) {
         self.credential = credential
         title = credential.title
         subTitle = credential.subTitle
+        self.keyVersion = keyVersion
         
         if credential.requiresTouch && code != nil {
             state = .requiresTouch

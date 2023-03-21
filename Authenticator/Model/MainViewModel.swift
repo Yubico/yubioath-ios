@@ -97,9 +97,9 @@ class MainViewModel: ObservableObject {
                 if credential.credential.type == .TOTP && !credential.credential.requiresTouch && credential.credential.period != 30 {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
-                    return self.account(credential: credential.credential, code: code, requestRefresh: requestRefresh, connectionType: useSession.type)
+                    return self.account(credential: credential.credential, code: code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 } else {
-                    return self.account(credential: credential.credential, code: credential.code, requestRefresh: requestRefresh, connectionType: useSession.type)
+                    return self.account(credential: credential.credential, code: credential.code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 }
             }
             self.accounts = updatedAccounts
@@ -111,12 +111,12 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
+    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
         if let account = (accounts.filter { $0.id == credential.id }).first {
             account.update(code: code)
             return account
         } else {
-            return Account(credential: credential, code: code, requestRefresh: requestRefresh, connectionType: connectionType)
+            return Account(credential: credential, code: code, keyVersion: keyVersion, requestRefresh: requestRefresh, connectionType: connectionType)
         }
     }
 

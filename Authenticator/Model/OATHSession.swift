@@ -175,6 +175,9 @@ class OATHSession {
     
     private let session: YKFOATHSession
     public let type: ConnectionType
+    public var version: YKFVersion {
+        session.version
+    }
 
     init(session: YKFOATHSession, type: ConnectionType) {
         self.session = session
