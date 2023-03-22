@@ -27,6 +27,7 @@ class MainViewModel: ObservableObject {
     @Published var passwordEntryMessage: String = ""
     @Published var error: Error?
         
+    var accessKeyMemoryCache = AccessKeyCache()
     public var password = PassthroughSubject<String?, Never>()
     private var passwordCancellable: AnyCancellable? = nil
     
@@ -188,32 +189,94 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    func handle(error: Error, retry: (() -> Void)? = nil) {
-        YubiKitManager.shared.stopNFCConnection()
-        
-        if let oathError = error as? YKFOATHError,
-           oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue || oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
-            DispatchQueue.main.async {
-                self.passwordEntryMessage = oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue ? "To prevent unauthorized access this YubiKey is protected with a password." : "Incorrect password. Re-enter password."
-                self.presentPasswordEntry = true
-                self.passwordCancellable = self.password.sink { password in
-                    if let password {
-                        Task {
-                            print("👾 password: \(password)")
-                            let session = try await OATHSessionHandler.shared.anySession()
-                            print("👾 unlock with: \(session)")
-                            do {
-                                try await session.unlock(password: password)
-                                retry?()
-                            } catch {
-                                self.handle(error: error, retry: retry)
-                            }
+    func collectPasswordAndUnlock(isRetry: Bool = false, completion: @escaping (Error?) -> Void) {
+        DispatchQueue.main.async {
+            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Key is password protected")
+            self.passwordEntryMessage = isRetry ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
+            self.presentPasswordEntry = true
+            self.passwordCancellable = self.password.sink { password in
+                if let password {
+                    Task {
+                        print("👾 password: \(password)")
+                        let session = try await OATHSessionHandler.shared.anySession()
+                        print("👾 unlock with: \(session)")
+                        do {
+                            let accessKey = try await session.unlock(withPassword: password)
+                            self.accessKeyMemoryCache.setAccessKey(accessKey, forKey: session.deviceId)
+                            completion(nil)
+                        } catch {
+                            completion(error)
                         }
                     }
                 }
             }
+        }
+    }
+    
+    func handle(error: Error, retry: (() -> Void)? = nil) {
+        if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
+            self.cachedAccessKey { [self] accessKey in
+                print("👾 got access key: \(accessKey?.debugDescription ?? "no key")")
+                if let accessKey {
+                    Task {
+                        do {
+                            let session = try await OATHSessionHandler.shared.anySession()
+                            try await session.unlock(withAccessKey: accessKey)
+                            retry?()
+                        } catch {
+                            self.collectPasswordAndUnlock() { error in
+                                if let error {
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                                    self.handle(error: error, retry: retry)
+                                } else {
+                                    retry?()
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    self.collectPasswordAndUnlock() { error in
+                        if let error {
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                            self.handle(error: error, retry: retry)
+                        } else {
+                            retry?()
+                        }
+                    }
+                }
+            }
+        } else if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
+            collectPasswordAndUnlock(isRetry: true) { error in
+                if let error {
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                    self.handle(error: error, retry: retry)
+                } else {
+                    retry?()
+                }
+            }
         } else {
+            YubiKitManager.shared.stopNFCConnection()
             self.error = error
+        }
+    }
+    
+    private func cachedAccessKey(completion: @escaping (Data?) -> Void) {
+        print("👾 get cachedAccessKey")
+        Task {
+            do {
+                print("👾 get session for cachedAccessKey")
+                let session = try await OATHSessionHandler.shared.anySession()
+                print("👾 got \(session.deviceId) for cachedAccessKey")
+                let keyIdentifier = session.deviceId
+                if let accessKey = self.accessKeyMemoryCache.accessKey(forKey: keyIdentifier) {
+                    completion(accessKey)
+                } else {
+                    completion(nil)
+                }
+            } catch {
+                print("👾 got \(error) for cachedAccessKey")
+                completion(nil)
+            }
         }
     }
 }

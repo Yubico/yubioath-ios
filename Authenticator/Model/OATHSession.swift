@@ -178,7 +178,10 @@ class OATHSession {
     public var version: YKFVersion {
         session.version
     }
-
+    public var deviceId: String {
+        session.deviceId
+    }
+    
     init(session: YKFOATHSession, type: ConnectionType) {
         self.session = session
         self.type = type
@@ -259,6 +262,34 @@ class OATHSession {
             session.unlock(withPassword: password) { error in
                 if let error {
                     print("👾 failed unlocking: \(error)")
+                    continuation.resume(throwing: error)
+                } else {
+                    print("👾 unlocked!")
+                    continuation.resume()
+                }
+            }
+        }
+    }
+    
+    func unlock(withPassword password: String) async throws -> Data {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Data, Error>) in
+            let accessKey = session.deriveAccessKey(password)
+            session.unlock(withAccessKey: accessKey) { error in
+                if let error {
+                    print("👾 failed unlocking with access password: \(error)")
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(with: .success(accessKey))
+                }
+            }
+        }
+    }
+    
+    func unlock(withAccessKey accessKey: Data) async throws {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            session.unlock(withAccessKey: accessKey) { error in
+                if let error {
+                    print("👾 failed unlocking with access key: \(error)")
                     continuation.resume(throwing: error)
                 } else {
                     print("👾 unlocked!")
