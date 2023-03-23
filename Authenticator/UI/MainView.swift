@@ -94,6 +94,13 @@ struct MainView: View {
         } message: {
             Text(model.passwordEntryMessage)
         }
+        .confirmationDialog("Save password?", isPresented: $model.presentPasswordSaveType) {
+            Button("Save password") { model.passwordSaveType.send(.some(.save)) }
+            let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
+            Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
+            Button("Never for this YubiKey") { model.passwordSaveType.send(.some(.never)) }
+            Button("Not now" , role: .cancel) { model.passwordSaveType.send(nil) }
+        }
         .errorAlert(error: $model.error)
         .onAppear {
             if ApplicationSettingsViewModel().isNFCOnAppLaunchEnabled {

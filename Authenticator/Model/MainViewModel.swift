@@ -24,12 +24,19 @@ class MainViewModel: ObservableObject {
     @Published var accounts: [Account] = []
     @Published var accountsLoaded: Bool = false
     @Published var presentPasswordEntry: Bool = false
+    @Published var presentPasswordSaveType: Bool = false
     @Published var passwordEntryMessage: String = ""
     @Published var error: Error?
         
     var accessKeyMemoryCache = AccessKeyCache()
+    let accessKeySecureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
+    let passwordPreferences = PasswordPreferences()
+    
     public var password = PassthroughSubject<String?, Never>()
     private var passwordCancellable: AnyCancellable? = nil
+    
+    public var passwordSaveType = PassthroughSubject<PasswordSaveType?, Never>()
+    private var passwordSaveTypeCancellable: AnyCancellable? = nil
     
     private var requestRefresh = PassthroughSubject<Account?, Never>()
     private var requestRefreshCancellable: AnyCancellable? = nil
@@ -107,7 +114,7 @@ class MainViewModel: ObservableObject {
             self.accountsLoaded = !credentials.isEmpty
             useSession.endNFC(message: "Codes calculated")
         } catch {
-            print("updateAccounts error: \(error)")
+            print("👾 updateAccounts error: \(error)")
             handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
         }
     }
@@ -203,6 +210,7 @@ class MainViewModel: ObservableObject {
                         do {
                             let accessKey = try await session.unlock(withPassword: password)
                             self.accessKeyMemoryCache.setAccessKey(accessKey, forKey: session.deviceId)
+                            self.handleAccessKeyStorage(accessKey: accessKey, forKey: session.deviceId)
                             completion(nil)
                         } catch {
                             completion(error)
@@ -261,21 +269,47 @@ class MainViewModel: ObservableObject {
     }
     
     private func cachedAccessKey(completion: @escaping (Data?) -> Void) {
-        print("👾 get cachedAccessKey")
         Task {
             do {
-                print("👾 get session for cachedAccessKey")
                 let session = try await OATHSessionHandler.shared.anySession()
-                print("👾 got \(session.deviceId) for cachedAccessKey")
                 let keyIdentifier = session.deviceId
+                // Check memory cache
                 if let accessKey = self.accessKeyMemoryCache.accessKey(forKey: keyIdentifier) {
                     completion(accessKey)
-                } else {
-                    completion(nil)
+                    return
+                }
+                // Finally check key chain
+                self.accessKeySecureStore.getValue(for: keyIdentifier) { result in
+                    let accessKey = try? result.get()
+                    completion(accessKey)
                 }
             } catch {
-                print("👾 got \(error) for cachedAccessKey")
                 completion(nil)
+            }
+        }
+    }
+    
+    func handleAccessKeyStorage(accessKey: Data, forKey keyIdentifier: String) {
+        guard !self.passwordPreferences.neverSavePassword(keyIdentifier: keyIdentifier) else { return }
+        self.accessKeySecureStore.getValue(for: keyIdentifier) { (result: Result<Data, Error>) -> Void in
+            DispatchQueue.main.async {
+                let currentAccessKey: Data? = try? result.get()
+                if accessKey != currentAccessKey {
+                    self.presentPasswordSaveType = true
+                    self.passwordSaveTypeCancellable = self.passwordSaveType.sink { [weak self] type in
+                        defer { self?.passwordSaveTypeCancellable = nil }
+                        guard let type, let self else { return }
+                        self.passwordPreferences.setPasswordPreference(saveType: type, keyIdentifier: keyIdentifier)
+                        if type == .save || type == .lock {
+                            do {
+                                try self.accessKeySecureStore.setValue(accessKey, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier), for: keyIdentifier)
+                            } catch {
+                                self.passwordPreferences.resetPasswordPreference(keyIdentifier: keyIdentifier)
+                                self.error = error
+                            }
+                        }
+                    }
+                }
             }
         }
     }
