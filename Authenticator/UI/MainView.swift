@@ -31,8 +31,23 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(model.accounts, id: \.id) { account in
-                    AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                if model.pinnedAccounts.count > 0 {
+                    Section(header: Text("Pinned")) {
+                        ForEach(model.pinnedAccounts, id: \.id) { account in
+                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                        }
+                    }
+                    if model.accounts.count > 0 {
+                        Section(header: Text("Other")) {
+                            ForEach(model.accounts, id: \.id) { account in
+                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                            }
+                        }
+                    }
+                } else {
+                    ForEach(model.accounts, id: \.id) { account in
+                        AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                    }
                 }
             }
             .listStyle(.inset)

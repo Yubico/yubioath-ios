@@ -29,6 +29,7 @@ class Account: ObservableObject {
     @Published var title: String
     @Published var subTitle: String?
     @Published var state: AccountState
+    @Published var isPinned: Bool
     
     var id: String { credential.id }
     var color: Color = .red
@@ -43,10 +44,11 @@ class Account: ObservableObject {
     var credential: YKFOATHCredential
     var keyVersion: YKFVersion
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) {
+    init(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
         self.credential = credential
         title = credential.title
         subTitle = credential.subTitle
+        self.isPinned = isPinned
         self.keyVersion = keyVersion
         
         if credential.requiresTouch && code != nil {
@@ -89,10 +91,6 @@ class Account: ObservableObject {
         
         updateRemaining()
         startTimer()
-    }
-    
-    func pin(_ flag: Bool) async throws {
-        // to be implemented
     }
     
     var formattedCode: String {
@@ -150,6 +148,16 @@ class Account: ObservableObject {
                 self.enableRefresh = false
             }
         }
+    }
+}
+
+extension Account: Comparable {
+    static func == (lhs: Account, rhs: Account) -> Bool {
+        return lhs.id.lowercased() == rhs.id.lowercased()
+    }
+
+    static func < (lhs: Account, rhs: Account) -> Bool {
+        return lhs.id.lowercased() < rhs.id.lowercased()
     }
 }
 

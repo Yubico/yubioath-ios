@@ -22,6 +22,7 @@ import Combine
 class MainViewModel: ObservableObject {
     
     @Published var accounts: [Account] = []
+    @Published var pinnedAccounts: [Account] = []
     @Published var accountsLoaded: Bool = false
     @Published var presentPasswordEntry: Bool = false
     @Published var presentPasswordSaveType: Bool = false
@@ -43,6 +44,10 @@ class MainViewModel: ObservableObject {
 
     private var sessionTask: Task<(), Never>? = nil
     
+    private var favoritesStorage = FavoritesStorage()
+    private var favorites: Set<String> = []
+    private var favoritesCancellables = [AnyCancellable]()
+
     init() {
         sessionTask = Task {
             for await session in OATHSessionHandler.shared.wiredSessions() {
@@ -68,6 +73,7 @@ class MainViewModel: ObservableObject {
                     }
                 }
             }
+        self.favorites = favoritesStorage.readFavorites()
     }
     
     @MainActor private func updateAccount(_ account: Account, using session: OATHSession? = nil) async {
@@ -93,6 +99,7 @@ class MainViewModel: ObservableObject {
     
     @MainActor private func updateAccounts(using session: OATHSession? = nil) async {
         do {
+            favoritesCancellables.removeAll()
             let useSession: OATHSession
             if let session {
                 useSession = session
@@ -110,8 +117,31 @@ class MainViewModel: ObservableObject {
                     return self.account(credential: credential.credential, code: credential.code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 }
             }
-            self.accounts = updatedAccounts
-            self.accountsLoaded = !credentials.isEmpty
+            
+            self.pinnedAccounts = updatedAccounts.filter { $0.isPinned }.sorted()
+            self.accounts = updatedAccounts.filter { !$0.isPinned }.sorted()
+            
+            updatedAccounts.forEach { account in
+                // We need to drop the first value since the Publisher sends the initial value when we start subscribing
+                let cancellable = account.$isPinned.dropFirst().sink { [weak self, weak account] isPinned in
+                    guard let self, let account else { return }
+                    if isPinned {
+                        self.favorites.insert(account.id)
+                        self.pinnedAccounts.append(account)
+                        self.pinnedAccounts = self.pinnedAccounts.sorted()
+                        self.accounts.removeAll { $0.id == account.id }
+                    } else {
+                        self.favorites.remove(account.id)
+                        self.pinnedAccounts.removeAll { $0.id == account.id }
+                        self.accounts.append(account)
+                        self.accounts = self.accounts.sorted()
+                    }
+                    self.favoritesStorage.saveFavorites(self.favorites)
+                }
+                favoritesCancellables.append(cancellable)
+            }
+            
+            self.accountsLoaded = !updatedAccounts.isEmpty
             useSession.endNFC(message: "Codes calculated")
         } catch {
             print("👾 updateAccounts error: \(error)")
@@ -124,7 +154,8 @@ class MainViewModel: ObservableObject {
             account.update(code: code)
             return account
         } else {
-            return Account(credential: credential, code: code, keyVersion: keyVersion, requestRefresh: requestRefresh, connectionType: connectionType)
+            let account = Account(credential: credential, code: code, keyVersion: keyVersion, requestRefresh: requestRefresh, connectionType: connectionType, isPinned: favorites.contains(credential.id))
+            return account
         }
     }
 

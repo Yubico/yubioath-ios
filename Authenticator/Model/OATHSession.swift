@@ -200,6 +200,7 @@ class OATHSession {
             session.put(template, requiresTouch: requiresTouch) { error in
                 if let error {
                     continuation.resume(throwing: error)
+                    return
                 }
                 continuation.resume(returning: Void())
             }
@@ -211,6 +212,7 @@ class OATHSession {
             session.delete(account) { error in
                 if let error {
                     continuation.resume(throwing: error)
+                    return
                 }
                 continuation.resume(returning: Void())
             }

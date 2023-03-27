@@ -162,8 +162,8 @@ struct AccountDetailsView: View {
                         DetachedMenuAction(style: .default, isEnabled: !account.enableRefresh, title: "Copy", systemImage: "square.and.arrow.up", action: {
                             UIPasteboard.general.string = account.code
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: true, title: "Pin", systemImage: "pin", action: {
-                            print("about")
+                        DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? "Unpin" : "Pin", systemImage: "pin", action: {
+                            account.isPinned.toggle()
                         }),
                         account.keyVersion >= YKFVersion(string: "5.3.0") ? DetachedMenuAction(style: .default, isEnabled: true, title: "Rename", systemImage: "square.and.pencil", action: {
                             showEditing.toggle()
