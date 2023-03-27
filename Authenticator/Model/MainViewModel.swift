@@ -184,9 +184,7 @@ class MainViewModel: ObservableObject {
                 try await session.addAccount(template: template, requiresTouch: requiresTouch)
                 await updateAccounts(using: session)
             } catch {
-                print("Set error: \(error)")
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                self.error = error
+                handle(error: error, retry: { self.addAccount(template, requiresTouch: requiresTouch) })
             }
         }
     }
@@ -203,8 +201,7 @@ class MainViewModel: ObservableObject {
                 YubiKitManager.shared.stopNFCConnection(withMessage: "Account renamed")
                 completion()
             } catch {
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                self.error = error
+                handle(error: error, retry: { self.renameAccount(account, issuer: issuer, accountName: accountName, completion: completion) })
             }
         }
     }
@@ -220,9 +217,7 @@ class MainViewModel: ObservableObject {
                 session.endNFC(message: "Account deleted")
                 completion()
             } catch {
-                print("Set error: \(error)")
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                self.error = error
+                handle(error: error, retry: { self.deleteAccount(account, completion: completion) })
             }
         }
     }
