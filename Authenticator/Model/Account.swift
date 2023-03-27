@@ -51,7 +51,7 @@ class Account: ObservableObject {
         self.isPinned = isPinned
         self.keyVersion = keyVersion
         
-        if credential.requiresTouch && code != nil {
+        if credential.requiresTouch {
             state = .requiresTouch
         } else if credential.type == .HOTP {
             state = .calculate
@@ -78,19 +78,24 @@ class Account: ObservableObject {
         guard self.code != code.otp else { return }
 
         self.code = otp
-        self.validInterval = code.validity
-        self.timeLeft = code.validity.end.timeIntervalSinceNow
         
-        // Schedule refresh if connection is wired
-        if let timeLeft, connectionType == .wired {
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
-                guard self?.isResigned == false else { return }
-                self?.requestRefresh.send(nil) // refresh all accounts signaled by sending nil
+        if self.credential.type == .TOTP {
+            self.validInterval = code.validity
+            self.timeLeft = code.validity.end.timeIntervalSinceNow
+            
+            // Schedule refresh if connection is wired
+            if let timeLeft, connectionType == .wired {
+                DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
+                    guard self?.isResigned == false else { return }
+                    self?.requestRefresh.send(nil) // refresh all accounts signaled by sending nil
+                }
             }
+            
+            updateRemaining()
+            startTimer()
+        } else {
+            self.state = .calculate
         }
-        
-        updateRemaining()
-        startTimer()
     }
     
     var formattedCode: String {

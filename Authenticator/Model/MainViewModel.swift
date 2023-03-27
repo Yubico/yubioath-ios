@@ -109,7 +109,11 @@ class MainViewModel: ObservableObject {
             
             let credentials = try await useSession.calculateAll()
             let updatedAccounts = try await credentials.asyncMap { credential in
-                if credential.credential.type == .TOTP && !credential.credential.requiresTouch && credential.credential.period != 30 {
+                let bypassTouch = (useSession.type == .nfc && SettingsConfig.isBypassTouchEnabled)
+                // Normal TOTP || TOTP with different period
+                if credential.credential.type == .TOTP &&
+                    ((!credential.credential.requiresTouch || bypassTouch) ||
+                     (credential.credential.period != 30 && (!credential.credential.requiresTouch || bypassTouch))) {
                     print("👾 \(credential.credential.accountName)")
                     let code = try await useSession.calculate(credential: credential.credential)
                     return self.account(credential: credential.credential, code: code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
