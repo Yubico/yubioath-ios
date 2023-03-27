@@ -93,7 +93,7 @@ class MainViewModel: ObservableObject {
             useSession.endNFC(message: "Code calculated")
         } catch {
             print("updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccount(account, using: session) }})
         }
     }
     
@@ -145,7 +145,7 @@ class MainViewModel: ObservableObject {
             useSession.endNFC(message: "Codes calculated")
         } catch {
             print("👾 updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts(using: session) }})
         }
     }
     
