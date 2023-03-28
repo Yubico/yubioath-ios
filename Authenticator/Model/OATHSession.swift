@@ -173,6 +173,50 @@ class OATHSession {
         case wired
     }
     
+    enum CredentialType {
+        case totp, hotp
+    }
+    
+    class Credential: Equatable {
+        static func == (lhs: OATHSession.Credential, rhs: OATHSession.Credential) -> Bool {
+            return lhs.ykfCredential == rhs.ykfCredential
+        }
+        let type: CredentialType
+        var label: String? {
+            ykfCredential.label
+        }
+        var issuer: String? {
+            get { ykfCredential.issuer }
+            set { ykfCredential.issuer = newValue }
+        }
+        var accountName: String {
+            get { ykfCredential.accountName }
+            set { ykfCredential.accountName = newValue }
+        }
+        let period: UInt
+        let requiresTouch: Bool
+        var isSteam: Bool {
+            ykfCredential.type == .TOTP && issuer?.lowercased() == "steam"
+        }
+        fileprivate let ykfCredential: YKFOATHCredential
+        
+        init(ykfCredential: YKFOATHCredential) {
+            self.type = ykfCredential.type == .TOTP ? .totp : .hotp
+            self.period = ykfCredential.period
+            self.requiresTouch = ykfCredential.requiresTouch
+            self.ykfCredential = ykfCredential
+        }
+    }
+    
+    struct OTP: Comparable {
+        static func < (lhs: OATHSession.OTP, rhs: OATHSession.OTP) -> Bool {
+            return lhs.code == rhs.code && lhs.validity == lhs.validity
+        }
+        
+        let code: String
+        let validity: DateInterval
+    }
+    
     private let session: YKFOATHSession
     public let type: ConnectionType
     public var version: YKFVersion {
@@ -182,7 +226,7 @@ class OATHSession {
         session.deviceId
     }
     
-    init(session: YKFOATHSession, type: ConnectionType) {
+    fileprivate init(session: YKFOATHSession, type: ConnectionType) {
         self.session = session
         self.type = type
     }
@@ -207,9 +251,9 @@ class OATHSession {
         }
     }
     
-    func deleteAccount(account: YKFOATHCredential) async throws {
+    func deleteCredential(_ credential: Credential) async throws {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.delete(account) { error in
+            session.delete(credential.ykfCredential) { error in
                 if let error {
                     continuation.resume(throwing: error)
                     return
@@ -219,9 +263,9 @@ class OATHSession {
         }
     }
     
-    func renameAccount(account: Account, issuer: String, accountName: String) async throws {
+    func renameCredential(_ credential: Credential, issuer: String, accountName: String) async throws {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.renameCredential(account.credential, newIssuer: issuer, newAccount: accountName) { error in
+            session.renameCredential(credential.ykfCredential, newIssuer: issuer, newAccount: accountName) { error in
                 if let error {
                     continuation.resume(throwing: error)
                     return
@@ -231,11 +275,11 @@ class OATHSession {
         }
     }
     
-    func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [YKFOATHCredentialWithCode] {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[YKFOATHCredentialWithCode], Error>) in
+    func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [(Credential, OTP?)] {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[(Credential, OTP?)], Error>) in
             session.calculateAll(withTimestamp: timestamp) { credentials, error in
                 if let credentials {
-                    continuation.resume(returning: credentials)
+                    continuation.resume(returning: credentials.map { (Credential(ykfCredential: $0.credential), $0.code?.otpCode) })
                 } else if let error {
                     continuation.resume(throwing: error)
                 } else {
@@ -245,11 +289,11 @@ class OATHSession {
         }
     }
     
-    func calculate(credential: YKFOATHCredential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> YKFOATHCode {
+    func calculate(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
         return try await withCheckedThrowingContinuation { continuation in
-            session.calculate(credential, timestamp: timestamp) { code, error in
-                if let code {
-                    continuation.resume(returning: code)
+            session.calculate(credential.ykfCredential, timestamp: timestamp) { code, error in
+                if let code, let otp = code.otp {
+                    continuation.resume(returning: OTP(code: otp, validity: code.validity))
                 } else if let error {
                     continuation.resume(throwing: error)
                 } else {
@@ -257,6 +301,20 @@ class OATHSession {
                 }
             }
         }
+    }
+    
+    public func calculateSteam(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
+        return try await withCheckedThrowingContinuation { continuation in
+            session.calculateSteamTOTP(credential: credential.ykfCredential) { code, validity, error in
+                if let code, let validity {
+                    continuation.resume(returning: OTP(code: code, validity: validity))
+                } else if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    fatalError()
+                }
+            }
+       }
     }
     
     func unlock(password: String) async throws {
@@ -307,5 +365,12 @@ class OATHSession {
         } else {
             YubiKitManager.shared.stopNFCConnection()
         }
+    }
+}
+
+extension YKFOATHCode {
+    var otpCode: OATHSession.OTP? {
+        guard let otp else { return nil }
+        return OATHSession.OTP(code: otp, validity: validity)
     }
 }

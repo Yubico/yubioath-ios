@@ -25,7 +25,7 @@ class Account: ObservableObject {
         case calculate
     }
     
-    @Published var code: String?
+    @Published var otp: OATHSession.OTP?
     @Published var title: String
     @Published var subTitle: String?
     @Published var state: AccountState
@@ -33,18 +33,17 @@ class Account: ObservableObject {
     
     var id: String { credential.id }
     var color: Color = .red
-    var isSteam: Bool = false
+    var isSteam: Bool { credential.isSteam }
     var isResigned: Bool = false
     var enableRefresh: Bool = true
-    var validInterval: DateInterval?
     var timeLeft: Double?
     var timer: Timer? = nil
     var requestRefresh: PassthroughSubject<Account?, Never>
     var connectionType: OATHSession.ConnectionType
-    var credential: YKFOATHCredential
+    var credential: OATHSession.Credential
     var keyVersion: YKFVersion
     
-    init(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
+    init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
         self.credential = credential
         title = credential.title
         subTitle = credential.subTitle
@@ -53,7 +52,7 @@ class Account: ObservableObject {
         
         if credential.requiresTouch {
             state = .requiresTouch
-        } else if credential.type == .HOTP {
+        } else if credential.type == .hotp {
             state = .calculate
         } else {
             enableRefresh = false
@@ -61,7 +60,7 @@ class Account: ObservableObject {
         }
         self.connectionType = connectionType
         self.requestRefresh = requestRefresh
-        self.update(code: code)
+        self.update(otp: code)
     }
     
     func resign() {
@@ -73,13 +72,12 @@ class Account: ObservableObject {
         subTitle = credential.subTitle
     }
     
-    func update(code: YKFOATHCode?) {
-        guard self.code != code?.otp, let code = code, let otp = code.otp else { return }
-        self.code = otp
+    func update(otp: OATHSession.OTP?) {
+        guard self.otp != otp, let otp else { return }
+        self.otp = otp
         
-        if self.credential.type == .TOTP {
-            self.validInterval = code.validity
-            self.timeLeft = code.validity.end.timeIntervalSinceNow
+        if self.credential.type == .totp {
+            self.timeLeft = otp.validity.end.timeIntervalSinceNow
             
             // Schedule refresh if connection is wired
             if let timeLeft, connectionType == .wired {
@@ -97,12 +95,12 @@ class Account: ObservableObject {
     }
     
     var formattedCode: String? {
-        guard let code else { return nil }
+        guard let otp else { return nil }
         if self.isSteam {
-            return code
+            return otp.code
         } else {
             // make it pretty by splitting in halves
-            var formattedCode = code
+            var formattedCode = otp.code
             formattedCode.insert(" ", at:  formattedCode.index(formattedCode.startIndex, offsetBy: formattedCode.count / 2))
             return formattedCode
         }
@@ -129,14 +127,14 @@ class Account: ObservableObject {
     
     func startTimer() {
         self.timer?.invalidate()
-        guard validInterval != nil else { return }
+        guard otp?.validity != nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateRemaining()
         }
     }
     
     func updateRemaining() {
-        if let validInterval {
+        if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft
             if timeLeft > 0 {
@@ -165,7 +163,7 @@ extension Account: Comparable {
     }
 }
 
-extension YKFOATHCredential {
+extension OATHSession.Credential {
     var title: String {
         if let issuer, issuer.isEmpty == false {
             return issuer

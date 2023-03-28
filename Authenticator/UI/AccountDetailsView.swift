@@ -181,7 +181,7 @@ struct AccountDetailsView: View {
                             self.account.requestRefresh.send(self.account)
                         }),
                         DetachedMenuAction(style: .default, isEnabled: !account.enableRefresh, title: "Copy", systemImage: "square.and.arrow.up", action: {
-                            UIPasteboard.general.string = account.code
+                            UIPasteboard.general.string = account.otp?.code
                         }),
                         DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? "Unpin" : "Pin", systemImage: "pin", action: {
                             account.isPinned.toggle()

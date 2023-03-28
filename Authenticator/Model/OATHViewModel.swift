@@ -372,6 +372,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     }
     
     public func calculateSteamTOTP(credential: Credential, stopNFCWhenDone: Bool, completion: ((String) -> Void)? = nil) {
+        /*
         session { session in
             if credential.requiresTouch {
                 self.onTouchRequired()
@@ -395,6 +396,7 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
                 self.onUpdate(credential: credential)
             }
         }
+         */
     }
     
     public func addCredential(credential: YKFOATHCredentialTemplate, requiresTouch: Bool) {

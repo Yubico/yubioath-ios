@@ -84,10 +84,16 @@ class MainViewModel: ObservableObject {
             } else {
                 useSession = try await OATHSessionHandler.shared.anySession()
             }
-            let code = try await useSession.calculate(credential: account.credential)
+            
+            let otp: OATHSession.OTP
+            if account.isSteam {
+                otp = try await useSession.calculateSteam(credential: account.credential)
+            } else {
+                otp = try await useSession.calculate(credential: account.credential)
+            }
             
             if let account = (accounts.filter { $0.id == account.id }).first {
-                account.update(code: code)
+                account.update(otp: otp)
             }
 
             useSession.endNFC(message: "Code calculated")
@@ -108,17 +114,19 @@ class MainViewModel: ObservableObject {
             }
             
             let credentials = try await useSession.calculateAll()
-            let updatedAccounts = try await credentials.asyncMap { credential in
+            let updatedAccounts = try await credentials.asyncMap { (credential, otp)  in
                 let bypassTouch = (useSession.type == .nfc && SettingsConfig.isBypassTouchEnabled)
-                // Normal TOTP || TOTP with different period
-                if credential.credential.type == .TOTP &&
-                    ((!credential.credential.requiresTouch || bypassTouch) ||
-                     (credential.credential.period != 30 && (!credential.credential.requiresTouch || bypassTouch))) {
-                    print("👾 \(credential.credential.accountName)")
-                    let code = try await useSession.calculate(credential: credential.credential)
-                    return self.account(credential: credential.credential, code: code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
+                if credential.isSteam {
+                    let otp = try await useSession.calculateSteam(credential: credential)
+                    return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
+                } else if credential.type == .totp &&
+                            ((!credential.requiresTouch || bypassTouch) ||
+                             (credential.period != 30 && (!credential.requiresTouch || bypassTouch))) {
+                    print("👾 \(credential.accountName)")
+                    let otp = try await useSession.calculate(credential: credential)
+                    return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 } else {
-                    return self.account(credential: credential.credential, code: credential.code, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
+                    return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 }
             }
             
@@ -153,9 +161,9 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    private func account(credential: YKFOATHCredential, code: YKFOATHCode?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
+    private func account(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
         if let account = (accounts.filter { $0.id == credential.id }).first {
-            account.update(code: code)
+            account.update(otp: code)
             return account
         } else {
             let account = Account(credential: credential, code: code, keyVersion: keyVersion, requestRefresh: requestRefresh, connectionType: connectionType, isPinned: favorites.contains(credential.id))
@@ -197,7 +205,7 @@ class MainViewModel: ObservableObject {
         Task {
             do {
                 let session = try await OATHSessionHandler.shared.anySession()
-                try await session.renameAccount(account: account, issuer: issuer, accountName: accountName)
+                try await session.renameCredential(account.credential, issuer: issuer, accountName: accountName)
                 account.credential.issuer = issuer
                 account.credential.accountName = accountName
                 account.updateTitles()
@@ -216,7 +224,7 @@ class MainViewModel: ObservableObject {
                 print("👾 get session")
                 let session = try await OATHSessionHandler.shared.anySession()
                 print("👾 deleteAccount with: \(session)")
-                try await session.deleteAccount(account: account.credential)
+                try await session.deleteCredential(account.credential)
                 accounts.removeAll { $0.id == account.id }
                 session.endNFC(message: "Account deleted")
                 completion()
@@ -345,9 +353,9 @@ class MainViewModel: ObservableObject {
     }
 }
 
-extension YKFOATHCredential {
+extension OATHSession.Credential {
     var id: String {
-        YKFOATHCredentialUtils.key(fromAccountName: accountName, issuer: issuer, period: period, type: type)
+        YKFOATHCredentialUtils.key(fromAccountName: accountName, issuer: issuer, period: period, type: type == .totp ? .TOTP : .HOTP)
     }
 }
 
