@@ -55,6 +55,7 @@ class MainViewModel: ObservableObject {
                 let error = await session.sessionDidEnd()
                 await MainActor.run { [weak self] in
                     self?.accounts.removeAll()
+                    self?.pinnedAccounts.removeAll()
                     self?.accountsLoaded = false
                     self?.error = error
                 }

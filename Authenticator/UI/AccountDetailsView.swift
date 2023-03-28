@@ -205,6 +205,9 @@ struct AccountDetailsView: View {
                 .sheet(isPresented: $showEditing) {
                     EditView(account: account, viewModel: model, showEditing: $showEditing)
                 }
+                .onChange(of: model.accountsLoaded) { newValue in
+                    self.data = nil
+                }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
                         withAnimation(.easeInOut(duration: 0.3)) {
