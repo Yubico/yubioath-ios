@@ -49,23 +49,42 @@ struct AccountRowView: View {
                         Image(systemName: "hand.tap.fill")
                             .font(.system(size: 18))
                             .foregroundStyle(.gray)
+                            .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                     case .calculate:
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .font(.system(size: 22))
                             .foregroundStyle(.gray)
+                            .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                     case .counter(let remaining):
                         PieProgressView(progress: remaining)
                             .frame(width: 22, height: 22)
                             .readFrame($statusIconFrame)
                     }
-                    Text(account.formattedCode)
-                        .font(.system(size: 17))
-                        .bold()
-                        .foregroundColor(.gray)
-                        .padding(.trailing, 4)
-                        .readFrame($codeFrame)
+                    ZStack {
+                        if let otp = account.formattedCode {
+                            Text(otp)
+                                .font(.system(size: 17))
+                                .bold()
+                                .foregroundColor(.gray)
+                                .padding(.trailing, 4)
+                        } else {
+                            Text("*** *** ")
+                                .font(.system(size: 17))
+                                .bold()
+                                .foregroundColor(.gray)
+                                .padding(.trailing, 4)
+                                .padding(.top, 3.5)
+                                .padding(.bottom, -3.5)
+                        }
+                        Text("888 888")
+                            .font(.system(size: 17))
+                            .bold()
+                            .foregroundColor(.clear)
+                            .padding(.trailing, 4)
+                            .readFrame($codeFrame)
+                    }
                 }
                 .padding(.all, 4)
                 .overlay {

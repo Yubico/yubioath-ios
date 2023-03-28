@@ -125,18 +125,38 @@ struct AccountDetailsView: View {
                             .position(subTitleOrigin)
                             .ignoresSafeArea()
                     }
-                    Text(data.account.formattedCode) // code
-                        .font(Font.system(size: codeFontSize))
-                        .bold()
-                        .readFrame($codeFrame)
-                        .foregroundColor(.gray)
-                        .position(codeOrigin)
-                        .ignoresSafeArea()
+                    
+                    ZStack {
+                        if let otp = data.account.formattedCode {
+                            Text(otp) // code
+                                .font(Font.system(size: codeFontSize))
+                                .bold()
+                                .foregroundColor(.gray)
+                                .position(codeOrigin)
+                                .ignoresSafeArea()
+                        } else {
+                            Text("*** *** ")
+                                .font(Font.system(size: codeFontSize))
+                                .bold()
+                                .foregroundColor(.gray)
+                                .position(codeOrigin)
+                                .padding(.top, 4)
+                                .ignoresSafeArea()
+                        }
+                        Text("888 888")
+                            .font(Font.system(size: codeFontSize))
+                            .bold()
+                            .foregroundColor(.clear)
+                            .readFrame($codeFrame)
+                            .position(codeOrigin)
+                            .ignoresSafeArea()
+                    }
                     switch(account.state) {
                     case .requiresTouch:
                         Image(systemName: "hand.tap.fill")
                             .font(.system(size: 18.0))
                             .foregroundStyle(.gray)
+                            .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()
@@ -144,6 +164,7 @@ struct AccountDetailsView: View {
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .font(.system(size: 22.0))
                             .foregroundStyle(.gray)
+                            .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
                             .ignoresSafeArea()

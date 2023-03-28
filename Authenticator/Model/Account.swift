@@ -25,7 +25,7 @@ class Account: ObservableObject {
         case calculate
     }
     
-    @Published var code: String = ""
+    @Published var code: String?
     @Published var title: String
     @Published var subTitle: String?
     @Published var state: AccountState
@@ -74,9 +74,7 @@ class Account: ObservableObject {
     }
     
     func update(code: YKFOATHCode?) {
-        guard let code, let otp = code.otp else { self.code = ""; return }
-        guard self.code != code.otp else { return }
-
+        guard self.code != code?.otp, let code = code, let otp = code.otp else { return }
         self.code = otp
         
         if self.credential.type == .TOTP {
@@ -98,14 +96,15 @@ class Account: ObservableObject {
         }
     }
     
-    var formattedCode: String {
-        var otp = self.code.isEmpty ? "••••••" : self.code
+    var formattedCode: String? {
+        guard let code else { return nil }
         if self.isSteam {
-            return otp
+            return code
         } else {
             // make it pretty by splitting in halves
-            otp.insert(" ", at:  otp.index(otp.startIndex, offsetBy: otp.count / 2))
-            return otp
+            var formattedCode = code
+            formattedCode.insert(" ", at:  formattedCode.index(formattedCode.startIndex, offsetBy: formattedCode.count / 2))
+            return formattedCode
         }
     }
     
