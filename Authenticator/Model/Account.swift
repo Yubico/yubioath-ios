@@ -33,7 +33,6 @@ class Account: ObservableObject {
     
     var id: String { credential.id }
     var color: Color = .red
-    var isSteam: Bool { credential.isSteam }
     var isResigned: Bool = false
     var enableRefresh: Bool = true
     var timeLeft: Double?
@@ -96,7 +95,7 @@ class Account: ObservableObject {
     
     var formattedCode: String? {
         guard let otp else { return nil }
-        if self.isSteam {
+        if self.credential.isSteam {
             return otp.code
         } else {
             // make it pretty by splitting in halves

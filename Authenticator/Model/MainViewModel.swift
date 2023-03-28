@@ -85,12 +85,7 @@ class MainViewModel: ObservableObject {
                 useSession = try await OATHSessionHandler.shared.anySession()
             }
             
-            let otp: OATHSession.OTP
-            if account.isSteam {
-                otp = try await useSession.calculateSteam(credential: account.credential)
-            } else {
-                otp = try await useSession.calculate(credential: account.credential)
-            }
+            let otp = try await useSession.calculate(credential: account.credential)
             
             if let account = (accounts.filter { $0.id == account.id }).first {
                 account.update(otp: otp)
@@ -116,12 +111,10 @@ class MainViewModel: ObservableObject {
             let credentials = try await useSession.calculateAll()
             let updatedAccounts = try await credentials.asyncMap { (credential, otp)  in
                 let bypassTouch = (useSession.type == .nfc && SettingsConfig.isBypassTouchEnabled)
-                if credential.isSteam {
-                    let otp = try await useSession.calculateSteam(credential: credential)
-                    return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
-                } else if credential.type == .totp &&
+                if credential.type == .totp &&
                             ((!credential.requiresTouch || bypassTouch) ||
-                             (credential.period != 30 && (!credential.requiresTouch || bypassTouch))) {
+                             (credential.period != 30 && (!credential.requiresTouch || bypassTouch)) ||
+                             credential.isSteam) {
                     print("👾 \(credential.accountName)")
                     let otp = try await useSession.calculate(credential: credential)
                     return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)

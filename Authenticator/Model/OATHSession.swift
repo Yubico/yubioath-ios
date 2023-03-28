@@ -291,30 +291,28 @@ class OATHSession {
     
     func calculate(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
         return try await withCheckedThrowingContinuation { continuation in
-            session.calculate(credential.ykfCredential, timestamp: timestamp) { code, error in
-                if let code, let otp = code.otp {
-                    continuation.resume(returning: OTP(code: otp, validity: code.validity))
-                } else if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    fatalError()
+            if credential.isSteam {
+                session.calculateSteamTOTP(credential: credential.ykfCredential) { code, validity, error in
+                    if let code, let validity {
+                        continuation.resume(returning: OTP(code: code, validity: validity))
+                    } else if let error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        fatalError()
+                    }
+                }
+            } else {
+                session.calculate(credential.ykfCredential, timestamp: timestamp) { code, error in
+                    if let code, let otp = code.otp {
+                        continuation.resume(returning: OTP(code: otp, validity: code.validity))
+                    } else if let error {
+                        continuation.resume(throwing: error)
+                    } else {
+                        fatalError()
+                    }
                 }
             }
         }
-    }
-    
-    public func calculateSteam(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
-        return try await withCheckedThrowingContinuation { continuation in
-            session.calculateSteamTOTP(credential: credential.ykfCredential) { code, validity, error in
-                if let code, let validity {
-                    continuation.resume(returning: OTP(code: code, validity: validity))
-                } else if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    fatalError()
-                }
-            }
-       }
     }
     
     func unlock(password: String) async throws {
