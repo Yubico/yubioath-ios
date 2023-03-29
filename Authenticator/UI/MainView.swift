@@ -30,23 +30,27 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                if model.pinnedAccounts.count > 0 {
-                    Section(header: Text("Pinned")) {
-                        ForEach(model.pinnedAccounts, id: \.id) { account in
-                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
-                        }
-                    }
-                    if model.accounts.count > 0 {
-                        Section(header: Text("Other")) {
-                            ForEach(model.accounts, id: \.id) { account in
+            GeometryReader { reader in
+                List {
+                    if model.pinnedAccounts.count > 0 {
+                        Section(header: Text("Pinned")) {
+                            ForEach(model.pinnedAccounts, id: \.id) { account in
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         }
-                    }
-                } else {
-                    ForEach(model.accounts, id: \.id) { account in
-                        AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                        if model.accounts.count > 0 {
+                            Section(header: Text("Other")) {
+                                ForEach(model.accounts, id: \.id) { account in
+                                    AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                                }
+                            }
+                        }
+                    } else if model.accounts.count > 0 {
+                        ForEach(model.accounts, id: \.id) { account in
+                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                        }
+                    } else {
+                        EmptyListView(height: reader.size.height)
                     }
                 }
             }
@@ -83,6 +87,9 @@ struct MainView: View {
                 }
             }
             .navigationTitle(model.accountsLoaded ? "Accounts" : "")
+//            .overlay {
+//                Text("Hepp")
+  //          }
         }
         .overlay {
             if showAccountDetails != nil {
