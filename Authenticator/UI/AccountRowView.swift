@@ -34,11 +34,19 @@ struct AccountRowView: View {
                     .frame(width:40, height: 40)
                     .background(account.iconColor)
                     .cornerRadius(20)
+                    .padding(.trailing, 5)
                 VStack(alignment: .leading) {
-                    Text(account.title).font(.headline).lineLimit(1).minimumScaleFactor(0.1)
+                    Text(account.title)
+                        .font(.subheadline.weight(.medium))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
                         .readFrame($titleFrame)
                     account.subTitle.map {
-                        Text($0).font(.footnote).lineLimit(1).minimumScaleFactor(0.1)
+                        Text($0)
+                            .font(.footnote)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.1)
+                            .foregroundColor(Color(.secondaryLabel))
                             .readFrame($subTitleFrame)
                     }
                 }
@@ -50,16 +58,19 @@ struct AccountRowView: View {
                             .font(.system(size: 18))
                             .foregroundStyle(.gray)
                             .frame(width: 22.0, height: 22.0)
+                            .padding(1)
                             .readFrame($statusIconFrame)
                     case .calculate:
                         Image(systemName: "arrow.clockwise.circle.fill")
                             .font(.system(size: 22))
                             .foregroundStyle(.gray)
                             .frame(width: 22.0, height: 22.0)
+                            .padding(1)
                             .readFrame($statusIconFrame)
                     case .counter(let remaining):
                         PieProgressView(progress: remaining)
                             .frame(width: 22, height: 22)
+                            .padding(1)
                             .readFrame($statusIconFrame)
                     }
                     ZStack {

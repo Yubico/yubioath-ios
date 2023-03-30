@@ -112,7 +112,7 @@ struct AccountDetailsView: View {
                         .position(codeBackgroundOrigin)
                         .ignoresSafeArea()
                     Text(data.account.title) // Title
-                        .font(.headline)
+                        .font(.subheadline.weight(.medium))
                         .lineLimit(1)
                         .minimumScaleFactor(0.1)
                         .position(titleOrigin)
@@ -122,6 +122,7 @@ struct AccountDetailsView: View {
                             .font(.footnote)
                             .lineLimit(1)
                             .minimumScaleFactor(0.1)
+                            .foregroundColor(Color(.secondaryLabel))
                             .position(subTitleOrigin)
                             .ignoresSafeArea()
                     }
