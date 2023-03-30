@@ -43,14 +43,14 @@ struct MainView: View {
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         }
-                        if model.accounts.count > 0 {
+                        if model.otherAccounts.count > 0 {
                             Section(header: Text("Other").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
-                                ForEach(model.accounts, id: \.id) { account in
+                                ForEach(model.otherAccounts, id: \.id) { account in
                                     AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                                 }
                             }
                         }
-                    } else if model.accounts.count > 0 {
+                    } else if model.pinnedAccounts.isEmpty {
                         ForEach(model.accounts, id: \.id) { account in
                             AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                         }
@@ -142,7 +142,7 @@ struct MainView: View {
         if searchText.isEmpty {
             return [Account]()
         } else {
-            return model.searchAccounts.filter { $0.title.contains(searchText) || $0.subTitle?.contains(searchText) == true }
+            return model.accounts.filter { $0.title.contains(searchText) || $0.subTitle?.contains(searchText) == true }
         }
     }
 }

@@ -23,7 +23,7 @@ class MainViewModel: ObservableObject {
     
     @Published var accounts: [Account] = []
     @Published var pinnedAccounts: [Account] = []
-    @Published var searchAccounts: [Account] = []
+    @Published var otherAccounts: [Account] = []
     @Published var accountsLoaded: Bool = false
     @Published var presentPasswordEntry: Bool = false
     @Published var presentPasswordSaveType: Bool = false
@@ -57,6 +57,7 @@ class MainViewModel: ObservableObject {
                 await MainActor.run { [weak self] in
                     self?.accounts.removeAll()
                     self?.pinnedAccounts.removeAll()
+                    self?.otherAccounts.removeAll()
                     self?.accountsLoaded = false
                     self?.error = error
                 }
@@ -126,8 +127,8 @@ class MainViewModel: ObservableObject {
             }
             
             self.pinnedAccounts = updatedAccounts.filter { $0.isPinned }.sorted()
-            self.accounts = updatedAccounts.filter { !$0.isPinned }.sorted()
-            self.searchAccounts = updatedAccounts.sorted()
+            self.otherAccounts = updatedAccounts.filter { !$0.isPinned }.sorted()
+            self.accounts = updatedAccounts.sorted()
             
             updatedAccounts.forEach { account in
                 // We need to drop the first value since the Publisher sends the initial value when we start subscribing
@@ -137,12 +138,12 @@ class MainViewModel: ObservableObject {
                         self.favorites.insert(account.id)
                         self.pinnedAccounts.append(account)
                         self.pinnedAccounts = self.pinnedAccounts.sorted()
-                        self.accounts.removeAll { $0.id == account.id }
+                        self.otherAccounts.removeAll { $0.id == account.id }
                     } else {
                         self.favorites.remove(account.id)
                         self.pinnedAccounts.removeAll { $0.id == account.id }
-                        self.accounts.append(account)
-                        self.accounts = self.accounts.sorted()
+                        self.otherAccounts.append(account)
+                        self.otherAccounts = self.otherAccounts.sorted()
                     }
                     self.favoritesStorage.saveFavorites(self.favorites)
                 }
@@ -158,7 +159,7 @@ class MainViewModel: ObservableObject {
     }
     
     private func account(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
-        if let account = (accounts.filter { $0.id == credential.id }).first {
+        if let account = (otherAccounts.filter { $0.id == credential.id }).first {
             account.update(otp: code)
             return account
         } else {
@@ -222,6 +223,8 @@ class MainViewModel: ObservableObject {
                 print("👾 deleteAccount with: \(session)")
                 try await session.deleteCredential(account.credential)
                 accounts.removeAll { $0.id == account.id }
+                pinnedAccounts.removeAll { $0.id == account.id }
+                otherAccounts.removeAll { $0.id == account.id }
                 session.endNFC(message: "Account deleted")
                 completion()
             } catch {
