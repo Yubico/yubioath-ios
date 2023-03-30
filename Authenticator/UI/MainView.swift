@@ -27,19 +27,24 @@ struct MainView: View {
     @State var showConfiguration: Bool = false
     @State var showAbout: Bool = false
     @State var password: String = ""
+    @State var searchText: String = ""
     
     var body: some View {
         NavigationView {
             GeometryReader { reader in
                 List {
-                    if model.pinnedAccounts.count > 0 {
-                        Section(header: Text("Pinned")) {
+                    if searchResults.count > 0 {
+                        ForEach(searchResults, id: \.id) { account in
+                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                        }
+                    } else if model.pinnedAccounts.count > 0 {
+                        Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                             ForEach(model.pinnedAccounts, id: \.id) { account in
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         }
                         if model.accounts.count > 0 {
-                            Section(header: Text("Other")) {
+                            Section(header: Text("Other").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                                 ForEach(model.accounts, id: \.id) { account in
                                     AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                                 }
@@ -54,6 +59,7 @@ struct MainView: View {
                     }
                 }
             }
+            .searchable(text: $searchText, prompt: "Search")
             .listStyle(.inset)
             .refreshable {
                 model.updateAccountsOverNFC()
@@ -87,9 +93,6 @@ struct MainView: View {
                 }
             }
             .navigationTitle(model.accountsLoaded ? "Accounts" : "")
-//            .overlay {
-//                Text("Hepp")
-  //          }
         }
         .overlay {
             if showAccountDetails != nil {
@@ -133,5 +136,13 @@ struct MainView: View {
             }
         }
         .environmentObject(model)
+    }
+    
+    var searchResults: [Account] {
+        if searchText.isEmpty {
+            return [Account]()
+        } else {
+            return model.searchAccounts.filter { $0.title.contains(searchText) || $0.subTitle?.contains(searchText) == true }
+        }
     }
 }

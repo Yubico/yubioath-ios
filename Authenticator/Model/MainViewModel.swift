@@ -23,6 +23,7 @@ class MainViewModel: ObservableObject {
     
     @Published var accounts: [Account] = []
     @Published var pinnedAccounts: [Account] = []
+    @Published var searchAccounts: [Account] = []
     @Published var accountsLoaded: Bool = false
     @Published var presentPasswordEntry: Bool = false
     @Published var presentPasswordSaveType: Bool = false
@@ -126,6 +127,7 @@ class MainViewModel: ObservableObject {
             
             self.pinnedAccounts = updatedAccounts.filter { $0.isPinned }.sorted()
             self.accounts = updatedAccounts.filter { !$0.isPinned }.sorted()
+            self.searchAccounts = updatedAccounts.sorted()
             
             updatedAccounts.forEach { account in
                 // We need to drop the first value since the Publisher sends the initial value when we start subscribing
