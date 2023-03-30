@@ -88,7 +88,7 @@
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
-		B411242F29D423A300D58001 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* EmptyListView.swift */; };
+		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
@@ -233,7 +233,7 @@
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
-		B411242E29D423A300D58001 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
 		B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountWrapper.swift; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
 		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -470,7 +470,7 @@
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
 				B4719B16298AA6E7006CDAEA /* MainView.swift */,
-				B411242E29D423A300D58001 /* EmptyListView.swift */,
+				B411242E29D423A300D58001 /* ListStatusView.swift */,
 				B4719B2B29914051006CDAEA /* AccountRowView.swift */,
 				B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */,
 				B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */,
@@ -713,7 +713,7 @@
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
-				B411242F29D423A300D58001 /* EmptyListView.swift in Sources */,
+				B411242F29D423A300D58001 /* ListStatusView.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,

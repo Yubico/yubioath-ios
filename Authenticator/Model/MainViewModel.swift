@@ -150,7 +150,7 @@ class MainViewModel: ObservableObject {
                 favoritesCancellables.append(cancellable)
             }
             
-            self.accountsLoaded = !updatedAccounts.isEmpty
+            self.accountsLoaded = true
             useSession.endNFC(message: "Codes calculated")
         } catch {
             print("👾 updateAccounts error: \(error)")

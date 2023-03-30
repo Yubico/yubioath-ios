@@ -33,9 +33,15 @@ struct MainView: View {
         NavigationView {
             GeometryReader { reader in
                 List {
-                    if searchResults.count > 0 {
-                        ForEach(searchResults, id: \.id) { account in
-                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                    if !model.accountsLoaded {
+                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey or pull down to activate NFC", height: reader.size.height)
+                    } else if !searchText.isEmpty {
+                        if searchResults.count > 0 {
+                            ForEach(searchResults, id: \.id) { account in
+                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                            }
+                        } else {
+                            ListStatusView(image: Image(systemName: "person.crop.circle.badge.questionmark"), message: "No matching accounts on YubiKey", height: reader.size.height)
                         }
                     } else if model.pinnedAccounts.count > 0 {
                         Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
@@ -50,16 +56,18 @@ struct MainView: View {
                                 }
                             }
                         }
-                    } else if model.pinnedAccounts.isEmpty {
+                    } else if model.accounts.count > 0 {
                         ForEach(model.accounts, id: \.id) { account in
                             AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                         }
                     } else {
-                        EmptyListView(height: reader.size.height)
+                        ListStatusView(image: Image(systemName: "person.crop.circle"), message: "No accounts on YubiKey", height: reader.size.height)
                     }
                 }
             }
             .searchable(text: $searchText, prompt: "Search")
+            .autocorrectionDisabled(true)
+            .keyboardType(.asciiCapable)
             .listStyle(.inset)
             .refreshable {
                 model.updateAccountsOverNFC()
@@ -142,7 +150,8 @@ struct MainView: View {
         if searchText.isEmpty {
             return [Account]()
         } else {
-            return model.accounts.filter { $0.title.contains(searchText) || $0.subTitle?.contains(searchText) == true }
+            return model.accounts.filter { $0.title.lowercased().contains(searchText.lowercased()) ||
+                $0.subTitle?.lowercased().contains(searchText.lowercased()) == true }
         }
     }
 }

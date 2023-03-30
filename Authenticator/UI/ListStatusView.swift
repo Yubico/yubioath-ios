@@ -8,8 +8,10 @@
 
 import SwiftUI
 
-struct EmptyListView: View {
+struct ListStatusView: View {
     
+    let image: Image
+    let message: String
     let height: CGFloat
     
     var body: some View {
@@ -17,10 +19,10 @@ struct EmptyListView: View {
             Spacer()
             VStack(spacing: 25) {
                 Spacer()
-                Image("yubikey")
+                image
                     .font(.system(size: 100.0))
                     .foregroundColor(Color("YubiBlue"))
-                Text("Insert YubiKey or pull down to activate NFC")
+                Text(message)
                     .font(.title2)
                     .multilineTextAlignment(.center)
                     .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
@@ -30,5 +32,11 @@ struct EmptyListView: View {
         }
         .frame(height: height - 100)
         .listRowSeparator(.hidden)
+    }
+}
+
+struct ListStatusViewView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListStatusView(image: Image(systemName: "figure.surfing"), message: "Gone surfing, will be back tomorrow", height: 300)
     }
 }
