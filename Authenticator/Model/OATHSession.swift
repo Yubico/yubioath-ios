@@ -24,7 +24,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     private var smartCardConnection: YKFSmartCardConnection?
     private var accessoryConnection: YKFAccessoryConnection?
     
-    private var currentSession: YKFOATHSession? = nil
+    private var currentSession: YKFOATHSession?
     
     private var nfcConnectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     private var wiredConnectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
@@ -75,7 +75,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
         struct AsyncIterator: AsyncIteratorProtocol {
             mutating func next() async -> Element? {
                 while true {
-                    return try? await OATHSessionHandler.shared.wiredSession(useCached: false)
+                    return try? await OATHSessionHandler.shared.newWiredSession()
                 }
             }
         }
@@ -88,7 +88,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     static let shared = OATHSessionHandler()
     private override init() {
-        print("👾 startAccessoryConnection")
+        print("👾 init(), startAccessoryConnection")
         super.init()
         DelegateStack.shared.setDelegate(self)
         YubiKitManager.shared.startAccessoryConnection()
@@ -104,21 +104,26 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             return OATHSession(session: currentSession, type: type)
         } else if let smartCardConnection {
             let session = try await smartCardConnection.oathSession()
+            currentSession = session
             return OATHSession(session: session, type: .wired)
         } else if let accessoryConnection {
             let session = try await accessoryConnection.oathSession()
+            currentSession = session
             return OATHSession(session: session, type: .wired)
         } else {
             return try await nfcSession()
         }
     }
     
-    func wiredSession(useCached: Bool = true) async throws -> OATHSession {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
-            if useCached {
-                if let currentSession {
-                    continuation.resume(returning: OATHSession(session: currentSession, type: .wired))
-                } else if let connection: YKFConnectionProtocol = smartCardConnection ?? accessoryConnection {
+    var wiredContinuation: CheckedContinuation<OATHSession, Error>?
+    private func newWiredSession() async throws -> OATHSession {
+        print("👾 wiredSession(), startAccessoryConnection")
+        YubiKitManager.shared.startAccessoryConnection()
+        return try await withTaskCancellationHandler {
+            return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
+                self.wiredContinuation = continuation
+                self.wiredConnectionCallback = { connection in
+                    print("👾 wait for a wired connection")
                     connection.oathSession { session, error in
                         if let session {
                             self.currentSession = session
@@ -126,26 +131,24 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                         } else {
                             continuation.resume(throwing: error!)
                         }
+                        self.wiredContinuation = nil
                     }
                 }
             }
-            self.wiredConnectionCallback = { connection in
-                print("👾 wait for a wired connection")
-                connection.oathSession { session, error in
-                    if let session {
-                        self.currentSession = session
-                        continuation.resume(returning: OATHSession(session: session, type: .wired))
-                    } else {
-                        continuation.resume(throwing: error!)
-                    }
-                }
-            }
+        } onCancel: {
+            print("👾 cancel wiredSession()")
+            wiredContinuation?.resume(throwing: "Connection cancelled")
+            wiredContinuation = nil
+            wiredConnectionCallback = nil
+            YubiKitManager.shared.stopAccessoryConnection()
         }
     }
     
+    var nfcContinuation: CheckedContinuation<OATHSession, Error>?
     func nfcSession() async throws -> OATHSession {
         return try await withTaskCancellationHandler {
             return try await withCheckedThrowingContinuation { continuation in
+                self.nfcContinuation = continuation
                 self.nfcConnectionCallback = { connection in
                     connection.oathSession { session, error in
                         if let session {
@@ -154,12 +157,16 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                         } else {
                             continuation.resume(throwing: error!)
                         }
+                        self.nfcContinuation = nil
                     }
                 }
                 YubiKitManager.shared.startNFCConnection()
             }
         } onCancel: {
             print("👾 cancel nfc connection")
+            nfcContinuation?.resume(throwing: "Connection cancelled")
+            nfcContinuation = nil
+            nfcConnectionCallback = nil
             YubiKitManager.shared.stopNFCConnection()
         }
     }

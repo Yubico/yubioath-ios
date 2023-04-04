@@ -31,7 +31,10 @@ class Account: ObservableObject {
     @Published var state: AccountState
     @Published var isPinned: Bool
     
-    var id: String { credential.id }
+    // id is used by SwiftUI to identify the Account when used in a List
+    let id = UUID().uuidString
+    // accountId is the id of the underlaying Credential
+    var accountId: String { credential.id }
     var color: Color = .red
     var isResigned: Bool = false
     var enableRefresh: Bool = true
@@ -72,7 +75,7 @@ class Account: ObservableObject {
     }
     
     func update(otp: OATHSession.OTP?) {
-        guard self.otp != otp, let otp else { return }
+        guard self.otp != otp, let otp, !isResigned else { return }
         self.otp = otp
         
         if self.credential.type == .totp {
@@ -119,20 +122,21 @@ class Account: ObservableObject {
             break
         }
 #endif
-        let value = abs(id.hash) % UIColor.colorSetForAccountIcons.count
+        let value = abs(accountId.hash) % UIColor.colorSetForAccountIcons.count
         return Color(UIColor.colorSetForAccountIcons[value] ?? .primaryText)
     }
 
     
     func startTimer() {
         self.timer?.invalidate()
-        guard otp?.validity != nil else { return }
+        guard otp?.validity != nil, !isResigned else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateRemaining()
         }
     }
     
     func updateRemaining() {
+        guard !isResigned else { return }
         if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft
@@ -154,11 +158,11 @@ class Account: ObservableObject {
 
 extension Account: Comparable {
     static func == (lhs: Account, rhs: Account) -> Bool {
-        return lhs.id.lowercased() == rhs.id.lowercased()
+        return lhs.accountId.lowercased() == rhs.accountId.lowercased()
     }
 
     static func < (lhs: Account, rhs: Account) -> Bool {
-        return lhs.id.lowercased() < rhs.id.lowercased()
+        return lhs.accountId.lowercased() < rhs.accountId.lowercased()
     }
 }
 

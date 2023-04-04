@@ -19,6 +19,8 @@ import Combine
 
 struct MainView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
     @State var showAddAccount: Bool = false
@@ -28,6 +30,7 @@ struct MainView: View {
     @State var showAbout: Bool = false
     @State var password: String = ""
     @State var searchText: String = ""
+    @State var didEnterBackground = true
     
     var body: some View {
         NavigationView {
@@ -143,6 +146,16 @@ struct MainView: View {
                 model.addAccount(template, requiresTouch: requiresTouch)
             }
         }
+        .onChange(of: scenePhase) { phase in
+            if phase == .active && didEnterBackground {
+                didEnterBackground = false
+                model.start() // This is called when app becomes active
+            } else if phase == .background {
+                didEnterBackground = true
+                model.stop()
+            }
+        }
+        .onDisappear()
         .environmentObject(model)
     }
     

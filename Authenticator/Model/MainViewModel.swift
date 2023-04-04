@@ -21,6 +21,8 @@ import Combine
 
 class MainViewModel: ObservableObject {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @Published var accounts: [Account] = []
     @Published var pinnedAccounts: [Account] = []
     @Published var otherAccounts: [Account] = []
@@ -50,19 +52,6 @@ class MainViewModel: ObservableObject {
     private var favoritesCancellables = [AnyCancellable]()
 
     init() {
-        sessionTask = Task {
-            for await session in OATHSessionHandler.shared.wiredSessions() {
-                await updateAccounts(using: session)
-                let error = await session.sessionDidEnd()
-                await MainActor.run { [weak self] in
-                    self?.accounts.removeAll()
-                    self?.pinnedAccounts.removeAll()
-                    self?.otherAccounts.removeAll()
-                    self?.accountsLoaded = false
-                    self?.error = error
-                }
-            }
-        }
         requestRefreshCancellable = requestRefresh
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
             .sink { account in
@@ -79,30 +68,54 @@ class MainViewModel: ObservableObject {
         self.favorites = favoritesStorage.readFavorites()
     }
     
-    @MainActor private func updateAccount(_ account: Account, using session: OATHSession? = nil) async {
-        do {
-            let useSession: OATHSession
-            if let session {
-                useSession = session
-            } else {
-                useSession = try await OATHSessionHandler.shared.anySession()
+    @MainActor func start() {
+        sessionTask = Task {
+            for await session in OATHSessionHandler.shared.wiredSessions() {
+                await updateAccounts(using: session)
+                let error = await session.sessionDidEnd()
+                await MainActor.run { [weak self] in
+                    self?.favoritesCancellables.forEach { $0.cancel() }
+                    self?.favoritesCancellables.removeAll()
+                    self?.accounts.removeAll()
+                    self?.pinnedAccounts.removeAll()
+                    self?.otherAccounts.removeAll()
+                    self?.accountsLoaded = false
+                    self?.error = error
+                }
             }
+        }
+    }
+    
+    @MainActor func stop() {
+        sessionTask?.cancel()
+        sessionTask = nil
+        accounts.removeAll()
+        pinnedAccounts.removeAll()
+        otherAccounts.removeAll()
+        accountsLoaded = false
+        error = nil
+    }
+    
+    @MainActor private func updateAccount(_ account: Account) async {
+        do {
+            let session = try await OATHSessionHandler.shared.anySession()
             
-            let otp = try await useSession.calculate(credential: account.credential)
+            let otp = try await session.calculate(credential: account.credential)
             
             if let account = (accounts.filter { $0.id == account.id }).first {
                 account.update(otp: otp)
             }
 
-            useSession.endNFC(message: "Code calculated")
+            session.endNFC(message: "Code calculated")
         } catch {
             print("updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccount(account, using: session) }})
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccount(account) }})
         }
     }
     
     @MainActor private func updateAccounts(using session: OATHSession? = nil) async {
         do {
+            favoritesCancellables.forEach { $0.cancel() }
             favoritesCancellables.removeAll()
             let useSession: OATHSession
             if let session {
@@ -118,7 +131,6 @@ class MainViewModel: ObservableObject {
                             ((!credential.requiresTouch || bypassTouch) ||
                              (credential.period != 30 && (!credential.requiresTouch || bypassTouch)) ||
                              credential.isSteam) {
-                    print("👾 \(credential.accountName)")
                     let otp = try await useSession.calculate(credential: credential)
                     return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 } else {
@@ -154,12 +166,12 @@ class MainViewModel: ObservableObject {
             useSession.endNFC(message: "Codes calculated")
         } catch {
             print("👾 updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts(using: session) }})
+            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
         }
     }
     
     private func account(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
-        if let account = (otherAccounts.filter { $0.id == credential.id }).first {
+        if let account = (accounts.filter { $0.credential.id == credential.id && !$0.isResigned }).first {
             account.update(otp: code)
             return account
         } else {

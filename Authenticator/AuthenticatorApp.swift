@@ -24,20 +24,6 @@ struct AuthenticatorApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .onChange(of: scenePhase) { newPhase in
-                    if newPhase == .active {
-                        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-                            YubiKitManager.shared.startAccessoryConnection()
-                        }
-                        if #available(iOS 16.0, *) {
-                            YubiKitManager.shared.startSmartCardConnection()
-                        }
-                    } else if newPhase == .background {
-                        if #available(iOS 16.0, *) {
-                            YubiKitManager.shared.stopSmartCardConnection()
-                        }
-                    }
-                }
         }
     }
 }
