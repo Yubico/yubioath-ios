@@ -95,7 +95,7 @@ extension YKFPIVSession {
                           completion: @escaping (_ certificate: SecCertificate?) -> Void) {
         getCertificateIn(slot) { certificate, error in
             guard let certificate = certificate else {
-                if (error! as NSError).code == 0x6A82 {
+                if (error! as NSError).code == 0x6A82 || (error! as NSError).code == YKFPIVFErrorCode.dataParseError.rawValue {
                     completion(nil)
                 } else {
                     callback(.failure(error!))
