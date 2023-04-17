@@ -155,7 +155,6 @@ struct MainView: View {
                 model.stop()
             }
         }
-        .onDisappear()
         .environmentObject(model)
     }
     
