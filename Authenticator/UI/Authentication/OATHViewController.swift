@@ -146,6 +146,22 @@ class OATHViewController: UITableViewController {
         self.viewModel.stop()
     }
     
+    // MARK: - Add credential
+    func addCredential(url: URL) {
+        self.dismiss(animated: false) {
+            guard let template = try? YKFOATHCredentialTemplate(url: url, skip: [.issuer, .label]) else {
+                let alert = UIAlertController(title: "OATH URL is malformed.")
+                self.present(alert, animated: true)
+                return
+            }
+            let storyboard = UIStoryboard(name: "AddCredential", bundle: nil)
+            guard let nc = storyboard.instantiateViewController(withIdentifier: "AddCredential") as? UINavigationController else { return }
+            guard let addCredentialController = nc.topViewController as? AddCredentialController else { return }
+            addCredentialController.credential = template
+            addCredentialController.mode = .prefilled
+            self.present(nc, animated: true)
+        }
+    }
     
     // MARK: - Show search
     @IBAction func showSearch(_ sender: Any) {
