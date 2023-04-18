@@ -54,6 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
+        
+        
+        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
+            main.addCredential(url: url)
+        }
+        
+        let sendingAppID = options[.sourceApplication]
+        print("source application = \(sendingAppID ?? "Unknown")")
+        
+        return true
+    }
+    
     func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
         coder.encode(1.6, forKey: "AppVersion")
         return true
