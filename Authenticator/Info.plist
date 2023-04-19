@@ -26,6 +26,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>yubicoauthenticator</string>
+                <string>otpauth</string>
 			</array>
 		</dict>
 	</array>

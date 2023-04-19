@@ -19,14 +19,11 @@ import UIKit
 class AddCredentialController: UITableViewController {
     
     enum EntryMode {
-        case manual, scanQR
+        case manual, prefilled
     }
     
-    public var mode: EntryMode = .scanQR {
+    public var mode: EntryMode = .prefilled {
         didSet {
-            issuerManualText.text = credential?.issuer ?? ""
-            accountManualText.text = credential?.accountName ?? ""
-            accountManualText.returnKeyType = mode == .manual ? .next : .done
             self.tableView.reloadData()
         }
     }
@@ -47,7 +44,20 @@ class AddCredentialController: UITableViewController {
      This value is either passed by `MainViewController` in `prepare(for:sender:)`
      or constructed as part of scanning/manual input operation.
      */
-    var credential: YKFOATHCredentialTemplate?
+    var credential: YKFOATHCredentialTemplate? {
+        didSet {
+            updateWith(credential: credential)
+        }
+    }
+    
+    private func updateWith(credential: YKFOATHCredentialTemplate?) {
+        if let credential, let issuerManualText, let accountManualText {
+            issuerManualText.text = credential.issuer
+            accountManualText.text = credential.accountName
+            accountManualText.returnKeyType = mode == .manual ? .next : .done
+        }
+    }
+        
     var requiresTouch: Bool = false
     var scanAccountView: ScanAccountView?
 
@@ -66,7 +76,8 @@ class AddCredentialController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if mode == .scanQR {
+        // Always start QR scanner if no credential template was provided
+        if self.credential == nil {
             let scanAccountView = ScanAccountView(frame: self.view.frame) { [weak self] result in
                 guard let self = self else { return }
                 self.navigationController?.navigationBar.layer.zPosition = 0
@@ -77,13 +88,16 @@ class AddCredentialController: UITableViewController {
                     self.mode = .manual
                 case .account(let account):
                     self.credential = account
-                    self.mode = .scanQR
+                    self.mode = .prefilled
+                    updateWith(credential: account)
                 }
             }
             self.scanAccountView = scanAccountView
             self.navigationController?.view.addSubview(scanAccountView)
             scanAccountView.autoresizingMask = .flexibleHeight
             self.navigationController?.navigationBar.layer.zPosition = -1 // Move buttons behind scanview
+        } else {
+            updateWith(credential: credential)
         }
         self.tableView.reloadData()
     }
@@ -92,13 +106,7 @@ class AddCredentialController: UITableViewController {
         scanAccountView?.viewWillTransition(to: size, with: coordinator)
         super.viewWillTransition(to: size, with: coordinator)
      }
-    
-    // MARK: - Public methods
-    
-    func displayCredential(details: YKFOATHCredentialTemplate) {
-        credential = details
-    }
-    
+        
     // MARK: - Button handlers
     
     @IBAction func cancel(_ sender: Any) {
@@ -122,7 +130,7 @@ class AddCredentialController: UITableViewController {
                                                                 period: UInt(advancedSettings[3][periodIndex]) ?? 30,
                                                                 counter: 0,
                                                                 skip: [])
-            case .scanQR:
+            case .prefilled:
                 guard let credential = credential else { return }
                 self.credential = try YKFOATHCredentialTemplate(type: credential.type,
                                                                 algorithm: credential.algorithm,
