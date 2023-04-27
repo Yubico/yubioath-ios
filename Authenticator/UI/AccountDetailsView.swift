@@ -100,7 +100,7 @@ struct AccountDetailsView: View {
                         }
                     Color(.systemBackground) // details view background
                         .cornerRadius(15.0)
-                        .shadow(color: .black.opacity(0.15), radius: 3.0)
+                        .shadow(color: .black.opacity(0.07), radius: 3.0)
                         .opacity(modalAlpha)
                         .frame(width: modalRect.size.width, height: modalRect.size.height)
                         .position(modalRect.origin)
