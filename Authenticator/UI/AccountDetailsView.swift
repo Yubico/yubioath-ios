@@ -50,6 +50,7 @@ struct AccountDetailsView: View {
     @State private var menuScale: CGFloat = 0.3
     
     @State private var showEditing = false
+    @State private var showDeleteConfirmation = false
 
     @State private var codeFrame: CGRect = .zero
     @State private var statusIconFrame: CGRect = .zero
@@ -191,9 +192,7 @@ struct AccountDetailsView: View {
                             showEditing.toggle()
                         }) : nil,
                         DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
-                            model.deleteAccount(account) {
-                                self.data = nil
-                            }
+                            showDeleteConfirmation = true
                         })
                     ].compactMap { $0 } )
                     .readFrame($menuFrame)
@@ -205,6 +204,20 @@ struct AccountDetailsView: View {
                 }
                 .sheet(isPresented: $showEditing) {
                     EditView(account: account, viewModel: model, showEditing: $showEditing)
+                }
+                .alert(isPresented: $showDeleteConfirmation) {
+                    Alert(title: Text("Delete account?"),
+                          message: Text("This will permanently delete the account from the YubiKey, and your ability to generate codes for it!"),
+                          primaryButton: .default(Text("Cancel")),
+                          secondaryButton: .destructive(
+                            Text("Delete"),
+                            action: {
+                                model.deleteAccount(account) {
+                                    self.data = nil
+                                }
+                            }
+                          )
+                    )
                 }
                 .onChange(of: model.accountsLoaded) { newValue in
                     self.data = nil
