@@ -105,6 +105,7 @@ struct AccountRowView: View {
 
             }
             .listRowSeparator(.hidden)
+            .background(Color(.systemBackground)) // without the background set, taps outside the Texts will be ignored
             .onTapGesture {
                 let data = AccountDetailsData(account: account,
                                               codeFrame: codeFrame,
