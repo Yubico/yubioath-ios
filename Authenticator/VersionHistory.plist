@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.3</string>
+        <key>date</key>
+        <date>2023-05-10T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            In this version we've added support for compressed certificates in the Smart card extension.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.2</string>
         <key>date</key>
         <date>2023-04-26T09:41:00Z</date>
