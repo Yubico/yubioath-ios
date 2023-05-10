@@ -545,10 +545,10 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         self.delegate?.onOperationCompleted(operation: .filter)
     }
     
-    public func copyToClipboard(credential: Credential) {
+    public func copyToClipboard(value: String, message: String = "Copied to clipboard") {
         // copy to clipbboard
-        UIPasteboard.general.string = credential.code
-        self.delegate?.onShowToastMessage(message: "Copied to clipboard")
+        UIPasteboard.general.string = value
+        self.delegate?.onShowToastMessage(message: message)
     }
     
     public func emulateSomeRecords() {

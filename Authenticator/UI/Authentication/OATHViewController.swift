@@ -323,12 +323,12 @@ class OATHViewController: UITableViewController {
                     cell?.animateCode()
 
                 }
-                self.viewModel.copyToClipboard(credential: credential)
+                self.viewModel.copyToClipboard(value: credential.code)
             }
         } else {
             let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
             cell?.animateCode()
-            viewModel.copyToClipboard(credential: credential)
+            viewModel.copyToClipboard(value: credential.code)
         }
     }
     

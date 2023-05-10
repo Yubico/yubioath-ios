@@ -77,6 +77,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coder.encode(1.6, forKey: "AppVersion")
         return true
     }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+        
+        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
+            if SettingsConfig.isNFCOnOTPLaunchEnabled {
+                main.dismiss(animated: false) {
+                    main.refreshData()
+                }
+            }
+            
+            if SettingsConfig.isCopyOTPEnabled, let url = userActivity.webpageURL {
+                main.dismiss(animated: false) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                        main.viewModel.copyToClipboard(value: url.lastPathComponent, message: "OTP copied to clipboard")
+                    }
+                }
+            }
+        }
+
+        return true
+    }
 
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
         let version = coder.decodeFloat(forKey: "AppVersion")
