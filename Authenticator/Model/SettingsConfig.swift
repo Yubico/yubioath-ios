@@ -132,6 +132,10 @@ class SettingsConfig {
     
     static var isNFCOnOTPLaunchEnabled: Bool {
         get {
+            if UserDefaults.standard.object(forKey: nfcOnOTPLaunch) == nil {
+                UserDefaults.standard.set(true, forKey: nfcOnOTPLaunch)
+            }
+            
             return UserDefaults.standard.bool(forKey: nfcOnOTPLaunch)
         }
         set {
