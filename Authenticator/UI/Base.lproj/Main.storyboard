@@ -166,6 +166,48 @@
                                     <outlet property="progressScalingConstraint" destination="ejz-nk-Qkq" id="H5M-Z8-MPf"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OTPCell" id="b1I-Hv-jNy" customClass="OTPTableViewCell" customModule="Authenticator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="104" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b1I-Hv-jNy" id="mHL-1B-etO">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJS-da-ceS">
+                                            <rect key="frame" x="20" y="0.0" width="38" height="38"/>
+                                            <color key="backgroundColor" name="YubiGreen"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="38" id="Kzt-q2-rTA"/>
+                                                <constraint firstAttribute="width" secondItem="jJS-da-ceS" secondAttribute="height" multiplier="1:1" id="sRA-eC-sv3"/>
+                                            </constraints>
+                                            <imageReference key="image" image="yubikey" symbolScale="large" renderingMode="template"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U1p-Q4-Gp9">
+                                            <rect key="frame" x="69" y="11" width="290" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="U1p-Q4-Gp9" secondAttribute="trailing" constant="20" id="GRW-2h-FlX"/>
+                                        <constraint firstItem="U1p-Q4-Gp9" firstAttribute="leading" secondItem="jJS-da-ceS" secondAttribute="trailing" constant="10" id="V76-gv-rWz"/>
+                                        <constraint firstItem="U1p-Q4-Gp9" firstAttribute="centerY" secondItem="mHL-1B-etO" secondAttribute="centerY" id="dNV-M0-M7N"/>
+                                        <constraint firstItem="jJS-da-ceS" firstAttribute="leading" secondItem="mHL-1B-etO" secondAttribute="leading" constant="20" id="uha-cC-QxJ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" name="CustomTableBackgroundColor"/>
+                                <connections>
+                                    <outlet property="icon" destination="jJS-da-ceS" id="Qv6-fX-gfR"/>
+                                    <outlet property="otp" destination="U1p-Q4-Gp9" id="RvM-Np-6A8"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="r4m-OO-XO1" id="3yY-s6-gZN"/>
@@ -640,7 +682,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="802"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="266" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="265.66666793823242" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -1417,7 +1459,7 @@ All rights reserved.</string>
                             <tableViewSection headerTitle="" footerTitle="" id="a4m-Y3-hnM">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PYZ-Wa-hkr" userLabel="Header">
-                                        <rect key="frame" x="20" y="345.00000190734858" width="335" height="192.00000000000006"/>
+                                        <rect key="frame" x="20" y="345.00000190734863" width="335" height="192"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYZ-Wa-hkr" id="kmi-YO-gZK">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="192"/>
@@ -1669,7 +1711,7 @@ All rights reserved.</string>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-hk-Nye">
                                                     <rect key="frame" x="20" y="-3" width="295" height="50.666666666666664"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initiate NFC on OTP tag read" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byl-RD-bpD">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start NFC on OTP tag read" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byl-RD-bpD">
                                                             <rect key="frame" x="0.0" y="15.333333333333334" width="231" height="20.333333333333329"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
@@ -1761,7 +1803,7 @@ All rights reserved.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UPN-tw-Bce"/>
+        <segue reference="0dB-Xx-crT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
@@ -1789,6 +1831,9 @@ All rights reserved.</string>
         </namedColor>
         <namedColor name="YubiBlue">
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="YubiGreen">
+            <color red="0.64300000667572021" green="0.80800002813339233" blue="0.41600000858306885" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

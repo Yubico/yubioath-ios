@@ -82,17 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
-            if SettingsConfig.isNFCOnOTPLaunchEnabled {
+            if SettingsConfig.isCopyOTPEnabled, let url = userActivity.webpageURL {
                 main.dismiss(animated: false) {
-                    main.refreshData()
+                    main.otp = url.lastPathComponent
                 }
             }
             
-            if SettingsConfig.isCopyOTPEnabled, let url = userActivity.webpageURL {
+            if SettingsConfig.isNFCOnOTPLaunchEnabled {
                 main.dismiss(animated: false) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        main.viewModel.copyToClipboard(value: url.lastPathComponent, message: "OTP copied to clipboard")
-                    }
+                    main.refreshData()
                 }
             }
         }
