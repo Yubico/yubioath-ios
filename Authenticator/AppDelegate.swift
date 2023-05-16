@@ -82,9 +82,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
-            if SettingsConfig.isCopyOTPEnabled, let url = userActivity.webpageURL {
+            if let url = userActivity.webpageURL {
+                var otp: String
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                if let fragment = components?.fragment {
+                    otp = fragment
+                } else {
+                    otp = url.lastPathComponent
+                }
                 main.dismiss(animated: false) {
-                    main.otp = url.lastPathComponent
+                    main.otp = otp
                 }
             }
             

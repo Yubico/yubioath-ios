@@ -45,7 +45,7 @@ class OATHViewController: UITableViewController {
     
     var otp: String? = nil {
         didSet {
-            if let otp {
+            if let otp, SettingsConfig.isCopyOTPEnabled {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     self.viewModel.copyToClipboard(value: otp, message: "OTP copied to clipboard")
                 }
