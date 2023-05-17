@@ -383,8 +383,10 @@ class OATHViewController: UITableViewController {
     }
     
     @objc func refreshData() {
-        viewModel.calculateAll()
-        refreshControl?.endRefreshing()
+        if !viewModel.didNFCStartRecently {
+            viewModel.calculateAll()
+            refreshControl?.endRefreshing()
+        }
     }
     
     //
