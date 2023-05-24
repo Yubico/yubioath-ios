@@ -16,12 +16,14 @@
 
 import UIKit
 
-class ApplicationSettingsController: UITableViewController {
+class NFCSettingsController: UITableViewController {
     
     private var viewModel = ApplicationSettingsViewModel()
 
     @IBOutlet weak var bypassTouchSwitch: UISwitch!
     @IBOutlet weak var nfcOnAppLaunchSwitch: UISwitch!
+    @IBOutlet weak var nfcOnOTPLaunchSwitch: UISwitch!
+    @IBOutlet weak var copyOTPSwitch: UISwitch!
 
     func dismiss() {
         dismiss(animated: true, completion: nil)
@@ -35,10 +37,20 @@ class ApplicationSettingsController: UITableViewController {
         viewModel.isNFCOnAppLaunchEnabled = sender.isOn
     }
     
+    @IBAction func changeNFCOnOTPLaunchSetting(_ sender: UISwitch) {
+        viewModel.isNFCOnOTPLaunchEnabled = sender.isOn
+    }
+    
+    @IBAction func changeCopyOTPSetting(_ sender: UISwitch) {
+        viewModel.isCopyOTPEnabled = sender.isOn
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bypassTouchSwitch.isOn = viewModel.isBypassTouchEnabled
         nfcOnAppLaunchSwitch.isOn = viewModel.isNFCOnAppLaunchEnabled
+        nfcOnOTPLaunchSwitch.isOn = viewModel.isNFCOnOTPLaunchEnabled
+        copyOTPSwitch.isOn = viewModel.isCopyOTPEnabled
      }
     
     deinit {

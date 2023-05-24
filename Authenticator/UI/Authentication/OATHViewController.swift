@@ -43,6 +43,17 @@ class OATHViewController: UITableViewController {
     
     private var hintView: UIView?
     
+    var otp: String? = nil {
+        didSet {
+            self.tableView.reloadData()
+            if let otp, SettingsConfig.isCopyOTPEnabled {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    self.viewModel.copyToClipboard(value: otp, message: "OTP copied to clipboard")
+                }
+            }
+        }
+    }
+    
     private func setupMenu(enabled: Bool) {
         self.menuButton.menu = nil
         self.menuButton.menu = UIMenu(title: "", children: [
@@ -185,6 +196,8 @@ class OATHViewController: UITableViewController {
             sections = 2
         }
         
+        sections = otp != nil ? sections + 1 : sections
+        
         if sections > 0 {
             self.tableView.backgroundView = nil
             backgroundView = nil
@@ -209,11 +222,15 @@ class OATHViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if viewModel.pinnedCredentials.count > 0 && section == 0 {
+        if otp != nil && section == 0 {
+            return "Yubico OTP"
+        }
+        
+        if viewModel.pinnedCredentials.count > 0 && (section == 0 || otp != nil && section == 1) {
             return "Pinned"
         }
         
-        if viewModel.pinnedCredentials.count == 0 && section == 0 {
+        if viewModel.pinnedCredentials.count == 0 && (section == 0 || otp != nil && section == 1) {
             return "Accounts"
         }
         
@@ -221,7 +238,12 @@ class OATHViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 && viewModel.pinnedCredentials.count > 0 {
+        
+        if otp != nil && section == 0 {
+            return 1
+        }
+        
+        if (section == 0 || otp != nil && section == 1) && viewModel.pinnedCredentials.count > 0 {
             return viewModel.pinnedCredentials.count
         }
         
@@ -229,36 +251,42 @@ class OATHViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
-        cell.viewModel = viewModel
-        let credential = credentialAt(indexPath)
-        cell.updateView(credential: credential)
         
-        let backgroundContainerView = UIView()
-        let backgroundView = UIView()
-        backgroundView.layer.cornerRadius = 10
-        backgroundView.backgroundColor = UIColor(named: "TableSelection")
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundContainerView.addSubview(backgroundView)
-        NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor)
-        ])
-        cell.selectedBackgroundView = backgroundContainerView
-        
-        return cell
+        if let credential = credentialAt(indexPath) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CredentialCell", for: indexPath) as! CredentialTableViewCell
+            cell.viewModel = viewModel
+            cell.updateView(credential: credential)
+            
+            let backgroundContainerView = UIView()
+            let backgroundView = UIView()
+            backgroundView.layer.cornerRadius = 10
+            backgroundView.backgroundColor = UIColor(named: "TableSelection")
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            backgroundContainerView.addSubview(backgroundView)
+            NSLayoutConstraint.activate([
+                backgroundView.leadingAnchor.constraint(equalTo: backgroundContainerView.leadingAnchor),
+                backgroundView.trailingAnchor.constraint(equalTo: backgroundContainerView.trailingAnchor),
+                backgroundView.topAnchor.constraint(equalTo: backgroundContainerView.topAnchor),
+                backgroundView.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor)
+            ])
+            cell.selectedBackgroundView = backgroundContainerView
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OTPCell", for: indexPath) as! OTPTableViewCell
+            cell.otp.text = otp
+            return cell
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         _ = searchBar.resignFirstResponder()
-        let credential = credentialAt(indexPath)
-        let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
-        let rect = tableView.rectForRow(at: indexPath)
-        details.present(from: CGPoint(x: rect.midX, y: rect.midY))
-        self.detailView = details
+        if let credential = credentialAt(indexPath) {
+            let details = OATHCodeDetailsView(credential: credential, viewModel: viewModel, parentViewController: self)
+            let rect = tableView.rectForRow(at: indexPath)
+            details.present(from: CGPoint(x: rect.midX, y: rect.midY))
+            self.detailView = details
+        }
     }
 
     // Override to support conditional editing of the table view.
@@ -309,26 +337,29 @@ class OATHViewController: UITableViewController {
         guard let indexPath = indexPath else {
             return
         }
-        let credential = credentialAt(indexPath)
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
         }
 
-        if credential.requiresRefresh {
-            viewModel.calculate(credential: credential) { [self] _ in
-                DispatchQueue.main.async {
-                    let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
-                    cell?.animateCode()
-
+        if let credential = credentialAt(indexPath) {
+            if credential.requiresRefresh {
+                viewModel.calculate(credential: credential) { [self] _ in
+                    DispatchQueue.main.async {
+                        let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+                        cell?.animateCode()
+                        
+                    }
+                    self.viewModel.copyToClipboard(value: credential.code)
                 }
-                self.viewModel.copyToClipboard(credential: credential)
+            } else {
+                let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
+                cell?.animateCode()
+                viewModel.copyToClipboard(value: credential.code)
             }
-        } else {
-            let cell = self.tableView.cellForRow(at: indexPath) as? CredentialTableViewCell
-            cell?.animateCode()
-            viewModel.copyToClipboard(credential: credential)
+        } else if let otp = otp {
+            self.viewModel.copyToClipboard(value: otp, message: "OTP copied to clipboard")
         }
     }
     
@@ -352,8 +383,10 @@ class OATHViewController: UITableViewController {
     }
     
     @objc func refreshData() {
-        viewModel.calculateAll()
-        refreshControl?.endRefreshing()
+        if !viewModel.didNFCStartRecently {
+            viewModel.calculateAll()
+            refreshControl?.endRefreshing()
+        }
     }
     
     //
@@ -605,8 +638,11 @@ extension OATHViewController: CredentialViewModelDelegate {
         }
     }
     
-    private func credentialAt(_ indexPath: IndexPath) -> Credential {
-        if viewModel.pinnedCredentials.count > 0 && indexPath.section == 0 {
+    private func credentialAt(_ indexPath: IndexPath) -> Credential? {
+        if otp != nil && indexPath.section == 0 {
+            return nil
+        }
+        if viewModel.pinnedCredentials.count > 0 && (indexPath.section == 0 || otp != nil && indexPath.section == 1) {
             return viewModel.pinnedCredentials[indexPath.row]
         } else {
             return viewModel.credentials[indexPath.row]
@@ -617,6 +653,7 @@ extension OATHViewController: CredentialViewModelDelegate {
 // MARK: ApplicationSessionObserverDelegate
 extension OATHViewController: ApplicationSessionObserverDelegate {
     func didEnterBackground() {
+        otp = nil
         viewModel.cleanUp()
     }
     

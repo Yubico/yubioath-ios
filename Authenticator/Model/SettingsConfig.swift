@@ -30,7 +30,8 @@ class SettingsConfig {
     static private let showNFCSwipeHintCounter = "showNFCSwipeHintCounter"
     static private let showWhatsNewCounter = "showWhatsNewCounter"
     static private let showWhatsNewCounterAppVersion = "showWhatsNewCounterAppVersion"
-
+    static private let nfcOnOTPLaunch = "nfcOnOTPLaunch"
+    static private let copyOTP = "copyOTP"
     
     static var showWhatsNewText: Bool {
         get {
@@ -126,6 +127,28 @@ class SettingsConfig {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: nfcOnAppLaunch)
+        }
+    }
+    
+    static var isNFCOnOTPLaunchEnabled: Bool {
+        get {
+            if UserDefaults.standard.object(forKey: nfcOnOTPLaunch) == nil {
+                UserDefaults.standard.set(true, forKey: nfcOnOTPLaunch)
+            }
+            
+            return UserDefaults.standard.bool(forKey: nfcOnOTPLaunch)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: nfcOnOTPLaunch)
+        }
+    }
+    
+    static var isCopyOTPEnabled: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: copyOTP)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: copyOTP)
         }
     }
 }

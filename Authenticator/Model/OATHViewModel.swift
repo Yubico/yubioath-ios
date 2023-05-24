@@ -52,32 +52,39 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
     
     private var nfcConnection: YKFNFCConnection?
     
-    private var lastNFCEndingTimestamp: Date?
-    
+    private var lastNFCStartTimestamp: Date?
+    private var lastNFCEndTimestamp: Date?
+
     var accessKeyMemoryCache = AccessKeyCache()
     let accessKeySecureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     let passwordPreferences = PasswordPreferences()
 
     var didNFCEndRecently: Bool {
-        guard let ts = lastNFCEndingTimestamp else { return false }
+        guard let ts = lastNFCEndTimestamp else { return false }
         return ts.addingTimeInterval(5) > Date()
+    }
+    
+    var didNFCStartRecently: Bool {
+        guard let ts = lastNFCStartTimestamp else { return false }
+        return ts.addingTimeInterval(2) > Date()
     }
     
     func didConnectNFC(_ connection: YKFNFCConnection) {
         nfcConnection = connection
+        lastNFCStartTimestamp = Date()
         if let callback = connectionCallback {
             callback(connection)
         }
     }
     
     func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
-        lastNFCEndingTimestamp = Date()
+        lastNFCEndTimestamp = Date()
         nfcConnection = nil
         session = nil
     }
     
     func didFailConnectingNFC(_ error: Error) {
-        lastNFCEndingTimestamp = Date()
+        lastNFCEndTimestamp = Date()
     }
     
     private var accessoryConnection: YKFAccessoryConnection?
@@ -545,10 +552,10 @@ class OATHViewModel: NSObject, YKFManagerDelegate {
         self.delegate?.onOperationCompleted(operation: .filter)
     }
     
-    public func copyToClipboard(credential: Credential) {
+    public func copyToClipboard(value: String, message: String = "Copied to clipboard") {
         // copy to clipbboard
-        UIPasteboard.general.string = credential.code
-        self.delegate?.onShowToastMessage(message: "Copied to clipboard")
+        UIPasteboard.general.string = value
+        self.delegate?.onShowToastMessage(message: message)
     }
     
     public func emulateSomeRecords() {

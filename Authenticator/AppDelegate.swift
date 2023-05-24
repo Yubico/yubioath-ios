@@ -77,6 +77,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coder.encode(1.6, forKey: "AppVersion")
         return true
     }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+        
+        if let main = UIApplication.shared.windows.first?.rootViewController?.children.first as? OATHViewController {
+            if let url = userActivity.webpageURL {
+                var otp: String
+                let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                if let fragment = components?.fragment {
+                    otp = fragment
+                } else {
+                    otp = url.lastPathComponent
+                }
+                main.dismiss(animated: false) {
+                    main.otp = otp
+                }
+            }
+            
+            if SettingsConfig.isNFCOnOTPLaunchEnabled {
+                main.dismiss(animated: false) {
+                    main.refreshData()
+                }
+            }
+        }
+
+        return true
+    }
 
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
         let version = coder.decodeFloat(forKey: "AppVersion")

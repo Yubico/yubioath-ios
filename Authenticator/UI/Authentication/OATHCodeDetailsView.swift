@@ -138,7 +138,7 @@ class OATHCodeDetailsView: UIVisualEffectView {
         copyMenuAction = {
             MenuAction(title: "Copy", image: UIImage(systemName: "square.and.arrow.up"),
                        action: {
-                viewModel.copyToClipboard(credential: credential)
+                viewModel.copyToClipboard(value: credential.code)
             })
         }()
         

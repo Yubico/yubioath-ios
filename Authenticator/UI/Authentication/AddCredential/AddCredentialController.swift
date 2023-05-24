@@ -89,7 +89,7 @@ class AddCredentialController: UITableViewController {
                 case .account(let account):
                     self.credential = account
                     self.mode = .prefilled
-                    updateWith(credential: account)
+                    self.updateWith(credential: account)
                 }
             }
             self.scanAccountView = scanAccountView
