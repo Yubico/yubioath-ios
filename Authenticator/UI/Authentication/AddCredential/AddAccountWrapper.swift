@@ -20,11 +20,13 @@ import Combine
 struct AddAccountView: View {
     
     @Binding var showAddAccount: Bool
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>
+    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>
+    var oathURL: URL?
     let navigationBarAppearance = UINavigationBarAppearance()
 
-    init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>) {
+    init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>, oathURL: URL?) {
         _showAddAccount = showAddCredential
+        self.oathURL = oathURL
         self.accountSubject = accountSubject
         navigationBarAppearance.shadowColor = .secondarySystemBackground
         navigationBarAppearance.backgroundColor = .secondarySystemBackground
@@ -32,7 +34,7 @@ struct AddAccountView: View {
     }
     
     var body: some View {
-        AddCredentialWrapper(accountSubject: accountSubject)
+        AddCredentialWrapper(accountSubject: accountSubject, oathURL: oathURL)
             .navigationTitle("Add Credential")
             .navigationBarItems(trailing: Button("Close") {
                 showAddAccount.toggle()
@@ -43,13 +45,18 @@ struct AddAccountView: View {
 
 struct AddCredentialWrapper: UIViewControllerRepresentable {
     
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>
+    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>
+    var oathURL: URL?
     
     func makeUIViewController(context: Context) -> UINavigationController {
         let sb = UIStoryboard(name: "AddCredential", bundle: nil)
         let vc = sb.instantiateViewController(identifier: "AddCredentialController") as! UINavigationController
         
         guard let credentialController = vc.topViewController as? AddCredentialController else { fatalError() }
+        if let oathURL {
+            let template = YKFOATHCredentialTemplate(url: oathURL)
+            credentialController.credential = template
+        }
         
         credentialController.accountSubject = accountSubject
         

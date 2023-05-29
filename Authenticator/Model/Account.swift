@@ -31,10 +31,8 @@ class Account: ObservableObject {
     @Published var state: AccountState
     @Published var isPinned: Bool
     
-    // id is used by SwiftUI to identify the Account when used in a List
-    let id = UUID().uuidString
     // accountId is the id of the underlaying Credential
-    var accountId: String { credential.id }
+    var id: String { credential.id }
     var color: Color = .red
     var isResigned: Bool = false
     var enableRefresh: Bool = true
@@ -122,7 +120,7 @@ class Account: ObservableObject {
             break
         }
 #endif
-        let value = abs(accountId.hash) % UIColor.colorSetForAccountIcons.count
+        let value = abs(id.hash) % UIColor.colorSetForAccountIcons.count
         return Color(UIColor.colorSetForAccountIcons[value] ?? .primaryText)
     }
 
@@ -158,11 +156,11 @@ class Account: ObservableObject {
 
 extension Account: Comparable {
     static func == (lhs: Account, rhs: Account) -> Bool {
-        return lhs.accountId.lowercased() == rhs.accountId.lowercased()
+        return lhs.id.lowercased() == rhs.id.lowercased()
     }
 
     static func < (lhs: Account, rhs: Account) -> Bool {
-        return lhs.accountId.lowercased() < rhs.accountId.lowercased()
+        return lhs.id.lowercased() < rhs.id.lowercased()
     }
 }
 

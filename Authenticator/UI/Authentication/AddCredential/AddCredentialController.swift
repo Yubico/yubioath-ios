@@ -19,7 +19,7 @@ import Combine
 
 class AddCredentialController: UITableViewController {
     
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>?
+    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>?
     
     enum EntryMode {
         case manual, prefilled
@@ -110,6 +110,11 @@ class AddCredentialController: UITableViewController {
         super.viewWillTransition(to: size, with: coordinator)
      }
         
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        accountSubject?.send((nil, true))
+    }
+    
     // MARK: - Button handlers
     
     @IBAction func cancel(_ sender: Any) {

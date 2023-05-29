@@ -25,17 +25,24 @@ struct MainView: View {
     @State var showAccountDetails: AccountDetailsData? = nil
     @State var showAddAccount: Bool = false
     @State var addAccountCancellable: AnyCancellable?
-    @State var addAccountSubject = PassthroughSubject<(YKFOATHCredentialTemplate, Bool), Never>()
+    @State var addAccountSubject = PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>()
     @State var showConfiguration: Bool = false
     @State var showAbout: Bool = false
     @State var password: String = ""
     @State var searchText: String = ""
     @State var didEnterBackground = true
+    @State var otp: String? = nil
+    @State var oathURL: URL? = nil
     
     var body: some View {
         NavigationView {
             GeometryReader { reader in
                 List {
+                    if let otp {
+                        Section(header: Text("Yubico OTP").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                            YubiOtpRowView(otp: otp)
+                        }
+                    }
                     if !model.accountsLoaded {
                         ListStatusView(image: Image("yubikey"), message: "Insert YubiKey or pull down to activate NFC", height: reader.size.height)
                     } else if !searchText.isEmpty {
@@ -59,6 +66,12 @@ struct MainView: View {
                                 }
                             }
                         }
+                    } else if model.accounts.count > 0 && otp != nil {
+                        Section(header: Text("Accounts").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                            ForEach(model.otherAccounts, id: \.id) { account in
+                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                            }
+                        }
                     } else if model.accounts.count > 0 {
                         ForEach(model.accounts, id: \.id) { account in
                             AccountRowView(account: account, showAccountDetails: $showAccountDetails)
@@ -73,6 +86,7 @@ struct MainView: View {
             .keyboardType(.asciiCapable)
             .listStyle(.inset)
             .refreshable {
+                otp = nil
                 model.updateAccountsOverNFC()
             }
             .toolbar {
@@ -111,7 +125,7 @@ struct MainView: View {
             }
         }
         .sheet(isPresented: $showAddAccount) {
-            AddAccountView(showAddCredential: $showAddAccount, accountSubject: addAccountSubject)
+            AddAccountView(showAddCredential: $showAddAccount, accountSubject: addAccountSubject, oathURL: oathURL)
         }
         .fullScreenCover(isPresented: $showConfiguration) {
             ConfigurationView(showConfiguration: $showConfiguration)
@@ -143,9 +157,29 @@ struct MainView: View {
                 model.updateAccountsOverNFC()
             }
             addAccountCancellable = addAccountSubject.sink { (template, requiresTouch) in
-                model.addAccount(template, requiresTouch: requiresTouch)
+                oathURL = nil
+                if let template {
+                    model.addAccount(template, requiresTouch: requiresTouch)
+                }
             }
         }
+        .onOpenURL(perform: { url in
+            guard url.scheme == "otpauth" else { return }
+            if showConfiguration { showConfiguration.toggle() }
+            if showAbout { showAbout.toggle() }
+            oathURL = url
+            showAddAccount.toggle()
+            print("👾 handle add OATH account \(url)")
+        })
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: { userActivity in
+            guard let otp = userActivity.webpageURL?.yubiOTP else { return }
+            if showConfiguration { showConfiguration.toggle() }
+            if showAbout { showAbout.toggle() }
+            self.otp = otp
+            if ApplicationSettingsViewModel().isNFCOnOTPLaunchEnabled {
+                model.updateAccountsOverNFC()
+            }
+        })
         .onChange(of: scenePhase) { phase in
             if phase == .active && didEnterBackground {
                 didEnterBackground = false
@@ -164,6 +198,25 @@ struct MainView: View {
         } else {
             return model.accounts.filter { $0.title.lowercased().contains(searchText.lowercased()) ||
                 $0.subTitle?.lowercased().contains(searchText.lowercased()) == true }
+        }
+    }
+}
+
+
+extension URL {
+    
+    var yubiOTP: String? {
+        if self.scheme == "https" && self.host == "my.yubico.com" {
+            var otp: String
+            let components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+            if let fragment = components?.fragment {
+                otp = fragment
+            } else {
+                otp = self.lastPathComponent
+            }
+            return otp
+        } else {
+            return nil
         }
     }
 }
