@@ -23,7 +23,7 @@ struct YubiOtpRowView: View {
     
     var body: some View {
         HStack {
-            Text("Y")
+            Image("yubikey")
                 .frame(width:40, height: 40)
                 .background(Color.accentColor)
                 .cornerRadius(20)
