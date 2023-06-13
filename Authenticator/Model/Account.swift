@@ -31,8 +31,9 @@ class Account: ObservableObject {
     @Published var state: AccountState
     @Published var isPinned: Bool
     
+    var id = UUID()
     // accountId is the id of the underlaying Credential
-    var id: String { credential.id }
+    var accountId: String { credential.id }
     var color: Color = .red
     var isResigned: Bool = false
     var enableRefresh: Bool = true
@@ -124,7 +125,7 @@ class Account: ObservableObject {
             break
         }
 #endif
-        let value = abs(id.hash) % UIColor.colorSetForAccountIcons.count
+        let value = abs(accountId.hash) % UIColor.colorSetForAccountIcons.count
         return Color(UIColor.colorSetForAccountIcons[value] ?? .primaryText)
     }
 
@@ -160,11 +161,11 @@ class Account: ObservableObject {
 
 extension Account: Comparable {
     static func == (lhs: Account, rhs: Account) -> Bool {
-        return lhs.id.lowercased() == rhs.id.lowercased()
+        return lhs.accountId.lowercased() == rhs.accountId.lowercased()
     }
 
     static func < (lhs: Account, rhs: Account) -> Bool {
-        return lhs.id.lowercased() < rhs.id.lowercased()
+        return lhs.accountId.lowercased() < rhs.accountId.lowercased()
     }
 }
 

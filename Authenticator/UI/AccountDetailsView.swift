@@ -18,7 +18,7 @@ import SwiftUI
 
 struct AccountDetailsData: Equatable {
     static func == (lhs: AccountDetailsData, rhs: AccountDetailsData) -> Bool {
-        lhs.account.id == rhs.account.id
+        lhs.account.accountId == rhs.account.accountId
     }
     
     @ObservedObject var account: Account

@@ -102,7 +102,7 @@ class MainViewModel: ObservableObject {
             
             let otp = try await session.calculate(credential: account.credential)
             
-            if let account = (accounts.filter { $0.id == account.id }).first {
+            if let account = (accounts.filter { $0.accountId == account.accountId }).first {
                 account.update(otp: otp)
             }
 
@@ -147,13 +147,13 @@ class MainViewModel: ObservableObject {
                 let cancellable = account.$isPinned.dropFirst().sink { [weak self, weak account] isPinned in
                     guard let self, let account else { return }
                     if isPinned {
-                        self.favorites.insert(account.id)
+                        self.favorites.insert(account.accountId)
                         self.pinnedAccounts.append(account)
                         self.pinnedAccounts = self.pinnedAccounts.sorted()
-                        self.otherAccounts.removeAll { $0.id == account.id }
+                        self.otherAccounts.removeAll { $0.accountId == account.accountId }
                     } else {
-                        self.favorites.remove(account.id)
-                        self.pinnedAccounts.removeAll { $0.id == account.id }
+                        self.favorites.remove(account.accountId)
+                        self.pinnedAccounts.removeAll { $0.accountId == account.accountId }
                         self.otherAccounts.append(account)
                         self.otherAccounts = self.otherAccounts.sorted()
                     }
@@ -234,9 +234,9 @@ class MainViewModel: ObservableObject {
                 let session = try await OATHSessionHandler.shared.anySession()
                 print("👾 deleteAccount with: \(session)")
                 try await session.deleteCredential(account.credential)
-                accounts.removeAll { $0.id == account.id }
-                pinnedAccounts.removeAll { $0.id == account.id }
-                otherAccounts.removeAll { $0.id == account.id }
+                accounts.removeAll { $0.accountId == account.accountId }
+                pinnedAccounts.removeAll { $0.accountId == account.accountId }
+                otherAccounts.removeAll { $0.accountId == account.accountId }
                 session.endNFC(message: "Account deleted")
                 completion()
             } catch {
