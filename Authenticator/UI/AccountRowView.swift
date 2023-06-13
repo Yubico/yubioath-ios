@@ -19,6 +19,7 @@ import SwiftUI
 
 struct AccountRowView: View {
 
+    @EnvironmentObject var toastPresenter: ToastPresenter
     @ObservedObject var account: Account
     @Binding var showAccountDetails: AccountDetailsData?
     @State private var contentSize: CGSize = .zero
@@ -114,6 +115,13 @@ struct AccountRowView: View {
                                               titleFrame: titleFrame,
                                               subTitleFrame: subTitleFrame)
                 showAccountDetails = data
+            }
+            .onLongPressGesture {
+                if let otp = account.otp?.code {
+                    toastPresenter.copyToClipboard(otp)
+                } else {
+                    account.calculate()
+                }
             }
             .readFrame($cellFrame)
             .onDisappear {

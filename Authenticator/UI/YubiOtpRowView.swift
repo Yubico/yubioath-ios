@@ -19,6 +19,7 @@ import SwiftUI
 
 struct YubiOtpRowView: View {
 
+    @EnvironmentObject var toastPresenter: ToastPresenter
     var otp: String
     
     var body: some View {
@@ -38,7 +39,10 @@ struct YubiOtpRowView: View {
         .listRowSeparator(.hidden)
         .background(Color(.systemBackground)) // without the background set, taps outside the Texts will be ignored
         .onTapGesture {
-            print("tapelitapp..")
+            toastPresenter.copyToClipboard(otp)
+        }
+        .onLongPressGesture {
+            toastPresenter.copyToClipboard(otp)
         }
     }
 }

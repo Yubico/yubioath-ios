@@ -63,6 +63,10 @@ class Account: ObservableObject {
         self.update(otp: code)
     }
     
+    func calculate() {
+        requestRefresh.send(self)
+    }
+    
     func resign() {
         isResigned = true
     }

@@ -91,6 +91,8 @@
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
+		B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC3C2A264A620045E5D9 /* ToastView.swift */; };
+		B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC432A2A06940045E5D9 /* ToastPresenter.swift */; };
 		B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
 		B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B16298AA6E7006CDAEA /* MainView.swift */; };
@@ -236,6 +238,8 @@
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
 		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
+		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		B452EC432A2A06940045E5D9 /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
 		B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountWrapper.swift; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
 		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -405,6 +409,8 @@
 				51AFD4D127103E36008F2630 /* SearchBar.swift */,
 				B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */,
 				B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */,
+				B452EC3C2A264A620045E5D9 /* ToastView.swift */,
+				B452EC432A2A06940045E5D9 /* ToastPresenter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -721,6 +727,7 @@
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,
 				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
+				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
@@ -776,6 +783,7 @@
 				5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
 				B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */,
+				B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */,
 				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */,

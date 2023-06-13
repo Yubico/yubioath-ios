@@ -20,10 +20,15 @@ import SwiftUI
 struct AuthenticatorApp: App {
     
     @Environment(\.scenePhase) var scenePhase
+    @StateObject var toastPresenter = ToastPresenter()
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            ZStack {
+                MainView()
+                    .toast(isPresenting: $toastPresenter.isPresenting, message: toastPresenter.message)
+            }
+            .environmentObject(toastPresenter)
         }
     }
 }
