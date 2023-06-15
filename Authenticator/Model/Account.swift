@@ -35,7 +35,6 @@ class Account: ObservableObject {
     // accountId is the id of the underlaying Credential
     var accountId: String { credential.id }
     var color: Color = .red
-    var isResigned: Bool = false
     var enableRefresh: Bool = true
     var timeLeft: Double?
     var timer: Timer? = nil
@@ -43,6 +42,7 @@ class Account: ObservableObject {
     var connectionType: OATHSession.ConnectionType
     var credential: OATHSession.Credential
     var keyVersion: YKFVersion
+    var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
     
     init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
         self.credential = credential
@@ -64,12 +64,9 @@ class Account: ObservableObject {
         self.update(otp: code)
     }
     
-    func calculate() {
+    func calculate(completion: ((OATHSession.OTP) -> ())? = nil) {
+        calculateCompletion = completion
         requestRefresh.send(self)
-    }
-    
-    func resign() {
-        isResigned = true
     }
     
     func updateTitles() {
@@ -78,8 +75,13 @@ class Account: ObservableObject {
     }
     
     func update(otp: OATHSession.OTP?) {
-        guard self.otp != otp, let otp, !isResigned else { return }
+        guard self.otp != otp, let otp else { return }
         self.otp = otp
+        
+        if let calculateCompletion {
+            calculateCompletion(otp)
+        }
+        self.calculateCompletion = nil
         
         if self.credential.type == .totp {
             self.timeLeft = otp.validity.end.timeIntervalSinceNow
@@ -87,7 +89,6 @@ class Account: ObservableObject {
             // Schedule refresh if connection is wired
             if let timeLeft, connectionType == .wired {
                 DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
-                    guard self?.isResigned == false else { return }
                     self?.requestRefresh.send(nil) // refresh all accounts signaled by sending nil
                 }
             }
@@ -132,14 +133,13 @@ class Account: ObservableObject {
     
     func startTimer() {
         self.timer?.invalidate()
-        guard otp?.validity != nil, !isResigned else { return }
+        guard otp?.validity != nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateRemaining()
         }
     }
     
     func updateRemaining() {
-        guard !isResigned else { return }
         if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft

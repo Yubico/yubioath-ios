@@ -120,13 +120,12 @@ struct AccountRowView: View {
                 if let otp = account.otp?.code {
                     toastPresenter.copyToClipboard(otp)
                 } else {
-                    account.calculate()
+                    account.calculate { otp in
+                        toastPresenter.copyToClipboard(otp.code)
+                    }
                 }
             }
             .readFrame($cellFrame)
-            .onDisappear {
-                account.resign()
-            }
     }
 }
 
