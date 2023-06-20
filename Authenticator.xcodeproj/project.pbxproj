@@ -110,6 +110,7 @@
 		B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B4EE055F2A0CDB3C002F30D4 /* OTPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */; };
+		B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -258,6 +259,7 @@
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
+		B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +538,7 @@
 			children = (
 				B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */,
 				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
+				B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */,
 				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
 				B40327732847AB5000DF4DB0 /* LicensingViewController.swift */,
 			);
@@ -729,6 +732,7 @@
 				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
 				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
+				B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
