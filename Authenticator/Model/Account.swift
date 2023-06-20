@@ -19,10 +19,10 @@ import Combine
 
 class Account: ObservableObject {
     
-    enum AccountState {
-        case counter(Double)
-        case requiresTouch
-        case calculate
+    enum AccountState: Equatable {
+        case requiresCalculation
+        case countingdown(Double)
+        case expired
     }
     
     @Published var otp: OATHSession.OTP?
@@ -30,34 +30,34 @@ class Account: ObservableObject {
     @Published var subTitle: String?
     @Published var state: AccountState
     @Published var isPinned: Bool
+    @Published var requiresTouch: Bool
     
     var id = UUID()
-    // accountId is the id of the underlaying Credential
     var accountId: String { credential.id }
-    var color: Color = .red
-    var enableRefresh: Bool = true
-    var timeLeft: Double?
-    var timer: Timer? = nil
-    var requestRefresh: PassthroughSubject<Account?, Never>
-    var connectionType: OATHSession.ConnectionType
     var credential: OATHSession.Credential
     var keyVersion: YKFVersion
-    var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
+    var color: Color = .red
+    var enableRefresh: Bool = true
+    private var timeLeft: Double?
+    private var timer: Timer? = nil
+    private var requestRefresh: PassthroughSubject<Account, Never>
+    private var connectionType: OATHSession.ConnectionType
+    private var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
+    private var isValid = true
     
-    init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
+    init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
         self.credential = credential
         title = credential.title
         subTitle = credential.subTitle
         self.isPinned = isPinned
         self.keyVersion = keyVersion
+        self.requiresTouch = credential.requiresTouch
         
-        if credential.requiresTouch {
-            state = .requiresTouch
-        } else if credential.type == .hotp {
-            state = .calculate
+        if code == nil {
+            state = .requiresCalculation
         } else {
             enableRefresh = false
-            state = .counter(1.0)
+            state = .countingdown(1.0)
         }
         self.connectionType = connectionType
         self.requestRefresh = requestRefresh
@@ -88,15 +88,15 @@ class Account: ObservableObject {
             
             // Schedule refresh if connection is wired
             if let timeLeft, connectionType == .wired {
-                DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) { [weak self] in
-                    self?.requestRefresh.send(nil) // refresh all accounts signaled by sending nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) {
+                    guard self.isValid else { return }
+                    self.requestRefresh.send(self)
                 }
             }
-            
-            updateRemaining()
+            updateState()
             startTimer()
         } else {
-            self.state = .calculate
+            self.state = .requiresCalculation
         }
     }
     
@@ -135,27 +135,34 @@ class Account: ObservableObject {
         self.timer?.invalidate()
         guard otp?.validity != nil else { return }
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateRemaining()
+            self?.updateState()
         }
     }
     
-    func updateRemaining() {
+    func updateState() {
         if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft
             if timeLeft > 0 {
-                self.state = .counter(timeLeft / validInterval.duration)
+                self.state = .countingdown(timeLeft / validInterval.duration)
                 self.enableRefresh = false
-            } else if connectionType == .nfc { // If no request refresh pass through this account is from a NFC key
-                self.state = self.credential.requiresTouch ? .requiresTouch : .calculate
+            } else if timeLeft < 0 {
+                self.state = .expired
                 self.timer?.invalidate()
                 self.timer = nil
                 self.enableRefresh = true
-            } else {
-                self.state = .counter(1.0)
-                self.enableRefresh = false
+            } else if connectionType == .nfc {
+                self.state = .expired
+                self.timer?.invalidate()
+                self.timer = nil
+                self.enableRefresh = true
             }
         }
+    }
+    
+    func invalidate() {
+        self.timer?.invalidate()
+        self.isValid = false
     }
 }
 

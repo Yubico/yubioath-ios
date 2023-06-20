@@ -54,21 +54,23 @@ struct AccountRowView: View {
                 Spacer()
                 HStack {
                     switch(account.state) {
-                    case .requiresTouch:
-                        Image(systemName: "hand.tap.fill")
-                            .font(.system(size: 18))
-                            .foregroundStyle(.gray)
-                            .frame(width: 22.0, height: 22.0)
-                            .padding(1)
-                            .readFrame($statusIconFrame)
-                    case .calculate:
-                        Image(systemName: "arrow.clockwise.circle.fill")
-                            .font(.system(size: 22))
-                            .foregroundStyle(.gray)
-                            .frame(width: 22.0, height: 22.0)
-                            .padding(1)
-                            .readFrame($statusIconFrame)
-                    case .counter(let remaining):
+                    case .requiresCalculation, .expired:
+                        if !account.requiresTouch {
+                            Image(systemName: "arrow.clockwise.circle.fill")
+                                .font(.system(size: 22))
+                                .foregroundStyle(.gray)
+                                .frame(width: 22.0, height: 22.0)
+                                .padding(1)
+                                .readFrame($statusIconFrame)
+                        } else {
+                            Image(systemName: "hand.tap.fill")
+                                .font(.system(size: 18))
+                                .foregroundStyle(.gray)
+                                .frame(width: 22.0, height: 22.0)
+                                .padding(1)
+                                .readFrame($statusIconFrame)
+                        }
+                    case .countingdown(let remaining):
                         PieProgressView(progress: remaining)
                             .frame(width: 22, height: 22)
                             .padding(1)
@@ -79,7 +81,7 @@ struct AccountRowView: View {
                             Text(otp)
                                 .font(.system(size: 17))
                                 .bold()
-                                .foregroundColor(.gray)
+                                .foregroundColor(account.state == .expired ? .gray : .black)
                                 .padding(.trailing, 4)
                         } else {
                             Text("*** *** ")
@@ -117,13 +119,16 @@ struct AccountRowView: View {
                 showAccountDetails = data
             }
             .onLongPressGesture {
-                if let otp = account.otp?.code {
+                if account.state != .expired, let otp = account.otp?.code {
                     toastPresenter.copyToClipboard(otp)
                 } else {
                     account.calculate { otp in
                         toastPresenter.copyToClipboard(otp.code)
                     }
                 }
+            }
+            .onDisappear {
+                account.invalidate()
             }
             .readFrame($cellFrame)
     }

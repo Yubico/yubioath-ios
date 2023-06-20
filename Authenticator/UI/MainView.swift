@@ -47,7 +47,7 @@ struct MainView: View {
                         ListStatusView(image: Image("yubikey"), message: "Insert YubiKey or pull down to activate NFC", height: reader.size.height)
                     } else if !searchText.isEmpty {
                         if searchResults.count > 0 {
-                            ForEach(searchResults, id: \.accountId) { account in
+                            ForEach(searchResults, id: \.id) { account in
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         } else {
@@ -55,25 +55,25 @@ struct MainView: View {
                         }
                     } else if model.pinnedAccounts.count > 0 {
                         Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
-                            ForEach(model.pinnedAccounts, id: \.accountId) { account in
+                            ForEach(model.pinnedAccounts, id: \.id) { account in
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         }
                         if model.otherAccounts.count > 0 {
                             Section(header: Text("Other").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
-                                ForEach(model.otherAccounts, id: \.accountId) { account in
+                                ForEach(model.otherAccounts, id: \.id) { account in
                                     AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                                 }
                             }
                         }
                     } else if model.accounts.count > 0 && otp != nil {
                         Section(header: Text("Accounts").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
-                            ForEach(model.otherAccounts, id: \.accountId) { account in
+                            ForEach(model.otherAccounts, id: \.id) { account in
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         }
                     } else if model.accounts.count > 0 {
-                        ForEach(model.accounts, id: \.accountId) { account in
+                        ForEach(model.accounts, id: \.id) { account in
                             AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                         }
                     } else {

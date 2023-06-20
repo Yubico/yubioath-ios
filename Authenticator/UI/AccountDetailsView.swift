@@ -154,23 +154,25 @@ struct AccountDetailsView: View {
                             .ignoresSafeArea()
                     }
                     switch(account.state) {
-                    case .requiresTouch:
-                        Image(systemName: "hand.tap.fill")
-                            .font(.system(size: 18.0))
-                            .foregroundStyle(.gray)
-                            .frame(width: 22.0, height: 22.0)
-                            .readFrame($statusIconFrame)
-                            .position(statusIconOrigin)
-                            .ignoresSafeArea()
-                    case .calculate:
-                        Image(systemName: "arrow.clockwise.circle.fill")
-                            .font(.system(size: 22.0))
-                            .foregroundStyle(.gray)
-                            .frame(width: 22.0, height: 22.0)
-                            .readFrame($statusIconFrame)
-                            .position(statusIconOrigin)
-                            .ignoresSafeArea()
-                    case .counter(let remaining):
+                    case .requiresCalculation, .expired:
+                        if !account.requiresTouch {
+                            Image(systemName: "arrow.clockwise.circle.fill")
+                                .font(.system(size: 22.0))
+                                .foregroundStyle(.gray)
+                                .frame(width: 22.0, height: 22.0)
+                                .readFrame($statusIconFrame)
+                                .position(statusIconOrigin)
+                                .ignoresSafeArea()
+                        } else {
+                            Image(systemName: "hand.tap.fill")
+                                .font(.system(size: 18.0))
+                                .foregroundStyle(.gray)
+                                .frame(width: 22.0, height: 22.0)
+                                .readFrame($statusIconFrame)
+                                .position(statusIconOrigin)
+                                .ignoresSafeArea()
+                        }
+                    case .countingdown(let remaining):
                         PieProgressView(progress: remaining)
                             .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
@@ -180,7 +182,7 @@ struct AccountDetailsView: View {
                     
                     DetachedMenu(menuActions: [
                         DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: "Calculate", systemImage: "arrow.clockwise", action: {
-                            self.account.requestRefresh.send(self.account)
+                            self.account.calculate()
                         }),
                         DetachedMenuAction(style: .default, isEnabled: !account.enableRefresh, title: "Copy", systemImage: "square.and.arrow.up", action: {
                             UIPasteboard.general.string = account.otp?.code

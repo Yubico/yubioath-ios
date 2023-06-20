@@ -42,7 +42,7 @@ class MainViewModel: ObservableObject {
     public var passwordSaveType = PassthroughSubject<PasswordSaveType?, Never>()
     private var passwordSaveTypeCancellable: AnyCancellable? = nil
     
-    private var requestRefresh = PassthroughSubject<Account?, Never>()
+    private var requestRefresh = PassthroughSubject<Account, Never>()
     private var requestRefreshCancellable: AnyCancellable? = nil
 
     private var sessionTask: Task<(), Never>? = nil
@@ -51,19 +51,29 @@ class MainViewModel: ObservableObject {
     private var favorites: Set<String> = []
     private var favoritesCancellables = [AnyCancellable]()
 
+    private var refreshRequestCount = 0
+    
     init() {
         requestRefreshCancellable = requestRefresh
+            .map { [weak self] account in
+                self?.refreshRequestCount += 1
+                return account
+            }
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
-            .sink { account in
-                if let account {
-                    Task {
-                        await self.updateAccount(account)
+            .sink { [weak self] account in
+                print("👾 refreshRequestCount = \(self?.refreshRequestCount) ")
+                if self?.refreshRequestCount == 1 {
+                    Task { [weak self] in
+                        print("👾 update account \(account.accountId)")
+                        await self?.updateAccount(account)
                     }
                 } else {
-                    Task {
-                        await self.updateAccounts()
+                    Task { [weak self] in
+                        print("👾 update accounts")
+                        await self?.updateAccounts()
                     }
                 }
+                self?.refreshRequestCount = 0
             }
         self.favorites = favoritesStorage.readFavorites()
     }
@@ -126,11 +136,9 @@ class MainViewModel: ObservableObject {
             
             let credentials = try await useSession.calculateAll()
             let updatedAccounts = try await credentials.asyncMap { (credential, otp)  in
-                let bypassTouch = (useSession.type == .nfc && SettingsConfig.isBypassTouchEnabled)
-                if credential.type == .totp &&
-                            ((!credential.requiresTouch || bypassTouch) ||
-                             (credential.period != 30 && (!credential.requiresTouch || bypassTouch)) ||
-                             credential.isSteam) {
+                if credential.type == .totp && (
+                    (!credential.requiresTouch && (credential.period != 30 || credential.isSteam)) ||
+                    (useSession.type == .nfc && credential.requiresTouch && SettingsConfig.isBypassTouchEnabled)) {
                     let otp = try await useSession.calculate(credential: credential)
                     return self.account(credential: credential, code: otp, keyVersion: useSession.version, requestRefresh: requestRefresh, connectionType: useSession.type)
                 } else {
@@ -170,8 +178,8 @@ class MainViewModel: ObservableObject {
         }
     }
     
-    private func account(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account?, Never>, connectionType: OATHSession.ConnectionType) -> Account {
-        if let account = (accounts.filter { $0.credential.id == credential.id && !$0.isResigned }).first {
+    private func account(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account, Never>, connectionType: OATHSession.ConnectionType) -> Account {
+        if let account = (accounts.filter { $0.credential.id == credential.id }).first {
             account.update(otp: code)
             return account
         } else {
