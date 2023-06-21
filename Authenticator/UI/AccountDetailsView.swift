@@ -35,6 +35,7 @@ struct AccountDetailsView: View {
     private let finalCodeFontSize = 30.0
 
     @EnvironmentObject var model: MainViewModel
+    @EnvironmentObject var toastPresenter: ToastPresenter
     @Binding var data: AccountDetailsData?
     @ObservedObject var account: Account
     @State private var backgroundAlpha = 0.0
@@ -184,8 +185,9 @@ struct AccountDetailsView: View {
                         DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: "Calculate", systemImage: "arrow.clockwise", action: {
                             self.account.calculate()
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: !account.enableRefresh, title: "Copy", systemImage: "square.and.arrow.up", action: {
-                            UIPasteboard.general.string = account.otp?.code
+                        DetachedMenuAction(style: .default, isEnabled: account.state != .expired && account.otp != nil, title: "Copy", systemImage: "square.and.arrow.up", action: {
+                            guard let otp = account.otp?.code else { return }
+                            toastPresenter.copyToClipboard(otp)
                         }),
                         DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? "Unpin" : "Pin", systemImage: "pin", action: {
                             account.isPinned.toggle()
