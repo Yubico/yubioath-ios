@@ -31,6 +31,8 @@ class MainViewModel: ObservableObject {
     @Published var presentPasswordSaveType: Bool = false
     @Published var passwordEntryMessage: String = ""
     @Published var error: Error?
+    
+    @Published var showTouchToast: Bool = false
         
     var accessKeyMemoryCache = AccessKeyCache()
     let accessKeySecureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
@@ -110,7 +112,20 @@ class MainViewModel: ObservableObject {
         do {
             let session = try await OATHSessionHandler.shared.anySession()
             
+            // We can't know if a HOTP requires touch. Instead we wait for 0.5 seconds for a response and if
+            // the key doesn't return we assume it requires touch.
+            let showTouchAlert = DispatchWorkItem {
+                guard session.type == .wired else { return }
+                self.showTouchToast = true
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.error)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.showTouchToast = false }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: showTouchAlert)
+            
             let otp = try await session.calculate(credential: account.credential)
+            
+            showTouchAlert.cancel()
             
             if let account = (accounts.filter { $0.accountId == account.accountId }).first {
                 account.update(otp: otp)

@@ -20,6 +20,7 @@ import Combine
 struct MainView: View {
     
     @Environment(\.scenePhase) var scenePhase
+    @EnvironmentObject var toastPresenter: ToastPresenter
     
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
@@ -187,6 +188,11 @@ struct MainView: View {
             } else if phase == .background {
                 didEnterBackground = true
                 model.stop()
+            }
+        }
+        .onChange(of: model.showTouchToast) { showToast in
+            if showToast {
+                toastPresenter.toast(message: "Touch your YubiKey")
             }
         }
         .environmentObject(model)
