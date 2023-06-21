@@ -57,6 +57,9 @@ struct AccountDetailsView: View {
     @State private var statusIconFrame: CGRect = .zero
     @State private var menuFrame: CGRect = .zero
     
+    @State private var codeOpacity: Double
+    private let codeColor = Color(.secondaryLabel)
+    
     init(data: Binding<AccountDetailsData?>) {
         guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
         self._data = data
@@ -69,6 +72,11 @@ struct AccountDetailsView: View {
         statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
         modalRect = CGRect(origin: CGRect.adjustedPosition(from: detailsData.cellFrame), size: detailsData.cellFrame.size)
         modalAlpha = 0.1
+        if detailsData.account.state == .expired {
+            codeOpacity = 0.4
+        } else {
+            codeOpacity = 1.0
+        }
     }
     
     var body: some View {
@@ -134,14 +142,16 @@ struct AccountDetailsView: View {
                             Text(otp) // code
                                 .font(Font.system(size: codeFontSize))
                                 .bold()
-                                .foregroundColor(.gray)
+                                .foregroundColor(codeColor)
+                                .opacity(codeOpacity)
                                 .position(codeOrigin)
                                 .ignoresSafeArea()
                         } else {
                             Text("*** *** ")
                                 .font(Font.system(size: codeFontSize))
                                 .bold()
-                                .foregroundColor(.gray)
+                                .foregroundColor(codeColor)
+                                .opacity(codeOpacity)
                                 .position(codeOrigin)
                                 .padding(.top, 4)
                                 .ignoresSafeArea()
@@ -159,7 +169,8 @@ struct AccountDetailsView: View {
                         if !account.requiresTouch {
                             Image(systemName: "arrow.clockwise.circle.fill")
                                 .font(.system(size: 22.0))
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(codeColor)
+                                .opacity(codeOpacity)
                                 .frame(width: 22.0, height: 22.0)
                                 .readFrame($statusIconFrame)
                                 .position(statusIconOrigin)
@@ -167,17 +178,19 @@ struct AccountDetailsView: View {
                         } else {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 18.0))
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(codeColor)
+                                .opacity(codeOpacity)
                                 .frame(width: 22.0, height: 22.0)
                                 .readFrame($statusIconFrame)
                                 .position(statusIconOrigin)
                                 .ignoresSafeArea()
                         }
                     case .countingdown(let remaining):
-                        PieProgressView(progress: remaining)
+                        PieProgressView(progress: remaining, color: codeColor)
                             .frame(width: 22.0, height: 22.0)
                             .readFrame($statusIconFrame)
                             .position(statusIconOrigin)
+                            .opacity(codeOpacity)
                             .ignoresSafeArea()
                     }
                     
@@ -225,6 +238,17 @@ struct AccountDetailsView: View {
                 }
                 .onChange(of: model.accountsLoaded) { newValue in
                     self.data = nil
+                }
+                .onChange(of: account.state) { state in
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            if state == .expired {
+                                codeOpacity = 0.4
+                            } else {
+                                codeOpacity = 1.0
+                            }
+                        }
+                    }
                 }
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set

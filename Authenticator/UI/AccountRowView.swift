@@ -29,6 +29,10 @@ struct AccountRowView: View {
     @State private var titleFrame: CGRect = .zero
     @State private var subTitleFrame: CGRect = .zero
 
+    @State private var pillScaling: CGFloat = 1.0
+    @State private var pillOpacity: Double = 1.0
+    private let pillColor = Color(.secondaryLabel)
+
     var body: some View {
             HStack {
                 Text(String(account.title.first ?? "?"))
@@ -58,20 +62,18 @@ struct AccountRowView: View {
                         if !account.requiresTouch {
                             Image(systemName: "arrow.clockwise.circle.fill")
                                 .font(.system(size: 22))
-                                .foregroundStyle(.gray)
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
                                 .readFrame($statusIconFrame)
                         } else {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 18))
-                                .foregroundStyle(.gray)
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
                                 .readFrame($statusIconFrame)
                         }
                     case .countingdown(let remaining):
-                        PieProgressView(progress: remaining)
+                        PieProgressView(progress: remaining, color: pillColor)
                             .frame(width: 22, height: 22)
                             .padding(1)
                             .readFrame($statusIconFrame)
@@ -81,13 +83,11 @@ struct AccountRowView: View {
                             Text(otp)
                                 .font(.system(size: 17))
                                 .bold()
-                                .foregroundColor(account.state == .expired ? .gray : .black)
                                 .padding(.trailing, 4)
                         } else {
                             Text("*** *** ")
                                 .font(.system(size: 17))
                                 .bold()
-                                .foregroundColor(.gray)
                                 .padding(.trailing, 4)
                                 .padding(.top, 3.5)
                                 .padding(.bottom, -3.5)
@@ -100,12 +100,14 @@ struct AccountRowView: View {
                             .readFrame($codeFrame)
                     }
                 }
+                .foregroundColor(pillColor)
                 .padding(.all, 4)
                 .overlay {
                     Capsule()
-                        .stroke(Color.gray, lineWidth: 1)
+                        .stroke(pillColor, lineWidth: 1)
                 }
-
+                .opacity(pillOpacity)
+                .scaleEffect(pillScaling)
             }
             .listRowSeparator(.hidden)
             .background(Color(.systemBackground)) // without the background set, taps outside the Texts will be ignored
@@ -118,7 +120,30 @@ struct AccountRowView: View {
                                               subTitleFrame: subTitleFrame)
                 showAccountDetails = data
             }
+            .onChange(of: account.state) { state in
+                // Not sure why we have to schedule this in the next runloop
+                DispatchQueue.main.async {
+                    withAnimation {
+                        if state == .expired {
+                            pillOpacity = 0.5
+                        } else {
+                            pillOpacity = 1.0
+                        }
+                    }
+                }
+            }
             .onLongPressGesture {
+                DispatchQueue.main.async {
+                    withAnimation(.easeOut(duration: 0.1)) {
+                        pillScaling = 1.4
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation(.easeInOut(duration: 0.25)) {
+                            pillScaling = 1.0
+                        }
+                    }
+                }
+
                 if account.state != .expired, let otp = account.otp?.code {
                     toastPresenter.copyToClipboard(otp)
                 } else {
@@ -137,10 +162,11 @@ struct AccountRowView: View {
 struct PieProgressView: View {
     
     var progress: Double
+    var color: Color? = nil
     
     var body: some View {
         PieShape(progress: self.progress)
-            .foregroundColor(.gray)
+            .foregroundColor(color)
             .animation(.linear(duration: self.progress == 1.0 ? 0.0 : 1.0), value: self.progress)
     }
 }
