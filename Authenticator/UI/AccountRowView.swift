@@ -30,8 +30,18 @@ struct AccountRowView: View {
     @State private var subTitleFrame: CGRect = .zero
 
     @State private var pillScaling: CGFloat = 1.0
-    @State private var pillOpacity: Double = 1.0
+    @State private var pillOpacity: Double
     private let pillColor = Color(.secondaryLabel)
+    
+    init(account: Account, showAccountDetails: Binding<AccountDetailsData?>) {
+        self.account = account
+        self._showAccountDetails = showAccountDetails
+        if account.state == .expired || account.otp == nil {
+            self.pillOpacity = 0.5
+        } else {
+            self.pillOpacity = 1.0
+        }
+    }
 
     var body: some View {
             HStack {
@@ -124,7 +134,7 @@ struct AccountRowView: View {
                 // Not sure why we have to schedule this in the next runloop
                 DispatchQueue.main.async {
                     withAnimation {
-                        if state == .expired {
+                        if state == .expired || account.otp == nil {
                             pillOpacity = 0.5
                         } else {
                             pillOpacity = 1.0
