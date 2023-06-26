@@ -21,12 +21,19 @@ struct AuthenticatorApp: App {
     
     @Environment(\.scenePhase) var scenePhase
     @StateObject var toastPresenter = ToastPresenter()
+    @StateObject var notificationsViewModel = NotificationsViewModel()
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 MainView()
                     .toast(isPresenting: $toastPresenter.isPresenting, message: toastPresenter.message)
+            }
+            .fullScreenCover(isPresented: $notificationsViewModel.showPIVTokenView) {
+                TokenRequestView(userInfo: notificationsViewModel.userInfo)
+            }
+            .transaction { transaction in
+                transaction.disablesAnimations = true
             }
             .environmentObject(toastPresenter)
         }

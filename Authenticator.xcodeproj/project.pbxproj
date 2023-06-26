@@ -111,6 +111,8 @@
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
 		B4EE055F2A0CDB3C002F30D4 /* OTPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */; };
 		B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */; };
+		B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */; };
+		B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -260,6 +262,8 @@
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
 		B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryWrapper.swift; sourceTree = "<group>"; };
+		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */,
+				B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */,
 			);
 			path = TokenSession;
 			sourceTree = "<group>";
@@ -517,6 +522,7 @@
 				B4DB2289299BC373003110ED /* OATHSession.swift */,
 				B4C93E62299FB51A00C2A8B8 /* Account.swift */,
 				B4719B1A298AB641006CDAEA /* MainViewModel.swift */,
+				B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -729,6 +735,7 @@
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,
+				B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */,
 				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
 				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
@@ -759,6 +766,7 @@
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
 				513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
+				B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */,
 				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
 				51E9BE3A26D9038C00F9E2FC /* OATHCodeDetailsView.swift in Sources */,
 				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
