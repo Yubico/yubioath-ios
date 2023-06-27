@@ -35,6 +35,7 @@ struct AuthenticatorApp: App {
             .transaction { transaction in
                 transaction.disablesAnimations = true
             }
+            .navigationViewStyle(.stack)
             .environmentObject(toastPresenter)
         }
     }
