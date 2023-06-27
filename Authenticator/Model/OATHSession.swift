@@ -92,6 +92,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
         super.init()
         DelegateStack.shared.setDelegate(self)
         YubiKitManager.shared.startAccessoryConnection()
+        if #available(iOS 16.0, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
     }
     
     func wiredSessions() -> OATHSessionHandler.WiredOATHSessions {
@@ -117,8 +120,10 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     var wiredContinuation: CheckedContinuation<OATHSession, Error>?
     private func newWiredSession() async throws -> OATHSession {
-        print("👾 wiredSession(), startAccessoryConnection")
         YubiKitManager.shared.startAccessoryConnection()
+        if #available(iOS 16.0, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
         return try await withTaskCancellationHandler {
             return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
                 self.wiredContinuation = continuation
@@ -141,6 +146,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             wiredContinuation = nil
             wiredConnectionCallback = nil
             YubiKitManager.shared.stopAccessoryConnection()
+            if #available(iOS 16.0, *) {
+                YubiKitManager.shared.stopSmartCardConnection()
+            }
         }
     }
     

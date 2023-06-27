@@ -30,6 +30,7 @@ class MainViewModel: ObservableObject {
     @Published var presentPasswordEntry: Bool = false
     @Published var presentPasswordSaveType: Bool = false
     @Published var passwordEntryMessage: String = ""
+    @Published var isKeyPluggedIn: Bool = false
     @Published var error: Error?
     
     @Published var showTouchToast: Bool = false
@@ -85,9 +86,10 @@ class MainViewModel: ObservableObject {
     }
     
     @MainActor func start() {
-        sessionTask = Task {
+        sessionTask = Task { [weak self] in
             for await session in OATHSessionHandler.shared.wiredSessions() {
-                await updateAccounts(using: session)
+                self?.isKeyPluggedIn = true
+                await self?.updateAccounts(using: session)
                 let error = await session.sessionDidEnd()
                 await MainActor.run { [weak self] in
                     self?.favoritesCancellables.forEach { $0.cancel() }
@@ -96,6 +98,7 @@ class MainViewModel: ObservableObject {
                     self?.pinnedAccounts.removeAll()
                     self?.otherAccounts.removeAll()
                     self?.accountsLoaded = false
+                    self?.isKeyPluggedIn = false
                     self?.error = error
                 }
             }
@@ -109,6 +112,7 @@ class MainViewModel: ObservableObject {
         pinnedAccounts.removeAll()
         otherAccounts.removeAll()
         accountsLoaded = false
+        isKeyPluggedIn = false
         error = nil
     }
     
