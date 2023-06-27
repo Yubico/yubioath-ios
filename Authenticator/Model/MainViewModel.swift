@@ -56,6 +56,10 @@ class MainViewModel: ObservableObject {
     private var refreshRequestCount = 0
     
     init() {
+        // Make sure to instantiate the OATHSessionHandler first to get it to be the root delegate in
+        // the DelegateStack.
+        _ = OATHSessionHandler.shared
+
         requestRefreshCancellable = requestRefresh
             .map { [weak self] account in
                 self?.refreshRequestCount += 1
