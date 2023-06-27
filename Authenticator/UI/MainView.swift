@@ -181,6 +181,11 @@ struct MainView: View {
                 model.updateAccountsOverNFC()
             }
         })
+        .onChange(of: otp) { otp in
+            if let otp, SettingsConfig.isCopyOTPEnabled {
+                toastPresenter.copyToClipboard(otp)
+            }
+        }
         .onChange(of: scenePhase) { phase in
             if phase == .active && didEnterBackground {
                 didEnterBackground = false
