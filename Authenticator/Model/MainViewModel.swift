@@ -233,7 +233,7 @@ class MainViewModel: ObservableObject {
                 print("👾 get session")
                 let session = try await OATHSessionHandler.shared.anySession()
                 print("👾 addAccount with: \(session)")
-                try await session.addAccount(template: template, requiresTouch: requiresTouch)
+                try await session.addCredential(template: template, requiresTouch: requiresTouch)
                 await updateAccounts(using: session)
             } catch {
                 handle(error: error, retry: { self.addAccount(template, requiresTouch: requiresTouch) })

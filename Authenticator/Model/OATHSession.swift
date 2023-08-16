@@ -16,6 +16,18 @@
 
 import Foundation
 
+enum OATHSessionError: Error, LocalizedError {
+    case credentialAlreadyPresent(YKFOATHCredentialTemplate);
+    
+    public var errorDescription: String? {
+        switch self {
+        case .credentialAlreadyPresent(let credential):
+            return "There's already an account named \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) on this YubiKey."
+        }
+    }
+}
+
+
 class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     typealias ClosingCallback = ((_ error: Error?) -> Void)
@@ -254,7 +266,16 @@ class OATHSession {
         }
     }
     
-    func addAccount(template: YKFOATHCredentialTemplate, requiresTouch: Bool) async throws {
+    func addCredential(template: YKFOATHCredentialTemplate, requiresTouch: Bool) async throws {
+        
+        let credentials = try await session.listCredentials()
+        let key = YKFOATHCredentialUtils.key(fromAccountName: template.accountName, issuer: template.issuer, period: template.period, type: template.type)
+        let keys = credentials.map { YKFOATHCredentialUtils.key(fromAccountName: $0.accountName, issuer: $0.issuer, period: $0.period, type: $0.type) }
+        guard !keys.contains(key) else {
+            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Duplicate accounts!")
+            throw OATHSessionError.credentialAlreadyPresent(template)
+        }
+        
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             session.put(template, requiresTouch: requiresTouch) { error in
                 if let error {
@@ -286,6 +307,20 @@ class OATHSession {
                     return
                 }
                 continuation.resume(returning: Void())
+            }
+        }
+    }
+    
+    func list() async throws -> [Credential] {
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[Credential], Error>) in
+            session.listCredentials { credentials, error in
+                if let credentials {
+                    continuation.resume(returning: credentials.map { Credential(ykfCredential: $0) })
+                } else if let error {
+                    continuation.resume(throwing: error)
+                } else {
+                    fatalError()
+                }
             }
         }
     }
