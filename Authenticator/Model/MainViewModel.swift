@@ -194,7 +194,8 @@ class MainViewModel: ObservableObject {
             }
             
             self.accountsLoaded = true
-            useSession.endNFC(message: "Codes calculated")
+            let message = SettingsConfig.showNFCSwipeHint ? "Success!\nHint: swipe down to dismiss" : "Successfully read"
+            useSession.endNFC(message: message)
         } catch {
             print("👾 updateAccounts error: \(error)")
             handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
