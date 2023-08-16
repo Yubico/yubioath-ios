@@ -245,11 +245,16 @@ class MainViewModel: ObservableObject {
     @MainActor func renameAccount(_ account: Account, issuer: String, accountName: String, completion: @escaping () -> Void) {
         Task {
             do {
+                let wasPinned = account.isPinned
                 let session = try await OATHSessionHandler.shared.anySession()
                 try await session.renameCredential(account.credential, issuer: issuer, accountName: accountName)
+                if wasPinned {
+                    account.isPinned = false
+                }
                 account.credential.issuer = issuer
                 account.credential.accountName = accountName
                 account.updateTitles()
+                account.isPinned = wasPinned
                 await updateAccounts(using: session)
                 YubiKitManager.shared.stopNFCConnection(withMessage: "Account renamed")
                 completion()
