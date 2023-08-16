@@ -45,7 +45,7 @@ struct MainView: View {
                         }
                     }
                     if !model.accountsLoaded {
-                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey or pull down to activate NFC", height: reader.size.height)
+                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey\(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? " or pull down to activate NFC" : "")", height: reader.size.height)
                     } else if !searchText.isEmpty {
                         if searchResults.count > 0 {
                             ForEach(searchResults, id: \.id) { account in
@@ -86,7 +86,7 @@ struct MainView: View {
             .autocorrectionDisabled(true)
             .keyboardType(.asciiCapable)
             .listStyle(.inset)
-            .refreshable {
+            .refreshable(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
                 otp = nil
                 model.updateAccountsOverNFC()
             }

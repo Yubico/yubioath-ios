@@ -59,3 +59,16 @@ struct SizeReaderModifier: ViewModifier  {
         )
     }
 }
+
+
+extension View {
+    @ViewBuilder func refreshable(enabled: Bool, action: @escaping () async -> Void) -> some View {
+        if enabled {
+            self.refreshable {
+                await action()
+            }
+        } else {
+            self
+        }
+    }
+}
