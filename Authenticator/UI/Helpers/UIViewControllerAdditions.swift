@@ -57,37 +57,4 @@ extension UIViewController {
         }
     }
     
-    /*! Shows small toast/text view on the bottom of screen to notify that something has happened (doesn't require user interaction)
-     */
-    func displayToast(message: String) {
-        DispatchQueue.main.async {
-            guard let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first else {
-                return
-            }
-            // TODO: calculate width dynamically depending on message
-            let toastView = UILabel(frame: CGRect(x: 0, y: 0, width: keyWindow.frame.size.width*3.0/4.0, height: 40.0))
-            toastView.text = message;
-            toastView.numberOfLines = 0
-            toastView.lineBreakMode = .byWordWrapping
-            toastView.textAlignment = .center;
-            toastView.layer.cornerRadius = 20;
-            toastView.layer.masksToBounds = true;
-            toastView.textColor = .white
-            toastView.font = .preferredFont(forTextStyle: .body)
-            toastView.backgroundColor = UIColor.yubiBlue
-            toastView.center = CGPoint(x: keyWindow.center.x, y: keyWindow.layoutMargins.top + 14)
-            toastView.alpha = 0
-            keyWindow.addSubview(toastView)
-            UIView.animate(withDuration: 0.2) {
-                toastView.alpha = 1
-            } completion: { _ in
-                UIView.animate(withDuration: 0.7, delay: 1.5) {
-                    toastView.alpha = 0.0
-                } completion: { _ in
-                    toastView.removeFromSuperview()
-                }
-            }
-        }
-    }
-    
 }
