@@ -21,6 +21,7 @@ struct MainView: View {
     
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var toastPresenter: ToastPresenter
+    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     
     @StateObject var model = MainViewModel()
     @State var showAccountDetails: AccountDetailsData? = nil
@@ -202,6 +203,14 @@ struct MainView: View {
                 toastPresenter.toast(message: "Touch your YubiKey")
             }
         }
+        .onChange(of: notificationsViewModel.showPIVTokenView, perform: { showPIVTokenview in
+            if showPIVTokenview {
+                showAddAccount = false
+                showConfiguration = false
+                showAbout = false
+                showAccountDetails = nil
+            }
+        })
         .environmentObject(model)
     }
     

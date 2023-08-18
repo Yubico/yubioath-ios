@@ -37,6 +37,7 @@ struct AuthenticatorApp: App {
             }
             .navigationViewStyle(.stack)
             .environmentObject(toastPresenter)
+            .environmentObject(notificationsViewModel)
         }
     }
 }
