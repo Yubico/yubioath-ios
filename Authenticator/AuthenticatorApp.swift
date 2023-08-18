@@ -33,7 +33,7 @@ struct AuthenticatorApp: App {
                 TokenRequestView(userInfo: notificationsViewModel.userInfo)
             }
             .transaction { transaction in
-                transaction.disablesAnimations = true
+                transaction.disablesAnimations = notificationsViewModel.showPIVTokenView
             }
             .navigationViewStyle(.stack)
             .environmentObject(toastPresenter)
