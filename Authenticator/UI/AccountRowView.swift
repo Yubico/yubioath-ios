@@ -23,6 +23,7 @@ struct AccountRowView: View {
     @ObservedObject var account: Account
     @Binding var showAccountDetails: AccountDetailsData?
     @State private var contentSize: CGSize = .zero
+    @State private var estimatedCodeFrame: CGRect = .zero
     @State private var codeFrame: CGRect = .zero
     @State private var statusIconFrame: CGRect = .zero
     @State private var cellFrame: CGRect = .zero
@@ -94,6 +95,7 @@ struct AccountRowView: View {
                                 .font(.system(size: 17))
                                 .bold()
                                 .padding(.trailing, 4)
+                                .readFrame($codeFrame)
                         } else {
                             Text("*** *** ")
                                 .font(.system(size: 17))
@@ -107,7 +109,7 @@ struct AccountRowView: View {
                             .bold()
                             .foregroundColor(.clear)
                             .padding(.trailing, 4)
-                            .readFrame($codeFrame)
+                            .readFrame($estimatedCodeFrame)
                     }
                 }
                 .foregroundColor(pillColor)
@@ -123,6 +125,7 @@ struct AccountRowView: View {
             .background(Color(.systemBackground)) // without the background set, taps outside the Texts will be ignored
             .onTapGesture {
                 let data = AccountDetailsData(account: account,
+                                              estimatedCodeFrame: estimatedCodeFrame,
                                               codeFrame: codeFrame,
                                               statusIconFrame: statusIconFrame,
                                               cellFrame: cellFrame,

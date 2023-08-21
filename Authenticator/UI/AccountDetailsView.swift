@@ -22,6 +22,7 @@ struct AccountDetailsData: Equatable {
     }
     
     @ObservedObject var account: Account
+    let estimatedCodeFrame: CGRect
     let codeFrame: CGRect
     let statusIconFrame: CGRect
     let cellFrame: CGRect
@@ -66,7 +67,7 @@ struct AccountDetailsView: View {
         account = detailsData.account
         titleOrigin = CGRect.adjustedPosition(from: detailsData.titleFrame)
         subTitleOrigin = CGRect.adjustedPosition(from: detailsData.subTitleFrame)
-        codeOrigin = CGRect.adjustedPosition(from: detailsData.codeFrame)
+        codeOrigin = CGRect.adjustedPosition(from: detailsData.estimatedCodeFrame)
         codeBackgroundOrigin = CGRect.adjustedPosition(from: detailsData.cellFrame)
         codeFontSize = initialCodeFontSize
         statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
@@ -87,24 +88,24 @@ struct AccountDetailsView: View {
                         .background(.ultraThinMaterial.opacity(backgroundAlpha))
                         .ignoresSafeArea()
                         .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: 0.2)) {
                                 backgroundAlpha = 0.0
                                 codeFontSize = initialCodeFontSize
                                 titleOrigin = CGRect.adjustedPosition(from: data.titleFrame)
                                 subTitleOrigin = CGRect.adjustedPosition(from: data.subTitleFrame)
                                 // I have no idea where these two points are coming from but a guess is the scale change has something to do with it
-                                codeOrigin = CGRect.adjustedPosition(from: data.codeFrame, xAdjustment: -2.0)
+                                codeOrigin = CGRect.adjustedPosition(from: data.estimatedCodeFrame, xAdjustment: -2.0)
                                 codeBackgroundOrigin = CGRect.adjustedPosition(from: data.cellFrame)
                                 statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
                                 modalAlpha = 0.1
                                 modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.cellFrame), size: data.cellFrame.size)
                             }
-                            withAnimation(.easeInOut(duration: 0.15)) {
+                            withAnimation(.easeInOut(duration: 0.1)) {
                                 menuScale = 0.3
                                 menuAlpha = 0.0
                             }
                             
-                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                                 self.data = nil
                             }
                         }
@@ -251,8 +252,9 @@ struct AccountDetailsView: View {
                     }
                 }
                 .onAppear {
+                    let codeWidth = max(self.data?.codeFrame.size.width ?? 0, self.data?.estimatedCodeFrame.size.width ?? 0)
                     DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
-                        withAnimation(.easeInOut(duration: 0.3)) {
+                        withAnimation(.easeInOut(duration: 0.2)) {
                             backgroundAlpha = 1.0
                             codeFontSize = finalCodeFontSize
                             modalAlpha = 1.0
@@ -264,12 +266,12 @@ struct AccountDetailsView: View {
                                                  y: reader.size.height / 2.0 + 35.0)
                             codeBackgroundOrigin = CGPoint(x: reader.size.width / 2.0,
                                                            y: reader.size.height / 2.0 + 35.0)
-                            statusIconOrigin = CGPoint(x: (reader.size.width / 2.0) - (codeFrame.width * finalCodeFontSize / initialCodeFontSize) / 2.0 - 5.0,
+                            statusIconOrigin = CGPoint(x: (reader.size.width / 2.0) - (codeWidth * finalCodeFontSize / initialCodeFontSize) / 2.0 - 5.0,
                                                        y: reader.size.height / 2.0 + 35.0)
                             modalRect = CGRect(x: reader.size.width / 2.0, y: reader.size.height / 2.0, width: 300.0, height: 150.0)
                         }
                     }
-                    withAnimation(.easeInOut(duration: 0.15).delay(0.2)) {
+                    withAnimation(.easeInOut(duration: 0.15).delay(0.15)) {
                         menuAlpha = 1.0
                         menuScale = 1.0
                     }
