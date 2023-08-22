@@ -139,11 +139,10 @@ struct MainView: View {
         }
         .alert("Enter password", isPresented: $model.presentPasswordEntry) {
             SecureField("Password", text: $password)
-            Button("Cancel", role: .cancel) { password = ""; print("👾 Cancel") }
+            Button("Cancel", role: .cancel) { password = "" }
             Button("Ok") {
                 model.password.send(password)
                 password = ""
-                print("👾 Ok")
             }
         } message: {
             Text(model.passwordEntryMessage)
@@ -173,7 +172,6 @@ struct MainView: View {
             if showAbout { showAbout.toggle() }
             oathURL = url
             showAddAccount.toggle()
-            print("👾 handle add OATH account \(url)")
         })
         .onContinueUserActivity(NSUserActivityTypeBrowsingWeb, perform: { userActivity in
             guard let otp = userActivity.webpageURL?.yubiOTP else { return }

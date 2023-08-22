@@ -100,7 +100,6 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     static let shared = OATHSessionHandler()
     private override init() {
-        print("👾 init(), startAccessoryConnection")
         super.init()
         DelegateStack.shared.setDelegate(self)
         YubiKitManager.shared.startAccessoryConnection()
@@ -140,7 +139,6 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
                 self.wiredContinuation = continuation
                 self.wiredConnectionCallback = { connection in
-                    print("👾 wait for a wired connection")
                     connection.oathSession { session, error in
                         if let session {
                             self.currentSession = session
@@ -153,7 +151,6 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                 }
             }
         } onCancel: {
-            print("👾 cancel wiredSession()")
             wiredContinuation?.resume(throwing: "Connection cancelled")
             wiredContinuation = nil
             wiredConnectionCallback = nil
@@ -183,7 +180,6 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                 YubiKitManager.shared.startNFCConnection()
             }
         } onCancel: {
-            print("👾 cancel nfc connection")
             nfcContinuation?.resume(throwing: "Connection cancelled")
             nfcContinuation = nil
             nfcConnectionCallback = nil
@@ -369,10 +365,8 @@ class OATHSession {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             session.unlock(withPassword: password) { error in
                 if let error {
-                    print("👾 failed unlocking: \(error)")
                     continuation.resume(throwing: error)
                 } else {
-                    print("👾 unlocked!")
                     continuation.resume()
                 }
             }
@@ -384,7 +378,6 @@ class OATHSession {
             let accessKey = session.deriveAccessKey(password)
             session.unlock(withAccessKey: accessKey) { error in
                 if let error {
-                    print("👾 failed unlocking with access password: \(error)")
                     continuation.resume(throwing: error)
                 } else {
                     continuation.resume(with: .success(accessKey))
@@ -397,10 +390,8 @@ class OATHSession {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             session.unlock(withAccessKey: accessKey) { error in
                 if let error {
-                    print("👾 failed unlocking with access key: \(error)")
                     continuation.resume(throwing: error)
                 } else {
-                    print("👾 unlocked!")
                     continuation.resume()
                 }
             }

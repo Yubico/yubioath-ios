@@ -110,7 +110,6 @@ class YubiMenu: UIView {
             case .dragOutside:
                 lastSelectedRow?.backgroundColor = UIColor(named: "MenuBackground")
                 lastSelectedRow = nil
-                print(recognizer.distanceFromMenu)
                 
                 let scale = (200 - min(50, recognizer.distanceFromMenu / 4)) / 200
                 

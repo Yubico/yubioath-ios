@@ -68,15 +68,12 @@ class MainViewModel: ObservableObject {
             }
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
             .sink { [weak self] account in
-                print("👾 refreshRequestCount = \(self?.refreshRequestCount) ")
                 if self?.refreshRequestCount == 1 {
                     Task { [weak self] in
-                        print("👾 update account \(account.accountId)")
                         await self?.updateAccount(account)
                     }
                 } else {
                     Task { [weak self] in
-                        print("👾 update accounts")
                         await self?.updateAccounts()
                     }
                 }
@@ -141,8 +138,7 @@ class MainViewModel: ObservableObject {
 
             session.endNFC(message: "Code calculated")
         } catch {
-            print("updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccount(account) }})
+            handle(error: error, retry: { Task { await self.updateAccount(account) }})
         }
     }
     
@@ -197,8 +193,7 @@ class MainViewModel: ObservableObject {
             let message = SettingsConfig.showNFCSwipeHint ? "Success!\nHint: swipe down to dismiss" : "Successfully read"
             useSession.endNFC(message: message)
         } catch {
-            print("👾 updateAccounts error: \(error)")
-            handle(error: error, retry: { print("👾 retry after auth..."); Task { await self.updateAccounts() }})
+            handle(error: error, retry: { Task { await self.updateAccounts() }})
         }
     }
     
@@ -213,15 +208,11 @@ class MainViewModel: ObservableObject {
     }
 
     @MainActor func updateAccountsOverNFC() {
-        print("👾 updateAccountsOverNFC")
         Task {
             do {
-                print("👾 get session")
                 let session = try await OATHSessionHandler.shared.nfcSession()
-                print("👾 updateAccounts with: \(session)")
                 await updateAccounts(using: session)
             } catch {
-                print("Set error: \(error)")
                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
                 self.error = error
             }
@@ -231,9 +222,7 @@ class MainViewModel: ObservableObject {
     @MainActor func addAccount(_ template: YKFOATHCredentialTemplate, requiresTouch: Bool) {
         Task {
             do {
-                print("👾 get session")
                 let session = try await OATHSessionHandler.shared.anySession()
-                print("👾 addAccount with: \(session)")
                 try await session.addCredential(template: template, requiresTouch: requiresTouch)
                 await updateAccounts(using: session)
             } catch {
@@ -267,9 +256,7 @@ class MainViewModel: ObservableObject {
     @MainActor func deleteAccount(_ account: Account, completion: @escaping () -> Void) {
         Task {
             do {
-                print("👾 get session")
                 let session = try await OATHSessionHandler.shared.anySession()
-                print("👾 deleteAccount with: \(session)")
                 try await session.deleteCredential(account.credential)
                 accounts.removeAll { $0.accountId == account.accountId }
                 pinnedAccounts.removeAll { $0.accountId == account.accountId }
@@ -290,9 +277,7 @@ class MainViewModel: ObservableObject {
             self.passwordCancellable = self.password.sink { password in
                 if let password {
                     Task {
-                        print("👾 password: \(password)")
                         let session = try await OATHSessionHandler.shared.anySession()
-                        print("👾 unlock with: \(session)")
                         do {
                             let accessKey = try await session.unlock(withPassword: password)
                             self.accessKeyMemoryCache.setAccessKey(accessKey, forKey: session.deviceId)
@@ -310,7 +295,6 @@ class MainViewModel: ObservableObject {
     func handle(error: Error, retry: (() -> Void)? = nil) {
         if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
             self.cachedAccessKey { [self] accessKey in
-                print("👾 got access key: \(accessKey?.debugDescription ?? "no key")")
                 if let accessKey {
                     Task {
                         do {
