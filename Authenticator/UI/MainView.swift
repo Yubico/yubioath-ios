@@ -147,7 +147,7 @@ struct MainView: View {
         } message: {
             Text(model.passwordEntryMessage)
         }
-        .confirmationDialog("Save password?", isPresented: $model.presentPasswordSaveType) {
+        .alertOrConfirmationDialog("Save password?", isPresented: $model.presentPasswordSaveType) {
             Button("Save password") { model.passwordSaveType.send(.some(.save)) }
             let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
             Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
@@ -222,6 +222,15 @@ struct MainView: View {
     }
 }
 
+extension View {
+    func alertOrConfirmationDialog<A>(_ title: String, isPresented: Binding<Bool>, @ViewBuilder actions: () -> A) -> some View where A : View {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return AnyView(erasing: self.alert<A>(title, isPresented: isPresented, actions: actions))
+        } else {
+            return AnyView(erasing: self.confirmationDialog<A>(title, isPresented: isPresented, titleVisibility: .visible, actions: actions))
+        }
+    }
+}
 
 extension URL {
     
