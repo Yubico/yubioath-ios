@@ -215,7 +215,7 @@ struct AccountDetailsView: View {
                     ].compactMap { $0 } )
                     .readFrame($menuFrame)
                     .position(CGPoint(x: reader.size.width / 2.0,
-                                      y: reader.size.height / 2.0 + 2.0 + menuFrame.size.height / 2.0 + 40.0))
+                                      y: reader.size.height / 2.0 + 2.0 + menuFrame.size.height / 2.0 + (UIDevice.current.userInterfaceIdiom == .pad ? 70.0 : 40.0)))
                     .opacity(menuAlpha)
                     .scaleEffect(menuScale, anchor: UnitPoint(x: 0.5, y: 0.5))
                     

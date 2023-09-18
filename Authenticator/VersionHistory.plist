@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.5</string>
+        <key>date</key>
+        <date>2023-09-21T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            Parts of user interface rewritten in SwiftUI.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.4</string>
         <key>date</key>
         <date>2023-05-24T09:41:00Z</date>

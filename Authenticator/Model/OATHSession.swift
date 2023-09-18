@@ -102,7 +102,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     private override init() {
         super.init()
         DelegateStack.shared.setDelegate(self)
-        YubiKitManager.shared.startAccessoryConnection()
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
         if #available(iOS 16.0, *) {
             YubiKitManager.shared.startSmartCardConnection()
         }
@@ -131,7 +133,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     var wiredContinuation: CheckedContinuation<OATHSession, Error>?
     private func newWiredSession() async throws -> OATHSession {
-        YubiKitManager.shared.startAccessoryConnection()
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
         if #available(iOS 16.0, *) {
             YubiKitManager.shared.startSmartCardConnection()
         }
