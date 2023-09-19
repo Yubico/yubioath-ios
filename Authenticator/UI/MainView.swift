@@ -150,7 +150,9 @@ struct MainView: View {
         .alertOrConfirmationDialog("Save password?", isPresented: $model.presentPasswordSaveType) {
             Button("Save password") { model.passwordSaveType.send(.some(.save)) }
             let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
-            Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
+            if authenticationType != .none {
+                Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
+            }
             Button("Never for this YubiKey") { model.passwordSaveType.send(.some(.never)) }
             Button("Not now" , role: .cancel) { model.passwordSaveType.send(nil) }
         }
