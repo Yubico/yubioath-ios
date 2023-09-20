@@ -20,7 +20,7 @@ import UIKit
 private let defaultTextColor = UIColor.label
 private let defaultDisabledTextColor = UIColor.tertiaryLabel
 
-class Menu: UIView {
+class YubiMenu: UIView {
 
     let actions: [MenuAction]
 
@@ -110,7 +110,6 @@ class Menu: UIView {
             case .dragOutside:
                 lastSelectedRow?.backgroundColor = UIColor(named: "MenuBackground")
                 lastSelectedRow = nil
-                print(recognizer.distanceFromMenu)
                 
                 let scale = (200 - min(50, recognizer.distanceFromMenu / 4)) / 200
                 

@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.5</string>
+        <key>date</key>
+        <date>2023-09-21T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            Parts of user interface rewritten in SwiftUI.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.4</string>
         <key>date</key>
         <date>2023-05-24T09:41:00Z</date>
@@ -35,7 +47,7 @@
         <false/>
         <key>changes</key>
         <string>
-            This version adds support for setting up new accounts by opening a otpauth:// link. This feature is enabled in the Password options section in the iOS Settings app. We've also improved the handling of YubiKeys with malformed PIV certificates in the Smart card extension. Error handling when trying to add an already existing account to a YubiKey has also been improved and lastly we fixed a crash that could occur when cancelling the password dialog
+            This version adds support for setting up new accounts by opening a otpauth:// link. This feature is enabled in the Password options section in the iOS Settings app. We've also improved the handling of YubiKeys with malformed PIV certificates in the Smart card extension. Error handling when trying to add an already existing account to a YubiKey has also been improved and lastly we fixed a crash that could occur when cancelling the password dialog.
         </string>
     </dict>
     <dict>

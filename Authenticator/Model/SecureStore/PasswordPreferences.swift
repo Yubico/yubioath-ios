@@ -73,7 +73,7 @@ class PasswordPreferences {
         }
 
         if !hasBiometricAuthentication {
-            return .passcode
+            return .none
         }
         
         if #available(iOS 11.0, *) {

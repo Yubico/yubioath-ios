@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Yubico.
+ * Copyright (C) Yubico.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-@objc class GlobalTimer: NSObject {
+import SwiftUI
 
-    private var timer: Timer!
+class NotificationsViewModel: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
     
-    // Observe to get ticks
-    @objc dynamic private(set) var tick: UInt8 = 0
-    
-    static var shared: GlobalTimer = GlobalTimer()
+    @Published var showPIVTokenView: Bool = false
+    var userInfo: [AnyHashable: Any]?
     
     override init() {
         super.init()
-        timer = Timer(timeInterval: 1.0, repeats: true, block: { [weak self] (timer) in
-            guard let self = self else {
-                return
-            }
-
-            self.tick = ~self.tick
-        })
-        RunLoop.main.add(timer, forMode: .common)
+        UNUserNotificationCenter.current().delegate = self
     }
     
-    deinit {
-        self.timer = nil
-        print("deinit GlobalTimer")
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        userInfo = response.notification.request.content.userInfo
+        showPIVTokenView = true
+        completionHandler()
     }
 }

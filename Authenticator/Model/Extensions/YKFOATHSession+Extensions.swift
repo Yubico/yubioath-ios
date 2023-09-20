@@ -15,7 +15,7 @@
  */
 
 extension YKFOATHSession {
-    func calculateSteamTOTP(credential: Credential, completion: @escaping ((String?, DateInterval?, Error?) -> Void)) {
+    func calculateSteamTOTP(credential: YKFOATHCredential, completion: @escaping ((String?, DateInterval?, Error?) -> Void)) {
         var challenge = Data()
         let timestamp = Date().addingTimeInterval(10)
         let value: UInt64 = UInt64(timestamp.timeIntervalSince1970 / TimeInterval(credential.period))
@@ -23,7 +23,8 @@ extension YKFOATHSession {
         withUnsafePointer(to: &bigEndianVal) {
             challenge.append(UnsafeBufferPointer(start: $0, count: 1))
         }
-        self.calculateResponse(forCredentialID: Data(credential.uniqueId.utf8), challenge: challenge) { response, error in
+
+        self.calculateResponse(forCredentialID: Data(credential.id.utf8), challenge: challenge) { response, error in
             guard let response = response else {
                 completion(nil, nil, error!)
                 return
@@ -42,5 +43,11 @@ extension YKFOATHSession {
             let validity = DateInterval(start: startDate, duration: 30)
             completion(steamCode, validity, nil)
         }
+    }
+}
+
+extension YKFOATHCredential {
+    var id: String {
+        YKFOATHCredentialUtils.key(fromAccountName: accountName, issuer: issuer, period: period, type: type)
     }
 }

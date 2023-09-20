@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */; };
-		51394C5826CFE15F009F366D /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5726CFE15F009F366D /* Menu.swift */; };
+		51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5726CFE15F009F366D /* YubiMenu.swift */; };
 		51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */; };
 		51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */; };
 		513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF12660D6570022C53D /* AddCredentialController.swift */; };
@@ -39,7 +39,6 @@
 		5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */; };
 		5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180974226DE185100A122C1 /* ResetOATHViewModel.swift */; };
 		51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */; };
-		51AFD4D227103E36008F2630 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D127103E36008F2630 /* SearchBar.swift */; };
 		51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
 		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
 		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
@@ -47,7 +46,6 @@
 		51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
-		51E9BE3A26D9038C00F9E2FC /* OATHCodeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */; };
 		51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */; };
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
 		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
@@ -59,17 +57,10 @@
 		816C685223440EF900209342 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685123440EF900209342 /* SecureStoreTests.swift */; };
 		816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C685D234697BE00209342 /* PasswordPreferences.swift */; };
 		817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */; };
-		818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866B622DFD729006BC0A8 /* AppDelegate.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
 		818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818866BF22DFD72C006BC0A8 /* Assets.xcassets */; };
 		818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */; };
 		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
-		818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866E822E18134006BC0A8 /* OATHViewController.swift */; };
-		818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */; };
-		818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866F922E96B47006BC0A8 /* PieProgressBar.swift */; };
-		818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818BE8DE22F39A9000061026 /* GlobalTimer.swift */; };
-		81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDA22EB70A500C54903 /* OATHViewModel.swift */; };
-		81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C00FDC22EBEF0D00C54903 /* Credential.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
 		81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */; };
 		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
@@ -88,10 +79,30 @@
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
+		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
+		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
+		B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC3C2A264A620045E5D9 /* ToastView.swift */; };
+		B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC432A2A06940045E5D9 /* ToastPresenter.swift */; };
+		B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
+		B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B16298AA6E7006CDAEA /* MainView.swift */; };
+		B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */; };
+		B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B1A298AB641006CDAEA /* MainViewModel.swift */; };
+		B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B2B29914051006CDAEA /* AccountRowView.swift */; };
+		B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
-		B4EE055F2A0CDB3C002F30D4 /* OTPTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */; };
+		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
+		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
+		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
+		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
+		B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */; };
+		B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */; };
+		B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */; };
+		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
+		B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */; };
+		B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */; };
+		B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
@@ -128,7 +139,7 @@
 
 /* Begin PBXFileReference section */
 		51002C2D267C95D9005D5A7C /* YubiKeyInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKeyInformationViewModel.swift; sourceTree = "<group>"; };
-		51394C5726CFE15F009F366D /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		51394C5726CFE15F009F366D /* YubiMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiMenu.swift; sourceTree = "<group>"; };
 		51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extensions.swift"; sourceTree = "<group>"; };
 		51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuGestureRecognizer.swift; sourceTree = "<group>"; };
 		513D4DF12660D6570022C53D /* AddCredentialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCredentialController.swift; sourceTree = "<group>"; };
@@ -163,7 +174,6 @@
 		5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestViewModel.swift; sourceTree = "<group>"; };
 		5180974226DE185100A122C1 /* ResetOATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOATHViewModel.swift; sourceTree = "<group>"; };
 		51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHConfigurationController.swift; sourceTree = "<group>"; };
-		51AFD4D127103E36008F2630 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSettingsController.swift; sourceTree = "<group>"; };
 		51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
 		51AFD4D727196AB6008F2630 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
@@ -171,7 +181,6 @@
 		51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFOATHSession+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
-		51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHCodeDetailsView.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
 		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
@@ -184,7 +193,6 @@
 		816C685D234697BE00209342 /* PasswordPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordPreferences.swift; sourceTree = "<group>"; };
 		817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorAdditions.swift; sourceTree = "<group>"; };
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		818866B622DFD729006BC0A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		818866BD22DFD729006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		818866BF22DFD72C006BC0A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		818866C222DFD72C006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -192,14 +200,8 @@
 		818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorTests.swift; sourceTree = "<group>"; };
 		818866CF22DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		818866E822E18134006BC0A8 /* OATHViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OATHViewController.swift; path = Authenticator/UI/Authentication/OATHViewController.swift; sourceTree = SOURCE_ROOT; };
 		818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Authenticator-Bridging-Header.h"; sourceTree = "<group>"; };
 		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
-		818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CredentialTableViewCell.swift; path = Authenticator/UI/Authentication/CredentialTableViewCell.swift; sourceTree = SOURCE_ROOT; };
-		818866F922E96B47006BC0A8 /* PieProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PieProgressBar.swift; path = Authenticator/UI/Authentication/PieProgressBar.swift; sourceTree = SOURCE_ROOT; };
-		818BE8DE22F39A9000061026 /* GlobalTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTimer.swift; sourceTree = "<group>"; };
-		81C00FDA22EB70A500C54903 /* OATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHViewModel.swift; sourceTree = "<group>"; };
-		81C00FDC22EBEF0D00C54903 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
 		81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSessionObserver.swift; sourceTree = "<group>"; };
 		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -218,10 +220,30 @@
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
+		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
+		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
+		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		B452EC432A2A06940045E5D9 /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
+		B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountWrapper.swift; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
+		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorApp.swift; sourceTree = "<group>"; };
+		B4719B1A298AB641006CDAEA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		B4719B2B29914051006CDAEA /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
+		B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
+		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
+		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
+		B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationWrapper.swift; sourceTree = "<group>"; };
+		B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWrapper.swift; sourceTree = "<group>"; };
+		B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWrapper.swift; sourceTree = "<group>"; };
+		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
-		B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTableViewCell.swift; sourceTree = "<group>"; };
+		B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryWrapper.swift; sourceTree = "<group>"; };
+		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,11 +278,6 @@
 		513D4DEF2660D5960022C53D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				818866E822E18134006BC0A8 /* OATHViewController.swift */,
-				818866F722E8E19D006BC0A8 /* CredentialTableViewCell.swift */,
-				51E9BE3926D9038C00F9E2FC /* OATHCodeDetailsView.swift */,
-				818866F922E96B47006BC0A8 /* PieProgressBar.swift */,
-				B4EE055E2A0CDB3C002F30D4 /* OTPTableViewCell.swift */,
 				513F34BC24633A4A00FCE030 /* EditCredential */,
 				81FA3C2B2319839B009C22AB /* AddCredential */,
 			);
@@ -270,6 +287,7 @@
 		513D4DF02660D5AB0022C53D /* YubiKeyConfiguration */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */,
 				513D4DF42660EBA40022C53D /* ConfigurationController.swift */,
 				51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
@@ -284,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */,
+				B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */,
 			);
 			path = TokenSession;
 			sourceTree = "<group>";
@@ -291,6 +310,7 @@
 		513F34BC24633A4A00FCE030 /* EditCredential */ = {
 			isa = PBXGroup;
 			children = (
+				B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */,
 				513F34C12463F44300FCE030 /* EditCredentialController.swift */,
 				513F34C72464658F00FCE030 /* SettingsRowView.swift */,
 				513F34BF2463F0C900FCE030 /* EditFieldController.swift */,
@@ -365,10 +385,13 @@
 				513F34DB246B144300FCE030 /* UIViewAdditions.swift */,
 				81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */,
 				513D4DF6266634280022C53D /* ShowTime.swift */,
-				51394C5726CFE15F009F366D /* Menu.swift */,
+				51394C5726CFE15F009F366D /* YubiMenu.swift */,
 				51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */,
 				51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */,
-				51AFD4D127103E36008F2630 /* SearchBar.swift */,
+				B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */,
+				B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */,
+				B452EC3C2A264A620045E5D9 /* ToastView.swift */,
+				B452EC432A2A06940045E5D9 /* ToastPresenter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -402,7 +425,7 @@
 				818BE8DA22F3485600061026 /* UI */,
 				818866F622E7A877006BC0A8 /* Authenticator.entitlements */,
 				818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */,
-				818866B622DFD729006BC0A8 /* AppDelegate.swift */,
+				B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
 				51AFD4D727196AB6008F2630 /* VersionHistory.plist */,
@@ -434,6 +457,12 @@
 				A591412023835F4600CCCF67 /* Constants.swift */,
 				818866BC22DFD729006BC0A8 /* Main.storyboard */,
 				818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */,
+				B4719B16298AA6E7006CDAEA /* MainView.swift */,
+				B411242E29D423A300D58001 /* ListStatusView.swift */,
+				B4719B2B29914051006CDAEA /* AccountRowView.swift */,
+				B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */,
+				B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */,
+				B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -446,12 +475,9 @@
 				816C684423430DC000209342 /* SecureStore */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
 				51F8E3BE263848E30010686B /* Connection.swift */,
-				81C00FDC22EBEF0D00C54903 /* Credential.swift */,
 				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
-				818BE8DE22F39A9000061026 /* GlobalTimer.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
-				81C00FDA22EB70A500C54903 /* OATHViewModel.swift */,
 				51D1E84D26427F7600BDA3FF /* PasswordCache.swift */,
 				B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */,
 				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
@@ -463,6 +489,10 @@
 				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
 				51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */,
 				A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */,
+				B4DB2289299BC373003110ED /* OATHSession.swift */,
+				B4C93E62299FB51A00C2A8B8 /* Account.swift */,
+				B4719B1A298AB641006CDAEA /* MainViewModel.swift */,
+				B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -470,6 +500,7 @@
 		81FA3C2B2319839B009C22AB /* AddCredential */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */,
 				513D4DF12660D6570022C53D /* AddCredentialController.swift */,
 				B4B1711727DF8C48002A62DE /* ScanAccountView.swift */,
 				81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */,
@@ -481,7 +512,9 @@
 		81FA3C30231AF198009C22AB /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */,
 				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
+				B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */,
 				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
 				B40327732847AB5000DF4DB0 /* LicensingViewController.swift */,
 			);
@@ -668,45 +701,52 @@
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
+				B411242F29D423A300D58001 /* ListStatusView.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,
+				B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */,
+				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
+				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
+				B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
+				B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
-				818866B722DFD729006BC0A8 /* AppDelegate.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
+				B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */,
 				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
+				B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */,
 				B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */,
-				51AFD4D227103E36008F2630 /* SearchBar.swift in Sources */,
+				B4DB228A299BC373003110ED /* OATHSession.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
-				B4EE055F2A0CDB3C002F30D4 /* OTPTableViewCell.swift in Sources */,
-				81C00FDB22EB70A500C54903 /* OATHViewModel.swift in Sources */,
-				818866E922E18134006BC0A8 /* OATHViewController.swift in Sources */,
+				B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
 				513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */,
 				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
+				B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */,
 				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
-				51E9BE3A26D9038C00F9E2FC /* OATHCodeDetailsView.swift in Sources */,
-				818866F822E8E19D006BC0A8 /* CredentialTableViewCell.swift in Sources */,
-				81C00FDD22EBEF0D00C54903 /* Credential.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
+				B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */,
 				513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,
 				5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */,
-				818866FA22E96B47006BC0A8 /* PieProgressBar.swift in Sources */,
+				B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */,
 				515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */,
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
+				B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */,
 				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
+				51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */,
+				B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */,
 				51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */,
 				51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
@@ -715,21 +755,26 @@
 				513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */,
 				5155428A2656F79500B19C59 /* SecCertificate+Extensions.swift in Sources */,
 				816C685E234697BF00209342 /* PasswordPreferences.swift in Sources */,
-				818BE8DF22F39A9000061026 /* GlobalTimer.swift in Sources */,
+				B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */,
+				B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */,
+				B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
-				51394C5826CFE15F009F366D /* Menu.swift in Sources */,
+				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,
+				51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */,
 				A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */,
+				B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */,
 				5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
 				51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */,
+				B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,7 +828,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -792,7 +837,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.7.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -806,7 +851,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -815,7 +860,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.7.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -876,7 +921,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -932,7 +977,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -949,17 +994,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.7.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -977,17 +1022,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.7.4;
+				MARKETING_VERSION = 1.7.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
