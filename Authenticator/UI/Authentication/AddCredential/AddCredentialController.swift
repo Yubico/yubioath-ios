@@ -80,7 +80,7 @@ class AddCredentialController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Always start QR scanner if no credential template was provided
-        if self.credential == nil {
+        if self.credential == nil && self.mode != .manual {
             let scanAccountView = ScanAccountView(frame: self.view.frame) { [weak self] result in
                 guard let self = self else { return }
                 self.navigationController?.navigationBar.layer.zPosition = 0
