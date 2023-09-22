@@ -6,6 +6,6 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Test on emulator
         run: xcodebuild clean test -disablePackageRepositoryCache -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=latest,name=iPhone 11" | xcpretty --test --color && exit ${PIPESTATUS[0]}
