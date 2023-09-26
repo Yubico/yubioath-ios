@@ -153,6 +153,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                         self.wiredContinuation = nil
                     }
                 }
+                if let connection: YKFConnectionProtocol = self.accessoryConnection ?? self.smartCardConnection {
+                    self.wiredConnectionCallback?(connection)
+                }
             }
         } onCancel: {
             wiredContinuation?.resume(throwing: "Connection cancelled")
