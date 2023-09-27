@@ -286,7 +286,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         guard let metadataObject = metadataObjects.first,
               let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
               let stringValue = readableObject.stringValue else { return }
-        guard let url = URL(string: stringValue) else {
+        guard let url = URL(string: stringValue.trimmingCharacters(in: .whitespacesAndNewlines)) else {
             showError("No account information found!")
             return
         }
