@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.7</string>
+        <key>date</key>
+        <date>2023-09-28T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            Make sure to pick up any YubiKeys inserted before the app was started. Fixes a problem with changing advanced settings while manually adding a new account. More lenient parsing of the QR code string when scanning an account.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.6</string>
         <key>date</key>
         <date>2023-09-25T09:41:00Z</date>
