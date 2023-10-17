@@ -31,6 +31,7 @@ struct ListStatusView: View {
                 image
                     .font(.system(size: 100.0))
                     .foregroundColor(Color(.yubiBlue))
+                    .accessibilityHidden(true)
                 Text(message)
                     .font(.title2)
                     .multilineTextAlignment(.center)

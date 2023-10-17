@@ -46,7 +46,7 @@ struct MainView: View {
                         }
                     }
                     if !model.accountsLoaded {
-                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey\(YubiKitDeviceCapabilities.supportsISO7816NFCTags ? " or pull down to activate NFC" : "")", height: reader.size.height)
+                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey\(YubiKitDeviceCapabilities.supportsISO7816NFCTags && !UIAccessibility.isVoiceOverRunning ? " or pull down to activate NFC" : " or scan a NFC YubiKey")", height: reader.size.height)
                     } else if !searchText.isEmpty {
                         if searchResults.count > 0 {
                             ForEach(searchResults, id: \.id) { account in
@@ -83,6 +83,7 @@ struct MainView: View {
                     }
                 }
             }
+            .accessibilityHidden(showAccountDetails != nil)
             .searchable(text: $searchText, prompt: "Search")
             .autocorrectionDisabled(true)
             .keyboardType(.asciiCapable)
@@ -92,6 +93,13 @@ struct MainView: View {
                 model.updateAccountsOverNFC()
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if UIAccessibility.isVoiceOverRunning {
+                        Button("Scan NFC YubiKey") { otp = nil
+                            model.updateAccountsOverNFC() }
+                    }
+                }
+                
                 ToolbarItem(placement: .principal) {
                     if !model.accountsLoaded {
                         Image("NavbarLogo")
@@ -100,6 +108,7 @@ struct MainView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 200, height: 20)
                             .foregroundColor(Color("YubiGreen"))
+                            .accessibilityHidden(true)
                     }
                 }
                 
@@ -123,6 +132,7 @@ struct MainView: View {
             }
             .navigationTitle(model.accountsLoaded ? "Accounts" : "")
         }
+        .accessibilityHidden(showAccountDetails != nil)
         .overlay {
             if showAccountDetails != nil {
                 AccountDetailsView(data: $showAccountDetails)
