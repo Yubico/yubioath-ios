@@ -56,13 +56,15 @@ struct AccountRowView: View {
                     Text(account.title)
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.1)
+                        .minimumScaleFactor(0.9)
+                        .truncationMode(.tail)
                         .readFrame($titleFrame)
                     account.subTitle.map {
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
-                            .minimumScaleFactor(0.1)
+                            .minimumScaleFactor(0.9)
+                            .truncationMode(.tail)
                             .foregroundColor(Color(.secondaryLabel))
                             .readFrame($subTitleFrame)
                     }

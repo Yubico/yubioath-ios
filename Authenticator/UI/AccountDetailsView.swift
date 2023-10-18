@@ -124,14 +124,16 @@ struct AccountDetailsView: View {
                     Text(data.account.title) // Title
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.1)
+                        .minimumScaleFactor(0.9)
+                        .truncationMode(.tail)
                         .position(titleOrigin)
                         .ignoresSafeArea()
                     data.account.subTitle.map { // Subtitle
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
-                            .minimumScaleFactor(0.1)
+                            .minimumScaleFactor(0.9)
+                            .truncationMode(.tail)
                             .foregroundColor(Color(.secondaryLabel))
                             .position(subTitleOrigin)
                             .ignoresSafeArea()
