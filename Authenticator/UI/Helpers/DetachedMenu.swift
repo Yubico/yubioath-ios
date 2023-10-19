@@ -66,7 +66,7 @@ fileprivate struct DetachedMenuRow: View {
         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
         .accessibilityElement()
         .accessibilityRepresentation {
-            Button("Menu, \(action.title)") { action.action() }
+            Button(action.title) { action.action() }
                 .disabled(!action.isEnabled)
         }
         .readFrame($rowFrame)
