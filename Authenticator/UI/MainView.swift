@@ -101,7 +101,7 @@ struct MainView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    if !model.accountsLoaded {
+                    if !model.accountsLoaded && !UIAccessibility.isVoiceOverRunning {
                         Image("NavbarLogo")
                             .renderingMode(.template)
                             .resizable()
