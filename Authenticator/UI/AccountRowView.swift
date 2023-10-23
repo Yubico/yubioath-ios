@@ -51,17 +51,20 @@ struct AccountRowView: View {
                     .background(account.iconColor)
                     .cornerRadius(20)
                     .padding(.trailing, 5)
+                    .accessibilityHidden(true)
                 VStack(alignment: .leading) {
                     Text(account.title)
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.1)
+                        .minimumScaleFactor(0.9)
+                        .truncationMode(.tail)
                         .readFrame($titleFrame)
                     account.subTitle.map {
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
-                            .minimumScaleFactor(0.1)
+                            .minimumScaleFactor(0.9)
+                            .truncationMode(.tail)
                             .foregroundColor(Color(.secondaryLabel))
                             .readFrame($subTitleFrame)
                     }
@@ -76,18 +79,21 @@ struct AccountRowView: View {
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
                                 .readFrame($statusIconFrame)
+                                .accessibilityHidden(true)
                         } else {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 18))
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
                                 .readFrame($statusIconFrame)
+                                .accessibilityHidden(true)
                         }
                     case .countingdown(let remaining):
                         PieProgressView(progress: remaining, color: pillColor)
                             .frame(width: 22, height: 22)
                             .padding(1)
                             .readFrame($statusIconFrame)
+                            .accessibilityHidden(true)
                     }
                     ZStack {
                         if let otp = account.formattedCode {
@@ -112,12 +118,15 @@ struct AccountRowView: View {
                             .readFrame($estimatedCodeFrame)
                     }
                 }
-                .foregroundColor(pillColor)
                 .padding(.all, 4)
+                .foregroundColor(pillColor)
+                .accessibilityAddTraits(.isButton)
                 .overlay {
                     Capsule()
                         .stroke(pillColor, lineWidth: 1)
                 }
+                .accessibilityElement()
+                .accessibilityLabel(account.state == .expired ? "Code expired" : account.formattedCode ?? "Code not calculated")
                 .opacity(pillOpacity)
                 .scaleEffect(pillScaling)
             }

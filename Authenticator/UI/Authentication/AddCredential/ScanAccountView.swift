@@ -153,6 +153,8 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         self.completionHandler = completionHandler
         super.init(frame: frame)
         
+        self.accessibilityViewIsModal = true
+        
         previewLayer.frame = layer.bounds
         layer.addSublayer(previewLayer)
         

@@ -75,6 +75,7 @@ class AddCredentialController: UITableViewController {
         self.issuerManualText.delegate = self
         self.accountManualText.delegate = self
         self.secretManualText.delegate = self
+        self.accessibilityViewIsModal = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

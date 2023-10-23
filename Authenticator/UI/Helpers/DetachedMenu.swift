@@ -64,6 +64,11 @@ fileprivate struct DetachedMenuRow: View {
             Image(systemName: action.systemImage).foregroundColor(color.opacity(action.isEnabled ? 1 : 0.4))
         }
         .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
+        .accessibilityElement()
+        .accessibilityRepresentation {
+            Button(action.title) { action.action() }
+                .disabled(!action.isEnabled)
+        }
         .readFrame($rowFrame)
         .background(Color(action.selected ? .secondarySystemBackground : .systemBackground))
         .onChange(of: rowFrame, perform: { newFrame in

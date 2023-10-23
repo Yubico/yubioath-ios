@@ -23,6 +23,7 @@ class AdvancedSettingsViewController: UITableViewController {
         self.selectedRow = selected
         self.completion = completion
         super.init(style: .insetGrouped)
+        self.accessibilityViewIsModal = true
         self.title = title
     }
     

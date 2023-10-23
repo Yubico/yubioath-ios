@@ -109,6 +109,11 @@ struct AccountDetailsView: View {
                                 self.data = nil
                             }
                         }
+                        .accessibilityElement()
+                        .accessibilityHint("Dismiss details view")
+                        .accessibilityAction {
+                            self.data = nil
+                        }
                     Color(.systemBackground) // details view background
                         .cornerRadius(15.0)
                         .shadow(color: .black.opacity(0.07), radius: 3.0)
@@ -116,27 +121,34 @@ struct AccountDetailsView: View {
                         .frame(width: modalRect.size.width, height: modalRect.size.height)
                         .position(modalRect.origin)
                         .ignoresSafeArea()
-                    Color(.secondarySystemBackground) // Code background
-                        .cornerRadius(10.0)
-                        .opacity(modalAlpha)
-                        .frame(width:modalRect.size.width - 30.0, height: 50.0)
-                        .position(codeBackgroundOrigin)
-                        .ignoresSafeArea()
                     Text(data.account.title) // Title
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                        .minimumScaleFactor(0.1)
+                        .minimumScaleFactor(0.9)
+                        .truncationMode(.tail)
                         .position(titleOrigin)
                         .ignoresSafeArea()
                     data.account.subTitle.map { // Subtitle
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
-                            .minimumScaleFactor(0.1)
+                            .minimumScaleFactor(0.9)
+                            .truncationMode(.tail)
                             .foregroundColor(Color(.secondaryLabel))
                             .position(subTitleOrigin)
                             .ignoresSafeArea()
                     }
+                    Color(.secondarySystemBackground) // Code background
+                        .cornerRadius(10.0)
+                        .opacity(modalAlpha)
+                        .frame(width:modalRect.size.width - 30.0, height: 50.0)
+                        .position(codeBackgroundOrigin)
+                        .ignoresSafeArea()
+                        .accessibilityAction {
+                            account.calculate()
+                        }
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityLabel(account.state == .expired ? "Code expired" : account.formattedCode ?? "Code not calculated")
                     
                     ZStack {
                         if let otp = data.account.formattedCode {
@@ -165,6 +177,7 @@ struct AccountDetailsView: View {
                             .position(codeOrigin)
                             .ignoresSafeArea()
                     }
+                    .accessibilityHidden(true)
                     switch(account.state) {
                     case .requiresCalculation, .expired:
                         if !account.requiresTouch {
@@ -176,6 +189,7 @@ struct AccountDetailsView: View {
                                 .readFrame($statusIconFrame)
                                 .position(statusIconOrigin)
                                 .ignoresSafeArea()
+                                .accessibilityHidden(true)
                         } else {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 18.0))
@@ -185,6 +199,7 @@ struct AccountDetailsView: View {
                                 .readFrame($statusIconFrame)
                                 .position(statusIconOrigin)
                                 .ignoresSafeArea()
+                                .accessibilityHidden(true)
                         }
                     case .countingdown(let remaining):
                         PieProgressView(progress: remaining, color: codeColor)
@@ -193,6 +208,7 @@ struct AccountDetailsView: View {
                             .position(statusIconOrigin)
                             .opacity(codeOpacity)
                             .ignoresSafeArea()
+                            .accessibilityHidden(true)
                     }
                     
                     DetachedMenu(menuActions: [

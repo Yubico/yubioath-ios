@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
+    
+    <dict>
+        <key>version</key>
+        <string>1.7.8</string>
+        <key>date</key>
+        <date>2023-10-24T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            Improved accessibility for visually impaired users. Truncate account name and issuer instead of scaling when they don't fit.
+        </string>
+    </dict>
     <dict>
         <key>version</key>
         <string>1.7.7</string>
