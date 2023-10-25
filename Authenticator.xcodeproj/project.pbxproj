@@ -79,6 +79,8 @@
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
 		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
+		B40D61A02AE7F37900467AE9 /* DisableOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */; };
+		B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */; };
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
@@ -220,6 +222,8 @@
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
 		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
+		B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPView.swift; sourceTree = "<group>"; };
+		B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPModel.swift; sourceTree = "<group>"; };
 		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
 		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
 		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -463,6 +467,7 @@
 				B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */,
 				B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */,
 				B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */,
+				B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -493,6 +498,7 @@
 				B4C93E62299FB51A00C2A8B8 /* Account.swift */,
 				B4719B1A298AB641006CDAEA /* MainViewModel.swift */,
 				B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */,
+				B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
 				51002C2E267C95D9005D5A7C /* YubiKeyInformationViewModel.swift in Sources */,
+				B40D61A02AE7F37900467AE9 /* DisableOTPView.swift in Sources */,
 				B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */,
 				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
 				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
@@ -736,6 +743,7 @@
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
 				B4C93E9129C0B70B00C2A8B8 /* ConfigurationWrapper.swift in Sources */,
 				513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */,
+				B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */,
 				51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */,
 				A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */,
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,

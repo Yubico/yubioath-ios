@@ -147,6 +147,10 @@ struct MainView: View {
         .fullScreenCover(isPresented: $showAbout) {
             AboutView(showHelp: $showAbout)
         }
+        .fullScreenCover(isPresented: $model.presentDisableOTP) {
+            DisableOTPView()
+        }
+
         .alert("Enter password", isPresented: $model.presentPasswordEntry) {
             SecureField("Password", text: $password)
             Button("Cancel", role: .cancel) { password = "" }
@@ -213,14 +217,14 @@ struct MainView: View {
                 toastPresenter.toast(message: "Touch your YubiKey")
             }
         }
-        .onChange(of: notificationsViewModel.showPIVTokenView, perform: { showPIVTokenview in
+        .onChange(of: notificationsViewModel.showPIVTokenView) { showPIVTokenview in
             if showPIVTokenview {
                 showAddAccount = false
                 showConfiguration = false
                 showAbout = false
                 showAccountDetails = nil
             }
-        })
+        }
         .environmentObject(model)
     }
     

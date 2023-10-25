@@ -29,6 +29,7 @@ class MainViewModel: ObservableObject {
     @Published var accountsLoaded: Bool = false
     @Published var presentPasswordEntry: Bool = false
     @Published var presentPasswordSaveType: Bool = false
+    @Published var presentDisableOTP: Bool = false
     @Published var passwordEntryMessage: String = ""
     @Published var isKeyPluggedIn: Bool = false
     @Published var error: Error?
@@ -84,20 +85,25 @@ class MainViewModel: ObservableObject {
     
     @MainActor func start() {
         sessionTask = Task { [weak self] in
-            for await session in OATHSessionHandler.shared.wiredSessions() {
-                self?.isKeyPluggedIn = true
-                await self?.updateAccounts(using: session)
-                let error = await session.sessionDidEnd()
-                await MainActor.run { [weak self] in
-                    self?.favoritesCancellables.forEach { $0.cancel() }
-                    self?.favoritesCancellables.removeAll()
-                    self?.accounts.removeAll()
-                    self?.pinnedAccounts.removeAll()
-                    self?.otherAccounts.removeAll()
-                    self?.accountsLoaded = false
-                    self?.isKeyPluggedIn = false
-                    self?.error = error
+            do {
+                for try await session in OATHSessionHandler.shared.wiredSessions() {
+                    self?.isKeyPluggedIn = true
+                    await self?.updateAccounts(using: session)
+                    let error = await session.sessionDidEnd()
+                    await MainActor.run { [weak self] in
+                        self?.favoritesCancellables.forEach { $0.cancel() }
+                        self?.favoritesCancellables.removeAll()
+                        self?.accounts.removeAll()
+                        self?.pinnedAccounts.removeAll()
+                        self?.otherAccounts.removeAll()
+                        self?.accountsLoaded = false
+                        self?.isKeyPluggedIn = false
+                        self?.error = error
+                    }
                 }
+            } catch {
+                self?.sessionTask?.cancel()
+                self?.presentDisableOTP = true
             }
         }
     }

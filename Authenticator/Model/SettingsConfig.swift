@@ -32,6 +32,7 @@ class SettingsConfig {
     static private let showWhatsNewCounterAppVersion = "showWhatsNewCounterAppVersion"
     static private let nfcOnOTPLaunch = "nfcOnOTPLaunch"
     static private let copyOTP = "copyOTP"
+    static private let ignoreUSBCWithOTP = "ignoreUSBCWithOTP"
     
     static var showWhatsNewText: Bool {
         get {
@@ -75,7 +76,7 @@ class SettingsConfig {
             UserDefaults.standard.set(newValue, forKey: userFoundMenu)
         }
     }
-
+    
     static var showNoServiceWarning: Bool {
         get {
             return UserDefaults.standard.bool(forKey: noServiceWarning)
@@ -150,5 +151,17 @@ class SettingsConfig {
         set {
             UserDefaults.standard.set(newValue, forKey: copyOTP)
         }
+    }
+    
+    static func isOTPOverUSBIgnored(deviceId: UInt) -> Bool {
+        guard let list = UserDefaults.standard.array(forKey: ignoreUSBCWithOTP) as? [UInt] else { return false }
+        return list.contains(deviceId)
+    }
+
+    static func registerUSBCDeviceToIgnore(deviceId: UInt) {
+        let list = UserDefaults.standard.array(forKey: ignoreUSBCWithOTP) as? [UInt] ?? [UInt]()
+        var set = Set(list)
+        set.insert(deviceId)
+        UserDefaults.standard.set(Array(set), forKey: ignoreUSBCWithOTP)
     }
 }
