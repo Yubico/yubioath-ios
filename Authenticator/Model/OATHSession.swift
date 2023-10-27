@@ -453,18 +453,3 @@ extension YKFOATHCode {
         return OATHSession.OTP(code: otp, validity: validity)
     }
 }
-
-
-
-/*
-connection.managementSession { session, error in
-    guard let session else { continuation.resume(throwing: error!); return }
-    session.getDeviceInfo { deviceInfo, error in
-        guard let deviceInfo else { continuation.resume(throwing: error!); return }
-        guard let configuration = deviceInfo.configuration else { continuation.resume(throwing: "Error!!!"); return }
-        if configuration.isEnabled(.OTP, overTransport: .USB) {
-            continuation.resume(throwing: "Tantrum!!!")
-            self.wiredContinuation = nil
-            return
-        }
-  */
