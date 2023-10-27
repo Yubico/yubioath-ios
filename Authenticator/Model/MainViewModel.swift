@@ -102,8 +102,11 @@ class MainViewModel: ObservableObject {
                     }
                 }
             } catch {
-                self?.sessionTask?.cancel()
-                self?.presentDisableOTP = true
+                // Only handle .otpEnabledError by presenting the disable OTP modal
+                if let sessionError = error as? OATHSessionError, sessionError == .otpEnabledError {
+                    self?.sessionTask?.cancel()
+                    self?.presentDisableOTP = true
+                }
             }
         }
     }

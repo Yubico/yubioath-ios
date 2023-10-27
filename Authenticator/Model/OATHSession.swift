@@ -16,13 +16,17 @@
 
 import Foundation
 
-enum OATHSessionError: Error, LocalizedError {
+enum OATHSessionError: Error, LocalizedError, Equatable {
+    
     case credentialAlreadyPresent(YKFOATHCredentialTemplate);
+    case otpEnabledError;
     
     public var errorDescription: String? {
         switch self {
         case .credentialAlreadyPresent(let credential):
             return "There's already an account named \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) on this YubiKey."
+        case .otpEnabledError:
+            return "Yubico OTP enabled"
         }
     }
 }
@@ -153,7 +157,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                 guard let deviceInfo else { continuation.resume(throwing: error!); return }
                                 guard let configuration = deviceInfo.configuration else { continuation.resume(throwing: "Error!!!"); return }
                                 guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
-                                    continuation.resume(throwing: "OTP enabled error")
+                                    continuation.resume(throwing: OATHSessionError.otpEnabledError)
                                     self.wiredContinuation = nil
                                     self.wiredConnectionCallback = nil
                                     return
