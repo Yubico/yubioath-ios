@@ -12,7 +12,7 @@
         <false/>
         <key>changes</key>
         <string>
-            Improved accessibility for visually impaired users. Handle iPhone 15 with Yubikeys that have Yubico OTP enabled. Truncate account name and issuer instead of scaling when they don't fit.
+            Improved accessibility for visually impaired users. Handle iPhone 15 with YubiKeys that have Yubico OTP enabled. Truncate account name and issuer instead of scaling when they don't fit.
         </string>
     </dict>
     <dict>
