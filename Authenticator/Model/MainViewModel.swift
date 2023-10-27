@@ -93,6 +93,9 @@ class MainViewModel: ObservableObject {
                     await MainActor.run { [weak self] in
                         self?.favoritesCancellables.forEach { $0.cancel() }
                         self?.favoritesCancellables.removeAll()
+                        self?.accounts.forEach { account in
+                            account.invalidate()
+                        }
                         self?.accounts.removeAll()
                         self?.pinnedAccounts.removeAll()
                         self?.otherAccounts.removeAll()
@@ -114,6 +117,9 @@ class MainViewModel: ObservableObject {
     @MainActor func stop() {
         sessionTask?.cancel()
         sessionTask = nil
+        accounts.forEach { account in
+            account.invalidate()
+        }
         accounts.removeAll()
         pinnedAccounts.removeAll()
         otherAccounts.removeAll()
