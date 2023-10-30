@@ -36,6 +36,14 @@ struct MainView: View {
     @State var otp: String? = nil
     @State var oathURL: URL? = nil
     
+    var insertYubiKeyMessage = {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            "Insert YubiKey \(!UIAccessibility.isVoiceOverRunning ? "or pull down to activate NFC" : "or scan a NFC YubiKey")"
+        } else {
+            "Insert YubiKey"
+        }
+    }()
+    
     var body: some View {
         NavigationView {
             GeometryReader { reader in
@@ -46,7 +54,7 @@ struct MainView: View {
                         }
                     }
                     if !model.accountsLoaded {
-                        ListStatusView(image: Image("yubikey"), message: "Insert YubiKey\(YubiKitDeviceCapabilities.supportsISO7816NFCTags && !UIAccessibility.isVoiceOverRunning ? " or pull down to activate NFC" : " or scan a NFC YubiKey")", height: reader.size.height)
+                        ListStatusView(image: Image("yubikey"), message: insertYubiKeyMessage, height: reader.size.height)
                     } else if !searchText.isEmpty {
                         if searchResults.count > 0 {
                             ForEach(searchResults, id: \.id) { account in
@@ -147,6 +155,10 @@ struct MainView: View {
         .fullScreenCover(isPresented: $showAbout) {
             AboutView(showHelp: $showAbout)
         }
+        .fullScreenCover(isPresented: $model.presentDisableOTP) {
+            DisableOTPView()
+        }
+
         .alert("Enter password", isPresented: $model.presentPasswordEntry) {
             SecureField("Password", text: $password)
             Button("Cancel", role: .cancel) { password = "" }
@@ -213,14 +225,14 @@ struct MainView: View {
                 toastPresenter.toast(message: "Touch your YubiKey")
             }
         }
-        .onChange(of: notificationsViewModel.showPIVTokenView, perform: { showPIVTokenview in
+        .onChange(of: notificationsViewModel.showPIVTokenView) { showPIVTokenview in
             if showPIVTokenview {
                 showAddAccount = false
                 showConfiguration = false
                 showAbout = false
                 showAccountDetails = nil
             }
-        })
+        }
         .environmentObject(model)
     }
     

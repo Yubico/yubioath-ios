@@ -16,13 +16,17 @@
 
 import Foundation
 
-enum OATHSessionError: Error, LocalizedError {
+enum OATHSessionError: Error, LocalizedError, Equatable {
+    
     case credentialAlreadyPresent(YKFOATHCredentialTemplate);
+    case otpEnabledError;
     
     public var errorDescription: String? {
         switch self {
         case .credentialAlreadyPresent(let credential):
             return "There's already an account named \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) on this YubiKey."
+        case .otpEnabledError:
+            return "Yubico OTP enabled"
         }
     }
 }
@@ -83,11 +87,13 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     struct WiredOATHSessions: AsyncSequence {
         typealias Element = OATHSession
-        var current: OATHSession? = nil
         struct AsyncIterator: AsyncIteratorProtocol {
-            mutating func next() async -> Element? {
+            mutating func next() async throws -> Element? {
+                guard !Task.isCancelled else {
+                    return nil
+                }
                 while true {
-                    return try? await OATHSessionHandler.shared.newWiredSession()
+                    return try await OATHSessionHandler.shared.newWiredSession()
                 }
             }
         }
@@ -140,17 +146,44 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             YubiKitManager.shared.startSmartCardConnection()
         }
         return try await withTaskCancellationHandler {
+            let deviceType = await UIDevice.current.userInterfaceIdiom
             return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
                 self.wiredContinuation = continuation
                 self.wiredConnectionCallback = { connection in
-                    connection.oathSession { session, error in
-                        if let session {
-                            self.currentSession = session
-                            continuation.resume(returning: OATHSession(session: session, type: .wired))
-                        } else {
-                            continuation.resume(throwing: error!)
+                    if connection.isKind(of: YKFSmartCardConnection.self) && deviceType == .phone {
+                        connection.managementSession { session, error in
+                            guard let session else { continuation.resume(throwing: error!); return }
+                            session.getDeviceInfo { deviceInfo, error in
+                                guard let deviceInfo else { continuation.resume(throwing: error!); return }
+                                guard let configuration = deviceInfo.configuration else { continuation.resume(throwing: "Error!!!"); return }
+                                guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
+                                    continuation.resume(throwing: OATHSessionError.otpEnabledError)
+                                    self.wiredContinuation = nil
+                                    self.wiredConnectionCallback = nil
+                                    return
+                                }
+                                connection.oathSession { session, error in
+                                    if let session {
+                                        self.currentSession = session
+                                        continuation.resume(returning: OATHSession(session: session, type: .wired))
+                                    } else {
+                                        continuation.resume(throwing: error!)
+                                    }
+                                    self.wiredContinuation = nil
+                                    self.wiredConnectionCallback = nil
+                                    return
+                                }
+                            }
                         }
-                        self.wiredContinuation = nil
+                    } else {
+                        connection.oathSession { session, error in
+                            if let session {
+                                self.currentSession = session
+                                continuation.resume(returning: OATHSession(session: session, type: .wired))
+                            } else {
+                                continuation.resume(throwing: error!)
+                            }
+                        }
                     }
                 }
                 if let connection: YKFConnectionProtocol = self.accessoryConnection ?? self.smartCardConnection {
