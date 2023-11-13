@@ -178,7 +178,8 @@ struct MainView: View {
             Button("Never for this YubiKey") { model.passwordSaveType.send(.some(.never)) }
             Button("Not now" , role: .cancel) { model.passwordSaveType.send(nil) }
         }
-        .errorAlert(error: $model.error)
+        .errorAlert(error: $model.sessionError)
+        .errorAlert(error: $model.connectionError) { model.start() }
         .onAppear {
             if ApplicationSettingsViewModel().isNFCOnAppLaunchEnabled {
                 model.updateAccountsOverNFC()
