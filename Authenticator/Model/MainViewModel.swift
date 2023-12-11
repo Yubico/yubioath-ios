@@ -32,7 +32,8 @@ class MainViewModel: ObservableObject {
     @Published var presentDisableOTP: Bool = false
     @Published var passwordEntryMessage: String = ""
     @Published var isKeyPluggedIn: Bool = false
-    @Published var error: Error?
+    @Published var sessionError: Error?
+    @Published var connectionError: Error?
     
     @Published var showTouchToast: Bool = false
         
@@ -101,14 +102,17 @@ class MainViewModel: ObservableObject {
                         self?.otherAccounts.removeAll()
                         self?.accountsLoaded = false
                         self?.isKeyPluggedIn = false
-                        self?.error = error
+                        self?.sessionError = error
                     }
                 }
             } catch {
+                self?.sessionTask?.cancel()
                 // Only handle .otpEnabledError by presenting the disable OTP modal
                 if let sessionError = error as? OATHSessionError, sessionError == .otpEnabledError {
                     self?.sessionTask?.cancel()
                     self?.presentDisableOTP = true
+                } else {
+                    self?.connectionError = error
                 }
             }
         }
@@ -125,7 +129,8 @@ class MainViewModel: ObservableObject {
         otherAccounts.removeAll()
         accountsLoaded = false
         isKeyPluggedIn = false
-        error = nil
+        sessionError = nil
+        connectionError = nil
     }
     
     @MainActor private func updateAccount(_ account: Account) async {
@@ -229,7 +234,7 @@ class MainViewModel: ObservableObject {
                 await updateAccounts(using: session)
             } catch {
                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
-                self.error = error
+                self.sessionError = error
             }
         }
     }
@@ -349,7 +354,7 @@ class MainViewModel: ObservableObject {
             }
         } else {
             YubiKitManager.shared.stopNFCConnection()
-            self.error = error
+            self.sessionError = error
         }
     }
     
@@ -390,7 +395,7 @@ class MainViewModel: ObservableObject {
                                 try self.accessKeySecureStore.setValue(accessKey, useAuthentication: self.passwordPreferences.useScreenLock(keyIdentifier: keyIdentifier), for: keyIdentifier)
                             } catch {
                                 self.passwordPreferences.resetPasswordPreference(keyIdentifier: keyIdentifier)
-                                self.error = error
+                                self.sessionError = error
                             }
                         }
                     }
