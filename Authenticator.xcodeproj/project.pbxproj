@@ -81,6 +81,7 @@
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B40D61A02AE7F37900467AE9 /* DisableOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */; };
 		B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */; };
+		B40F44452B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */; };
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B432B1BF28B65B8600A7182F /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B432B1BE28B65B8600A7182F /* YubiKit */; };
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
@@ -224,6 +225,7 @@
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPView.swift; sourceTree = "<group>"; };
 		B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPModel.swift; sourceTree = "<group>"; };
+		B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestYubiOTPViewController.swift; sourceTree = "<group>"; };
 		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
 		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
 		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */,
 				B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */,
+				B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */,
 			);
 			path = TokenSession;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
+				B40F44452B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift in Sources */,
 				B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1197,7 +1197,7 @@ All rights reserved.</string>
                             <tableViewSection headerTitle="" footerTitle="" id="a4m-Y3-hnM">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PYZ-Wa-hkr" userLabel="Header">
-                                        <rect key="frame" x="20" y="345.00000190734858" width="335" height="192.00000000000006"/>
+                                        <rect key="frame" x="20" y="345.00000190734863" width="335" height="192"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYZ-Wa-hkr" id="kmi-YO-gZK">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="192"/>
@@ -1535,6 +1535,103 @@ All rights reserved.</string>
             </objects>
             <point key="canvasLocation" x="3004" y="395"/>
         </scene>
+        <!--Token Request YubiOTP View Controller-->
+        <scene sceneID="v7S-Dh-IKI">
+            <objects>
+                <viewController storyboardIdentifier="TokenRequestYubiOTPViewController" id="7On-ME-dQ2" customClass="TokenRequestYubiOTPViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oX2-Js-kbZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8kr-pH-b2j">
+                                <rect key="frame" x="15" y="50" width="345" height="69"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP has been disabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-EW-Cgh">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="33.666666666666664"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove and re-insert your YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGQ-n1-pV3">
+                                        <rect key="frame" x="0.0" y="48.666666666666671" width="345" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-GL-iId">
+                                <rect key="frame" x="15" y="50" width="345" height="400.33333333333331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP enabled" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26R-OJ-dML">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="33.666666666666664"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JN3-vC-kaK">
+                                        <rect key="frame" x="0.0" y="48.666666666666664" width="345" height="101.66666666666669"/>
+                                        <string key="text">This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yo4-ef-tkZ">
+                                        <rect key="frame" x="0.0" y="165.33333333333334" width="345" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Disable Yubico OTP (recommended)"/>
+                                        <connections>
+                                            <action selector="disableOTP" destination="7On-ME-dQ2" eventType="touchUpInside" id="v8c-2U-l2e"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cou-Cr-QYP">
+                                        <rect key="frame" x="0.0" y="214.66666666666669" width="345" height="69.666666666666686"/>
+                                        <string key="text">Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.</string>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAX-Sn-d4r">
+                                        <rect key="frame" x="0.0" y="299.33333333333331" width="345" height="34.333333333333314"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue with limited usability"/>
+                                        <connections>
+                                            <action selector="ignoreThisKey" destination="7On-ME-dQ2" eventType="touchUpInside" id="RY7-qj-Zax"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JQM-z3-Kvc">
+                                        <rect key="frame" x="0.0" y="348.66666666666669" width="345" height="51.666666666666686"/>
+                                        <string key="text">While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.</string>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="JN3-vC-kaK" firstAttribute="top" secondItem="26R-OJ-dML" secondAttribute="bottom" constant="15" id="47W-Vv-fHi"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q6Y-KM-ZyP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8kr-pH-b2j" firstAttribute="leading" secondItem="q6Y-KM-ZyP" secondAttribute="leading" constant="15" id="8zq-JL-IhM"/>
+                            <constraint firstItem="1c1-GL-iId" firstAttribute="trailing" secondItem="q6Y-KM-ZyP" secondAttribute="trailing" constant="-15" id="Fay-OP-7eo"/>
+                            <constraint firstItem="1c1-GL-iId" firstAttribute="top" secondItem="q6Y-KM-ZyP" secondAttribute="top" id="WJu-g5-KY6"/>
+                            <constraint firstItem="8kr-pH-b2j" firstAttribute="top" secondItem="q6Y-KM-ZyP" secondAttribute="top" id="hzk-cu-OyF"/>
+                            <constraint firstItem="q6Y-KM-ZyP" firstAttribute="trailing" secondItem="8kr-pH-b2j" secondAttribute="trailing" constant="15" id="uRe-kj-Rjy"/>
+                            <constraint firstItem="1c1-GL-iId" firstAttribute="leading" secondItem="q6Y-KM-ZyP" secondAttribute="leading" constant="15" id="yIm-jp-tud"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="completedView" destination="8kr-pH-b2j" id="rem-3m-JKL"/>
+                        <outlet property="optionsView" destination="1c1-GL-iId" id="8SR-5H-fhz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dEg-FW-5hy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="576.79999999999995" y="-1969.2118226600985"/>
+        </scene>
     </scenes>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
@@ -1558,7 +1655,7 @@ All rights reserved.</string>
             <color red="0.19599999487400055" green="0.37299999594688416" blue="0.45500001311302185" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
