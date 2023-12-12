@@ -182,21 +182,15 @@ class TokenRequestViewModel: NSObject {
 extension TokenRequestViewModel {
     
     func isYubiOTPEnabledOverUSBC(completion: @escaping (Bool) -> Void) {
-        print(#function)
         connection.smartCardConnection { connection in
-            print("got \(connection)")
             connection?.managementSession { session, error in
-                print("got \(session)")
-                guard let session else { return }
+                guard let session else { completion(false); return }
                 session.getDeviceInfo { deviceInfo, error in
-                    print("got \(deviceInfo)")
-                    guard let deviceInfo, let configuration = deviceInfo.configuration else { return }
-                    guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber + 1) else {
-                        print("yubiotp enabled")
+                    guard let deviceInfo, let configuration = deviceInfo.configuration else { completion(false); return }
+                    guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
                         completion(true)
                         return
                     }
-                    print("yubiotp disabled")
                     completion(false)
                 }
             }
@@ -204,17 +198,13 @@ extension TokenRequestViewModel {
     }
     
     func disableOTP(completion: @escaping (Error?) -> Void) {
-        print(#function)
         connection.smartCardConnection { connection in
             connection?.managementSession { session, error in
-                print(session)
-                guard let session else { return }
+                guard let session else { completion(error); return }
                 session.getDeviceInfo { deviceInfo, error in
-                    print(deviceInfo)
-                    guard let deviceInfo, let configuration = deviceInfo.configuration else { return }
+                    guard let deviceInfo, let configuration = deviceInfo.configuration else { completion(error); return }
                     configuration.setEnabled(false, application: .OTP, overTransport: .USB)
                     session.write(configuration, reboot: true) { error in
-                        print(error)
                         completion(error)
                     }
                 }
@@ -223,30 +213,23 @@ extension TokenRequestViewModel {
     }
     
     func waitForKeyRemoval(completion: @escaping () -> Void) {
-        print(#function)
         connection.didDisconnect { _, _ in
-            print("")
             completion()
         }
     }
 
-    func ignoreThisKey(handler: @escaping (Error?) -> Void) {
-        print(#function)
+    func ignoreThisKey(completion: @escaping (Error?) -> Void) {
         connection.smartCardConnection { connection in
-            print(connection)
             connection?.managementSession { session, error in
-                print(session)
-                guard let session else { handler(error); return }
+                guard let session else { completion(error); return }
                 session.getDeviceInfo { deviceInfo, error in
-                    print(deviceInfo)
-                    guard let deviceInfo else { handler(error); return }
+                    guard let deviceInfo else { completion(error); return }
                     SettingsConfig.registerUSBCDeviceToIgnore(deviceId: deviceInfo.serialNumber)
-                    handler(nil)
+                    completion(nil)
                 }
             }
         }
     }
-
 }
 
 @available(iOS 14.0, *)

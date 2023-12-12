@@ -18,9 +18,12 @@ class TokenRequestYubiOTPViewController: UIViewController {
     
     @IBAction func disableOTP() {
         viewModel?.disableOTP { error in
-            guard error == nil else { return }
-            UIView.animate(withDuration: 0.5) {
-                DispatchQueue.main.async {
+            guard error == nil else {
+                self.presentError(error)
+                return
+            }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5) {
                     self.optionsView.alpha = 0
                     self.completedView.alpha = 1
                     self.viewModel?.waitForKeyRemoval {
@@ -33,10 +36,19 @@ class TokenRequestYubiOTPViewController: UIViewController {
     
     @IBAction func ignoreThisKey() {
         viewModel?.ignoreThisKey { error in
-            guard error == nil else { return }
+            guard error == nil else {
+                self.presentError(error)
+                return
+            }
             DispatchQueue.main.async {
                 self.dismiss(animated: true)
             }
         }
+    }
+    
+    private func presentError(_ error: Error?) {
+        guard let error else { return }
+        let alert = UIAlertController(title: "Error reading YubiKey", message: "\(error.localizedDescription)\n\nRemove and reinsert your YubiKey.") { self.dismiss(animated: true) }
+        self.present(alert, animated: true, completion: nil)
     }
 }
