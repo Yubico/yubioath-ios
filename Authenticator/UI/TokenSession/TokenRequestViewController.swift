@@ -39,6 +39,10 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         defaultAccessoryTest = accessoryLabel.text
         overlayView.alpha = 0
         arrowHintView.alpha = 0
@@ -48,11 +52,11 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         if !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             orView.alpha = 0
             nfcView.alpha = 0
+        } else {
+            orView.alpha = 1
+            nfcView.alpha = 1
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         // We need to tighten the vertical spacing to make room for the keyboard on smaller screens
         if UIScreen.main.bounds.width <= 320 {
             topHeadingConstraint.constant = 40
@@ -70,7 +74,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         viewModel?.isYubiOTPEnabledOverUSBC { yubiOTPEnabled in
-            if yubiOTPEnabled {
+            if let yubiOTPEnabled, yubiOTPEnabled == true {
                 DispatchQueue.main.async {
                     let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let vc: TokenRequestYubiOTPViewController = storyboard.instantiateViewController(withIdentifier: "TokenRequestYubiOTPViewController") as! TokenRequestYubiOTPViewController

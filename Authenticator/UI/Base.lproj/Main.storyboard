@@ -1543,24 +1543,24 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8kr-pH-b2j">
-                                <rect key="frame" x="15" y="50" width="345" height="69"/>
+                            <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8kr-pH-b2j">
+                                <rect key="frame" x="25" y="85" width="325" height="69"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP has been disabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-EW-Cgh">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="33.666666666666664"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP has been disabled" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-EW-Cgh">
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="33.666666666666664"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remove and re-insert your YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGQ-n1-pV3">
-                                        <rect key="frame" x="0.0" y="48.666666666666671" width="345" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="48.666666666666657" width="325" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-GL-iId">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-GL-iId">
                                 <rect key="frame" x="15" y="50" width="345" height="400.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP enabled" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26R-OJ-dML">
@@ -1615,11 +1615,11 @@ All rights reserved.</string>
                         <viewLayoutGuide key="safeArea" id="q6Y-KM-ZyP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8kr-pH-b2j" firstAttribute="leading" secondItem="q6Y-KM-ZyP" secondAttribute="leading" constant="15" id="8zq-JL-IhM"/>
+                            <constraint firstItem="8kr-pH-b2j" firstAttribute="leading" secondItem="q6Y-KM-ZyP" secondAttribute="leading" constant="25" id="8zq-JL-IhM"/>
                             <constraint firstItem="1c1-GL-iId" firstAttribute="trailing" secondItem="q6Y-KM-ZyP" secondAttribute="trailing" constant="-15" id="Fay-OP-7eo"/>
                             <constraint firstItem="1c1-GL-iId" firstAttribute="top" secondItem="q6Y-KM-ZyP" secondAttribute="top" id="WJu-g5-KY6"/>
-                            <constraint firstItem="8kr-pH-b2j" firstAttribute="top" secondItem="q6Y-KM-ZyP" secondAttribute="top" id="hzk-cu-OyF"/>
-                            <constraint firstItem="q6Y-KM-ZyP" firstAttribute="trailing" secondItem="8kr-pH-b2j" secondAttribute="trailing" constant="15" id="uRe-kj-Rjy"/>
+                            <constraint firstItem="8kr-pH-b2j" firstAttribute="top" secondItem="q6Y-KM-ZyP" secondAttribute="top" constant="35" id="hzk-cu-OyF"/>
+                            <constraint firstItem="q6Y-KM-ZyP" firstAttribute="trailing" secondItem="8kr-pH-b2j" secondAttribute="trailing" constant="25" id="uRe-kj-Rjy"/>
                             <constraint firstItem="1c1-GL-iId" firstAttribute="leading" secondItem="q6Y-KM-ZyP" secondAttribute="leading" constant="15" id="yIm-jp-tud"/>
                         </constraints>
                     </view>

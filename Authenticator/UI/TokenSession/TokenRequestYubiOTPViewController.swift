@@ -16,6 +16,13 @@ class TokenRequestYubiOTPViewController: UIViewController {
     @IBOutlet weak var optionsView: UIStackView!
     @IBOutlet weak var completedView: UIStackView!
     
+    
+    override func viewDidLoad() {
+        self.viewModel?.waitForKeyRemoval { [weak self] in
+            self?.dismiss(animated: true)
+        }
+    }
+    
     @IBAction func disableOTP() {
         viewModel?.disableOTP { error in
             guard error == nil else {
@@ -26,9 +33,6 @@ class TokenRequestYubiOTPViewController: UIViewController {
                 UIView.animate(withDuration: 0.5) {
                     self.optionsView.alpha = 0
                     self.completedView.alpha = 1
-                    self.viewModel?.waitForKeyRemoval {
-                        self.dismiss(animated: true)
-                    }
                 }
             }
         }
