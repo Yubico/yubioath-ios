@@ -11,7 +11,7 @@
         <false/>
         <key>changes</key>
         <string>
-            Improved handling on iPhone 15 with YubiKeys that have Yubico OTP enabled when using the SmartCard extension.
+            This version solves a bug that caused a "Credential not found" error to be displayed instead of a list of accounts. Improved handling on iPhone 15 with YubiKeys that have Yubico OTP enabled when using the SmartCard extension.
         </string>
     </dict>
     <dict>
