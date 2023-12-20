@@ -74,7 +74,8 @@ class TokenRequestViewModel: NSObject {
     }
     
     var isWiredKeyConnectedHandler: ((Bool) -> Void)?
-    
+    var isYubiOTPEnabledHandler: ((Bool) -> Void)?
+
     func isWiredKeyConnected(handler: @escaping (Bool) -> Void) {
         isWiredKeyConnectedHandler = handler
         connection.smartCardConnection { [weak self] connection in
@@ -82,9 +83,11 @@ class TokenRequestViewModel: NSObject {
                 self?.isWiredKeyConnectedHandler?(connection != nil)
             }
         }
-        connection.accessoryConnection { [weak self] connection in
-            DispatchQueue.main.async {
-                self?.isWiredKeyConnectedHandler?(connection != nil)
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            connection.accessoryConnection { [weak self] connection in
+                DispatchQueue.main.async {
+                    self?.isWiredKeyConnectedHandler?(connection != nil)
+                }
             }
         }
     }
@@ -174,6 +177,67 @@ class TokenRequestViewModel: NSObject {
             return error.takeRetainedValue() as Error
         } else {
             return nil
+        }
+    }
+}
+
+
+extension TokenRequestViewModel {
+    
+    func isYubiOTPEnabledOverUSBC(completion: @escaping (Bool?) -> Void) {
+        isYubiOTPEnabledHandler = completion
+        
+        // If this device does not have a lightning port return nil
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            completion(nil)
+            return
+        }
+        connection.smartCardConnection { [weak self] connection in
+            connection?.managementSession { session, error in
+                guard let session else { self?.isYubiOTPEnabledHandler?(false); return }
+                session.getDeviceInfo { deviceInfo, error in
+                    guard let deviceInfo, let configuration = deviceInfo.configuration else { self?.isYubiOTPEnabledHandler?(false); return }
+                    guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
+                        self?.isYubiOTPEnabledHandler?(true)
+                        return
+                    }
+                    self?.isYubiOTPEnabledHandler?(false)
+                }
+            }
+        }
+    }
+    
+    func disableOTP(completion: @escaping (Error?) -> Void) {
+        connection.smartCardConnection { connection in
+            connection?.managementSession { session, error in
+                guard let session else { completion(error); return }
+                session.getDeviceInfo { deviceInfo, error in
+                    guard let deviceInfo, let configuration = deviceInfo.configuration else { completion(error); return }
+                    configuration.setEnabled(false, application: .OTP, overTransport: .USB)
+                    session.write(configuration, reboot: true) { error in
+                        completion(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    func waitForKeyRemoval(completion: @escaping () -> Void) {
+        connection.didDisconnect { _, _ in
+            completion()
+        }
+    }
+
+    func ignoreThisKey(completion: @escaping (Error?) -> Void) {
+        connection.smartCardConnection { connection in
+            connection?.managementSession { session, error in
+                guard let session else { completion(error); return }
+                session.getDeviceInfo { deviceInfo, error in
+                    guard let deviceInfo else { completion(error); return }
+                    SettingsConfig.registerUSBCDeviceToIgnore(deviceId: deviceInfo.serialNumber)
+                    completion(nil)
+                }
+            }
         }
     }
 }

@@ -39,6 +39,10 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         defaultAccessoryTest = accessoryLabel.text
         overlayView.alpha = 0
         arrowHintView.alpha = 0
@@ -48,11 +52,11 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         if !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
             orView.alpha = 0
             nfcView.alpha = 0
+        } else {
+            orView.alpha = 1
+            nfcView.alpha = 1
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         // We need to tighten the vertical spacing to make room for the keyboard on smaller screens
         if UIScreen.main.bounds.width <= 320 {
             topHeadingConstraint.constant = 40
@@ -68,22 +72,35 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         passwordTextField.delegate = self
-        viewModel?.isWiredKeyConnected { [weak self] connected in
-            if !connected && self?.orView.alpha == 1 { return }
-            UIView.animate(withDuration: 0.2) {
-                self?.orView.alpha = 0
-                self?.nfcView.alpha = 0
-                self?.accessoryLabel.alpha = 0
-            } completion: { _ in
+        
+        viewModel?.isYubiOTPEnabledOverUSBC { yubiOTPEnabled in
+            if let yubiOTPEnabled, yubiOTPEnabled == true {
+                DispatchQueue.main.async {
+                    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc: TokenRequestYubiOTPViewController = storyboard.instantiateViewController(withIdentifier: "TokenRequestYubiOTPViewController") as! TokenRequestYubiOTPViewController
+                    vc.viewModel = self.viewModel
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                }
+            }
+            
+            self.viewModel?.isWiredKeyConnected { [weak self] connected in
+                if !connected && self?.orView.alpha == 1 { return }
                 UIView.animate(withDuration: 0.2) {
-                    self?.accessoryLabel.alpha = 1
-                    if connected {
-                        self?.accessoryLabel.text = "Enter the PIN to access the certificate."
-                    } else {
-                        self?.accessoryLabel.text = self?.defaultAccessoryTest
-                        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-                            self?.orView.alpha = 1
-                            self?.nfcView.alpha = 1
+                    self?.orView.alpha = 0
+                    self?.nfcView.alpha = 0
+                    self?.accessoryLabel.alpha = 0
+                } completion: { _ in
+                    UIView.animate(withDuration: 0.2) {
+                        self?.accessoryLabel.alpha = 1
+                        if connected {
+                            self?.accessoryLabel.text = "Enter the PIN to access the certificate."
+                        } else {
+                            self?.accessoryLabel.text = self?.defaultAccessoryTest
+                            if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                                self?.orView.alpha = 1
+                                self?.nfcView.alpha = 1
+                            }
                         }
                     }
                 }
@@ -128,7 +145,6 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("Deinit TokenRequestViewController")
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
