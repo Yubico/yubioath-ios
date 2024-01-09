@@ -126,7 +126,7 @@ class AddCredentialController: UITableViewController {
         do {
             switch mode {
             case .manual:
-                let secret = NSData.ykf_data(withBase32String: self.secretManualText.text ?? "") ?? Data()
+                let secret = NSData.ykf_data(withBase32String: self.secretManualText.text?.replacingOccurrences(of: " ", with: "") ?? "") ?? Data()
                 let credentialType = YKFOATHCredentialType.typeFromString(advancedSettings[0][typeIndex])
                 let algorithm = YKFOATHCredentialAlgorithm.algorithmFromString(advancedSettings[1][algorithmIndex])
                 
