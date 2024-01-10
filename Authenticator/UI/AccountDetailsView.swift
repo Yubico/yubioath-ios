@@ -110,7 +110,7 @@ struct AccountDetailsView: View {
                             }
                         }
                         .accessibilityElement()
-                        .accessibilityHint("Dismiss details view")
+                        .accessibilityHint(String(localized: "Dismiss details view", comment: "Accessibility hint"))
                         .accessibilityAction {
                             self.data = nil
                         }
@@ -148,7 +148,7 @@ struct AccountDetailsView: View {
                             account.calculate()
                         }
                         .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel(account.state == .expired ? "Code expired" : account.formattedCode ?? "Code not calculated")
+                        .accessibilityLabel(account.state == .expired ? String(localized: "Code expired", comment: "Accessibility label") : account.formattedCode ?? String(localized: "Code not calculated", comment: "Accessibility label"))
                     
                     ZStack {
                         if let otp = data.account.formattedCode {
@@ -212,20 +212,20 @@ struct AccountDetailsView: View {
                     }
                     
                     DetachedMenu(menuActions: [
-                        DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: "Calculate", systemImage: "arrow.clockwise", action: {
+                        DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: String(localized: "Calculate", comment: "Menu"), systemImage: "arrow.clockwise", action: {
                             self.account.calculate()
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: account.state != .expired && account.otp != nil, title: "Copy", systemImage: "square.and.arrow.up", action: {
+                        DetachedMenuAction(style: .default, isEnabled: account.state != .expired && account.otp != nil, title: String(localized: "Copy", comment: "Menu"), systemImage: "square.and.arrow.up", action: {
                             guard let otp = account.otp?.code else { return }
                             toastPresenter.copyToClipboard(otp)
                         }),
-                        DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? "Unpin" : "Pin", systemImage: "pin", action: {
+                        DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? String(localized: "Unpin", comment: "Menu") : String(localized: "Pin", comment: "Menu"), systemImage: "pin", action: {
                             account.isPinned.toggle()
                         }),
-                        account.keyVersion >= YKFVersion(string: "5.3.0") ? DetachedMenuAction(style: .default, isEnabled: true, title: "Rename", systemImage: "square.and.pencil", action: {
+                        account.keyVersion >= YKFVersion(string: "5.3.0") ? DetachedMenuAction(style: .default, isEnabled: true, title: String(localized: "Rename", comment: "Menu"), systemImage: "square.and.pencil", action: {
                             showEditing.toggle()
                         }) : nil,
-                        DetachedMenuAction(style: .destructive, isEnabled: true, title: "Delete", systemImage: "trash", action: {
+                        DetachedMenuAction(style: .destructive, isEnabled: true, title: String(localized: "Delete", comment: "Menu"), systemImage: "trash", action: {
                             showDeleteConfirmation = true
                         })
                     ].compactMap { $0 } )

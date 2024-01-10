@@ -46,7 +46,7 @@ struct ListStatusView: View {
         .frame(height: height - 100)
         .listRowSeparator(.hidden)
         .sheet(isPresented: $showWhatsNew) {
-            VersionHistoryView(title: "What's new in\nYubico Authenticator")
+            VersionHistoryView(title: String(localized: "What's new in\nYubico Authenticator", comment: "Version history title"))
         }
     }
 }
@@ -54,11 +54,11 @@ struct ListStatusView: View {
 struct WhatsNewView: View {
     
     var text: AttributedString {
-        var see = AttributedString("See ")
+        var see = AttributedString(localized: "See ", comment: "Substring in \"See what's new in this version\"")
         see.foregroundColor = .secondaryLabel
-        var whatsNew = AttributedString("what's new")
+        var whatsNew = AttributedString(localized: "what's new", comment: "Substring in \"See what's new in this version\"")
         whatsNew.foregroundColor = Color(.yubiBlue)
-        var inThisVersion = AttributedString(" in this version")
+        var inThisVersion = AttributedString(localized: " in this version", comment: "Substring in \"See what's new in this version\"")
         inThisVersion.foregroundColor = .secondaryLabel
         return see + whatsNew + inThisVersion
     }
