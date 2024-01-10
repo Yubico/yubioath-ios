@@ -126,7 +126,7 @@ struct AccountRowView: View {
                         .stroke(pillColor, lineWidth: 1)
                 }
                 .accessibilityElement()
-                .accessibilityLabel(account.state == .expired ? "Code expired" : account.formattedCode ?? "Code not calculated")
+                .accessibilityLabel(account.state == .expired ? String(localized: "Code expired", comment: "Accessibility label") : account.formattedCode ?? String(localized: "Code not calculated", comment: "Accessibility label"))
                 .opacity(pillOpacity)
                 .scaleEffect(pillScaling)
             }

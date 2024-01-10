@@ -38,9 +38,9 @@ struct MainView: View {
     
     var insertYubiKeyMessage = {
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            "Insert YubiKey \(!UIAccessibility.isVoiceOverRunning ? "or pull down to activate NFC" : "or scan a NFC YubiKey")"
+            String(localized: "Insert YubiKey") + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
         } else {
-            "Insert YubiKey"
+            String(localized: "Insert YubiKey")
         }
     }()
     
@@ -61,7 +61,7 @@ struct MainView: View {
                                 AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                             }
                         } else {
-                            ListStatusView(image: Image(systemName: "person.crop.circle.badge.questionmark"), message: "No matching accounts on YubiKey", height: reader.size.height)
+                            ListStatusView(image: Image(systemName: "person.crop.circle.badge.questionmark"), message: String(localized: "No matching accounts on YubiKey"), height: reader.size.height)
                         }
                     } else if model.pinnedAccounts.count > 0 {
                         Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
@@ -87,12 +87,12 @@ struct MainView: View {
                             AccountRowView(account: account, showAccountDetails: $showAccountDetails)
                         }
                     } else {
-                        ListStatusView(image: Image(systemName: "person.crop.circle"), message: "No accounts on YubiKey", height: reader.size.height)
+                        ListStatusView(image: Image(systemName: "person.crop.circle"), message: String(localized: "No accounts on YubiKey"), height: reader.size.height)
                     }
                 }
             }
             .accessibilityHidden(showAccountDetails != nil)
-            .searchable(text: $searchText, prompt: "Search")
+            .searchable(text: $searchText, prompt: String(localized: "Search"))
             .autocorrectionDisabled(true)
             .keyboardType(.asciiCapable)
             .listStyle(.inset)
@@ -138,7 +138,7 @@ struct MainView: View {
                     }
                 }
             }
-            .navigationTitle(model.accountsLoaded ? "Accounts" : "")
+            .navigationTitle(model.accountsLoaded ? String(localized: "Accounts", comment: "Navigation title in main view.") : "")
         }
         .accessibilityHidden(showAccountDetails != nil)
         .overlay {
@@ -159,24 +159,24 @@ struct MainView: View {
             DisableOTPView()
         }
 
-        .alert("Enter password", isPresented: $model.presentPasswordEntry) {
-            SecureField("Password", text: $password)
-            Button("Cancel", role: .cancel) { password = "" }
-            Button("Ok") {
+        .alert(String(localized: "Enter password", comment: "Password alert"), isPresented: $model.presentPasswordEntry) {
+            SecureField(String(localized: "Password", comment: "Password alert"), text: $password)
+            Button(String(localized: "Cancel", comment: "Password alert"), role: .cancel) { password = "" }
+            Button(String(localized: "Ok", comment: "Password alert")) {
                 model.password.send(password)
                 password = ""
             }
         } message: {
             Text(model.passwordEntryMessage)
         }
-        .alertOrConfirmationDialog("Save password?", isPresented: $model.presentPasswordSaveType) {
-            Button("Save password") { model.passwordSaveType.send(.some(.save)) }
+        .alertOrConfirmationDialog(String(localized: "Save password?", comment: "Save password alert"), isPresented: $model.presentPasswordSaveType) {
+            Button("Save password", comment: "Save password alert.") { model.passwordSaveType.send(.some(.save)) }
             let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
             if authenticationType != .none {
                 Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
             }
-            Button("Never for this YubiKey") { model.passwordSaveType.send(.some(.never)) }
-            Button("Not now" , role: .cancel) { model.passwordSaveType.send(nil) }
+            Button("Never for this YubiKey", comment: "Save password alert.") { model.passwordSaveType.send(.some(.never)) }
+            Button("Not now", comment: "Save passsword alert" , role: .cancel) { model.passwordSaveType.send(nil) }
         }
         .errorAlert(error: $model.sessionError)
         .errorAlert(error: $model.connectionError) { model.start() }
