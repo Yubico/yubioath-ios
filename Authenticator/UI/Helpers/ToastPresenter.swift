@@ -56,7 +56,7 @@ extension ToastPresenter {
     
     func copyToClipboard(_ value: String) {
         UIPasteboard.general.string = value
-        toast(message: "Copied to clipboard")
+        toast(message: String(localized: "Copied to clipboard", comment: "Toast copied to clipboard message"))
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
     }

@@ -15,7 +15,6 @@
 		513D4DF52660EBA40022C53D /* ConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF42660EBA40022C53D /* ConfigurationController.swift */; };
 		513D4DF7266634280022C53D /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF6266634280022C53D /* ShowTime.swift */; };
 		513D4DF9266A21250022C53D /* DelegateStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D4DF8266A21250022C53D /* DelegateStack.swift */; };
-		513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 513F34BD24633A7900FCE030 /* EditCredential.storyboard */; };
 		513F34C02463F0C900FCE030 /* EditFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34BF2463F0C900FCE030 /* EditFieldController.swift */; };
 		513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C12463F44300FCE030 /* EditCredentialController.swift */; };
 		513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C72464658F00FCE030 /* SettingsRowView.swift */; };
@@ -69,8 +68,6 @@
 		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
 		A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948B23CE546B003E1E07 /* TutorialViewController.swift */; };
 		A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */; };
-		A544949023CE546B003E1E07 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A544948D23CE546B003E1E07 /* Tutorial.storyboard */; };
-		A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A557BEDF23AD97100097545D /* AddCredential.storyboard */; };
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
@@ -94,6 +91,11 @@
 		B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B1A298AB641006CDAEA /* MainViewModel.swift */; };
 		B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B2B29914051006CDAEA /* AccountRowView.swift */; };
 		B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */; };
+		B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE32BD697620092E7A2 /* Localizable.xcstrings */; };
+		B4901AE92BD7DCC70092E7A2 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */; };
+		B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */; };
+		B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */; };
+		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
@@ -149,7 +151,6 @@
 		513D4DF42660EBA40022C53D /* ConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationController.swift; sourceTree = "<group>"; };
 		513D4DF6266634280022C53D /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
 		513D4DF8266A21250022C53D /* DelegateStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateStack.swift; sourceTree = "<group>"; };
-		513F34BD24633A7900FCE030 /* EditCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditCredential.storyboard; sourceTree = "<group>"; };
 		513F34BF2463F0C900FCE030 /* EditFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFieldController.swift; sourceTree = "<group>"; };
 		513F34C12463F44300FCE030 /* EditCredentialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCredentialController.swift; sourceTree = "<group>"; };
 		513F34C72464658F00FCE030 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
@@ -213,8 +214,6 @@
 		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
 		A544948B23CE546B003E1E07 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPagesViewControllers.swift; sourceTree = "<group>"; };
-		A544948D23CE546B003E1E07 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
-		A557BEDF23AD97100097545D /* AddCredential.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCredential.storyboard; sourceTree = "<group>"; };
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -237,6 +236,18 @@
 		B4719B1A298AB641006CDAEA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B4719B2B29914051006CDAEA /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
 		B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
+		B4901AE12BD696BE0092E7A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		B4901AE22BD696BE0092E7A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B4901AE32BD697620092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Authenticator/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
+		B4901AE52BD69A2B0092E7A2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		B4901AE62BD69A2B0092E7A2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		B4901AE72BD7DCC70092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
+		B4901AEA2BD7DCC70092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Tutorial.xcstrings; sourceTree = "<group>"; };
+		B4901AEB2BD7DD160092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddCredential.storyboard; sourceTree = "<group>"; };
+		B4901AEE2BD7DD160092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/AddCredential.xcstrings; sourceTree = "<group>"; };
+		B4901AEF2BD7DD350092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/EditCredential.storyboard; sourceTree = "<group>"; };
+		B4901AF22BD7DD350092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/EditCredential.xcstrings; sourceTree = "<group>"; };
+		B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -321,7 +332,7 @@
 				513F34C12463F44300FCE030 /* EditCredentialController.swift */,
 				513F34C72464658F00FCE030 /* SettingsRowView.swift */,
 				513F34BF2463F0C900FCE030 /* EditFieldController.swift */,
-				513F34BD24633A7900FCE030 /* EditCredential.storyboard */,
+				B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */,
 			);
 			path = EditCredential;
 			sourceTree = "<group>";
@@ -346,6 +357,7 @@
 				515542782656707000B19C59 /* TokenSession.swift */,
 				5155427A2656707000B19C59 /* Info.plist */,
 				5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */,
+				B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */,
 			);
 			path = TokenExtension;
 			sourceTree = "<group>";
@@ -431,6 +443,7 @@
 				818BE8DB22F3486500061026 /* Model */,
 				818BE8DA22F3485600061026 /* UI */,
 				818866F622E7A877006BC0A8 /* Authenticator.entitlements */,
+				B4901AE32BD697620092E7A2 /* Localizable.xcstrings */,
 				818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */,
 				B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
@@ -513,7 +526,7 @@
 				513D4DF12660D6570022C53D /* AddCredentialController.swift */,
 				B4B1711727DF8C48002A62DE /* ScanAccountView.swift */,
 				81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */,
-				A557BEDF23AD97100097545D /* AddCredential.storyboard */,
+				B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */,
 			);
 			path = AddCredential;
 			sourceTree = "<group>";
@@ -535,7 +548,7 @@
 			children = (
 				A544948B23CE546B003E1E07 /* TutorialViewController.swift */,
 				A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */,
-				A544948D23CE546B003E1E07 /* Tutorial.storyboard */,
+				B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -642,6 +655,8 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				ja,
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
@@ -663,6 +678,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,10 +688,11 @@
 			files = (
 				818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */,
 				51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */,
-				513F34BE24633A7900FCE030 /* EditCredential.storyboard in Resources */,
-				A557BEE023AD97100097545D /* AddCredential.storyboard in Resources */,
+				B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */,
+				B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
-				A544949023CE546B003E1E07 /* Tutorial.storyboard in Resources */,
+				B4901AE92BD7DCC70092E7A2 /* Tutorial.storyboard in Resources */,
+				B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
 				B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */,
 			);
@@ -820,6 +837,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				818866BD22DFD729006BC0A8 /* Base */,
+				B4901AE12BD696BE0092E7A2 /* fr */,
+				B4901AE52BD69A2B0092E7A2 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -828,8 +847,37 @@
 			isa = PBXVariantGroup;
 			children = (
 				818866C222DFD72C006BC0A8 /* Base */,
+				B4901AE22BD696BE0092E7A2 /* fr */,
+				B4901AE62BD69A2B0092E7A2 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B4901AE72BD7DCC70092E7A2 /* Base */,
+				B4901AEA2BD7DCC70092E7A2 /* mul */,
+			);
+			name = Tutorial.storyboard;
+			sourceTree = "<group>";
+		};
+		B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B4901AEB2BD7DD160092E7A2 /* Base */,
+				B4901AEE2BD7DD160092E7A2 /* mul */,
+			);
+			name = AddCredential.storyboard;
+			sourceTree = "<group>";
+		};
+		B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B4901AEF2BD7DD350092E7A2 /* Base */,
+				B4901AF22BD7DD350092E7A2 /* mul */,
+			);
+			name = EditCredential.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -843,7 +891,7 @@
 				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -853,6 +901,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -866,7 +915,7 @@
 				CURRENT_PROJECT_VERSION = 115;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -876,6 +925,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -885,6 +935,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -947,6 +998,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1021,6 +1073,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1049,6 +1102,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

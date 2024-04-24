@@ -170,13 +170,13 @@ struct MainView: View {
             Text(model.passwordEntryMessage)
         }
         .alertOrConfirmationDialog(String(localized: "Save password?", comment: "Save password alert"), isPresented: $model.presentPasswordSaveType) {
-            Button("Save password", comment: "Save password alert.") { model.passwordSaveType.send(.some(.save)) }
+            Button(String(localized: "Save password", comment: "Save password alert.")) { model.passwordSaveType.send(.some(.save)) }
             let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
             if authenticationType != .none {
-                Button("Save and protect with \(authenticationType.title)") { model.passwordSaveType.send(.some(.lock)) }
+                Button(String(localized: "Save and protect with \(authenticationType.title)")) { model.passwordSaveType.send(.some(.lock)) }
             }
-            Button("Never for this YubiKey", comment: "Save password alert.") { model.passwordSaveType.send(.some(.never)) }
-            Button("Not now", comment: "Save passsword alert" , role: .cancel) { model.passwordSaveType.send(nil) }
+            Button(String(localized: "Never for this YubiKey", comment: "Save password alert.")) { model.passwordSaveType.send(.some(.never)) }
+            Button(String(localized: "Not now", comment: "Save passsword alert"), role: .cancel) { model.passwordSaveType.send(nil) }
         }
         .errorAlert(error: $model.sessionError)
         .errorAlert(error: $model.connectionError) { model.start() }

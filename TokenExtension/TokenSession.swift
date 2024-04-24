@@ -151,14 +151,14 @@ class TokenSession: TKTokenSession, TKTokenSessionDelegate {
         cancelAllNotifications()
         let categoryID = "SignData"
         let content = UNMutableNotificationContent()
-        content.title = "YubiKey required"
-        content.body = "Tap here to complete the request using your YubiKey."
+        content.title = String(localized: "YubiKey required")
+        content.body = String(localized: "Tap here to complete the request using your YubiKey.")
         content.categoryIdentifier = categoryID
         content.userInfo = ["data": data, "keyObjectID": keyObjectID, "algorithm": algorithm.rawValue, "keyType": keyType.rawValue];
         content.sound = UNNotificationSound.default
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         
-        let show = UNNotificationAction(identifier: categoryID, title: "Launch Yubico Authenticator", options: .foreground)
+        let show = UNNotificationAction(identifier: categoryID, title:  String(localized: "Launch Yubico Authenticator"), options: .foreground)
         let category = UNNotificationCategory(identifier: categoryID, actions: [show], intentIdentifiers: [])
 
         let center = UNUserNotificationCenter.current()

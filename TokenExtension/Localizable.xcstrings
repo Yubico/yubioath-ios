@@ -1,0 +1,15 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Launch Yubico Authenticator" : {
+
+    },
+    "Tap here to complete the request using your YubiKey." : {
+
+    },
+    "YubiKey required" : {
+
+    }
+  },
+  "version" : "1.0"
+}

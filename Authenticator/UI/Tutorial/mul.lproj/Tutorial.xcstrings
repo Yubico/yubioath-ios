@@ -1,0 +1,198 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "0Ew-5d-tth.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"YubiKey 5 Series NFC authentication\"; ObjectID = \"0Ew-5d-tth\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey 5 Series NFC authentication"
+          }
+        }
+      }
+    },
+    "4hs-uc-a5r.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"If you have a YubiKey with NFC, pull down the main view to activate NFC.\"; ObjectID = \"4hs-uc-a5r\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you have a YubiKey with NFC, pull down the main view to activate NFC."
+          }
+        }
+      }
+    },
+    "agV-vn-fpt.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started.\"; ObjectID = \"agV-vn-fpt\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started."
+          }
+        }
+      }
+    },
+    "bkN-Lk-jMY.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Touch the center of the key to the edge of the phone.\"; ObjectID = \"bkN-Lk-jMY\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Touch the center of the key to the edge of the phone."
+          }
+        }
+      }
+    },
+    "Bxy-Ot-GLA.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Hold the key horizontally and tilt the iPhone towards the key.\"; ObjectID = \"Bxy-Ot-GLA\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hold the key horizontally and tilt the iPhone towards the key."
+          }
+        }
+      }
+    },
+    "bYg-TD-NqH.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\"; ObjectID = \"bYg-TD-NqH\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes."
+          }
+        }
+      }
+    },
+    "cSo-Sg-vD2.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"QR codes are available from the services you wish to secure.\"; ObjectID = \"cSo-Sg-vD2\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "QR codes are available from the services you wish to secure."
+          }
+        }
+      }
+    },
+    "IVf-FH-Iqr.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Skip\"; ObjectID = \"IVf-FH-Iqr\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Skip"
+          }
+        }
+      }
+    },
+    "jBh-MF-9Fk.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Simply scan the QR code when you add your YubiKey and generate your own security codes.\"; ObjectID = \"jBh-MF-9Fk\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Simply scan the QR code when you add your YubiKey and generate your own security codes."
+          }
+        }
+      }
+    },
+    "KWb-g8-FRF.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"If you have a YubiKey 5Ci, plug it in.\"; ObjectID = \"KWb-g8-FRF\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you have a YubiKey 5Ci, plug it in."
+          }
+        }
+      }
+    },
+    "mdG-o8-OXh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"YubiKey 5Ci authentication\"; ObjectID = \"mdG-o8-OXh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey 5Ci authentication"
+          }
+        }
+      }
+    },
+    "N2W-CE-fPm.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Next\"; ObjectID = \"N2W-CE-fPm\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "Paz-Es-tja.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Touch the contacts on the sides when prompted.\"; ObjectID = \"Paz-Es-tja\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Touch the contacts on the sides when prompted."
+          }
+        }
+      }
+    },
+    "RUl-K8-lGO.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Where to get QR codes\"; ObjectID = \"RUl-K8-lGO\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Where to get QR codes"
+          }
+        }
+      }
+    },
+    "ub0-A4-vpe.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"How it works\"; ObjectID = \"ub0-A4-vpe\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "How it works"
+          }
+        }
+      }
+    },
+    "XdE-m1-y3M.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Read more...\"; ObjectID = \"XdE-m1-y3M\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Read more..."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -37,7 +37,7 @@ class EditCredentialController: UITableViewController {
     
     @IBAction func save(_ sender: Any) {
         guard let account, let issuer = issuerRow.value, let accountName = accountRow.value, accountName.count > 0 else {
-            showAlertDialog(title: "Account not set", message: "Account name can not be empty")
+            showAlertDialog(title: String(localized: "Account not set", comment: "Rename credential alert"), message: String(localized: "Account name can not be empty", comment: "Rename credential alert"))
             return
         }
         viewModel?.renameAccount(account, issuer: issuer, accountName: accountName) {

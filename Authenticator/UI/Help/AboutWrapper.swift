@@ -32,8 +32,8 @@ struct AboutView: View {
     var body: some View {
         NavigationView {
             HelpWrapper()
-                .navigationTitle("About")
-                .navigationBarItems(trailing: Button("Close") {
+                .navigationTitle(String(localized: "About", comment: "About view navigation title"))
+                .navigationBarItems(trailing: Button(String(localized: "Close", comment: "View close button")) {
                     showAbout.toggle()
                 })
                 .ignoresSafeArea(.all, edges: .bottom)

@@ -52,7 +52,7 @@ class TokenRequestYubiOTPViewController: UIViewController {
     
     private func presentError(_ error: Error?) {
         guard let error else { return }
-        let alert = UIAlertController(title: "Error reading YubiKey", message: "\(error.localizedDescription)\n\nRemove and reinsert your YubiKey.") { self.dismiss(animated: true) }
+        let alert = UIAlertController(title: String(localized: "Error reading YubiKey", comment: "PIV extension error title"), message: "\(error.localizedDescription)\n\n\(String(localized: "Remove and reinsert your YubiKey", comment: "PIV extension error reinsert key")).") { self.dismiss(animated: true) }
         self.present(alert, animated: true, completion: nil)
     }
 }

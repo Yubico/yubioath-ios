@@ -37,8 +37,8 @@ class OTPConfigurationController: UITableViewController {
         viewModel.setOTPEnabled(enabled: sender.isOn) { error in
             DispatchQueue.main.async {
                 guard error == nil else {
-                    let alert = UIAlertController(title: "Error writing configuration", message: error?.localizedDescription, preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .default) { _ in
+                    let alert = UIAlertController(title: String(localized: "Error writing configuration", comment: "OTP settings error alert title"), message: error?.localizedDescription, preferredStyle: .alert)
+                    let action = UIAlertAction(title: String(localized: "Ok"), style: .default) { _ in
                         self.dismiss()
                     }
                     alert.addAction(action)

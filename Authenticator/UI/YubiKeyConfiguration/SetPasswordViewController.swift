@@ -46,9 +46,9 @@ class SetPasswordViewController: UITableViewController {
     
     @IBAction func savePassword(_ sender: Any) {
         if !password.hasText && !confirmPassword.hasText {
-            self.showAlertDialog(title: "Error", message: "Password can not be an empty string")
+            self.showAlertDialog(title: String(localized: "Error"), message: String(localized: "Password can not be an empty string", comment: "Configuration set password empty password error alert message"))
         } else if password.text != confirmPassword.text {
-            self.showAlertDialog(title: "Error", message: "The passwords do not match")
+            self.showAlertDialog(title: String(localized: "Error"), message: String(localized: "The passwords do not match", comment: "Configuration set password not matching error alert message"))
         } else {
             self.changePassword(password: password.text ?? "", oldPassword: nil)
         }

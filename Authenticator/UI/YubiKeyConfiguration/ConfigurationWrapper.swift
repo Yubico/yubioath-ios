@@ -24,8 +24,8 @@ struct ConfigurationView: View {
     var body: some View {
         NavigationView {
             ConfigurationWrapper()
-                .navigationTitle("Configuration")
-                .navigationBarItems(trailing: Button("Close") {
+                .navigationTitle(String(localized: "Configuration", comment: "Configuration navigation title"))
+                .navigationBarItems(trailing: Button(String(localized: "Close", comment: "View close button")) {
                     showConfiguration.toggle()
                 })
                 .ignoresSafeArea(.all, edges: .bottom)

@@ -1,0 +1,8 @@
+/* Bundle name */
+"CFBundleName" = "Authenticator";
+/* Privacy - NFC Scan Usage Description */
+"NFCReaderUsageDescription" = "The application needs access to NFC reading to communicate with your Yubikey.";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "The application needs access to Camera to scan QR codes.";
+/* Privacy - Face ID Usage Description */
+"NSFaceIDUsageDescription" = "The application needs access to Face ID to unlock your password vault.";

@@ -54,7 +54,7 @@ class OATHConfigurationController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        clearPasswordsOnDeviceLabel.text = "Clear passwords saved on \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"). This will prompt for a password next time a password protected YubiKey is used."
+        clearPasswordsOnDeviceLabel.text = "\(String(localized: "Clear passwords saved on", comment: "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.")) \(UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"). \(String(localized: "This will prompt for a password next time a password protected YubiKey is used", comment:  "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."))."
     }
     
     func pause() {
@@ -83,15 +83,21 @@ class OATHConfigurationController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 2):
-            self.showWarning(title: "Remove password", message: "Remove password for this YubiKey?", okButtonTitle: "Remove password") { [weak self] () -> Void in
+            self.showWarning(title: String(localized: "Remove password", comment: "Remove password alert title"),
+                             message: String(localized: "Remove password for this YubiKey?", comment: "Remove password alert message"),
+                             okButtonTitle: String(localized: "Remove password", comment: "Remove password alert button")) { [weak self] () -> Void in
                 self?.removeYubiKeyPassword(currentPassword: nil)
             }
         case (1, 1):
-            self.showWarning(title: "Clear passwords?", message: "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.", okButtonTitle: "Clear") { [weak self] () -> Void in
+            self.showWarning(title: String(localized: "Clear passwords?", comment: "Clear password alert title"),
+                             message: String(localized: "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.", comment: "Clear password alert message"),
+                             okButtonTitle: String(localized: "Clear", comment: "Clear password alert button")) { [weak self] () -> Void in
                 self?.removeStoredPasswords()
             }
         case (2, 1):
-            self.showWarning(title: "Reset YubiKey?", message: "This will delete all accounts and restore factory defaults of your YubiKey.", okButtonTitle: "Reset") { [weak self] () -> Void in
+            self.showWarning(title: String(localized: "Reset YubiKey?", comment: "Reset YubiKey alert title"),
+                             message: String(localized: "This will delete all accounts and restore factory defaults of your YubiKey.", comment: "Reset YubiKey alert message"),
+                             okButtonTitle: String(localized: "Reset", comment: "Reset YubiKey alert button")) { [weak self] () -> Void in
                 self?.resetOATH()
             }
         default:
@@ -153,11 +159,15 @@ class OATHConfigurationController: UITableViewController {
         passwordPreferences.resetPasswordPreferenceForAll()
         do {
             try secureStore.removeAllValues()
-            self.showAlertDialog(title: "Success", message: "Stored passwords have been cleared from this phone.", okHandler:  { [weak self] () -> Void in
+            self.showAlertDialog(title: String(localized: "Success", comment: "Clear passwords confirmation alert title"),
+                                 message: String(localized: "Stored passwords have been cleared from this phone.", comment: "Clear passwords confirmation alert message"),
+                                 okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
         } catch {
-            self.showAlertDialog(title: "Failed to clear passwords", message: error.localizedDescription, okHandler:  { [weak self] () -> Void in
+            self.showAlertDialog(title: String(localized: "Failed to clear passwords", comment: "Clear passwords failure alert title"),
+                                 message: error.localizedDescription,
+                                 okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
         }
@@ -173,11 +183,11 @@ class OATHConfigurationController: UITableViewController {
                 switch result {
                 case .success(let message):
                     if let message = message {
-                        self.showAlertDialog(title: "Reset complete", message: message)
+                        self.showAlertDialog(title: String(localized: "Reset complete", comment: "Reset YubiKey complete alert title"), message: message)
                     }
                 case .failure(let error):
                     if let message = error {
-                        self.showAlertDialog(title: "Failed to reset YubiKey", message: message)
+                        self.showAlertDialog(title: String(localized: "Failed to reset YubiKey", comment: "Reset YubiKey failure alert title"), message: message)
                     }
                 }
             }

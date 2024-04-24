@@ -25,12 +25,12 @@ extension UIViewController {
     func showAlertDialog(title: String, message: String? = nil, nfcHandler: (() -> Void)? = nil, okHandler: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "OK", style: .cancel) { (action) -> Void in
+            let cancel = UIAlertAction(title: String(localized: "OK"), style: .cancel) { (action) -> Void in
                 okHandler?()
             }
             
             if YubiKitDeviceCapabilities.supportsISO7816NFCTags && nfcHandler != nil {
-                let activate = UIAlertAction(title: "Activate NFC", style: .default) { (action) -> Void in
+                let activate = UIAlertAction(title: String(localized: "Activate NFC", comment: "Password save type activate NFC"), style: .default) { (action) -> Void in
                     nfcHandler?()
                 }
                 alertController.addAction(activate)
@@ -49,7 +49,7 @@ extension UIViewController {
             let reset = UIAlertAction(title: okButtonTitle, style: style, handler: { (action) -> Void in
                 okHandler?()
             })
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: String(localized: "Cancel"), style: .cancel, handler: nil)
             alertController.addAction(reset)
             alertController.addAction(cancel)
             

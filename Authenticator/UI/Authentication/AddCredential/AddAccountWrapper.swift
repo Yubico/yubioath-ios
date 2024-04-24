@@ -35,8 +35,8 @@ struct AddAccountView: View {
     
     var body: some View {
         AddCredentialWrapper(accountSubject: accountSubject, oathURL: oathURL)
-            .navigationTitle("Add Credential")
-            .navigationBarItems(trailing: Button("Close") {
+            .navigationTitle(String(localized: "Add Credential", comment: "Add account navigation title"))
+            .navigationBarItems(trailing: Button(String(localized: "Close", comment: "View close button")) {
                 showAddAccount.toggle()
             })
             .ignoresSafeArea(.all, edges: .bottom)

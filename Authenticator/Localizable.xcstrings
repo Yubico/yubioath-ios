@@ -1,0 +1,390 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " in this version" : {
+      "comment" : "Substring in \"See what's new in this version\""
+    },
+    "*** *** " : {
+
+    },
+    "888 888" : {
+
+    },
+    "About" : {
+      "comment" : "About view navigation title"
+    },
+    "Account name can not be empty" : {
+      "comment" : "Rename credential alert"
+    },
+    "Account not set" : {
+      "comment" : "Rename credential alert"
+    },
+    "Accounts" : {
+      "comment" : "Navigation title in main view."
+    },
+    "Activate NFC" : {
+      "comment" : "Password save type activate NFC"
+    },
+    "Add account" : {
+      "comment" : "Scan QR code add account label"
+    },
+    "Add Credential" : {
+      "comment" : "Add account navigation title"
+    },
+    "Algorithm" : {
+      "comment" : "Add account select algorithm"
+    },
+    "and can be used by other applications" : {
+      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
+    },
+    "Calculate" : {
+      "comment" : "Menu"
+    },
+    "Cancel" : {
+      "comment" : "Password alert"
+    },
+    "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
+      "comment" : "PIV extension no certs on yubikey message"
+    },
+    "Certificates on YubiKey" : {
+      "comment" : "PIV extension table cell header"
+    },
+    "Clear" : {
+      "comment" : "Clear password alert button"
+    },
+    "Clear passwords saved on" : {
+      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."
+    },
+    "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." : {
+      "comment" : "Clear password alert message"
+    },
+    "Clear passwords?" : {
+      "comment" : "Clear password alert title"
+    },
+    "Close" : {
+      "comment" : "View close button"
+    },
+    "Code expired" : {
+      "comment" : "Accessibility label"
+    },
+    "Code not calculated" : {
+      "comment" : "Accessibility label"
+    },
+    "Configuration" : {
+      "comment" : "Configuration navigation title"
+    },
+    "Continue with limited usability" : {
+
+    },
+    "Copied to clipboard" : {
+      "comment" : "Toast copied to clipboard message"
+    },
+    "Copy" : {
+      "comment" : "Menu"
+    },
+    "Data to String conversion error" : {
+
+    },
+    "Delete" : {
+      "comment" : "Menu"
+    },
+    "Delete account?" : {
+
+    },
+    "Digits" : {
+      "comment" : "Add account select number of digits"
+    },
+    "Disable Yubico OTP (recommended)" : {
+
+    },
+    "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page." : {
+
+    },
+    "Dismiss details view" : {
+      "comment" : "Accessibility hint"
+    },
+    "Enabled" : {
+      "comment" : "PIV extension enabled message"
+    },
+    "Enter manually" : {
+      "comment" : "Scan QR code add manually button"
+    },
+    "Enter password" : {
+      "comment" : "Password alert"
+    },
+    "Enter the PIN to access the certificate." : {
+      "comment" : "PIV extension enter PIN message"
+    },
+    "Error" : {
+
+    },
+    "Error reading YubiKey" : {
+      "comment" : "PIV extension error title"
+    },
+    "Error writing configuration" : {
+      "comment" : "OTP settings error alert title"
+    },
+    "Failed storing certificate" : {
+      "comment" : "PIV extension storing error alert title"
+    },
+    "Failed to cast object to Data error" : {
+
+    },
+    "Failed to clear passwords" : {
+      "comment" : "Clear passwords failure alert title"
+    },
+    "Failed to reset YubiKey" : {
+      "comment" : "Reset YubiKey failure alert title"
+    },
+    "Incorrect password. Re-enter password." : {
+      "comment" : "Password entry error alert message"
+    },
+    "Insert YubiKey" : {
+
+    },
+    "Insert YubiKey or pull down to activate NFC" : {
+
+    },
+    "Invalid URI format" : {
+      "comment" : "Invalid Uri, wrong parameters"
+    },
+    "Item not found in secure storage" : {
+
+    },
+    "Licensing" : {
+      "comment" : "Licensing view navigation title"
+    },
+    "Menu" : {
+
+    },
+    "Never for this YubiKey" : {
+      "comment" : "Password entry never save for this yubikey button\nSave password alert."
+    },
+    "No account information found!" : {
+      "comment" : "Scan QR code no account error message"
+    },
+    "No accounts on YubiKey" : {
+
+    },
+    "No camera permissions" : {
+      "comment" : "Scan QR code camera error title"
+    },
+    "No certificates on YubiKey" : {
+      "comment" : "PIV extension no certificates message"
+    },
+    "No matching accounts on YubiKey" : {
+
+    },
+    "No name" : {
+      "comment" : "PIV extension certificate with no name"
+    },
+    "No public key certificates in keychain" : {
+      "comment" : "PIV extension no certs in keychain"
+    },
+    "No QR code?" : {
+      "comment" : "Scan QR code no QR code message"
+    },
+    "Not Enabled" : {
+      "comment" : "PIV extension not enabled message"
+    },
+    "Not now" : {
+      "comment" : "Password entry don't save now for this yubikey button\nSave passsword alert"
+    },
+    "Not valid credential information" : {
+      "comment" : "Add account error message"
+    },
+    "Notifications disabled" : {
+      "comment" : "PIV extension notifications alert title"
+    },
+    "Ok" : {
+      "comment" : "Password alert"
+    },
+    "OK" : {
+      "comment" : "OK button in error alert."
+    },
+    "Open iOS Settings app" : {
+      "comment" : "Scan QR code settings button"
+    },
+    "or pull down to activate NFC" : {
+
+    },
+    "or scan a NFC YubiKey" : {
+
+    },
+    "Other" : {
+
+    },
+    "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
+      "comment" : "PIV extension info alert message"
+    },
+    "Password" : {
+      "comment" : "Password alert"
+    },
+    "Password can not be an empty string" : {
+      "comment" : "Configuration set password empty password error alert message"
+    },
+    "Period" : {
+      "comment" : "Add account select period"
+    },
+    "Pin" : {
+      "comment" : "Menu"
+    },
+    "Pinned" : {
+
+    },
+    "Plug-in your YubiKey for that operation" : {
+      "comment" : "No service found"
+    },
+    "Point your camera at a QR code to scan it" : {
+      "comment" : "Scan QR code message"
+    },
+    "Public key certificates on" : {
+      "comment" : "PIV extension no certs on device message"
+    },
+    "Read more..." : {
+      "comment" : "PIV extension read more alert title"
+    },
+    "Remove and re-insert your YubiKey" : {
+
+    },
+    "Remove and reinsert your YubiKey" : {
+      "comment" : "PIV extension error reinsert key"
+    },
+    "Remove password" : {
+      "comment" : "Remove password alert title"
+    },
+    "Remove password for this YubiKey?" : {
+      "comment" : "Remove password alert message"
+    },
+    "Rename" : {
+      "comment" : "Menu"
+    },
+    "Reset" : {
+      "comment" : "Reset YubiKey alert button"
+    },
+    "Reset complete" : {
+      "comment" : "Reset YubiKey complete alert title"
+    },
+    "Reset YubiKey?" : {
+      "comment" : "Reset YubiKey alert title"
+    },
+    "Save and protect with" : {
+      "comment" : "Password entry save substring in 'Save and protect with [save type]'"
+    },
+    "Save and protect with %@" : {
+
+    },
+    "Save password" : {
+      "comment" : "Save password alert."
+    },
+    "Save Password" : {
+      "comment" : "Password entry save password button"
+    },
+    "Save password?" : {
+      "comment" : "Save password alert"
+    },
+    "Scan NFC YubiKey" : {
+
+    },
+    "Search" : {
+
+    },
+    "See " : {
+      "comment" : "Substring in \"See what's new in this version\""
+    },
+    "Settings" : {
+      "comment" : "PIV extension settings alert title"
+    },
+    "Smart card extension" : {
+      "comment" : "PIV extension info alert title"
+    },
+    "Smart card extension is only available on iOS 14.5 and forward." : {
+      "comment" : "PIV extension version error"
+    },
+    "Something went wrong and key doesn't respond" : {
+      "comment" : "No response"
+    },
+    "Stored passwords have been cleared from this phone." : {
+      "comment" : "Clear passwords confirmation alert message"
+    },
+    "String to Data conversion error" : {
+
+    },
+    "Success" : {
+      "comment" : "Clear passwords confirmation alert title"
+    },
+    "The key doesn't respond" : {
+      "comment" : "Timeout issue"
+    },
+    "The passwords do not match" : {
+      "comment" : "Configuration set password not matching error alert message"
+    },
+    "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings." : {
+      "comment" : "PIV extensions notifications alert message"
+    },
+    "These certificates have been added to this" : {
+      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
+    },
+    "This QR code is not supported" : {
+      "comment" : "Invalid Uri format, not OATH URL"
+    },
+    "This version of iOS does not support operations with the YubiKey for Lightning nor over NFC" : {
+      "comment" : "Not supported"
+    },
+    "This will delete all accounts and restore factory defaults of your YubiKey." : {
+      "comment" : "Reset YubiKey alert message"
+    },
+    "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
+
+    },
+    "This will prompt for a password next time a password protected YubiKey is used" : {
+      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."
+    },
+    "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard." : {
+
+    },
+    "To prevent unauthorized access this YubiKey is protected with a password." : {
+      "comment" : "Password entry alert message"
+    },
+    "To scan a QR code you need to enable camera permissions for the Authenticator app." : {
+      "comment" : "Scan QR code camera error message"
+    },
+    "Type" : {
+      "comment" : "Add account select type"
+    },
+    "Unhandled Error" : {
+
+    },
+    "Unlock YubiKey" : {
+      "comment" : "Password entry unlock message"
+    },
+    "Unpin" : {
+      "comment" : "Menu"
+    },
+    "what's new" : {
+      "comment" : "Substring in \"See what's new in this version\""
+    },
+    "What's new in\nYubico Authenticator" : {
+      "comment" : "Version history title"
+    },
+    "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." : {
+
+    },
+    "Would you like to save this password for YubiKey for next usage in this application?" : {
+      "comment" : "Password entry save password title"
+    },
+    "You can remove saved password in Settings." : {
+      "comment" : "Password entry save password message"
+    },
+    "Yubico OTP" : {
+
+    },
+    "Yubico OTP enabled" : {
+
+    },
+    "Yubico OTP has been disabled" : {
+
+    }
+  },
+  "version" : "1.0"
+}
