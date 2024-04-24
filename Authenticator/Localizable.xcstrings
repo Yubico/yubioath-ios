@@ -20,7 +20,15 @@
       "comment" : "Rename credential alert"
     },
     "Accounts" : {
-      "comment" : "Navigation title in main view."
+      "comment" : "Navigation title in main view.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptes"
+          }
+        }
+      }
     },
     "Activate NFC" : {
       "comment" : "Password save type activate NFC"
@@ -41,7 +49,15 @@
       "comment" : "Menu"
     },
     "Cancel" : {
-      "comment" : "Password alert"
+      "comment" : "Password alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        }
+      }
     },
     "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
       "comment" : "PIV extension no certs on yubikey message"
@@ -74,7 +90,14 @@
       "comment" : "Configuration navigation title"
     },
     "Continue with limited usability" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer avec fonctionnalité limitée"
+          }
+        }
+      }
     },
     "Copied to clipboard" : {
       "comment" : "Toast copied to clipboard message"
@@ -83,22 +106,58 @@
       "comment" : "Menu"
     },
     "Data to String conversion error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur de conversion de données en chaîne"
+          }
+        }
+      }
     },
     "Delete" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer"
+          }
+        }
+      }
     },
     "Delete account?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer compte ?"
+          }
+        }
+      }
     },
     "Digits" : {
       "comment" : "Add account select number of digits"
     },
     "Disable Yubico OTP (recommended)" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver Yubico OTP (recommandé)"
+          }
+        }
+      }
     },
     "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico OTP, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres."
+          }
+        }
+      }
     },
     "Dismiss details view" : {
       "comment" : "Accessibility hint"
@@ -128,7 +187,14 @@
       "comment" : "PIV extension storing error alert title"
     },
     "Failed to cast object to Data error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de convertir l'objet en données"
+          }
+        }
+      }
     },
     "Failed to clear passwords" : {
       "comment" : "Clear passwords failure alert title"
@@ -146,10 +212,25 @@
 
     },
     "Invalid URI format" : {
-      "comment" : "Invalid Uri, wrong parameters"
+      "comment" : "Invalid Uri, wrong parameters",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format URI non valide"
+          }
+        }
+      }
     },
     "Item not found in secure storage" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Élément introuvable dans le stockage sécurisé"
+          }
+        }
+      }
     },
     "Licensing" : {
       "comment" : "Licensing view navigation title"
@@ -212,7 +293,14 @@
 
     },
     "Other" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autre"
+          }
+        }
+      }
     },
     "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
       "comment" : "PIV extension info alert message"
@@ -230,10 +318,25 @@
       "comment" : "Menu"
     },
     "Pinned" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Épinglé"
+          }
+        }
+      }
     },
     "Plug-in your YubiKey for that operation" : {
-      "comment" : "No service found"
+      "comment" : "No service found",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Branchez votre YubiKey pour cette opération"
+          }
+        }
+      }
     },
     "Point your camera at a QR code to scan it" : {
       "comment" : "Scan QR code message"
@@ -245,7 +348,14 @@
       "comment" : "PIV extension read more alert title"
     },
     "Remove and re-insert your YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirez et réinsérez votre YubiKey"
+          }
+        }
+      }
     },
     "Remove and reinsert your YubiKey" : {
       "comment" : "PIV extension error reinsert key"
@@ -302,19 +412,42 @@
       "comment" : "PIV extension version error"
     },
     "Something went wrong and key doesn't respond" : {
-      "comment" : "No response"
+      "comment" : "No response",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur : la clé ne répond pas"
+          }
+        }
+      }
     },
     "Stored passwords have been cleared from this phone." : {
       "comment" : "Clear passwords confirmation alert message"
     },
     "String to Data conversion error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur de conversion de chaîne en données"
+          }
+        }
+      }
     },
     "Success" : {
       "comment" : "Clear passwords confirmation alert title"
     },
     "The key doesn't respond" : {
-      "comment" : "Timeout issue"
+      "comment" : "Timeout issue",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé ne répond pas"
+          }
+        }
+      }
     },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message"
@@ -326,22 +459,52 @@
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
     },
     "This QR code is not supported" : {
-      "comment" : "Invalid Uri format, not OATH URL"
+      "comment" : "Invalid Uri format, not OATH URL",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code QR non pris en charge"
+          }
+        }
+      }
     },
     "This version of iOS does not support operations with the YubiKey for Lightning nor over NFC" : {
-      "comment" : "Not supported"
+      "comment" : "Not supported",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette version d'iOS ne prend pas en charge les opérations avec YubiKey pour Lightning ni via NFC"
+          }
+        }
+      }
     },
     "This will delete all accounts and restore factory defaults of your YubiKey." : {
       "comment" : "Reset YubiKey alert message"
     },
     "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela supprimera définitivement le compte de la YubiKey et vous ne pourrez plus générer de codes !"
+          }
+        }
+      }
     },
     "This will prompt for a password next time a password protected YubiKey is used" : {
       "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."
     },
     "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour iPhone. Cela pose problème avec le clavier à l'écran normal."
+          }
+        }
+      }
     },
     "To prevent unauthorized access this YubiKey is protected with a password." : {
       "comment" : "Password entry alert message"
@@ -353,7 +516,14 @@
       "comment" : "Add account select type"
     },
     "Unhandled Error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur non gérée"
+          }
+        }
+      }
     },
     "Unlock YubiKey" : {
       "comment" : "Password entry unlock message"
@@ -371,7 +541,14 @@
       "comment" : "Version history title"
     },
     "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lorsque vous insérez la YubiKey, le clavier à l'écran n'apparaît pas. Pour afficher le clavier, vous devez retirer la YubiKey, puis la réinsérer."
+          }
+        }
+      }
     },
     "Would you like to save this password for YubiKey for next usage in this application?" : {
       "comment" : "Password entry save password title"
@@ -380,13 +557,34 @@
       "comment" : "Password entry save password message"
     },
     "Yubico OTP" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP"
+          }
+        }
+      }
     },
     "Yubico OTP enabled" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP activé"
+          }
+        }
+      }
     },
     "Yubico OTP has been disabled" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP désactivé"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

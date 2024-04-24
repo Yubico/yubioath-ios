@@ -10,6 +10,12 @@
             "state" : "new",
             "value" : "Authenticator"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authenticator"
+          }
         }
       }
     },
@@ -21,6 +27,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "The application needs access to NFC reading to communicate with your Yubikey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'appli doit accéder à la lecture NFC pour communiquer avec votre Yubikey."
           }
         }
       }
@@ -34,6 +46,12 @@
             "state" : "new",
             "value" : "The application needs access to Camera to scan QR codes."
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'appli doit accéder à l'appareil photo pour scanner les codes QR."
+          }
         }
       }
     },
@@ -45,6 +63,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "The application needs access to Face ID to unlock your password vault."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'appli doit accéder à Face ID pour débloquer votre coffre-fort de mots de passe."
           }
         }
       }
