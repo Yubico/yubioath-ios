@@ -81,7 +81,7 @@ class SmartCardViewModel: NSObject {
                         session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
                             if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
                             callback(.success(certificates))
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
                             return
                         }
                     }

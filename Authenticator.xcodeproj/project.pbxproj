@@ -38,7 +38,6 @@
 		5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */; };
 		5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180974226DE185100A122C1 /* ResetOATHViewModel.swift */; };
 		51A162862678A1F100C3FA1E /* OATHConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A162852678A1F100C3FA1E /* OATHConfigurationController.swift */; };
-		51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
 		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
 		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
 		51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AFD4D9271D4277008F2630 /* QuartzCore.framework */; };
@@ -778,9 +777,7 @@
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */,
 				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
-				51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */,
 				B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */,
-				51AFD4D42716FC78008F2630 /* NFCSettingsController.swift in Sources */,
 				51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
 				B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */,

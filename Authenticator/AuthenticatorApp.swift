@@ -15,6 +15,7 @@
  */
 
 import SwiftUI
+import YubiKit
 
 @main
 struct AuthenticatorApp: App {
@@ -38,6 +39,10 @@ struct AuthenticatorApp: App {
             .navigationViewStyle(.stack)
             .environmentObject(toastPresenter)
             .environmentObject(notificationsViewModel)
+            .onAppear {
+                YubiKitExternalLocalization.nfcScanAlertMessage = String(localized: "Scan your YubiKey", comment: "iOS NFC alert scan")
+                YubiKitExternalLocalization.nfcScanSuccessAlertMessage = String(localized: "Success", comment: "iOS NFC alert default success message")
+            }
         }
     }
 }

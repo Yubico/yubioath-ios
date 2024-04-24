@@ -13,11 +13,17 @@
     "About" : {
       "comment" : "About view navigation title"
     },
+    "Account deleted" : {
+      "comment" : "OATH NFC account deleted"
+    },
     "Account name can not be empty" : {
       "comment" : "Rename credential alert"
     },
     "Account not set" : {
       "comment" : "Rename credential alert"
+    },
+    "Account renamed" : {
+      "comment" : "OATH NFC account renamed"
     },
     "Accounts" : {
       "comment" : "Navigation title in main view.",
@@ -50,6 +56,9 @@
     },
     "and can be used by other applications" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
+    },
+    "Authentication required" : {
+      "comment" : "Password Configuration auth required"
     },
     "Calculate" : {
       "comment" : "Menu"
@@ -91,6 +100,9 @@
     },
     "Close" : {
       "comment" : "View close button"
+    },
+    "Code calculated" : {
+      "comment" : "OATH NFC code calculated"
     },
     "Code expired" : {
       "comment" : "Accessibility label"
@@ -210,6 +222,9 @@
     "Dismiss details view" : {
       "comment" : "Accessibility hint"
     },
+    "Duplicate accounts!" : {
+      "comment" : "OATH add credential duplicate accounts error"
+    },
     "Enabled" : {
       "comment" : "PIV extension enabled message"
     },
@@ -256,14 +271,20 @@
     "Failed to reset YubiKey" : {
       "comment" : "Reset YubiKey failure alert title"
     },
+    "Finished reading certificates" : {
+      "comment" : "PIV extension NFC finished reading certs"
+    },
     "Incorrect password. Re-enter password." : {
-      "comment" : "Password entry error alert message"
+      "comment" : "OATH password entry retry"
     },
     "Insert YubiKey" : {
 
     },
     "Insert YubiKey or pull down to activate NFC" : {
 
+    },
+    "Invalid signature" : {
+      "comment" : "PIV extension NFC invalid signature"
     },
     "Invalid URI format" : {
       "comment" : "Invalid Uri, wrong parameters",
@@ -298,6 +319,9 @@
         }
       }
     },
+    "Key is password protected" : {
+      "comment" : "OATH NFC password protected key"
+    },
     "Licensing" : {
       "comment" : "Licensing view navigation title"
     },
@@ -306,6 +330,9 @@
     },
     "Never for this YubiKey" : {
       "comment" : "Save password alert."
+    },
+    "New OTP configuration saved" : {
+      "comment" : "Settings OTP configuration saved"
     },
     "No account information found!" : {
       "comment" : "Scan QR code no account error message"
@@ -343,11 +370,17 @@
     "Notifications disabled" : {
       "comment" : "PIV extension notifications alert title"
     },
+    "OATH accounts deleted and OATH application reset to factory defaults." : {
+      "comment" : "OATH reset confirmation message"
+    },
     "Ok" : {
       "comment" : "Password alert"
     },
     "OK" : {
       "comment" : "OK button in error alert."
+    },
+    "on this YubiKey" : {
+      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."
     },
     "Open iOS Settings app" : {
       "comment" : "Scan QR code settings button"
@@ -382,6 +415,15 @@
     },
     "Password can not be an empty string" : {
       "comment" : "Configuration set password empty password error alert message"
+    },
+    "Password has been changed" : {
+      "comment" : "Password Configuration password changed"
+    },
+    "Password has been removed" : {
+      "comment" : "Password Configuration password removed"
+    },
+    "Password has been set" : {
+      "comment" : "Password Configuration password set"
     },
     "Period" : {
       "comment" : "Add account select period"
@@ -430,6 +472,9 @@
     },
     "Read more..." : {
       "comment" : "PIV extension read more alert title"
+    },
+    "Read YubiKey OTP configuration" : {
+      "comment" : "Settings OTP configuration read"
     },
     "Remove and re-insert your YubiKey" : {
       "localizations" : {
@@ -486,6 +531,9 @@
     "Scan NFC YubiKey" : {
 
     },
+    "Scan your YubiKey" : {
+      "comment" : "iOS NFC alert scan"
+    },
     "Search" : {
 
     },
@@ -495,11 +543,17 @@
     "Settings" : {
       "comment" : "PIV extension settings alert title"
     },
+    "Signing failed" : {
+      "comment" : "PIV extension signing failed error message"
+    },
     "Smart card extension" : {
       "comment" : "PIV extension info alert title"
     },
     "Smart card extension is only available on iOS 14.5 and forward." : {
       "comment" : "PIV extension version error"
+    },
+    "Something went wrong" : {
+
     },
     "Something went wrong and key doesn't respond" : {
       "comment" : "No response",
@@ -538,7 +592,16 @@
       }
     },
     "Success" : {
-      "comment" : "Clear passwords confirmation alert title"
+      "comment" : "Clear passwords confirmation alert title\niOS NFC alert default success message"
+    },
+    "Success!\nHint: swipe down to dismiss" : {
+      "comment" : "iOS NFC alert success with hint"
+    },
+    "Successfully read" : {
+      "comment" : "iOS NFC alert successfully read"
+    },
+    "Successfully signed data" : {
+      "comment" : "PIV extension NFC successfully signed data"
     },
     "The key doesn't respond" : {
       "comment" : "Timeout issue",
@@ -560,8 +623,17 @@
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message"
     },
+    "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
+      "comment" : "PIV extension NFC invalid signature no private key"
+    },
+    "The private key on the YubiKey does not match the certificate." : {
+      "comment" : "PIV extension invalid signature message"
+    },
     "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings." : {
       "comment" : "PIV extensions notifications alert message"
+    },
+    "There's already an account named" : {
+      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."
     },
     "These certificates have been added to this" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
@@ -639,7 +711,7 @@
       }
     },
     "To prevent unauthorized access this YubiKey is protected with a password." : {
-      "comment" : "Password entry alert message"
+      "comment" : "OATH password entry enter password"
     },
     "To scan a QR code you need to enable camera permissions for the Authenticator app." : {
       "comment" : "Scan QR code camera error message"
@@ -669,6 +741,9 @@
     "Unpin" : {
       "comment" : "Menu"
     },
+    "Use your PUK code to reset PIN." : {
+      "comment" : "PIV extension pin blocked text"
+    },
     "Version history" : {
       "comment" : "Version history navigation title"
     },
@@ -697,8 +772,17 @@
     "Would you like to save this password for YubiKey for next usage in this application?" : {
       "comment" : "Password entry save password title"
     },
+    "Wrong password" : {
+      "comment" : "Password Configuration wrong password"
+    },
+    "Wrong PIN code" : {
+      "comment" : "PIV extension wrong pin"
+    },
     "You can remove saved password in Settings." : {
       "comment" : "Password entry save password message"
+    },
+    "Your PIN has ben blocked" : {
+      "comment" : "PIV extension pin blocked title"
     },
     "Yubico OTP" : {
       "localizations" : {
@@ -717,6 +801,7 @@
       }
     },
     "Yubico OTP enabled" : {
+      "comment" : "OATH otp enabled error message",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -747,6 +832,9 @@
           }
         }
       }
+    },
+    "YubiKey information read" : {
+      "comment" : "YubiKey info NFC read"
     }
   },
   "version" : "1.0"

@@ -24,9 +24,9 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     public var errorDescription: String? {
         switch self {
         case .credentialAlreadyPresent(let credential):
-            return "There's already an account named \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) on this YubiKey."
+            return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
         case .otpEnabledError:
-            return "Yubico OTP enabled"
+            return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
         }
     }
 }
@@ -308,7 +308,7 @@ class OATHSession {
         let key = YKFOATHCredentialUtils.key(fromAccountName: template.accountName, issuer: template.issuer, period: template.period, type: template.type)
         let keys = credentials.map { YKFOATHCredentialUtils.key(fromAccountName: $0.accountName, issuer: $0.issuer, period: $0.period, type: $0.type) }
         guard !keys.contains(key) else {
-            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Duplicate accounts!")
+            YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Duplicate accounts!", comment: "OATH add credential duplicate accounts error"))
             throw OATHSessionError.credentialAlreadyPresent(template)
         }
         

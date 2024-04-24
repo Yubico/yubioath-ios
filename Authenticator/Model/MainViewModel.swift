@@ -156,7 +156,7 @@ class MainViewModel: ObservableObject {
                 account.update(otp: otp)
             }
 
-            session.endNFC(message: "Code calculated")
+            session.endNFC(message: String(localized: "Code calculated", comment: "OATH NFC code calculated"))
         } catch {
             handle(error: error, retry: { Task { await self.updateAccount(account) }})
         }
@@ -210,7 +210,7 @@ class MainViewModel: ObservableObject {
             }
             
             self.accountsLoaded = true
-            let message = SettingsConfig.showNFCSwipeHint ? "Success!\nHint: swipe down to dismiss" : "Successfully read"
+            let message = SettingsConfig.showNFCSwipeHint ? String(localized: "Success!\nHint: swipe down to dismiss", comment: "iOS NFC alert success with hint") : String(localized: "Successfully read", comment: "iOS NFC alert successfully read")
             useSession.endNFC(message: message)
         } catch {
             handle(error: error, retry: { Task { await self.updateAccounts() }})
@@ -233,7 +233,7 @@ class MainViewModel: ObservableObject {
                 let session = try await OATHSessionHandler.shared.nfcSession()
                 await updateAccounts(using: session)
             } catch {
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Something went wrong"))
                 self.sessionError = error
             }
         }
@@ -265,7 +265,7 @@ class MainViewModel: ObservableObject {
                 account.updateTitles()
                 account.isPinned = wasPinned
                 await updateAccounts(using: session)
-                YubiKitManager.shared.stopNFCConnection(withMessage: "Account renamed")
+                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Account renamed", comment: "OATH NFC account renamed"))
                 completion()
             } catch {
                 handle(error: error, retry: { self.renameAccount(account, issuer: issuer, accountName: accountName, completion: completion) })
@@ -281,7 +281,7 @@ class MainViewModel: ObservableObject {
                 accounts.removeAll { $0.accountId == account.accountId }
                 pinnedAccounts.removeAll { $0.accountId == account.accountId }
                 otherAccounts.removeAll { $0.accountId == account.accountId }
-                session.endNFC(message: "Account deleted")
+                session.endNFC(message: String(localized: "Account deleted", comment: "OATH NFC account deleted"))
                 completion()
             } catch {
                 handle(error: error, retry: { self.deleteAccount(account, completion: completion) })
@@ -291,8 +291,8 @@ class MainViewModel: ObservableObject {
     
     func collectPasswordAndUnlock(isRetry: Bool = false, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
-            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Key is password protected")
-            self.passwordEntryMessage = isRetry ? "Incorrect password. Re-enter password." : "To prevent unauthorized access this YubiKey is protected with a password."
+            YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Key is password protected", comment: "OATH NFC password protected key"))
+            self.passwordEntryMessage = isRetry ? String(localized: "Incorrect password. Re-enter password.", comment: "OATH password entry retry") : String(localized: "To prevent unauthorized access this YubiKey is protected with a password.", comment: "OATH password entry enter password")
             self.presentPasswordEntry = true
             self.passwordCancellable = self.password.sink { password in
                 if let password {
@@ -324,7 +324,7 @@ class MainViewModel: ObservableObject {
                         } catch {
                             self.collectPasswordAndUnlock() { error in
                                 if let error {
-                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Something went wrong"))
                                     self.handle(error: error, retry: retry)
                                 } else {
                                     retry?()
@@ -335,7 +335,7 @@ class MainViewModel: ObservableObject {
                 } else {
                     self.collectPasswordAndUnlock() { error in
                         if let error {
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Something went wrong"))
                             self.handle(error: error, retry: retry)
                         } else {
                             retry?()
@@ -346,7 +346,7 @@ class MainViewModel: ObservableObject {
         } else if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
             collectPasswordAndUnlock(isRetry: true) { error in
                 if let error {
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Something went wrong")
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Something went wrong"))
                     self.handle(error: error, retry: retry)
                 } else {
                     retry?()

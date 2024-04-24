@@ -38,9 +38,9 @@ extension UIAlertController {
         let message: String
         switch type {
         case .password:
-            message = String(localized: "To prevent unauthorized access this YubiKey is protected with a password.", comment: "Password entry alert message")
+            message = String(localized: "To prevent unauthorized access this YubiKey is protected with a password.", comment: "OATH password entry enter password")
         case .retryPassword:
-            message = String(localized: "Incorrect password. Re-enter password.", comment: "Password entry error alert message")
+            message = String(localized: "Incorrect password. Re-enter password.", comment: "OATH password entry retry")
         }
 
         self.init(title: String(localized: "Unlock YubiKey", comment: "Password entry unlock message"), message: message, preferredStyle: .alert)

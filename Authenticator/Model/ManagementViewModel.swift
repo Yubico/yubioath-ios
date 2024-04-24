@@ -55,7 +55,7 @@ class ManagementViewModel {
                     return
                 }
                     session.getDeviceInfo { deviceInfo, error in
-                    YubiKitManager.shared.stopNFCConnection(withMessage: "Read YubiKey OTP configuration")
+                        YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Read YubiKey OTP configuration", comment: "Settings OTP configuration read"))
                     guard let deviceInfo = deviceInfo else { completion(.failure(error!)); return }
                     guard let configuration = deviceInfo.configuration else {
                         completion(.failure(ManagementViewModelError.unknownError))
@@ -103,7 +103,7 @@ class ManagementViewModel {
                             completion(errorToPassOn)
                             return
                         } else {
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "New OTP configuration saved")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "New OTP configuration saved", comment: "Settings OTP configuration saved"))
                         }
                         completion(nil)
                     }
