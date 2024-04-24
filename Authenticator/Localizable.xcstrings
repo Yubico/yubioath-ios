@@ -27,6 +27,12 @@
             "state" : "translated",
             "value" : "Comptes"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント"
+          }
         }
       }
     },
@@ -55,6 +61,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Annuler"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         }
       }
@@ -96,6 +108,12 @@
             "state" : "translated",
             "value" : "Continuer avec fonctionnalité limitée"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用制限ありで続行"
+          }
         }
       }
     },
@@ -112,6 +130,12 @@
             "state" : "translated",
             "value" : "Erreur de conversion de données en chaîne"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データから文字列への変換エラー"
+          }
         }
       }
     },
@@ -123,6 +147,12 @@
             "state" : "translated",
             "value" : "Effacer"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
+          }
         }
       }
     },
@@ -132,6 +162,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Effacer compte ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを削除しますか？"
           }
         }
       }
@@ -146,6 +182,12 @@
             "state" : "translated",
             "value" : "Désactiver Yubico OTP (recommandé)"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPを無効にする（推奨）"
+          }
         }
       }
     },
@@ -155,6 +197,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico OTP, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます。"
           }
         }
       }
@@ -193,6 +241,12 @@
             "state" : "translated",
             "value" : "Impossible de convertir l'objet en données"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データへのオブジェクトのキャスト失敗エラー"
+          }
         }
       }
     },
@@ -219,6 +273,12 @@
             "state" : "translated",
             "value" : "Format URI non valide"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なURIフォーマット"
+          }
         }
       }
     },
@@ -228,6 +288,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Élément introuvable dans le stockage sécurisé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アイテムが安全なストレージで見つかりません"
           }
         }
       }
@@ -299,6 +365,12 @@
             "state" : "translated",
             "value" : "Autre"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他"
+          }
         }
       }
     },
@@ -324,6 +396,12 @@
             "state" : "translated",
             "value" : "Épinglé"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ピン留め"
+          }
         }
       }
     },
@@ -334,6 +412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Branchez votre YubiKey pour cette opération"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをその操作のために接続してください"
           }
         }
       }
@@ -353,6 +437,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Retirez et réinsérez votre YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを取り外して再挿入してください"
           }
         }
       }
@@ -419,6 +509,12 @@
             "state" : "translated",
             "value" : "Erreur : la clé ne répond pas"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が発生し、キーが応答しません"
+          }
         }
       }
     },
@@ -431,6 +527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erreur de conversion de chaîne en données"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字列からデータへの変換エラー"
           }
         }
       }
@@ -445,6 +547,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "La clé ne répond pas"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーが応答しません"
           }
         }
       }
@@ -466,6 +574,12 @@
             "state" : "translated",
             "value" : "Code QR non pris en charge"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このQRコードはサポートされていません"
+          }
         }
       }
     },
@@ -476,6 +590,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cette version d'iOS ne prend pas en charge les opérations avec YubiKey pour Lightning ni via NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このバージョンのiOSでは、LightningやNFCでのYubiKeyを使用した操作はサポートされていません"
           }
         }
       }
@@ -490,6 +610,12 @@
             "state" : "translated",
             "value" : "Cela supprimera définitivement le compte de la YubiKey et vous ne pourrez plus générer de codes !"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これにより、YubiKeyからアカウントが完全に削除され、コードを生成できなくなります。"
+          }
         }
       }
     },
@@ -502,6 +628,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour iPhone. Cela pose problème avec le clavier à l'écran normal."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します。"
           }
         }
       }
@@ -521,6 +653,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erreur non gérée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未処理エラー"
           }
         }
       }
@@ -547,6 +685,12 @@
             "state" : "translated",
             "value" : "Lorsque vous insérez la YubiKey, le clavier à l'écran n'apparaît pas. Pour afficher le clavier, vous devez retirer la YubiKey, puis la réinsérer."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります。"
+          }
         }
       }
     },
@@ -563,6 +707,12 @@
             "state" : "translated",
             "value" : "Yubico OTP"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP"
+          }
         }
       }
     },
@@ -573,6 +723,12 @@
             "state" : "translated",
             "value" : "Yubico OTP activé"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP有効"
+          }
         }
       }
     },
@@ -582,6 +738,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico OTP désactivé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPが無効になっています"
           }
         }
       }
