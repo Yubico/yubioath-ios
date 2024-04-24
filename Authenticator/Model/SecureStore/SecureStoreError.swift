@@ -50,7 +50,7 @@ extension SecureStoreError: LocalizedError {
         case .dataCastError:
             return NSLocalizedString("Failed to cast object to Data error", comment: "")
         case .unhandledError(let message):
-            return NSLocalizedString(message, comment: "")
+            return message
         case .itemNotFound:
             return NSLocalizedString("Item not found in secure storage", comment: "")
         }

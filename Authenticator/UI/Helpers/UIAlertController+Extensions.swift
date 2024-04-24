@@ -69,8 +69,8 @@ extension UIAlertController {
 
         let save = UIAlertAction(title: String(localized: "Save Password", comment: "Password entry save password button"), style: .default) { _ in completion(.save) }
         let biometric = UIAlertAction(title: "\(String(localized: "Save and protect with", comment: "Password entry save substring in 'Save and protect with [save type]'")) \(authenticationType.title)", style: .default) { _ in completion(.lock) }
-        let never = UIAlertAction(title: String(localized: "Never for this YubiKey", comment: "Password entry never save for this yubikey button"), style: .default) { _ in completion(.never) }
-        let notNow = UIAlertAction(title: String(localized: "Not now", comment: "Password entry don't save now for this yubikey button"), style: .cancel) { _ in
+        let never = UIAlertAction(title: String(localized: "Never for this YubiKey", comment: "Save password alert."), style: .default) { _ in completion(.never) }
+        let notNow = UIAlertAction(title: String(localized: "Not now", comment: "Save passsword alert"), style: .cancel) { _ in
             completion(.none)
             self.dismiss(animated: true, completion: nil)
         }
