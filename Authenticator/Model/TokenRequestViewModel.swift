@@ -17,7 +17,7 @@
 @available(iOS 14.0, *)
 extension Error {
     var tokenError: TokenRequestViewModel.TokenError {
-        let code = YKFPIVFErrorCode(rawValue: UInt((self as NSError).code))
+        let code = YKFPIVErrorCode(rawValue: UInt((self as NSError).code))
         switch code {
         case .pinLocked:
             return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: String(localized: "Your PIN has ben blocked", comment: "PIV extension pin blocked title"),

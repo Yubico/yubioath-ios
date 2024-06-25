@@ -2,28 +2,138 @@
   "sourceLanguage" : "en",
   "strings" : {
     " in this version" : {
-      "comment" : "Substring in \"See what's new in this version\""
+      "comment" : "Substring in \"See what's new in this version\"",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " dans cette version"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " このバージョンの"
+          }
+        }
+      }
     },
     "*** *** " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*** *** "
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*** *** "
+          }
+        }
+      }
     },
     "888 888" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "888 888"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "888 888"
+          }
+        }
+      }
     },
     "About" : {
-      "comment" : "About view navigation title"
+      "comment" : "About view navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Infos"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "概要"
+          }
+        }
+      }
     },
     "Account deleted" : {
-      "comment" : "OATH NFC account deleted"
+      "comment" : "OATH NFC account deleted",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte supprimé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントが削除されました"
+          }
+        }
+      }
     },
     "Account name can not be empty" : {
-      "comment" : "Rename credential alert"
+      "comment" : "Rename credential alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le nom du compte ne peut pas être vide"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント名は空白にできません"
+          }
+        }
+      }
     },
     "Account not set" : {
-      "comment" : "Rename credential alert"
+      "comment" : "Rename credential alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte non créé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントが設定されていません"
+          }
+        }
+      }
     },
     "Account renamed" : {
-      "comment" : "OATH NFC account renamed"
+      "comment" : "OATH NFC account renamed",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte renommé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントの名前が変更されました"
+          }
+        }
+      }
     },
     "Accounts" : {
       "comment" : "Navigation title in main view.",
@@ -43,25 +153,123 @@
       }
     },
     "Activate NFC" : {
-      "comment" : "Password save type activate NFC"
+      "comment" : "Password save type activate NFC",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFCを有効化"
+          }
+        }
+      }
     },
     "Add account" : {
-      "comment" : "Scan QR code add account label"
+      "comment" : "Scan QR code add account label",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter compte"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントを追加"
+          }
+        }
+      }
     },
     "Add Credential" : {
-      "comment" : "Add account navigation title"
+      "comment" : "Add account navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter infos d'identification"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "資格情報を追加"
+          }
+        }
+      }
     },
     "Algorithm" : {
-      "comment" : "Add account select algorithm"
+      "comment" : "Add account select algorithm",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algorithme"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アルゴリズム"
+          }
+        }
+      }
     },
     "and can be used by other applications" : {
-      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
+      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "et peut être utilisé par d'autres applications"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "他のアプリケーションで使用できます"
+          }
+        }
+      }
     },
     "Authentication required" : {
-      "comment" : "Password Configuration auth required"
+      "comment" : "Password Configuration auth required",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentification requise"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "認証が必要です"
+          }
+        }
+      }
     },
     "Calculate" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "計算"
+          }
+        }
+      }
     },
     "Cancel" : {
       "comment" : "Password alert",
@@ -81,37 +289,191 @@
       }
     },
     "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
-      "comment" : "PIV extension no certs on yubikey message"
+      "comment" : "PIV extension no certs on yubikey message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les certificats sur cette YubiKey peuvent être utilisés pour authentifier et signer des requêtes provenant d'autres applications s'ils sont ajoutés à celle-ci"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyの証明書を使用して、他のアプリケーションからのリクエストが追加された場合に認証して署名することができます"
+          }
+        }
+      }
     },
     "Certificates on YubiKey" : {
-      "comment" : "PIV extension table cell header"
+      "comment" : "PIV extension table cell header",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificats sur YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyの証明書"
+          }
+        }
+      }
     },
     "Clear" : {
-      "comment" : "Clear password alert button"
+      "comment" : "Clear password alert button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "消去"
+          }
+        }
+      }
     },
     "Clear passwords saved on" : {
-      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."
+      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacez les mots de passe enregistrés sur"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "に保存されているパスワードを消去します"
+          }
+        }
+      }
     },
     "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." : {
-      "comment" : "Clear password alert message"
+      "comment" : "Clear password alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacez les mots de passe enregistrés sur l'iPhone. Un mot de passe sera requis à la prochaine utilisation d'une YubiKey protégée par mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhoneに保存されているパスワードを消去します。これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます."
+          }
+        }
+      }
     },
     "Clear passwords?" : {
-      "comment" : "Clear password alert title"
+      "comment" : "Clear password alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer les mots de passe ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを消去しますか？"
+          }
+        }
+      }
     },
     "Close" : {
-      "comment" : "View close button"
+      "comment" : "View close button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        }
+      }
     },
     "Code calculated" : {
-      "comment" : "OATH NFC code calculated"
+      "comment" : "OATH NFC code calculated",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code calculé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードが計算されました"
+          }
+        }
+      }
     },
     "Code expired" : {
-      "comment" : "Accessibility label"
+      "comment" : "Accessibility label",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code expiré"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードが期限切れです"
+          }
+        }
+      }
     },
     "Code not calculated" : {
-      "comment" : "Accessibility label"
+      "comment" : "Accessibility label",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code non calculé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コードが計算されていません"
+          }
+        }
+      }
     },
     "Configuration" : {
-      "comment" : "Configuration navigation title"
+      "comment" : "Configuration navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
     },
     "Continue with limited usability" : {
       "localizations" : {
@@ -130,10 +492,38 @@
       }
     },
     "Copied to clipboard" : {
-      "comment" : "Toast copied to clipboard message"
+      "comment" : "Toast copied to clipboard message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copié dans presse-papiers"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリップボードにコピーされました"
+          }
+        }
+      }
     },
     "Copy" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copier"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コピー"
+          }
+        }
+      }
     },
     "Data to String conversion error" : {
       "localizations" : {
@@ -173,19 +563,33 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Effacer compte ?"
+            "value" : "Effacer compte?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アカウントを削除しますか？"
+            "value" : "アカウントを削除しますか？?"
           }
         }
       }
     },
     "Digits" : {
-      "comment" : "Add account select number of digits"
+      "comment" : "Add account select number of digits",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiffres"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "桁"
+          }
+        }
+      }
     },
     "Disable Yubico OTP (recommended)" : {
       "localizations" : {
@@ -208,46 +612,185 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico OTP, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres."
+            "value" : "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます。"
+            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます."
           }
         }
       }
     },
     "Dismiss details view" : {
-      "comment" : "Accessibility hint"
+      "comment" : "Accessibility hint",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer la vue détaillée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細ビューを閉じる"
+          }
+        }
+      }
     },
     "Duplicate accounts!" : {
-      "comment" : "OATH add credential duplicate accounts error"
+      "comment" : "OATH add credential duplicate accounts error",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptes en double !"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウントが重複しています"
+          }
+        }
+      }
     },
     "Enabled" : {
-      "comment" : "PIV extension enabled message"
+      "comment" : "PIV extension enabled message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効"
+          }
+        }
+      }
     },
     "Enter manually" : {
-      "comment" : "Scan QR code add manually button"
+      "comment" : "Scan QR code add manually button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir manuellement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手動で入力"
+          }
+        }
+      }
     },
     "Enter password" : {
-      "comment" : "Password alert"
+      "comment" : "Password alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir le mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを入力"
+          }
+        }
+      }
     },
     "Enter the PIN to access the certificate." : {
-      "comment" : "PIV extension enter PIN message"
+      "comment" : "PIV extension enter PIN message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir le code PIN pour accéder au certificat."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証明書にアクセスするにはPINを入力してください。"
+          }
+        }
+      }
     },
     "Error" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
+          }
+        }
+      }
     },
     "Error reading YubiKey" : {
-      "comment" : "PIV extension error title"
+      "comment" : "PIV extension error title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de la lecture de la YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey読み取りエラー"
+          }
+        }
+      }
     },
     "Error writing configuration" : {
-      "comment" : "OTP settings error alert title"
+      "comment" : "OTP settings error alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de l'écriture de la configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定書き込みエラー"
+          }
+        }
+      }
     },
     "Failed storing certificate" : {
-      "comment" : "PIV extension storing error alert title"
+      "comment" : "PIV extension storing error alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échec du stockage du certificat"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証明書の保存に失敗しました"
+          }
+        }
+      }
     },
     "Failed to cast object to Data error" : {
       "localizations" : {
@@ -266,25 +809,121 @@
       }
     },
     "Failed to clear passwords" : {
-      "comment" : "Clear passwords failure alert title"
+      "comment" : "Clear passwords failure alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d'effacer le mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードの消去に失敗しました"
+          }
+        }
+      }
     },
     "Failed to reset YubiKey" : {
-      "comment" : "Reset YubiKey failure alert title"
+      "comment" : "Reset YubiKey failure alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échec de la réinitialisation de la YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのリセットに失敗しました"
+          }
+        }
+      }
     },
     "Finished reading certificates" : {
-      "comment" : "PIV extension NFC finished reading certs"
+      "comment" : "PIV extension NFC finished reading certs",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture des certificats terminée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証明書の読み取りが終了しました"
+          }
+        }
+      }
     },
     "Incorrect password. Re-enter password." : {
-      "comment" : "OATH password entry retry"
+      "comment" : "OATH password entry retry",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe incorrect. Saisissez à nouveau le mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが正しくありません。パスワードを再入力してください。"
+          }
+        }
+      }
     },
     "Insert YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insérez YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを挿入"
+          }
+        }
+      }
     },
     "Insert YubiKey or pull down to activate NFC" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insérez la YubiKey ou tirez vers le bas pour activer NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを挿入してください。またはプルダウンしてNFCを有効にしてください"
+          }
+        }
+      }
     },
     "Invalid signature" : {
-      "comment" : "PIV extension NFC invalid signature"
+      "comment" : "PIV extension NFC invalid signature",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signature non valide"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効な署名"
+          }
+        }
+      }
     },
     "Invalid URI format" : {
       "comment" : "Invalid Uri, wrong parameters",
@@ -320,76 +959,407 @@
       }
     },
     "Key is password protected" : {
-      "comment" : "OATH NFC password protected key"
+      "comment" : "OATH NFC password protected key",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé est protégée par mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーはパスワードで保護されています"
+          }
+        }
+      }
     },
     "Licensing" : {
-      "comment" : "Licensing view navigation title"
+      "comment" : "Licensing view navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licences"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス"
+          }
+        }
+      }
     },
     "Menu" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menu"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メニュー"
+          }
+        }
+      }
     },
     "Never for this YubiKey" : {
-      "comment" : "Save password alert."
+      "comment" : "Save password alert.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jamais pour cette YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyには使用しないでください"
+          }
+        }
+      }
     },
     "New OTP configuration saved" : {
-      "comment" : "Settings OTP configuration saved"
+      "comment" : "Settings OTP configuration saved",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouvelle configuration OTP enregistrée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいOTP設定が保存されました"
+          }
+        }
+      }
     },
     "No account information found!" : {
-      "comment" : "Scan QR code no account error message"
+      "comment" : "Scan QR code no account error message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune information de compte trouvée !"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント情報が見つかりません"
+          }
+        }
+      }
     },
     "No accounts on YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun compte sur YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyにアカウントがありません"
+          }
+        }
+      }
     },
     "No camera permissions" : {
-      "comment" : "Scan QR code camera error title"
+      "comment" : "Scan QR code camera error title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune autorisation de caméra"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カメラの権限がありません"
+          }
+        }
+      }
     },
     "No certificates on YubiKey" : {
-      "comment" : "PIV extension no certificates message"
+      "comment" : "PIV extension no certificates message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun certificat sur YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyに証明書がありません"
+          }
+        }
+      }
     },
     "No matching accounts on YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun compte correspondant sur YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyに一致するアカウントがありません"
+          }
+        }
+      }
     },
     "No name" : {
-      "comment" : "PIV extension certificate with no name"
+      "comment" : "PIV extension certificate with no name",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun nom"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前がありません"
+          }
+        }
+      }
     },
     "No public key certificates in keychain" : {
-      "comment" : "PIV extension no certs in keychain"
+      "comment" : "PIV extension no certs in keychain",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun certificat de clé publique dans le porte-clés"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーチェーンに公開鍵の証明書がありません"
+          }
+        }
+      }
     },
     "No QR code?" : {
-      "comment" : "Scan QR code no QR code message"
+      "comment" : "Scan QR code no QR code message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de code QR ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードがありませんか？"
+          }
+        }
+      }
     },
     "Not Enabled" : {
-      "comment" : "PIV extension not enabled message"
+      "comment" : "PIV extension not enabled message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non activé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効化されていません"
+          }
+        }
+      }
     },
     "Not now" : {
-      "comment" : "Save passsword alert"
+      "comment" : "Save passsword alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas maintenant"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今はできません"
+          }
+        }
+      }
     },
     "Not valid credential information" : {
-      "comment" : "Add account error message"
+      "comment" : "Add account error message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informations d'identification non valides"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効な資格情報ではありません"
+          }
+        }
+      }
     },
     "Notifications disabled" : {
-      "comment" : "PIV extension notifications alert title"
+      "comment" : "PIV extension notifications alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications désactivées"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知が無効になっています"
+          }
+        }
+      }
     },
     "OATH accounts deleted and OATH application reset to factory defaults." : {
-      "comment" : "OATH reset confirmation message"
+      "comment" : "OATH reset confirmation message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptes OATH supprimés et application OATH réinitialisée aux paramètres par défaut."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATHアカウントが削除され、OATHアプリケーションが工場出荷時のデフォルトにリセットされています。"
+          }
+        }
+      }
     },
     "Ok" : {
-      "comment" : "Password alert"
+      "comment" : "Password alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "OK" : {
-      "comment" : "OK button in error alert."
+      "comment" : "OK button in error alert.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "on this YubiKey" : {
-      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."
+      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sur cette YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyで"
+          }
+        }
+      }
     },
     "Open iOS Settings app" : {
-      "comment" : "Scan QR code settings button"
+      "comment" : "Scan QR code settings button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrez l'application Réglages iOS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS設定アプリを開く"
+          }
+        }
+      }
     },
     "or pull down to activate NFC" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ou tirez vers le bas pour activer NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "またはプルダウンしてNFCを有効にします"
+          }
+        }
+      }
     },
     "or scan a NFC YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ou scannez une YubiKey NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "またはNFC YubiKeyをスキャンします"
+          }
+        }
+      }
     },
     "Other" : {
       "localizations" : {
@@ -408,28 +1378,140 @@
       }
     },
     "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
-      "comment" : "PIV extension info alert message"
+      "comment" : "PIV extension info alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D'autres applications peuvent utiliser les certificats clients de votre YubiKey à des fins d'authentification et de signature."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "他のアプリケーションが認証および署名の目的でYubiKeyのクライアント証明書を使用できます。"
+          }
+        }
+      }
     },
     "Password" : {
-      "comment" : "Password alert"
+      "comment" : "Password alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
     },
     "Password can not be an empty string" : {
-      "comment" : "Configuration set password empty password error alert message"
+      "comment" : "Configuration set password empty password error alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mot de passe ne peut pas être une chaîne vide"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードの文字列は空白にできません"
+          }
+        }
+      }
     },
     "Password has been changed" : {
-      "comment" : "Password Configuration password changed"
+      "comment" : "Password Configuration password changed",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mot de passe a été modifié"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが変更されました"
+          }
+        }
+      }
     },
     "Password has been removed" : {
-      "comment" : "Password Configuration password removed"
+      "comment" : "Password Configuration password removed",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mot de passe a été supprimé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが削除されました"
+          }
+        }
+      }
     },
     "Password has been set" : {
-      "comment" : "Password Configuration password set"
+      "comment" : "Password Configuration password set",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le mot de passe a été créé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが設定されました"
+          }
+        }
+      }
     },
     "Period" : {
-      "comment" : "Add account select period"
+      "comment" : "Add account select period",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Période"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "期間"
+          }
+        }
+      }
     },
     "Pin" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Épingler"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ピン"
+          }
+        }
+      }
     },
     "Pinned" : {
       "localizations" : {
@@ -465,16 +1547,72 @@
       }
     },
     "Point your camera at a QR code to scan it" : {
-      "comment" : "Scan QR code message"
+      "comment" : "Scan QR code message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pointez votre caméra vers le code QR pour le scanner"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スキャンするにはカメラをQRコードに向けてください"
+          }
+        }
+      }
     },
     "Public key certificates on" : {
-      "comment" : "PIV extension no certs on device message"
+      "comment" : "PIV extension no certs on device message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificats de clé publique activés"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "公開鍵証明書の対象"
+          }
+        }
+      }
     },
     "Read more..." : {
-      "comment" : "PIV extension read more alert title"
+      "comment" : "PIV extension read more alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細を読む..."
+          }
+        }
+      }
     },
     "Read YubiKey OTP configuration" : {
-      "comment" : "Settings OTP configuration read"
+      "comment" : "Settings OTP configuration read",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire la configuration OTP de la YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey OTP設定を読み取る"
+          }
+        }
+      }
     },
     "Remove and re-insert your YubiKey" : {
       "localizations" : {
@@ -493,67 +1631,357 @@
       }
     },
     "Remove and reinsert your YubiKey" : {
-      "comment" : "PIV extension error reinsert key"
+      "comment" : "PIV extension error reinsert key",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirez et réinsérez votre YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを取り外して再挿入してください"
+          }
+        }
+      }
     },
     "Remove password" : {
-      "comment" : "Remove password alert title"
+      "comment" : "Remove password alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを削除"
+          }
+        }
+      }
     },
     "Remove password for this YubiKey?" : {
-      "comment" : "Remove password alert message"
+      "comment" : "Remove password alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le mot de passe pour cette YubiKey ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyのパスワードを削除しますか？"
+          }
+        }
+      }
     },
     "Rename" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renommer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前変更"
+          }
+        }
+      }
     },
     "Reset" : {
-      "comment" : "Reset YubiKey alert button"
+      "comment" : "Reset YubiKey alert button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リセット"
+          }
+        }
+      }
     },
     "Reset complete" : {
-      "comment" : "Reset YubiKey complete alert title"
+      "comment" : "Reset YubiKey complete alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialisation terminée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リセットが完了しました"
+          }
+        }
+      }
     },
     "Reset YubiKey?" : {
-      "comment" : "Reset YubiKey alert title"
+      "comment" : "Reset YubiKey alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser la YubiKey ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをリセットしますか？"
+          }
+        }
+      }
     },
     "Save and protect with" : {
-      "comment" : "Password entry save substring in 'Save and protect with [save type]'"
+      "comment" : "Password entry save substring in 'Save and protect with [save type]'",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer et protéger avec"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "を使用して保存および保護"
+          }
+        }
+      }
     },
     "Save and protect with %@" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer et protéger avec %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@を使用して保存および保護"
+          }
+        }
+      }
     },
     "Save password" : {
-      "comment" : "Save password alert."
+      "comment" : "Save password alert.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを保存"
+          }
+        }
+      }
     },
     "Save Password" : {
-      "comment" : "Password entry save password button"
+      "comment" : "Password entry save password button",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを保存"
+          }
+        }
+      }
     },
     "Save password?" : {
-      "comment" : "Save password alert"
+      "comment" : "Save password alert",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer mot de passe ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを保存しますか？"
+          }
+        }
+      }
     },
     "Scan NFC YubiKey" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanner la YubiKey NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC YubiKeyをスキャン"
+          }
+        }
+      }
     },
     "Scan your YubiKey" : {
-      "comment" : "iOS NFC alert scan"
+      "comment" : "iOS NFC alert scan",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scannez votre YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをスキャン"
+          }
+        }
+      }
     },
     "Search" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        }
+      }
     },
     "See " : {
-      "comment" : "Substring in \"See what's new in this version\""
+      "comment" : "Substring in \"See what's new in this version\"",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voir "
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "参照 "
+          }
+        }
+      }
     },
     "Settings" : {
-      "comment" : "PIV extension settings alert title"
+      "comment" : "PIV extension settings alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
     },
     "Signing failed" : {
-      "comment" : "PIV extension signing failed error message"
+      "comment" : "PIV extension signing failed error message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échec de la signature"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "署名に失敗しました"
+          }
+        }
+      }
     },
     "Smart card extension" : {
-      "comment" : "PIV extension info alert title"
+      "comment" : "PIV extension info alert title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extension carte à puce"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード拡張機能"
+          }
+        }
+      }
     },
     "Smart card extension is only available on iOS 14.5 and forward." : {
-      "comment" : "PIV extension version error"
+      "comment" : "PIV extension version error",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'extension de carte à puce n'est disponible que sur iOS 14.5 et versions ultérieures."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード拡張機能は、iOS 14.5以降でのみ使用できます。"
+          }
+        }
+      }
     },
     "Something went wrong" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une erreur s'est produite"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が発生しました"
+          }
+        }
+      }
     },
     "Something went wrong and key doesn't respond" : {
       "comment" : "No response",
@@ -573,7 +2001,21 @@
       }
     },
     "Stored passwords have been cleared from this phone." : {
-      "comment" : "Clear passwords confirmation alert message"
+      "comment" : "Clear passwords confirmation alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mots de passe enregistrés ont été effacés de ce téléphone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存されたパスワードがこのスマートフォンから消去されました。"
+          }
+        }
+      }
     },
     "String to Data conversion error" : {
       "localizations" : {
@@ -592,16 +2034,72 @@
       }
     },
     "Success" : {
-      "comment" : "Clear passwords confirmation alert title\niOS NFC alert default success message"
+      "comment" : "Clear passwords confirmation alert title\niOS NFC alert default success message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Succès"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功"
+          }
+        }
+      }
     },
     "Success!\nHint: swipe down to dismiss" : {
-      "comment" : "iOS NFC alert success with hint"
+      "comment" : "iOS NFC alert success with hint",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Succès !\nAstuce : faites glisser vers le bas pour fermer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功しました。\nヒント：下にスワイプして閉じます"
+          }
+        }
+      }
     },
     "Successfully read" : {
-      "comment" : "iOS NFC alert successfully read"
+      "comment" : "iOS NFC alert successfully read",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture effectuée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "読み取りに成功しました"
+          }
+        }
+      }
     },
     "Successfully signed data" : {
-      "comment" : "PIV extension NFC successfully signed data"
+      "comment" : "PIV extension NFC successfully signed data",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Données signées avec succès"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データの署名に成功しました"
+          }
+        }
+      }
     },
     "The key doesn't respond" : {
       "comment" : "Timeout issue",
@@ -621,22 +2119,106 @@
       }
     },
     "The passwords do not match" : {
-      "comment" : "Configuration set password not matching error alert message"
+      "comment" : "Configuration set password not matching error alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mots de passe ne correspondent pas"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが一致しません"
+          }
+        }
+      }
     },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
-      "comment" : "PIV extension NFC invalid signature no private key"
+      "comment" : "PIV extension NFC invalid signature no private key",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé privée sur la YubiKey ne correspond pas au certificat ou il n'y a pas de clé privée stockée sur la YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyの秘密鍵が証明書と一致しないか、YubiKeyに秘密鍵が保存されていません。"
+          }
+        }
+      }
     },
     "The private key on the YubiKey does not match the certificate." : {
-      "comment" : "PIV extension invalid signature message"
+      "comment" : "PIV extension invalid signature message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé privée sur la YubiKey ne correspond pas au certificat."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyの秘密鍵が証明書と一致しません。"
+          }
+        }
+      }
     },
     "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings." : {
-      "comment" : "PIV extensions notifications alert message"
+      "comment" : "PIV extensions notifications alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'extension de la carte à puce nécessite que les notifications soient activées pour Yubico Authenticator. Activez-les dans les paramètres iOS."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード拡張機能では、Yubico Authenticatorの通知を有効にする必要があります。iOS設定で有効にしてください。"
+          }
+        }
+      }
     },
     "There's already an account named" : {
-      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."
+      "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il existe déjà un compte portant le nom de"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "という名前のアカウントがすでに存在します"
+          }
+        }
+      }
     },
     "These certificates have been added to this" : {
-      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"
+      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ces certificats ont été ajoutés à cette clé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これらの証明書はこれに追加されています"
+          }
+        }
+      }
     },
     "This QR code is not supported" : {
       "comment" : "Invalid Uri format, not OATH URL",
@@ -673,51 +2255,121 @@
       }
     },
     "This will delete all accounts and restore factory defaults of your YubiKey." : {
-      "comment" : "Reset YubiKey alert message"
+      "comment" : "Reset YubiKey alert message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette action supprimera tous les comptes et restaurera les paramètres d'usine de votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これにより、すべてのアカウントが削除され、YubiKeyの工場出荷時のデフォルトに戻ります。"
+          }
+        }
+      }
     },
     "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cela supprimera définitivement le compte de la YubiKey et vous ne pourrez plus générer de codes !"
+            "value" : "Cela supprimera définitivement le compte de la YubiKey et vous ne pourrez plus générer de codes!"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これにより、YubiKeyからアカウントが完全に削除され、コードを生成できなくなります。"
+            "value" : "これにより、YubiKeyからアカウントが完全に削除され、コードを生成できなくなります!"
           }
         }
       }
     },
     "This will prompt for a password next time a password protected YubiKey is used" : {
-      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'."
+      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un mot de passe sera requis à la prochaine utilisation d'une YubiKey protégée par mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます"
+          }
+        }
+      }
     },
     "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour iPhone. Cela pose problème avec le clavier à l'écran normal."
+            "value" : "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour l'iPhone. Cela pose problème avec le clavier à l'écran normal."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します。"
+            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します."
           }
         }
       }
     },
     "To prevent unauthorized access this YubiKey is protected with a password." : {
-      "comment" : "OATH password entry enter password"
+      "comment" : "OATH password entry enter password",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour empêcher tout accès non autorisé, cette YubiKey est protégée par un mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不正アクセスを防止するため、このYubiKeyはパスワードで保護されます。"
+          }
+        }
+      }
     },
     "To scan a QR code you need to enable camera permissions for the Authenticator app." : {
-      "comment" : "Scan QR code camera error message"
+      "comment" : "Scan QR code camera error message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour scanner un code QR, vous devez activer les autorisations de caméra pour l'application Authenticator."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードをスキャンするには、Authenticatorアプリのカメラ権限を有効にする必要があります。"
+          }
+        }
+      }
     },
     "Type" : {
-      "comment" : "Add account select type"
+      "comment" : "Add account select type",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タイプ"
+          }
+        }
+      }
     },
     "Unhandled Error" : {
       "localizations" : {
@@ -736,22 +2388,106 @@
       }
     },
     "Unlock YubiKey" : {
-      "comment" : "Password entry unlock message"
+      "comment" : "Password entry unlock message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Débloquer YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのロックを解除"
+          }
+        }
+      }
     },
     "Unpin" : {
-      "comment" : "Menu"
+      "comment" : "Menu",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Détacher"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ピン解除"
+          }
+        }
+      }
     },
     "Use your PUK code to reset PIN." : {
-      "comment" : "PIV extension pin blocked text"
+      "comment" : "PIV extension pin blocked text",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez votre code PUK pour réinitialiser le code PIN."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PUKコードを使用してPINをリセットします。"
+          }
+        }
+      }
     },
     "Version history" : {
-      "comment" : "Version history navigation title"
+      "comment" : "Version history navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique des versions"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン履歴"
+          }
+        }
+      }
     },
     "what's new" : {
-      "comment" : "Substring in \"See what's new in this version\""
+      "comment" : "Substring in \"See what's new in this version\"",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nouveautés"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新機能"
+          }
+        }
+      }
     },
     "What's new in\nYubico Authenticator" : {
-      "comment" : "Version history title"
+      "comment" : "Version history title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés de\nYubico Authenticator"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator\nの新機能"
+          }
+        }
+      }
     },
     "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." : {
       "localizations" : {
@@ -764,25 +2500,95 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります。"
+            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります."
           }
         }
       }
     },
     "Would you like to save this password for YubiKey for next usage in this application?" : {
-      "comment" : "Password entry save password title"
+      "comment" : "Password entry save password title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Souhaitez-vous enregistrer ce mot de passe pour la YubiKey afin de l'utiliser lors de la prochaine utilisation dans cette application ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのこのパスワードを保存して、このアプリケーションで次回使用しますか？"
+          }
+        }
+      }
     },
     "Wrong password" : {
-      "comment" : "Password Configuration wrong password"
+      "comment" : "Password Configuration wrong password",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe incorrect"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが正しくありません"
+          }
+        }
+      }
     },
     "Wrong PIN code" : {
-      "comment" : "PIV extension wrong pin"
+      "comment" : "PIV extension wrong pin",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code PIN incorrect"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINコードが正しくありません"
+          }
+        }
+      }
     },
     "You can remove saved password in Settings." : {
-      "comment" : "Password entry save password message"
+      "comment" : "Password entry save password message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez supprimer le mot de passe enregistré dans les paramètres."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存されたパスワードは設定で削除できます。"
+          }
+        }
+      }
     },
     "Your PIN has ben blocked" : {
-      "comment" : "PIV extension pin blocked title"
+      "comment" : "PIV extension pin blocked title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre code PIN a été bloqué"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINがブロックされました"
+          }
+        }
+      }
     },
     "Yubico OTP" : {
       "localizations" : {
@@ -834,7 +2640,21 @@
       }
     },
     "YubiKey information read" : {
-      "comment" : "YubiKey info NFC read"
+      "comment" : "YubiKey info NFC read",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informations YubiKey lues"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyの情報が読み込まれました"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
