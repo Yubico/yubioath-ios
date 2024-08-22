@@ -95,11 +95,7 @@ class OATHConfigurationController: UITableViewController {
                 self?.removeStoredPasswords()
             }
         case (2, 1):
-            self.showWarning(title: String(localized: "Reset YubiKey?", comment: "Reset YubiKey alert title"),
-                             message: String(localized: "This will delete all accounts and restore factory defaults of your YubiKey.", comment: "Reset YubiKey alert message"),
-                             okButtonTitle: String(localized: "Reset", comment: "Reset YubiKey alert button")) { [weak self] () -> Void in
-                self?.resetOATH()
-            }
+            print("removed")
         default:
             break
         }
@@ -170,27 +166,6 @@ class OATHConfigurationController: UITableViewController {
                                  okHandler:  { [weak self] () -> Void in
                 self?.dismiss(animated: true, completion: nil)
             })
-        }
-    }
-    
-    private func resetOATH() {
-        pause()
-        Thread.sleep(forTimeInterval: TimeInterval(0.1)) // This is a kludge to let the delegates switch to the correct one
-        resetViewModel = ResetOATHViewModel()
-        resetViewModel?.reset { result in
-            DispatchQueue.main.async {
-                self.start()
-                switch result {
-                case .success(let message):
-                    if let message = message {
-                        self.showAlertDialog(title: String(localized: "Reset complete", comment: "Reset YubiKey complete alert title"), message: message)
-                    }
-                case .failure(let error):
-                    if let message = error {
-                        self.showAlertDialog(title: String(localized: "Failed to reset YubiKey", comment: "Reset YubiKey failure alert title"), message: message)
-                    }
-                }
-            }
         }
     }
 }

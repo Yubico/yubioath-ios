@@ -16,6 +16,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class ConfigurationController: UITableViewController {
     
@@ -116,6 +117,14 @@ class ConfigurationController: UITableViewController {
         print("Deinit ConfigurationController")
     }
 
+}
+
+extension ConfigurationController {
+    @IBSegueAction func showOATHResetView(_ coder: NSCoder) -> UIViewController? {
+        let controller = UIHostingController(coder: coder, rootView: OATHResetView())
+        controller?.title = "Reset OATH"
+        return controller
+    }
 }
 
 extension YKFManagementDeviceInfo {

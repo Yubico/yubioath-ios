@@ -81,6 +81,7 @@
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B42A39332B2A03D20039DB26 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B42A39322B2A03D20039DB26 /* YubiKit */; };
 		B43751A42CA440E7004017A4 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
+		B44E5E812C74BE67007ABB79 /* OATHResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5E802C74BE67007ABB79 /* OATHResetView.swift */; };
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
 		B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC3C2A264A620045E5D9 /* ToastView.swift */; };
 		B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC432A2A06940045E5D9 /* ToastPresenter.swift */; };
@@ -228,6 +229,7 @@
 		B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPModel.swift; sourceTree = "<group>"; };
 		B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestYubiOTPViewController.swift; sourceTree = "<group>"; };
 		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
+		B44E5E802C74BE67007ABB79 /* OATHResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHResetView.swift; sourceTree = "<group>"; };
 		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
 		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B452EC432A2A06940045E5D9 /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44E5E842C74C8CC007ABB79 /* YubiKit in Frameworks */,
 				B42A39332B2A03D20039DB26 /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
 				51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */,
@@ -316,6 +319,7 @@
 				515542672654413600B19C59 /* SmartCardConfigurationController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */,
+				B44E5E802C74BE67007ABB79 /* OATHResetView.swift */,
 			);
 			path = YubiKeyConfiguration;
 			sourceTree = "<group>";
@@ -605,6 +609,7 @@
 			name = Authenticator;
 			packageProductDependencies = (
 				B42A39322B2A03D20039DB26 /* YubiKit */,
+				B44E5E832C74C8CC007ABB79 /* YubiKit */,
 			);
 			productName = Authenticator;
 			productReference = 818866B322DFD729006BC0A8 /* Authenticator.app */;
@@ -667,7 +672,7 @@
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
-				B42A39312B2A03D20039DB26 /* XCLocalSwiftPackageReference "../yubikit-ios" */,
+				B44E5E822C74C8CC007ABB79 /* XCLocalSwiftPackageReference "../yubikit-ios" */,
 			);
 			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
 			projectDirPath = "";
@@ -737,6 +742,7 @@
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
+				B44E5E812C74BE67007ABB79 /* OATHResetView.swift in Sources */,
 				B411242F29D423A300D58001 /* ListStatusView.swift in Sources */,
 				816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */,
 				515542882656F64100B19C59 /* Data+Extensions.swift in Sources */,
@@ -908,7 +914,7 @@
 				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -932,7 +938,7 @@
 				CURRENT_PROJECT_VERSION = 140;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1079,7 +1085,7 @@
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1108,7 +1114,7 @@
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1134,7 +1140,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1156,7 +1162,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1212,7 +1218,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		B42A39312B2A03D20039DB26 /* XCLocalSwiftPackageReference "../yubikit-ios" */ = {
+		B44E5E822C74C8CC007ABB79 /* XCLocalSwiftPackageReference "../yubikit-ios" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../yubikit-ios";
 		};
@@ -1220,6 +1226,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		B42A39322B2A03D20039DB26 /* YubiKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = YubiKit;
+		};
+		B44E5E832C74C8CC007ABB79 /* YubiKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = YubiKit;
 		};
