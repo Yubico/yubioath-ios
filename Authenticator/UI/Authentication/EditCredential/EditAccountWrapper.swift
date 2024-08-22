@@ -37,10 +37,6 @@ struct EditView: View {
     
     var body: some View {
         EditAccountWrapper(account: account, viewModel: viewModel)
-            .navigationTitle("Add Credential")
-            .navigationBarItems(trailing: Button("WAAAT") {
-                showEditing.toggle()
-            })
             .ignoresSafeArea(.all, edges: .bottom)
     }
 }

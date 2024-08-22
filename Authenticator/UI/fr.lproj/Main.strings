@@ -1,0 +1,243 @@
+/* Class = "UILabel"; text = "One-Time Password"; ObjectID = "1mC-4P-2g3"; */
+"1mC-4P-2g3.text" = "Mot de passe à usage unique";
+
+/* Class = "UILabel"; text = "Tap the back button to continue"; ObjectID = "2pK-HU-1WC"; */
+"2pK-HU-1WC.text" = "Appuyer sur Retour pour continuer";
+
+/* Class = "UILabel"; text = "Passwords and reset"; ObjectID = "03k-jY-TEC"; */
+"03k-jY-TEC.text" = "Mots de passe et réinitialisation";
+
+/* Class = "UILabel"; text = "PASSWORD PROTECTION"; ObjectID = "5iZ-OS-CfM"; */
+"5iZ-OS-CfM.text" = "PROTECTION PAR MOT DE PASSE";
+
+/* Class = "UILabel"; text = "1.0"; ObjectID = "6TW-2t-mYb"; */
+"6TW-2t-mYb.text" = "1.0";
+
+/* Class = "UITableViewController"; title = "YubiKey configuration"; ObjectID = "09D-Aw-j1I"; */
+"09D-Aw-j1I.title" = "Configuration YubiKey";
+
+/* Class = "UILabel"; text = "Privacy policy"; ObjectID = "9lG-2A-fbz"; */
+"9lG-2A-fbz.text" = "Confidentialité";
+
+/* Class = "UILabel"; text = "Enabled"; ObjectID = "9lL-ZS-odE"; */
+"9lL-ZS-odE.text" = "Activé";
+
+/* Class = "UINavigationItem"; title = "Passwords and reset"; ObjectID = "9NQ-7X-HqZ"; */
+"9NQ-7X-HqZ.title" = "Mots de passe et réinitialisation";
+
+/* Class = "UILabel"; text = "Yubico OTP enabled"; ObjectID = "26R-OJ-dML"; */
+"26R-OJ-dML.text" = "Yubico OTP activé";
+
+/* Class = "UILabel"; text = "For additional security and to prevent unauthorized access the YubiKey can be password protected."; ObjectID = "46N-qq-yo2"; */
+"46N-qq-yo2.text" = "Pour plus de sécurité et pour empêcher tout accès non autorisé, la YubiKey peut être protégée par mot de passe.";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "857-GD-96Q"; */
+"857-GD-96Q.placeholder" = "Mot de passe";
+
+/* Class = "UILabel"; text = "Firmware"; ObjectID = "aFH-4H-WRy"; */
+"aFH-4H-WRy.text" = "Firmware";
+
+/* Class = "UILabel"; text = "Remove and re-insert your YubiKey"; ObjectID = "AGQ-n1-pV3"; */
+"AGQ-n1-pV3.text" = "Retirez et réinsérez votre YubiKey";
+
+/* Class = "UILabel"; text = "Confirm password"; ObjectID = "al9-tv-dIv"; */
+"al9-tv-dIv.text" = "Confirmer mot de passe";
+
+/* Class = "UILabel"; text = "ONE-TIME PASSWORD"; ObjectID = "b6z-Ri-5bh"; */
+"b6z-Ri-5bh.text" = "MOT DE PASSE À USAGE UNIQUE";
+
+/* Class = "UITableViewController"; title = "YubiKey configuration"; ObjectID = "Bxb-bg-K32"; */
+"Bxb-bg-K32.title" = "Configuration YubiKey";
+
+/* Class = "UILabel"; text = "Activate NFC on OTP tag read"; ObjectID = "Byl-RD-bpD"; */
+"Byl-RD-bpD.text" = "Activer NFC lors de la lecture de tags OTP";
+
+/* Class = "UITableViewSection"; headerTitle = "Configuration"; ObjectID = "C5n-jq-Mk9"; */
+"C5n-jq-Mk9.headerTitle" = "Configuration";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "Ced-DN-oqW"; */
+"Ced-DN-oqW.text" = "Mot de passe";
+
+/* Class = "UILabel"; text = "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page."; ObjectID = "cou-Cr-QYP"; */
+"cou-Cr-QYP.text" = "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico OTP, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres.";
+
+/* Class = "UILabel"; text = "NFC settings"; ObjectID = "D3g-ds-RCu"; */
+"D3g-ds-RCu.text" = "Paramètres NFC";
+
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "D6R-wW-EtA"; */
+"D6R-wW-EtA.title" = "Fermer";
+
+/* Class = "UILabel"; text = "Remove password"; ObjectID = "dAR-My-Mmm"; */
+"dAR-My-Mmm.text" = "Supprimer mot de passe";
+
+/* Class = "UINavigationItem"; title = "Configuration"; ObjectID = "e3s-bq-xAt"; */
+"e3s-bq-xAt.title" = "Configuration";
+
+/* Class = "UILabel"; text = "Copyright © 2021 Yubico.\nAll rights reserved."; ObjectID = "Ecy-Pw-sM0"; */
+"Ecy-Pw-sM0.text" = "Copyright© 2021 Yubico.\nTous droits réservés.";
+
+/* Class = "UILabel"; text = "Initiate NFC at application start"; ObjectID = "Efl-xJ-qER"; */
+"Efl-xJ-qER.text" = "Lancer NFC au démarrage de l'application";
+
+/* Class = "UINavigationItem"; title = "Set password"; ObjectID = "eiF-JR-TAC"; */
+"eiF-JR-TAC.title" = "Créer le mot de passe";
+
+/* Class = "UINavigationItem"; title = "Smart card extension"; ObjectID = "fl4-8d-lD9"; */
+"fl4-8d-lD9.title" = "Extension carte à puce";
+
+/* Class = "UILabel"; text = "SAVED PASSWORDS"; ObjectID = "FMw-TB-KRk"; */
+"FMw-TB-KRk.text" = "MOTS DE PASSE ENREGISTRÉS";
+
+/* Class = "UILabel"; text = "Bypass touch requirement"; ObjectID = "frN-Of-d1s"; */
+"frN-Of-d1s.text" = "Contourner les exigences tactiles";
+
+/* Class = "UILabel"; text = "RESET YUBIKEY"; ObjectID = "gAN-p5-fcQ"; */
+"gAN-p5-fcQ.text" = "RÉINITIALISER YUBIKEY";
+
+/* Class = "UILabel"; text = "Version history"; ObjectID = "ghF-dC-3d6"; */
+"ghF-dC-3d6.text" = "Historique des versions";
+
+/* Class = "UITableViewSection"; footerTitle = "Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active."; ObjectID = "gQR-ie-6Y0"; */
+"gQR-ie-6Y0.footerTitle" = "L'activation NFC au démarrage de l'application permet de lire automatiquement votre YubiKey.";
+
+/* Class = "UILabel"; text = "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used."; ObjectID = "gYP-vW-fFN"; */
+"gYP-vW-fFN.text" = "Effacez les mots de passe enregistrés sur l'iPhone. Un mot de passe sera requis lors de la prochaine utilisation d'une YubiKey protégée par mot de passe.";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "hBA-XE-Ib1"; */
+"hBA-XE-Ib1.title" = "Élément";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "Hbq-O7-HqW"; */
+"Hbq-O7-HqW.title" = "Infos";
+
+/* Class = "UITableViewSection"; footerTitle = "For additional security and to prevent unauthorized access the YubiKey can be protected with a password"; ObjectID = "hOr-gJ-fIa"; */
+"hOr-gJ-fIa.footerTitle" = "Pour plus de sécurité et empêcher tout accès non autorisé, la YubiKey peut être protégée par un mot de passe";
+
+/* Class = "UILabel"; text = "Copy OTP to clipboard"; ObjectID = "hsz-tV-DPW"; */
+"hsz-tV-DPW.text" = "Copier OTP dans presse-papiers";
+
+/* Class = "UILabel"; text = "Yubico OTP has been disabled"; ObjectID = "Icc-EW-Cgh"; */
+"Icc-EW-Cgh.text" = "Yubico OTP désactivé";
+
+/* Class = "UILabel"; text = "Smart card extension"; ObjectID = "iH3-4d-Rv5"; */
+"iH3-4d-Rv5.text" = "Extension carte à puce";
+
+/* Class = "UINavigationItem"; title = "Toggle One-Time Password"; ObjectID = "Inc-aD-fdW"; */
+"Inc-aD-fdW.title" = "Activer OTP";
+
+/* Class = "UILabel"; text = "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard."; ObjectID = "JN3-vC-kaK"; */
+"JN3-vC-kaK.text" = "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour iPhone. Cela pose problème avec le clavier à l'écran normal.";
+
+/* Class = "UIBarButtonItem"; title = "Close"; ObjectID = "jNG-Du-Ghz"; */
+"jNG-Du-Ghz.title" = "Fermer";
+
+/* Class = "UITextField"; placeholder = "Smart card (PIV) PIN"; ObjectID = "JON-gB-7WG"; */
+"JON-gB-7WG.placeholder" = "PIN carte à puce (PIV)";
+
+/* Class = "UILabel"; text = "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it."; ObjectID = "JQM-z3-Kvc"; */
+"JQM-z3-Kvc.text" = "Lorsque vous insérez la YubiKey, le clavier à l'écran n'apparaît pas. Pour afficher le clavier, vous devez retirer la YubiKey, puis la réinsérer.";
+
+/* Class = "UITableViewSection"; footerTitle = "Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey."; ObjectID = "JSq-rh-zB3"; */
+"JSq-rh-zB3.footerTitle" = "Lancez NFC et lisez les comptes OATH lorsque l'application a été ouverte en lisant le tag OTP sur une YubiKey.";
+
+/* Class = "UILabel"; text = "Clear saved passwords"; ObjectID = "jx7-Be-qMk"; */
+"jx7-Be-qMk.text" = "Effacer les mots de passe enregistrés";
+
+/* Class = "UIButton"; configuration.title = "Continue with limited usability"; ObjectID = "kAX-Sn-d4r"; */
+"kAX-Sn-d4r.configuration.title" = "Continuer avec fonctionnalité limitée";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "kAX-Sn-d4r"; */
+"kAX-Sn-d4r.normalTitle" = "Bouton";
+
+/* Class = "UILabel"; text = "or"; ObjectID = "L2j-ZW-Jbf"; */
+"L2j-ZW-Jbf.text" = "ou";
+
+/* Class = "UILabel"; text = "Device type"; ObjectID = "llv-60-0FB"; */
+"llv-60-0FB.text" = "Type d'appareil";
+
+/* Class = "UILabel"; text = "Serial number"; ObjectID = "Lzm-p7-Lmb"; */
+"Lzm-p7-Lmb.text" = "Numéro de série";
+
+/* Class = "UILabel"; text = "N/A"; ObjectID = "MBv-4M-eos"; */
+"MBv-4M-eos.text" = "S/O";
+
+/* Class = "UILabel"; text = "Help with YubiKey"; ObjectID = "NnL-eZ-nHd"; */
+"NnL-eZ-nHd.text" = "Aide YubiKey";
+
+/* Class = "UILabel"; text = "Insert a YubiKey and enter its PIN to access the certificate."; ObjectID = "noy-hK-f0E"; */
+"noy-hK-f0E.text" = "Insérez une YubiKey et saisissez son PIN pour accéder au certificat.";
+
+/* Class = "UILabel"; text = "Unlock YubiKey"; ObjectID = "O2N-dk-eMF"; */
+"O2N-dk-eMF.text" = "Débloquer YubiKey";
+
+/* Class = "UILabel"; text = "Set password"; ObjectID = "Oba-Qw-cTB"; */
+"Oba-Qw-cTB.text" = "Créer le mot de passe";
+
+/* Class = "UITableViewSection"; footerTitle = "Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality."; ObjectID = "oy6-QK-Bgw"; */
+"oy6-QK-Bgw.footerTitle" = "Copiez l'OTP automatiquement dans le presse-papiers lorsqu'une YubiKey est scannée à l'aide de la fonctionnalité de tags NFC.";
+
+/* Class = "UINavigationItem"; title = "NFC settings"; ObjectID = "PCq-PC-KyX"; */
+"PCq-PC-KyX.title" = "Paramètres NFC";
+
+/* Class = "UILabel"; text = "N/A"; ObjectID = "QGj-16-s0W"; */
+"QGj-16-s0W.text" = "S/O";
+
+/* Class = "UILabel"; text = "Terms of use"; ObjectID = "QHB-fS-VBc"; */
+"QHB-fS-VBc.text" = "Conditions d'utilisation";
+
+/* Class = "UITableViewSection"; headerTitle = "Application"; ObjectID = "raA-qu-ETm"; */
+"raA-qu-ETm.headerTitle" = "Application";
+
+/* Class = "UILabel"; text = "Insert YubiKey or pull down to activate NFC"; ObjectID = "Re8-TR-xIr"; */
+"Re8-TR-xIr.text" = "Insérez la YubiKey ou tirez vers le bas pour activer NFC";
+
+/* Class = "UIButton"; normalTitle = "UnwindButton"; ObjectID = "Szl-yL-4ir"; */
+"Szl-yL-4ir.normalTitle" = "Bouton déroulement";
+
+/* Class = "UILabel"; text = "Contact support"; ObjectID = "tMr-aW-Doe"; */
+"tMr-aW-Doe.text" = "Contacter l'assistance";
+
+/* Class = "UILabel"; text = "Toggle One-Time Password"; ObjectID = "uP5-O2-d0d"; */
+"uP5-O2-d0d.text" = "Activer OTP";
+
+/* Class = "UITableViewSection"; footerTitle = "Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed."; ObjectID = "Uvq-Ba-xiH"; */
+"Uvq-Ba-xiH.footerTitle" = "Les comptes tactiles nécessitent un rapprochement de la clef en NFC de plus pour calculer leur code. Le contournement réduit le nombre de rapprochements en NFC requis.";
+
+/* Class = "UILabel"; text = "N/A"; ObjectID = "VAw-dv-zeA"; */
+"VAw-dv-zeA.text" = "S/O";
+
+/* Class = "UILabel"; text = "Reset YubiKey"; ObjectID = "Vb7-1M-PWz"; */
+"Vb7-1M-PWz.text" = "Réinitialiser la YubiKey";
+
+/* Class = "UILabel"; text = "Yubico Authenticator"; ObjectID = "VHQ-4i-YEj"; */
+"VHQ-4i-YEj.text" = "Yubico Authenticator";
+
+/* Class = "UILabel"; text = "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."; ObjectID = "vjs-4B-RzZ"; */
+"vjs-4B-RzZ.text" = "Activez/désactivez l'ouverture de Safari pour copier votre OTP lors du scan de la YubiKey NFC.";
+
+/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "vn9-zq-1Ri"; */
+"vn9-zq-1Ri.headerTitle" = "Assistance";
+
+/* Class = "UILabel"; text = "Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate."; ObjectID = "WGy-0e-K7w"; */
+"WGy-0e-K7w.text" = "Saisissez le PIN, puis apposez une YubiKey NFC sur l'iPhone pour accéder au certificat.";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "wH4-5g-AV5"; */
+"wH4-5g-AV5.placeholder" = "Mot de passe";
+
+/* Class = "UILabel"; text = "Licensing"; ObjectID = "wvt-LS-lIS"; */
+"wvt-LS-lIS.text" = "Licences";
+
+/* Class = "UILabel"; text = "How does it work"; ObjectID = "y0i-iX-KLv"; */
+"y0i-iX-KLv.text" = "Fonctionnement";
+
+/* Class = "UITableViewSection"; headerTitle = "INFORMATION"; ObjectID = "yed-kd-amP"; */
+"yed-kd-amP.headerTitle" = "INFORMATIONS";
+
+/* Class = "UIButton"; configuration.title = "Disable Yubico OTP (recommended)"; ObjectID = "Yo4-ef-tkZ"; */
+"Yo4-ef-tkZ.configuration.title" = "Désactiver Yubico OTP (recommandé)";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Yo4-ef-tkZ"; */
+"Yo4-ef-tkZ.normalTitle" = "Bouton";
+
+/* Class = "UILabel"; text = "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."; ObjectID = "zcT-oY-vKq"; */
+"zcT-oY-vKq.text" = "Réinitialisez tous les comptes de la YubiKey. Ils ne doivent pas être utilisés avant cette opération.";
+

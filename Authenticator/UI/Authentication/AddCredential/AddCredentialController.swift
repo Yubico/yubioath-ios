@@ -152,7 +152,7 @@ class AddCredentialController: UITableViewController {
                                                                 skip: [])
             }
         } catch {
-            showAlertDialog(title: "Not valid credential information", message: error.localizedDescription)
+            showAlertDialog(title: String(localized: "Not valid credential information", comment: "Add account error message"), message: error.localizedDescription)
             return
         }
         self.requiresTouch = requiresTouchSwitch.isOn
@@ -217,28 +217,28 @@ class AddCredentialController: UITableViewController {
         guard indexPath.section == 1 else { return }
         switch indexPath.row {
         case 0:
-            let table = AdvancedSettingsViewController(title: "Type",
+            let table = AdvancedSettingsViewController(title: String(localized: "Type", comment: "Add account select type"),
                                                        rows: advancedSettings[0],
                                                        selected: typeIndex) { [weak self] result in
                 self?.typeIndex = result
             }
             self.navigationController?.pushViewController(table, animated: true)
         case 1:
-            let table = AdvancedSettingsViewController(title: "Algorithm",
+            let table = AdvancedSettingsViewController(title: String(localized: "Algorithm", comment: "Add account select algorithm"),
                                                        rows: advancedSettings[1],
                                                        selected: algorithmIndex) { [weak self] result in
                 self?.algorithmIndex = result
             }
             self.navigationController?.pushViewController(table, animated: true)
         case 2:
-            let table = AdvancedSettingsViewController(title: "Digits",
+            let table = AdvancedSettingsViewController(title: String(localized: "Digits", comment: "Add account select number of digits"),
                                                        rows: advancedSettings[2],
                                                        selected: digitsIndex) { [weak self] result in
                 self?.digitsIndex = result
             }
             self.navigationController?.pushViewController(table, animated: true)
         case 3:
-            let table = AdvancedSettingsViewController(title: "Period",
+            let table = AdvancedSettingsViewController(title: String(localized: "Period", comment: "Add account select period"),
                                                        rows: advancedSettings[3],
                                                        selected: periodIndex) { [weak self] result in
                 self?.periodIndex = result

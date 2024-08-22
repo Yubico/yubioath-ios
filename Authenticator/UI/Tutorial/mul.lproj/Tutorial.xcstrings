@@ -1,0 +1,390 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "0Ew-5d-tth.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"YubiKey 5 Series NFC authentication\"; ObjectID = \"0Ew-5d-tth\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey 5 Series NFC authentication"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentification NFC YubiKey 5 Series"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5シリーズのNFC認証"
+          }
+        }
+      }
+    },
+    "4hs-uc-a5r.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"If you have a YubiKey with NFC, pull down the main view to activate NFC.\"; ObjectID = \"4hs-uc-a5r\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you have a YubiKey with NFC, pull down the main view to activate NFC."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous possédez une YubiKey avec NFC, faites glisser la vue principale vers le bas pour activer le NFC."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC対応のYubiKeyをお持ちの場合は、メインビューをプルダウンしてNFCを有効にします。"
+          }
+        }
+      }
+    },
+    "agV-vn-fpt.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started.\"; ObjectID = \"agV-vn-fpt\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous aurez besoin d'une YubiKey 5Ci ou d'une YubiKey compatible avec NFC pour commencer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始するには、YubiKey 5CiまたはNFC対応のYubiKeyが必要です。"
+          }
+        }
+      }
+    },
+    "bkN-Lk-jMY.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Touch the center of the key to the edge of the phone.\"; ObjectID = \"bkN-Lk-jMY\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Touch the center of the key to the edge of the phone."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez le centre de la clé contre le bord du téléphone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーの中央をタッチして、スマートフォンの端に移動します。"
+          }
+        }
+      }
+    },
+    "Bxy-Ot-GLA.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Hold the key horizontally and tilt the iPhone towards the key.\"; ObjectID = \"Bxy-Ot-GLA\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hold the key horizontally and tilt the iPhone towards the key."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tenez la clé horizontalement et inclinez l'iPhone vers la clé."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーを水平に持ち、iPhoneをキーに向かって傾けます。"
+          }
+        }
+      }
+    },
+    "bYg-TD-NqH.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\"; ObjectID = \"bYg-TD-NqH\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenez un secret partagé du service que vous voulez sécuriser, stockez-le sur la YubiKey et générez vos codes de sécurité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保護するサービスの共有秘密鍵を取得し、YubiKeyに保存して、YubiKeyを使用してセキュリティコードを生成します。"
+          }
+        }
+      }
+    },
+    "cSo-Sg-vD2.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"QR codes are available from the services you wish to secure.\"; ObjectID = \"cSo-Sg-vD2\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "QR codes are available from the services you wish to secure."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les codes QR sont disponibles auprès des services que vous souhaitez sécuriser."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードは、保護するサービスから入手できます。"
+          }
+        }
+      }
+    },
+    "IVf-FH-Iqr.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Skip\"; ObjectID = \"IVf-FH-Iqr\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Skip"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スキップ"
+          }
+        }
+      }
+    },
+    "jBh-MF-9Fk.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Simply scan the QR code when you add your YubiKey and generate your own security codes.\"; ObjectID = \"jBh-MF-9Fk\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Simply scan the QR code when you add your YubiKey and generate your own security codes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il vous suffit de scanner le code QR lorsque vous ajoutez votre YubiKey pour générer vos propres codes de sécurité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを追加して独自のセキュリティコードを生成する場合は、QRコードをスキャンしてください。"
+          }
+        }
+      }
+    },
+    "KWb-g8-FRF.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"If you have a YubiKey 5Ci, plug it in.\"; ObjectID = \"KWb-g8-FRF\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "If you have a YubiKey 5Ci, plug it in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous avez une YubiKey 5Ci, insérez-la."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5Ciをお持ちの場合は接続します。"
+          }
+        }
+      }
+    },
+    "mdG-o8-OXh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"YubiKey 5Ci authentication\"; ObjectID = \"mdG-o8-OXh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey 5Ci authentication"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentification YubiKey 5Ci"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5Ci認証"
+          }
+        }
+      }
+    },
+    "N2W-CE-fPm.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Next\"; ObjectID = \"N2W-CE-fPm\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Next"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivant"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次へ"
+          }
+        }
+      }
+    },
+    "Paz-Es-tja.text" : {
+      "comment" : "Class = \"UITextView\"; text = \"Touch the contacts on the sides when prompted.\"; ObjectID = \"Paz-Es-tja\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Touch the contacts on the sides when prompted."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez sur les contacts sur les côtés lorsque vous y êtes invité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プロンプトが表示されたら、横にあるお問い合わせをタッチします。"
+          }
+        }
+      }
+    },
+    "RUl-K8-lGO.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Where to get QR codes\"; ObjectID = \"RUl-K8-lGO\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Where to get QR codes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Où obtenir les codes QR"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードの入手先"
+          }
+        }
+      }
+    },
+    "ub0-A4-vpe.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"How it works\"; ObjectID = \"ub0-A4-vpe\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "How it works"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment ça marche"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "動作方法"
+          }
+        }
+      }
+    },
+    "XdE-m1-y3M.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Read more...\"; ObjectID = \"XdE-m1-y3M\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Read more..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En savoir plus..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細を読む..."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

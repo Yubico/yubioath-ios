@@ -46,7 +46,7 @@ class YubiKeyInformationViewModel: NSObject {
             session.getDeviceInfo { info, error in
                 guard let info = info else { self.handleError(error!, forConnection: connection); return }
                 self.deviceInfo = info
-                YubiKitManager.shared.stopNFCConnection(withMessage: "YubiKey information read")
+                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "YubiKey information read", comment: "YubiKey info NFC read"))
                 self.handler?(.success(info))
             }
         }

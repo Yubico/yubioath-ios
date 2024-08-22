@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Authenticator/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>Authenticator</source>
+        <target>Authenticator</target>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NFCReaderUsageDescription" xml:space="preserve">
+        <source>The application needs access to NFC reading to communicate with your Yubikey.</source>
+        <target>The application needs access to NFC reading to communicate with your Yubikey.</target>
+        <note>Privacy - NFC Scan Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>The application needs access to Camera to scan QR codes.</source>
+        <target>The application needs access to Camera to scan QR codes.</target>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSFaceIDUsageDescription" xml:space="preserve">
+        <source>The application needs access to Face ID to unlock your password vault.</source>
+        <target>The application needs access to Face ID to unlock your password vault.</target>
+        <note>Privacy - Face ID Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Authenticator/en.lproj/Localizable.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+    </header>
+    <body>
+      <trans-unit id="*** *** " xml:space="preserve">
+        <source>*** *** </source>
+        <target>*** *** </target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="888 888" xml:space="preserve">
+        <source>888 888</source>
+        <target>888 888</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="?" xml:space="preserve">
+        <source>?</source>
+        <target>?</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Accounts" xml:space="preserve">
+        <source>Accounts</source>
+        <target>Accounts</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cancel" xml:space="preserve">
+        <source>Cancel</source>
+        <target>Cancel</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Continue with limited usability" xml:space="preserve">
+        <source>Continue with limited usability</source>
+        <target>Continue with limited usability</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Data to String conversion error" xml:space="preserve">
+        <source>Data to String conversion error</source>
+        <target>Data to String conversion error</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete" xml:space="preserve">
+        <source>Delete</source>
+        <target>Delete</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete account?" xml:space="preserve">
+        <source>Delete account?</source>
+        <target>Delete account?</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Disable Yubico OTP (recommended)" xml:space="preserve">
+        <source>Disable Yubico OTP (recommended)</source>
+        <target>Disable Yubico OTP (recommended)</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page." xml:space="preserve">
+        <source>Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.</source>
+        <target>Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Failed to cast object to Data error" xml:space="preserve">
+        <source>Failed to cast object to Data error</source>
+        <target>Failed to cast object to Data error</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Invalid URI format" xml:space="preserve">
+        <source>Invalid URI format</source>
+        <target>Invalid URI format</target>
+        <note>Invalid Uri, wrong parameters</note>
+      </trans-unit>
+      <trans-unit id="Item not found in secure storage" xml:space="preserve">
+        <source>Item not found in secure storage</source>
+        <target>Item not found in secure storage</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Other" xml:space="preserve">
+        <source>Other</source>
+        <target>Other</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Pinned" xml:space="preserve">
+        <source>Pinned</source>
+        <target>Pinned</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Plug-in your YubiKey for that operation" xml:space="preserve">
+        <source>Plug-in your YubiKey for that operation</source>
+        <target>Plug-in your YubiKey for that operation</target>
+        <note>No service found</note>
+      </trans-unit>
+      <trans-unit id="Remove and re-insert your YubiKey" xml:space="preserve">
+        <source>Remove and re-insert your YubiKey</source>
+        <target>Remove and re-insert your YubiKey</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Some content..." xml:space="preserve">
+        <source>Some content...</source>
+        <target>Some content...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Something went wrong and key doesn't respond" xml:space="preserve">
+        <source>Something went wrong and key doesn't respond</source>
+        <target>Something went wrong and key doesn't respond</target>
+        <note>No response</note>
+      </trans-unit>
+      <trans-unit id="String to Data conversion error" xml:space="preserve">
+        <source>String to Data conversion error</source>
+        <target>String to Data conversion error</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The key doesn't respond" xml:space="preserve">
+        <source>The key doesn't respond</source>
+        <target>The key doesn't respond</target>
+        <note>Timeout issue</note>
+      </trans-unit>
+      <trans-unit id="This QR code is not supported" xml:space="preserve">
+        <source>This QR code is not supported</source>
+        <target>This QR code is not supported</target>
+        <note>Invalid Uri format, not OATH URL</note>
+      </trans-unit>
+      <trans-unit id="This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard." xml:space="preserve">
+        <source>This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.</source>
+        <target>This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="This version of iOS does not support operations with the YubiKey for Lightning nor over NFC" xml:space="preserve">
+        <source>This version of iOS does not support operations with the YubiKey for Lightning nor over NFC</source>
+        <target>This version of iOS does not support operations with the YubiKey for Lightning nor over NFC</target>
+        <note>Not supported</note>
+      </trans-unit>
+      <trans-unit id="This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" xml:space="preserve">
+        <source>This will permanently delete the account from the YubiKey, and your ability to generate codes for it!</source>
+        <target>This will permanently delete the account from the YubiKey, and your ability to generate codes for it!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Unhandled Error" xml:space="preserve">
+        <source>Unhandled Error</source>
+        <target>Unhandled Error</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." xml:space="preserve">
+        <source>While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.</source>
+        <target>While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Yubico OTP" xml:space="preserve">
+        <source>Yubico OTP</source>
+        <target>Yubico OTP</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Yubico OTP enabled" xml:space="preserve">
+        <source>Yubico OTP enabled</source>
+        <target>Yubico OTP enabled</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Yubico OTP has been disabled" xml:space="preserve">
+        <source>Yubico OTP has been disabled</source>
+        <target>Yubico OTP has been disabled</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Authenticator/UI/Base.lproj/Main.storyboard" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+    </header>
+    <body>
+      <trans-unit id="1mC-4P-2g3.text" xml:space="preserve">
+        <source>One-Time Password</source>
+        <target>One-Time Password</target>
+        <note>Class = "UILabel"; text = "One-Time Password"; ObjectID = "1mC-4P-2g3";</note>
+      </trans-unit>
+      <trans-unit id="2pK-HU-1WC.text" xml:space="preserve">
+        <source>Tap the back button to continue</source>
+        <target>Tap the back button to continue</target>
+        <note>Class = "UILabel"; text = "Tap the back button to continue"; ObjectID = "2pK-HU-1WC";</note>
+      </trans-unit>
+      <trans-unit id="03k-jY-TEC.text" xml:space="preserve">
+        <source>Passwords and reset</source>
+        <target>Passwords and reset</target>
+        <note>Class = "UILabel"; text = "Passwords and reset"; ObjectID = "03k-jY-TEC";</note>
+      </trans-unit>
+      <trans-unit id="5iZ-OS-CfM.text" xml:space="preserve">
+        <source>PASSWORD PROTECTION</source>
+        <target>PASSWORD PROTECTION</target>
+        <note>Class = "UILabel"; text = "PASSWORD PROTECTION"; ObjectID = "5iZ-OS-CfM";</note>
+      </trans-unit>
+      <trans-unit id="6TW-2t-mYb.text" xml:space="preserve">
+        <source>1.0</source>
+        <target>1.0</target>
+        <note>Class = "UILabel"; text = "1.0"; ObjectID = "6TW-2t-mYb";</note>
+      </trans-unit>
+      <trans-unit id="09D-Aw-j1I.title" xml:space="preserve">
+        <source>YubiKey configuration</source>
+        <target>YubiKey configuration</target>
+        <note>Class = "UITableViewController"; title = "YubiKey configuration"; ObjectID = "09D-Aw-j1I";</note>
+      </trans-unit>
+      <trans-unit id="9NQ-7X-HqZ.title" xml:space="preserve">
+        <source>Passwords and reset</source>
+        <target>Passwords and reset</target>
+        <note>Class = "UINavigationItem"; title = "Passwords and reset"; ObjectID = "9NQ-7X-HqZ";</note>
+      </trans-unit>
+      <trans-unit id="9lG-2A-fbz.text" xml:space="preserve">
+        <source>Privacy policy</source>
+        <target>Privacy policy</target>
+        <note>Class = "UILabel"; text = "Privacy policy"; ObjectID = "9lG-2A-fbz";</note>
+      </trans-unit>
+      <trans-unit id="9lL-ZS-odE.text" xml:space="preserve">
+        <source>Enabled</source>
+        <target>Enabled</target>
+        <note>Class = "UILabel"; text = "Enabled"; ObjectID = "9lL-ZS-odE";</note>
+      </trans-unit>
+      <trans-unit id="26R-OJ-dML.text" xml:space="preserve">
+        <source>Yubico OTP enabled</source>
+        <target>Yubico OTP enabled</target>
+        <note>Class = "UILabel"; text = "Yubico OTP enabled"; ObjectID = "26R-OJ-dML";</note>
+      </trans-unit>
+      <trans-unit id="46N-qq-yo2.text" xml:space="preserve">
+        <source>For additional security and to prevent unauthorized access the YubiKey can be password protected.</source>
+        <target>For additional security and to prevent unauthorized access the YubiKey can be password protected.</target>
+        <note>Class = "UILabel"; text = "For additional security and to prevent unauthorized access the YubiKey can be password protected."; ObjectID = "46N-qq-yo2";</note>
+      </trans-unit>
+      <trans-unit id="857-GD-96Q.placeholder" xml:space="preserve">
+        <source>Password</source>
+        <target>Password</target>
+        <note>Class = "UITextField"; placeholder = "Password"; ObjectID = "857-GD-96Q";</note>
+      </trans-unit>
+      <trans-unit id="AGQ-n1-pV3.text" xml:space="preserve">
+        <source>Remove and re-insert your YubiKey</source>
+        <target>Remove and re-insert your YubiKey</target>
+        <note>Class = "UILabel"; text = "Remove and re-insert your YubiKey"; ObjectID = "AGQ-n1-pV3";</note>
+      </trans-unit>
+      <trans-unit id="Bxb-bg-K32.title" xml:space="preserve">
+        <source>YubiKey configuration</source>
+        <target>YubiKey configuration</target>
+        <note>Class = "UITableViewController"; title = "YubiKey configuration"; ObjectID = "Bxb-bg-K32";</note>
+      </trans-unit>
+      <trans-unit id="Byl-RD-bpD.text" xml:space="preserve">
+        <source>Activate NFC on OTP tag read</source>
+        <target>Activate NFC on OTP tag read</target>
+        <note>Class = "UILabel"; text = "Activate NFC on OTP tag read"; ObjectID = "Byl-RD-bpD";</note>
+      </trans-unit>
+      <trans-unit id="C5n-jq-Mk9.headerTitle" xml:space="preserve">
+        <source>Configuration</source>
+        <target>Configuration</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Configuration"; ObjectID = "C5n-jq-Mk9";</note>
+      </trans-unit>
+      <trans-unit id="Ced-DN-oqW.text" xml:space="preserve">
+        <source>Password</source>
+        <target>Password</target>
+        <note>Class = "UILabel"; text = "Password"; ObjectID = "Ced-DN-oqW";</note>
+      </trans-unit>
+      <trans-unit id="D3g-ds-RCu.text" xml:space="preserve">
+        <source>NFC settings</source>
+        <target>NFC settings</target>
+        <note>Class = "UILabel"; text = "NFC settings"; ObjectID = "D3g-ds-RCu";</note>
+      </trans-unit>
+      <trans-unit id="D6R-wW-EtA.title" xml:space="preserve">
+        <source>Close</source>
+        <target>Close</target>
+        <note>Class = "UIBarButtonItem"; title = "Close"; ObjectID = "D6R-wW-EtA";</note>
+      </trans-unit>
+      <trans-unit id="Ecy-Pw-sM0.text" xml:space="preserve">
+        <source>Copyright © 2021 Yubico.
+All rights reserved.</source>
+        <target>Copyright © 2021 Yubico.
+All rights reserved.</target>
+        <note>Class = "UILabel"; text = "Copyright © 2021 Yubico.\nAll rights reserved."; ObjectID = "Ecy-Pw-sM0";</note>
+      </trans-unit>
+      <trans-unit id="Efl-xJ-qER.text" xml:space="preserve">
+        <source>Initiate NFC at application start</source>
+        <target>Initiate NFC at application start</target>
+        <note>Class = "UILabel"; text = "Initiate NFC at application start"; ObjectID = "Efl-xJ-qER";</note>
+      </trans-unit>
+      <trans-unit id="FMw-TB-KRk.text" xml:space="preserve">
+        <source>SAVED PASSWORDS</source>
+        <target>SAVED PASSWORDS</target>
+        <note>Class = "UILabel"; text = "SAVED PASSWORDS"; ObjectID = "FMw-TB-KRk";</note>
+      </trans-unit>
+      <trans-unit id="Hbq-O7-HqW.title" xml:space="preserve">
+        <source>About</source>
+        <target>About</target>
+        <note>Class = "UINavigationItem"; title = "About"; ObjectID = "Hbq-O7-HqW";</note>
+      </trans-unit>
+      <trans-unit id="Icc-EW-Cgh.text" xml:space="preserve">
+        <source>Yubico OTP has been disabled</source>
+        <target>Yubico OTP has been disabled</target>
+        <note>Class = "UILabel"; text = "Yubico OTP has been disabled"; ObjectID = "Icc-EW-Cgh";</note>
+      </trans-unit>
+      <trans-unit id="Inc-aD-fdW.title" xml:space="preserve">
+        <source>Toggle One-Time Password</source>
+        <target>Toggle One-Time Password</target>
+        <note>Class = "UINavigationItem"; title = "Toggle One-Time Password"; ObjectID = "Inc-aD-fdW";</note>
+      </trans-unit>
+      <trans-unit id="JN3-vC-kaK.text" xml:space="preserve">
+        <source>This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.</source>
+        <target>This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.</target>
+        <note>Class = "UILabel"; text = "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard."; ObjectID = "JN3-vC-kaK";</note>
+      </trans-unit>
+      <trans-unit id="JON-gB-7WG.placeholder" xml:space="preserve">
+        <source>Smart card (PIV) PIN</source>
+        <target>Smart card (PIV) PIN</target>
+        <note>Class = "UITextField"; placeholder = "Smart card (PIV) PIN"; ObjectID = "JON-gB-7WG";</note>
+      </trans-unit>
+      <trans-unit id="JQM-z3-Kvc.text" xml:space="preserve">
+        <source>While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.</source>
+        <target>While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.</target>
+        <note>Class = "UILabel"; text = "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it."; ObjectID = "JQM-z3-Kvc";</note>
+      </trans-unit>
+      <trans-unit id="JSq-rh-zB3.footerTitle" xml:space="preserve">
+        <source>Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey.</source>
+        <target>Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey.</target>
+        <note>Class = "UITableViewSection"; footerTitle = "Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey."; ObjectID = "JSq-rh-zB3";</note>
+      </trans-unit>
+      <trans-unit id="L2j-ZW-Jbf.text" xml:space="preserve">
+        <source>or</source>
+        <target>or</target>
+        <note>Class = "UILabel"; text = "or"; ObjectID = "L2j-ZW-Jbf";</note>
+      </trans-unit>
+      <trans-unit id="Lzm-p7-Lmb.text" xml:space="preserve">
+        <source>Serial number</source>
+        <target>Serial number</target>
+        <note>Class = "UILabel"; text = "Serial number"; ObjectID = "Lzm-p7-Lmb";</note>
+      </trans-unit>
+      <trans-unit id="MBv-4M-eos.text" xml:space="preserve">
+        <source>N/A</source>
+        <target>N/A</target>
+        <note>Class = "UILabel"; text = "N/A"; ObjectID = "MBv-4M-eos";</note>
+      </trans-unit>
+      <trans-unit id="NnL-eZ-nHd.text" xml:space="preserve">
+        <source>Help with YubiKey</source>
+        <target>Help with YubiKey</target>
+        <note>Class = "UILabel"; text = "Help with YubiKey"; ObjectID = "NnL-eZ-nHd";</note>
+      </trans-unit>
+      <trans-unit id="O2N-dk-eMF.text" xml:space="preserve">
+        <source>Unlock YubiKey</source>
+        <target>Unlock YubiKey</target>
+        <note>Class = "UILabel"; text = "Unlock YubiKey"; ObjectID = "O2N-dk-eMF";</note>
+      </trans-unit>
+      <trans-unit id="Oba-Qw-cTB.text" xml:space="preserve">
+        <source>Set password</source>
+        <target>Set password</target>
+        <note>Class = "UILabel"; text = "Set password"; ObjectID = "Oba-Qw-cTB";</note>
+      </trans-unit>
+      <trans-unit id="PCq-PC-KyX.title" xml:space="preserve">
+        <source>NFC settings</source>
+        <target>NFC settings</target>
+        <note>Class = "UINavigationItem"; title = "NFC settings"; ObjectID = "PCq-PC-KyX";</note>
+      </trans-unit>
+      <trans-unit id="QGj-16-s0W.text" xml:space="preserve">
+        <source>N/A</source>
+        <target>N/A</target>
+        <note>Class = "UILabel"; text = "N/A"; ObjectID = "QGj-16-s0W";</note>
+      </trans-unit>
+      <trans-unit id="QHB-fS-VBc.text" xml:space="preserve">
+        <source>Terms of use</source>
+        <target>Terms of use</target>
+        <note>Class = "UILabel"; text = "Terms of use"; ObjectID = "QHB-fS-VBc";</note>
+      </trans-unit>
+      <trans-unit id="Re8-TR-xIr.text" xml:space="preserve">
+        <source>Insert YubiKey or pull down to activate NFC</source>
+        <target>Insert YubiKey or pull down to activate NFC</target>
+        <note>Class = "UILabel"; text = "Insert YubiKey or pull down to activate NFC"; ObjectID = "Re8-TR-xIr";</note>
+      </trans-unit>
+      <trans-unit id="Szl-yL-4ir.normalTitle" xml:space="preserve">
+        <source>UnwindButton</source>
+        <target>UnwindButton</target>
+        <note>Class = "UIButton"; normalTitle = "UnwindButton"; ObjectID = "Szl-yL-4ir";</note>
+      </trans-unit>
+      <trans-unit id="Uvq-Ba-xiH.footerTitle" xml:space="preserve">
+        <source>Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed.</source>
+        <target>Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed.</target>
+        <note>Class = "UITableViewSection"; footerTitle = "Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed."; ObjectID = "Uvq-Ba-xiH";</note>
+      </trans-unit>
+      <trans-unit id="VAw-dv-zeA.text" xml:space="preserve">
+        <source>N/A</source>
+        <target>N/A</target>
+        <note>Class = "UILabel"; text = "N/A"; ObjectID = "VAw-dv-zeA";</note>
+      </trans-unit>
+      <trans-unit id="VHQ-4i-YEj.text" xml:space="preserve">
+        <source>Yubico Authenticator</source>
+        <target>Yubico Authenticator</target>
+        <note>Class = "UILabel"; text = "Yubico Authenticator"; ObjectID = "VHQ-4i-YEj";</note>
+      </trans-unit>
+      <trans-unit id="Vb7-1M-PWz.text" xml:space="preserve">
+        <source>Reset YubiKey</source>
+        <target>Reset YubiKey</target>
+        <note>Class = "UILabel"; text = "Reset YubiKey"; ObjectID = "Vb7-1M-PWz";</note>
+      </trans-unit>
+      <trans-unit id="WGy-0e-K7w.text" xml:space="preserve">
+        <source>Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate.</source>
+        <target>Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate.</target>
+        <note>Class = "UILabel"; text = "Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate."; ObjectID = "WGy-0e-K7w";</note>
+      </trans-unit>
+      <trans-unit id="Yo4-ef-tkZ.configuration.title" xml:space="preserve">
+        <source>Disable Yubico OTP (recommended)</source>
+        <target>Disable Yubico OTP (recommended)</target>
+        <note>Class = "UIButton"; configuration.title = "Disable Yubico OTP (recommended)"; ObjectID = "Yo4-ef-tkZ";</note>
+      </trans-unit>
+      <trans-unit id="Yo4-ef-tkZ.normalTitle" xml:space="preserve">
+        <source>Button</source>
+        <target>Button</target>
+        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "Yo4-ef-tkZ";</note>
+      </trans-unit>
+      <trans-unit id="aFH-4H-WRy.text" xml:space="preserve">
+        <source>Firmware</source>
+        <target>Firmware</target>
+        <note>Class = "UILabel"; text = "Firmware"; ObjectID = "aFH-4H-WRy";</note>
+      </trans-unit>
+      <trans-unit id="al9-tv-dIv.text" xml:space="preserve">
+        <source>Confirm password</source>
+        <target>Confirm password</target>
+        <note>Class = "UILabel"; text = "Confirm password"; ObjectID = "al9-tv-dIv";</note>
+      </trans-unit>
+      <trans-unit id="b6z-Ri-5bh.text" xml:space="preserve">
+        <source>ONE-TIME PASSWORD</source>
+        <target>ONE-TIME PASSWORD</target>
+        <note>Class = "UILabel"; text = "ONE-TIME PASSWORD"; ObjectID = "b6z-Ri-5bh";</note>
+      </trans-unit>
+      <trans-unit id="cou-Cr-QYP.text" xml:space="preserve">
+        <source>Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.</source>
+        <target>Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.</target>
+        <note>Class = "UILabel"; text = "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page."; ObjectID = "cou-Cr-QYP";</note>
+      </trans-unit>
+      <trans-unit id="dAR-My-Mmm.text" xml:space="preserve">
+        <source>Remove password</source>
+        <target>Remove password</target>
+        <note>Class = "UILabel"; text = "Remove password"; ObjectID = "dAR-My-Mmm";</note>
+      </trans-unit>
+      <trans-unit id="e3s-bq-xAt.title" xml:space="preserve">
+        <source>Configuration</source>
+        <target>Configuration</target>
+        <note>Class = "UINavigationItem"; title = "Configuration"; ObjectID = "e3s-bq-xAt";</note>
+      </trans-unit>
+      <trans-unit id="eiF-JR-TAC.title" xml:space="preserve">
+        <source>Set password</source>
+        <target>Set password</target>
+        <note>Class = "UINavigationItem"; title = "Set password"; ObjectID = "eiF-JR-TAC";</note>
+      </trans-unit>
+      <trans-unit id="fl4-8d-lD9.title" xml:space="preserve">
+        <source>Smart card extension</source>
+        <target>Smart card extension</target>
+        <note>Class = "UINavigationItem"; title = "Smart card extension"; ObjectID = "fl4-8d-lD9";</note>
+      </trans-unit>
+      <trans-unit id="frN-Of-d1s.text" xml:space="preserve">
+        <source>Bypass touch requirement</source>
+        <target>Bypass touch requirement</target>
+        <note>Class = "UILabel"; text = "Bypass touch requirement"; ObjectID = "frN-Of-d1s";</note>
+      </trans-unit>
+      <trans-unit id="gAN-p5-fcQ.text" xml:space="preserve">
+        <source>RESET YUBIKEY</source>
+        <target>RESET YUBIKEY</target>
+        <note>Class = "UILabel"; text = "RESET YUBIKEY"; ObjectID = "gAN-p5-fcQ";</note>
+      </trans-unit>
+      <trans-unit id="gQR-ie-6Y0.footerTitle" xml:space="preserve">
+        <source>Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active.</source>
+        <target>Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active.</target>
+        <note>Class = "UITableViewSection"; footerTitle = "Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active."; ObjectID = "gQR-ie-6Y0";</note>
+      </trans-unit>
+      <trans-unit id="gYP-vW-fFN.text" xml:space="preserve">
+        <source>Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.</source>
+        <target>Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.</target>
+        <note>Class = "UILabel"; text = "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used."; ObjectID = "gYP-vW-fFN";</note>
+      </trans-unit>
+      <trans-unit id="ghF-dC-3d6.text" xml:space="preserve">
+        <source>Version history</source>
+        <target>Version history</target>
+        <note>Class = "UILabel"; text = "Version history"; ObjectID = "ghF-dC-3d6";</note>
+      </trans-unit>
+      <trans-unit id="hBA-XE-Ib1.title" xml:space="preserve">
+        <source>Item</source>
+        <target>Item</target>
+        <note>Class = "UIBarButtonItem"; title = "Item"; ObjectID = "hBA-XE-Ib1";</note>
+      </trans-unit>
+      <trans-unit id="hOr-gJ-fIa.footerTitle" xml:space="preserve">
+        <source>For additional security and to prevent unauthorized access the YubiKey can be protected with a password</source>
+        <target>For additional security and to prevent unauthorized access the YubiKey can be protected with a password</target>
+        <note>Class = "UITableViewSection"; footerTitle = "For additional security and to prevent unauthorized access the YubiKey can be protected with a password"; ObjectID = "hOr-gJ-fIa";</note>
+      </trans-unit>
+      <trans-unit id="hsz-tV-DPW.text" xml:space="preserve">
+        <source>Copy OTP to clipboard</source>
+        <target>Copy OTP to clipboard</target>
+        <note>Class = "UILabel"; text = "Copy OTP to clipboard"; ObjectID = "hsz-tV-DPW";</note>
+      </trans-unit>
+      <trans-unit id="iH3-4d-Rv5.text" xml:space="preserve">
+        <source>Smart card extension</source>
+        <target>Smart card extension</target>
+        <note>Class = "UILabel"; text = "Smart card extension"; ObjectID = "iH3-4d-Rv5";</note>
+      </trans-unit>
+      <trans-unit id="jNG-Du-Ghz.title" xml:space="preserve">
+        <source>Close</source>
+        <target>Close</target>
+        <note>Class = "UIBarButtonItem"; title = "Close"; ObjectID = "jNG-Du-Ghz";</note>
+      </trans-unit>
+      <trans-unit id="jx7-Be-qMk.text" xml:space="preserve">
+        <source>Clear saved passwords</source>
+        <target>Clear saved passwords</target>
+        <note>Class = "UILabel"; text = "Clear saved passwords"; ObjectID = "jx7-Be-qMk";</note>
+      </trans-unit>
+      <trans-unit id="kAX-Sn-d4r.configuration.title" xml:space="preserve">
+        <source>Continue with limited usability</source>
+        <target>Continue with limited usability</target>
+        <note>Class = "UIButton"; configuration.title = "Continue with limited usability"; ObjectID = "kAX-Sn-d4r";</note>
+      </trans-unit>
+      <trans-unit id="kAX-Sn-d4r.normalTitle" xml:space="preserve">
+        <source>Button</source>
+        <target>Button</target>
+        <note>Class = "UIButton"; normalTitle = "Button"; ObjectID = "kAX-Sn-d4r";</note>
+      </trans-unit>
+      <trans-unit id="llv-60-0FB.text" xml:space="preserve">
+        <source>Device type</source>
+        <target>Device type</target>
+        <note>Class = "UILabel"; text = "Device type"; ObjectID = "llv-60-0FB";</note>
+      </trans-unit>
+      <trans-unit id="noy-hK-f0E.text" xml:space="preserve">
+        <source>Insert a YubiKey and enter its PIN to access the certificate.</source>
+        <target>Insert a YubiKey and enter its PIN to access the certificate.</target>
+        <note>Class = "UILabel"; text = "Insert a YubiKey and enter its PIN to access the certificate."; ObjectID = "noy-hK-f0E";</note>
+      </trans-unit>
+      <trans-unit id="oy6-QK-Bgw.footerTitle" xml:space="preserve">
+        <source>Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality.</source>
+        <target>Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality.</target>
+        <note>Class = "UITableViewSection"; footerTitle = "Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality."; ObjectID = "oy6-QK-Bgw";</note>
+      </trans-unit>
+      <trans-unit id="raA-qu-ETm.headerTitle" xml:space="preserve">
+        <source>Application</source>
+        <target>Application</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Application"; ObjectID = "raA-qu-ETm";</note>
+      </trans-unit>
+      <trans-unit id="tMr-aW-Doe.text" xml:space="preserve">
+        <source>Contact support</source>
+        <target>Contact support</target>
+        <note>Class = "UILabel"; text = "Contact support"; ObjectID = "tMr-aW-Doe";</note>
+      </trans-unit>
+      <trans-unit id="uP5-O2-d0d.text" xml:space="preserve">
+        <source>Toggle One-Time Password</source>
+        <target>Toggle One-Time Password</target>
+        <note>Class = "UILabel"; text = "Toggle One-Time Password"; ObjectID = "uP5-O2-d0d";</note>
+      </trans-unit>
+      <trans-unit id="vjs-4B-RzZ.text" xml:space="preserve">
+        <source>Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey.</source>
+        <target>Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey.</target>
+        <note>Class = "UILabel"; text = "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."; ObjectID = "vjs-4B-RzZ";</note>
+      </trans-unit>
+      <trans-unit id="vn9-zq-1Ri.headerTitle" xml:space="preserve">
+        <source>Support</source>
+        <target>Support</target>
+        <note>Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "vn9-zq-1Ri";</note>
+      </trans-unit>
+      <trans-unit id="wH4-5g-AV5.placeholder" xml:space="preserve">
+        <source>Password</source>
+        <target>Password</target>
+        <note>Class = "UITextField"; placeholder = "Password"; ObjectID = "wH4-5g-AV5";</note>
+      </trans-unit>
+      <trans-unit id="wvt-LS-lIS.text" xml:space="preserve">
+        <source>Licensing</source>
+        <target>Licensing</target>
+        <note>Class = "UILabel"; text = "Licensing"; ObjectID = "wvt-LS-lIS";</note>
+      </trans-unit>
+      <trans-unit id="y0i-iX-KLv.text" xml:space="preserve">
+        <source>How does it work</source>
+        <target>How does it work</target>
+        <note>Class = "UILabel"; text = "How does it work"; ObjectID = "y0i-iX-KLv";</note>
+      </trans-unit>
+      <trans-unit id="yed-kd-amP.headerTitle" xml:space="preserve">
+        <source>INFORMATION</source>
+        <target>INFORMATION</target>
+        <note>Class = "UITableViewSection"; headerTitle = "INFORMATION"; ObjectID = "yed-kd-amP";</note>
+      </trans-unit>
+      <trans-unit id="zcT-oY-vKq.text" xml:space="preserve">
+        <source>Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.</source>
+        <target>Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.</target>
+        <note>Class = "UILabel"; text = "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."; ObjectID = "zcT-oY-vKq";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="TokenExtension/en.lproj/InfoPlist.strings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="15.2" build-num="15C500b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>TokenExtension</source>
+        <target>TokenExtension</target>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>TokenExtension</source>
+        <target>TokenExtension</target>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

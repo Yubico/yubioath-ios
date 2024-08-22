@@ -25,7 +25,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         case cancel, manuelEntry, account(YKFOATHCredentialTemplate)
     }
     
-    private static let scanMessage = "Point your camera at a QR code to scan it"
+    private static let scanMessage = String(localized: "Point your camera at a QR code to scan it", comment: "Scan QR code message")
 
     private let completionHandler: (ScanResult) -> ()
     private let captureSession = AVCaptureSession()
@@ -41,7 +41,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Close", for: .normal)
+        button.setTitle(String(localized: "Close", comment: "View close button"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         return button
@@ -50,7 +50,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let addManuallyButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Enter manually", for: .normal)
+        button.setTitle(String(localized: "Enter manually", comment: "Scan QR code add manually button"), for: .normal)
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
@@ -65,7 +65,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let openSettingsButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Open iOS Settings app", for: .normal)
+        button.setTitle(String(localized: "Open iOS Settings app", comment: "Scan QR code settings button"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.layer.cornerRadius = 20
@@ -79,7 +79,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let addAccountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Add account"
+        label.text = String(localized: "Add account", comment: "Scan QR code add account label")
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body).withSymbolicTraits(.traitBold)
         return label
@@ -88,7 +88,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private let noQRCodeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "No QR code?"
+        label.text = String(localized: "No QR code?", comment: "Scan QR code no QR code message")
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .footnote).withSymbolicTraits(.traitBold)
         return label
@@ -131,14 +131,14 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         title.numberOfLines = 0
         title.font = .preferredFont(forTextStyle: .title2)
         title.textAlignment = .center
-        title.text = "No camera permissions"
+        title.text = String(localized: "No camera permissions", comment: "Scan QR code camera error title")
         title.textColor = .white
         view.addArrangedSubview(title)
         let text = UILabel()
         text.font = .preferredFont(forTextStyle: .body)
         text.translatesAutoresizingMaskIntoConstraints = false
         text.numberOfLines = 0
-        text.text = "To scan a QR code you need to enable camera permissions for the Authenticator app."
+        text.text = String(localized: "To scan a QR code you need to enable camera permissions for the Authenticator app.", comment: "Scan QR code camera error message")
         text.textColor = .lightGray
         text.textAlignment = .center
         view.addArrangedSubview(text)
@@ -289,7 +289,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
               let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
               let stringValue = readableObject.stringValue else { return }
         guard let url = URL(string: stringValue.trimmingCharacters(in: .whitespacesAndNewlines)) else {
-            showError("No account information found!")
+            showError(String(localized: "No account information found!", comment: "Scan QR code no account error message"))
             return
         }
         

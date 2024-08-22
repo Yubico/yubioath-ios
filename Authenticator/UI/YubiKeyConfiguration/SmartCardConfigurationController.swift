@@ -31,10 +31,12 @@ class SmartCardConfigurationController: UITableViewController {
     
     
     @IBAction func showHelp(sender: Any) {
-        let alert = UIAlertController(title: "Smart card extension", message: "Other applications can use client certificates on your YubiKey for authentication and signing purposes.", preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: "Close", style: .cancel)
+        let alert = UIAlertController(title: String(localized: "Smart card extension", comment: "PIV extension info alert title"),
+                                      message: String(localized: "Other applications can use client certificates on your YubiKey for authentication and signing purposes.", comment: "PIV extension info alert message"),
+                                                      preferredStyle: .alert)
+        let closeAction = UIAlertAction(title: String(localized: "Close"), style: .cancel)
         alert.addAction(closeAction)
-        let readMoreAction = UIAlertAction(title: "Read more...", style: .default) {_ in
+        let readMoreAction = UIAlertAction(title: String(localized: "Read more...", comment: "PIV extension read more alert title"), style: .default) {_ in
             if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
                 UIApplication.shared.open(url)
             }
@@ -75,14 +77,16 @@ class SmartCardConfigurationController: UITableViewController {
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if !granted {
                 DispatchQueue.main.async {
-                    let alertController = UIAlertController (title: "Notifications disabled", message: "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings.", preferredStyle: .alert)
+                    let alertController = UIAlertController (title: String(localized: "Notifications disabled", comment: "PIV extension notifications alert title"),
+                                                             message: String(localized: "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings.", comment: "PIV extensions notifications alert message"),
+                                                             preferredStyle: .alert)
                     
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .default) {_ in
+                    let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {_ in
                         self.dismiss(animated: true)
                     }
                     alertController.addAction(cancelAction)
                     
-                    let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                    let settingsAction = UIAlertAction(title: String(localized: "Settings", comment: "PIV extension settings alert title"), style: .default) { (_) -> Void in
                         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                             return
                         }
@@ -139,7 +143,7 @@ class SmartCardConfigurationController: UITableViewController {
     func storeTokenCertificate(certificate: SecCertificate) {
         let error = viewModel.storeTokenCertificate(certificate: certificate)
         if let error = error {
-            let alert = UIAlertController(title: "Failed storing certificate", message: "Error: \(error)", completion:{})
+            let alert = UIAlertController(title: String(localized: "Failed storing certificate", comment: "PIV extension storing error alert title"), message: "Error: \(error)", completion:{})
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -162,18 +166,18 @@ class SmartCardConfigurationController: UITableViewController {
             
             guard let certificates = certificates else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "Insert YubiKey or pull down to activate NFC"
+                cell.message = String(localized: "Insert YubiKey or pull down to activate NFC")
                 return cell
             }
             
             if certificates.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "No certificates on YubiKey"
+                cell.message = String(localized: "No certificates on YubiKey", comment: "PIV extension no certificates message")
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let certificate = certificates[indexPath.row - 1]
-                cell.name = "\(certificate.certificate.commonName ?? "No name")  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
+                cell.name = "\(certificate.certificate.commonName ?? String(localized: "No name", comment: "PIV extension certificate with no name"))  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
                 if !tokens.contains(certificate.certificate) {
                      cell.action = { [weak self] in
                         self?.storeTokenCertificate(certificate: certificate.certificate)
@@ -193,7 +197,7 @@ class SmartCardConfigurationController: UITableViewController {
             
             if tokens.count == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-                cell.message = "No public key certificates in keychain"
+                cell.message = String(localized: "No public key certificates in keychain", comment: "PIV extension no certs in keychain")
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
@@ -228,12 +232,12 @@ private class HeaderCell: UITableViewCell {
             switch newValue {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
-                title.text = "Certificates on YubiKey".uppercased()
-                text.text = "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this \(device)."
+                title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header").uppercased()
+                text.text = "\(String(localized: "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this", comment: "PIV extension no certs on yubikey message")) \(device)."
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
-                title.text = "Public key certificates on \(device)".uppercased()
-                text.text = "These certificates have been added to this \(device) and can be used by other applications."
+                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)".uppercased()
+                text.text = "\(String(localized: "These certificates have been added to this", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'")) \(device) \(String(localized: "and can be used by other applications", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"))."
             }
         }
     }
@@ -457,11 +461,11 @@ class TableHeaderView: UIView {
             case .notEnabled:
                 imageView.image = UIImage(systemName: "minus.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .secondaryLabel
-                label.text = "Not Enabled".uppercased()
+                label.text = String(localized: "Not Enabled", comment: "PIV extension not enabled message").uppercased()
             case .enabled:
                 imageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .systemGreen
-                label.text = "Enabled".uppercased()
+                label.text = String(localized: "Enabled", comment: "PIV extension enabled message").uppercased()
             }
         }
     }

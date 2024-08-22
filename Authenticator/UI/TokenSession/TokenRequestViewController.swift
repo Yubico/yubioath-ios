@@ -94,7 +94,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
                     UIView.animate(withDuration: 0.2) {
                         self?.accessoryLabel.alpha = 1
                         if connected {
-                            self?.accessoryLabel.text = "Enter the PIN to access the certificate."
+                            self?.accessoryLabel.text = String(localized: "Enter the PIN to access the certificate.", comment: "PIV extension enter PIN message")
                         } else {
                             self?.accessoryLabel.text = self?.defaultAccessoryTest
                             if YubiKitDeviceCapabilities.supportsISO7816NFCTags {

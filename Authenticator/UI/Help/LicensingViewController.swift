@@ -22,7 +22,7 @@ class LicensingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Licensing"
+        self.title = String(localized: "Licensing", comment: "Licensing view navigation title")
         self.view = textView
         self.navigationItem.largeTitleDisplayMode = .never
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)

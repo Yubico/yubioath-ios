@@ -17,12 +17,13 @@
 @available(iOS 14.0, *)
 extension Error {
     var tokenError: TokenRequestViewModel.TokenError {
-        let code = YKFPIVFErrorCode(rawValue: UInt((self as NSError).code))
+        let code = YKFPIVErrorCode(rawValue: UInt((self as NSError).code))
         switch code {
         case .pinLocked:
-            return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: "Your PIN has ben blocked", text: "Use your PUK code to reset PIN."))
+            return .passwordLocked(TokenRequestViewModel.ErrorMessage(title: String(localized: "Your PIN has ben blocked", comment: "PIV extension pin blocked title"),
+                                                                      text: String(localized: "Use your PUK code to reset PIN.", comment: "PIV extension pin blocked text")))
         case .invalidPin:
-            return .wrongPassword(TokenRequestViewModel.ErrorMessage(title: "Wrong PIN code", text: nil))
+            return .wrongPassword(TokenRequestViewModel.ErrorMessage(title: String(localized: "Wrong PIN code", comment: "PIV extension wrong pin"), text: nil))
         default:
             return .notHandled(TokenRequestViewModel.ErrorMessage(title: self.localizedDescription, text: nil))
         }
@@ -125,24 +126,26 @@ class TokenRequestViewModel: NSObject {
                         session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { signature, error in
                             // Handle any errors
                             if let error = error, (error as NSError).code == 0x6a80 {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Invalid signature")
-                                completion(.communicationError(ErrorMessage(title: "Invalid signature", text: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.")))
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"))
+                                completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"),
+                                                                            text: String(localized: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.", comment: "PIV extension NFC invalid signature no private key"))))
                                 return
                             }
                             if let error = error {
-                                completion(.communicationError(ErrorMessage(title: "Signing failed", text: error.localizedDescription)))
+                                    completion(.communicationError(ErrorMessage(title: String(localized: "Signing failed", comment: "PIV extension signing failed error message"), text: error.localizedDescription)))
                                 return
                             }
                             guard let signature = signature else { fatalError() }
                             // Verify signature
                             let signatureError = self.verifySignature(signature, data: message, objectId: objectId, algorithm: algorithm)
                             if signatureError != nil {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Invalid signature")
-                                completion(.communicationError(ErrorMessage(title: "Invalid signature", text: "The private key on the YubiKey does not match the certificate.")))
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension invalid signature"))
+                                completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension invalid signature"),
+                                                                            text: String(localized: "The private key on the YubiKey does not match the certificate.", comment: "PIV extension invalid signature message"))))
                                 return
                             }
                             
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "Successfully signed data")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully signed data", comment: "PIV extension NFC successfully signed data"))
                             
                             print(signature.hex)
                             

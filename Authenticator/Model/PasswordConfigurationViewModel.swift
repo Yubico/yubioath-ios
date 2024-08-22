@@ -44,7 +44,7 @@ class PasswordConfigurationViewModel {
                     session.unlock(password: oldPassword) { error in
                         if let error = error {
                             if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Wrong password")
+                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Wrong password", comment: "Password Configuration wrong password"))
                                 completion(.wrongPassword)
                                 return
                             }
@@ -55,7 +55,7 @@ class PasswordConfigurationViewModel {
                         session.setPassword(password) { error in
                             if let error = error {
                                 if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
-                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: "Authentication required")
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Authentication required", comment: "Password Configuration auth required"))
                                     completion(.authenticationRequired)
                                     return
                                 }
@@ -65,11 +65,11 @@ class PasswordConfigurationViewModel {
                             }
                             let message: String
                             if password == "" {
-                                message = "Password has been removed"
+                                message = String(localized: "Password has been removed", comment: "Password Configuration password removed")
                             } else if oldPassword == nil {
-                                message = "Password has been set"
+                                message = String(localized: "Password has been set", comment: "Password Configuration password set")
                             } else {
-                                message = "Password has been changed"
+                                message = String(localized: "Password has been changed", comment: "Password Configuration password changed")
                             }
                             YubiKitManager.shared.stopNFCConnection(withMessage: message)
                             completion(.success((connection as? YKFAccessoryConnection != nil) ? message : nil))

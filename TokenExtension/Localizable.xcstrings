@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Launch Yubico Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer Yubico Authenticator"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticatorを起動"
+          }
+        }
+      }
+    },
+    "Tap here to complete the request using your YubiKey." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez ici pour finaliser la demande avec votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ここをタップし、YubiKeyを使用してリクエストを完了します。"
+          }
+        }
+      }
+    },
+    "YubiKey required" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey requise"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyが必要です"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

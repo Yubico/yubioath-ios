@@ -36,16 +36,6 @@ struct ToastView: View {
     }
 }
 
-struct ToastView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color(.systemBackground).ignoresSafeArea()
-            Text("Some content...")
-                .overlay(ToastView(message: "Very toasty! Something has happened!"), alignment: .top)
-        }
-    }
-}
-
 struct ToastModifier: ViewModifier {
     
     @Binding var isPresenting: Bool

@@ -35,7 +35,7 @@ class ConfigurationController: UITableViewController {
         if #available(iOS 14.5, *) { } else {
             switch (indexPath.section, indexPath.row) {
             case (3, 0):
-                let alert = UIAlertController(title: "Smart card extension is only available on iOS 14.5 and forward.", message: nil, completion: {})
+                let alert = UIAlertController(title: String(localized: "Smart card extension is only available on iOS 14.5 and forward.", comment: "PIV extension version error"), message: nil, completion: {})
                 self.present(alert, animated: true, completion: nil)
             default: break
             }
@@ -68,7 +68,7 @@ class ConfigurationController: UITableViewController {
             self.refreshControl = refreshControl
         }
         
-        insertYubiKeyLabel.text = YubiKitDeviceCapabilities.supportsISO7816NFCTags ? "Insert YubiKey or pull down to activate NFC" : "Insert YubiKey"
+        insertYubiKeyLabel.text = YubiKitDeviceCapabilities.supportsISO7816NFCTags ? String(localized: "Insert YubiKey or pull down to activate NFC") : String(localized: "Insert YubiKey")
         
         infoViewModel.deviceInfo { [weak self] result in
             DispatchQueue.main.async {
@@ -85,7 +85,7 @@ class ConfigurationController: UITableViewController {
                     self?.firmwareVersionLabel.text = info.version.description
                 case .failure(let error):
                     self?.reset()
-                    let alert = UIAlertController(title: "Error reading YubiKey", message: error.localizedDescription) { }
+                    let alert = UIAlertController(title: String(localized: "Error reading YubiKey"), message: error.localizedDescription) { }
                     self?.present(alert, animated: true, completion: nil)
                 }
             }

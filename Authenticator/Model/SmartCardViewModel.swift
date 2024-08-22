@@ -81,7 +81,7 @@ class SmartCardViewModel: NSObject {
                         session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
                             if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
                             callback(.success(certificates))
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "Finished reading certificates")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
                             return
                         }
                     }
@@ -98,7 +98,7 @@ extension YKFPIVSession {
                           completion: @escaping (_ certificate: SecCertificate?) -> Void) {
         getCertificateIn(slot) { certificate, error in
             guard let certificate = certificate else {
-                if (error! as NSError).code == 0x6A82 || (error! as NSError).code == YKFPIVFErrorCode.dataParseError.rawValue {
+                if (error! as NSError).code == 0x6A82 || (error! as NSError).code == YKFPIVErrorCode.dataParseError.rawValue {
                     completion(nil)
                 } else {
                     callback(.failure(error!))

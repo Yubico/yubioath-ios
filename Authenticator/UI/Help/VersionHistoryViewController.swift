@@ -25,13 +25,13 @@ class VersionHistoryViewController: UIViewController {
     private var titleLabel = UILabel()
     var closeBlock: (() -> ())?
     
-    var closeButtonText: String = "Close" {
+    var closeButtonText: String = String(localized: "Close", comment: "View close button") {
         didSet {
             closeButton.setTitle(closeButtonText, for: .normal)
         }
     }
     
-    var titleText: String = "Version history" {
+    var titleText: String = String(localized: "Version history", comment: "Version history navigation title") {
         didSet {
             titleLabel.text = titleText
         }

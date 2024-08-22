@@ -40,7 +40,7 @@ class ResetOATHViewModel {
                         completion(.failure((connection as? YKFAccessoryConnection != nil) ? error.localizedDescription : nil))
                         return
                     } else {
-                        let message = "OATH accounts deleted and OATH application reset to factory defaults."
+                        let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
                         YubiKitManager.shared.stopNFCConnection(withMessage: message)
                         completion(.success((connection as? YKFAccessoryConnection != nil) ? message: nil))
                     }
