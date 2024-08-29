@@ -345,6 +345,9 @@
         }
       }
     },
+    "Clear passwords" : {
+
+    },
     "Clear passwords saved on" : {
       "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
       "localizations" : {
@@ -379,6 +382,9 @@
         }
       }
     },
+    "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used." : {
+
+    },
     "Clear passwords?" : {
       "comment" : "Clear password alert title",
       "localizations" : {
@@ -395,6 +401,12 @@
           }
         }
       }
+    },
+    "Clear saved OATH passwords" : {
+
+    },
+    "Clear saved passwords" : {
+
     },
     "Close" : {
       "comment" : "View close button",
@@ -1877,6 +1889,9 @@
           }
         }
       }
+    },
+    "Saved passwords has been cleared" : {
+
     },
     "Scan NFC YubiKey" : {
       "localizations" : {

@@ -13,36 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import SwiftUI
 
-struct OATHResetView: View {
+struct OATHSavedPasswordsView: View {
     
-    @StateObject var model = ResetOATHViewModel()
+    @StateObject var model = OATHSavedPasswordsViewModel()
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
-    @State var keyHasBeenReset = false
     @State var errorMessage: String? = nil
+    @State var passwordsHasBeenCleared = false
 
     var body: some View {
         SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text(keyHasBeenReset ? "YubiKey has been reset" : "Reset OATH application").font(.headline)
-            Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
+            Text(passwordsHasBeenCleared ? "Saved passwords has been cleared" : "Clear saved OATH passwords").font(.headline)
+            Text("Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used.")
                 .multilineTextAlignment(.center)
-                .opacity(keyHasBeenReset ? 0.2 : 1.0)
+                .opacity(passwordsHasBeenCleared ? 0.2 : 1.0)
         } buttons: {
-            SettingsButton("Reset Yubikey") {
+            SettingsButton("Clear saved passwords") {
                 presentConfirmAlert.toggle()
             }
-            .disabled(keyHasBeenReset)
+            .disabled(passwordsHasBeenCleared)
         }
-        .navigationBarTitle(Text("Reset OATH"), displayMode: .inline)
-        .alert("Confirm OATH reset", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
+        .navigationBarTitle(Text("Clear saved passwords"), displayMode: .inline)
+        .alert("Clear passwords", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()
-                model.reset()
+                model.clearPasswords()
             } label: {
-                Text("Reset")
+                Text("OK")
             }
             Button(role: .cancel) {
                 presentConfirmAlert.toggle()
@@ -55,9 +54,9 @@ struct OATHResetView: View {
             withAnimation {
                 switch state {
                 case .ready:
-                    self.keyHasBeenReset = false
+                    self.passwordsHasBeenCleared = false
                 case .success:
-                    self.keyHasBeenReset = true
+                    self.passwordsHasBeenCleared = true
                 case .error(let message):
                     self.presentErrorAlert = true
                     self.errorMessage = message

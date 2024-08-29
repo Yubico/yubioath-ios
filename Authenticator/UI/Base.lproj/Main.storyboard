@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -275,124 +274,6 @@ All rights reserved.</string>
             </objects>
             <point key="canvasLocation" x="-2670" y="-473"/>
         </scene>
-        <!--Set password-->
-        <scene sceneID="a04-Iv-oTD">
-            <objects>
-                <tableViewController storyboardIdentifier="SetPasswordViewController" id="fE6-O1-wZU" customClass="SetPasswordViewController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="EbR-vz-nXg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="802"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <sections>
-                            <tableViewSection footerTitle="For additional security and to prevent unauthorized access the YubiKey can be protected with a password" id="hOr-gJ-fIa">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iw0-0X-jLZ">
-                                        <rect key="frame" x="16" y="18" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iw0-0X-jLZ" id="CJF-L1-SD0">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9ay-z9-Icz">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="44"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ced-DN-oqW">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="44"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="90v-dK-PY6"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="857-GD-96Q">
-                                                            <rect key="frame" x="165" y="0.0" width="146" height="44"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="one-time-code"/>
-                                                            <connections>
-                                                                <action selector="passwordChanged:" destination="fE6-O1-wZU" eventType="editingChanged" id="Xuq-IO-M5w"/>
-                                                            </connections>
-                                                        </textField>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="9ay-z9-Icz" firstAttribute="leading" secondItem="CJF-L1-SD0" secondAttribute="leadingMargin" id="Ial-Cg-AUF"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="9ay-z9-Icz" secondAttribute="trailing" id="L7U-oo-ReK"/>
-                                                <constraint firstItem="9ay-z9-Icz" firstAttribute="top" secondItem="CJF-L1-SD0" secondAttribute="top" id="jc2-qJ-Nl2"/>
-                                                <constraint firstAttribute="bottom" secondItem="9ay-z9-Icz" secondAttribute="bottom" id="ovc-Zk-8If"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="B7w-33-Zw8">
-                                        <rect key="frame" x="16" y="62" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B7w-33-Zw8" id="VZa-l7-yGP">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="t4I-nA-bFF">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="44"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="al9-tv-dIv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="44"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="STA-UP-ODp"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wH4-5g-AV5">
-                                                            <rect key="frame" x="165" y="0.0" width="146" height="44"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="one-time-code"/>
-                                                            <connections>
-                                                                <action selector="confirmPasswordChanged:" destination="fE6-O1-wZU" eventType="editingChanged" id="uFj-L7-Df6"/>
-                                                            </connections>
-                                                        </textField>
-                                                    </subviews>
-                                                </stackView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="t4I-nA-bFF" secondAttribute="bottom" id="JZG-SV-yio"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="t4I-nA-bFF" secondAttribute="trailing" id="hhP-Tn-fGK"/>
-                                                <constraint firstItem="t4I-nA-bFF" firstAttribute="leading" secondItem="VZa-l7-yGP" secondAttribute="leadingMargin" id="y4T-Ul-UaK"/>
-                                                <constraint firstItem="t4I-nA-bFF" firstAttribute="top" secondItem="VZa-l7-yGP" secondAttribute="top" id="yfp-fn-W6U"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="fE6-O1-wZU" id="99m-86-dW4"/>
-                            <outlet property="delegate" destination="fE6-O1-wZU" id="our-2q-fq8"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Set password" largeTitleDisplayMode="never" id="eiF-JR-TAC">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Baw-cE-YKP">
-                            <connections>
-                                <action selector="cancel:" destination="fE6-O1-wZU" id="1f7-ik-w6r"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="nUg-yo-cpw">
-                            <connections>
-                                <action selector="savePassword:" destination="fE6-O1-wZU" id="2ND-gA-7DV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="confirmPassword" destination="wH4-5g-AV5" id="iQS-9S-24p"/>
-                        <outlet property="password" destination="857-GD-96Q" id="EXF-oq-LSP"/>
-                        <outlet property="saveButton" destination="nUg-yo-cpw" id="hM0-ki-DHf"/>
-                        <segue destination="00P-59-UQS" kind="unwind" identifier="unwindToParent" unwindAction="unwind:" id="qWh-Zj-bKJ"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ihq-dp-VCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="00P-59-UQS" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="748" y="1110"/>
-        </scene>
         <!--Tutorial-->
         <scene sceneID="L6t-CP-u4G">
             <objects>
@@ -403,25 +284,6 @@ All rights reserved.</string>
             </objects>
             <point key="canvasLocation" x="-190" y="-415"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="McT-KE-rAN">
-            <objects>
-                <navigationController storyboardIdentifier="ShowPassword" automaticallyAdjustsScrollViewInsets="NO" id="lSw-49-AD0" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Mr3-al-vxx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lZq-BR-oKW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="fE6-O1-wZU" kind="relationship" relationship="rootViewController" id="ToZ-6b-oil"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ekW-UU-e4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="748" y="396"/>
-        </scene>
         <!--Toggle One-Time Password-->
         <scene sceneID="Umn-5X-AQm">
             <objects>
@@ -430,7 +292,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="265.66666793823242" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="266" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -809,8 +671,28 @@ All rights reserved.</string>
                                             <segue destination="LLS-wb-zN1" kind="show" destinationCreationSelector="showOATHPasswordView:" id="6tX-ul-sie"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="d9X-Tp-hSv" style="IBUITableViewCellStyleDefault" id="U8j-l0-6xt" userLabel="Reset OATH application">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lDv-WA-VqE" style="IBUITableViewCellStyleDefault" id="37x-lt-xgK" userLabel="Clear saved passwords">
                                         <rect key="frame" x="16" y="622.33333396911621" width="343" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="37x-lt-xgK" id="InF-qu-9aB">
+                                            <rect key="frame" x="0.0" y="0.0" width="316.66666666666669" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Clear saved passwords" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="lDv-WA-VqE">
+                                                    <rect key="frame" x="16" y="0.0" width="292.66666666666669" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="M89-Tx-17b" kind="show" destinationCreationSelector="showOATHSavedPasswordsView:" id="rmd-gE-7ip"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="d9X-Tp-hSv" style="IBUITableViewCellStyleDefault" id="U8j-l0-6xt" userLabel="Reset OATH application">
+                                        <rect key="frame" x="16" y="666.00000190734863" width="343" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U8j-l0-6xt" id="VvA-WR-84U">
                                             <rect key="frame" x="0.0" y="0.0" width="316.66666666666669" height="43.666667938232422"/>
@@ -834,7 +716,7 @@ All rights reserved.</string>
                             <tableViewSection headerTitle="FIDO" id="4vu-ra-aLP" userLabel="FIDO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="gCh-94-I0T" style="IBUITableViewCellStyleDefault" id="EsD-kV-gmd" userLabel="Manage PIN">
-                                        <rect key="frame" x="16" y="722.00000190734863" width="343" height="43.666667938232422"/>
+                                        <rect key="frame" x="16" y="765.66666984558105" width="343" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EsD-kV-gmd" id="Eea-do-kgQ">
                                             <rect key="frame" x="0.0" y="0.0" width="316.66666666666669" height="43.666667938232422"/>
@@ -851,7 +733,7 @@ All rights reserved.</string>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="959-Oi-fy1" style="IBUITableViewCellStyleDefault" id="yQs-Vz-gG7" userLabel="Reset FIDO application">
-                                        <rect key="frame" x="16" y="765.66666984558105" width="343" height="44"/>
+                                        <rect key="frame" x="16" y="809.33333778381348" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yQs-Vz-gG7" id="Izr-KO-cUp">
                                             <rect key="frame" x="0.0" y="0.0" width="316.66666666666669" height="44"/>
@@ -872,20 +754,20 @@ All rights reserved.</string>
                             <tableViewSection headerTitle="PIV" id="wX8-c0-dfc" userLabel="PIV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="ZJS-gM-yza" detailTextLabel="57k-Y4-tLZ" style="IBUITableViewCellStyleValue1" id="uv4-OV-lrG" userLabel="Smart card extension">
-                                        <rect key="frame" x="16" y="865.66666984558105" width="343" height="44"/>
+                                        <rect key="frame" x="16" y="909.33333778381348" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uv4-OV-lrG" id="vtf-gs-z5h">
                                             <rect key="frame" x="0.0" y="0.0" width="324.66666666666669" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Smart card extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="ZJS-gM-yza">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Smart card extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="ZJS-gM-yza">
                                                     <rect key="frame" x="8" y="11.999999999999998" width="161.66666666666666" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="57k-Y4-tLZ">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Enabled" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="57k-Y4-tLZ">
                                                     <rect key="frame" x="255.33333333333334" y="11.999999999999998" width="61.333333333333336" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -1182,238 +1064,6 @@ All rights reserved.</string>
             </objects>
             <point key="canvasLocation" x="-242" y="-1969"/>
         </scene>
-        <!--OATH configuration-->
-        <scene sceneID="8BT-hM-g1Z">
-            <objects>
-                <tableViewController restorationIdentifier="oathConfiguration" title="YubiKey configuration" id="Bxb-bg-K32" userLabel="OATH configuration" customClass="OATHConfigurationController" customModule="Authenticator" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="NBV-rD-K8D">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <sections>
-                            <tableViewSection id="xhs-96-o3m">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3i3-Rk-NKL" userLabel="Header">
-                                        <rect key="frame" x="16" y="18" width="343" height="192"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3i3-Rk-NKL" id="oNv-Ro-SD9">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="192"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zy4-mO-85Q">
-                                                    <rect key="frame" x="149" y="20" width="45" height="45"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="45" id="ggx-FZ-dSd"/>
-                                                        <constraint firstAttribute="height" constant="45" id="vkb-Uh-X8j"/>
-                                                    </constraints>
-                                                    <imageReference key="image" image="yubikey" symbolScale="large"/>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="60"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSWORD PROTECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iZ-OS-CfM">
-                                                    <rect key="frame" x="15" y="80" width="313" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="For additional security and to prevent unauthorized access the YubiKey can be password protected." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46N-qq-yo2">
-                                                    <rect key="frame" x="10" y="110.33333333333333" width="323" height="61.666666666666671"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="46N-qq-yo2" secondAttribute="trailing" constant="10" id="6U5-rs-04Y"/>
-                                                <constraint firstItem="46N-qq-yo2" firstAttribute="top" secondItem="5iZ-OS-CfM" secondAttribute="bottom" constant="10" id="6gq-9v-EJ9"/>
-                                                <constraint firstAttribute="trailing" secondItem="5iZ-OS-CfM" secondAttribute="trailing" constant="15" id="83x-jP-KZx"/>
-                                                <constraint firstItem="Zy4-mO-85Q" firstAttribute="centerX" secondItem="oNv-Ro-SD9" secondAttribute="centerX" id="Dfm-YP-d9B"/>
-                                                <constraint firstItem="46N-qq-yo2" firstAttribute="leading" secondItem="oNv-Ro-SD9" secondAttribute="leading" constant="10" id="aVE-pT-k8Z"/>
-                                                <constraint firstItem="5iZ-OS-CfM" firstAttribute="leading" secondItem="oNv-Ro-SD9" secondAttribute="leading" constant="15" id="cXE-qL-ewX"/>
-                                                <constraint firstItem="Zy4-mO-85Q" firstAttribute="top" secondItem="oNv-Ro-SD9" secondAttribute="top" constant="20" id="dO7-3I-1GD"/>
-                                                <constraint firstAttribute="bottom" secondItem="46N-qq-yo2" secondAttribute="bottom" constant="20" id="hjR-bI-eKh"/>
-                                                <constraint firstItem="5iZ-OS-CfM" firstAttribute="top" secondItem="Zy4-mO-85Q" secondAttribute="bottom" constant="15" id="kHt-1H-Xcb"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Oba-Qw-cTB" style="IBUITableViewCellStyleDefault" id="JKD-2A-xLO" userLabel="Set password">
-                                        <rect key="frame" x="16" y="210" width="343" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JKD-2A-xLO" id="iRz-46-HyR">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Set password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oba-Qw-cTB">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="43.666667938232422"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="YubiBlue"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="lSw-49-AD0" kind="show" id="h7f-VZ-94g"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="dAR-My-Mmm" style="IBUITableViewCellStyleDefault" id="MHs-Sj-2EY" userLabel="Remove password">
-                                        <rect key="frame" x="16" y="253.66666793823242" width="343" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MHs-Sj-2EY" id="c6N-Ii-MYC">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Remove password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dAR-My-Mmm">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="43.666667938232422"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="YubiBlue"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="" footerTitle="" id="a4m-Y3-hnM">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PYZ-Wa-hkr" userLabel="Header">
-                                        <rect key="frame" x="16" y="345.00000190734863" width="343" height="192"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYZ-Wa-hkr" id="kmi-YO-gZK">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="192"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="sI3-IH-P4T">
-                                                    <rect key="frame" x="149" y="20.666666666666664" width="45" height="43.999999999999993"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="N6E-cJ-3f6"/>
-                                                        <constraint firstAttribute="width" constant="45" id="iRD-z2-d3A"/>
-                                                    </constraints>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="60"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAVED PASSWORDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FMw-TB-KRk">
-                                                    <rect key="frame" x="15" y="80" width="313" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYP-vW-fFN">
-                                                    <rect key="frame" x="10" y="110.33333333333333" width="323" height="61.666666666666671"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="gYP-vW-fFN" secondAttribute="trailing" constant="10" id="6JW-ET-lEf"/>
-                                                <constraint firstItem="FMw-TB-KRk" firstAttribute="top" secondItem="sI3-IH-P4T" secondAttribute="bottom" constant="15" id="7Ud-3a-S1O"/>
-                                                <constraint firstItem="sI3-IH-P4T" firstAttribute="top" secondItem="kmi-YO-gZK" secondAttribute="top" constant="20" id="8JW-bZ-ryB"/>
-                                                <constraint firstItem="sI3-IH-P4T" firstAttribute="centerX" secondItem="kmi-YO-gZK" secondAttribute="centerX" id="QsF-8f-pAe"/>
-                                                <constraint firstItem="FMw-TB-KRk" firstAttribute="bottom" secondItem="gYP-vW-fFN" secondAttribute="top" constant="-10" id="S8m-M3-4gY"/>
-                                                <constraint firstItem="gYP-vW-fFN" firstAttribute="leading" secondItem="kmi-YO-gZK" secondAttribute="leading" constant="10" id="nCe-tP-Ygg"/>
-                                                <constraint firstAttribute="bottom" secondItem="gYP-vW-fFN" secondAttribute="bottom" constant="20" id="vRk-zd-ohg"/>
-                                                <constraint firstAttribute="trailing" secondItem="FMw-TB-KRk" secondAttribute="trailing" constant="15" id="xKM-vB-O0r"/>
-                                                <constraint firstItem="FMw-TB-KRk" firstAttribute="leading" secondItem="kmi-YO-gZK" secondAttribute="leading" constant="15" id="z1k-Qa-gz9"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="jx7-Be-qMk" style="IBUITableViewCellStyleDefault" id="jD2-1j-3xn" userLabel="Reset">
-                                        <rect key="frame" x="16" y="537.00000190734863" width="343" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jD2-1j-3xn" id="pmF-hs-kRs">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Clear saved passwords" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jx7-Be-qMk">
-                                                    <rect key="frame" x="16" y="0.0" width="311" height="43.666667938232422"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="YubiBlue"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="" footerTitle="" id="gp6-2t-psV">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xrC-0V-vwx" userLabel="Header">
-                                        <rect key="frame" x="16" y="632.33333587646484" width="343" height="192"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xrC-0V-vwx" id="sct-FY-XsC">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="192"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GAa-yO-gNC">
-                                                    <rect key="frame" x="149" y="21.999999999999996" width="45" height="41.666666666666657"/>
-                                                    <color key="tintColor" name="Color1"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="UwT-nS-75s"/>
-                                                        <constraint firstAttribute="width" constant="45" id="zCP-hb-kMI"/>
-                                                    </constraints>
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="60"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESET YUBIKEY" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAN-p5-fcQ">
-                                                    <rect key="frame" x="10" y="80" width="323" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcT-oY-vKq">
-                                                    <rect key="frame" x="10" y="110.33333333333333" width="323" height="61.666666666666671"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="zcT-oY-vKq" secondAttribute="trailing" constant="10" id="47f-HU-tuC"/>
-                                                <constraint firstItem="GAa-yO-gNC" firstAttribute="centerX" secondItem="sct-FY-XsC" secondAttribute="centerX" id="FJm-gv-vKn"/>
-                                                <constraint firstAttribute="bottom" secondItem="zcT-oY-vKq" secondAttribute="bottom" constant="20" id="VPb-W3-lSB"/>
-                                                <constraint firstItem="gAN-p5-fcQ" firstAttribute="leading" secondItem="sct-FY-XsC" secondAttribute="leading" constant="10" id="Z8V-yN-NiV"/>
-                                                <constraint firstAttribute="trailing" secondItem="gAN-p5-fcQ" secondAttribute="trailing" constant="10" id="ZHc-Ys-GhW"/>
-                                                <constraint firstItem="GAa-yO-gNC" firstAttribute="bottom" secondItem="gAN-p5-fcQ" secondAttribute="top" constant="-15" id="gPl-e9-2h1"/>
-                                                <constraint firstItem="zcT-oY-vKq" firstAttribute="leading" secondItem="sct-FY-XsC" secondAttribute="leading" constant="10" id="kvl-8L-QGX"/>
-                                                <constraint firstItem="gAN-p5-fcQ" firstAttribute="bottom" secondItem="zcT-oY-vKq" secondAttribute="top" constant="-10" id="r6n-u2-eVD"/>
-                                                <constraint firstItem="GAa-yO-gNC" firstAttribute="top" secondItem="sct-FY-XsC" secondAttribute="top" constant="20" id="vJA-Zv-M0C"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Vb7-1M-PWz" style="IBUITableViewCellStyleDefault" id="mjc-VT-tiU" userLabel="Set password">
-                                        <rect key="frame" x="16" y="824.33333587646484" width="343" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mjc-VT-tiU" id="Ub5-Qm-Ljn">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Reset YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vb7-1M-PWz">
-                                                    <rect key="frame" x="8" y="0.0" width="327" height="43.666667938232422"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="YubiBlue"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="Bxb-bg-K32" id="gQt-ji-jR5"/>
-                            <outlet property="delegate" destination="Bxb-bg-K32" id="aIQ-5A-RoE"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Passwords and reset" largeTitleDisplayMode="never" id="9NQ-7X-HqZ"/>
-                    <connections>
-                        <outlet property="clearPasswordsOnDeviceLabel" destination="gYP-vW-fFN" id="g5X-Ys-HDw"/>
-                        <outlet property="removePasswordTableCell" destination="MHs-Sj-2EY" id="jo8-Xu-BAB"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Wb-nX-dOC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-10.144927536231885" y="395.75892857142856"/>
-        </scene>
         <!--Applications Settings-->
         <scene sceneID="t0d-DJ-jHa">
             <objects>
@@ -1422,7 +1072,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="wGK-Gb-ggw">
-                            <rect key="frame" x="0.0" y="497.66666412353516" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="498" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -1722,6 +1372,17 @@ All rights reserved.</string>
             </objects>
             <point key="canvasLocation" x="2266" y="-474"/>
         </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="hlg-91-0Lj">
+            <objects>
+                <hostingController id="M89-Tx-17b" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="uxA-K0-TFx"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2oL-Pa-dSv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2172" y="-1155"/>
+        </scene>
     </scenes>
     <color key="tintColor" name="YubiBlue"/>
     <resources>
@@ -1731,13 +1392,8 @@ All rights reserved.</string>
         <image name="dot.radiowaves.forward" catalog="system" width="111" height="128"/>
         <image name="ellipsis.rectangle" catalog="system" width="128" height="79"/>
         <image name="icon" width="60" height="60"/>
-        <image name="iphone" catalog="system" width="112" height="128"/>
         <image name="questionmark.circle" catalog="system" width="128" height="123"/>
-        <image name="xmark.circle" catalog="system" width="128" height="123"/>
         <image name="yubikey" width="7" height="15"/>
-        <namedColor name="Color1">
-            <color red="0.89803921568627454" green="0.22352941176470589" blue="0.20784313725490197" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Color11">
             <color red="0.48627450980392156" green="0.70196078431372544" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
