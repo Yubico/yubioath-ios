@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import UIKit
 
 struct OATHResetView: View {
     
@@ -30,18 +29,8 @@ struct OATHResetView: View {
                 Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
                     .multilineTextAlignment(.center)
                     .opacity(keyHasBeenReset ? 0.2 : 1.0)
-                Color(.secondarySystemBackground)
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                Button(action: {
+                SettingsButton("Reset Yubikey") {
                     presentConfirmAlert.toggle()
-                }) {
-                    VStack {
-                        Text("Reset YubiKey")
-                            .bold()
-                    }
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
                 }
                 .disabled(keyHasBeenReset)
             }

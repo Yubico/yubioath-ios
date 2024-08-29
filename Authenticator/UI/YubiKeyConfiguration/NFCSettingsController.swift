@@ -54,6 +54,6 @@ class NFCSettingsController: UITableViewController {
      }
     
     deinit {
-        print("deinit ApplicationSettingsController")
+        print("deinit NFCSettingsController")
     }
 }

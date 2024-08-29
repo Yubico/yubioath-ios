@@ -15,8 +15,8 @@ struct ConfigurationView: View {
     let navigationBarAppearance = UINavigationBarAppearance()
 
     init(showConfiguration: Binding<Bool> ) {
-        navigationBarAppearance.shadowColor = .secondarySystemBackground
-        navigationBarAppearance.backgroundColor = .secondarySystemBackground
+        navigationBarAppearance.shadowColor = .systemGroupedBackground
+        navigationBarAppearance.backgroundColor = .systemGroupedBackground
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         _showConfiguration = showConfiguration
     }

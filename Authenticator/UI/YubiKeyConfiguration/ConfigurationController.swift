@@ -125,6 +125,12 @@ extension ConfigurationController {
         controller?.title = "Reset OATH"
         return controller
     }
+    
+    @IBSegueAction func showOATHPasswordView(_ coder: NSCoder) -> UIViewController? {
+        let controller = UIHostingController(coder: coder, rootView: OATHPasswordView())
+        controller?.title = "OATH password"
+        return controller
+    }
 }
 
 extension YKFManagementDeviceInfo {

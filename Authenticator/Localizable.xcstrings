@@ -322,6 +322,12 @@
         }
       }
     },
+    "Change password" : {
+
+    },
+    "Change the password for this YubiKey. %@" : {
+
+    },
     "Clear" : {
       "comment" : "Clear password alert button",
       "localizations" : {
@@ -475,6 +481,9 @@
         }
       }
     },
+    "Confirm OATH reset" : {
+
+    },
     "Continue with limited usability" : {
       "localizations" : {
         "fr" : {
@@ -524,6 +533,9 @@
           }
         }
       }
+    },
+    "Current password" : {
+
     },
     "Data to String conversion error" : {
       "localizations" : {
@@ -827,6 +839,7 @@
     },
     "Failed to reset YubiKey" : {
       "comment" : "Reset YubiKey failure alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -992,6 +1005,9 @@
         }
       }
     },
+    "Manage OATH passwords" : {
+
+    },
     "Menu" : {
       "localizations" : {
         "fr" : {
@@ -1041,6 +1057,9 @@
           }
         }
       }
+    },
+    "New Password" : {
+
     },
     "No account information found!" : {
       "comment" : "Scan QR code no account error message",
@@ -1260,6 +1279,9 @@
           }
         }
       }
+    },
+    "OATH passwords" : {
+
     },
     "Ok" : {
       "comment" : "Password alert",
@@ -1563,6 +1585,9 @@
         }
       }
     },
+    "Protect this YubiKey with a password." : {
+
+    },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
       "localizations" : {
@@ -1681,6 +1706,9 @@
         }
       }
     },
+    "Remove the password for this YubiKey." : {
+
+    },
     "Rename" : {
       "comment" : "Menu",
       "localizations" : {
@@ -1697,6 +1725,9 @@
           }
         }
       }
+    },
+    "Repeat new password" : {
+
     },
     "Reset" : {
       "comment" : "Reset YubiKey alert button",
@@ -1715,8 +1746,12 @@
         }
       }
     },
+    "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this." : {
+
+    },
     "Reset complete" : {
       "comment" : "Reset YubiKey complete alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1732,8 +1767,15 @@
         }
       }
     },
+    "Reset OATH" : {
+
+    },
+    "Reset OATH application" : {
+
+    },
     "Reset YubiKey?" : {
       "comment" : "Reset YubiKey alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1898,6 +1940,9 @@
           }
         }
       }
+    },
+    "Set password" : {
+
     },
     "Settings" : {
       "comment" : "PIV extension settings alert title",
@@ -2256,6 +2301,7 @@
     },
     "This will delete all accounts and restore factory defaults of your YubiKey." : {
       "comment" : "Reset YubiKey alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2638,6 +2684,9 @@
           }
         }
       }
+    },
+    "YubiKey has been reset" : {
+
     },
     "YubiKey information read" : {
       "comment" : "YubiKey info NFC read",
