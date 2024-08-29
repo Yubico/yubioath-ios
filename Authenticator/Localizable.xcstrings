@@ -872,6 +872,9 @@
         }
       }
     },
+    "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
+
+    },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
       "localizations" : {
@@ -1004,9 +1007,6 @@
           }
         }
       }
-    },
-    "Manage OATH passwords" : {
-
     },
     "Menu" : {
       "localizations" : {
@@ -1279,6 +1279,9 @@
           }
         }
       }
+    },
+    "OATH password protection" : {
+
     },
     "OATH passwords" : {
 

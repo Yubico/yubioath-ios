@@ -17,30 +17,18 @@ struct OATHResetView: View {
     @State var errorMessage: String? = nil
 
     var body: some View {
-        VStack {
-            VStack {
-                Image(systemName: "exclamationmark.triangle")
-                    .font(.system(size:50.0))
-                    .bold()
-                    .foregroundColor(.red)
-                    .accessibilityHidden(true)
-                    .padding(20)
-                Text(keyHasBeenReset ? "YubiKey has been reset" : "Reset OATH application").font(.headline)
-                Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
-                    .multilineTextAlignment(.center)
-                    .opacity(keyHasBeenReset ? 0.2 : 1.0)
-                SettingsButton("Reset Yubikey") {
-                    presentConfirmAlert.toggle()
-                }
-                .disabled(keyHasBeenReset)
+        SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
+            Text(keyHasBeenReset ? "YubiKey has been reset" : "Reset OATH application").font(.headline)
+            Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
+                .multilineTextAlignment(.center)
+                .opacity(keyHasBeenReset ? 0.2 : 1.0)
+        } buttons: {
+            SettingsButton("Reset Yubikey") {
+                presentConfirmAlert.toggle()
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-            .padding(20)
-            .navigationBarTitle(Text("Reset OATH"), displayMode: .inline)
-            Spacer()
+            .disabled(keyHasBeenReset)
         }
+        .navigationBarTitle(Text("Reset OATH"), displayMode: .inline)
         .alert("Confirm OATH reset", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()

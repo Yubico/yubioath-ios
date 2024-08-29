@@ -39,48 +39,29 @@ struct OATHPasswordView: View {
     }
 
     var body: some View {
-        VStack {
-            VStack(spacing: 0) {
-                VStack(spacing: 10) {
-                    Image(systemName: "key")
-                        .font(.system(size:50.0))
-                        .bold()
-                        .foregroundColor(Color(.yubiBlue))
-                        .rotationEffect(Angle(degrees: 90))
-                        .accessibilityHidden(true)
-                    Text("Manage OATH passwords").font(.headline)
-                    Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
-                        .font(.callout)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 30)
-                if showSetButton {
-                    SettingsButton("Set password") {
-                        presentSetPassword.toggle()
-                    }.disabled(areButtonsDisabled())
-                }
-                if showChangeButton {
-                    SettingsButton("Change password") {
-                        presentChangePassword.toggle()
-                    }.disabled(areButtonsDisabled())
-                }
-                if showRemoveButton {
-                    SettingsButton("Remove password") {
-                        presentRemovePassword.toggle()
-                    }.disabled(areButtonsDisabled())
-                }
+        SettingsView(image: Image(systemName: "key")) {
+            Text("OATH password protection").font(.headline)
+            Text("For additional security and to prevent unauthorized access the YubiKey can be password protected.")
+                .font(.callout)
+                .multilineTextAlignment(.center)
+        } buttons: {
+            if showSetButton {
+                SettingsButton("Set password") {
+                    presentSetPassword.toggle()
+                }.disabled(areButtonsDisabled())
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-            .padding(20)
-            .opacity(model.state.isError() ? 0.5 : 1.0)
-            Spacer()
+            if showChangeButton {
+                SettingsButton("Change password") {
+                    presentChangePassword.toggle()
+                }.disabled(areButtonsDisabled())
+            }
+            if showRemoveButton {
+                SettingsButton("Remove password") {
+                    presentRemovePassword.toggle()
+                }.disabled(areButtonsDisabled())
+            }
         }
-        .background(Color(.systemGroupedBackground))
         .navigationBarTitle(Text("OATH passwords"), displayMode: .inline)
-        
         .alert("Set password", isPresented: $presentSetPassword) {
             SecureField("Password", text: $newPassword)
             SecureField("Repeat new password", text: $repeatedPassword)
