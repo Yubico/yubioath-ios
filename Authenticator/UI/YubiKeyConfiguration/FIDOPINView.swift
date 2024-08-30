@@ -21,6 +21,7 @@ struct FIDOPINView: View {
     
     @State var showSetButton = true
     @State var showChangeButton = false
+    @State var pinComplexity = false
     
     @State var pin: String = ""
     @State var newPIN: String = ""
@@ -40,6 +41,9 @@ struct FIDOPINView: View {
         SettingsView(image: Image(systemName: "key")) {
             Text("FIDO PIN protection").font(.headline)
             Text("For additional security and to prevent unauthorized access the YubiKey can be protected by a PIN.")
+                .font(.callout)
+                .multilineTextAlignment(.center)
+            Text("\(pinComplexity ? "PIN has to be at least \(model.minPinLength) digits and should not be easily guessed" : "PIN has to be at least \(model.minPinLength) digits")")
                 .font(.callout)
                 .multilineTextAlignment(.center)
         } buttons: {
@@ -115,6 +119,11 @@ struct FIDOPINView: View {
                     presentErrorAlert = true
                     self.errorMessage = error.localizedDescription
                 }
+            }
+        }
+        .onChange(of: model.pincomplexity) { pinComplexity in
+            withAnimation {
+                self.pinComplexity = pinComplexity
             }
         }
         .onChange(of: model.invalidPIN) { invalidPassword in

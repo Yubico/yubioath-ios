@@ -19,6 +19,8 @@ class FIDOPINViewModel: ObservableObject {
     @Published var state: PINState = .unknown
     @Published var invalidPIN: Bool = false
     @Published var isProcessing: Bool = false
+    @Published var pincomplexity: Bool = false
+    @Published var minPinLength: UInt = 4
     
     enum PINState: Equatable {
         
@@ -53,7 +55,8 @@ class FIDOPINViewModel: ObservableObject {
 
     init() {
         connection.startConnection { connection in
-            connection.fido2Session { session, error in
+            
+            connection.managementSession { session, error in
                 guard let session else {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
                     DispatchQueue.main.async {
@@ -61,18 +64,40 @@ class FIDOPINViewModel: ObservableObject {
                     }
                     return
                 }
-                session.getInfoWithCompletion { response, error in
-                    DispatchQueue.main.async {
-                        defer { YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read") }
-                        guard let response else {
+                
+                session.getDeviceInfo { deviceInfo, error in
+                    guard let deviceInfo else {
+                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                        DispatchQueue.main.async {
                             self.state = .error(error!)
+                        }
+                        return
+                    }
+                    self.pincomplexity = deviceInfo.pinComplexity
+                    
+                    connection.fido2Session { session, error in
+                        guard let session else {
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                            DispatchQueue.main.async {
+                                self.state = .error(error!)
+                            }
                             return
                         }
-                        guard let pinIsSet = response.options?["clientPin"] as? Bool else {
-                            self.state = .unknown
-                            return
+                        session.getInfoWithCompletion { response, error in
+                            DispatchQueue.main.async {
+                                defer { YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read") }
+                                guard let response else {
+                                    self.state = .error(error!)
+                                    return
+                                }
+                                self.minPinLength = response.minPinLength
+                                guard let pinIsSet = response.options?["clientPin"] as? Bool else {
+                                    self.state = .unknown
+                                    return
+                                }
+                                self.state = pinIsSet ? .set : .notSet
+                            }
                         }
-                        self.state = pinIsSet ? .set : .notSet
                     }
                 }
             }
