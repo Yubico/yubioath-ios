@@ -109,6 +109,8 @@
 		B4BB02E02C80BEBD00B72904 /* OATHSavedPasswordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */; };
 		B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */; };
 		B4BB02E42C81B21D00B72904 /* FIDOPINView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */; };
+		B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E52C81C75D00B72904 /* FIDOResetViewModel.swift */; };
+		B4BB02E82C81C7A700B72904 /* FIDOResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E72C81C7A700B72904 /* FIDOResetView.swift */; };
 		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
@@ -272,6 +274,8 @@
 		B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSavedPasswordsView.swift; sourceTree = "<group>"; };
 		B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOPINViewModel.swift; sourceTree = "<group>"; };
 		B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOPINView.swift; sourceTree = "<group>"; };
+		B4BB02E52C81C75D00B72904 /* FIDOResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOResetViewModel.swift; sourceTree = "<group>"; };
+		B4BB02E72C81C7A700B72904 /* FIDOResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOResetView.swift; sourceTree = "<group>"; };
 		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 				B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */,
 				B44E5E802C74BE67007ABB79 /* OATHResetView.swift */,
 				B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */,
+				B4BB02E72C81C7A700B72904 /* FIDOResetView.swift */,
 			);
 			path = YubiKeyConfiguration;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */,
 				B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */,
 				B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */,
+				B4BB02E52C81C75D00B72904 /* FIDOResetViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -793,6 +799,7 @@
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */,
+				B4BB02E82C81C7A700B72904 /* FIDOResetView.swift in Sources */,
 				B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */,
 				B4DB228A299BC373003110ED /* OATHSession.swift in Sources */,
 				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
@@ -834,6 +841,7 @@
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
+				B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */,
 				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,

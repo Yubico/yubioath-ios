@@ -503,6 +503,9 @@
         }
       }
     },
+    "Confirm FIDO reset" : {
+
+    },
     "Confirm OATH reset" : {
 
     },
@@ -880,6 +883,12 @@
           }
         }
       }
+    },
+    "FIDO accounts deleted and FIDO application reset to factory defaults." : {
+      "comment" : "FIDO reset confirmation message"
+    },
+    "FIDO has been reset" : {
+
     },
     "FIDO PIN" : {
 
@@ -1800,6 +1809,9 @@
     "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this." : {
 
     },
+    "Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this." : {
+
+    },
     "Reset complete" : {
       "comment" : "Reset YubiKey complete alert title",
       "extractionState" : "stale",
@@ -1817,6 +1829,12 @@
           }
         }
       }
+    },
+    "Reset FIDO" : {
+
+    },
+    "Reset FIDO application" : {
+
     },
     "Reset OATH" : {
 

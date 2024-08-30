@@ -751,6 +751,9 @@ All rights reserved.</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vra-Ob-Qva" kind="show" destinationCreationSelector="showFIDOResetView:" id="Rze-2h-Rhl"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1390,12 +1393,23 @@ All rights reserved.</string>
         <scene sceneID="q35-YB-QmV">
             <objects>
                 <hostingController id="81V-0g-Iny" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="f8N-jP-3Yg"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="f8N-jP-3Yg"/>
                     <nil key="simulatedTopBarMetrics"/>
                 </hostingController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yIC-xi-Py4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2265" y="-1154"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="7ni-Tg-erZ">
+            <objects>
+                <hostingController id="vra-Ob-Qva" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="K8E-BA-kCe"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ztG-N1-Yl3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2938" y="-1155"/>
         </scene>
     </scenes>
     <color key="tintColor" name="YubiBlue"/>

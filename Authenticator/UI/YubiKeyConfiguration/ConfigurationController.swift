@@ -143,6 +143,12 @@ extension ConfigurationController {
         controller?.title = "FIDO PIN"
         return controller
     }
+    
+    @IBSegueAction func showFIDOResetView(_ coder: NSCoder) -> UIViewController? {
+        let controller = UIHostingController(coder: coder, rootView: FIDOResetView())
+        controller?.title = "Reset FIDO"
+        return controller
+    }
 }
 
 extension YKFManagementDeviceInfo {
