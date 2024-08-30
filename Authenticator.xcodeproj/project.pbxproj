@@ -107,6 +107,8 @@
 		B4BB02DC2C80A09500B72904 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02DB2C80A09500B72904 /* SettingsView.swift */; };
 		B4BB02DE2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */; };
 		B4BB02E02C80BEBD00B72904 /* OATHSavedPasswordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */; };
+		B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */; };
+		B4BB02E42C81B21D00B72904 /* FIDOPINView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */; };
 		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
@@ -268,6 +270,8 @@
 		B4BB02DB2C80A09500B72904 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSavedPasswordsViewModel.swift; sourceTree = "<group>"; };
 		B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSavedPasswordsView.swift; sourceTree = "<group>"; };
+		B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOPINViewModel.swift; sourceTree = "<group>"; };
+		B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOPINView.swift; sourceTree = "<group>"; };
 		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -324,15 +328,16 @@
 		513D4DF02660D5AB0022C53D /* YubiKeyConfiguration */ = {
 			isa = PBXGroup;
 			children = (
-				B44E5EBA2C778802007ABB79 /* OATHPasswordView.swift */,
 				B4C93E9029C0B70B00C2A8B8 /* ConfigurationWrapper.swift */,
 				513D4DF42660EBA40022C53D /* ConfigurationController.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
 				515542672654413600B19C59 /* SmartCardConfigurationController.swift */,
 				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */,
-				B44E5E802C74BE67007ABB79 /* OATHResetView.swift */,
+				B44E5EBA2C778802007ABB79 /* OATHPasswordView.swift */,
 				B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */,
+				B44E5E802C74BE67007ABB79 /* OATHResetView.swift */,
+				B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */,
 			);
 			path = YubiKeyConfiguration;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
 				B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */,
 				B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */,
+				B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 			files = (
 				B43751A42CA440E7004017A4 /* NFCSettingsController.swift in Sources */,
 				51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */,
+				B4BB02E42C81B21D00B72904 /* FIDOPINView.swift in Sources */,
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
@@ -828,6 +835,7 @@
 				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
+				B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */,
 				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,
 				51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */,
 				B4BB02DA2C809BE800B72904 /* NFCSettingsController.swift in Sources */,

@@ -137,6 +137,12 @@ extension ConfigurationController {
         controller?.title = "OATH saved password"
         return controller
     }
+    
+    @IBSegueAction func showFIDOPINView(_ coder: NSCoder) -> UIViewController? {
+        let controller = UIHostingController(coder: coder, rootView: FIDOPINView())
+        controller?.title = "FIDO PIN"
+        return controller
+    }
 }
 
 extension YKFManagementDeviceInfo {

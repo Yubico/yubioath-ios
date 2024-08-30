@@ -325,11 +325,18 @@
     "Change password" : {
 
     },
+    "Change PIN" : {
+
+    },
     "Change the password for this YubiKey. %@" : {
+
+    },
+    "Change the PIN for this YubiKey. %@" : {
 
     },
     "Clear" : {
       "comment" : "Clear password alert button",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -350,6 +357,7 @@
     },
     "Clear passwords saved on" : {
       "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -367,6 +375,7 @@
     },
     "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." : {
       "comment" : "Clear password alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -387,6 +396,7 @@
     },
     "Clear passwords?" : {
       "comment" : "Clear password alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -547,6 +557,9 @@
       }
     },
     "Current password" : {
+
+    },
+    "Current PIN" : {
 
     },
     "Data to String conversion error" : {
@@ -834,6 +847,7 @@
     },
     "Failed to clear passwords" : {
       "comment" : "Clear passwords failure alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -867,6 +881,12 @@
         }
       }
     },
+    "FIDO PIN" : {
+
+    },
+    "FIDO PIN protection" : {
+
+    },
     "Finished reading certificates" : {
       "comment" : "PIV extension NFC finished reading certs",
       "localizations" : {
@@ -885,6 +905,9 @@
       }
     },
     "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
+
+    },
+    "For additional security and to prevent unauthorized access the YubiKey can be protected by a PIN." : {
 
     },
     "Incorrect password. Re-enter password." : {
@@ -1071,6 +1094,9 @@
       }
     },
     "New Password" : {
+
+    },
+    "New PIN" : {
 
     },
     "No account information found!" : {
@@ -1550,6 +1576,9 @@
         }
       }
     },
+    "PIN" : {
+
+    },
     "Pinned" : {
       "localizations" : {
         "fr" : {
@@ -1601,6 +1630,9 @@
       }
     },
     "Protect this YubiKey with a password." : {
+
+    },
+    "Protect this YubiKey with a PIN code." : {
 
     },
     "Public key certificates on" : {
@@ -1706,6 +1738,7 @@
     },
     "Remove password for this YubiKey?" : {
       "comment" : "Remove password alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1742,6 +1775,9 @@
       }
     },
     "Repeat new password" : {
+
+    },
+    "Repeat new PIN" : {
 
     },
     "Reset" : {
@@ -1962,6 +1998,9 @@
     "Set password" : {
 
     },
+    "Set PIN" : {
+
+    },
     "Settings" : {
       "comment" : "PIV extension settings alert title",
       "localizations" : {
@@ -2065,6 +2104,7 @@
     },
     "Stored passwords have been cleared from this phone." : {
       "comment" : "Clear passwords confirmation alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2097,7 +2137,7 @@
       }
     },
     "Success" : {
-      "comment" : "Clear passwords confirmation alert title\niOS NFC alert default success message",
+      "comment" : "iOS NFC alert default success message",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2353,6 +2393,7 @@
     },
     "This will prompt for a password next time a password protected YubiKey is used" : {
       "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {

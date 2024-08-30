@@ -21,7 +21,6 @@ struct SettingsView<Image: View, Content: View, Buttons: View>: View {
                     if let image {
                         image
                             .font(.system(size:50.0))
-                            .bold()
                             .foregroundColor(Color(.yubiBlue))
                             .accessibilityHidden(true)
                     }

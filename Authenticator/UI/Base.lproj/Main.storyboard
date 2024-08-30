@@ -292,7 +292,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="266" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="265.66666793823242" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -731,6 +731,9 @@ All rights reserved.</string>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="81V-0g-Iny" kind="show" destinationCreationSelector="showFIDOPINView:" id="0K2-D0-a6g"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="959-Oi-fy1" style="IBUITableViewCellStyleDefault" id="yQs-Vz-gG7" userLabel="Reset FIDO application">
                                         <rect key="frame" x="16" y="809.33333778381348" width="343" height="44"/>
@@ -1072,7 +1075,7 @@ All rights reserved.</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="718"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="wGK-Gb-ggw">
-                            <rect key="frame" x="0.0" y="498" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="497.66666412353516" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -1381,7 +1384,18 @@ All rights reserved.</string>
                 </hostingController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2oL-Pa-dSv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2172" y="-1155"/>
+            <point key="canvasLocation" x="3748" y="-474"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="q35-YB-QmV">
+            <objects>
+                <hostingController id="81V-0g-Iny" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="f8N-jP-3Yg"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yIC-xi-Py4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2265" y="-1154"/>
         </scene>
     </scenes>
     <color key="tintColor" name="YubiBlue"/>
