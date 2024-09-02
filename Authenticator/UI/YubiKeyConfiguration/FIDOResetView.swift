@@ -18,23 +18,27 @@ import SwiftUI
 
 struct FIDOResetView: View {
     
+    @Environment(\.dismiss) private var dismiss
     @StateObject var model = FIDOResetViewModel()
+    
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
-    @State var keyHasBeenReset = false
+    @State var progress = 0.0
+    @State var messageText = "Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+    @State var enableResetButton = true
     @State var errorMessage: String? = nil
+    @State var opacity = 1.0
 
     var body: some View {
         SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text(keyHasBeenReset ? "FIDO has been reset" : "Reset FIDO application").font(.headline)
-            Text("Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
-                .multilineTextAlignment(.center)
-                .opacity(keyHasBeenReset ? 0.2 : 1.0)
+            Text("Reset FIDO application").font(.headline).opacity(opacity)
+            ProgressView(value: progress, total: 4.0).opacity(opacity)
+            Text(messageText).multilineTextAlignment(.center)
         } buttons: {
             SettingsButton("Reset Yubikey") {
                 presentConfirmAlert.toggle()
             }
-            .disabled(keyHasBeenReset)
+            .disabled(!enableResetButton)
         }
         .navigationBarTitle(Text("Reset FIDO"), displayMode: .inline)
         .alert("Confirm FIDO reset", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
@@ -50,7 +54,16 @@ struct FIDOResetView: View {
                 Text("Cancel")
             }
         })
-        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: { })
+        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+            Button(role: .cancel) {
+                errorMessage = nil
+                if model.state.isError() {
+                    dismiss()
+                }
+            } label: {
+                Text("OK")
+            }
+        })        
         .onChange(of: model.state) { _ in
             updateState()
         }
@@ -63,10 +76,27 @@ struct FIDOResetView: View {
         withAnimation {
             switch model.state {
             case .ready:
-                self.keyHasBeenReset = false
+                self.enableResetButton = true
+                self.messageText = "Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+            case .waitingForKeyRemove:
+                self.enableResetButton = false
+                self.progress = 1.0
+                self.messageText = "Remove your YubiKey to proceed."
+            case .waitingForKeyReinsert:
+                self.enableResetButton = false
+                self.progress = 2.0
+                self.messageText = "Re-insert your Yubikey."
+            case .waitingForKeyTouch:
+                self.progress = 3.0
+                self.enableResetButton = false
+                self.messageText = "Touch YubiKey to finish resetting the FIDO application."
             case .success:
-                self.keyHasBeenReset = true
+                self.progress = 4.0
+                self.opacity = 0.5
+                self.enableResetButton = false
+                self.messageText = "Your Yubikey has been reset to factory defaults."
             case .error(let error):
+                self.enableResetButton = true
                 self.presentErrorAlert = true
                 self.errorMessage = error.localizedDescription
             }

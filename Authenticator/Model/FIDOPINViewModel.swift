@@ -16,12 +16,14 @@
 
 enum FidoViewModelError: Error, LocalizedError {
     
-    case usbNotSupported
+    case usbNotSupported, timeout
     
     public var errorDescription: String? {
         switch self {
         case .usbNotSupported:
             return "Fido over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
+        case .timeout:
+            return "Operation timed out."
         }
     }
 }
