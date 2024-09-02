@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
+enum FidoViewModelError: Error, LocalizedError {
+    
+    case usbNotSupported
+    
+    public var errorDescription: String? {
+        switch self {
+        case .usbNotSupported:
+            return "Fido over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
+        }
+    }
+}
+
 class FIDOPINViewModel: ObservableObject {
     
     @Published var state: PINState = .unknown
@@ -55,7 +67,10 @@ class FIDOPINViewModel: ObservableObject {
 
     init() {
         connection.startConnection { connection in
-            
+            guard connection as? YKFSmartCardConnection == nil else {
+                self.state = .error(FidoViewModelError.usbNotSupported)
+                return
+            }
             connection.managementSession { session, error in
                 guard let session else {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
@@ -64,7 +79,6 @@ class FIDOPINViewModel: ObservableObject {
                     }
                     return
                 }
-                
                 session.getDeviceInfo { deviceInfo, error in
                     guard let deviceInfo else {
                         YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
@@ -74,7 +88,6 @@ class FIDOPINViewModel: ObservableObject {
                         return
                     }
                     self.pincomplexity = deviceInfo.pinComplexity
-                    
                     connection.fido2Session { session, error in
                         guard let session else {
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)

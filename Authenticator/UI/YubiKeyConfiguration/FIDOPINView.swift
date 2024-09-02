@@ -104,22 +104,10 @@ struct FIDOPINView: View {
             }
         })
         .onChange(of: model.state) { state in
-            withAnimation {
-                switch state {
-                case .unknown:
-                    self.showSetButton = true
-                    self.showChangeButton = false
-                case .notSet:
-                    self.showSetButton = true
-                    self.showChangeButton = false
-                case .set:
-                    self.showSetButton = false
-                    self.showChangeButton = true
-                case .error(let error):
-                    presentErrorAlert = true
-                    self.errorMessage = error.localizedDescription
-                }
-            }
+            updateState()
+        }
+        .onAppear {
+            updateState()
         }
         .onChange(of: model.pincomplexity) { pinComplexity in
             withAnimation {
@@ -130,6 +118,25 @@ struct FIDOPINView: View {
             if invalidPassword {
                 self.errorMessage = "Wrong PIN"
                 self.presentErrorAlert = true
+            }
+        }
+    }
+    
+    func updateState() {
+        withAnimation {
+            switch model.state {
+            case .unknown:
+                self.showSetButton = true
+                self.showChangeButton = false
+            case .notSet:
+                self.showSetButton = true
+                self.showChangeButton = false
+            case .set:
+                self.showSetButton = false
+                self.showChangeButton = true
+            case .error(let error):
+                presentErrorAlert = true
+                self.errorMessage = error.localizedDescription
             }
         }
     }

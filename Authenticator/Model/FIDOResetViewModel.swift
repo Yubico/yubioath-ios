@@ -21,13 +21,30 @@ class FIDOResetViewModel: ObservableObject {
     @Published var state: ResetState = .ready
     
     enum ResetState: Equatable {
-        case ready, success, error(String)
+        case ready, success, error(Error)
+        
+        static func == (lhs: FIDOResetViewModel.ResetState, rhs: FIDOResetViewModel.ResetState) -> Bool {
+            switch (lhs, rhs) {
+            case (.ready, .ready):
+                return true
+            case (.success, .success):
+                return true
+            case (.error(_), .error(_)):
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     private let connection = Connection()
 
     func reset() {
         connection.startConnection { connection in
+            guard connection as? YKFSmartCardConnection == nil else {
+                self.state = .error(FidoViewModelError.usbNotSupported)
+                return
+            }
             connection.fido2Session { session, error in
                 guard let session = session else {
                     let errorMessage = error?.localizedDescription ?? "Unknown error"

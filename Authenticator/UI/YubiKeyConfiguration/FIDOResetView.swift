@@ -51,17 +51,24 @@ struct FIDOResetView: View {
             }
         })
         .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: { })
-        .onChange(of: model.state) { state in
-            withAnimation {
-                switch state {
-                case .ready:
-                    self.keyHasBeenReset = false
-                case .success:
-                    self.keyHasBeenReset = true
-                case .error(let message):
-                    self.presentErrorAlert = true
-                    self.errorMessage = message
-                }
+        .onChange(of: model.state) { _ in
+            updateState()
+        }
+        .onAppear() {
+            updateState()
+        }
+    }
+    
+    func updateState() {
+        withAnimation {
+            switch model.state {
+            case .ready:
+                self.keyHasBeenReset = false
+            case .success:
+                self.keyHasBeenReset = true
+            case .error(let error):
+                self.presentErrorAlert = true
+                self.errorMessage = error.localizedDescription
             }
         }
     }
