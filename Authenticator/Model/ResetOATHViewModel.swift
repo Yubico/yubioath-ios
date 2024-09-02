@@ -32,17 +32,21 @@ class ResetOATHViewModel: ObservableObject {
                 guard let session = session else {
                     let errorMessage = error?.localizedDescription ?? "Unknown error"
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: errorMessage)
-                    self.state = .error(errorMessage)
+                    DispatchQueue.main.async {
+                        self.state = .error(errorMessage)
+                    }
                     return
                 }
                 session.reset { error in
-                    if let error = error {
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                        self.state = .error(error.localizedDescription)
-                    } else {
-                        let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
-                        YubiKitManager.shared.stopNFCConnection(withMessage: message)
-                        self.state = .success
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                            self.state = .error(error.localizedDescription)
+                        } else {
+                            let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: message)
+                            self.state = .success
+                        }
                     }
                 }
             }

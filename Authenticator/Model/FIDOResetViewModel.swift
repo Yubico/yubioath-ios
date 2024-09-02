@@ -42,24 +42,30 @@ class FIDOResetViewModel: ObservableObject {
     func reset() {
         connection.startConnection { connection in
             guard connection as? YKFSmartCardConnection == nil else {
-                self.state = .error(FidoViewModelError.usbNotSupported)
+                DispatchQueue.main.async {
+                    self.state = .error(FidoViewModelError.usbNotSupported)
+                }
                 return
             }
             connection.fido2Session { session, error in
                 guard let session = session else {
                     let errorMessage = error?.localizedDescription ?? "Unknown error"
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: errorMessage)
-                    self.state = .error(errorMessage)
+                    DispatchQueue.main.async {
+                        self.state = .error(errorMessage)
+                    }
                     return
                 }
                 session.reset { error in
-                    if let error = error {
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                        self.state = .error(error.localizedDescription)
-                    } else {
-                        let message = String(localized: "FIDO accounts deleted and FIDO application reset to factory defaults.", comment: "FIDO reset confirmation message")
-                        YubiKitManager.shared.stopNFCConnection(withMessage: message)
-                        self.state = .success
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                            self.state = .error(error.localizedDescription)
+                        } else {
+                            let message = String(localized: "FIDO accounts deleted and FIDO application reset to factory defaults.", comment: "FIDO reset confirmation message")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: message)
+                            self.state = .success
+                        }
                     }
                 }
             }
