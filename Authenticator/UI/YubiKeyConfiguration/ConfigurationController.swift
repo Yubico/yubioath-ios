@@ -44,7 +44,35 @@ class ConfigurationController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        // Hide FIDO section on iPad
+        if section == 3 && UIDevice.current.userInterfaceIdiom == .pad {
+            return 0.1
+        } else {
+            return super.tableView(tableView, heightForHeaderInSection: section)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Hide FIDO section on iPad
+        if section == 3 && UIDevice.current.userInterfaceIdiom == .pad {
+            return 0
+        } else {
+            return super.tableView(tableView, numberOfRowsInSection: section)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // Hide FIDO section on iPad
+        if section == 3 && UIDevice.current.userInterfaceIdiom == .pad {
+            return ""
+        } else {
+            return super.tableView(tableView, titleForHeaderInSection: section)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Hide toogle otp on iPad
         if !YubiKitDeviceCapabilities.supportsISO7816NFCTags && indexPath.section == 1 && indexPath.row == 2 {
             return 0
         } else {
