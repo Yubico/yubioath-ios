@@ -506,9 +506,6 @@
         }
       }
     },
-    "Confirm FIDO reset" : {
-
-    },
     "Confirm OATH reset" : {
 
     },
@@ -887,13 +884,16 @@
         }
       }
     },
-    "FIDO accounts deleted and FIDO application reset to factory defaults." : {
-      "comment" : "FIDO reset confirmation message"
+    "FIDO factory reset" : {
+
     },
     "FIDO PIN" : {
 
     },
     "FIDO PIN protection" : {
+
+    },
+    "FIDO reset" : {
 
     },
     "Finished reading certificates" : {
@@ -1827,11 +1827,8 @@
         }
       }
     },
-    "Reset FIDO" : {
-
-    },
     "Reset FIDO application" : {
-
+      "comment" : "FIDO reset NFC confirmation message"
     },
     "Reset OATH" : {
 
@@ -2390,6 +2387,9 @@
         }
       }
     },
+    "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey." : {
+
+    },
     "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
       "localizations" : {
         "fr" : {
@@ -2574,6 +2574,9 @@
           }
         }
       }
+    },
+    "Warning!" : {
+
     },
     "what's new" : {
       "comment" : "Substring in \"See what's new in this version\"",

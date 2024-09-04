@@ -40,10 +40,10 @@ struct FIDOPINView: View {
     var body: some View {
         SettingsView(image: Image(systemName: "key")) {
             Text("FIDO PIN protection").font(.headline)
-            Text("For additional security and to prevent unauthorized access the YubiKey can be protected by a PIN.")
+            Text("For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN.")
                 .font(.callout)
                 .multilineTextAlignment(.center)
-            Text("\(pinComplexity ? "PIN has to be at least \(model.minPinLength) digits and should not be easily guessed" : "PIN has to be at least \(model.minPinLength) digits")")
+            Text("\(pinComplexity ? "A PIN has to be at least \(model.minPinLength) digits and should not be easily guessed" : "PIN has to be at least \(model.minPinLength) digits")")
                 .font(.callout)
                 .multilineTextAlignment(.center)
         } buttons: {

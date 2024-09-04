@@ -102,7 +102,7 @@ extension FIDOResetViewModel {
                         YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         self.state = .error(error)
                     } else {
-                        let message = String(localized: "FIDO accounts deleted and FIDO application reset to factory defaults.", comment: "FIDO reset confirmation message")
+                        let message = String(localized: "Reset FIDO application", comment: "FIDO reset NFC confirmation message")
                         YubiKitManager.shared.stopNFCConnection(withMessage: message)
                         self.state = .success
                     }
@@ -163,6 +163,7 @@ extension FIDOResetViewModel {
                             self.state = .waitingForKeyTouch
                         }
                         session?.reset { error in
+                            cancellation.cancel()
                             DispatchQueue.main.async {
                                 self.state = .success
                             }

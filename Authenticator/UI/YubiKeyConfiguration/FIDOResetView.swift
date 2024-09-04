@@ -16,6 +16,8 @@
 
 import SwiftUI
 
+fileprivate let resetMessageText = "Your credentials, as well as any PIN set, will be removed from this YubiKey. Make sure to first disable these from their respective web sites to avoid being locked out of your accounts."
+
 struct FIDOResetView: View {
     
     @Environment(\.dismiss) private var dismiss
@@ -24,24 +26,24 @@ struct FIDOResetView: View {
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
     @State var progress = 0.0
-    @State var messageText = "Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+    @State var messageText = resetMessageText
     @State var enableResetButton = true
     @State var errorMessage: String? = nil
     @State var opacity = 1.0
 
     var body: some View {
         SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text("Reset FIDO application").font(.headline).opacity(opacity)
+            Text("FIDO factory reset").font(.headline).opacity(opacity)
             ProgressView(value: progress, total: 4.0).opacity(opacity)
             Text(messageText).multilineTextAlignment(.center)
         } buttons: {
-            SettingsButton("Reset Yubikey") {
+            SettingsButton("Reset FIDO") {
                 presentConfirmAlert.toggle()
             }
             .disabled(!enableResetButton)
         }
-        .navigationBarTitle(Text("Reset FIDO"), displayMode: .inline)
-        .alert("Confirm FIDO reset", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
+        .navigationBarTitle(Text("FIDO reset"), displayMode: .inline)
+        .alert("Warning!", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()
                 model.reset()
@@ -53,6 +55,8 @@ struct FIDOResetView: View {
             } label: {
                 Text("Cancel")
             }
+        }, message: { _ in
+            Text("This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey.")
         })
         .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
             Button(role: .cancel) {
@@ -77,24 +81,24 @@ struct FIDOResetView: View {
             switch model.state {
             case .ready:
                 self.enableResetButton = true
-                self.messageText = "Reset all FIDO accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+                self.messageText = resetMessageText
             case .waitingForKeyRemove:
                 self.enableResetButton = false
                 self.progress = 1.0
-                self.messageText = "Remove your YubiKey to proceed."
+                self.messageText = "Unplug your YubiKey."
             case .waitingForKeyReinsert:
                 self.enableResetButton = false
                 self.progress = 2.0
-                self.messageText = "Re-insert your Yubikey."
+                self.messageText = "Reinsert your Yubikey."
             case .waitingForKeyTouch:
                 self.progress = 3.0
                 self.enableResetButton = false
-                self.messageText = "Touch YubiKey to finish resetting the FIDO application."
+                self.messageText = "Touch the button on the YubiKey now."
             case .success:
                 self.progress = 4.0
                 self.opacity = 0.5
                 self.enableResetButton = false
-                self.messageText = "Your Yubikey has been reset to factory defaults."
+                self.messageText = "The FIDO application of your Yubikey has been reset to factory defaults."
             case .error(let error):
                 self.enableResetButton = true
                 self.presentErrorAlert = true
