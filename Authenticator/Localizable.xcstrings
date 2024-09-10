@@ -334,9 +334,6 @@
     "Change the password for this YubiKey. %@" : {
 
     },
-    "Change the PIN for this YubiKey. %@" : {
-
-    },
     "Clear" : {
       "comment" : "Clear password alert button",
       "extractionState" : "stale",
@@ -714,6 +711,9 @@
         }
       }
     },
+    "enter current PIN" : {
+
+    },
     "Enter manually" : {
       "comment" : "Scan QR code add manually button",
       "localizations" : {
@@ -747,6 +747,9 @@
           }
         }
       }
+    },
+    "enter PIN" : {
+
     },
     "Enter the PIN to access the certificate." : {
       "comment" : "PIV extension enter PIN message",
@@ -913,10 +916,10 @@
         }
       }
     },
-    "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
+    "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
 
     },
-    "For additional security and to prevent unauthorized access the YubiKey can be protected by a PIN." : {
+    "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
 
     },
     "Incorrect password. Re-enter password." : {
@@ -1085,6 +1088,9 @@
         }
       }
     },
+    "New" : {
+
+    },
     "New OTP configuration saved" : {
       "comment" : "Settings OTP configuration saved",
       "localizations" : {
@@ -1103,9 +1109,6 @@
       }
     },
     "New Password" : {
-
-    },
-    "New PIN" : {
 
     },
     "No account information found!" : {
@@ -1585,7 +1588,10 @@
         }
       }
     },
-    "PIN" : {
+    "PIN is permanently blocked. Factory reset FIDO application to continue." : {
+
+    },
+    "PIN is temporary blocked. Remove and reinsert YubiKey to try again." : {
 
     },
     "Pinned" : {
@@ -1641,9 +1647,6 @@
     "Protect this YubiKey with a password." : {
 
     },
-    "Protect this YubiKey with a PIN code." : {
-
-    },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
       "localizations" : {
@@ -1660,6 +1663,9 @@
           }
         }
       }
+    },
+    "re-enter PIN" : {
+
     },
     "Read more..." : {
       "comment" : "PIV extension read more alert title",
@@ -1784,9 +1790,6 @@
       }
     },
     "Repeat new password" : {
-
-    },
-    "Repeat new PIN" : {
 
     },
     "Reset" : {
@@ -2006,6 +2009,9 @@
           }
         }
       }
+    },
+    "Set" : {
+
     },
     "Set password" : {
 
@@ -2557,6 +2563,9 @@
           }
         }
       }
+    },
+    "Verify" : {
+
     },
     "Version history" : {
       "comment" : "Version history navigation title",

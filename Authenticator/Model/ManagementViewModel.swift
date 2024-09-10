@@ -42,7 +42,7 @@ class ManagementViewModel {
     
     let connection = Connection()
 
-    func didDisconnect(completion: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
+    func didDisconnect(completion: @escaping (_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void) {
         connection.didDisconnect(handler: completion)
     }
     

@@ -38,7 +38,7 @@ class Connection: NSObject {
     private var accessoryConnection: YKFAccessoryConnection?
     
     private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
-    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol, _ error: Error?) -> Void)?
+    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void)?
     
     private var accessoryConnectionCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
     private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
@@ -93,7 +93,7 @@ class Connection: NSObject {
         }
     }
     
-    func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
+    func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void) {
         disconnectionCallback = handler
     }
 }
@@ -117,7 +117,12 @@ extension Connection: YKFManagerDelegate {
         disconnectionCallback = nil
     }
     
-    func didFailConnectingNFC(_ error: Error) {}
+    func didFailConnectingNFC(_ error: Error) {
+        nfcConnectionCallback = nil
+        connectionCallback = nil
+        disconnectionCallback?(nil, error)
+        disconnectionCallback = nil
+    }
     
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
         accessoryConnection = connection

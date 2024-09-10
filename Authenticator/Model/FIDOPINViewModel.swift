@@ -16,7 +16,7 @@
 
 enum FidoViewModelError: Error, LocalizedError {
     
-    case usbNotSupported, timeout
+    case usbNotSupported, timeout, locked
     
     public var errorDescription: String? {
         switch self {
@@ -24,6 +24,8 @@ enum FidoViewModelError: Error, LocalizedError {
             return "Fido over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
         case .timeout:
             return "Operation timed out."
+        case .locked:
+            return "PIN is permanently blocked. Factory reset FIDO application to continue."
         }
     }
 }
@@ -38,7 +40,7 @@ class FIDOPINViewModel: ObservableObject {
     
     enum PINState: Equatable {
         
-        case unknown, notSet, set, error(Error)
+        case unknown, notSet, set, error(Error), keyRemoved, didSet, didChange
         
         static func == (lhs: FIDOPINViewModel.PINState, rhs: FIDOPINViewModel.PINState) -> Bool {
             switch (lhs, rhs) {
@@ -50,15 +52,45 @@ class FIDOPINViewModel: ObservableObject {
                 return true
             case (.error(_), .error(_)):
                 return true
+            case (.keyRemoved, .keyRemoved):
+                return true
+            case (.didSet, .didSet):
+                return true
+            case (.didChange, .didChange):
+                return true
             default:
                 return false
             }
         }
         
-        func isError() -> Bool {
+        func isBlocked() -> Bool {
+            isFIDOErrorOfType(.PIN_AUTH_BLOCKED)
+        }
+        
+        func isPermanentlyBlocked() -> Bool {
+            isFIDOErrorOfType(.PIN_BLOCKED)
+        }
+        
+        func isFatalError() -> Bool {
+            isError() && !isFIDOErrorOfType(.PIN_AUTH_INVALID) && !isFIDOErrorOfType(.PIN_INVALID)
+        }
+        
+        private func isError() -> Bool {
             switch self {
-            case (.error(_)):
+            case .error(_):
                 return true
+            default:
+                return false
+            }
+        }
+        
+        private func isFIDOErrorOfType(_ errorType: YKFFIDO2ErrorCode) -> Bool {
+            switch self {
+            case (.error(let error)):
+                if let fidoError = error as? YKFFIDO2Error, UInt(fidoError.code) == errorType.rawValue {
+                    return true
+                }
+                return false
             default:
                 return false
             }
@@ -66,11 +98,13 @@ class FIDOPINViewModel: ObservableObject {
     }
     
     private let connection = Connection()
-
+    
     init() {
         connection.startConnection { connection in
             guard connection as? YKFSmartCardConnection == nil else {
-                self.state = .error(FidoViewModelError.usbNotSupported)
+                DispatchQueue.main.async {
+                    self.state = .error(FidoViewModelError.usbNotSupported)
+                }
                 return
             }
             connection.managementSession { session, error in
@@ -99,28 +133,63 @@ class FIDOPINViewModel: ObservableObject {
                             return
                         }
                         session.getInfoWithCompletion { response, error in
-                            DispatchQueue.main.async {
-                                defer { YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read") }
-                                guard let response else {
+                            guard let response else {
+                                DispatchQueue.main.async {
                                     self.state = .error(error!)
-                                    return
                                 }
+                                return
+                            }
+                            DispatchQueue.main.async {
                                 self.minPinLength = response.minPinLength
-                                guard let pinIsSet = response.options?["clientPin"] as? Bool else {
+                            }
+                            guard let pinIsSet = response.options?["clientPin"] as? Bool else {
+                                DispatchQueue.main.async {
                                     self.state = .unknown
-                                    return
                                 }
-                                self.state = pinIsSet ? .set : .notSet
+                                return
+                            }
+                            if !pinIsSet {
+                                DispatchQueue.main.async {
+                                    self.state = .notSet
+                                    YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read")
+                                }
+                            } else {
+                                session.getPinRetries { retries, error in
+                                    if let error {
+                                        DispatchQueue.main.async {
+                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                                            self.state = .error(error)
+                                        }
+                                        return
+                                    }
+                                    DispatchQueue.main.async {
+                                        if retries <= 0 {
+                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: FidoViewModelError.locked.localizedDescription)
+                                            self.state = .error(FidoViewModelError.locked)
+                                        } else {
+                                            YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read")
+                                            self.state = .set
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        
+        connection.didDisconnect { connection, error in
+            if connection as? YKFNFCConnection != nil && error == nil { return }
+            DispatchQueue.main.async {
+                self.state = .keyRemoved
+            }
+        }
     }
     
     func setPIN(_ pin: String) {
         self.isProcessing = true
+        self.state = .unknown
         connection.startConnection { connection in
             connection.fido2Session { session, error in
                 guard let session else {
@@ -137,7 +206,7 @@ class FIDOPINViewModel: ObservableObject {
                             self.state = .error(error)
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
-                            self.state = .set
+                            self.state = .didSet
                             YubiKitManager.shared.stopNFCConnection(withMessage: "PIN has been set")
                         }
                         self.isProcessing = false
@@ -148,8 +217,8 @@ class FIDOPINViewModel: ObservableObject {
     }
     
     func changePIN(old oldPIN: String, new newPIN: String) {
-        self.invalidPIN = false
         self.isProcessing = true
+        self.state = .unknown
         connection.startConnection { connection in
             connection.fido2Session { session, error in
                 guard let session else {
@@ -166,7 +235,7 @@ class FIDOPINViewModel: ObservableObject {
                             self.state = .error(error)
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
-                            self.state = .set
+                            self.state = .didChange
                             YubiKitManager.shared.stopNFCConnection(withMessage: "PIN has been changed")
                         }
                         self.isProcessing = false
