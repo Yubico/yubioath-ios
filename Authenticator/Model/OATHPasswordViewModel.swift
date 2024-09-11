@@ -14,15 +14,30 @@
  * limitations under the License.
  */
 
+
+enum OATHViewModelError: Error, LocalizedError {
+    
+    case wrongPassword, passwordsDoNotMatch
+    
+    public var errorDescription: String? {
+        switch self {
+        case .wrongPassword:
+            return "Wrong password"
+        case .passwordsDoNotMatch:
+            return "Passwords don't match"
+        }
+    }
+}
+
 class OATHPasswordViewModel: ObservableObject {
     
+    private let connection = Connection()
     @Published var state: PasswordState = .unknown
-    @Published var invalidPassword: Bool = false
     @Published var isProcessing: Bool = false
     
     enum PasswordState: Equatable {
         
-        case unknown, notSet, set, error(Error)
+        case unknown, notSet, set, error(Error), keyRemoved, didSet, didChange, didRemove
         
         static func == (lhs: OATHPasswordViewModel.PasswordState, rhs: OATHPasswordViewModel.PasswordState) -> Bool {
             switch (lhs, rhs) {
@@ -33,6 +48,14 @@ class OATHPasswordViewModel: ObservableObject {
             case (.set, .set):
                 return true
             case (.error(_), .error(_)):
+                return true
+            case (.keyRemoved, .keyRemoved):
+                return true
+            case (.didSet, .didSet):
+                return true
+            case (.didChange, .didChange):
+                return true
+            case (.didRemove, .didRemove):
                 return true
             default:
                 return false
@@ -47,10 +70,23 @@ class OATHPasswordViewModel: ObservableObject {
                 return false
             }
         }
+
+        func isFatalError() -> Bool {
+            switch self {
+            case (.error(let error)):
+                if let modelError = error as? OATHViewModelError, modelError == .wrongPassword {
+                    return false
+                }
+                if let modelError = error as? OATHViewModelError, modelError == .passwordsDoNotMatch {
+                    return false
+                }
+                return true
+            default:
+                return false
+            }
+        }
     }
     
-    private let connection = Connection()
-
     init() {
         connection.startConnection { connection in
             connection.oathSession { session, error in
@@ -77,10 +113,22 @@ class OATHPasswordViewModel: ObservableObject {
                 }
             }
         }
+        
+        connection.didDisconnect { connection, error in
+            if connection as? YKFNFCConnection != nil && error == nil { return }
+            DispatchQueue.main.async {
+                self.state = .keyRemoved
+            }
+        }
     }
     
-    func setPassword(_ password: String) {
+    func setPassword(_ newPassword: String, repeated repeatedPassword: String) {
         self.isProcessing = true
+        self.state = .unknown
+        guard newPassword == repeatedPassword else {
+            self.state = .error(OATHViewModelError.passwordsDoNotMatch)
+            return
+        }
         connection.startConnection { connection in
             connection.oathSession { session, error in
                 guard let session else {
@@ -91,13 +139,13 @@ class OATHPasswordViewModel: ObservableObject {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
                     return
                 }
-                session.setPassword(password) { error in
+                session.setPassword(newPassword) { error in
                     DispatchQueue.main.async {
                         if let error {
                             self.state = .error(error)
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
-                            self.state = .set
+                            self.state = .didSet
                             YubiKitManager.shared.stopNFCConnection(withMessage: "Password has been set")
                         }
                         self.isProcessing = false
@@ -107,9 +155,13 @@ class OATHPasswordViewModel: ObservableObject {
         }
     }
     
-    func changePassword(old oldPassword: String, new newPassword: String?) {
-        self.invalidPassword = false
+    func changePassword(old oldPassword: String, new newPassword: String?, repeated repeatedPassword: String?) {
         self.isProcessing = true
+        self.state = .unknown
+        guard newPassword == repeatedPassword else {
+            self.state = .error(OATHViewModelError.passwordsDoNotMatch)
+            return
+        }
         connection.startConnection { connection in
             connection.oathSession { session, error in
                 guard let session else {
@@ -123,8 +175,8 @@ class OATHPasswordViewModel: ObservableObject {
                 session.unlock(withPassword: oldPassword) { error in
                     if let error {
                         DispatchQueue.main.async {
-                            if error.isInvalidPasswordError {
-                                self.invalidPassword = true
+                            if let oathError = error as? YKFOATHError, UInt(oathError.code) == YKFOATHErrorCode.wrongPassword.rawValue {
+                                self.state = .error(OATHViewModelError.wrongPassword)
                             } else {
                                 self.state = .error(error)
                             }
@@ -139,7 +191,7 @@ class OATHPasswordViewModel: ObservableObject {
                                 self.state = .error(error)
                                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                             } else {
-                                self.state = newPassword != nil ? .set : .notSet
+                                self.state = newPassword != nil ? .didSet : .notSet
                                 YubiKitManager.shared.stopNFCConnection(withMessage: newPassword != nil ? "Password has been changed" : "Password has been removed")
                             }
                             self.isProcessing = false
@@ -151,16 +203,6 @@ class OATHPasswordViewModel: ObservableObject {
     }
 
     func removePassword(current: String) {
-        changePassword(old: current, new: nil)
-    }
-}
-
-extension Error {
-    var isInvalidPasswordError: Bool {
-        if let oathError = self as? YKFOATHError, oathError.code == YKFOATHErrorCode.wrongPassword.rawValue {
-            return true
-        } else {
-            return false
-        }
+        changePassword(old: current, new: nil, repeated: nil)
     }
 }

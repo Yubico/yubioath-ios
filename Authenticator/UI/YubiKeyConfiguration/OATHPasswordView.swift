@@ -18,24 +18,15 @@ struct OATHPasswordView: View {
     @State var presentChangePassword = false
     @State var presentRemovePassword = false
     @State var presentErrorAlert = false
-    @State var errorMessage: String? = nil
+    
+    @State var error: Error? = nil
     
     @State var showSetButton = true
     @State var showChangeButton = false
     @State var showRemoveButton = false
     
-    @State var password: String = ""
-    @State var newPassword: String = ""
-    @State var repeatedPassword: String = ""
-    
     func areButtonsDisabled() -> Bool {
         model.state == .unknown || model.state.isError() || model.isProcessing
-    }
-    
-    func clearPasswords() {
-        password = ""
-        newPassword = ""
-        repeatedPassword = ""
     }
 
     var body: some View {
@@ -62,54 +53,18 @@ struct OATHPasswordView: View {
             }
         }
         .navigationBarTitle(Text("OATH passwords"), displayMode: .inline)
-        .alert("Set password", isPresented: $presentSetPassword) {
-            SecureField("Password", text: $newPassword)
-            SecureField("Repeat new password", text: $repeatedPassword)
-            Button("OK") {
-                guard newPassword == repeatedPassword else {
-                    errorMessage = "Passwords do not match"
-                    presentErrorAlert = true
-                    clearPasswords()
-                    return
-                }
-                model.setPassword(newPassword)
-                clearPasswords()
-            }
-        } message: {
-            Text("Protect this YubiKey with a password.")
+        .sheet(isPresented: $presentSetPassword) {
+            OATHSetChangePasswordView(type: .set)
         }
-        .alert("Change password", isPresented: $presentChangePassword) {
-            SecureField("Current password", text: $password)
-            SecureField("New Password", text: $newPassword)
-            SecureField("Repeat new password", text: $repeatedPassword)
-            Button("OK") {
-                guard newPassword == repeatedPassword else {
-                    errorMessage = "New passwords do not match"
-                    presentErrorAlert = true
-                    clearPasswords()
-                    return
-                }
-                model.changePassword(old: password, new: newPassword)
-                clearPasswords()
-            }
-            Button("Cancel", role: .cancel, action: { clearPasswords() })
-        } message: {
-            Text("Change the password for this YubiKey. \(newPassword)")
+        .sheet(isPresented: $presentChangePassword) {
+            OATHSetChangePasswordView(type: .change)
         }
-        .alert("Remove password", isPresented: $presentRemovePassword) {
-            SecureField("Current password", text: $password)
-            Button("OK", role: .destructive) {
-                model.removePassword(current: password)
-                clearPasswords()
-                presentRemovePassword.toggle()
-            }
-            Button("Cancel", role: .cancel, action: { clearPasswords() })
-        } message: {
-            Text("Remove the password for this YubiKey.")
+        .sheet(isPresented: $presentRemovePassword) {
+            OATHSetChangePasswordView(type: .remove)
         }
-        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+        .alert(error?.localizedDescription ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
             Button(role: .cancel) {
-                errorMessage = nil
+                error = nil
                 if model.state.isError() {
                     dismiss()
                 }
@@ -124,25 +79,173 @@ struct OATHPasswordView: View {
                     self.showSetButton = true
                     self.showChangeButton = false
                     self.showRemoveButton = false
-                case .notSet:
+                case .notSet, .didRemove:
                     self.showSetButton = true
                     self.showChangeButton = false
                     self.showRemoveButton = false
-                case .set:
+                case .set, .didSet, .didChange:
                     self.showSetButton = false
                     self.showChangeButton = true
                     self.showRemoveButton = true
                 case .error(let error):
+                    guard presentSetPassword == false
+                            && presentChangePassword == false
+                            && presentRemovePassword == false
+                    else { return }
                     presentErrorAlert = true
-                    self.errorMessage = error.localizedDescription
+                    self.error = error
+                case .keyRemoved:
+                    dismiss()
                 }
             }
         }
-        .onChange(of: model.invalidPassword) { invalidPassword in
-            if invalidPassword {
-                self.errorMessage = "Wrong password"
-                self.presentErrorAlert = true
+        .environmentObject(model)
+    }
+}
+
+
+struct OATHSetChangePasswordView: View {
+    
+    enum Action { case set, change, remove }
+    let type: Action
+    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayScale) var displayScale
+    
+    @EnvironmentObject var model: OATHPasswordViewModel
+    @FocusState private var focusedField: FocusedField?
+
+    enum FocusedField {
+        case currentPassword, newPassword, repeatedPassword
+    }
+    
+    @State private var currentPassword: String = ""
+    @State private var newPassword: String = ""
+    @State private var repeatedPassword: String = ""
+    
+    @State private var presentErrorAlert = false
+    @State private var errorMessage: String? = nil
+    
+    var navBarTitle: String {
+        switch self.type {
+        case .set:
+            return "Set password"
+        case .change:
+            return "Change password"
+        case .remove:
+            return "Remove password"
+        }
+    }
+    
+    var buttonTitle: String {
+        switch self.type {
+        case .set:
+            return "Set"
+        case .change:
+            return "Change"
+        case .remove:
+            return "Remove"
+        }
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                VStack(spacing: 0) {
+                    if type == .change || type == .remove {
+                        HStack {
+                            Text(type == .remove ? "Password" : "Current").frame(maxWidth: 100, alignment: .leading).padding()
+                            SecureField("enter current password", text: $currentPassword).submitLabel(.next).focused($focusedField, equals: .currentPassword)
+                        }
+                        Color(.separator)
+                            .frame(height: 1.0 / displayScale)
+                            .frame(maxWidth: .infinity)
+                            .padding(0)
+                    }
+                    if type != .remove {
+                        HStack {
+                            Text("New").frame(maxWidth: 100, alignment: .leading).padding()
+                            SecureField("enter password", text: $newPassword).submitLabel(.next).focused($focusedField, equals: .newPassword)
+                        }
+                        Color(.separator)
+                            .frame(height: 1.0 / displayScale)
+                            .frame(maxWidth: .infinity)
+                            .padding(0)
+                        HStack {
+                            Text("Verify").frame(maxWidth: 100, alignment: .leading).padding()
+                            SecureField("re-enter password", text: $repeatedPassword).submitLabel(.return).focused($focusedField, equals: .repeatedPassword)
+                        }
+                    }
+                }
+                .onSubmit {
+                    if type == .remove {
+                        handleInput()
+                    } else {
+                        if focusedField == .currentPassword {
+                            focusedField = .newPassword
+                        } else if focusedField == .newPassword {
+                            focusedField = .repeatedPassword
+                        } else {
+                            focusedField = nil
+                            handleInput()
+                        }
+                    }
+                }
+                .background(Color(.secondarySystemGroupedBackground))
+                .cornerRadius(10)
+                .padding(.top, 25)
+                .padding(.horizontal, 15)
+                .padding(.bottom, 5)
+                Spacer()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(.systemGroupedBackground))
+            .navigationBarTitle(self.navBarTitle, displayMode: .inline)
+            .navigationBarItems(leading: Button(action: { dismiss() }, label: { Text("Cancel") }))
+            .navigationBarItems(trailing: Button(action: {
+                handleInput()
+            }, label: { Text(self.buttonTitle) })
+            )
+            .onAppear {
+                focusedField = type == .set ? .newPassword : .currentPassword
+            }
+            .onChange(of: model.state) { state in
+                switch model.state {
+                case .error(let error):
+                    self.errorMessage = error.localizedDescription
+                    self.currentPassword = ""
+                    self.newPassword = ""
+                    self.repeatedPassword = ""
+                    presentErrorAlert = true
+                case .didSet, .didChange, .didRemove:
+                    dismiss()
+                default: break
+                }
+            }
+            .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+                Button(role: .cancel) {
+                    errorMessage = nil
+                    if model.state.isFatalError() {
+                        dismiss()
+                    } else {
+                        focusedField = type == .set ? .newPassword : .currentPassword
+                    }
+                } label: {
+                    Text("OK")
+                }
+            })
+        }
+    }
+    
+    private func handleInput() {
+        switch type {
+        case .set:
+            model.setPassword(newPassword, repeated: repeatedPassword)
+        case .change:
+            model.changePassword(old: currentPassword, new: newPassword, repeated: repeatedPassword)
+        case .remove:
+            model.removePassword(current: currentPassword)
         }
     }
 }
+
