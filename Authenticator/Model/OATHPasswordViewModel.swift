@@ -159,7 +159,10 @@ class OATHPasswordViewModel: ObservableObject {
         self.isProcessing = true
         self.state = .unknown
         guard newPassword == repeatedPassword else {
-            self.state = .error(OATHViewModelError.passwordsDoNotMatch)
+            // Wait until the next runloop to change the state so SwiftUI picks it up
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.state = .error(OATHViewModelError.passwordsDoNotMatch)
+            }
             return
         }
         connection.startConnection { connection in
