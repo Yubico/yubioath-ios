@@ -325,13 +325,7 @@
         }
       }
     },
-    "Change password" : {
-
-    },
     "Change PIN" : {
-
-    },
-    "Change the password for this YubiKey. %@" : {
 
     },
     "Clear" : {
@@ -556,7 +550,7 @@
         }
       }
     },
-    "Current password" : {
+    "Current" : {
 
     },
     "Current PIN" : {
@@ -711,6 +705,9 @@
         }
       }
     },
+    "enter current password" : {
+
+    },
     "enter current PIN" : {
 
     },
@@ -730,6 +727,9 @@
           }
         }
       }
+    },
+    "enter password" : {
+
     },
     "Enter password" : {
       "comment" : "Password alert",
@@ -1107,9 +1107,6 @@
           }
         }
       }
-    },
-    "New Password" : {
-
     },
     "No account information found!" : {
       "comment" : "Scan QR code no account error message",
@@ -1644,9 +1641,6 @@
         }
       }
     },
-    "Protect this YubiKey with a password." : {
-
-    },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
       "localizations" : {
@@ -1663,6 +1657,9 @@
           }
         }
       }
+    },
+    "re-enter password" : {
+
     },
     "re-enter PIN" : {
 
@@ -1736,6 +1733,7 @@
     },
     "Remove password" : {
       "comment" : "Remove password alert title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1769,9 +1767,6 @@
         }
       }
     },
-    "Remove the password for this YubiKey." : {
-
-    },
     "Rename" : {
       "comment" : "Menu",
       "localizations" : {
@@ -1788,9 +1783,6 @@
           }
         }
       }
-    },
-    "Repeat new password" : {
-
     },
     "Reset" : {
       "comment" : "Reset YubiKey alert button",
@@ -2011,9 +2003,6 @@
       }
     },
     "Set" : {
-
-    },
-    "Set password" : {
 
     },
     "Set PIN" : {

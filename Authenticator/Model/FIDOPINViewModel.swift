@@ -16,10 +16,12 @@
 
 enum FidoViewModelError: Error, LocalizedError {
     
-    case usbNotSupported, timeout, locked
+    case usbNotSupported, timeout, locked, pinsDoNotMatch
     
     public var errorDescription: String? {
         switch self {
+        case .pinsDoNotMatch:
+            return "PINs don't match"
         case .usbNotSupported:
             return "Fido over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
         case .timeout:
@@ -33,7 +35,6 @@ enum FidoViewModelError: Error, LocalizedError {
 class FIDOPINViewModel: ObservableObject {
     
     @Published var state: PINState = .unknown
-    @Published var invalidPIN: Bool = false
     @Published var isProcessing: Bool = false
     @Published var pincomplexity: Bool = false
     @Published var minPinLength: UInt = 4
