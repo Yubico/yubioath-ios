@@ -1,0 +1,2088 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "1mC-4P-2g3.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"One-Time Password\"; ObjectID = \"1mC-4P-2g3\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "One-Time Password"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe à usage unique"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタイムパスワード"
+          }
+        }
+      }
+    },
+    "2pK-HU-1WC.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Tap the back button to continue\"; ObjectID = \"2pK-HU-1WC\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap the back button to continue"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyer sur Retour pour continuer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "戻るボタンをタップして続行します"
+          }
+        }
+      }
+    },
+    "03k-jY-TEC.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Passwords and reset\"; ObjectID = \"03k-jY-TEC\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mots de passe et réinitialisation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードとリセット"
+          }
+        }
+      }
+    },
+    "4vu-ra-aLP.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"FIDO\"; ObjectID = \"4vu-ra-aLP\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO"
+          }
+        }
+      }
+    },
+    "5iZ-OS-CfM.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"PASSWORD PROTECTION\"; ObjectID = \"5iZ-OS-CfM\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PROTECTION PAR MOT DE PASSE"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード保護"
+          }
+        }
+      }
+    },
+    "6TW-2t-mYb.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"1.0\"; ObjectID = \"6TW-2t-mYb\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1.0"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1.0"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1.0"
+          }
+        }
+      }
+    },
+    "09D-Aw-j1I.title" : {
+      "comment" : "Class = \"UITableViewController\"; title = \"YubiKey configuration\"; ObjectID = \"09D-Aw-j1I\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey configuration"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey設定"
+          }
+        }
+      }
+    },
+    "9lG-2A-fbz.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Privacy policy\"; ObjectID = \"9lG-2A-fbz\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Privacy policy"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confidentialité"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
+          }
+        }
+      }
+    },
+    "9lL-ZS-odE.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Enabled\"; ObjectID = \"9lL-ZS-odE\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効"
+          }
+        }
+      }
+    },
+    "9NQ-7X-HqZ.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"Passwords and reset\"; ObjectID = \"9NQ-7X-HqZ\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mots de passe et réinitialisation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードとリセット"
+          }
+        }
+      }
+    },
+    "26R-OJ-dML.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Yubico OTP enabled\"; ObjectID = \"26R-OJ-dML\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yubico OTP enabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP activé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP有効"
+          }
+        }
+      }
+    },
+    "46N-qq-yo2.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"For additional security and to prevent unauthorized access the YubiKey can be password protected.\"; ObjectID = \"46N-qq-yo2\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour plus de sécurité et pour empêcher tout accès non autorisé, la YubiKey peut être protégée par mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます。"
+          }
+        }
+      }
+    },
+    "57k-Y4-tLZ.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Enabled\"; ObjectID = \"57k-Y4-tLZ\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enabled"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enabled"
+          }
+        }
+      }
+    },
+    "857-GD-96Q.placeholder" : {
+      "comment" : "Class = \"UITextField\"; placeholder = \"Password\"; ObjectID = \"857-GD-96Q\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
+    },
+    "959-Oi-fy1.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Reset FIDO application\"; ObjectID = \"959-Oi-fy1\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset FIDO application"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset FIDO application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset FIDO application"
+          }
+        }
+      }
+    },
+    "aFH-4H-WRy.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Firmware\"; ObjectID = \"aFH-4H-WRy\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Firmware"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Firmware"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファームウェア"
+          }
+        }
+      }
+    },
+    "AGQ-n1-pV3.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Remove and re-insert your YubiKey\"; ObjectID = \"AGQ-n1-pV3\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Remove and re-insert your YubiKey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirez et réinsérez votre YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを取り外して再挿入してください"
+          }
+        }
+      }
+    },
+    "al9-tv-dIv.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Confirm password\"; ObjectID = \"al9-tv-dIv\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを確認"
+          }
+        }
+      }
+    },
+    "b6z-Ri-5bh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"ONE-TIME PASSWORD\"; ObjectID = \"b6z-Ri-5bh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ONE-TIME PASSWORD"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MOT DE PASSE À USAGE UNIQUE"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタイムパスワード"
+          }
+        }
+      }
+    },
+    "Bxb-bg-K32.title" : {
+      "comment" : "Class = \"UITableViewController\"; title = \"YubiKey configuration\"; ObjectID = \"Bxb-bg-K32\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey設定"
+          }
+        }
+      }
+    },
+    "Byl-RD-bpD.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Activate NFC on OTP tag read\"; ObjectID = \"Byl-RD-bpD\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Activate NFC on OTP tag read"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer NFC lors de la lecture de tags OTP"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OTPタグ読み取りでNFCをアクティブにする"
+          }
+        }
+      }
+    },
+    "C5n-jq-Mk9.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"General\"; ObjectID = \"C5n-jq-Mk9\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "General"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "Ced-DN-oqW.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Password\"; ObjectID = \"Ced-DN-oqW\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
+    },
+    "cou-Cr-QYP.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.\"; ObjectID = \"cou-Cr-QYP\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver Yubico OTP empêchera l'affichage de la YubiKey comme clavier. Si vous n'utilisez pas Yubico OTP, c'est la solution recommandée. Cette fonction peut être réactivée via la page des paramètres."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます。"
+          }
+        }
+      }
+    },
+    "D3g-ds-RCu.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"NFC settings\"; ObjectID = \"D3g-ds-RCu\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "NFC settings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC設定"
+          }
+        }
+      }
+    },
+    "D6R-wW-EtA.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Close\"; ObjectID = \"D6R-wW-EtA\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Close"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        }
+      }
+    },
+    "d9X-Tp-hSv.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Reset OATH application\"; ObjectID = \"d9X-Tp-hSv\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH application"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH application"
+          }
+        }
+      }
+    },
+    "dAR-My-Mmm.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Remove password\"; ObjectID = \"dAR-My-Mmm\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを削除"
+          }
+        }
+      }
+    },
+    "e3s-bq-xAt.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"Configuration\"; ObjectID = \"e3s-bq-xAt\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "Ecy-Pw-sM0.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Copyright © 2021 Yubico.\\nAll rights reserved.\"; ObjectID = \"Ecy-Pw-sM0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copyright © 2021 Yubico.\nAll rights reserved."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copyright© 2021 Yubico.\nTous droits réservés."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copyright © 2021 Yubico.\n無断複写・転載を禁じます。"
+          }
+        }
+      }
+    },
+    "Efl-xJ-qER.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Initiate NFC at application start\"; ObjectID = \"Efl-xJ-qER\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Initiate NFC at application start"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancer NFC au démarrage de l'application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリケーションの起動時にNFCを開始"
+          }
+        }
+      }
+    },
+    "eiF-JR-TAC.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"Set password\"; ObjectID = \"eiF-JR-TAC\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer le mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを設定"
+          }
+        }
+      }
+    },
+    "fl4-8d-lD9.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"Smart card extension\"; ObjectID = \"fl4-8d-lD9\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smart card extension"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extension carte à puce"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード拡張機能"
+          }
+        }
+      }
+    },
+    "FMw-TB-KRk.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"SAVED PASSWORDS\"; ObjectID = \"FMw-TB-KRk\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MOTS DE PASSE ENREGISTRÉS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存されたパスワード"
+          }
+        }
+      }
+    },
+    "frN-Of-d1s.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Bypass touch requirement\"; ObjectID = \"frN-Of-d1s\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Bypass touch requirement"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contourner les exigences tactiles"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タッチ要件をスキップ"
+          }
+        }
+      }
+    },
+    "gAN-p5-fcQ.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"RESET YUBIKEY\"; ObjectID = \"gAN-p5-fcQ\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "RÉINITIALISER YUBIKEY"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをリセット"
+          }
+        }
+      }
+    },
+    "gCh-94-I0T.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Manage PIN\"; ObjectID = \"gCh-94-I0T\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage PIN"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage PIN"
+          }
+        }
+      }
+    },
+    "ghF-dC-3d6.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Version history\"; ObjectID = \"ghF-dC-3d6\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version history"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique des versions"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン履歴"
+          }
+        }
+      }
+    },
+    "gQR-ie-6Y0.footerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active.\"; ObjectID = \"gQR-ie-6Y0\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'activation NFC au démarrage de l'application permet de lire automatiquement votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリケーションの起動時にNFCを開始すると、アプリがアクティブになると同時にYubiKeyが自動で読み込まれます。"
+          }
+        }
+      }
+    },
+    "gYP-vW-fFN.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used.\"; ObjectID = \"gYP-vW-fFN\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacez les mots de passe enregistrés sur l'iPhone. Un mot de passe sera requis lors de la prochaine utilisation d'une YubiKey protégée par mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhoneに保存されているパスワードを消去します。これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます。"
+          }
+        }
+      }
+    },
+    "hBA-XE-Ib1.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Item\"; ObjectID = \"hBA-XE-Ib1\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Item"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Élément"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アイテム"
+          }
+        }
+      }
+    },
+    "Hbq-O7-HqW.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"About\"; ObjectID = \"Hbq-O7-HqW\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "About"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Infos"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "概要"
+          }
+        }
+      }
+    },
+    "hOr-gJ-fIa.footerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"For additional security and to prevent unauthorized access the YubiKey can be protected with a password\"; ObjectID = \"hOr-gJ-fIa\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour plus de sécurité et empêcher tout accès non autorisé, la YubiKey peut être protégée par un mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます"
+          }
+        }
+      }
+    },
+    "hsz-tV-DPW.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Copy OTP to clipboard\"; ObjectID = \"hsz-tV-DPW\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy OTP to clipboard"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copier OTP dans presse-papiers"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OTPをクリップボードにコピー"
+          }
+        }
+      }
+    },
+    "Icc-EW-Cgh.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Yubico OTP has been disabled\"; ObjectID = \"Icc-EW-Cgh\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yubico OTP has been disabled"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP désactivé"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPが無効になっています"
+          }
+        }
+      }
+    },
+    "iH3-4d-Rv5.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Smart card extension\"; ObjectID = \"iH3-4d-Rv5\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extension carte à puce"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード拡張機能"
+          }
+        }
+      }
+    },
+    "Inc-aD-fdW.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"Toggle One-Time Password\"; ObjectID = \"Inc-aD-fdW\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Toggle One-Time Password"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer OTP"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタイムパスワードを切り替える"
+          }
+        }
+      }
+    },
+    "JN3-vC-kaK.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard.\"; ObjectID = \"JN3-vC-kaK\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP étant activé, cette YubiKey apparaît comme clavier externe pour iPhone. Cela pose problème avec le clavier à l'écran normal."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します。"
+          }
+        }
+      }
+    },
+    "jNG-Du-Ghz.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Close\"; ObjectID = \"jNG-Du-Ghz\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Close"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閉じる"
+          }
+        }
+      }
+    },
+    "JON-gB-7WG.placeholder" : {
+      "comment" : "Class = \"UITextField\"; placeholder = \"Smart card (PIV) PIN\"; ObjectID = \"JON-gB-7WG\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smart card (PIV) PIN"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN carte à puce (PIV)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートカード（PIV）PIN"
+          }
+        }
+      }
+    },
+    "JQM-z3-Kvc.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.\"; ObjectID = \"JQM-z3-Kvc\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lorsque vous insérez la YubiKey, le clavier à l'écran n'apparaît pas. Pour afficher le clavier, vous devez retirer la YubiKey, puis la réinsérer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります。"
+          }
+        }
+      }
+    },
+    "JSq-rh-zB3.footerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey.\"; ObjectID = \"JSq-rh-zB3\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lancez NFC et lisez les comptes OATH lorsque l'application a été ouverte en lisant le tag OTP sur une YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのOTPタグを読み取ってアプリケーションを開いた際にNFCを開始し、OATHアカウントを読み取ります。"
+          }
+        }
+      }
+    },
+    "jx7-Be-qMk.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Clear saved passwords\"; ObjectID = \"jx7-Be-qMk\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer les mots de passe enregistrés"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存したパスワードを消去"
+          }
+        }
+      }
+    },
+    "kAX-Sn-d4r.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Continue with limited usability\"; ObjectID = \"kAX-Sn-d4r\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Continue with limited usability"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer avec fonctionnalité limitée"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用制限ありで続行"
+          }
+        }
+      }
+    },
+    "kAX-Sn-d4r.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"kAX-Sn-d4r\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouton"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ボタン"
+          }
+        }
+      }
+    },
+    "L2j-ZW-Jbf.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"or\"; ObjectID = \"L2j-ZW-Jbf\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "or"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ou"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "または"
+          }
+        }
+      }
+    },
+    "LCv-pg-hU7.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Manage password\"; ObjectID = \"LCv-pg-hU7\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage password"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage password"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Manage password"
+          }
+        }
+      }
+    },
+    "lDv-WA-VqE.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Clear saved passwords\"; ObjectID = \"lDv-WA-VqE\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved passwords"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved passwords"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved passwords"
+          }
+        }
+      }
+    },
+    "llv-60-0FB.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Device type\"; ObjectID = \"llv-60-0FB\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Device type"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type d'appareil"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスタイプ"
+          }
+        }
+      }
+    },
+    "Lzm-p7-Lmb.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Serial number\"; ObjectID = \"Lzm-p7-Lmb\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Serial number"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numéro de série"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シリアル番号"
+          }
+        }
+      }
+    },
+    "MBv-4M-eos.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"MBv-4M-eos\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S/O"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        }
+      }
+    },
+    "NnL-eZ-nHd.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Help with YubiKey\"; ObjectID = \"NnL-eZ-nHd\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Help with YubiKey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aide YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのヘルプ"
+          }
+        }
+      }
+    },
+    "noy-hK-f0E.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Insert a YubiKey and enter its PIN to access the certificate.\"; ObjectID = \"noy-hK-f0E\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Insert a YubiKey and enter its PIN to access the certificate."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insérez une YubiKey et saisissez son PIN pour accéder au certificat."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証明書にアクセスするには、YubiKeyを挿入し、そのPINを入力してください。"
+          }
+        }
+      }
+    },
+    "Nrv-NX-HWi.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"OATH\"; ObjectID = \"Nrv-NX-HWi\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH"
+          }
+        }
+      }
+    },
+    "O2N-dk-eMF.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Unlock YubiKey\"; ObjectID = \"O2N-dk-eMF\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unlock YubiKey"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Débloquer YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのロックを解除"
+          }
+        }
+      }
+    },
+    "Oba-Qw-cTB.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Set password\"; ObjectID = \"Oba-Qw-cTB\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer le mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを設定"
+          }
+        }
+      }
+    },
+    "oy6-QK-Bgw.footerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality.\"; ObjectID = \"oy6-QK-Bgw\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiez l'OTP automatiquement dans le presse-papiers lorsqu'une YubiKey est scannée à l'aide de la fonctionnalité de tags NFC."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyがNFCタグ機能を使用してスキャンされた場合に、OTPをクリップボードに自動でコピーします。"
+          }
+        }
+      }
+    },
+    "PCq-PC-KyX.title" : {
+      "comment" : "Class = \"UINavigationItem\"; title = \"NFC settings\"; ObjectID = \"PCq-PC-KyX\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "NFC settings"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC設定"
+          }
+        }
+      }
+    },
+    "QGj-16-s0W.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"QGj-16-s0W\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S/O"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        }
+      }
+    },
+    "QHB-fS-VBc.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Terms of use\"; ObjectID = \"QHB-fS-VBc\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Terms of use"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions d'utilisation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
+          }
+        }
+      }
+    },
+    "raA-qu-ETm.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"Application\"; ObjectID = \"raA-qu-ETm\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Application"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリケーション"
+          }
+        }
+      }
+    },
+    "Re8-TR-xIr.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Insert YubiKey or pull down to activate NFC\"; ObjectID = \"Re8-TR-xIr\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Insert YubiKey or pull down to activate NFC"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insérez la YubiKey ou tirez vers le bas pour activer NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを挿入してください。またはプルダウンしてNFCを有効にしてください。"
+          }
+        }
+      }
+    },
+    "SB9-4D-M8K.title" : {
+      "comment" : "Class = \"UIBarButtonItem\"; title = \"Configuration\"; ObjectID = \"SB9-4D-M8K\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration"
+          }
+        }
+      }
+    },
+    "Szl-yL-4ir.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"UnwindButton\"; ObjectID = \"Szl-yL-4ir\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "UnwindButton"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouton déroulement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "UnwindButton"
+          }
+        }
+      }
+    },
+    "tMr-aW-Doe.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Contact support\"; ObjectID = \"tMr-aW-Doe\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Contact support"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacter l'assistance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポートへのお問い合わせ"
+          }
+        }
+      }
+    },
+    "uP5-O2-d0d.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Toggle One-Time Password\"; ObjectID = \"uP5-O2-d0d\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Toggle One-Time Password"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer OTP"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタイムパスワードを切り替える"
+          }
+        }
+      }
+    },
+    "Uvq-Ba-xiH.footerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed.\"; ObjectID = \"Uvq-Ba-xiH\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les comptes tactiles nécessitent un rapprochement de la clef en NFC de plus pour calculer leur code. Le contournement réduit le nombre de rapprochements en NFC requis."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タッチが必要なアカウントでは、コードを計算するために追加のNFCタップが必要です。これをスキップすることで、必要なNFCタップの数が最小限に抑えられます。"
+          }
+        }
+      }
+    },
+    "VAw-dv-zeA.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"VAw-dv-zeA\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S/O"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "N/A"
+          }
+        }
+      }
+    },
+    "Vb7-1M-PWz.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Reset YubiKey\"; ObjectID = \"Vb7-1M-PWz\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser la YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをリセット"
+          }
+        }
+      }
+    },
+    "VHQ-4i-YEj.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Yubico Authenticator\"; ObjectID = \"VHQ-4i-YEj\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yubico Authenticator"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yubico Authenticator"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yubico Authenticator"
+          }
+        }
+      }
+    },
+    "vjs-4B-RzZ.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey.\"; ObjectID = \"vjs-4B-RzZ\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lors du scan de la YubiKey NFC."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC YubiKeyのスキャン時にOTPをコピーするには、Safariを開く操作のオン/オフを切り替えてください。"
+          }
+        }
+      }
+    },
+    "vn9-zq-1Ri.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"Support\"; ObjectID = \"vn9-zq-1Ri\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Support"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポート"
+          }
+        }
+      }
+    },
+    "WGy-0e-K7w.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate.\"; ObjectID = \"WGy-0e-K7w\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez le PIN, puis apposez une YubiKey NFC sur l'iPhone pour accéder au certificat."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "証明書にアクセスするには、PINを入力してから、iPhoneに対してNFC対応のYubiKeyをタップしてください。"
+          }
+        }
+      }
+    },
+    "wH4-5g-AV5.placeholder" : {
+      "comment" : "Class = \"UITextField\"; placeholder = \"Password\"; ObjectID = \"wH4-5g-AV5\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード"
+          }
+        }
+      }
+    },
+    "wvt-LS-lIS.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Licensing\"; ObjectID = \"wvt-LS-lIS\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Licensing"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licences"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス"
+          }
+        }
+      }
+    },
+    "wX8-c0-dfc.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"PIV\"; ObjectID = \"wX8-c0-dfc\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIV"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIV"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIV"
+          }
+        }
+      }
+    },
+    "y0i-iX-KLv.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"How does it work\"; ObjectID = \"y0i-iX-KLv\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "How does it work"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonctionnement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "動作の仕組み"
+          }
+        }
+      }
+    },
+    "yed-kd-amP.headerTitle" : {
+      "comment" : "Class = \"UITableViewSection\"; headerTitle = \"INFORMATION\"; ObjectID = \"yed-kd-amP\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "INFORMATION"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INFORMATIONS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "情報"
+          }
+        }
+      }
+    },
+    "Yo4-ef-tkZ.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Disable Yubico OTP (recommended)\"; ObjectID = \"Yo4-ef-tkZ\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Disable Yubico OTP (recommended)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Désactiver Yubico OTP (recommandé)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTPを無効にする（推奨）"
+          }
+        }
+      }
+    },
+    "Yo4-ef-tkZ.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"Yo4-ef-tkZ\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bouton"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ボタン"
+          }
+        }
+      }
+    },
+    "zcT-oY-vKq.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.\"; ObjectID = \"zcT-oY-vKq\";",
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialisez tous les comptes de la YubiKey. Ils ne doivent pas être utilisés avant cette opération."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyに保存されているすべてのアカウントをリセットします。この操作を行う前に、アカウントが一切使用されていないことを確認してください。"
+          }
+        }
+      }
+    },
+    "ZJS-gM-yza.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Smart card extension\"; ObjectID = \"ZJS-gM-yza\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smart card extension"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smart card extension"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Smart card extension"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

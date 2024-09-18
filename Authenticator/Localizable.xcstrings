@@ -22,32 +22,45 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "*** *** "
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "*** *** "
           }
         }
       }
     },
     "%@" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%@"
+          }
+        }
+      }
     },
     "888 888" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "888 888"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "888 888"
           }
         }
@@ -326,7 +339,20 @@
       }
     },
     "Change PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Change PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Change PIN"
+          }
+        }
+      }
     },
     "Clear" : {
       "comment" : "Clear password alert button",
@@ -347,7 +373,20 @@
       }
     },
     "Clear passwords" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear passwords"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear passwords"
+          }
+        }
+      }
     },
     "Clear passwords saved on" : {
       "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
@@ -386,7 +425,20 @@
       }
     },
     "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used."
+          }
+        }
+      }
     },
     "Clear passwords?" : {
       "comment" : "Clear password alert title",
@@ -407,10 +459,36 @@
       }
     },
     "Clear saved OATH passwords" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved OATH passwords"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved OATH passwords"
+          }
+        }
+      }
     },
     "Clear saved passwords" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved passwords"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clear saved passwords"
+          }
+        }
+      }
     },
     "Close" : {
       "comment" : "View close button",
@@ -485,7 +563,7 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Configuration"
           }
         },
@@ -498,7 +576,20 @@
       }
     },
     "Confirm OATH reset" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Confirm OATH reset"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Confirm OATH reset"
+          }
+        }
+      }
     },
     "Continue with limited usability" : {
       "localizations" : {
@@ -551,10 +642,36 @@
       }
     },
     "Current" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Current"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Current"
+          }
+        }
+      }
     },
     "Current PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Current PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Current PIN"
+          }
+        }
+      }
     },
     "Data to String conversion error" : {
       "localizations" : {
@@ -706,10 +823,36 @@
       }
     },
     "enter current password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter current password"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter current password"
+          }
+        }
+      }
     },
     "enter current PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter current PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter current PIN"
+          }
+        }
+      }
     },
     "Enter manually" : {
       "comment" : "Scan QR code add manually button",
@@ -729,7 +872,20 @@
       }
     },
     "enter password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter password"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter password"
+          }
+        }
+      }
     },
     "Enter password" : {
       "comment" : "Password alert",
@@ -749,7 +905,20 @@
       }
     },
     "enter PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "enter PIN"
+          }
+        }
+      }
     },
     "Enter the PIN to access the certificate." : {
       "comment" : "PIV extension enter PIN message",
@@ -888,16 +1057,84 @@
       }
     },
     "FIDO factory reset" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO factory reset"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO factory reset"
+          }
+        }
+      }
+    },
+    "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO sur USB-C n'est pas pris en charge par iOS. Utilisez plutôt la NFC ou l'authentificateur de bureau Yubico."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
+          }
+        }
+      }
     },
     "FIDO PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO PIN"
+          }
+        }
+      }
     },
     "FIDO PIN protection" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO PIN protection"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO PIN protection"
+          }
+        }
+      }
     },
     "FIDO reset" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO reset"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "FIDO reset"
+          }
+        }
+      }
     },
     "Finished reading certificates" : {
       "comment" : "PIV extension NFC finished reading certs",
@@ -917,10 +1154,36 @@
       }
     },
     "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN."
+          }
+        }
+      }
     },
     "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "For additional security and to prevent unauthorized access the YubiKey can be password protected."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "For additional security and to prevent unauthorized access the YubiKey can be password protected."
+          }
+        }
+      }
     },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
@@ -972,7 +1235,7 @@
       }
     },
     "Invalid signature" : {
-      "comment" : "PIV extension NFC invalid signature",
+      "comment" : "PIV extension NFC invalid signature\nPIV extension invalid signature",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1059,7 +1322,7 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Menu"
           }
         },
@@ -1089,7 +1352,20 @@
       }
     },
     "New" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New"
+          }
+        }
+      }
     },
     "New OTP configuration saved" : {
       "comment" : "Settings OTP configuration saved",
@@ -1328,10 +1604,36 @@
       }
     },
     "OATH password protection" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH password protection"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH password protection"
+          }
+        }
+      }
     },
     "OATH passwords" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH passwords"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "OATH passwords"
+          }
+        }
+      }
     },
     "Ok" : {
       "comment" : "Password alert",
@@ -1355,13 +1657,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "OK"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "OK"
           }
         }
@@ -1586,10 +1888,36 @@
       }
     },
     "PIN is permanently blocked. Factory reset FIDO application to continue." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIN is permanently blocked. Factory reset FIDO application to continue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIN is permanently blocked. Factory reset FIDO application to continue."
+          }
+        }
+      }
     },
     "PIN is temporary blocked. Remove and reinsert YubiKey to try again." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIN is temporary blocked. Remove and reinsert YubiKey to try again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "PIN is temporary blocked. Remove and reinsert YubiKey to try again."
+          }
+        }
+      }
     },
     "Pinned" : {
       "localizations" : {
@@ -1659,10 +1987,36 @@
       }
     },
     "re-enter password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "re-enter password"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "re-enter password"
+          }
+        }
+      }
     },
     "re-enter PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "re-enter PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "re-enter PIN"
+          }
+        }
+      }
     },
     "Read more..." : {
       "comment" : "PIV extension read more alert title",
@@ -1802,7 +2156,20 @@
       }
     },
     "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
+          }
+        }
+      }
     },
     "Reset complete" : {
       "comment" : "Reset YubiKey complete alert title",
@@ -1823,13 +2190,53 @@
       }
     },
     "Reset FIDO application" : {
-      "comment" : "FIDO reset NFC confirmation message"
+      "comment" : "FIDO reset NFC confirmation message",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset FIDO application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset FIDO application"
+          }
+        }
+      }
     },
     "Reset OATH" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH"
+          }
+        }
+      }
     },
     "Reset OATH application" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reset OATH application"
+          }
+        }
+      }
     },
     "Reset YubiKey?" : {
       "comment" : "Reset YubiKey alert title",
@@ -1934,7 +2341,20 @@
       }
     },
     "Saved passwords has been cleared" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved passwords has been cleared"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Saved passwords has been cleared"
+          }
+        }
+      }
     },
     "Scan NFC YubiKey" : {
       "localizations" : {
@@ -2003,10 +2423,36 @@
       }
     },
     "Set" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set"
+          }
+        }
+      }
     },
     "Set PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Set PIN"
+          }
+        }
+      }
     },
     "Settings" : {
       "comment" : "PIV extension settings alert title",
@@ -2383,7 +2829,20 @@
       }
     },
     "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey."
+          }
+        }
+      }
     },
     "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
       "localizations" : {
@@ -2474,7 +2933,7 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Type"
           }
         },
@@ -2554,7 +3013,20 @@
       }
     },
     "Verify" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Verify"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Verify"
+          }
+        }
+      }
     },
     "Version history" : {
       "comment" : "Version history navigation title",
@@ -2574,7 +3046,20 @@
       }
     },
     "Warning!" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention !"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Warning!"
+          }
+        }
+      }
     },
     "what's new" : {
       "comment" : "Substring in \"See what's new in this version\"",
@@ -2715,13 +3200,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Yubico OTP"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "new",
             "value" : "Yubico OTP"
           }
         }
@@ -2761,7 +3246,20 @@
       }
     },
     "YubiKey has been reset" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey has been reset"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "YubiKey has been reset"
+          }
+        }
+      }
     },
     "YubiKey information read" : {
       "comment" : "YubiKey info NFC read",

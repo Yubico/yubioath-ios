@@ -80,6 +80,7 @@
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
 		B42A39332B2A03D20039DB26 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B42A39322B2A03D20039DB26 /* YubiKit */; };
 		B43751A42CA440E7004017A4 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
+		B43751972C9AD7D8004017A4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B43751962C9AD7D8004017A4 /* InfoPlist.xcstrings */; };
 		B44E5E812C74BE67007ABB79 /* OATHResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5E802C74BE67007ABB79 /* OATHResetView.swift */; };
 		B44E5E842C74C8CC007ABB79 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B44E5E832C74C8CC007ABB79 /* YubiKit */; };
 		B44E5EB32C777F22007ABB79 /* OATHPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */; };
@@ -87,7 +88,6 @@
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
 		B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC3C2A264A620045E5D9 /* ToastView.swift */; };
 		B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC432A2A06940045E5D9 /* ToastPresenter.swift */; };
-		B45E0DA02C0768E0006FE88C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B45E0D9E2C0768E0006FE88C /* InfoPlist.strings */; };
 		B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */; };
 		B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */; };
 		B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B16298AA6E7006CDAEA /* MainView.swift */; };
@@ -239,14 +239,15 @@
 		B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPModel.swift; sourceTree = "<group>"; };
 		B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestYubiOTPViewController.swift; sourceTree = "<group>"; };
 		B411242E29D423A300D58001 /* ListStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStatusView.swift; sourceTree = "<group>"; };
+		B43751952C9AD7BB004017A4 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Main.xcstrings; sourceTree = "<group>"; };
+		B43751962C9AD7D8004017A4 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		B43751982C9AD7F1004017A4 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		B44E5E802C74BE67007ABB79 /* OATHResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHResetView.swift; sourceTree = "<group>"; };
 		B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHPasswordViewModel.swift; sourceTree = "<group>"; };
 		B44E5EBA2C778802007ABB79 /* OATHPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OATHPasswordView.swift; sourceTree = "<group>"; };
 		B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiOtpRowView.swift; sourceTree = "<group>"; };
 		B452EC3C2A264A620045E5D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B452EC432A2A06940045E5D9 /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
-		B45A980D2C2AE3D800AAAD78 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B45E0D9F2C0768E0006FE88C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B46E378629C348F100CA0B67 /* EditAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountWrapper.swift; sourceTree = "<group>"; };
 		B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessKeyCache.swift; sourceTree = "<group>"; };
 		B4719B16298AA6E7006CDAEA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -254,11 +255,7 @@
 		B4719B1A298AB641006CDAEA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B4719B2B29914051006CDAEA /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
 		B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
-		B4901AE12BD696BE0092E7A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		B4901AE22BD696BE0092E7A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B4901AE32BD697620092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Authenticator/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
-		B4901AE52BD69A2B0092E7A2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		B4901AE62BD69A2B0092E7A2 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B4901AE72BD7DCC70092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		B4901AEA2BD7DCC70092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Tutorial.xcstrings; sourceTree = "<group>"; };
 		B4901AEB2BD7DD160092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddCredential.storyboard; sourceTree = "<group>"; };
@@ -388,7 +385,7 @@
 				515542762656707000B19C59 /* TokenDriver.swift */,
 				515542782656707000B19C59 /* TokenSession.swift */,
 				5155427A2656707000B19C59 /* Info.plist */,
-				B45E0D9E2C0768E0006FE88C /* InfoPlist.strings */,
+				B43751962C9AD7D8004017A4 /* InfoPlist.xcstrings */,
 				5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */,
 				B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */,
 			);
@@ -719,8 +716,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B43751972C9AD7D8004017A4 /* InfoPlist.xcstrings in Resources */,
 				B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */,
-				B45E0DA02C0768E0006FE88C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,8 +887,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				818866BD22DFD729006BC0A8 /* Base */,
-				B4901AE12BD696BE0092E7A2 /* fr */,
-				B4901AE52BD69A2B0092E7A2 /* ja */,
+				B43751952C9AD7BB004017A4 /* mul */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -900,19 +896,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				818866C222DFD72C006BC0A8 /* Base */,
-				B4901AE22BD696BE0092E7A2 /* fr */,
-				B4901AE62BD69A2B0092E7A2 /* ja */,
+				B43751982C9AD7F1004017A4 /* mul */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		B45E0D9E2C0768E0006FE88C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B45E0D9F2C0768E0006FE88C /* ja */,
-				B45A980D2C2AE3D800AAAD78 /* fr */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */ = {
@@ -1047,11 +1033,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1104,10 +1092,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1139,6 +1129,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				YKF_ENABLE_VERBOSE_LOGGING = YES;
 			};
 			name = Debug;
 		};
@@ -1168,6 +1159,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				YKF_ENABLE_VERBOSE_LOGGING = YES;
 			};
 			name = Release;
 		};
