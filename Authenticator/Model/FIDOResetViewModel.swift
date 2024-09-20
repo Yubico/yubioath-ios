@@ -76,7 +76,7 @@ class FIDOResetViewModel: ObservableObject {
                 self.resetAccessory(connection: connection)
                 return
             }
-            self.state = .error("Unknown error")
+            self.state = .error(String(localized: "Unknown error"))
         }
     }
 

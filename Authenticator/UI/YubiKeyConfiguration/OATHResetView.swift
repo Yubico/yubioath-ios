@@ -26,12 +26,12 @@ struct OATHResetView: View {
 
     var body: some View {
         SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text(keyHasBeenReset ? "YubiKey has been reset" : "Reset OATH application").font(.headline)
+            Text(keyHasBeenReset ? String(localized: "YubiKey has been reset") : String(localized: "Reset OATH application")).font(.headline)
             Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
                 .multilineTextAlignment(.center)
                 .opacity(keyHasBeenReset ? 0.2 : 1.0)
         } buttons: {
-            SettingsButton("Reset Yubikey") {
+            SettingsButton("Reset YubiKey") {
                 presentConfirmAlert.toggle()
             }
             .disabled(keyHasBeenReset)
@@ -50,7 +50,7 @@ struct OATHResetView: View {
                 Text("Cancel")
             }
         })
-        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: { })
+        .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: { })
         .onChange(of: model.state) { state in
             withAnimation {
                 switch state {

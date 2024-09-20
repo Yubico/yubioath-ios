@@ -16,7 +16,7 @@
 
 import SwiftUI
 
-fileprivate let resetMessageText = "Your credentials, as well as any PIN set, will be removed from this YubiKey. Make sure to first disable these from their respective web sites to avoid being locked out of your accounts."
+fileprivate let resetMessageText = String(localized: "Your credentials, as well as any PIN set, will be removed from this YubiKey. Make sure to first disable these from their respective web sites to avoid being locked out of your accounts.")
 
 struct FIDOResetView: View {
     
@@ -58,7 +58,7 @@ struct FIDOResetView: View {
         }, message: { _ in
             Text("This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey.")
         })
-        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+        .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
             Button(role: .cancel) {
                 errorMessage = nil
                 if model.state.isError() {
@@ -85,20 +85,20 @@ struct FIDOResetView: View {
             case .waitingForKeyRemove:
                 self.enableResetButton = false
                 self.progress = 1.0
-                self.messageText = "Unplug your YubiKey."
+                self.messageText = String(localized: "Unplug your YubiKey.", comment: "FIDO reset view")
             case .waitingForKeyReinsert:
                 self.enableResetButton = false
                 self.progress = 2.0
-                self.messageText = "Reinsert your Yubikey."
+                self.messageText = String(localized: "Reinsert your YubiKey.", comment: "FIDO reset view")
             case .waitingForKeyTouch:
                 self.progress = 3.0
                 self.enableResetButton = false
-                self.messageText = "Touch the button on the YubiKey now."
+                self.messageText = String(localized: "Touch the button on the YubiKey now.", comment: "FIDO reset view")
             case .success:
                 self.progress = 4.0
                 self.opacity = 0.5
                 self.enableResetButton = false
-                self.messageText = "The FIDO application of your Yubikey has been reset to factory defaults."
+                self.messageText = String(localized: "The FIDO application of your YubiKey has been reset to factory defaults.", comment: "FIDO reset view")
             case .error(let error):
                 self.enableResetButton = true
                 self.presentErrorAlert = true

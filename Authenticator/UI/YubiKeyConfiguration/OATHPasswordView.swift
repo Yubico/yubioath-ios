@@ -62,7 +62,7 @@ struct OATHPasswordView: View {
         .sheet(isPresented: $presentRemovePassword) {
             OATHSetChangePasswordView(type: .remove)
         }
-        .alert(error?.localizedDescription ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+        .alert(error?.localizedDescription ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
             Button(role: .cancel) {
                 error = nil
                 if model.state.isError() {
@@ -129,22 +129,22 @@ struct OATHSetChangePasswordView: View {
     var navBarTitle: String {
         switch self.type {
         case .set:
-            return "Set password"
+            return String(localized: "Set password")
         case .change:
-            return "Change password"
+            return String(localized: "Change password")
         case .remove:
-            return "Remove password"
+            return String(localized: "Remove password")
         }
     }
     
     var buttonTitle: String {
         switch self.type {
         case .set:
-            return "Set"
+            return String(localized: "Set")
         case .change:
-            return "Change"
+            return String(localized: "Change")
         case .remove:
-            return "Remove"
+            return String(localized: "Remove")
         }
     }
     
@@ -154,7 +154,7 @@ struct OATHSetChangePasswordView: View {
                 VStack(spacing: 0) {
                     if type == .change || type == .remove {
                         HStack {
-                            Text(type == .remove ? "Password" : "Current").frame(maxWidth: 100, alignment: .leading).padding()
+                            Text(type == .remove ? String(localized: "Password", comment: "Enter password in secure field to remove password.") : String(localized: "Current", comment: "Enter current password in secure field to change password.")).frame(maxWidth: 100, alignment: .leading).padding()
                             SecureField("enter current password", text: $currentPassword).submitLabel(.next).focused($focusedField, equals: .currentPassword)
                         }
                         Color(.separator)
@@ -164,7 +164,7 @@ struct OATHSetChangePasswordView: View {
                     }
                     if type != .remove {
                         HStack {
-                            Text("New").frame(maxWidth: 100, alignment: .leading).padding()
+                            Text(String(localized: "New", comment: "Enter new password in secure field.")).frame(maxWidth: 100, alignment: .leading).padding()
                             SecureField("enter password", text: $newPassword).submitLabel(.next).focused($focusedField, equals: .newPassword)
                         }
                         Color(.separator)
@@ -172,7 +172,7 @@ struct OATHSetChangePasswordView: View {
                             .frame(maxWidth: .infinity)
                             .padding(0)
                         HStack {
-                            Text("Verify").frame(maxWidth: 100, alignment: .leading).padding()
+                            Text(String(localized: "Verify", comment: "Re-enter new password in secure field.")).frame(maxWidth: 100, alignment: .leading).padding()
                             SecureField("re-enter password", text: $repeatedPassword).submitLabel(.return).focused($focusedField, equals: .repeatedPassword)
                         }
                     }
@@ -222,7 +222,7 @@ struct OATHSetChangePasswordView: View {
                 default: break
                 }
             }
-            .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+            .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
                 Button(role: .cancel) {
                     errorMessage = nil
                     if model.state.isFatalError() {

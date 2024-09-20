@@ -21,13 +21,13 @@ enum FidoViewModelError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .pinsDoNotMatch:
-            return "PINs don't match"
+            return String(localized: "PINs don't match")
         case .usbNotSupported:
             return String(localized: "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead.")
         case .timeout:
-            return "Operation timed out."
+            return String(localized: "Operation timed out.")
         case .locked:
-            return "PIN is permanently blocked. Factory reset FIDO application to continue."
+            return String(localized: "PIN is permanently blocked. Factory reset FIDO application to continue.")
         }
     }
 }
@@ -152,7 +152,7 @@ class FIDOPINViewModel: ObservableObject {
                             if !pinIsSet {
                                 DispatchQueue.main.async {
                                     self.state = .notSet
-                                    YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read")
+                                    YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN state read"))
                                 }
                             } else {
                                 session.getPinRetries { retries, error in
@@ -168,7 +168,7 @@ class FIDOPINViewModel: ObservableObject {
                                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: FidoViewModelError.locked.localizedDescription)
                                             self.state = .error(FidoViewModelError.locked)
                                         } else {
-                                            YubiKitManager.shared.stopNFCConnection(withMessage: "PIN state read")
+                                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN state read"))
                                             self.state = .set
                                         }
                                     }
@@ -208,7 +208,7 @@ class FIDOPINViewModel: ObservableObject {
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
                             self.state = .didSet
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "PIN has been set")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been set"))
                         }
                         self.isProcessing = false
                     }
@@ -237,7 +237,7 @@ class FIDOPINViewModel: ObservableObject {
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
                             self.state = .didChange
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "PIN has been changed")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been changed"))
                         }
                         self.isProcessing = false
                     }

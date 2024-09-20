@@ -13,14 +13,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Authenticator"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Authenticator"
+            "state" : "translated",
+            "value" : "認証"
           }
         }
       }
@@ -32,19 +32,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "The application needs access to NFC reading to communicate with your Yubikey."
+            "value" : "The application needs access to NFC reading to communicate with your YubiKey."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "L'appli doit accéder à la lecture NFC pour communiquer avec votre Yubikey."
+            "value" : "L'application doit avoir accès à la lecture NFC pour communiquer avec votre YubiKey."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yubikeyと通信するには、アプリケーションがNFC読み取りにアクセスできる必要があります."
+            "value" : "アプリケーションはYubiKeyと通信するためにNFC読み取りへのアクセスが必要です。"
           }
         }
       }

@@ -30,7 +30,7 @@ class ResetOATHViewModel: ObservableObject {
         connection.startConnection { connection in
             connection.oathSession { session, error in
                 guard let session = session else {
-                    let errorMessage = error?.localizedDescription ?? "Unknown error"
+                    let errorMessage = error?.localizedDescription ?? String(localized: "Unknown error")
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: errorMessage)
                     DispatchQueue.main.async {
                         self.state = .error(errorMessage)

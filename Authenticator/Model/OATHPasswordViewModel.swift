@@ -22,9 +22,9 @@ enum OATHViewModelError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .wrongPassword:
-            return "Wrong password"
+            return String(localized: "Wrong password")
         case .passwordsDoNotMatch:
-            return "Passwords don't match"
+            return String(localized: "Passwords don't match")
         }
     }
 }
@@ -99,7 +99,7 @@ class OATHPasswordViewModel: ObservableObject {
                 }
                 session.listCredentials { _, error in
                     DispatchQueue.main.async {
-                        defer { YubiKitManager.shared.stopNFCConnection(withMessage: "Password state read") }
+                        defer { YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password state read")) }
                         guard let error = error else {
                             self.state = .notSet
                             return
@@ -146,7 +146,7 @@ class OATHPasswordViewModel: ObservableObject {
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         } else {
                             self.state = .didSet
-                            YubiKitManager.shared.stopNFCConnection(withMessage: "Password has been set")
+                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password has been set"))
                         }
                         self.isProcessing = false
                     }
@@ -195,7 +195,7 @@ class OATHPasswordViewModel: ObservableObject {
                                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                             } else {
                                 self.state = newPassword != nil ? .didSet : .notSet
-                                YubiKitManager.shared.stopNFCConnection(withMessage: newPassword != nil ? "Password has been changed" : "Password has been removed")
+                                YubiKitManager.shared.stopNFCConnection(withMessage: newPassword != nil ? String(localized: "Password has been changed") : String(localized: "Password has been removed"))
                             }
                             self.isProcessing = false
                         }

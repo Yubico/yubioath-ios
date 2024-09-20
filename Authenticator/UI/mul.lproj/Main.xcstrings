@@ -79,13 +79,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "FIDO"
           }
         }
@@ -121,13 +121,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "1.0"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "1.0"
           }
         }
@@ -271,14 +271,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Enabled"
+            "state" : "translated",
+            "value" : "Activé"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Enabled"
+            "state" : "translated",
+            "value" : "有効"
           }
         }
       }
@@ -313,14 +313,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset FIDO application"
+            "state" : "translated",
+            "value" : "Réinitialiser l'application FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset FIDO application"
+            "state" : "translated",
+            "value" : "FIDOアプリケーションのリセット"
           }
         }
       }
@@ -337,7 +337,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Firmware"
           }
         },
@@ -583,14 +583,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH application"
+            "state" : "translated",
+            "value" : "Réinitialiser l'application OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH application"
+            "state" : "translated",
+            "value" : "OATHアプリケーションのリセット"
           }
         }
       }
@@ -625,7 +625,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Configuration"
           }
         },
@@ -799,14 +799,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Manage PIN"
+            "state" : "translated",
+            "value" : "Modifier PIN"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Manage PIN"
+            "state" : "translated",
+            "value" : "PINを変更"
           }
         }
       }
@@ -1255,14 +1255,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Manage password"
+            "state" : "translated",
+            "value" : "Gérer mot de passe"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Manage password"
+            "state" : "translated",
+            "value" : "パスワードを管理"
           }
         }
       }
@@ -1279,14 +1279,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved passwords"
+            "state" : "translated",
+            "value" : "Effacer mot de passe enregistré"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved passwords"
+            "state" : "translated",
+            "value" : "保存したパスワードを消去"
           }
         }
       }
@@ -1357,8 +1357,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "N/A"
+            "state" : "translated",
+            "value" : "該当なし"
           }
         }
       }
@@ -1423,13 +1423,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OATH"
           }
         }
@@ -1543,8 +1543,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "N/A"
+            "state" : "translated",
+            "value" : "該当なし"
           }
         }
       }
@@ -1585,7 +1585,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Application"
           }
         },
@@ -1633,14 +1633,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Configuration"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration"
+            "state" : "translated",
+            "value" : "構成"
           }
         }
       }
@@ -1663,8 +1663,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "UnwindButton"
+            "state" : "translated",
+            "value" : "巻き戻しボタン"
           }
         }
       }
@@ -1759,8 +1759,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "N/A"
+            "state" : "translated",
+            "value" : "該当なし"
           }
         }
       }
@@ -1795,13 +1795,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Yubico Authenticator"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Yubico Authenticator"
           }
         }
@@ -1933,13 +1933,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "PIV"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "PIV"
           }
         }
@@ -2071,14 +2071,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Smart card extension"
+            "state" : "translated",
+            "value" : "Extension de la carte à puce"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Smart card extension"
+            "state" : "translated",
+            "value" : "スマートカード拡張"
           }
         }
       }

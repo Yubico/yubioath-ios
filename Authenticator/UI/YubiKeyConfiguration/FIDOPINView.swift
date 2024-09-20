@@ -66,7 +66,7 @@ struct FIDOPINView: View {
         .sheet(isPresented: $presentChangePIN) {
             FIDOSetChangePINView(type: .change)
         }
-        .alert(error?.localizedDescription ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+        .alert(error?.localizedDescription ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
             Button(role: .cancel) {
                 error = nil
                 if model.state.isFatalError() {
@@ -183,7 +183,7 @@ struct FIDOSetChangePINView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemGroupedBackground))
-            .navigationBarTitle(type == .set ? "Set PIN" : "Change PIN", displayMode: .inline)
+            .navigationBarTitle(type == .set ? String(localized: "Set PIN") : String(localized: "Change PIN"), displayMode: .inline)
             .navigationBarItems(leading: Button(action: { dismiss() }, label: { Text("Cancel") }))
             .navigationBarItems(trailing: Button(action: {
                 setNewPin()
@@ -205,7 +205,7 @@ struct FIDOSetChangePINView: View {
                 default: break
                 }
             }
-            .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: {
+            .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
                 Button(role: .cancel) {
                     errorMessage = nil
                     if model.state.isFatalError() {
@@ -229,11 +229,11 @@ struct FIDOSetChangePINView: View {
     
     private func setNewPin() {
         guard newPIN == repeatedPIN else {
-            presentValidationError("PINs do not match.")
+            presentValidationError(String(localized: "PINs do not match.", comment: "Set PIN view validation error"))
             return
         }
         guard newPIN.count >= model.minPinLength else {
-            presentValidationError("PIN should be at least \(model.minPinLength) characters long.")
+            presentValidationError(String(localized: "PIN should be at least \(model.minPinLength) characters long."))
             return
         }
         if type == .set {

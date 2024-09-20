@@ -14,12 +14,12 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Extension jeton"
+            "value" : "TokenExtension"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "TokenExtension"
           }
         }
@@ -38,12 +38,12 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Extension jeton"
+            "value" : "TokenExtension"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "TokenExtension"
           }
         }

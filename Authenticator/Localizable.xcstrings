@@ -22,13 +22,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "*** *** "
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "*** *** "
           }
         }
@@ -38,13 +38,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "%@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "%@"
           }
         }
@@ -54,13 +54,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "888 888"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "888 888"
           }
         }
@@ -338,36 +338,50 @@
         }
       }
     },
-    "Change PIN" : {
+    "Change" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Change PIN"
+            "state" : "translated",
+            "value" : "Changer"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Change PIN"
+            "state" : "translated",
+            "value" : "変更"
           }
         }
       }
     },
-    "Clear" : {
-      "comment" : "Clear password alert button",
-      "extractionState" : "stale",
+    "Change password" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Effacer"
+            "value" : "Modifier le mot de passe"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "消去"
+            "value" : "パスワードを管理"
+          }
+        }
+      }
+    },
+    "Change PIN" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifier le code PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINを変更"
           }
         }
       }
@@ -376,50 +390,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear passwords"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear passwords"
-          }
-        }
-      }
-    },
-    "Clear passwords saved on" : {
-      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Effacez les mots de passe enregistrés sur"
+            "value" : "Effacer les mots de passe"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "に保存されているパスワードを消去します"
-          }
-        }
-      }
-    },
-    "Clear passwords saved on iPhone. This will prompt for a password next time a password protected YubiKey is used." : {
-      "comment" : "Clear password alert message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Effacez les mots de passe enregistrés sur l'iPhone. Un mot de passe sera requis à la prochaine utilisation d'une YubiKey protégée par mot de passe."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iPhoneに保存されているパスワードを消去します。これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます."
+            "value" : "パスワードを消去する"
           }
         }
       }
@@ -428,32 +406,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used."
-          }
-        }
-      }
-    },
-    "Clear passwords?" : {
-      "comment" : "Clear password alert title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Effacer les mots de passe ?"
+            "value" : "Efface les mots de passe enregistrés sur ce dispositif. Un mot de passe sera demandé lors de la prochaine utilisation d'une YubiKey protégée par un mot de passe."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードを消去しますか？"
+            "value" : "このデバイスに保存されているパスワードを消去します。これにより、次回パスワード保護されたYubiKeyを使用する際にパスワードの入力を求められます。"
           }
         }
       }
@@ -462,14 +422,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved OATH passwords"
+            "state" : "translated",
+            "value" : "Effacer les mots de passe OATH enregistrés"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved OATH passwords"
+            "state" : "translated",
+            "value" : "保存したパスワードを消去"
           }
         }
       }
@@ -478,14 +438,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved passwords"
+            "state" : "translated",
+            "value" : "Effacer les mots de passe enregistrés"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Clear saved passwords"
+            "state" : "translated",
+            "value" : "保存したパスワードを消去"
           }
         }
       }
@@ -563,7 +523,7 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Configuration"
           }
         },
@@ -579,14 +539,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Confirm OATH reset"
+            "state" : "translated",
+            "value" : "Confirmer la réinitialisation de l'OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Confirm OATH reset"
+            "state" : "translated",
+            "value" : "OATHリセットの確認"
           }
         }
       }
@@ -642,17 +602,18 @@
       }
     },
     "Current" : {
+      "comment" : "Enter current password in secure field to change password.",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current"
+            "state" : "translated",
+            "value" : "Actuel"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current"
+            "state" : "translated",
+            "value" : "現在"
           }
         }
       }
@@ -661,14 +622,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current PIN"
+            "state" : "translated",
+            "value" : "PIN actuel"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Current PIN"
+            "state" : "translated",
+            "value" : "現在のPIN"
           }
         }
       }
@@ -826,14 +787,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter current password"
+            "state" : "translated",
+            "value" : "mot de passe actuel"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter current password"
+            "state" : "translated",
+            "value" : "現在のパスワード"
           }
         }
       }
@@ -842,14 +803,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter current PIN"
+            "state" : "translated",
+            "value" : "saisir le code PIN actuel"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter current PIN"
+            "state" : "translated",
+            "value" : "現在の暗証番号を入力"
           }
         }
       }
@@ -875,14 +836,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter password"
+            "state" : "translated",
+            "value" : "saisir le mot de passe"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter password"
+            "state" : "translated",
+            "value" : "新しいパスワード"
           }
         }
       }
@@ -908,14 +869,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter PIN"
+            "state" : "translated",
+            "value" : "saisir le code PIN"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "enter PIN"
+            "state" : "translated",
+            "value" : "暗証番号を入力"
           }
         }
       }
@@ -1020,54 +981,18 @@
         }
       }
     },
-    "Failed to clear passwords" : {
-      "comment" : "Clear passwords failure alert title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impossible d'effacer le mot de passe"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "パスワードの消去に失敗しました"
-          }
-        }
-      }
-    },
-    "Failed to reset YubiKey" : {
-      "comment" : "Reset YubiKey failure alert title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Échec de la réinitialisation de la YubiKey"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKeyのリセットに失敗しました"
-          }
-        }
-      }
-    },
     "FIDO factory reset" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO factory reset"
+            "state" : "translated",
+            "value" : "Réinitialisation d'usine FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO factory reset"
+            "state" : "translated",
+            "value" : "工場出荷時の状態にリセット"
           }
         }
       }
@@ -1082,8 +1007,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead."
+            "state" : "translated",
+            "value" : "USB-C経由のFIDOはiOSではサポートされていません。代わりにNFCまたはデスクトップのYubico Authenticatorをご利用ください。"
           }
         }
       }
@@ -1092,13 +1017,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO PIN"
+            "state" : "translated",
+            "value" : "PIN FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "FIDO PIN"
           }
         }
@@ -1108,14 +1033,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO PIN protection"
+            "state" : "translated",
+            "value" : "Protection PIN FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO PIN protection"
+            "state" : "translated",
+            "value" : "FIDO PIN保護"
           }
         }
       }
@@ -1124,14 +1049,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO reset"
+            "state" : "translated",
+            "value" : "Réinitialisation FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "FIDO reset"
+            "state" : "translated",
+            "value" : "FIDOリセット"
           }
         }
       }
@@ -1157,14 +1082,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN."
+            "state" : "translated",
+            "value" : "Pour plus de sécurité et pour empêcher tout accès non autorisé, l'application FIDO peut être protégée par un code PIN."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN."
+            "state" : "translated",
+            "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、FIDOアプリケーションはPINで保護することができる。"
           }
         }
       }
@@ -1173,14 +1098,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "For additional security and to prevent unauthorized access the YubiKey can be password protected."
+            "state" : "translated",
+            "value" : "Pour plus de sécurité et pour empêcher tout accès non autorisé, le YubiKey peut être protégé par un mot de passe."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "For additional security and to prevent unauthorized access the YubiKey can be password protected."
+            "state" : "translated",
+            "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、YubiKeyはパスワードで保護することができます。"
           }
         }
       }
@@ -1322,7 +1247,7 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Menu"
           }
         },
@@ -1352,17 +1277,18 @@
       }
     },
     "New" : {
+      "comment" : "Enter new password in secure field.",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New"
+            "state" : "translated",
+            "value" : "Nouveau"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "New"
+            "state" : "translated",
+            "value" : "新しい"
           }
         }
       }
@@ -1607,14 +1533,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OATH password protection"
+            "state" : "translated",
+            "value" : "Protection par mot de passe OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OATH password protection"
+            "state" : "translated",
+            "value" : "オプションのパスワード保護"
           }
         }
       }
@@ -1623,14 +1549,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OATH passwords"
+            "state" : "translated",
+            "value" : "Mots de passe OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "OATH passwords"
+            "state" : "translated",
+            "value" : "OATHパスワード"
           }
         }
       }
@@ -1657,13 +1583,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OK"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "OK"
           }
         }
@@ -1699,6 +1625,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iOS設定アプリを開く"
+          }
+        }
+      }
+    },
+    "Operation timed out." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'opération a été interrompue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オペレーションがタイムアウトしました。"
           }
         }
       }
@@ -1769,7 +1711,7 @@
       }
     },
     "Password" : {
-      "comment" : "Password alert",
+      "comment" : "Enter password in secure field to remove password.\nPassword alert",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1853,6 +1795,38 @@
         }
       }
     },
+    "Password state read" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture de l'état du mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワード状態の読み取り"
+          }
+        }
+      }
+    },
+    "Passwords don't match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les mots de passe ne correspondent pas"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードが一致しない"
+          }
+        }
+      }
+    },
     "Period" : {
       "comment" : "Add account select period",
       "localizations" : {
@@ -1887,18 +1861,50 @@
         }
       }
     },
-    "PIN is permanently blocked. Factory reset FIDO application to continue." : {
+    "PIN has been changed" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "PIN is permanently blocked. Factory reset FIDO application to continue."
+            "state" : "translated",
+            "value" : "Le code PIN a été modifié"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "PIN is permanently blocked. Factory reset FIDO application to continue."
+            "state" : "translated",
+            "value" : "暗証番号が変更されました"
+          }
+        }
+      }
+    },
+    "PIN has been set" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le code PIN a été défini"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗証番号が設定されている"
+          }
+        }
+      }
+    },
+    "PIN is permanently blocked. Factory reset FIDO application to continue." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le code PIN est bloqué de manière permanente. Réinitialisez l'application FIDO pour continuer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINは永久にブロックされます。FIDOアプリケーションを工場出荷時にリセットしてください。"
           }
         }
       }
@@ -1907,14 +1913,46 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "PIN is temporary blocked. Remove and reinsert YubiKey to try again."
+            "state" : "translated",
+            "value" : "Le code PIN est temporairement bloqué. Retirez et réinsérez YubiKey pour réessayer."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "PIN is temporary blocked. Remove and reinsert YubiKey to try again."
+            "state" : "translated",
+            "value" : "PINが一時的にブロックされています。YubiKeyを取り外して再度挿入してください。"
+          }
+        }
+      }
+    },
+    "PIN should be at least %llu characters long." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le code PIN doit comporter au moins %llu caractères."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗証番号は少なくとも %llu。"
+          }
+        }
+      }
+    },
+    "PIN state read" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture de l'état du PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN状態読み取り"
           }
         }
       }
@@ -1931,6 +1969,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ピン留め"
+          }
+        }
+      }
+    },
+    "PINs do not match." : {
+      "comment" : "Set PIN view validation error",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les codes PIN ne correspondent pas."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN が一致しません."
+          }
+        }
+      }
+    },
+    "PINs don't match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les codes PIN ne correspondent pas"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN が一致しません"
           }
         }
       }
@@ -1990,14 +2061,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "re-enter password"
+            "state" : "translated",
+            "value" : "supprimer mot de passe"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "re-enter password"
+            "state" : "translated",
+            "value" : "パスワード再入力"
           }
         }
       }
@@ -2006,14 +2077,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "re-enter PIN"
+            "state" : "translated",
+            "value" : "saisir à nouveau le code PIN"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "re-enter PIN"
+            "state" : "translated",
+            "value" : "暗証番号の再入力"
           }
         }
       }
@@ -2048,6 +2119,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKey OTP設定を読み取る"
+          }
+        }
+      }
+    },
+    "Reinsert your YubiKey." : {
+      "comment" : "FIDO reset view",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinsérez votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを再挿入してください."
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
           }
         }
       }
@@ -2087,7 +2191,6 @@
     },
     "Remove password" : {
       "comment" : "Remove password alert title",
-      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2099,24 +2202,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを削除"
-          }
-        }
-      }
-    },
-    "Remove password for this YubiKey?" : {
-      "comment" : "Remove password alert message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supprimer le mot de passe pour cette YubiKey ?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このYubiKeyのパスワードを削除しますか？"
           }
         }
       }
@@ -2159,32 +2244,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this."
-          }
-        }
-      }
-    },
-    "Reset complete" : {
-      "comment" : "Reset YubiKey complete alert title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Réinitialisation terminée"
+            "value" : "Réinitialisez tous les comptes stockés sur YubiKey, assurez-vous qu'ils ne sont utilisés nulle part avant de procéder à cette réinitialisation."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "リセットが完了しました"
+            "value" : "YubiKeyに保存されているすべてのアカウントをリセットします。"
           }
         }
       }
@@ -2194,14 +2261,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset FIDO application"
+            "state" : "translated",
+            "value" : "Réinitialiser l'application FIDO"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset FIDO application"
+            "state" : "translated",
+            "value" : "FIDOアプリケーションのリセット"
           }
         }
       }
@@ -2210,14 +2277,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH"
+            "state" : "translated",
+            "value" : "Réinitialiser OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH"
+            "state" : "translated",
+            "value" : "誓いのリセット"
           }
         }
       }
@@ -2226,32 +2293,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH application"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Reset OATH application"
-          }
-        }
-      }
-    },
-    "Reset YubiKey?" : {
-      "comment" : "Reset YubiKey alert title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
             "state" : "translated",
-            "value" : "Réinitialiser la YubiKey ?"
+            "value" : "Réinitialiser l'application OATH"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyをリセットしますか？"
+            "value" : "OATHアプリケーションのリセット"
           }
         }
       }
@@ -2344,14 +2393,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Saved passwords has been cleared"
+            "state" : "translated",
+            "value" : "Les mots de passe enregistrés ont été effacés"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Saved passwords has been cleared"
+            "state" : "translated",
+            "value" : "保存されたパスワードがクリアされました"
           }
         }
       }
@@ -2426,14 +2475,30 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Set"
+            "state" : "translated",
+            "value" : "Set (jeu de mots)"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Set"
+            "state" : "translated",
+            "value" : "セット"
+          }
+        }
+      }
+    },
+    "Set password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを設定"
           }
         }
       }
@@ -2442,14 +2507,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Set PIN"
+            "state" : "translated",
+            "value" : "Nouveau PIN"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Set PIN"
+            "state" : "translated",
+            "value" : "PINを設定"
           }
         }
       }
@@ -2555,24 +2620,6 @@
         }
       }
     },
-    "Stored passwords have been cleared from this phone." : {
-      "comment" : "Clear passwords confirmation alert message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les mots de passe enregistrés ont été effacés de ce téléphone."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存されたパスワードがこのスマートフォンから消去されました。"
-          }
-        }
-      }
-    },
     "String to Data conversion error" : {
       "localizations" : {
         "fr" : {
@@ -2653,6 +2700,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "データの署名に成功しました"
+          }
+        }
+      }
+    },
+    "The FIDO application of your YubiKey has been reset to factory defaults." : {
+      "comment" : "FIDO reset view",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'application FIDO de votre YubiKey a été réinitialisée aux valeurs d'usine."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyのFIDOアプリケーションは工場出荷時の状態にリセットされています。"
           }
         }
       }
@@ -2810,36 +2874,18 @@
         }
       }
     },
-    "This will delete all accounts and restore factory defaults of your YubiKey." : {
-      "comment" : "Reset YubiKey alert message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cette action supprimera tous les comptes et restaurera les paramètres d'usine de votre YubiKey."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "これにより、すべてのアカウントが削除され、YubiKeyの工場出荷時のデフォルトに戻ります。"
-          }
-        }
-      }
-    },
     "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey."
+            "state" : "translated",
+            "value" : "Cela supprimera irrévocablement tous les comptes U2F et FIDO2, y compris les passkeys, de votre YubiKey."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey."
+            "state" : "translated",
+            "value" : "警告！これにより、すべてのU2FおよびFIDO2アカウントがパスキーを含めてYubiKeyから削除されます。削除は取り消すことができません。"
           }
         }
       }
@@ -2856,24 +2902,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、YubiKeyからアカウントが完全に削除され、コードを生成できなくなります!"
-          }
-        }
-      }
-    },
-    "This will prompt for a password next time a password protected YubiKey is used" : {
-      "comment" : "Substring from 'Clear passwords saved on [iPad/iPhone]. This will prompt for a passowrd next time a password protected YubiKey is used.'.",
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un mot de passe sera requis à la prochaine utilisation d'une YubiKey protégée par mot de passe"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます"
           }
         }
       }
@@ -2928,12 +2956,29 @@
         }
       }
     },
+    "Touch the button on the YubiKey now." : {
+      "comment" : "FIDO reset view",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez maintenant sur le bouton de la YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ここでYubiKeyのボタンをタッチしてください."
+          }
+        }
+      }
+    },
     "Type" : {
       "comment" : "Add account select type",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Type"
           }
         },
@@ -2957,6 +3002,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未処理エラー"
+          }
+        }
+      }
+    },
+    "Unknown error" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur inconnue"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明なエラー"
           }
         }
       }
@@ -2995,6 +3056,23 @@
         }
       }
     },
+    "Unplug your YubiKey." : {
+      "comment" : "FIDO reset view",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirez votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyを抜いてください."
+          }
+        }
+      }
+    },
     "Use your PUK code to reset PIN." : {
       "comment" : "PIV extension pin blocked text",
       "localizations" : {
@@ -3013,17 +3091,18 @@
       }
     },
     "Verify" : {
+      "comment" : "Re-enter new password in secure field.",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Verify"
+            "state" : "translated",
+            "value" : "Vérifier"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Verify"
+            "state" : "translated",
+            "value" : "ベリファイ"
           }
         }
       }
@@ -3055,8 +3134,8 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Warning!"
+            "state" : "translated",
+            "value" : "警告だ！"
           }
         }
       }
@@ -3179,6 +3258,22 @@
         }
       }
     },
+    "Your credentials, as well as any PIN set, will be removed from this YubiKey. Make sure to first disable these from their respective web sites to avoid being locked out of your accounts." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos identifiants OATH, ainsi que tout mot de passe défini, seront supprimés de cette YubiKey. Assurez-vous de les désactiver d'abord de leurs sites Web respectifs pour que vos comptes ne soient pas bloqués."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "認証情報とPINセットがこのYubiKeyから削除されます。アカウントからロックアウトされないよう、初めに各Webサイトからこれらを無効にしてください。"
+          }
+        }
+      }
+    },
     "Your PIN has ben blocked" : {
       "comment" : "PIV extension pin blocked title",
       "localizations" : {
@@ -3200,13 +3295,13 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Yubico OTP"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Yubico OTP"
           }
         }
@@ -3249,14 +3344,14 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey has been reset"
+            "state" : "translated",
+            "value" : "YubiKey a été réinitialisé"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey has been reset"
+            "state" : "translated",
+            "value" : "YubiKeyがリセットされました"
           }
         }
       }

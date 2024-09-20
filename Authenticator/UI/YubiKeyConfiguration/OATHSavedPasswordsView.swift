@@ -49,7 +49,7 @@ struct OATHSavedPasswordsView: View {
                 Text("Cancel")
             }
         })
-        .alert(errorMessage ?? "Unknown error", isPresented: $presentErrorAlert, actions: { })
+        .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: { })
         .onChange(of: model.state) { state in
             withAnimation {
                 switch state {
