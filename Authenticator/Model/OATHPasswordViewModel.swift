@@ -194,7 +194,7 @@ class OATHPasswordViewModel: ObservableObject {
                                 self.state = .error(error)
                                 YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                             } else {
-                                self.state = newPassword != nil ? .didSet : .notSet
+                                self.state = newPassword != nil ? .didSet : .didRemove
                                 YubiKitManager.shared.stopNFCConnection(withMessage: newPassword != nil ? String(localized: "Password has been changed") : String(localized: "Password has been removed"))
                             }
                             self.isProcessing = false
