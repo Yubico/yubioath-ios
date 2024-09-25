@@ -148,17 +148,36 @@ struct MainView: View {
         }
         .sheet(isPresented: $showAddAccount) {
             AddAccountView(showAddCredential: $showAddAccount, accountSubject: addAccountSubject, oathURL: oathURL)
+                .onAppear {
+                    model.stop()
+                }.onDisappear {
+                    model.start()
+                }
         }
         .fullScreenCover(isPresented: $showConfiguration) {
             ConfigurationView(showConfiguration: $showConfiguration)
+                .onAppear {
+                    model.stop()
+                }.onDisappear {
+                    model.start()
+                }
         }
         .fullScreenCover(isPresented: $showAbout) {
             AboutView(showHelp: $showAbout)
+                .onAppear {
+                    model.stop()
+                }.onDisappear {
+                    model.start()
+                }
         }
         .fullScreenCover(isPresented: $model.presentDisableOTP) {
             DisableOTPView()
+                .onAppear {
+                    model.stop()
+                }.onDisappear {
+                    model.start()
+                }
         }
-
         .alert(String(localized: "Enter password", comment: "Password alert"), isPresented: $model.presentPasswordEntry) {
             SecureField(String(localized: "Password", comment: "Password alert"), text: $password)
             Button(String(localized: "Cancel", comment: "Password alert"), role: .cancel) { password = "" }

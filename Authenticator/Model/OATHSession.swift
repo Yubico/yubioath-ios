@@ -18,8 +18,9 @@ import Foundation
 
 enum OATHSessionError: Error, LocalizedError, Equatable {
     
-    case credentialAlreadyPresent(YKFOATHCredentialTemplate);
-    case otpEnabledError;
+    case credentialAlreadyPresent(YKFOATHCredentialTemplate)
+    case otpEnabledError
+    case connectionCancelled
     
     public var errorDescription: String? {
         switch self {
@@ -27,6 +28,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
         case .otpEnabledError:
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
+        case .connectionCancelled:
+            return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
         }
     }
 }
@@ -183,6 +186,8 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                             } else {
                                 continuation.resume(throwing: error!)
                             }
+                            self.wiredContinuation = nil
+                            self.wiredConnectionCallback = nil
                         }
                     }
                 }
@@ -191,7 +196,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                 }
             }
         } onCancel: {
-            wiredContinuation?.resume(throwing: "Connection cancelled")
+            wiredContinuation?.resume(throwing: OATHSessionError.connectionCancelled)
             wiredContinuation = nil
             wiredConnectionCallback = nil
             YubiKitManager.shared.stopAccessoryConnection()

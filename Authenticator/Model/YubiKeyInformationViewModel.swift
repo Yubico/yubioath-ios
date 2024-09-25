@@ -33,6 +33,12 @@ class YubiKeyInformationViewModel: NSObject {
     override init() {
         super.init()
         DelegateStack.shared.setDelegate(self)
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
+        if #available(iOS 16.0, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
     }
     
     deinit {
