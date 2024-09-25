@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.7.11</string>
+        <key>date</key>
+        <date>2024-09-27T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            This version fixes a crash in the NFC settings view.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.10</string>
         <key>date</key>
         <date>2024-09-25T09:41:00Z</date>

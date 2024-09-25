@@ -38,7 +38,7 @@ struct MainView: View {
     
     var insertYubiKeyMessage = {
         if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            String(localized: "Insert YubiKey") + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
+            String(localized: "Insert YubiKey") + " " + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
         } else {
             String(localized: "Insert YubiKey")
         }
