@@ -54,9 +54,12 @@ class ConfigurationController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Hide FIDO section on iPad
+        // Hide FIDO rows on iPad
         if section == 3 && UIDevice.current.userInterfaceIdiom == .pad {
             return 0
+        // Hide NFC Settings row on iPad
+        } else if section == 1 && UIDevice.current.userInterfaceIdiom == .pad {
+            return 1
         } else {
             return super.tableView(tableView, numberOfRowsInSection: section)
         }
