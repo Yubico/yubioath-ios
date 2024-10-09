@@ -16,8 +16,57 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 @available(iOS 14.0, *)
+
+struct SmartCardConfigurationView: View {
+    
+    @State var presentHelpAlert: Bool = false
+    
+    var body: some View {
+        SmartCardConfigurationWrapper()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Smart card extension")
+            .background(Color("SheetBackgroundColor"))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        presentHelpAlert.toggle()
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                    }
+                }
+            }
+            .alert(String(localized: "Smart card extension", comment: "PIV extension info alert title"), isPresented: $presentHelpAlert, actions: {
+                Button(role: .none) {
+                    if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Text(String(localized: "Read more...", comment: "PIV extension read more alert title"))
+                }
+                Button(role: .cancel) {
+                    presentHelpAlert.toggle()
+                } label: {
+                    Text("Cancel")
+                }
+            }, message: {
+                Text("This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey.")
+            })
+    }
+}
+
+struct SmartCardConfigurationWrapper: UIViewControllerRepresentable {
+    typealias UIViewControllerType = SmartCardConfigurationController
+    
+    func makeUIViewController(context: Context) -> SmartCardConfigurationController {
+        return SmartCardConfigurationController(style: .insetGrouped)
+    }
+    
+    func updateUIViewController(_ uiViewController: SmartCardConfigurationController, context: Context) { }
+}
+
 class SmartCardConfigurationController: UITableViewController {
     
     let viewModel = SmartCardViewModel()
@@ -28,7 +77,6 @@ class SmartCardConfigurationController: UITableViewController {
     deinit {
         print("deinit SmartCardConfigurationController")
     }
-    
     
     @IBAction func showHelp(sender: Any) {
         let alert = UIAlertController(title: String(localized: "Smart card extension", comment: "PIV extension info alert title"),

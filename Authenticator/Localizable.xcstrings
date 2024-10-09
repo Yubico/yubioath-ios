@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    " " : {
+
+    },
     " in this version" : {
       "comment" : "Substring in \"See what's new in this version\"",
       "localizations" : {
@@ -551,6 +554,9 @@
         }
       }
     },
+    "Connection cancelled by user" : {
+      "comment" : "Internal error message not to be displayed to the user."
+    },
     "Continue with limited usability" : {
       "localizations" : {
         "fr" : {
@@ -682,6 +688,9 @@
           }
         }
       }
+    },
+    "Device type" : {
+
     },
     "Digits" : {
       "comment" : "Add account select number of digits",
@@ -981,6 +990,9 @@
         }
       }
     },
+    "FIDO" : {
+
+    },
     "FIDO factory reset" : {
       "localizations" : {
         "fr" : {
@@ -1078,6 +1090,9 @@
         }
       }
     },
+    "Firmware version" : {
+
+    },
     "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
       "localizations" : {
         "fr" : {
@@ -1109,6 +1124,9 @@
           }
         }
       }
+    },
+    "GENERAL" : {
+
     },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
@@ -1243,6 +1261,12 @@
         }
       }
     },
+    "Manage password" : {
+
+    },
+    "Manage PIN" : {
+
+    },
     "Menu" : {
       "localizations" : {
         "fr" : {
@@ -1309,6 +1333,9 @@
           }
         }
       }
+    },
+    "NFC settings" : {
+
     },
     "No account information found!" : {
       "comment" : "Scan QR code no account error message",
@@ -1511,6 +1538,9 @@
           }
         }
       }
+    },
+    "OATH" : {
+
     },
     "OATH accounts deleted and OATH application reset to factory defaults." : {
       "comment" : "OATH reset confirmation message",
@@ -2006,6 +2036,9 @@
         }
       }
     },
+    "PIV" : {
+
+    },
     "Plug-in your YubiKey for that operation" : {
       "comment" : "No service found",
       "localizations" : {
@@ -2471,6 +2504,9 @@
         }
       }
     },
+    "Serial number" : {
+
+    },
     "Set" : {
       "localizations" : {
         "fr" : {
@@ -2572,6 +2608,7 @@
     },
     "Smart card extension is only available on iOS 14.5 and forward." : {
       "comment" : "PIV extension version error",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2840,6 +2877,9 @@
         }
       }
     },
+    "This operation is not supported over Lightning on this YubiKey. Please use Yubico Authenticator for desktop to reset the FIDO application." : {
+
+    },
     "This QR code is not supported" : {
       "comment" : "Invalid Uri format, not OATH URL",
       "localizations" : {
@@ -2955,6 +2995,9 @@
           }
         }
       }
+    },
+    "Toggle One-Time Password" : {
+
     },
     "Touch the button on the YubiKey now." : {
       "comment" : "FIDO reset view",

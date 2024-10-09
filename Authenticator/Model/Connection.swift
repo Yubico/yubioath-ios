@@ -21,12 +21,14 @@ class Connection: NSObject {
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        print("init Connection")
+//        assert(YubiKitManager.shared.delegate == nil)
+        YubiKitManager.shared.delegate = self
     }
     
     deinit {
         print("Deinit Connection")
-        DelegateStack.shared.removeDelegate(self)
+//        YubiKitManager.shared.delegate = nil
     }
     
     var connection: YKFConnectionProtocol? {
@@ -38,13 +40,19 @@ class Connection: NSObject {
     private var accessoryConnection: YKFAccessoryConnection?
     
     private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
-    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void)?
+    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void)? {
+        didSet {
+            print("didSet disconnectionCallback: \(disconnectionCallback)")
+        }
+    }
     
     private var accessoryConnectionCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
     private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
     private var smartCardConnectionCallback: ((_ connection: YKFSmartCardConnection?) -> Void)?
 
     func startConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+        YubiKitManager.shared.delegate = self
+
         if let connection = accessoryConnection {
             completion(connection)
         } else if let connection = smartCardConnection {
@@ -60,13 +68,8 @@ class Connection: NSObject {
     }
     
     func startWiredConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
-        if let connection = accessoryConnection {
-            completion(connection)
-        } else if let connection = smartCardConnection {
-            completion(connection)
-        } else {
-            connectionCallback = completion
-        }
+        connectionCallback = completion
+        YubiKitManager.shared.delegate = self
     }
     
     func accessoryConnection(handler: @escaping (_ connection: YKFAccessoryConnection?) -> Void) {
@@ -93,8 +96,21 @@ class Connection: NSObject {
         }
     }
     
+    func stop() {
+        smartCardConnection?.stop()
+        accessoryConnection?.stop()
+        nfcConnection?.stop()
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
+        if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
+    }
+    
     func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void) {
         disconnectionCallback = handler
+        print(disconnectionCallback)
     }
 }
 
@@ -125,6 +141,7 @@ extension Connection: YKFManagerDelegate {
     }
     
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        print("didConnectAccessory")
         accessoryConnection = connection
         accessoryConnectionCallback?(connection)
         accessoryConnectionCallback = nil
@@ -141,6 +158,7 @@ extension Connection: YKFManagerDelegate {
     }
     
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        print("didConnectSmartCard")
         smartCardConnection = connection
         smartCardConnectionCallback?(connection)
         smartCardConnectionCallback = nil
@@ -149,6 +167,7 @@ extension Connection: YKFManagerDelegate {
     }
     
     func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
+        print("didDisconnectSmartCard")
         smartCardConnection = nil
         smartCardConnectionCallback = nil
         connectionCallback = nil

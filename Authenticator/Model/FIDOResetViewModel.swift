@@ -16,11 +16,11 @@
 
 import Foundation
 
-extension String: LocalizedError {
-    public var errorDescription: String? {
-        return self
-    }
-}
+//extension String: LocalizedError {
+//    public var errorDescription: String? {
+//        return self
+//    }
+//}
 
 class FIDOResetViewModel: ObservableObject {
 
@@ -79,6 +79,10 @@ class FIDOResetViewModel: ObservableObject {
             self.state = .error(String(localized: "Unknown error"))
         }
     }
+    
+    func cancelReset() {
+        connection.stop()
+    }
 
     deinit {
         print("deinit FIDOResetViewModel")
@@ -115,29 +119,26 @@ extension FIDOResetViewModel {
 
 extension FIDOResetViewModel {
     func resetAccessory(connection: YKFAccessoryConnection) {
-        connection.fido2Session { _, error in
-            if let error {
+        connection.managementSession() { session, error in
+            guard let session else { self.state = .error(error!); return }
+            
+            let version = session.version
+            guard version != YKFVersion(string: "5.7.2") else {
                 DispatchQueue.main.async {
-                    self.state = .error(error)
+                    self.state = .error(FidoViewModelError.notSupportedOverLightning)
                 }
                 return
             }
             
-            var cancellation = Task {
-                try await Task.sleep(for: .seconds(10))
-                if !Task.isCancelled {
+            connection.fido2Session { _, error in
+                if let error {
                     DispatchQueue.main.async {
-                        self.state = .error(FidoViewModelError.timeout)
+                        self.state = .error(error)
                     }
+                    return
                 }
-            }
-            
-            DispatchQueue.main.async {
-                self.state = .waitingForKeyRemove
-            }
-            self.connection.didDisconnect { _, _ in
-                cancellation.cancel()
-                cancellation = Task {
+                
+                var cancellation = Task {
                     try await Task.sleep(for: .seconds(10))
                     if !Task.isCancelled {
                         DispatchQueue.main.async {
@@ -145,27 +146,42 @@ extension FIDOResetViewModel {
                         }
                     }
                 }
+                
                 DispatchQueue.main.async {
-                    self.state = .waitingForKeyReinsert
+                    self.state = .waitingForKeyRemove
                 }
-                self.connection.startWiredConnection { connection in
-                    connection.fido2Session { session, error in
-                        cancellation.cancel()
-                        cancellation = Task {
-                            try await Task.sleep(for: .seconds(10))
-                            if !Task.isCancelled {
-                                DispatchQueue.main.async {
-                                    self.state = .error(FidoViewModelError.timeout)
-                                }
+                self.connection.didDisconnect { _, _ in
+                    cancellation.cancel()
+                    cancellation = Task {
+                        try await Task.sleep(for: .seconds(10))
+                        if !Task.isCancelled {
+                            DispatchQueue.main.async {
+                                self.state = .error(FidoViewModelError.timeout)
                             }
                         }
-                        DispatchQueue.main.async {
-                            self.state = .waitingForKeyTouch
-                        }
-                        session?.reset { error in
+                    }
+                    DispatchQueue.main.async {
+                        self.state = .waitingForKeyReinsert
+                    }
+                    self.connection.startWiredConnection { connection in
+                        connection.fido2Session { session, error in
                             cancellation.cancel()
+                            cancellation = Task {
+                                try await Task.sleep(for: .seconds(10))
+                                if !Task.isCancelled {
+                                    DispatchQueue.main.async {
+                                        self.state = .error(FidoViewModelError.timeout)
+                                    }
+                                }
+                            }
                             DispatchQueue.main.async {
-                                self.state = .success
+                                self.state = .waitingForKeyTouch
+                            }
+                            session?.reset { error in
+                                cancellation.cancel()
+                                DispatchQueue.main.async {
+                                    self.state = .success
+                                }
                             }
                         }
                     }

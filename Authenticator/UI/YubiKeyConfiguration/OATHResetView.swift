@@ -25,9 +25,10 @@ struct OATHResetView: View {
     @State var errorMessage: String? = nil
 
     var body: some View {
-        SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text(keyHasBeenReset ? String(localized: "YubiKey has been reset") : String(localized: "Reset OATH application")).font(.headline)
+        SettingsView(image: Image(systemName: "exclamationmark.triangle"), imageColor: Color(.systemRed)) {
+            Text(keyHasBeenReset ? String(localized: "YubiKey has been reset") : String(localized: "Reset OATH application")).font(.title2).bold()
             Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
+                .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .opacity(keyHasBeenReset ? 0.2 : 1.0)
         } buttons: {

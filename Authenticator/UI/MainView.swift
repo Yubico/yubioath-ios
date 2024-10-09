@@ -148,11 +148,6 @@ struct MainView: View {
         }
         .sheet(isPresented: $showAddAccount) {
             AddAccountView(showAddCredential: $showAddAccount, accountSubject: addAccountSubject, oathURL: oathURL)
-                .onAppear {
-                    model.stop()
-                }.onDisappear {
-                    model.start()
-                }
         }
         .fullScreenCover(isPresented: $showConfiguration) {
             ConfigurationView(showConfiguration: $showConfiguration)

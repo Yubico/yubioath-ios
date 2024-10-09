@@ -69,7 +69,7 @@
     },
     "4vu-ra-aLP.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"FIDO\"; ObjectID = \"4vu-ra-aLP\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -135,7 +135,7 @@
     },
     "09D-Aw-j1I.title" : {
       "comment" : "Class = \"UITableViewController\"; title = \"YubiKey configuration\"; ObjectID = \"09D-Aw-j1I\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -261,7 +261,7 @@
     },
     "57k-Y4-tLZ.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Enabled\"; ObjectID = \"57k-Y4-tLZ\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -303,7 +303,7 @@
     },
     "959-Oi-fy1.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Reset FIDO application\"; ObjectID = \"959-Oi-fy1\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -327,7 +327,7 @@
     },
     "aFH-4H-WRy.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Firmware\"; ObjectID = \"aFH-4H-WRy\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -392,24 +392,24 @@
       }
     },
     "b6z-Ri-5bh.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"ONE-TIME PASSWORD\"; ObjectID = \"b6z-Ri-5bh\";",
+      "comment" : "Class = \"UILabel\"; text = \"One-Time Password\"; ObjectID = \"b6z-Ri-5bh\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "ONE-TIME PASSWORD"
+            "value" : "One-Time Password"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "MOT DE PASSE À USAGE UNIQUE"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "ワンタイムパスワード"
           }
         }
@@ -459,7 +459,7 @@
     },
     "C5n-jq-Mk9.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"General\"; ObjectID = \"C5n-jq-Mk9\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -525,7 +525,7 @@
     },
     "D3g-ds-RCu.text" : {
       "comment" : "Class = \"UILabel\"; text = \"NFC settings\"; ObjectID = \"D3g-ds-RCu\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -549,7 +549,7 @@
     },
     "D6R-wW-EtA.title" : {
       "comment" : "Class = \"UIBarButtonItem\"; title = \"Close\"; ObjectID = \"D6R-wW-EtA\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -573,7 +573,7 @@
     },
     "d9X-Tp-hSv.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Reset OATH application\"; ObjectID = \"d9X-Tp-hSv\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -615,7 +615,7 @@
     },
     "e3s-bq-xAt.title" : {
       "comment" : "Class = \"UINavigationItem\"; title = \"Configuration\"; ObjectID = \"e3s-bq-xAt\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -705,7 +705,7 @@
     },
     "fl4-8d-lD9.title" : {
       "comment" : "Class = \"UINavigationItem\"; title = \"Smart card extension\"; ObjectID = \"fl4-8d-lD9\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -789,7 +789,7 @@
     },
     "gCh-94-I0T.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Manage PIN\"; ObjectID = \"gCh-94-I0T\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -879,7 +879,7 @@
     },
     "hBA-XE-Ib1.title" : {
       "comment" : "Class = \"UIBarButtonItem\"; title = \"Item\"; ObjectID = \"hBA-XE-Ib1\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1245,7 +1245,7 @@
     },
     "LCv-pg-hU7.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Manage password\"; ObjectID = \"LCv-pg-hU7\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1269,7 +1269,7 @@
     },
     "lDv-WA-VqE.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Clear saved passwords\"; ObjectID = \"lDv-WA-VqE\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1293,7 +1293,7 @@
     },
     "llv-60-0FB.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Device type\"; ObjectID = \"llv-60-0FB\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1317,7 +1317,7 @@
     },
     "Lzm-p7-Lmb.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Serial number\"; ObjectID = \"Lzm-p7-Lmb\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1341,7 +1341,7 @@
     },
     "MBv-4M-eos.text" : {
       "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"MBv-4M-eos\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1413,7 +1413,7 @@
     },
     "Nrv-NX-HWi.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"OATH\"; ObjectID = \"Nrv-NX-HWi\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1527,7 +1527,7 @@
     },
     "QGj-16-s0W.text" : {
       "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"QGj-16-s0W\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1599,7 +1599,7 @@
     },
     "Re8-TR-xIr.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Insert YubiKey or pull down to activate NFC\"; ObjectID = \"Re8-TR-xIr\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1623,7 +1623,7 @@
     },
     "SB9-4D-M8K.title" : {
       "comment" : "Class = \"UIBarButtonItem\"; title = \"Configuration\"; ObjectID = \"SB9-4D-M8K\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1695,7 +1695,7 @@
     },
     "uP5-O2-d0d.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Toggle One-Time Password\"; ObjectID = \"uP5-O2-d0d\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1743,7 +1743,7 @@
     },
     "VAw-dv-zeA.text" : {
       "comment" : "Class = \"UILabel\"; text = \"N/A\"; ObjectID = \"VAw-dv-zeA\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1923,7 +1923,7 @@
     },
     "wX8-c0-dfc.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"PIV\"; ObjectID = \"wX8-c0-dfc\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1971,7 +1971,7 @@
     },
     "yed-kd-amP.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"INFORMATION\"; ObjectID = \"yed-kd-amP\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2061,7 +2061,7 @@
     },
     "ZJS-gM-yza.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Smart card extension\"; ObjectID = \"ZJS-gM-yza\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

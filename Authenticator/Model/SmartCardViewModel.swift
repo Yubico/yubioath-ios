@@ -33,11 +33,11 @@ class SmartCardViewModel: NSObject {
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        YubiKitManager.shared.delegate = self
     }
     
     deinit {
-        DelegateStack.shared.removeDelegate(self)
+        print("deinit SmartCardViewModel")
     }
     
     private func didConnect() {

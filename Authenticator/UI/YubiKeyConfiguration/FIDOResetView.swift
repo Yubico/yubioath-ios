@@ -32,10 +32,10 @@ struct FIDOResetView: View {
     @State var opacity = 1.0
 
     var body: some View {
-        SettingsView(image: Image(systemName: "exclamationmark.triangle").foregroundColor(.red)) {
-            Text("FIDO factory reset").font(.headline).opacity(opacity)
+        SettingsView(image: Image(systemName: "exclamationmark.triangle"), imageColor: Color(.systemRed)) {
+            Text("FIDO factory reset").font(.title2).bold().opacity(opacity)
             ProgressView(value: progress, total: 4.0).opacity(opacity)
-            Text(messageText).multilineTextAlignment(.center)
+            Text(messageText).font(.subheadline).multilineTextAlignment(.center)
         } buttons: {
             SettingsButton("Reset FIDO") {
                 presentConfirmAlert.toggle()
@@ -73,6 +73,10 @@ struct FIDOResetView: View {
         }
         .onAppear() {
             updateState()
+        }
+        .onDisappear {
+            print("onDisappear")
+            model.cancelReset()
         }
     }
     

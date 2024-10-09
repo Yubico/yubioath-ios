@@ -26,14 +26,14 @@ struct ListStatusView: View {
     var body: some View {
         HStack {
             Spacer()
-            VStack(spacing: 25) {
+            VStack(spacing: 20) {
                 Spacer()
                 image
                     .font(.system(size: 100.0))
-                    .foregroundColor(Color(.yubiBlue))
+                    .foregroundColor(.secondary)
                     .accessibilityHidden(true)
                 Text(message)
-                    .font(.title2)
+                    .font(.title3)
                     .multilineTextAlignment(.center)
                     .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
                 Spacer()

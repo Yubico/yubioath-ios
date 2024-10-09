@@ -24,9 +24,10 @@ struct OATHSavedPasswordsView: View {
     @State var passwordsHasBeenCleared = false
 
     var body: some View {
-        SettingsView(image: Image(systemName: "xmark.circle")) {
-            Text(passwordsHasBeenCleared ? "Saved passwords has been cleared" : "Clear saved OATH passwords").font(.headline)
+        SettingsView(image: Image(systemName: "xmark.circle"), imageColor: Color(.systemRed)) {
+            Text(passwordsHasBeenCleared ? "Saved passwords has been cleared" : "Clear saved OATH passwords").font(.title2).bold()
             Text("Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used.")
+                .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .opacity(passwordsHasBeenCleared ? 0.2 : 1.0)
         } buttons: {

@@ -27,22 +27,23 @@ struct FIDOPINView: View {
     }
 
     var body: some View {
-        SettingsView(image: Image(systemName: "key")) {
-            Text("FIDO PIN protection").font(.headline)
+        SettingsView(image: Image(systemName: "lock.shield"), imageColor: Color(.systemPurple)) {
+            Text("FIDO PIN protection").font(.title2).bold()
+
             Text("For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN.")
-                .font(.callout)
+                .font(.subheadline)
                 .multilineTextAlignment(.center)
             
             if model.state.isBlocked() {
                 Text("PIN is temporary blocked. Remove and reinsert YubiKey to try again.")
-                    .font(.callout)
+                    .font(.subheadline)
                     .foregroundStyle(.red)
                     .bold()
                     .multilineTextAlignment(.center)
             }
             if model.state.isPermanentlyBlocked() {
                 Text("PIN is permanently blocked. Factory reset FIDO application to continue.")
-                    .font(.callout)
+                    .font(.subheadline)
                     .foregroundStyle(.red)
                     .bold()
                     .multilineTextAlignment(.center)

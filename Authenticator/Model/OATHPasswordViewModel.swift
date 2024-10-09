@@ -88,12 +88,12 @@ class OATHPasswordViewModel: ObservableObject {
     }
     
     init() {
-        connection.startConnection { connection in
+        connection.startConnection { [weak self] connection in
             connection.oathSession { session, error in
                 guard let session else {
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
                     DispatchQueue.main.async {
-                        self.state = .error(error!)
+                        self?.state = .error(error!)
                     }
                     return
                 }
@@ -101,25 +101,29 @@ class OATHPasswordViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         defer { YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password state read")) }
                         guard let error = error else {
-                            self.state = .notSet
+                            self?.state = .notSet
                             return
                         }
                         if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
-                            self.state = .set
+                            self?.state = .set
                         } else {
-                            self.state = .error(error)
+                            self?.state = .error(error)
                         }
                     }
                 }
             }
         }
         
-        connection.didDisconnect { connection, error in
+        connection.didDisconnect { [weak self] connection, error in
             if connection as? YKFNFCConnection != nil && error == nil { return }
             DispatchQueue.main.async {
-                self.state = .keyRemoved
+                self?.state = .keyRemoved
             }
         }
+    }
+    
+    deinit {
+        print("deinit OATHPasswordViewModel")
     }
     
     func setPassword(_ newPassword: String, repeated repeatedPassword: String) {

@@ -81,11 +81,11 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        YubiKitManager.shared.delegate = self
     }
     
     deinit {
         print("Deinit PasswordStatusViewModel")
-        DelegateStack.shared.removeDelegate(self)
+        YubiKitManager.shared.delegate = nil
     }
 }

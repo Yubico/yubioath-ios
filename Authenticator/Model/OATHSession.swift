@@ -106,18 +106,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
         }
     }
     
-    
     static let shared = OATHSessionHandler()
-    private override init() {
-        super.init()
-        DelegateStack.shared.setDelegate(self)
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            YubiKitManager.shared.startAccessoryConnection()
-        }
-        if #available(iOS 16.0, *) {
-            YubiKitManager.shared.startSmartCardConnection()
-        }
-    }
     
     func wiredSessions() -> OATHSessionHandler.WiredOATHSessions {
         return WiredOATHSessions()
@@ -142,12 +131,14 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     var wiredContinuation: CheckedContinuation<OATHSession, Error>?
     private func newWiredSession() async throws -> OATHSession {
+        YubiKitManager.shared.delegate = self
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             YubiKitManager.shared.startAccessoryConnection()
         }
         if #available(iOS 16.0, *) {
             YubiKitManager.shared.startSmartCardConnection()
         }
+
         return try await withTaskCancellationHandler {
             let deviceType = await UIDevice.current.userInterfaceIdiom
             return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
@@ -199,10 +190,6 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             wiredContinuation?.resume(throwing: OATHSessionError.connectionCancelled)
             wiredContinuation = nil
             wiredConnectionCallback = nil
-            YubiKitManager.shared.stopAccessoryConnection()
-            if #available(iOS 16.0, *) {
-                YubiKitManager.shared.stopSmartCardConnection()
-            }
         }
     }
     

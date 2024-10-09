@@ -56,11 +56,11 @@ fileprivate class ManagementSessionHandler: NSObject, YKFManagerDelegate {
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        YubiKitManager.shared.delegate = self
     }
     
     deinit {
-        DelegateStack.shared.removeDelegate(self)
+        YubiKitManager.shared.delegate = nil
     }
     
     private var smartCardConnection: YKFSmartCardConnection?

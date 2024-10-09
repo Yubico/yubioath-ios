@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-struct SettingsView<Image: View, Content: View, Buttons: View>: View {
+struct SettingsView<Content: View, Buttons: View>: View {
     
     var image: Image? = nil
+    var imageColor: Color = .blue
     @ViewBuilder var content: () -> Content
     @ViewBuilder var buttons: () -> Buttons
     
@@ -20,18 +21,26 @@ struct SettingsView<Image: View, Content: View, Buttons: View>: View {
                 VStack(spacing: 10) {
                     if let image {
                         image
-                            .font(.system(size:50.0))
-                            .foregroundColor(Color(.yubiBlue))
-                            .accessibilityHidden(true)
+                            .resizable()
+                            .scaledToFit()
+                            .font(Font.title.weight(.semibold))
+                            .padding(10)
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.white)
+                            .background(imageColor)
+                            .cornerRadius(13)
+                            .padding(.top, 0)
+                            .padding(.bottom, 0)
                     }
                     content()
                 }
-                .padding(30)
+                .padding(.horizontal, 30)
+                .padding(.vertical, 25)
                 buttons()
             }
             .frame(maxWidth: .infinity)
             .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .padding(20)
             Spacer()
         }

@@ -15,6 +15,42 @@
  */
 
 import UIKit
+import SwiftUI
+
+struct OTPConfigurationView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = OTPConfigurationController
+    @Environment(\.dismiss) private var dismiss
+    @State var coordinator: OTPConfigurationView.Coordinator?
+    
+    func makeUIViewController(context: Context) -> OTPConfigurationController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "YubiKeyConfigurationConroller") as? OTPConfigurationController else { fatalError() }
+        vc.coordinator = context.coordinator
+        vc.coordinator?.dismissHandler = { dismiss() }
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: OTPConfigurationController, context: Context) {
+        // Updates the state of the specified view controller with new information from SwiftUI.
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        let coordinator = Coordinator()
+        DispatchQueue.main.async {
+            self.coordinator = coordinator
+        }
+        return coordinator
+    }
+    
+    class Coordinator: NSObject {
+        
+        var dismissHandler: (() -> Void)?
+        
+        func dismissView() {
+            dismissHandler?()
+        }
+    }
+}
 
 /* This class is for showing YubiKey MGMT configuration over OTP whether it's on or off.
  Users can customize the configuration by switching tagSwitch and saving the change.
@@ -23,6 +59,8 @@ import UIKit
  */
 class OTPConfigurationController: UITableViewController {
     
+    var coordinator: OTPConfigurationView.Coordinator?
+    
     public var viewModel = ManagementViewModel()
     var configuration: ManagementViewModel.OTPConfiguration? = nil
 
@@ -30,7 +68,7 @@ class OTPConfigurationController: UITableViewController {
     @IBOutlet weak var tagSwitch: UISwitch!
     
     func dismiss() {
-        dismiss(animated: true, completion: nil)
+        coordinator?.dismissView()
     }
     
     @IBAction func changeSetting(_ sender: UISwitch) {
@@ -83,19 +121,36 @@ class OTPConfigurationController: UITableViewController {
         }
         
         viewModel.didDisconnect { [weak self] connection, error in
-            if error != nil || (connection as? YKFAccessoryConnection) != nil {
-                let alert = UIAlertController(title: "YubiKey disconnected", message: error?.localizedDescription, preferredStyle: .alert)
-                let action = UIAlertAction(title: "Ok", style: .default) { _ in
+            if error == nil && (connection as? YKFNFCConnection) != nil { return }
+            
+            // Handle disconnect caused by key being removed
+            if error == nil {
+                DispatchQueue.main.async {
                     self?.dismiss()
                 }
-                alert.addAction(action)
-                DispatchQueue.main.async {
-                    self?.present(alert, animated: true, completion: nil)
+                return
+            }
+            // Handle disconnect caused by user cancelling nfc or nfc timeout
+            if let nfcError = error as? NSError {
+                if nfcError.domain == NFCErrorDomain && (nfcError.code == 200 || nfcError.code == 201) {
+                    DispatchQueue.main.async {
+                        self?.dismiss()
+                    }
+                    return
                 }
+            }
+            // Handle error
+            let alert = UIAlertController(title: error?.localizedDescription ?? String(localized: "Unknown error"), message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                self?.dismiss()
+            }
+            alert.addAction(action)
+            DispatchQueue.main.async {
+                self?.present(alert, animated: true, completion: nil)
             }
         }
     }
-    
+
     deinit {
         print("deinit OTPConfigurationController")
     }

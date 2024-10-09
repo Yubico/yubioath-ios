@@ -16,7 +16,7 @@
 
 enum FidoViewModelError: Error, LocalizedError {
     
-    case usbNotSupported, timeout, locked, pinsDoNotMatch
+    case usbNotSupported, timeout, locked, pinsDoNotMatch, notSupportedOverLightning
     
     public var errorDescription: String? {
         switch self {
@@ -28,6 +28,8 @@ enum FidoViewModelError: Error, LocalizedError {
             return String(localized: "Operation timed out.")
         case .locked:
             return String(localized: "PIN is permanently blocked. Factory reset FIDO application to continue.")
+        case .notSupportedOverLightning:
+            return String(localized: "This operation is not supported over Lightning on this YubiKey. Please use Yubico Authenticator for desktop to reset the FIDO application.")
         }
     }
 }
@@ -124,7 +126,9 @@ class FIDOPINViewModel: ObservableObject {
                         }
                         return
                     }
-                    self.pincomplexity = deviceInfo.pinComplexity
+                    DispatchQueue.main.async {
+                        self.pincomplexity = deviceInfo.pinComplexity
+                    }
                     connection.fido2Session { session, error in
                         guard let session else {
                             YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)

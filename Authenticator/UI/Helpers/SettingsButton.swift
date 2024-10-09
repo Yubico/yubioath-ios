@@ -33,15 +33,16 @@ public struct SettingsButton: View {
         Button {
             action()
         } label: {
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 Color(.separator)
                     .frame(height: 1.0 / displayScale)
                     .frame(maxWidth: .infinity)
                     .padding(0)
+                    .padding(.leading, 20)
                 Text(text)
                     .font(.body)
-                    .frame(maxWidth: .infinity)
                     .padding(12)
+                    .padding(.leading, 7)
             }
         }
         .buttonStyle(SettingsButtonStyle(isEnabled: isEnabled))
