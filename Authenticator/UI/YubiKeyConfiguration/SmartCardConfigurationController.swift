@@ -78,21 +78,6 @@ class SmartCardConfigurationController: UITableViewController {
         print("deinit SmartCardConfigurationController")
     }
     
-    @IBAction func showHelp(sender: Any) {
-        let alert = UIAlertController(title: String(localized: "Smart card extension", comment: "PIV extension info alert title"),
-                                      message: String(localized: "Other applications can use client certificates on your YubiKey for authentication and signing purposes.", comment: "PIV extension info alert message"),
-                                                      preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: String(localized: "Close"), style: .cancel)
-        alert.addAction(closeAction)
-        let readMoreAction = UIAlertAction(title: String(localized: "Read more...", comment: "PIV extension read more alert title"), style: .default) {_ in
-            if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
-                UIApplication.shared.open(url)
-            }
-        }
-        alert.addAction(readMoreAction)
-        self.present(alert, animated: true)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -275,16 +260,16 @@ private class HeaderCell: UITableViewCell {
     
     var type: Type {
         willSet {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 60)
+            let configuration = UIImage.SymbolConfiguration(pointSize: 60, weight: .semibold)
             let device =  UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
             switch newValue {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
-                title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header").uppercased()
+                title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header")
                 text.text = "\(String(localized: "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this", comment: "PIV extension no certs on yubikey message")) \(device)."
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
-                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)".uppercased()
+                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)"
                 text.text = "\(String(localized: "These certificates have been added to this", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'")) \(device) \(String(localized: "and can be used by other applications", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"))."
             }
         }
@@ -294,8 +279,7 @@ private class HeaderCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .secondaryLabel
+        label.font = UIFont.preferredFont(forTextStyle: .title2).withSymbolicTraits(.traitBold)
         return label
     }()
     
@@ -303,8 +287,7 @@ private class HeaderCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .secondaryLabel
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
@@ -314,22 +297,36 @@ private class HeaderCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .yubiBlue
+        imageView.tintColor = .white
         return imageView
+    }()
+    
+    let iconContainer: UIView = {
+       let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .systemOrange
+        container.layer.cornerRadius = 13
+        return container
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.type = .onYubiKey
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.addSubview(icon)
+        self.contentView.addSubview(iconContainer)
         self.contentView.addSubview(title)
         self.contentView.addSubview(text)
+        self.iconContainer.addSubview(icon)
 
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            icon.heightAnchor.constraint(equalToConstant: 45),
-            icon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15),
+            iconContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            iconContainer.heightAnchor.constraint(equalToConstant: 60),
+            iconContainer.widthAnchor.constraint(equalToConstant: 60),
+            iconContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            icon.topAnchor.constraint(equalTo: iconContainer.topAnchor, constant: 10),
+            icon.bottomAnchor.constraint(equalTo: iconContainer.bottomAnchor, constant: -10),
+            icon.leftAnchor.constraint(equalTo: iconContainer.leftAnchor, constant: 10),
+            icon.rightAnchor.constraint(equalTo: iconContainer.rightAnchor, constant: -10),
+            title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 20),
             title.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             title.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
@@ -467,7 +464,6 @@ class TableHeaderView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -481,7 +477,7 @@ class TableHeaderView: UIView {
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
             imageView.heightAnchor.constraint(equalToConstant: 50),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
             label.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
@@ -509,11 +505,11 @@ class TableHeaderView: UIView {
             case .notEnabled:
                 imageView.image = UIImage(systemName: "minus.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .secondaryLabel
-                label.text = String(localized: "Not Enabled", comment: "PIV extension not enabled message").uppercased()
+                label.text = String(localized: "Not Enabled", comment: "PIV extension not enabled message")
             case .enabled:
                 imageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .systemGreen
-                label.text = String(localized: "Enabled", comment: "PIV extension enabled message").uppercased()
+                label.text = String(localized: "Enabled", comment: "PIV extension enabled message")
             }
         }
     }
