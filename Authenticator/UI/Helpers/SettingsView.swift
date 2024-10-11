@@ -31,6 +31,7 @@ struct SettingsView<Content: View, Buttons: View>: View {
                             .cornerRadius(13)
                             .padding(.top, 0)
                             .padding(.bottom, 0)
+                            .accessibilityHidden(true)
                     }
                     content()
                 }

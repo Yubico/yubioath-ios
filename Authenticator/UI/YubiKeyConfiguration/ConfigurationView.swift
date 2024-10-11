@@ -21,6 +21,14 @@ struct ConfigurationView: View {
     @Binding var showConfiguration: Bool
     @State var showInsertYubiKey: Bool = false
     
+    var insertYubiKeyMessage = {
+        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+            String(localized: "Insert YubiKey") + " " + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
+        } else {
+            String(localized: "Insert YubiKey")
+        }
+    }()
+    
     var body: some View {
         NavigationView {
             List {
@@ -32,7 +40,8 @@ struct ConfigurationView: View {
                             .frame(width: 100, height: 100)
                             .foregroundStyle(.secondary)
                             .padding(15)
-                        Text("Insert YubiKey or pull down to activate NFC")
+                            .accessibilityHidden(true)
+                        Text(insertYubiKeyMessage)
                             .multilineTextAlignment(.center)
                     }
                     .frame(maxWidth: .infinity)
@@ -88,17 +97,19 @@ struct ConfigurationView: View {
                         ListIconView(image: Image(systemName: "ellipsis.rectangle"), color: Color(.systemBlue))
                         Text("Toggle One-Time Password")
                     }
-                    NavigationLink {
-                        NFCSettingsView()
-                            .navigationBarTitleDisplayMode(.inline)
-                            .navigationTitle("NFC settings")
-                            .background(Color("SheetBackgroundColor"))
-                            .onDisappear {
-                                model.start()
-                            }
-                    } label: {
-                        ListIconView(image: Image(systemName: "dot.radiowaves.left.and.right"), color: Color(.systemBlue))
-                        Text("NFC settings")
+                    if YubiKitDeviceCapabilities.supportsNFCScanning {
+                        NavigationLink {
+                            NFCSettingsView()
+                                .navigationBarTitleDisplayMode(.inline)
+                                .navigationTitle("NFC settings")
+                                .background(Color("SheetBackgroundColor"))
+                                .onDisappear {
+                                    model.start()
+                                }
+                        } label: {
+                            ListIconView(image: Image(systemName: "dot.radiowaves.left.and.right"), color: Color(.systemBlue))
+                            Text("NFC settings")
+                        }
                     }
                 }
                 Section("OATH") {
@@ -127,24 +138,26 @@ struct ConfigurationView: View {
                         Text("Reset OATH application")
                     }
                 }
-                Section("FIDO") {
-                    NavigationLink {
-                        FIDOPINView()
-                            .onDisappear {
-                                model.start()
-                            }
-                    } label: {
-                        ListIconView(image: Image(systemName: "lock.shield"), color: Color(.systemPurple))
-                        Text("Manage PIN")
-                    }
-                    NavigationLink {
-                        FIDOResetView()
-                            .onDisappear {
-                                model.start()
-                            }
-                    } label: {
-                        ListIconView(image: Image(systemName: "trash"), color: Color(.systemRed), padding: 5)
-                        Text("Reset FIDO application")
+                if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                    Section("FIDO") {
+                        NavigationLink {
+                            FIDOPINView()
+                                .onDisappear {
+                                    model.start()
+                                }
+                        } label: {
+                            ListIconView(image: Image(systemName: "lock.shield"), color: Color(.systemPurple))
+                            Text("Manage PIN")
+                        }
+                        NavigationLink {
+                            FIDOResetView()
+                                .onDisappear {
+                                    model.start()
+                                }
+                        } label: {
+                            ListIconView(image: Image(systemName: "trash"), color: Color(.systemRed), padding: 5)
+                            Text("Reset FIDO application")
+                        }
                     }
                 }
                 Section("PIV") {
@@ -161,6 +174,13 @@ struct ConfigurationView: View {
             }
             .navigationTitle(String(localized: "Configuration", comment: "Configuration navigation title"))
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if UIAccessibility.isVoiceOverRunning {
+                        Button("Scan NFC YubiKey") {
+                            model.scanNFC()
+                        }
+                    }
+                }
                 ToolbarItem(placement: .primaryAction) {
                     Button("Close") {
                         showConfiguration.toggle()
