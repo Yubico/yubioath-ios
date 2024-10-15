@@ -15,12 +15,7 @@
  */
 
 import Foundation
-
-//extension String: LocalizedError {
-//    public var errorDescription: String? {
-//        return self
-//    }
-//}
+import OSLog
 
 class FIDOResetViewModel: ObservableObject {
 
@@ -84,8 +79,12 @@ class FIDOResetViewModel: ObservableObject {
         connection.stop()
     }
 
+    init() {
+        Logger.allocation.debug("FIDOresetViewModel: init")
+    }
+    
     deinit {
-        print("deinit FIDOResetViewModel")
+        Logger.allocation.debug("FIDOresetViewModel: deinit")
     }
 }
 

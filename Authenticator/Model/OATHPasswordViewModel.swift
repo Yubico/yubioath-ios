@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import OSLog
 
 enum OATHViewModelError: Error, LocalizedError {
     
@@ -120,10 +121,11 @@ class OATHPasswordViewModel: ObservableObject {
                 self?.state = .keyRemoved
             }
         }
+        Logger.allocation.debug("OATHPasswordViewModel: init")
     }
     
     deinit {
-        print("deinit OATHPasswordViewModel")
+        Logger.allocation.debug("OATHPasswordViewModel: deinit")
     }
     
     func setPassword(_ newPassword: String, repeated repeatedPassword: String) {

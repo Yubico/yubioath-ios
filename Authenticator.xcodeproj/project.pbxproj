@@ -58,7 +58,6 @@
 		818866CE22DFD72C006BC0A8 /* AuthenticatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818866CD22DFD72C006BC0A8 /* AuthenticatorTests.swift */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
 		81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */; };
-		81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */; };
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
 		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
@@ -102,6 +101,7 @@
 		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
 		B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
+		B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */; };
 		B4BB02D92C80987B00B72904 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02D82C80987B00B72904 /* SettingsButton.swift */; };
 		B4BB02DA2C809BE800B72904 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
 		B4BB02DC2C80A09500B72904 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02DB2C80A09500B72904 /* SettingsView.swift */; };
@@ -218,7 +218,6 @@
 		818866F622E7A877006BC0A8 /* Authenticator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Authenticator.entitlements; sourceTree = "<group>"; };
 		81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeySessionError.swift; sourceTree = "<group>"; };
 		81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSessionObserver.swift; sourceTree = "<group>"; };
-		81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
@@ -264,6 +263,7 @@
 		B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
+		B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		B4BB02D82C80987B00B72904 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		B4BB02DB2C80A09500B72904 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSavedPasswordsViewModel.swift; sourceTree = "<group>"; };
@@ -330,7 +330,6 @@
 				B4696F3E2CB6CE5200604F6F /* ConfigurationView.swift */,
 				A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */,
 				515542672654413600B19C59 /* SmartCardConfigurationController.swift */,
-				81FA3C31231AF289009C22AB /* SetPasswordViewController.swift */,
 				51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */,
 				B44E5EBA2C778802007ABB79 /* OATHPasswordView.swift */,
 				B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */,
@@ -400,6 +399,7 @@
 		51EEC530246D34D800061A8F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */,
 				51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */,
 				51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */,
 			);
@@ -767,6 +767,7 @@
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
 				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
 				B44E5EB32C777F22007ABB79 /* OATHPasswordViewModel.swift in Sources */,
+				B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */,
 				B4BB02DC2C80A09500B72904 /* SettingsView.swift in Sources */,
 				B44E5E812C74BE67007ABB79 /* OATHResetView.swift in Sources */,
 				B411242F29D423A300D58001 /* ListStatusView.swift in Sources */,
@@ -800,7 +801,6 @@
 				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
 				B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
-				81FA3C32231AF289009C22AB /* SetPasswordViewController.swift in Sources */,
 				B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */,
 				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,

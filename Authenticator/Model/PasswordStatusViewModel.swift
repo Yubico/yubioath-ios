@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import OSLog
+
 class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     
     private var accessoryConnection: YKFAccessoryConnection?
@@ -82,10 +84,11 @@ class PasswordStatusViewModel: NSObject, YKFManagerDelegate {
     override init() {
         super.init()
         YubiKitManager.shared.delegate = self
+        Logger.allocation.debug("PasswordStatusViewModel: deinit")
     }
     
     deinit {
-        print("Deinit PasswordStatusViewModel")
         YubiKitManager.shared.delegate = nil
+        Logger.allocation.debug("PasswordStatusViewModel: deinit")
     }
 }

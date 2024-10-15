@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import OSLog
 
 class DisableOTPModel: ObservableObject {
     private let sessionHandler = ManagementSessionHandler()
@@ -29,6 +30,11 @@ class DisableOTPModel: ObservableObject {
                 self?.keyRemoved = true
             }
         }
+        Logger.allocation.debug("DisableOTPModel: init")
+    }
+    
+    deinit {
+        Logger.allocation.debug("DisableOTPModel: deinit")
     }
     
     func disableOTP() {
@@ -57,10 +63,12 @@ fileprivate class ManagementSessionHandler: NSObject, YKFManagerDelegate {
     override init() {
         super.init()
         YubiKitManager.shared.delegate = self
+        Logger.allocation.debug("ManagementSessionHandler: init")
     }
     
     deinit {
         YubiKitManager.shared.delegate = nil
+        Logger.allocation.debug("ManagementSessionHandler: deinit")
     }
     
     private var smartCardConnection: YKFSmartCardConnection?
@@ -70,7 +78,6 @@ fileprivate class ManagementSessionHandler: NSObject, YKFManagerDelegate {
     fileprivate var closingCallback: ((_ error: Error?) -> Void)?
     
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
-        print(connection.smartCardInterface.hashValue)
         smartCardConnection = connection
         connectionCallback?(connection)
         connectionCallback = nil

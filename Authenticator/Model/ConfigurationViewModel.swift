@@ -15,6 +15,7 @@
  */
 
 import SwiftUI
+import OSLog
 
 class ConfigurationViewModel: ObservableObject {
 
@@ -23,17 +24,17 @@ class ConfigurationViewModel: ObservableObject {
     @Published var deviceInfo: YKFManagementDeviceInfo?
     
     init() {
-        print("init ConfigurationViewModel")
+        Logger.allocation.debug("ConfigurationViewModel: init")
     }
     
     func waitForConnection() {
-        print("waitForConnection")
+        Logger.connection.debug("ConfigurationViewModel: waitForConnection")
         connection.startWiredConnection { [weak self] connection in
-            print("Got wired connection")
+            Logger.connection.debug("ConfigurationViewModel: got wired connection")
             connection.managementSession { session, error in
-                guard let session else { print(error); return }
+                guard let session else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
                 session.getDeviceInfo { info, error in
-                    guard let info else { print(error); return }
+                    guard let info else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
                     DispatchQueue.main.async {
                         self?.deviceInfo = info
                     }
@@ -58,7 +59,7 @@ class ConfigurationViewModel: ObservableObject {
     func scanNFC() {
         connection.startConnection { [weak self] connection in
             connection.managementSession() { session, error in
-                guard let session else { print(error); return }
+                guard let session else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
                 session.getDeviceInfo { info, error in
                     DispatchQueue.main.async {
                         self?.deviceInfo = info
@@ -70,6 +71,6 @@ class ConfigurationViewModel: ObservableObject {
     }
     
     deinit {
-        print("deinit ConfigurationViewModel")
+        Logger.allocation.debug("ConfigurationViewModel: deinit")
     }
 }

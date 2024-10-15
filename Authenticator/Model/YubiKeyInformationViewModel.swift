@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import OSLog
+
 class YubiKeyInformationViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
@@ -26,11 +28,12 @@ class YubiKeyInformationViewModel: NSObject {
     
     override init() {
         super.init()
+        Logger.allocation.debug("YubiKeyInformationViewModel: init")
     }
     
     deinit {
-        print("Deinit YubiKeyInformationViewModel")
         YubiKitManager.shared.delegate = nil
+        Logger.allocation.debug("YubiKeyInformationViewModel: deinit")
     }
     
     private func didConnect(_ connection: YKFConnectionProtocol) {
@@ -51,7 +54,6 @@ class YubiKeyInformationViewModel: NSObject {
     func deviceInfo(handler: @escaping (_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void) {
         self.handler = handler
         YubiKitManager.shared.delegate = self
-        print("Set deviceInfo delegate")
         if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
             YubiKitManager.shared.startAccessoryConnection()
         }

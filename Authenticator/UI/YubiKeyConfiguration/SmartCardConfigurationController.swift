@@ -17,6 +17,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import OSLog
 
 @available(iOS 14.0, *)
 
@@ -75,7 +76,7 @@ class SmartCardConfigurationController: UITableViewController {
     let headerView = TableHeaderView()
     
     deinit {
-        print("deinit SmartCardConfigurationController")
+        Logger.allocation.debug("SmartCardConfigurationController: deinit")
     }
     
     override func viewDidLoad() {
@@ -144,7 +145,7 @@ class SmartCardConfigurationController: UITableViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                Logger.ctk.error("SmartCardConfigurationController: failed to fetch certificates: \(error)")
             }
         }
         viewModel.tokensCallback = { result in
@@ -156,7 +157,7 @@ class SmartCardConfigurationController: UITableViewController {
                     self.headerView.status = tokens.count > 0 ? .enabled : .notEnabled
                 }
             case .failure(let error):
-                print(error)
+                Logger.ctk.error("SmartCardConfigurationController: failed to fetch tokens: \(error)")
             }
         }
         viewModel.update()
@@ -369,6 +370,7 @@ private class MessageCell: UITableViewCell {
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
+        Logger.allocation.debug("MessageCell: init")
     }
     
     override func prepareForReuse() {
@@ -377,7 +379,7 @@ private class MessageCell: UITableViewCell {
     }
     
     deinit {
-        print("deinit MessageCell")
+        Logger.allocation.debug("MessageCell: deinit")
     }
     
     required init?(coder: NSCoder) {
@@ -434,6 +436,7 @@ private class CertificateCell: UITableViewCell {
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
         ])
+        Logger.allocation.debug("CertificateCell: init")
     }
     
     override func prepareForReuse() {
@@ -443,7 +446,7 @@ private class CertificateCell: UITableViewCell {
     }
     
     deinit {
-        print("deinit CertificateCell")
+        Logger.allocation.debug("CertificateCell: deinit")
     }
     
     required init?(coder: NSCoder) {

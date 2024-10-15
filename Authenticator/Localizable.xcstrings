@@ -948,6 +948,7 @@
       }
     },
     "Error" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1856,6 +1857,7 @@
     },
     "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
       "comment" : "PIV extension info alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1890,6 +1892,7 @@
     },
     "Password can not be an empty string" : {
       "comment" : "Configuration set password empty password error alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2934,6 +2937,7 @@
     },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {

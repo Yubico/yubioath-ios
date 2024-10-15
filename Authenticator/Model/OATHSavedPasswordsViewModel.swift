@@ -15,7 +15,7 @@
  */
 
 
-import UIKit
+import OSLog
 
 class OATHSavedPasswordsViewModel: ObservableObject {
 
@@ -40,7 +40,11 @@ class OATHSavedPasswordsViewModel: ObservableObject {
         }
     }
 
+    init() {
+        Logger.allocation.debug("OATHSavedPasswordsViewModel: init")
+    }
+    
     deinit {
-        print("deinit OATHSavedPasswordsViewModel")
+        Logger.allocation.debug("OATHSavedPasswordsViewModel: deinit")
     }
 }

@@ -16,6 +16,7 @@
 
 import UIKit
 import SwiftUI
+import OSLog
 
 struct OTPConfigurationView: UIViewControllerRepresentable {
     typealias UIViewControllerType = OTPConfigurationController
@@ -152,6 +153,6 @@ class OTPConfigurationController: UITableViewController {
     }
 
     deinit {
-        print("deinit OTPConfigurationController")
+        Logger.allocation.debug("OTPConfigurationController: deinit")
     }
 }

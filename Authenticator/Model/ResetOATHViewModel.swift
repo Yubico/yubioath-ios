@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import OSLog
 
 class ResetOATHViewModel: ObservableObject {
 
@@ -25,6 +26,10 @@ class ResetOATHViewModel: ObservableObject {
     }
     
     private let connection = Connection()
+    
+    init() {
+        Logger.allocation.debug("ResetOATHViewModel: init")
+    }
 
     func reset() {
         connection.startConnection { connection in
@@ -54,6 +59,6 @@ class ResetOATHViewModel: ObservableObject {
     }
 
     deinit {
-        print("deinit ResetOATHViewModel")
+        Logger.allocation.debug("ResetOATHViewModel: deinit")
     }
 }

@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
+import OSLog
+
 @available(iOS 14.0, *)
+
 class SmartCardViewModel: NSObject {
     
     struct Certificate {
@@ -34,10 +37,11 @@ class SmartCardViewModel: NSObject {
     override init() {
         super.init()
         YubiKitManager.shared.delegate = self
+        Logger.allocation.debug("SmartCardViewModel: init")
     }
     
     deinit {
-        print("deinit SmartCardViewModel")
+        Logger.allocation.debug("SmartCardViewModel: deinit")
     }
     
     private func didConnect() {
@@ -60,7 +64,7 @@ class SmartCardViewModel: NSObject {
     
     func removeTokenCertificate(certificate: SecCertificate) {
         let result = tokenStorage.removeTokenCertificate(certificate: certificate)
-        result ? print("Sucessfully removed certificate from keychain") : print("Failed removing certificate from keychain!")
+        result ? Logger.ctk.debug("Sucessfully removed certificate from keychain") : Logger.ctk.debug("Failed removing certificate from keychain!")
     }
     
     func update() {
