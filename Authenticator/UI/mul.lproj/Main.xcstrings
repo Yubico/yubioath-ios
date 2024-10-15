@@ -403,13 +403,13 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "MOT DE PASSE À USAGE UNIQUE"
+            "state" : "translated",
+            "value" : "Basculer le mot de passe à usage unique"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "ワンタイムパスワード"
           }
         }

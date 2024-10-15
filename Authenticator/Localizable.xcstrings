@@ -2,7 +2,20 @@
   "sourceLanguage" : "en",
   "strings" : {
     " " : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " "
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " "
+          }
+        }
+      }
     },
     " in this version" : {
       "comment" : "Substring in \"See what's new in this version\"",
@@ -555,7 +568,21 @@
       }
     },
     "Connection cancelled by user" : {
-      "comment" : "Internal error message not to be displayed to the user."
+      "comment" : "Internal error message not to be displayed to the user.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion annulée par l'utilisateur"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーによる接続のキャンセル"
+          }
+        }
+      }
     },
     "Continue with limited usability" : {
       "localizations" : {
@@ -690,7 +717,20 @@
       }
     },
     "Device type" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type d'appareil"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスタイプ"
+          }
+        }
+      }
     },
     "Digits" : {
       "comment" : "Add account select number of digits",
@@ -991,7 +1031,20 @@
       }
     },
     "FIDO" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO"
+          }
+        }
+      }
     },
     "FIDO factory reset" : {
       "localizations" : {
@@ -1091,7 +1144,20 @@
       }
     },
     "Firmware version" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version du micrologiciel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ファームウェアバージョン"
+          }
+        }
+      }
     },
     "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
       "localizations" : {
@@ -1126,7 +1192,20 @@
       }
     },
     "GENERAL" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GÉNÉRALITÉS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一般"
+          }
+        }
+      }
     },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
@@ -1262,10 +1341,36 @@
       }
     },
     "Manage password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gérer mot de passe"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "パスワードを管理"
+          }
+        }
+      }
     },
     "Manage PIN" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modifier PIN"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINを変更"
+          }
+        }
+      }
     },
     "Menu" : {
       "localizations" : {
@@ -1335,7 +1440,20 @@
       }
     },
     "NFC settings" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres NFC"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC設定"
+          }
+        }
+      }
     },
     "No account information found!" : {
       "comment" : "Scan QR code no account error message",
@@ -1540,7 +1658,20 @@
       }
     },
     "OATH" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH"
+          }
+        }
+      }
     },
     "OATH accounts deleted and OATH application reset to factory defaults." : {
       "comment" : "OATH reset confirmation message",
@@ -2037,7 +2168,20 @@
       }
     },
     "PIV" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIV"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIV"
+          }
+        }
+      }
     },
     "Plug-in your YubiKey for that operation" : {
       "comment" : "No service found",
@@ -2505,7 +2649,20 @@
       }
     },
     "Serial number" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numéro de série"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シリアル番号"
+          }
+        }
+      }
     },
     "Set" : {
       "localizations" : {
@@ -2878,7 +3035,20 @@
       }
     },
     "This operation is not supported over Lightning on this YubiKey. Please use Yubico Authenticator for desktop to reset the FIDO application." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette opération n'est pas supportée par Lightning sur cette YubiKey. Veuillez utiliser Yubico Authenticator for desktop pour réinitialiser l'application FIDO."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本YubiKeyでは、Lightning経由でのこの操作はサポートされていません。FIDOアプリケーションをリセットするには、Yubico Authenticator for desktopをご利用ください。"
+          }
+        }
+      }
     },
     "This QR code is not supported" : {
       "comment" : "Invalid Uri format, not OATH URL",
@@ -2997,7 +3167,20 @@
       }
     },
     "Toggle One-Time Password" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basculer le mot de passe à usage unique"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタイムパスワードの切り替え"
+          }
+        }
+      }
     },
     "Touch the button on the YubiKey now." : {
       "comment" : "FIDO reset view",
