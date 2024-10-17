@@ -16,6 +16,7 @@
 
 import Foundation
 import LocalAuthentication
+import OSLog
 
 enum AuthenticationType {
     case touchId
@@ -61,11 +62,11 @@ class PasswordPreferences {
         let hasBiometricAuthentication = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &errorBiometricPolicy)
         
         if let error = errorPolicy {
-            print("Authentication policy error: " + String(describing: error.localizedDescription))
+            Logger.system.error("PasswordPreferences, authentication policy error: \(String(describing: error.localizedDescription))")
         }
         
         if let error = errorBiometricPolicy {
-            print("Biometric policy error: " + String(describing: error.localizedDescription))
+            Logger.system.error("PasswordPreferences, biometric policy error: \(String(describing: error.localizedDescription))")
         }
         
         if !hasAuthentication {

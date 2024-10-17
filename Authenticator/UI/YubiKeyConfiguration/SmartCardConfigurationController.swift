@@ -16,8 +16,58 @@
 
 import Foundation
 import Combine
+import SwiftUI
+import OSLog
 
 @available(iOS 14.0, *)
+
+struct SmartCardConfigurationView: View {
+    
+    @State var presentHelpAlert: Bool = false
+    
+    var body: some View {
+        SmartCardConfigurationWrapper()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Smart card extension")
+            .background(Color("SheetBackgroundColor"))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        presentHelpAlert.toggle()
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                    }
+                }
+            }
+            .alert(String(localized: "Smart card extension", comment: "PIV extension info alert title"), isPresented: $presentHelpAlert, actions: {
+                Button(role: .none) {
+                    if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Text(String(localized: "Read more...", comment: "PIV extension read more alert title"))
+                }
+                Button(role: .cancel) {
+                    presentHelpAlert.toggle()
+                } label: {
+                    Text("Cancel")
+                }
+            }, message: {
+                Text("This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey.")
+            })
+    }
+}
+
+struct SmartCardConfigurationWrapper: UIViewControllerRepresentable {
+    typealias UIViewControllerType = SmartCardConfigurationController
+    
+    func makeUIViewController(context: Context) -> SmartCardConfigurationController {
+        return SmartCardConfigurationController(style: .insetGrouped)
+    }
+    
+    func updateUIViewController(_ uiViewController: SmartCardConfigurationController, context: Context) { }
+}
+
 class SmartCardConfigurationController: UITableViewController {
     
     let viewModel = SmartCardViewModel()
@@ -26,23 +76,7 @@ class SmartCardConfigurationController: UITableViewController {
     let headerView = TableHeaderView()
     
     deinit {
-        print("deinit SmartCardConfigurationController")
-    }
-    
-    
-    @IBAction func showHelp(sender: Any) {
-        let alert = UIAlertController(title: String(localized: "Smart card extension", comment: "PIV extension info alert title"),
-                                      message: String(localized: "Other applications can use client certificates on your YubiKey for authentication and signing purposes.", comment: "PIV extension info alert message"),
-                                                      preferredStyle: .alert)
-        let closeAction = UIAlertAction(title: String(localized: "Close"), style: .cancel)
-        alert.addAction(closeAction)
-        let readMoreAction = UIAlertAction(title: String(localized: "Read more...", comment: "PIV extension read more alert title"), style: .default) {_ in
-            if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
-                UIApplication.shared.open(url)
-            }
-        }
-        alert.addAction(readMoreAction)
-        self.present(alert, animated: true)
+        Logger.allocation.debug("SmartCardConfigurationController: deinit")
     }
     
     override func viewDidLoad() {
@@ -111,7 +145,7 @@ class SmartCardConfigurationController: UITableViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                Logger.ctk.error("SmartCardConfigurationController: failed to fetch certificates: \(error)")
             }
         }
         viewModel.tokensCallback = { result in
@@ -123,7 +157,7 @@ class SmartCardConfigurationController: UITableViewController {
                     self.headerView.status = tokens.count > 0 ? .enabled : .notEnabled
                 }
             case .failure(let error):
-                print(error)
+                Logger.ctk.error("SmartCardConfigurationController: failed to fetch tokens: \(error)")
             }
         }
         viewModel.update()
@@ -227,16 +261,16 @@ private class HeaderCell: UITableViewCell {
     
     var type: Type {
         willSet {
-            let configuration = UIImage.SymbolConfiguration(pointSize: 60)
+            let configuration = UIImage.SymbolConfiguration(pointSize: 60, weight: .semibold)
             let device =  UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
             switch newValue {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
-                title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header").uppercased()
+                title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header")
                 text.text = "\(String(localized: "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this", comment: "PIV extension no certs on yubikey message")) \(device)."
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
-                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)".uppercased()
+                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)"
                 text.text = "\(String(localized: "These certificates have been added to this", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'")) \(device) \(String(localized: "and can be used by other applications", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"))."
             }
         }
@@ -246,8 +280,7 @@ private class HeaderCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .secondaryLabel
+        label.font = UIFont.preferredFont(forTextStyle: .title2).withSymbolicTraits(.traitBold)
         return label
     }()
     
@@ -255,8 +288,7 @@ private class HeaderCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .secondaryLabel
-        label.font = UIFont.preferredFont(forTextStyle: .callout)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
@@ -266,22 +298,36 @@ private class HeaderCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .yubiBlue
+        imageView.tintColor = .white
         return imageView
+    }()
+    
+    let iconContainer: UIView = {
+       let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .systemOrange
+        container.layer.cornerRadius = 13
+        return container
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.type = .onYubiKey
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.addSubview(icon)
+        self.contentView.addSubview(iconContainer)
         self.contentView.addSubview(title)
         self.contentView.addSubview(text)
+        self.iconContainer.addSubview(icon)
 
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            icon.heightAnchor.constraint(equalToConstant: 45),
-            icon.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 15),
+            iconContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
+            iconContainer.heightAnchor.constraint(equalToConstant: 60),
+            iconContainer.widthAnchor.constraint(equalToConstant: 60),
+            iconContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            icon.topAnchor.constraint(equalTo: iconContainer.topAnchor, constant: 10),
+            icon.bottomAnchor.constraint(equalTo: iconContainer.bottomAnchor, constant: -10),
+            icon.leftAnchor.constraint(equalTo: iconContainer.leftAnchor, constant: 10),
+            icon.rightAnchor.constraint(equalTo: iconContainer.rightAnchor, constant: -10),
+            title.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 20),
             title.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10),
             title.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
             text.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
@@ -324,6 +370,7 @@ private class MessageCell: UITableViewCell {
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
+        Logger.allocation.debug("MessageCell: init")
     }
     
     override func prepareForReuse() {
@@ -332,7 +379,7 @@ private class MessageCell: UITableViewCell {
     }
     
     deinit {
-        print("deinit MessageCell")
+        Logger.allocation.debug("MessageCell: deinit")
     }
     
     required init?(coder: NSCoder) {
@@ -389,6 +436,7 @@ private class CertificateCell: UITableViewCell {
             stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
         ])
+        Logger.allocation.debug("CertificateCell: init")
     }
     
     override func prepareForReuse() {
@@ -398,7 +446,7 @@ private class CertificateCell: UITableViewCell {
     }
     
     deinit {
-        print("deinit CertificateCell")
+        Logger.allocation.debug("CertificateCell: deinit")
     }
     
     required init?(coder: NSCoder) {
@@ -419,7 +467,6 @@ class TableHeaderView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -433,7 +480,7 @@ class TableHeaderView: UIView {
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
             imageView.heightAnchor.constraint(equalToConstant: 50),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             label.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10),
             label.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10),
             label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
@@ -461,11 +508,11 @@ class TableHeaderView: UIView {
             case .notEnabled:
                 imageView.image = UIImage(systemName: "minus.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .secondaryLabel
-                label.text = String(localized: "Not Enabled", comment: "PIV extension not enabled message").uppercased()
+                label.text = String(localized: "Not Enabled", comment: "PIV extension not enabled message")
             case .enabled:
                 imageView.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)
                 imageView.tintColor = .systemGreen
-                label.text = String(localized: "Enabled", comment: "PIV extension enabled message").uppercased()
+                label.text = String(localized: "Enabled", comment: "PIV extension enabled message")
             }
         }
     }

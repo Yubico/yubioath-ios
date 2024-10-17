@@ -15,6 +15,20 @@
  */
 
 import UIKit
+import SwiftUI
+
+struct NFCSettingsView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = NFCSettingsController
+    @Environment(\.dismiss) private var dismiss
+    
+    func makeUIViewController(context: Context) -> NFCSettingsController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "YubiKeyApplicationSettings") as? NFCSettingsController else { fatalError() }
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: NFCSettingsController, context: Context) { }
+}
 
 class NFCSettingsController: UITableViewController {
     
@@ -24,10 +38,6 @@ class NFCSettingsController: UITableViewController {
     @IBOutlet weak var nfcOnAppLaunchSwitch: UISwitch!
     @IBOutlet weak var nfcOnOTPLaunchSwitch: UISwitch!
     @IBOutlet weak var copyOTPSwitch: UISwitch!
-
-    func dismiss() {
-        dismiss(animated: true, completion: nil)
-    }
     
     @IBAction func changeBypassTouchSetting(_ sender: UISwitch) {
         viewModel.isBypassTouchEnabled = sender.isOn
@@ -54,6 +64,6 @@ class NFCSettingsController: UITableViewController {
      }
     
     deinit {
-        print("deinit ApplicationSettingsController")
+        print("deinit NFCSettingsController")
     }
 }

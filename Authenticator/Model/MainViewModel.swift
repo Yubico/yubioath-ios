@@ -112,6 +112,7 @@ class MainViewModel: ObservableObject {
                     self?.sessionTask?.cancel()
                     self?.presentDisableOTP = true
                 } else {
+                    guard let oathSessionError = error as? OATHSessionError, oathSessionError != .connectionCancelled else { return }
                     self?.connectionError = error
                 }
             }

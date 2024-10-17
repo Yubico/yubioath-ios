@@ -15,6 +15,7 @@
  */
 
 import Foundation
+import OSLog
 
 class PasswordConfigurationViewModel {
     let connection = Connection()
@@ -86,7 +87,7 @@ class PasswordConfigurationViewModel {
     }
     
     deinit {
-        print("Deinit PasswordConfigurationViewModel")
+        Logger.allocation.debug("PasswordConfigurationViewModel: deinit")
     }
 }
 
