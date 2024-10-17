@@ -239,6 +239,10 @@ extension YKFManagementDeviceInfo {
             return "YubiKey 5C NFC"
         case .usbcLightning:
             return "YubiKey 5Ci"
+        case .usbcBio, .usbaBio:
+            return "YubiKey Bio"
+        case .usbcNano:
+            return "YubiKey Nano"
         default:
             return "Unknown key"
         }
@@ -252,6 +256,10 @@ extension YKFManagementDeviceInfo {
             return Image("yk5cnfc")
         case .usbcLightning:
             return Image("yk5ci")
+        case .usbcBio:
+            return Image("ykbioc")
+        case .usbaBio:
+            return Image("ykbioa")
         default:
             return nil
         }
