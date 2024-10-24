@@ -11,7 +11,7 @@
         <false/>
         <key>changes</key>
         <string>
-            FIDO pin management and reset has been added to the app in this version. While adding new functionality to the configuration view we took the opportunity to refresh the settings view. We also fixed a crash that could occur when switching between the OATH account list and the configuration view. Lastly, trying to add an OATH account to a full YubiKey will now result in a more human readable error message.
+            FIDO pin management and reset has been added to the app in this version. While adding new functionality to the configuration view we took the opportunity to give it a refresh with more colors and icons. We also fixed a crash that could occur when switching between the OATH account list and the configuration view. Lastly, trying to add an OATH account to a full YubiKey will now result in a more human readable error message.
         </string>
     </dict>
     <dict>
