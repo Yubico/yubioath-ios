@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.8</string>
+        <key>date</key>
+        <date>2024-11-06T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            FIDO pin management and reset has been added to the app in this version. While adding new functionality to the configuration view we took the opportunity to give it a refresh with more colors and icons. We also fixed a crash that could occur when switching between the OATH account list and the configuration view. Lastly, trying to add an OATH account to a full YubiKey will now result in a more human readable error message.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.7.11</string>
         <key>date</key>
         <date>2024-09-27T09:41:00Z</date>
