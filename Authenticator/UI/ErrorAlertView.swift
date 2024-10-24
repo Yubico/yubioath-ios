@@ -18,7 +18,8 @@ import SwiftUI
 
 extension View {
     func errorAlert(error: Binding<Error?>, buttonTitle: String = String(localized: "OK", comment:"OK button in error alert."), handler: (() -> Void)? = nil) -> some View {
-        let localizedAlertError = LocalizedAlertError(error: error.wrappedValue)
+        let localizedAlertError = error.wrappedValue.map { LocalizedErrorWrapper(error: $0) }
+        
         return alert(isPresented: .constant(localizedAlertError != nil), error: localizedAlertError) { _ in
             Button(buttonTitle) {
                 error.wrappedValue = nil
@@ -30,24 +31,53 @@ extension View {
     }
 }
 
-struct LocalizedAlertError: LocalizedError {
-    let underlyingError: LocalizedError
+struct LocalizedErrorWrapper: LocalizedError {
+    
+    enum ErrorType {
+        case nsError(NSError), localizedError(LocalizedError), error(Error)
+    }
+    
+    let underlyingError: ErrorType
     
     var errorDescription: String? {
-        underlyingError.errorDescription
+        switch underlyingError {
+        case .nsError(let nsError):
+            return nsError.customDescription()
+        case .localizedError(let localizedError):
+            return localizedError.errorDescription
+        case .error(let error):
+            return "Unknown error: \(error)"
+        }
     }
     var recoverySuggestion: String? {
-        underlyingError.recoverySuggestion
+        switch underlyingError {
+        case .nsError(let nsError):
+            return nsError.localizedRecoverySuggestion
+        case .localizedError(let localizedError):
+            return localizedError.recoverySuggestion
+        case .error(_):
+            return nil
+        }
     }
 
-    init?(error: Error?) {
-        guard let localizedError = error as? LocalizedError else { return nil }
-        underlyingError = localizedError
+    init(error: Error) {
+        if type(of: error) is NSError.Type {
+            underlyingError = .nsError(error as NSError)
+        } else if let localizedError = error as? LocalizedError {
+            underlyingError = .localizedError(localizedError)
+        } else {
+            underlyingError = .error(error)
+        }
     }
 }
 
-extension NSError: LocalizedError {
-    public var errorDescription: String? {
-        return self.localizedDescription
+extension NSError {
+    func customDescription() -> String {
+        if self.domain == "com.yubico" {
+            if self.code == 0x6a84 {
+                return String(localized: "The YubiKey has no more storage for OATH accounts.")
+            }
+        }
+        return localizedDescription
     }
 }
