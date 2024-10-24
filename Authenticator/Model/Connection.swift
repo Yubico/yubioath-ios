@@ -15,18 +15,18 @@
  */
 
 import Foundation
-
+import OSLog
 
 class Connection: NSObject {
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        YubiKitManager.shared.delegate = self
+        Logger.allocation.debug("Connection: init")
     }
     
     deinit {
-        print("Deinit Connection")
-        DelegateStack.shared.removeDelegate(self)
+        Logger.allocation.debug("Connection: deinit")
     }
     
     var connection: YKFConnectionProtocol? {
@@ -36,9 +36,17 @@ class Connection: NSObject {
     private var nfcConnection: YKFNFCConnection?
     private var smartCardConnection: YKFSmartCardConnection?
     private var accessoryConnection: YKFAccessoryConnection?
-    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
     
+    private var connectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
+    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void)?
+    
+    private var accessoryConnectionCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
+    private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
+    private var smartCardConnectionCallback: ((_ connection: YKFSmartCardConnection?) -> Void)?
+
     func startConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+        YubiKitManager.shared.delegate = self
+
         if let connection = accessoryConnection {
             completion(connection)
         } else if let connection = smartCardConnection {
@@ -53,29 +61,48 @@ class Connection: NSObject {
         }
     }
     
-    private var accessoryConnectionCallback: ((_ connection: YKFAccessoryConnection?) -> Void)?
+    func startWiredConnection(completion: @escaping (_ connection: YKFConnectionProtocol) -> Void) {
+        connectionCallback = completion
+        YubiKitManager.shared.delegate = self
+    }
     
     func accessoryConnection(handler: @escaping (_ connection: YKFAccessoryConnection?) -> Void) {
-        handler(accessoryConnection)
-        accessoryConnectionCallback = handler
+        if let connection = accessoryConnection {
+            handler(connection)
+        } else {
+            accessoryConnectionCallback = handler
+        }
     }
     
-    private var smartCardConnectionCallback: ((_ connection: YKFSmartCardConnection?) -> Void)?
     func smartCardConnection(handler: @escaping (_ connection: YKFSmartCardConnection?) -> Void) {
-        handler(smartCardConnection)
-        smartCardConnectionCallback = handler
+        if let connection = smartCardConnection {
+            handler(connection)
+        } else {
+            smartCardConnectionCallback = handler
+        }
     }
-    
-    private var nfcConnectionCallback: ((_ connection: YKFNFCConnection?) -> Void)?
     
     func nfcConnection(handler: @escaping (_ connection: YKFNFCConnection?) -> Void) {
-        handler(nfcConnection)
-        nfcConnectionCallback = handler
+        if let connection = nfcConnection {
+            handler(connection)
+        } else {
+            nfcConnectionCallback = handler
+        }
     }
     
-    private var disconnectionCallback: ((_ connection: YKFConnectionProtocol, _ error: Error?) -> Void)?
+    func stop() {
+        smartCardConnection?.stop()
+        accessoryConnection?.stop()
+        nfcConnection?.stop()
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
+        if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
+    }
     
-    func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol, _ error: Error?) -> Void) {
+    func didDisconnect(handler: @escaping (_ connection: YKFConnectionProtocol?, _ error: Error?) -> Void) {
         disconnectionCallback = handler
     }
 }
@@ -84,49 +111,65 @@ class Connection: NSObject {
 extension Connection: YKFManagerDelegate {
     
     func didConnectNFC(_ connection: YKFNFCConnection) {
+        Logger.connection.debug("Connection: didConnectNFC")
         nfcConnection = connection
-        if let callback = connectionCallback {
-            callback(connection)
-        }
+        nfcConnectionCallback?(connection)
+        nfcConnectionCallback = nil
+        connectionCallback?(connection)
         connectionCallback = nil
     }
     
     func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
-        if let callback = disconnectionCallback {
-            callback(connection, error)
-        }
-        connectionCallback = nil
+        Logger.connection.debug("Connection: didDisconnectNFC")
         nfcConnection = nil
+        nfcConnectionCallback = nil
+        connectionCallback = nil
+        disconnectionCallback?(connection, error)
+        disconnectionCallback = nil
     }
     
-    func didFailConnectingNFC(_ error: Error) {}
+    func didFailConnectingNFC(_ error: Error) {
+        Logger.connection.debug("Connection: didFailConnectingNFC")
+        nfcConnectionCallback = nil
+        connectionCallback = nil
+        disconnectionCallback?(nil, error)
+        disconnectionCallback = nil
+    }
     
     func didConnectAccessory(_ connection: YKFAccessoryConnection) {
+        Logger.connection.debug("Connection: didConnectAccessory")
         accessoryConnection = connection
         accessoryConnectionCallback?(connection)
+        accessoryConnectionCallback = nil
         connectionCallback?(connection)
         connectionCallback = nil
     }
     
     func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
-        disconnectionCallback?(connection, error)
-        accessoryConnectionCallback?(nil)
-        connectionCallback = nil
+        Logger.connection.debug("Connection: didDisconnectAccessory")
         accessoryConnection = nil
+        accessoryConnectionCallback = nil
+        connectionCallback = nil
+        disconnectionCallback?(connection, error)
+        disconnectionCallback = nil
     }
     
     func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
+        Logger.connection.debug("Connection: didConnectSmartCard")
         smartCardConnection = connection
         smartCardConnectionCallback?(connection)
+        smartCardConnectionCallback = nil
         connectionCallback?(connection)
         connectionCallback = nil
     }
     
     func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
-        disconnectionCallback?(connection, error)
-        smartCardConnectionCallback?(nil)
-        connectionCallback = nil
+        Logger.connection.debug("Connection: didDisconnectSmartCard")
         smartCardConnection = nil
+        smartCardConnectionCallback = nil
+        connectionCallback = nil
+        disconnectionCallback?(connection, error)
+        disconnectionCallback = nil
     }
     
 }

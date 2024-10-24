@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+
+import OSLog
+
 @available(iOS 14.0, *)
 extension Error {
     var tokenError: TokenRequestViewModel.TokenError {
@@ -68,10 +71,11 @@ class TokenRequestViewModel: NSObject {
     
     override init() {
         super.init()
+        Logger.allocation.debug("TokenRequestViewModel: init")
     }
     
     deinit {
-        print("Deinit TokenRequestViewModel")
+        Logger.allocation.debug("TokenRequestViewModel: deinit")
     }
     
     var isWiredKeyConnectedHandler: ((Bool) -> Void)?
@@ -96,12 +100,12 @@ class TokenRequestViewModel: NSObject {
     func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String, completion: @escaping (TokenError?) -> Void) {
         connection.startConnection { connection in
             connection.pivSession { session, error in
-                guard let session = session else { print("No session: \(error!)"); return }
+                guard let session = session else { Logger.ctk.error("No session: \(error!)"); return }
                 guard let type = userInfo.keyType(),
                       let objectId = userInfo.objectId(),
                       let algorithm = userInfo.algorithm(),
-                      let message = userInfo.data() else { print("No data to sign"); return }
-                print("Search for slot for objectId: \(objectId)")
+                      let message = userInfo.data() else { Logger.ctk.error("No data to sign"); return }
+                Logger.ctk.debug("Search for slot for objectId: \(objectId)")
                 session.slotForObjectId(objectId) { slot, error in
                     guard let slot = slot else {
                         YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.message.title)
@@ -147,10 +151,8 @@ class TokenRequestViewModel: NSObject {
                             
                             YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully signed data", comment: "PIV extension NFC successfully signed data"))
                             
-                            print(signature.hex)
-                            
                             if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
-                                print("Save data to userDefaults...")
+                                Logger.ctk.debug("Save data to userDefaults...")
                                 userDefaults.setValue(signature, forKey: "signedData")
                                 completion(nil)
                             }
@@ -163,7 +165,7 @@ class TokenRequestViewModel: NSObject {
     
     func cancel() {
         if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
-            print("Save canceledByUser to userDefaults...")
+            Logger.ctk.debug("Save canceledByUser to userDefaults...")
             userDefaults.setValue(true, forKey: "canceledByUser")
         }
     }
@@ -250,25 +252,21 @@ private extension YKFPIVSession {
     func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?, TokenRequestViewModel.TokenError?) -> Void) {
         self.getCertificateIn(.authentication) { certificate, error in
             if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                print("Found matching certificate")
                 completion(.authentication, nil)
                 return
             }
             self.getCertificateIn(.signature) { certificate, error in
                 if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                    print("Found matching certificate")
                     completion(.signature, nil)
                     return
                 }
                 self.getCertificateIn(.keyManagement) { certificate, error in
                     if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                        print("Found matching certificate")
                         completion(.keyManagement, nil)
                         return
                     }
                     self.getCertificateIn(.cardAuth) { certificate, error in
                         if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                            print("Found matching certificate")
                             completion(.cardAuth, nil)
                         } else if let apduError = error, (apduError as NSError).code != 0x6a82 {
                             let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))

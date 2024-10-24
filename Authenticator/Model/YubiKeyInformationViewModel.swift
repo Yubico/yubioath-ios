@@ -14,30 +14,26 @@
  * limitations under the License.
  */
 
+import OSLog
+
 class YubiKeyInformationViewModel: NSObject {
     
     private var nfcConnection: YKFNFCConnection?
     private var accessoryConnection: YKFAccessoryConnection?
     private var smartCardConnection: YKFSmartCardConnection?
     
-    var handler: ((_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void)? {
-        didSet {
-            if let info = deviceInfo {
-                handler?(.success(info))
-            }
-        }
-    }
+    var handler: ((_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void)?// {
     
     var deviceInfo: YKFManagementDeviceInfo?
     
     override init() {
         super.init()
-        DelegateStack.shared.setDelegate(self)
+        Logger.allocation.debug("YubiKeyInformationViewModel: init")
     }
     
     deinit {
-        print("Deinit YubiKeyInformationViewModel")
-        DelegateStack.shared.removeDelegate(self)
+        YubiKitManager.shared.delegate = nil
+        Logger.allocation.debug("YubiKeyInformationViewModel: deinit")
     }
     
     private func didConnect(_ connection: YKFConnectionProtocol) {
@@ -45,7 +41,6 @@ class YubiKeyInformationViewModel: NSObject {
             guard let session = session else { self.handleError(error!, forConnection: connection); return }
             session.getDeviceInfo { info, error in
                 guard let info = info else { self.handleError(error!, forConnection: connection); return }
-                self.deviceInfo = info
                 YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "YubiKey information read", comment: "YubiKey info NFC read"))
                 self.handler?(.success(info))
             }
@@ -58,6 +53,13 @@ class YubiKeyInformationViewModel: NSObject {
     
     func deviceInfo(handler: @escaping (_ result: Result<YKFManagementDeviceInfo, Error>?) -> Void) {
         self.handler = handler
+        YubiKitManager.shared.delegate = self
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
+        if #available(iOS 16.0, *) {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
     }
     
     private func handleError(_ error: Error, forConnection connection: YKFConnectionProtocol) {

@@ -190,8 +190,6 @@ extension TokenRequestViewController {
                                     UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseInOut) {
                                         self.arrowHintView.alpha = 1
                                         self.arrowHintView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                    } completion: { _ in
-                                        print("done")
                                     }
                                 }
                             }
