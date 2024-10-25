@@ -1063,7 +1063,24 @@
         }
       }
     },
+    "FIDO management over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La gestion FIDO via USB-C n'est pas prise en charge par iOS. Utilisez plutôt la NFC ou Yubico Authenticator."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USB-C経由のFIDO管理はiOSではサポートされていません。代わりにNFCまたはデスクトップのYubico Authenticatorをご利用ください。"
+          }
+        }
+      }
+    },
     "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3000,6 +3017,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スマートカード拡張機能では、Yubico Authenticatorの通知を有効にする必要があります。iOS設定で有効にしてください。"
+          }
+        }
+      }
+    },
+    "The YubiKey has no more storage for OATH accounts." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé YubiKey n'a plus d'espace de stockage pour les comptes OATH."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyにはもうOATHアカウント用のストレージはない。"
           }
         }
       }
