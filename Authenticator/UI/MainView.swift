@@ -129,6 +129,7 @@ struct MainView: View {
                         Button(action: { showConfiguration.toggle() }) {
                             Label("Configuration", systemImage: "switch.2")
                         }
+                        .disabled(!YubiKitDeviceCapabilities.supportsISO7816NFCTags && !model.isKeyPluggedIn)
                         Button(action: { showAbout.toggle() }) {
                             Label("About", systemImage: "questionmark.circle")
                         }
