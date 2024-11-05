@@ -20,6 +20,7 @@ fileprivate let resetMessageText = String(localized: "Your credentials, as well 
 
 struct FIDOResetView: View {
     
+    var completion: (() -> Void)
     @Environment(\.dismiss) private var dismiss
     @StateObject var model = FIDOResetViewModel()
     
@@ -29,20 +30,22 @@ struct FIDOResetView: View {
     @State var messageText = resetMessageText
     @State var enableResetButton = true
     @State var errorMessage: String? = nil
-    @State var opacity = 1.0
+    @State var keyHasBeenReset = false
+    @State var image = Image(systemName: "exclamationmark.triangle")
+    @State var imageColor = Color(.systemRed)
 
     var body: some View {
-        SettingsView(image: Image(systemName: "exclamationmark.triangle"), imageColor: Color(.systemRed)) {
-            Text("FIDO factory reset").font(.title2).bold().opacity(opacity)
-            ProgressView(value: progress, total: 4.0).opacity(opacity)
-            Text(messageText).font(.subheadline).multilineTextAlignment(.center)
+        SettingsView(image: image, imageColor: imageColor) {
+            Text("Reset FIDO application").font(.title2).bold().opacity(keyHasBeenReset ? 0.2 : 1.0)
+            ProgressView(value: progress, total: 4.0).opacity(keyHasBeenReset ? 0.2 : 1.0)
+            Text(messageText).font(.subheadline).multilineTextAlignment(.center).opacity(keyHasBeenReset ? 0.2 : 1.0)
         } buttons: {
             SettingsButton("Reset FIDO") {
                 presentConfirmAlert.toggle()
             }
             .disabled(!enableResetButton)
         }
-        .navigationBarTitle(Text("FIDO reset"), displayMode: .inline)
+        .navigationBarTitle(Text("Reset FIDO"), displayMode: .inline)
         .alert("Warning!", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()
@@ -75,8 +78,8 @@ struct FIDOResetView: View {
             updateState()
         }
         .onDisappear {
-            print("onDisappear")
             model.cancelReset()
+            completion()
         }
     }
     
@@ -100,9 +103,11 @@ struct FIDOResetView: View {
                 self.messageText = String(localized: "Touch the button on the YubiKey now.", comment: "FIDO reset view")
             case .success:
                 self.progress = 4.0
-                self.opacity = 0.5
+                self.keyHasBeenReset = true
                 self.enableResetButton = false
                 self.messageText = String(localized: "The FIDO application of your YubiKey has been reset to factory defaults.", comment: "FIDO reset view")
+                self.image = Image(systemName: "checkmark.circle")
+                self.imageColor = Color(.systemGreen)
             case .error(let error):
                 self.enableResetButton = true
                 self.presentErrorAlert = true

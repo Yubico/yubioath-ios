@@ -94,11 +94,14 @@ class Connection: NSObject {
         smartCardConnection?.stop()
         accessoryConnection?.stop()
         nfcConnection?.stop()
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            YubiKitManager.shared.startAccessoryConnection()
-        }
-        if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
-            YubiKitManager.shared.startSmartCardConnection()
+        // stop() returns immediately but closing the connection will take a few cycles so we need to wait to make sure it's closed before restarting.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+                YubiKitManager.shared.startAccessoryConnection()
+            }
+            if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
+                YubiKitManager.shared.startSmartCardConnection()
+            }
         }
     }
     

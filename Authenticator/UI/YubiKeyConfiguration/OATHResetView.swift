@@ -23,22 +23,25 @@ struct OATHResetView: View {
     @State var presentErrorAlert = false
     @State var keyHasBeenReset = false
     @State var errorMessage: String? = nil
-
+    @State var image = Image(systemName: "exclamationmark.triangle")
+    @State var imageColor = Color(.systemRed)
+    
     var body: some View {
-        SettingsView(image: Image(systemName: "exclamationmark.triangle"), imageColor: Color(.systemRed)) {
-            Text(keyHasBeenReset ? String(localized: "YubiKey has been reset") : String(localized: "Reset OATH application")).font(.title2).bold()
+        SettingsView(image: image, imageColor: imageColor) {
+            Text(String(localized: "Reset OATH application")).font(.title2).bold()
+                .opacity(keyHasBeenReset ? 0.2 : 1.0)
             Text("Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .opacity(keyHasBeenReset ? 0.2 : 1.0)
         } buttons: {
-            SettingsButton("Reset YubiKey") {
+            SettingsButton("Reset OATH") {
                 presentConfirmAlert.toggle()
             }
             .disabled(keyHasBeenReset)
         }
         .navigationBarTitle(Text("Reset OATH"), displayMode: .inline)
-        .alert("Confirm OATH reset", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
+        .alert("Warning!", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()
                 model.reset()
@@ -50,6 +53,8 @@ struct OATHResetView: View {
             } label: {
                 Text("Cancel")
             }
+        }, message: { _ in
+            Text("This will irrevocably delete all OATH TOTP/HOTP accounts from your YubiKey.")
         })
         .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: { })
         .onChange(of: model.state) { state in
@@ -59,6 +64,8 @@ struct OATHResetView: View {
                     self.keyHasBeenReset = false
                 case .success:
                     self.keyHasBeenReset = true
+                    self.image = Image(systemName: "checkmark.circle")
+                    self.imageColor = Color(.systemGreen)
                 case .error(let message):
                     self.presentErrorAlert = true
                     self.errorMessage = message

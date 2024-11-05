@@ -22,10 +22,16 @@ struct OATHSavedPasswordsView: View {
     @State var presentErrorAlert = false
     @State var errorMessage: String? = nil
     @State var passwordsHasBeenCleared = false
+    @State var image = Image(systemName: "xmark.circle")
+    @State var imageColor = Color(.systemRed)
 
     var body: some View {
-        SettingsView(image: Image(systemName: "xmark.circle"), imageColor: Color(.systemRed)) {
-            Text(passwordsHasBeenCleared ? "Saved passwords has been cleared" : "Clear saved OATH passwords").font(.title2).bold()
+        SettingsView(image: image, imageColor: imageColor) {
+            Text("Clear saved OATH passwords")
+                .multilineTextAlignment(.center)
+                .font(.title2)
+                .bold()
+                .opacity(passwordsHasBeenCleared ? 0.2 : 1.0)
             Text("Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
@@ -58,6 +64,8 @@ struct OATHSavedPasswordsView: View {
                     self.passwordsHasBeenCleared = false
                 case .success:
                     self.passwordsHasBeenCleared = true
+                    self.image = Image(systemName: "checkmark.circle")
+                    self.imageColor = Color(.systemGreen)
                 case .error(let message):
                     self.presentErrorAlert = true
                     self.errorMessage = message

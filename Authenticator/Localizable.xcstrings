@@ -552,6 +552,7 @@
       }
     },
     "Confirm OATH reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1048,6 +1049,7 @@
       }
     },
     "FIDO factory reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1113,6 +1115,7 @@
       }
     },
     "FIDO PIN protection" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1129,6 +1132,7 @@
       }
     },
     "FIDO reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1178,6 +1182,7 @@
       }
     },
     "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1194,6 +1199,7 @@
       }
     },
     "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -1708,7 +1714,24 @@
         }
       }
     },
+    "OATH password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mots de passe OATH"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATHパスワード"
+          }
+        }
+      }
+    },
     "OATH password protection" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2453,6 +2476,22 @@
         }
       }
     },
+    "Reset FIDO" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser FIDO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDOのリセット"
+          }
+        }
+      }
+    },
     "Reset FIDO application" : {
       "comment" : "FIDO reset NFC confirmation message",
       "localizations" : {
@@ -2587,6 +2626,7 @@
       }
     },
     "Saved passwords has been cleared" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3121,6 +3161,22 @@
         }
       }
     },
+    "This will irrevocably delete all OATH TOTP/HOTP accounts from your YubiKey." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela supprimera définitivement tous les comptes OATH TOTP/HOTP de votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これにより、すべてのOATH TOTP/HOTPアカウントがYubiKeyから削除されます。削除は取り消すことができません。"
+          }
+        }
+      }
+    },
     "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey." : {
       "localizations" : {
         "fr" : {
@@ -3165,6 +3221,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します."
+          }
+        }
+      }
+    },
+    "To prevent unauthorized access the FIDO application can be protected by a PIN." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour éviter tout accès non autorisé, l'application FIDO peut être protégée par un code PIN."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不正アクセスを防ぐため、FIDOアプリケーションはPINで保護することができる。"
+          }
+        }
+      }
+    },
+    "To prevent unauthorized access the OATH application can be protected by a password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour empêcher tout accès non autorisé, l'application OATH peut être protégée par un mot de passe."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不正アクセスを防ぐため、OATHアプリケーションはパスワードで保護することができます。"
           }
         }
       }
@@ -3604,6 +3692,7 @@
       }
     },
     "YubiKey has been reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {

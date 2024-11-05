@@ -31,8 +31,8 @@ struct OATHPasswordView: View {
 
     var body: some View {
         SettingsView(image: Image(systemName: "lock.shield"), imageColor: Color(.systemPurple)) {
-            Text("OATH password protection").font(.title2).bold()
-            Text("For additional security and to prevent unauthorized access the YubiKey can be password protected.")
+            Text("OATH password").font(.title2).bold()
+            Text("To prevent unauthorized access the OATH application can be protected by a password.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
         } buttons: {
