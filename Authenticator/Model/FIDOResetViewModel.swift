@@ -122,7 +122,7 @@ extension FIDOResetViewModel {
             guard let session else { self.state = .error(error!); return }
             
             let version = session.version
-            guard version != YKFVersion(string: "5.7.2") else {
+            guard version < YKFVersion(string: "5.7.0") || version > YKFVersion(string: "5.7.2") else {
                 DispatchQueue.main.async {
                     self.state = .error(FidoViewModelError.notSupportedOverLightning)
                 }
