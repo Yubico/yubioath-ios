@@ -150,10 +150,11 @@ struct ConfigurationView: View {
                             Text("Manage PIN")
                         }
                         NavigationLink {
-                            FIDOResetView()
-                                .onDisappear {
+                            FIDOResetView {
+                                Task.detached { @MainActor in
                                     model.start()
                                 }
+                            }
                         } label: {
                             ListIconView(image: Image(systemName: "trash"), color: Color(.systemRed), padding: 5)
                             Text("Reset FIDO application")

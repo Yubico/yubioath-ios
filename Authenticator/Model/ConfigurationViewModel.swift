@@ -21,7 +21,14 @@ class ConfigurationViewModel: ObservableObject {
 
     let connection = Connection()
     
-    @Published var deviceInfo: YKFManagementDeviceInfo?
+    @Published var deviceInfo: YKFManagementDeviceInfo? {
+        didSet {
+            resetDeviceInfoTask?.cancel()
+            resetDeviceInfoTask = nil
+        }
+    }
+    
+    var resetDeviceInfoTask: Task<Void, Error>?
     
     init() {
         Logger.allocation.debug("ConfigurationViewModel: init")
@@ -52,7 +59,13 @@ class ConfigurationViewModel: ObservableObject {
     }
     
     func start() {
-        deviceInfo = nil
+        resetDeviceInfoTask = Task.detached {
+            try? await Task.sleep(for: .seconds(1))
+            guard !Task.isCancelled else { return }
+            Task.detached { @MainActor in
+                self.deviceInfo = nil
+            }
+        }
         waitForConnection()
     }
     

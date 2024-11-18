@@ -28,9 +28,9 @@ struct FIDOPINView: View {
 
     var body: some View {
         SettingsView(image: Image(systemName: "lock.shield"), imageColor: Color(.systemPurple)) {
-            Text("FIDO PIN protection").font(.title2).bold()
+            Text("FIDO PIN").font(.title2).bold()
 
-            Text("For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN.")
+            Text("To prevent unauthorized access the FIDO application can be protected by a PIN.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
             
