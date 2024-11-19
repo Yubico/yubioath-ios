@@ -107,12 +107,12 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     
     private let checkboxImageView: UIImageView = {
         var configuration = UIImage.SymbolConfiguration(pointSize: 250)
-        if #available(iOS 15.0, *) {
-            configuration = configuration.applying(UIImage.SymbolConfiguration(paletteColors: [.white, .yubiGreen]))
-        }
+//        if #available(iOS 15.0, *) {
+//            configuration = configuration.applying(UIImage.SymbolConfiguration(paletteColors: [.white, .yubiGreen]))
+//        }
         let image = UIImage(systemName: "checkmark.circle.fill")?.withConfiguration(configuration)
         let imageView = UIImageView(image: image)
-        imageView.tintColor = .yubiGreen
+//        imageView.tintColor = .yubiGreen
         imageView.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
         imageView.alpha = 0
         return imageView
@@ -367,7 +367,7 @@ extension ScanAccountView {
         return result
     }
     
-    private func createOverlay(frameColor: UIColor = .yubiGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
+    private func createOverlay(frameColor: UIColor = .systemGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
         
         let overlayView = UIView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.height * 1.5)) // make size 50% larger than needed to handle orientation changes from landscape to portrait
         overlayView.backgroundColor = background

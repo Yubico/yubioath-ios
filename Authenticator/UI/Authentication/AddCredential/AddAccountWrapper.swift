@@ -28,9 +28,6 @@ struct AddAccountView: View {
         _showAddAccount = showAddCredential
         self.oathURL = oathURL
         self.accountSubject = accountSubject
-        navigationBarAppearance.shadowColor = .secondarySystemBackground
-        navigationBarAppearance.backgroundColor = .secondarySystemBackground
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     var body: some View {
@@ -67,10 +64,4 @@ struct AddCredentialWrapper: UIViewControllerRepresentable {
     }
     
     typealias UIViewControllerType = UINavigationController
-}
-
-struct AddCredentialWrapper_Previews: PreviewProvider {
-    static var previews: some View {
-        HelpWrapper()
-    }
 }

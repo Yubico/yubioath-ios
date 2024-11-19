@@ -30,7 +30,7 @@ struct ListStatusView: View {
                 Spacer()
                 image
                     .font(.system(size: 100.0))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color(.symbol))
                     .accessibilityHidden(true)
                 Text(message)
                     .font(.title3)
@@ -46,7 +46,11 @@ struct ListStatusView: View {
         .frame(height: height - 100)
         .listRowSeparator(.hidden)
         .sheet(isPresented: $showWhatsNew) {
-            VersionHistoryView(title: String(localized: "What's new in\nYubico Authenticator", comment: "Version history title"))
+            NavigationView {
+                VersionHistoryView(presentedFromMainView: true)
+                    .navigationTitle(String(localized: "What's new", comment: "About navigation title"))
+
+            }
         }
     }
 }
@@ -57,7 +61,7 @@ struct WhatsNewView: View {
         var see = AttributedString(localized: "See ", comment: "Substring in \"See what's new in this version\"")
         see.foregroundColor = .secondaryLabel
         var whatsNew = AttributedString(localized: "what's new", comment: "Substring in \"See what's new in this version\"")
-        whatsNew.foregroundColor = Color(.yubiBlue)
+        whatsNew.foregroundColor = .label
         var inThisVersion = AttributedString(localized: " in this version", comment: "Substring in \"See what's new in this version\"")
         inThisVersion.foregroundColor = .secondaryLabel
         return see + whatsNew + inThisVersion

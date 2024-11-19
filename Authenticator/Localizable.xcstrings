@@ -66,6 +66,19 @@
         }
       }
     },
+    "%@ (build %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (build %2$@)"
+          }
+        }
+      }
+    },
+    "•" : {
+
+    },
     "888 888" : {
       "localizations" : {
         "fr" : {
@@ -83,7 +96,7 @@
       }
     },
     "About" : {
-      "comment" : "About view navigation title",
+      "comment" : "About navigation title",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -268,6 +281,9 @@
           }
         }
       }
+    },
+    "Application" : {
+
     },
     "Authentication required" : {
       "comment" : "Password Configuration auth required",
@@ -584,6 +600,9 @@
           }
         }
       }
+    },
+    "Contact support" : {
+
     },
     "Continue with limited usability" : {
       "localizations" : {
@@ -1231,6 +1250,12 @@
         }
       }
     },
+    "Help with YubiKey" : {
+
+    },
+    "How does it work" : {
+
+    },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
       "localizations" : {
@@ -1462,6 +1487,9 @@
           }
         }
       }
+    },
+    "Next" : {
+
     },
     "NFC settings" : {
       "localizations" : {
@@ -2260,6 +2288,9 @@
         }
       }
     },
+    "Privacy policy" : {
+
+    },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
       "localizations" : {
@@ -2958,6 +2989,12 @@
         }
       }
     },
+    "Support" : {
+
+    },
+    "Terms of use" : {
+
+    },
     "The FIDO application of your YubiKey has been reset to factory defaults." : {
       "comment" : "FIDO reset view",
       "localizations" : {
@@ -3459,7 +3496,7 @@
       }
     },
     "Version history" : {
-      "comment" : "Version history navigation title",
+      "comment" : "About navigation title",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3508,8 +3545,12 @@
         }
       }
     },
+    "What's new" : {
+      "comment" : "About navigation title"
+    },
     "What's new in\nYubico Authenticator" : {
-      "comment" : "Version history title",
+      "comment" : "About navigation title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3641,6 +3682,9 @@
           }
         }
       }
+    },
+    "Yubico Authenticator" : {
+
     },
     "Yubico OTP" : {
       "localizations" : {

@@ -111,7 +111,7 @@
     },
     "6TW-2t-mYb.text" : {
       "comment" : "Class = \"UILabel\"; text = \"1.0\"; ObjectID = \"6TW-2t-mYb\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -159,7 +159,7 @@
     },
     "9lG-2A-fbz.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Privacy policy\"; ObjectID = \"9lG-2A-fbz\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -639,7 +639,7 @@
     },
     "Ecy-Pw-sM0.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Copyright © 2021 Yubico.\\nAll rights reserved.\"; ObjectID = \"Ecy-Pw-sM0\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -813,7 +813,7 @@
     },
     "ghF-dC-3d6.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Version history\"; ObjectID = \"ghF-dC-3d6\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -903,7 +903,7 @@
     },
     "Hbq-O7-HqW.title" : {
       "comment" : "Class = \"UINavigationItem\"; title = \"About\"; ObjectID = \"Hbq-O7-HqW\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1059,7 +1059,7 @@
     },
     "jNG-Du-Ghz.title" : {
       "comment" : "Class = \"UIBarButtonItem\"; title = \"Close\"; ObjectID = \"jNG-Du-Ghz\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1365,7 +1365,7 @@
     },
     "NnL-eZ-nHd.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Help with YubiKey\"; ObjectID = \"NnL-eZ-nHd\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1551,7 +1551,7 @@
     },
     "QHB-fS-VBc.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Terms of use\"; ObjectID = \"QHB-fS-VBc\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1575,7 +1575,7 @@
     },
     "raA-qu-ETm.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"Application\"; ObjectID = \"raA-qu-ETm\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1671,7 +1671,7 @@
     },
     "tMr-aW-Doe.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Contact support\"; ObjectID = \"tMr-aW-Doe\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1785,7 +1785,7 @@
     },
     "VHQ-4i-YEj.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Yubico Authenticator\"; ObjectID = \"VHQ-4i-YEj\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1833,7 +1833,7 @@
     },
     "vn9-zq-1Ri.headerTitle" : {
       "comment" : "Class = \"UITableViewSection\"; headerTitle = \"Support\"; ObjectID = \"vn9-zq-1Ri\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1899,7 +1899,7 @@
     },
     "wvt-LS-lIS.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Licensing\"; ObjectID = \"wvt-LS-lIS\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1947,7 +1947,7 @@
     },
     "y0i-iX-KLv.text" : {
       "comment" : "Class = \"UILabel\"; text = \"How does it work\"; ObjectID = \"y0i-iX-KLv\";",
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

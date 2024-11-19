@@ -38,7 +38,7 @@ struct ConfigurationView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .foregroundStyle(.secondary)
+                            .foregroundColor(Color(.symbol))
                             .padding(15)
                             .accessibilityHidden(true)
                         Text(insertYubiKeyMessage)
@@ -125,7 +125,7 @@ struct ConfigurationView: View {
                     NavigationLink {
                         OATHSavedPasswordsView()
                     } label: {
-                        ListIconView(image: Image(systemName: "xmark.circle"), color: Color(.systemRed), padding: 5)
+                        ListIconView(image: Image(systemName: "xmark.circle"), color: Color(.systemPink), padding: 5)
                         Text("Clear saved passwords")
                     }
                     NavigationLink {
