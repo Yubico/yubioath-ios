@@ -29,7 +29,7 @@ struct SmartCardConfigurationView: View {
         SmartCardConfigurationWrapper()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Smart card extension")
-            .background(Color("SheetBackgroundColor"))
+            .background(Color(.tableBackground))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

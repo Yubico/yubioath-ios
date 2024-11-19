@@ -42,7 +42,7 @@ struct AboutView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.top, 10)
                 .padding(.horizontal, 20)
-                .listRowBackground(Color("SheetBackgroundColor"))
+                .listRowBackground(Color(.tableBackground))
                 
                 Section("Application") {
                     NavigationLink {

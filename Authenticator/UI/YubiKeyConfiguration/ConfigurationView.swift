@@ -47,7 +47,7 @@ struct ConfigurationView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.top, 10)
                     .padding(.horizontal, 20)
-                    .listRowBackground(Color("SheetBackgroundColor"))
+                    .listRowBackground(Color(.tableBackground))
                 }
                 
                 if let deviceInfo = model.deviceInfo {
@@ -89,7 +89,6 @@ struct ConfigurationView: View {
                         OTPConfigurationView()
                             .navigationBarTitleDisplayMode(.inline)
                             .navigationTitle("Toggle One-Time Password")
-                            .background(Color("SheetBackgroundColor"))
                             .onDisappear {
                                 model.start()
                             }
@@ -102,7 +101,6 @@ struct ConfigurationView: View {
                             NFCSettingsView()
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationTitle("NFC settings")
-                                .background(Color("SheetBackgroundColor"))
                                 .onDisappear {
                                     model.start()
                                 }

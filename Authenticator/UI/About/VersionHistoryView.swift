@@ -26,24 +26,22 @@ struct VersionHistoryView: View {
     var body: some View {
         List {
             if presentedFromMainView {
-                Section {
-                    VStack(alignment: .center) {
-                        Image(.icon)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 80, height: 80)
-                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                            .padding(15)
-                            .accessibilityHidden(true)
-                        Text("Yubico Authenticator")
-                            .font(.title)
-                            .multilineTextAlignment(.center)
-                        Text("\(UIApplication.appVersion) (build \(UIApplication.appBuildNumber))")
-                            .font(.body)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .listRowBackground(Color("SheetBackgroundColor"))
+                VStack(alignment: .center) {
+                    Image(.icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                        .padding(15)
+                        .accessibilityHidden(true)
+                    Text("Yubico Authenticator")
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                    Text("\(UIApplication.appVersion) (build \(UIApplication.appBuildNumber))")
+                        .font(.body)
                 }
+                .frame(maxWidth: .infinity)
+                .listRowBackground(Color(.sheetBackground))
             }
             Section {
                 ForEach(VersionHistoryView.changes) { change in
