@@ -4,9 +4,21 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.8.1</string>
+        <key>date</key>
+        <date>2024-11-22T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            This version fixes an issue where the app would crash instead of showing an error message.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.8</string>
         <key>date</key>
-        <date>2024-11-18T09:41:00Z</date>
+        <date>2024-11-14T09:41:00Z</date>
         <key>shouldPromptUser</key>
         <false/>
         <key>changes</key>
