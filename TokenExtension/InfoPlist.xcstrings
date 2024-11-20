@@ -22,6 +22,12 @@
             "state" : "translated",
             "value" : "TokenExtension"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TokenExtension"
+          }
         }
       }
     },
@@ -42,6 +48,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TokenExtension"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "TokenExtension"

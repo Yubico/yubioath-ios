@@ -14,6 +14,12 @@
             "state" : "translated",
             "value" : "Yubico Authenticatorを起動"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spustiť Yubico Authenticator"
+          }
         }
       }
     },
@@ -30,6 +36,12 @@
             "state" : "translated",
             "value" : "ここをタップし、YubiKeyを使用してリクエストを完了します。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ťuknite sem a dokončite žiadosť pomocou svojho YubiKey."
+          }
         }
       }
     },
@@ -45,6 +57,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyが必要です"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyžaduje sa YubiKey"
           }
         }
       }

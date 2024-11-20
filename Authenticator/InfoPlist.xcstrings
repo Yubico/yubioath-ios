@@ -22,6 +22,12 @@
             "state" : "translated",
             "value" : "認証"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autentifikátor"
+          }
         }
       }
     },
@@ -45,6 +51,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アプリケーションはYubiKeyと通信するためにNFC読み取りへのアクセスが必要です。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia potrebuje prístup k čítaniu NFC, aby mohla komunikovať s vaším YubiKey."
           }
         }
       }
@@ -70,6 +82,12 @@
             "state" : "translated",
             "value" : "QRコードをスキャンするには、アプリケーションがカメラにアクセスできる必要があります."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia potrebuje prístup k fotoaparátu, aby mohla skenovať QR kódy."
+          }
         }
       }
     },
@@ -93,6 +111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードボールトのロックを解除するには、アプリケーションがFace IDにアクセスできる必要があります."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na odomknutie trezoru s heslom potrebuje aplikácia prístup k službe Face ID."
           }
         }
       }

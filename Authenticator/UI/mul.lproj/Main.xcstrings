@@ -22,6 +22,12 @@
             "state" : "translated",
             "value" : "ワンタイムパスワード"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jednorazové heslo"
+          }
         }
       }
     },
@@ -46,6 +52,12 @@
             "state" : "translated",
             "value" : "戻るボタンをタップして続行します"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračujte ťuknutím na tlačidlo späť"
+          }
         }
       }
     },
@@ -63,6 +75,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードとリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslá a obnovenie"
           }
         }
       }
@@ -88,6 +106,12 @@
             "state" : "translated",
             "value" : "FIDO"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO"
+          }
         }
       }
     },
@@ -105,6 +129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワード保護"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OCHRANA HESLOM"
           }
         }
       }
@@ -126,6 +156,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1.0"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "1.0"
@@ -154,6 +190,12 @@
             "state" : "translated",
             "value" : "YubiKey設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie YubiKey"
+          }
         }
       }
     },
@@ -178,6 +220,12 @@
             "state" : "translated",
             "value" : "プライバシーポリシー"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zásady ochrany osobných údajov"
+          }
         }
       }
     },
@@ -196,6 +244,12 @@
             "state" : "translated",
             "value" : "有効"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povolené"
+          }
         }
       }
     },
@@ -213,6 +267,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードとリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslá a obnovenie"
           }
         }
       }
@@ -238,6 +298,12 @@
             "state" : "translated",
             "value" : "Yubico OTP有効"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP povolené"
+          }
         }
       }
     },
@@ -255,6 +321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu možno YubiKey chrániť heslom."
           }
         }
       }
@@ -280,6 +352,12 @@
             "state" : "translated",
             "value" : "有効"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povolené"
+          }
         }
       }
     },
@@ -297,6 +375,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
           }
         }
       }
@@ -322,6 +406,12 @@
             "state" : "translated",
             "value" : "FIDOアプリケーションのリセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť aplikáciu FIDO"
+          }
         }
       }
     },
@@ -345,6 +435,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ファームウェア"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmvér"
           }
         }
       }
@@ -370,6 +466,12 @@
             "state" : "translated",
             "value" : "YubiKeyを取り外して再挿入してください"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstráňte a znovu vložte váš YubiKey"
+          }
         }
       }
     },
@@ -387,6 +489,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを確認"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť heslo"
           }
         }
       }
@@ -412,6 +520,12 @@
             "state" : "translated",
             "value" : "ワンタイムパスワード"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jednorazové heslo"
+          }
         }
       }
     },
@@ -429,6 +543,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKey設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie YubiKey"
           }
         }
       }
@@ -454,6 +574,12 @@
             "state" : "translated",
             "value" : "OTPタグ読み取りでNFCをアクティブにする"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivácia funkcie NFC pri OTP prečítaná"
+          }
         }
       }
     },
@@ -478,6 +604,12 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Všeobecné"
+          }
         }
       }
     },
@@ -495,6 +627,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
           }
         }
       }
@@ -520,6 +658,12 @@
             "state" : "translated",
             "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázanie funkcie Yubico OTP zabráni tomu, aby sa YubiKey zobrazoval ako klávesnica. Ak nepoužívate Yubico OTP, toto je odporúčané riešenie. Túto funkciu môžete znovu povoliť na stránke nastavení."
+          }
         }
       }
     },
@@ -543,6 +687,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NFC設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia NFC"
           }
         }
       }
@@ -568,6 +718,12 @@
             "state" : "translated",
             "value" : "閉じる"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zavrieť"
+          }
         }
       }
     },
@@ -592,6 +748,12 @@
             "state" : "translated",
             "value" : "OATHアプリケーションのリセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť aplikáciu OATH"
+          }
         }
       }
     },
@@ -609,6 +771,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを削除"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť heslo"
           }
         }
       }
@@ -634,6 +802,12 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie"
+          }
         }
       }
     },
@@ -657,6 +831,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copyright © 2021 Yubico.\n無断複写・転載を禁じます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copyright © 2021 Yubico.\nVšetky práva vyhradené."
           }
         }
       }
@@ -682,6 +862,12 @@
             "state" : "translated",
             "value" : "アプリケーションの起動時にNFCを開始"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivovať NFC pri spustení aplikácie"
+          }
         }
       }
     },
@@ -699,6 +885,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastaviť heslo"
           }
         }
       }
@@ -724,6 +916,12 @@
             "state" : "translated",
             "value" : "スマートカード拡張機能"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie čipovej karty"
+          }
         }
       }
     },
@@ -741,6 +939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存されたパスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ULOŽENÉ HESLÁ"
           }
         }
       }
@@ -766,6 +970,12 @@
             "state" : "translated",
             "value" : "タッチ要件をスキップ"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vynechať požiadavku na dotyk"
+          }
         }
       }
     },
@@ -783,6 +993,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyをリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OBNOVIŤ YUBIKEY"
           }
         }
       }
@@ -808,6 +1024,12 @@
             "state" : "translated",
             "value" : "PINを変更"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spravovať PIN"
+          }
         }
       }
     },
@@ -831,6 +1053,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン履歴"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "História verzie"
           }
         }
       }
@@ -856,6 +1084,12 @@
             "state" : "translated",
             "value" : "アプリケーションの起動時にNFCを開始すると、アプリがアクティブになると同時にYubiKeyが自動で読み込まれます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spustenie NFC pri spustení aplikácie automaticky prečíta váš kľúč YubiKey hneď, ako sa aplikácia stane aktívnou."
+          }
         }
       }
     },
@@ -873,6 +1107,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iPhoneに保存されているパスワードを消去します。これにより、パスワードで保護されたYubiKeyの次回使用時にパスワードの入力を求められます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazanie hesiel uložených v iPhone. Pri ďalšom použití heslom chráneného kľúča YubiKey sa zobrazí výzva na zadanie hesla."
           }
         }
       }
@@ -898,6 +1138,12 @@
             "state" : "translated",
             "value" : "アイテム"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Položka"
+          }
         }
       }
     },
@@ -922,6 +1168,12 @@
             "state" : "translated",
             "value" : "概要"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplikácii"
+          }
         }
       }
     },
@@ -939,6 +1191,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na dodatočné zabezpečenie a na zabránenie neoprávnenému prístupu možno YubiKey chrániť heslom."
           }
         }
       }
@@ -964,6 +1222,12 @@
             "state" : "translated",
             "value" : "OTPをクリップボードにコピー"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skopírovať OTP do schránky"
+          }
         }
       }
     },
@@ -988,6 +1252,12 @@
             "state" : "translated",
             "value" : "Yubico OTPが無効になっています"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP bolo vypnuté"
+          }
         }
       }
     },
@@ -1005,6 +1275,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スマートカード拡張機能"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie čipovej karty"
           }
         }
       }
@@ -1030,6 +1306,12 @@
             "state" : "translated",
             "value" : "ワンタイムパスワードを切り替える"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepnúť jednorazové heslo"
+          }
         }
       }
     },
@@ -1053,6 +1335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento kľúč YubiKey má aktivovanú funkciu Yubico OTP, vďaka ktorej sa javí ako externá klávesnica pre iPhone. Bohužiaľ to spôsobuje problém s normálnou klávesnicou na obrazovke."
           }
         }
       }
@@ -1078,6 +1366,12 @@
             "state" : "translated",
             "value" : "閉じる"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zavrieť"
+          }
         }
       }
     },
@@ -1101,6 +1395,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スマートカード（PIV）PIN"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN (PIV) čipovej karty"
           }
         }
       }
@@ -1126,6 +1426,12 @@
             "state" : "translated",
             "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kým je YubiKey vložený, klávesnica na obrazovke sa nezobrazí. Ak chcete zobraziť klávesnicu, musíte vybrať YubiKey a potom ho znova vložiť."
+          }
         }
       }
     },
@@ -1150,6 +1456,12 @@
             "state" : "translated",
             "value" : "YubiKeyのOTPタグを読み取ってアプリケーションを開いた際にNFCを開始し、OATHアカウントを読み取ります。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spustiť NFC a čítať účty OATH po otvorení aplikácie načítaním tagu OTP na kľúči YubiKey."
+          }
         }
       }
     },
@@ -1167,6 +1479,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存したパスワードを消去"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať uložené heslá"
           }
         }
       }
@@ -1192,6 +1510,12 @@
             "state" : "translated",
             "value" : "使用制限ありで続行"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovať s obmedzenou použiteľnosťou"
+          }
         }
       }
     },
@@ -1215,6 +1539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ボタン"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tlačidlo"
           }
         }
       }
@@ -1240,6 +1570,12 @@
             "state" : "translated",
             "value" : "または"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alebo"
+          }
         }
       }
     },
@@ -1263,6 +1599,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを管理"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spravovať heslo"
           }
         }
       }
@@ -1288,6 +1630,12 @@
             "state" : "translated",
             "value" : "保存したパスワードを消去"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať uložené heslá"
+          }
         }
       }
     },
@@ -1311,6 +1659,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスタイプ"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typ zariadenia"
           }
         }
       }
@@ -1336,6 +1690,12 @@
             "state" : "translated",
             "value" : "シリアル番号"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sériové číslo"
+          }
         }
       }
     },
@@ -1359,6 +1719,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "該当なし"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedostupné"
           }
         }
       }
@@ -1384,6 +1750,12 @@
             "state" : "translated",
             "value" : "YubiKeyのヘルプ"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pomoc s YubiKey"
+          }
         }
       }
     },
@@ -1408,6 +1780,12 @@
             "state" : "translated",
             "value" : "証明書にアクセスするには、YubiKeyを挿入し、そのPINを入力してください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vložte YubiKey a zadajte jeho PIN kód, aby ste získali prístup k certifikátu."
+          }
         }
       }
     },
@@ -1428,6 +1806,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATH"
@@ -1456,6 +1840,12 @@
             "state" : "translated",
             "value" : "YubiKeyのロックを解除"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odomknút YubiKey"
+          }
         }
       }
     },
@@ -1473,6 +1863,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastaviť heslo"
           }
         }
       }
@@ -1498,6 +1894,12 @@
             "state" : "translated",
             "value" : "YubiKeyがNFCタグ機能を使用してスキャンされた場合に、OTPをクリップボードに自動でコピーします。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automaticky skopírovať OTP do schránky po naskenovaní kľúča YubiKey pomocou funkcie NFC."
+          }
         }
       }
     },
@@ -1521,6 +1923,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NFC設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia NFC"
           }
         }
       }
@@ -1546,6 +1954,12 @@
             "state" : "translated",
             "value" : "該当なし"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedostupné"
+          }
         }
       }
     },
@@ -1569,6 +1983,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "利用規約"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podmienky používania"
           }
         }
       }
@@ -1594,6 +2014,12 @@
             "state" : "translated",
             "value" : "アプリケーション"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia"
+          }
         }
       }
     },
@@ -1617,6 +2043,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyを挿入してください。またはプルダウンしてNFCを有効にしてください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vložte kľúč YubiKey alebo potiahnite nadol, aby ste aktivovali NFC"
           }
         }
       }
@@ -1642,6 +2074,12 @@
             "state" : "translated",
             "value" : "構成"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie"
+          }
         }
       }
     },
@@ -1665,6 +2103,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "巻き戻しボタン"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "UnwindButton"
           }
         }
       }
@@ -1690,6 +2134,12 @@
             "state" : "translated",
             "value" : "サポートへのお問い合わせ"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontaktovať podporu"
+          }
         }
       }
     },
@@ -1713,6 +2163,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ワンタイムパスワードを切り替える"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepnúť jednorazové heslo"
           }
         }
       }
@@ -1738,6 +2194,12 @@
             "state" : "translated",
             "value" : "タッチが必要なアカウントでは、コードを計算するために追加のNFCタップが必要です。これをスキップすることで、必要なNFCタップの数が最小限に抑えられます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účty, ktoré vyžadujú dotykové ovládanie, budú na výpočet kódu potrebovať ďalšie ťuknutie NFC. Jeho vynechanie minimalizuje počet potrebných dotykov NFC."
+          }
         }
       }
     },
@@ -1762,6 +2224,12 @@
             "state" : "translated",
             "value" : "該当なし"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nedostupné"
+          }
         }
       }
     },
@@ -1779,6 +2247,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyをリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť YubiKey"
           }
         }
       }
@@ -1800,6 +2274,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico Authenticator"
@@ -1828,6 +2308,12 @@
             "state" : "translated",
             "value" : "NFC YubiKeyのスキャン時にOTPをコピーするには、Safariを開く操作のオン/オフを切り替えてください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapnutie/vypnutie otvárania Safari na kopírovanie OTP pri skenovaní NFC YubiKey."
+          }
         }
       }
     },
@@ -1851,6 +2337,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サポート"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpora"
           }
         }
       }
@@ -1876,6 +2368,12 @@
             "state" : "translated",
             "value" : "証明書にアクセスするには、PINを入力してから、iPhoneに対してNFC対応のYubiKeyをタップしてください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadajte PIN a potom priložte YubiKey s funkciou NFC na iPhone, aby ste získali prístup k certifikátu."
+          }
         }
       }
     },
@@ -1893,6 +2391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
           }
         }
       }
@@ -1918,6 +2422,12 @@
             "state" : "translated",
             "value" : "ライセンス"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licencie"
+          }
         }
       }
     },
@@ -1938,6 +2448,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIV"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "PIV"
@@ -1966,6 +2482,12 @@
             "state" : "translated",
             "value" : "動作の仕組み"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ako to funguje"
+          }
         }
       }
     },
@@ -1989,6 +2511,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "情報"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "INFORMÁCIE"
           }
         }
       }
@@ -2014,6 +2542,12 @@
             "state" : "translated",
             "value" : "Yubico OTPを無効にする（推奨）"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázať Yubico OTP (odporúčané)"
+          }
         }
       }
     },
@@ -2038,6 +2572,12 @@
             "state" : "translated",
             "value" : "ボタン"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tlačidlo"
+          }
         }
       }
     },
@@ -2055,6 +2595,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyに保存されているすべてのアカウントをリセットします。この操作を行う前に、アカウントが一切使用されていないことを確認してください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť všetky účty uložené na YubiKey, pred tým sa však uistite, že sa nikde nepoužívajú."
           }
         }
       }
@@ -2079,6 +2625,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スマートカード拡張"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie čipovej karty"
           }
         }
       }
