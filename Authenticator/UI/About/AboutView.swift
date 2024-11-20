@@ -85,11 +85,11 @@ struct AboutView: View {
                 }
                 Section("Support") {
                     Button {
-                        UIApplication.shared.open(URL(string: "https://support.yubico.com/")!)
+                        UIApplication.shared.open(URL(string: "https://docs.yubico.com/software/yubikey/tools/authenticator/auth-guide/index.html")!)
                     } label: {
                         HStack {
-                            ListIconView(image: Image(systemName: "questionmark.circle"), color: Color(.systemPink))
-                            Text("Help with YubiKey")
+                            ListIconView(image: Image(systemName: "book"), color: Color(.systemPink))
+                            Text("User guide")
                         }
                     }
                     Button {
