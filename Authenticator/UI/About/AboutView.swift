@@ -38,6 +38,7 @@ struct AboutView: View {
                         .multilineTextAlignment(.center)
                     Text("\(UIApplication.appVersion) (build \(UIApplication.appBuildNumber))")
                         .font(.body)
+                    AboutLanguageView()
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.top, 10)
@@ -114,3 +115,23 @@ struct AboutView: View {
     }
 }
 
+struct AboutLanguageView: View {
+    
+    var shouldShowLanguageNote: Bool {
+        guard let langCode = Bundle.main.preferredLocalizations.first else { return false }
+        return langCode.lowercased() == "sk"
+    }
+    
+    var body: some View {
+        if shouldShowLanguageNote {
+            Text("This translation is a community effort, please visit [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) to contribute.")
+                .multilineTextAlignment(.center)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .padding(.top, 15)
+        } else {
+            EmptyView()
+        }
+    }
+    
+}
