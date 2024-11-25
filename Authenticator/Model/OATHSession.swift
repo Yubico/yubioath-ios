@@ -146,12 +146,27 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                 self.wiredConnectionCallback = { connection in
                     if connection.isKind(of: YKFSmartCardConnection.self) && deviceType == .phone {
                         connection.managementSession { session, error in
-                            guard let session else { continuation.resume(throwing: error!); return }
+                            guard let session else {
+                                self.wiredContinuation?.resume(throwing: error!)
+                                self.wiredContinuation = nil
+                                self.wiredConnectionCallback = nil
+                                return
+                            }
                             session.getDeviceInfo { deviceInfo, error in
-                                guard let deviceInfo else { continuation.resume(throwing: error!); return }
-                                guard let configuration = deviceInfo.configuration else { continuation.resume(throwing: "Error!!!"); return }
+                                guard let deviceInfo else {
+                                    self.wiredContinuation?.resume(throwing: error!)
+                                    self.wiredContinuation = nil
+                                    self.wiredConnectionCallback = nil
+                                    return
+                                }
+                                guard let configuration = deviceInfo.configuration else {
+                                    self.wiredContinuation?.resume(throwing: "Error!!!")
+                                    self.wiredContinuation = nil
+                                    self.wiredConnectionCallback = nil
+                                    return
+                                }
                                 guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
-                                    continuation.resume(throwing: OATHSessionError.otpEnabledError)
+                                    self.wiredContinuation?.resume(throwing: OATHSessionError.otpEnabledError)
                                     self.wiredContinuation = nil
                                     self.wiredConnectionCallback = nil
                                     return
@@ -159,9 +174,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                 connection.oathSession { session, error in
                                     if let session {
                                         self.currentSession = session
-                                        continuation.resume(returning: OATHSession(session: session, type: .wired))
+                                        self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
                                     } else {
-                                        continuation.resume(throwing: error!)
+                                        self.wiredContinuation?.resume(throwing: error!)
                                     }
                                     self.wiredContinuation = nil
                                     self.wiredConnectionCallback = nil
@@ -173,9 +188,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                         connection.oathSession { session, error in
                             if let session {
                                 self.currentSession = session
-                                continuation.resume(returning: OATHSession(session: session, type: .wired))
+                                self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
                             } else {
-                                continuation.resume(throwing: error!)
+                                self.wiredContinuation?.resume(throwing: error!)
                             }
                             self.wiredContinuation = nil
                             self.wiredConnectionCallback = nil
@@ -202,9 +217,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                     connection.oathSession { session, error in
                         if let session {
                             self.currentSession = session
-                            continuation.resume(returning: OATHSession(session: session, type: .nfc))
+                            self.nfcContinuation?.resume(returning: OATHSession(session: session, type: .nfc))
                         } else {
-                            continuation.resume(throwing: error!)
+                            self.nfcContinuation?.resume(throwing: error!)
                         }
                         self.nfcContinuation = nil
                     }
