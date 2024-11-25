@@ -100,8 +100,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ (build %2$@)"
+            "state" : "translated",
+            "value" : "%1$@ (construire %2$@)"
           }
         },
         "ja" : {
@@ -112,8 +112,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ (build %2$@)"
+            "state" : "translated",
+            "value" : "%1$@ (zostava %2$@)"
           }
         }
       }
@@ -122,19 +122,19 @@
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "•"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "•"
           }
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "•"
           }
         }
@@ -431,8 +431,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Application"
+            "state" : "translated",
+            "value" : "Aplikácia"
           }
         }
       }
@@ -679,7 +679,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vymazať uložené heslá OATH"
+            "value" : "Vymazať uložené OATH heslá"
           }
         }
       }
@@ -883,8 +883,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Contact support"
+            "state" : "translated",
+            "value" : "Kontaktovať podporu"
           }
         }
       }
@@ -1742,7 +1742,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť YubiKey chránené heslom."
+            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť YubiKey chránený heslom."
           }
         }
       }
@@ -1785,8 +1785,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How does it work"
+            "state" : "translated",
+            "value" : "Ako to funguje"
           }
         }
       }
@@ -2123,8 +2123,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Next"
+            "state" : "translated",
+            "value" : "Ďalej"
           }
         }
       }
@@ -2465,7 +2465,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Účty OATH boli odstránené a aplikácia OATH obnovená na predvolené výrobné nastavenia."
+            "value" : "Účty OATH boli odstránené a aplikácia OATH bola obnovená na predvolené výrobné nastavenia."
           }
         }
       }
@@ -3230,8 +3230,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Privacy policy"
+            "state" : "translated",
+            "value" : "Zásady ochrany osobných údajov"
           }
         }
       }
@@ -4202,8 +4202,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Support"
+            "state" : "translated",
+            "value" : "Podpora"
           }
         }
       }
@@ -4224,8 +4224,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Terms of use"
+            "state" : "translated",
+            "value" : "Podmienky používania"
           }
         }
       }
@@ -4482,6 +4482,28 @@
         }
       }
     },
+    "This translation is a community effort, please visit [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) to contribute." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette traduction est le fruit d'un effort communautaire, veuillez visiter [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) pour y contribuer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この翻訳はコミュニティーの努力の賜物です。[crowdin.com](https://crowdin.com/project/yubico-authenticator-ios)にアクセスして貢献してください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento preklad je výsledkom komunity, ak chcete prispieť, navštívte stránku [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios)."
+          }
+        }
+      }
+    },
     "This version of iOS does not support operations with the YubiKey for Lightning nor over NFC" : {
       "comment" : "Not supported",
       "localizations" : {
@@ -4566,7 +4588,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tým sa účet natrvalo odstráni z YubiKey a vaša možnosť generovať preň kódy!"
+            "value" : "Týmto sa účet natrvalo odstráni z YubiKey a vaša možnosť generovať preň kódy!"
           }
         }
       }
@@ -4678,7 +4700,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ak chcete naskenovať QR kód, musíte zapnúť povolenia fotoaparátu pre aplikáciu Authenticator."
+            "value" : "Ak chcete naskenovať QR kód, musíte zapnúť povolenia kamery pre aplikáciu Authenticator."
           }
         }
       }
@@ -4903,8 +4925,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "User guide"
+            "state" : "translated",
+            "value" : "Používateľská príručka"
           }
         }
       }
@@ -5017,8 +5039,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "What's new"
+            "state" : "translated",
+            "value" : "Čo je nové"
           }
         }
       }
@@ -5222,7 +5244,7 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "Yubico Authenticator"
           }
         }

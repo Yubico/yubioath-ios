@@ -86,7 +86,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aplikácia potrebuje prístup k fotoaparátu, aby mohla skenovať QR kódy."
+            "value" : "Aplikácia potrebuje prístup ku kamere, aby mohla skenovať QR kódy."
           }
         }
       }
