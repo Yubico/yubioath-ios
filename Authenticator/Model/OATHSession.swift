@@ -21,6 +21,7 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     case credentialAlreadyPresent(YKFOATHCredentialTemplate)
     case otpEnabledError
     case connectionCancelled
+    case invalidDeviceInfo
     
     public var errorDescription: String? {
         switch self {
@@ -30,6 +31,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
         case .connectionCancelled:
             return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
+        case .invalidDeviceInfo:
+            return String(localized: "Invalid device info received from YubiKey", comment: "Internal error message not to be displayed to the user.")
         }
     }
 }
@@ -160,7 +163,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                     return
                                 }
                                 guard let configuration = deviceInfo.configuration else {
-                                    self.wiredContinuation?.resume(throwing: "Error!!!")
+                                    self.wiredContinuation?.resume(throwing: OATHSessionError.invalidDeviceInfo)
                                     self.wiredContinuation = nil
                                     self.wiredConnectionCallback = nil
                                     return
