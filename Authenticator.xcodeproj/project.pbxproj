@@ -45,7 +45,6 @@
 		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
 		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
 		51F8E3BF263848E30010686B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* Connection.swift */; };
-		811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811CD95622FB276A00E2BCBB /* HelpViewController.swift */; };
 		816C684623430E0700209342 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684523430E0700209342 /* SecureStore.swift */; };
 		816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684723430F8E00209342 /* SecureStoreQueryable.swift */; };
 		816C685023440D2200209342 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684F23440D2200209342 /* SecureStoreError.swift */; };
@@ -61,15 +60,11 @@
 		81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */; };
 		81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */; };
 		A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A525965A23A45501006AA3C0 /* UIImageAdditions.swift */; };
-		A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948B23CE546B003E1E07 /* TutorialViewController.swift */; };
-		A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */; };
 		A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */; };
 		A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */; };
 		A591412123835F4600CCCF67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A591412023835F4600CCCF67 /* Constants.swift */; };
-		A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */; };
 		A5D4E86D24083CF300FD63A0 /* OTPConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */; };
 		A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */; };
-		B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40327732847AB5000DF4DB0 /* LicensingViewController.swift */; };
 		B40327762847AE0A00DF4DB0 /* Licensing.md in Resources */ = {isa = PBXBuildFile; fileRef = B40327752847AE0A00DF4DB0 /* Licensing.md */; };
 		B40D61A02AE7F37900467AE9 /* DisableOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */; };
 		B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */; };
@@ -94,8 +89,12 @@
 		B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B1A298AB641006CDAEA /* MainViewModel.swift */; };
 		B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B2B29914051006CDAEA /* AccountRowView.swift */; };
 		B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */; };
+		B474865C2CEB7A000031A504 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474865B2CEB79FD0031A504 /* AboutView.swift */; };
+		B47486602CEC83F90031A504 /* VersionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474865F2CEC83F50031A504 /* VersionHistoryView.swift */; };
+		B47486622CECC2190031A504 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486612CECC2150031A504 /* TutorialView.swift */; };
+		B47486642CECC2F50031A504 /* LicensingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486632CECC2F00031A504 /* LicensingView.swift */; };
+		B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486652CECE3640031A504 /* UIFont+Extensions.swift */; };
 		B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE32BD697620092E7A2 /* Localizable.xcstrings */; };
-		B4901AE92BD7DCC70092E7A2 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */; };
 		B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */; };
 		B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */; };
 		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
@@ -115,11 +114,9 @@
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
 		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
-		B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */; };
 		B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */; };
 		B4D71E812CE4E6E6004D4C29 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4D71E802CE4E6E6004D4C29 /* YubiKit */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
-		B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */; };
 		B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */; };
 		B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -200,7 +197,6 @@
 		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
 		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
 		51F8E3BE263848E30010686B /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
-		811CD95622FB276A00E2BCBB /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		816C684523430E0700209342 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		816C684723430F8E00209342 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
 		816C684F23440D2200209342 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
@@ -222,15 +218,11 @@
 		81FA3C33231AF2D8009C22AB /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		81FA3C38231AF4F0009C22AB /* UIViewControllerAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerAdditions.swift; sourceTree = "<group>"; };
 		A525965A23A45501006AA3C0 /* UIImageAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageAdditions.swift; sourceTree = "<group>"; };
-		A544948B23CE546B003E1E07 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialPagesViewControllers.swift; sourceTree = "<group>"; };
 		A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesStorage.swift; sourceTree = "<group>"; };
 		A591411C23830EB800CCCF67 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		A591412023835F4600CCCF67 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewController.swift; sourceTree = "<group>"; };
 		A5D4E86C24083CF300FD63A0 /* OTPConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPConfigurationController.swift; sourceTree = "<group>"; };
 		A5E9DEAF237DE1660011FBF4 /* SettingsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsConfig.swift; sourceTree = "<group>"; };
-		B40327732847AB5000DF4DB0 /* LicensingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingViewController.swift; sourceTree = "<group>"; };
 		B40327752847AE0A00DF4DB0 /* Licensing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Licensing.md; sourceTree = "<group>"; };
 		B40D619F2AE7F37900467AE9 /* DisableOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPView.swift; sourceTree = "<group>"; };
 		B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableOTPModel.swift; sourceTree = "<group>"; };
@@ -254,9 +246,12 @@
 		B4719B1A298AB641006CDAEA /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B4719B2B29914051006CDAEA /* AccountRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRowView.swift; sourceTree = "<group>"; };
 		B4719B312993EFEE006CDAEA /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
+		B474865B2CEB79FD0031A504 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		B474865F2CEC83F50031A504 /* VersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryView.swift; sourceTree = "<group>"; };
+		B47486612CECC2150031A504 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		B47486632CECC2F00031A504 /* LicensingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingView.swift; sourceTree = "<group>"; };
+		B47486652CECE3640031A504 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		B4901AE32BD697620092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Authenticator/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
-		B4901AE72BD7DCC70092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
-		B4901AEA2BD7DCC70092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Tutorial.xcstrings; sourceTree = "<group>"; };
 		B4901AEB2BD7DD160092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddCredential.storyboard; sourceTree = "<group>"; };
 		B4901AEE2BD7DD160092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/AddCredential.xcstrings; sourceTree = "<group>"; };
 		B4901AEF2BD7DD350092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/EditCredential.storyboard; sourceTree = "<group>"; };
@@ -277,11 +272,9 @@
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
-		B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWrapper.swift; sourceTree = "<group>"; };
 		B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
-		B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryWrapper.swift; sourceTree = "<group>"; };
 		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -422,6 +415,7 @@
 		817DBA0E2368B7BE001FC18D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B47486652CECE3640031A504 /* UIFont+Extensions.swift */,
 				515542872656F64100B19C59 /* Data+Extensions.swift */,
 				515542892656F79500B19C59 /* SecCertificate+Extensions.swift */,
 				51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */,
@@ -500,9 +494,8 @@
 		818BE8DA22F3485600061026 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				81FA3C30231AF198009C22AB /* Help */,
+				81FA3C30231AF198009C22AB /* About */,
 				513D4DEF2660D5960022C53D /* Authentication */,
-				A544948A23CE546B003E1E07 /* Tutorial */,
 				513D4DF32660D8DC0022C53D /* TokenSession */,
 				513D4DF02660D5AB0022C53D /* YubiKeyConfiguration */,
 				817DBA0E2368B7BE001FC18D /* Helpers */,
@@ -567,26 +560,15 @@
 			path = AddCredential;
 			sourceTree = "<group>";
 		};
-		81FA3C30231AF198009C22AB /* Help */ = {
+		81FA3C30231AF198009C22AB /* About */ = {
 			isa = PBXGroup;
 			children = (
-				B4C93E9229C1B2BC00C2A8B8 /* AboutWrapper.swift */,
-				811CD95622FB276A00E2BCBB /* HelpViewController.swift */,
-				B4FE90CF2A42028400B59170 /* VersionHistoryWrapper.swift */,
-				A5B531F12437CD16008C501C /* VersionHistoryViewController.swift */,
-				B40327732847AB5000DF4DB0 /* LicensingViewController.swift */,
+				B474865B2CEB79FD0031A504 /* AboutView.swift */,
+				B47486612CECC2150031A504 /* TutorialView.swift */,
+				B474865F2CEC83F50031A504 /* VersionHistoryView.swift */,
+				B47486632CECC2F00031A504 /* LicensingView.swift */,
 			);
-			path = Help;
-			sourceTree = "<group>";
-		};
-		A544948A23CE546B003E1E07 /* Tutorial */ = {
-			isa = PBXGroup;
-			children = (
-				A544948B23CE546B003E1E07 /* TutorialViewController.swift */,
-				A544948C23CE546B003E1E07 /* TutorialPagesViewControllers.swift */,
-				B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */,
-			);
-			path = Tutorial;
+			path = About;
 			sourceTree = "<group>";
 		};
 		B4E9D45928B65A6E00D51FFC /* Packages */ = {
@@ -695,6 +677,7 @@
 				Base,
 				fr,
 				ja,
+				sk,
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
@@ -730,7 +713,6 @@
 				B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */,
 				B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
-				B4901AE92BD7DCC70092E7A2 /* Tutorial.storyboard in Resources */,
 				B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */,
 				B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
@@ -782,30 +764,31 @@
 				B4719B17298AA6E7006CDAEA /* MainView.swift in Sources */,
 				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
-				B4FE90D02A42028400B59170 /* VersionHistoryWrapper.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
 				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
 				B40F44452B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift in Sources */,
 				B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
 				81FA3C34231AF2D8009C22AB /* AdvancedSettingsViewController.swift in Sources */,
+				B47486602CEC83F90031A504 /* VersionHistoryView.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
 				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
 				B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */,
 				B4696F3F2CB6CE5800604F6F /* ConfigurationView.swift in Sources */,
 				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
+				B47486642CECC2F50031A504 /* LicensingView.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
+				B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */,
 				B4BB02E82C81C7A700B72904 /* FIDOResetView.swift in Sources */,
-				B40327742847AB5000DF4DB0 /* LicensingViewController.swift in Sources */,
 				B4DB228A299BC373003110ED /* OATHSession.swift in Sources */,
-				811CD95722FB276A00E2BCBB /* HelpViewController.swift in Sources */,
 				B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */,
 				51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */,
 				B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */,
 				5155428D2657015D00B19C59 /* TokenCertificateStorage.swift in Sources */,
+				B474865C2CEB7A000031A504 /* AboutView.swift in Sources */,
 				513F34C22463F44300FCE030 /* EditCredentialController.swift in Sources */,
 				513D4DF22660D6570022C53D /* AddCredentialController.swift in Sources */,
 				B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */,
@@ -814,12 +797,10 @@
 				5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */,
 				B4BB02D92C80987B00B72904 /* SettingsButton.swift in Sources */,
 				5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */,
-				B4C93E9329C1B2BC00C2A8B8 /* AboutWrapper.swift in Sources */,
 				B4BB02DE2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift in Sources */,
 				515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */,
 				5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */,
 				B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */,
-				A544948F23CE546B003E1E07 /* TutorialPagesViewControllers.swift in Sources */,
 				B4719B19298AA757006CDAEA /* AuthenticatorApp.swift in Sources */,
 				51394C5C26D4D460009F366D /* MenuGestureRecognizer.swift in Sources */,
 				A5588BF9239B0A7F003E4CA5 /* FavoritesStorage.swift in Sources */,
@@ -834,16 +815,15 @@
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
 				B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
-				A544948E23CE546B003E1E07 /* TutorialViewController.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
+				B47486622CECC2190031A504 /* TutorialView.swift in Sources */,
 				B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */,
 				B4696F412CB6CF2B00604F6F /* ConfigurationViewModel.swift in Sources */,
 				B4719B1B298AB641006CDAEA /* MainViewModel.swift in Sources */,
 				51394C5826CFE15F009F366D /* YubiMenu.swift in Sources */,
 				B4BB02DA2C809BE800B72904 /* NFCSettingsController.swift in Sources */,
-				A5B531F22437CD16008C501C /* VersionHistoryViewController.swift in Sources */,
 				B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */,
@@ -900,15 +880,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		B4901AE82BD7DCC70092E7A2 /* Tutorial.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B4901AE72BD7DCC70092E7A2 /* Base */,
-				B4901AEA2BD7DCC70092E7A2 /* mul */,
-			);
-			name = Tutorial.storyboard;
-			sourceTree = "<group>";
-		};
 		B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -944,7 +915,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -968,7 +939,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1107,6 +1078,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 167;
@@ -1119,7 +1091,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1137,6 +1109,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 167;
@@ -1149,7 +1122,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.9;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";

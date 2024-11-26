@@ -38,7 +38,7 @@ struct ConfigurationView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .foregroundStyle(.secondary)
+                            .foregroundColor(Color(.symbol))
                             .padding(15)
                             .accessibilityHidden(true)
                         Text(insertYubiKeyMessage)
@@ -47,7 +47,7 @@ struct ConfigurationView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.top, 10)
                     .padding(.horizontal, 20)
-                    .listRowBackground(Color("SheetBackgroundColor"))
+                    .listRowBackground(Color.black.opacity(0))
                 }
                 
                 if let deviceInfo = model.deviceInfo {
@@ -89,7 +89,6 @@ struct ConfigurationView: View {
                         OTPConfigurationView()
                             .navigationBarTitleDisplayMode(.inline)
                             .navigationTitle("Toggle One-Time Password")
-                            .background(Color("SheetBackgroundColor"))
                             .onDisappear {
                                 model.start()
                             }
@@ -102,7 +101,6 @@ struct ConfigurationView: View {
                             NFCSettingsView()
                                 .navigationBarTitleDisplayMode(.inline)
                                 .navigationTitle("NFC settings")
-                                .background(Color("SheetBackgroundColor"))
                                 .onDisappear {
                                     model.start()
                                 }
@@ -125,7 +123,7 @@ struct ConfigurationView: View {
                     NavigationLink {
                         OATHSavedPasswordsView()
                     } label: {
-                        ListIconView(image: Image(systemName: "xmark.circle"), color: Color(.systemRed), padding: 5)
+                        ListIconView(image: Image(systemName: "xmark.circle"), color: Color(.systemPink), padding: 5)
                         Text("Clear saved passwords")
                     }
                     NavigationLink {

@@ -14,6 +14,12 @@
             "state" : "new",
             "value" : " "
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " "
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
             "state" : "translated",
             "value" : " このバージョンの"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " v tejto verzii"
+          }
         }
       }
     },
@@ -43,6 +55,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*** *** "
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "*** *** "
@@ -63,6 +81,62 @@
             "state" : "translated",
             "value" : "%@"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@ (build %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (build %2$@)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (construire %2$@)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (build %2$@)"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (zostava %2$@)"
+          }
+        }
+      }
+    },
+    "•" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
         }
       }
     },
@@ -79,11 +153,17 @@
             "state" : "translated",
             "value" : "888 888"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "888 888"
+          }
         }
       }
     },
     "About" : {
-      "comment" : "About view navigation title",
+      "comment" : "About navigation title",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -95,6 +175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "概要"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O aplikácii"
           }
         }
       }
@@ -113,6 +199,12 @@
             "state" : "translated",
             "value" : "アカウントが削除されました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účet bol odstránený"
+          }
         }
       }
     },
@@ -129,6 +221,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アカウント名は空白にできません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Názov účtu nemôže byť prázdny"
           }
         }
       }
@@ -147,6 +245,12 @@
             "state" : "translated",
             "value" : "アカウントが設定されていません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účet nie je nastavený"
+          }
         }
       }
     },
@@ -163,6 +267,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アカウントの名前が変更されました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účet bol premenovaný"
           }
         }
       }
@@ -181,6 +291,12 @@
             "state" : "translated",
             "value" : "アカウント"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účty"
+          }
         }
       }
     },
@@ -197,6 +313,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NFCを有効化"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktivovať NFC"
           }
         }
       }
@@ -215,6 +337,12 @@
             "state" : "translated",
             "value" : "アカウントを追加"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať účet"
+          }
         }
       }
     },
@@ -231,6 +359,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "資格情報を追加"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pridať poverenie"
           }
         }
       }
@@ -249,6 +383,12 @@
             "state" : "translated",
             "value" : "アルゴリズム"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algoritmus"
+          }
         }
       }
     },
@@ -265,6 +405,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "他のアプリケーションで使用できます"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a môžu ich používať aj iné aplikácie"
+          }
+        }
+      }
+    },
+    "Application" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Application"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリケーション"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia"
           }
         }
       }
@@ -283,6 +451,12 @@
             "state" : "translated",
             "value" : "認証が必要です"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyžaduje sa overenie"
+          }
         }
       }
     },
@@ -299,6 +473,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "計算"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vypočítať"
           }
         }
       }
@@ -317,6 +497,12 @@
             "state" : "translated",
             "value" : "キャンセル"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušiť"
+          }
         }
       }
     },
@@ -333,6 +519,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このYubiKeyの証明書を使用して、他のアプリケーションからのリクエストが追加された場合に認証して署名することができます"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikáty na tomto kľúči YubiKey možno použiť na overovanie a podpisovanie požiadaviek z iných aplikácií, ak sa pridajú do tohto"
           }
         }
       }
@@ -351,6 +543,12 @@
             "state" : "translated",
             "value" : "YubiKeyの証明書"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikáty na YubiKey"
+          }
         }
       }
     },
@@ -366,6 +564,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "変更"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmeniť"
           }
         }
       }
@@ -383,6 +587,12 @@
             "state" : "translated",
             "value" : "パスワードを管理"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmeniť heslo"
+          }
         }
       }
     },
@@ -398,6 +608,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PINを変更"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zmeniť PIN"
           }
         }
       }
@@ -415,6 +631,12 @@
             "state" : "translated",
             "value" : "パスワードを消去する"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyčistiť heslá"
+          }
         }
       }
     },
@@ -430,6 +652,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "このデバイスに保存されているパスワードを消去します。これにより、次回パスワード保護されたYubiKeyを使用する際にパスワードの入力を求められます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyčistiť heslá uložené v tomto zariadení. Pri ďalšom použití heslom chráneného kľúča YubiKey sa zobrazí výzva na zadanie hesla."
           }
         }
       }
@@ -447,6 +675,12 @@
             "state" : "translated",
             "value" : "保存したパスワードを消去"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať uložené OATH heslá"
+          }
         }
       }
     },
@@ -462,6 +696,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存したパスワードを消去"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať uložené heslá"
           }
         }
       }
@@ -480,6 +720,12 @@
             "state" : "translated",
             "value" : "閉じる"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zavrieť"
+          }
         }
       }
     },
@@ -496,6 +742,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コードが計算されました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód vypočítaný"
           }
         }
       }
@@ -514,6 +766,12 @@
             "state" : "translated",
             "value" : "コードが期限切れです"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód vypršal"
+          }
         }
       }
     },
@@ -530,6 +788,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コードが計算されていません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód nie je vypočítaný"
           }
         }
       }
@@ -548,6 +812,12 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenie"
+          }
         }
       }
     },
@@ -564,6 +834,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATHリセットの確認"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potvrdiť obnovenie OATH"
           }
         }
       }
@@ -582,6 +858,34 @@
             "state" : "translated",
             "value" : "ユーザーによる接続のキャンセル"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripojenie zrušené používateľom"
+          }
+        }
+      }
+    },
+    "Contact support" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacter le support"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポートへのお問い合わせ"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontaktovať podporu"
+          }
         }
       }
     },
@@ -597,6 +901,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用制限ありで続行"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovať s obmedzenou použiteľnosťou"
           }
         }
       }
@@ -615,6 +925,12 @@
             "state" : "translated",
             "value" : "クリップボードにコピーされました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skopírované do schránky"
+          }
         }
       }
     },
@@ -631,6 +947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "コピー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopírovať"
           }
         }
       }
@@ -649,6 +971,12 @@
             "state" : "translated",
             "value" : "現在"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuálne"
+          }
         }
       }
     },
@@ -665,6 +993,12 @@
             "state" : "translated",
             "value" : "現在のPIN"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuálny PIN"
+          }
         }
       }
     },
@@ -680,6 +1014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "データから文字列への変換エラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba prevodu údajov na reťazec"
           }
         }
       }
@@ -698,6 +1038,12 @@
             "state" : "translated",
             "value" : "削除"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať"
+          }
         }
       }
     },
@@ -714,6 +1060,12 @@
             "state" : "translated",
             "value" : "アカウントを削除しますか？?"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vymazať účet?"
+          }
         }
       }
     },
@@ -729,6 +1081,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "デバイスタイプ"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typ zariadenia"
           }
         }
       }
@@ -747,6 +1105,12 @@
             "state" : "translated",
             "value" : "桁"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Číslice"
+          }
         }
       }
     },
@@ -763,6 +1127,12 @@
             "state" : "translated",
             "value" : "Yubico OTPを無効にする（推奨）"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázať Yubico OTP (odporúčané)"
+          }
         }
       }
     },
@@ -778,6 +1148,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakázanie funkcie Yubico OTP zabráni tomu, aby sa YubiKey zobrazoval ako klávesnica. Ak nepoužívate Yubico OTP, toto je odporúčané riešenie. Túto funkciu môžete znovu povoliť na stránke nastavení."
           }
         }
       }
@@ -796,6 +1172,12 @@
             "state" : "translated",
             "value" : "詳細ビューを閉じる"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušiť zobrazenie podrobností"
+          }
         }
       }
     },
@@ -812,6 +1194,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アカウントが重複しています"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duplicitné účty!"
           }
         }
       }
@@ -830,6 +1218,12 @@
             "state" : "translated",
             "value" : "有効"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povolené"
+          }
         }
       }
     },
@@ -846,6 +1240,12 @@
             "state" : "translated",
             "value" : "現在のパスワード"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zadajte aktuálne heslo"
+          }
         }
       }
     },
@@ -861,6 +1261,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "現在の暗証番号を入力"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zadajte aktuálny PIN kód"
           }
         }
       }
@@ -879,6 +1285,12 @@
             "state" : "translated",
             "value" : "手動で入力"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadať ručne"
+          }
         }
       }
     },
@@ -894,6 +1306,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新しいパスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zadajte heslo"
           }
         }
       }
@@ -912,6 +1330,12 @@
             "state" : "translated",
             "value" : "パスワードを入力"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadajte heslo"
+          }
         }
       }
     },
@@ -927,6 +1351,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "暗証番号を入力"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zadajte PIN"
           }
         }
       }
@@ -945,6 +1375,12 @@
             "state" : "translated",
             "value" : "証明書にアクセスするにはPINを入力してください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadajte PIN kód na prístup k certifikátu."
+          }
         }
       }
     },
@@ -961,6 +1397,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "エラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba"
           }
         }
       }
@@ -979,6 +1421,12 @@
             "state" : "translated",
             "value" : "YubiKey読み取りエラー"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba pri čítaní YubiKey"
+          }
         }
       }
     },
@@ -995,6 +1443,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定書き込みエラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba pri zápise konfigurácie"
           }
         }
       }
@@ -1013,6 +1467,12 @@
             "state" : "translated",
             "value" : "証明書の保存に失敗しました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zlyhalo ukladanie certifikátu"
+          }
         }
       }
     },
@@ -1029,6 +1489,12 @@
             "state" : "translated",
             "value" : "データへのオブジェクトのキャスト失敗エラー"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nepodarilo sa previesť objekt na chybu Data"
+          }
         }
       }
     },
@@ -1041,6 +1507,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIDO"
@@ -1062,6 +1534,12 @@
             "state" : "translated",
             "value" : "工場出荷時の状態にリセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť výrobné nastavenia FIDO"
+          }
         }
       }
     },
@@ -1077,6 +1555,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "USB-C経由のFIDO管理はiOSではサポートされていません。代わりにNFCまたはデスクトップのYubico Authenticatorをご利用ください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systém iOS nepodporuje spravovanie FIDO cez USB-C. Namiesto toho použite NFC alebo Yubico Authenticator na počítači."
           }
         }
       }
@@ -1095,6 +1579,12 @@
             "state" : "translated",
             "value" : "USB-C経由のFIDOはiOSではサポートされていません。代わりにNFCまたはデスクトップのYubico Authenticatorをご利用ください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systém iOS nepodporuje FIDO cez USB-C. Namiesto toho použite NFC alebo Yubico Authenticator na počítači."
+          }
         }
       }
     },
@@ -1110,6 +1600,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIDO PIN"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN kód FIDO"
           }
         }
       }
@@ -1128,6 +1624,12 @@
             "state" : "translated",
             "value" : "FIDO PIN保護"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ochrana FIDO PIN kódom"
+          }
         }
       }
     },
@@ -1144,6 +1646,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIDOリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť FIDO"
           }
         }
       }
@@ -1162,6 +1670,12 @@
             "state" : "translated",
             "value" : "証明書の読み取りが終了しました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čítanie certifikátov dokončené"
+          }
         }
       }
     },
@@ -1177,6 +1691,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ファームウェアバージョン"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verzia firmvéru"
           }
         }
       }
@@ -1195,6 +1715,12 @@
             "state" : "translated",
             "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、FIDOアプリケーションはPINで保護することができる。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť aplikácia FIDO chránená PIN kódom."
+          }
         }
       }
     },
@@ -1212,6 +1738,12 @@
             "state" : "translated",
             "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、YubiKeyはパスワードで保護することができます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť YubiKey chránený heslom."
+          }
         }
       }
     },
@@ -1227,6 +1759,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一般"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VŠEOBECNÉ"
+          }
+        }
+      }
+    },
+    "How does it work" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment cela fonctionne-t-il ?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "どのように機能するのか"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ako to funguje"
           }
         }
       }
@@ -1245,6 +1805,12 @@
             "state" : "translated",
             "value" : "パスワードが正しくありません。パスワードを再入力してください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nesprávne heslo. Znovu zadajte heslo."
+          }
         }
       }
     },
@@ -1261,6 +1827,12 @@
             "state" : "translated",
             "value" : "YubiKeyを挿入"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vložte YubiKey"
+          }
         }
       }
     },
@@ -1276,6 +1848,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyを挿入してください。またはプルダウンしてNFCを有効にしてください"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vložte kľúč YubiKey alebo potiahnite nadol, aby ste aktivovali NFC"
           }
         }
       }
@@ -1294,6 +1872,12 @@
             "state" : "translated",
             "value" : "無効な署名"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatný podpis"
+          }
         }
       }
     },
@@ -1311,6 +1895,12 @@
             "state" : "translated",
             "value" : "無効なURIフォーマット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatný formát URI"
+          }
         }
       }
     },
@@ -1326,6 +1916,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アイテムが安全なストレージで見つかりません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Položka sa nenašla v zabezpečenom úložisku"
           }
         }
       }
@@ -1344,6 +1940,12 @@
             "state" : "translated",
             "value" : "キーはパスワードで保護されています"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kľúč je chránený heslom"
+          }
         }
       }
     },
@@ -1361,6 +1963,12 @@
             "state" : "translated",
             "value" : "ライセンス"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licencie"
+          }
         }
       }
     },
@@ -1376,6 +1984,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを管理"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spravovať heslo"
           }
         }
       }
@@ -1393,6 +2007,12 @@
             "state" : "translated",
             "value" : "PINを変更"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spravovať PIN"
+          }
         }
       }
     },
@@ -1408,6 +2028,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "メニュー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponuka"
           }
         }
       }
@@ -1426,6 +2052,12 @@
             "state" : "translated",
             "value" : "このYubiKeyには使用しないでください"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nikdy pre tento YubiKey"
+          }
         }
       }
     },
@@ -1442,6 +2074,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新しい"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nové"
           }
         }
       }
@@ -1460,6 +2098,34 @@
             "state" : "translated",
             "value" : "新しいOTP設定が保存されました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nové nastavenie OTP bolo uložené"
+          }
+        }
+      }
+    },
+    "Next" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivant"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次のページ"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďalej"
+          }
         }
       }
     },
@@ -1475,6 +2141,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NFC設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia NFC"
           }
         }
       }
@@ -1493,6 +2165,12 @@
             "state" : "translated",
             "value" : "アカウント情報が見つかりません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenašli sa žiadne informácie o účte!"
+          }
         }
       }
     },
@@ -1508,6 +2186,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyにアカウントがありません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne účty na YubiKey"
           }
         }
       }
@@ -1526,6 +2210,12 @@
             "state" : "translated",
             "value" : "カメラの権限がありません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne povolenia na používanie fotoaparátu"
+          }
         }
       }
     },
@@ -1543,6 +2233,12 @@
             "state" : "translated",
             "value" : "YubiKeyに証明書がありません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne certifikáty na YubiKey"
+          }
         }
       }
     },
@@ -1558,6 +2254,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyに一致するアカウントがありません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne zodpovedajúce účty na YubiKey"
           }
         }
       }
@@ -1576,6 +2278,12 @@
             "state" : "translated",
             "value" : "名前がありません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne meno"
+          }
         }
       }
     },
@@ -1592,6 +2300,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キーチェーンに公開鍵の証明書がありません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadne certifikáty verejného kľúča vo zväzku kľúčov"
           }
         }
       }
@@ -1610,6 +2324,12 @@
             "state" : "translated",
             "value" : "QRコードがありませんか？"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadny QR kód?"
+          }
         }
       }
     },
@@ -1626,6 +2346,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "有効化されていません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie je zapnuté"
           }
         }
       }
@@ -1644,6 +2370,12 @@
             "state" : "translated",
             "value" : "今はできません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teraz nie"
+          }
         }
       }
     },
@@ -1660,6 +2392,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "有効な資格情報ではありません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatné informácie o poverení"
           }
         }
       }
@@ -1678,6 +2416,12 @@
             "state" : "translated",
             "value" : "通知が無効になっています"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oznámenia sú vypnuté"
+          }
         }
       }
     },
@@ -1690,6 +2434,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATH"
@@ -1711,6 +2461,12 @@
             "state" : "translated",
             "value" : "OATHアカウントが削除され、OATHアプリケーションが工場出荷時のデフォルトにリセットされています。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účty OATH boli odstránené a aplikácia OATH bola obnovená na predvolené výrobné nastavenia."
+          }
         }
       }
     },
@@ -1726,6 +2482,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATHパスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo OATH"
           }
         }
       }
@@ -1744,6 +2506,12 @@
             "state" : "translated",
             "value" : "オプションのパスワード保護"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ochrana OATH heslom"
+          }
         }
       }
     },
@@ -1759,6 +2527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATHパスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslá OATH"
           }
         }
       }
@@ -1777,6 +2551,12 @@
             "state" : "translated",
             "value" : "OK"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
         }
       }
     },
@@ -1790,6 +2570,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
@@ -1811,6 +2597,12 @@
             "state" : "translated",
             "value" : "このYubiKeyで"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "na tomto YubiKey"
+          }
         }
       }
     },
@@ -1828,6 +2620,12 @@
             "state" : "translated",
             "value" : "iOS設定アプリを開く"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otvoriť aplikáciu Nastavenia iOS"
+          }
         }
       }
     },
@@ -1843,6 +2641,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "オペレーションがタイムアウトしました。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operácia vypršala."
           }
         }
       }
@@ -1860,6 +2664,12 @@
             "state" : "translated",
             "value" : "またはプルダウンしてNFCを有効にします"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alebo potiahnite nadol, aby ste aktivovali NFC"
+          }
         }
       }
     },
@@ -1876,6 +2686,12 @@
             "state" : "translated",
             "value" : "またはNFC YubiKeyをスキャンします"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "alebo naskenujte NFC YubiKey"
+          }
         }
       }
     },
@@ -1891,6 +2707,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "その他"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iné"
           }
         }
       }
@@ -1910,6 +2732,12 @@
             "state" : "translated",
             "value" : "他のアプリケーションが認証および署名の目的でYubiKeyのクライアント証明書を使用できます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iné aplikácie môžu používať klientske certifikáty na vašom YubiKey na účely overovania a podpisovania."
+          }
         }
       }
     },
@@ -1926,6 +2754,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワード"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo"
           }
         }
       }
@@ -1945,6 +2779,12 @@
             "state" : "translated",
             "value" : "パスワードの文字列は空白にできません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo nemôže byť prázdny reťazec"
+          }
         }
       }
     },
@@ -1961,6 +2801,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードが変更されました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo bolo zmenené"
           }
         }
       }
@@ -1979,6 +2825,12 @@
             "state" : "translated",
             "value" : "パスワードが削除されました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo bolo odstránené"
+          }
         }
       }
     },
@@ -1996,6 +2848,12 @@
             "state" : "translated",
             "value" : "パスワードが設定されました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslo bolo nastavené"
+          }
         }
       }
     },
@@ -2012,6 +2870,12 @@
             "state" : "translated",
             "value" : "パスワード状態の読み取り"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stav hesiel prečítaný"
+          }
         }
       }
     },
@@ -2027,6 +2891,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードが一致しない"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslá sa nezhodujú"
           }
         }
       }
@@ -2045,6 +2915,12 @@
             "state" : "translated",
             "value" : "期間"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obdobie"
+          }
         }
       }
     },
@@ -2062,6 +2938,12 @@
             "state" : "translated",
             "value" : "ピン"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripnúť"
+          }
         }
       }
     },
@@ -2077,6 +2959,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "暗証番号が変更されました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN kód bol zmenený"
           }
         }
       }
@@ -2094,6 +2982,12 @@
             "state" : "translated",
             "value" : "暗証番号が設定されている"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN bol nastavený"
+          }
         }
       }
     },
@@ -2109,6 +3003,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PINは永久にブロックされます。FIDOアプリケーションを工場出荷時にリセットしてください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN je trvalo zablokovaný. Ak chcete pokračovať, obnovte výrobné nastavenie aplikácie FIDO."
           }
         }
       }
@@ -2126,6 +3026,12 @@
             "state" : "translated",
             "value" : "PINが一時的にブロックされています。YubiKeyを取り外して再度挿入してください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN je dočasne zablokovaný. Vyberte a znovu vložte kľúč YubiKey a skúste to znova."
+          }
         }
       }
     },
@@ -2141,6 +3047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "暗証番号は少なくとも %llu。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN kód by mal mať aspoň %llu znakov."
           }
         }
       }
@@ -2158,6 +3070,12 @@
             "state" : "translated",
             "value" : "PIN状態読み取り"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stav PIN kódov prečítaný"
+          }
         }
       }
     },
@@ -2173,6 +3091,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ピン留め"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripnuté"
           }
         }
       }
@@ -2191,6 +3115,12 @@
             "state" : "translated",
             "value" : "PIN が一致しません."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN kódy sa nezhodujú."
+          }
         }
       }
     },
@@ -2207,6 +3137,12 @@
             "state" : "translated",
             "value" : "PIN が一致しません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN kódy sa nezhodujú"
+          }
         }
       }
     },
@@ -2219,6 +3155,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIV"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "PIV"
@@ -2240,6 +3182,12 @@
             "state" : "translated",
             "value" : "YubiKeyをその操作のために接続してください"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapojte svoj YubiKey pre túto operáciu"
+          }
         }
       }
     },
@@ -2256,6 +3204,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スキャンするにはカメラをQRコードに向けてください"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nasmerujte kameru na QR kód a naskenujte ho"
+          }
+        }
+      }
+    },
+    "Privacy policy" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confidentialité"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zásady ochrany osobných údajov"
           }
         }
       }
@@ -2274,6 +3250,12 @@
             "state" : "translated",
             "value" : "公開鍵証明書の対象"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikáty verejného kľúča na"
+          }
         }
       }
     },
@@ -2290,6 +3272,12 @@
             "state" : "translated",
             "value" : "パスワード再入力"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "znovu zadajte heslo"
+          }
         }
       }
     },
@@ -2305,6 +3293,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "暗証番号の再入力"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opätovne zadajte PIN"
           }
         }
       }
@@ -2323,6 +3317,12 @@
             "state" : "translated",
             "value" : "詳細を読む..."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čítajte viac..."
+          }
         }
       }
     },
@@ -2339,6 +3339,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKey OTP設定を読み取る"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Načítať nastavenie YubiKey OTP"
           }
         }
       }
@@ -2357,6 +3363,12 @@
             "state" : "translated",
             "value" : "YubiKeyを再挿入してください."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opätovne vložte svoj YubiKey."
+          }
         }
       }
     },
@@ -2373,6 +3385,12 @@
             "state" : "translated",
             "value" : "削除"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť"
+          }
         }
       }
     },
@@ -2388,6 +3406,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyを取り外して再挿入してください"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstráňte a znovu vložte váš YubiKey"
           }
         }
       }
@@ -2406,6 +3430,12 @@
             "state" : "translated",
             "value" : "YubiKeyを取り外して再挿入してください"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstráňte a znovu vložte váš YubiKey"
+          }
         }
       }
     },
@@ -2422,6 +3452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを削除"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstrániť heslo"
           }
         }
       }
@@ -2440,6 +3476,12 @@
             "state" : "translated",
             "value" : "名前変更"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premenovať"
+          }
         }
       }
     },
@@ -2457,6 +3499,12 @@
             "state" : "translated",
             "value" : "リセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť"
+          }
         }
       }
     },
@@ -2473,6 +3521,12 @@
             "state" : "translated",
             "value" : "YubiKeyに保存されているすべてのアカウントをリセットします。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnovte všetky účty uložené na YubiKey. Predtým sa uistite, že sa nikde nepoužívajú."
+          }
         }
       }
     },
@@ -2488,6 +3542,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIDOのリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť FIDO"
           }
         }
       }
@@ -2506,6 +3566,12 @@
             "state" : "translated",
             "value" : "FIDOアプリケーションのリセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť aplikáciu FIDO"
+          }
         }
       }
     },
@@ -2522,6 +3588,12 @@
             "state" : "translated",
             "value" : "誓いのリセット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť OATH"
+          }
         }
       }
     },
@@ -2537,6 +3609,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OATHアプリケーションのリセット"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť aplikáciu OATH"
           }
         }
       }
@@ -2555,6 +3633,12 @@
             "state" : "translated",
             "value" : "を使用して保存および保護"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť a chrániť pomocou"
+          }
         }
       }
     },
@@ -2570,6 +3654,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@を使用して保存および保護"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť a chrániť pomocou %@"
           }
         }
       }
@@ -2588,6 +3678,12 @@
             "state" : "translated",
             "value" : "パスワードを保存"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť heslo"
+          }
         }
       }
     },
@@ -2604,6 +3700,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードを保存"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť heslo"
           }
         }
       }
@@ -2622,6 +3724,12 @@
             "state" : "translated",
             "value" : "パスワードを保存しますか？"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť heslo?"
+          }
         }
       }
     },
@@ -2639,6 +3747,12 @@
             "state" : "translated",
             "value" : "保存されたパスワードがクリアされました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložené heslá boli vymazané"
+          }
         }
       }
     },
@@ -2654,6 +3768,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NFC YubiKeyをスキャン"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skenovať NFC YubiKey"
           }
         }
       }
@@ -2672,6 +3792,12 @@
             "state" : "translated",
             "value" : "YubiKeyをスキャン"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naskenujte svoj YubiKey"
+          }
         }
       }
     },
@@ -2687,6 +3813,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "検索"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hľadať"
           }
         }
       }
@@ -2705,6 +3837,12 @@
             "state" : "translated",
             "value" : "参照 "
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozrite "
+          }
         }
       }
     },
@@ -2720,6 +3858,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "シリアル番号"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sériové číslo"
           }
         }
       }
@@ -2737,6 +3881,12 @@
             "state" : "translated",
             "value" : "セット"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastaviť"
+          }
         }
       }
     },
@@ -2753,6 +3903,12 @@
             "state" : "translated",
             "value" : "パスワードを設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastaviť heslo"
+          }
         }
       }
     },
@@ -2768,6 +3924,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PINを設定"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastaviť PIN"
           }
         }
       }
@@ -2786,6 +3948,12 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavenia"
+          }
         }
       }
     },
@@ -2803,6 +3971,12 @@
             "state" : "translated",
             "value" : "署名に失敗しました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpisovanie sa nepodarilo"
+          }
         }
       }
     },
@@ -2819,6 +3993,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "スマートカード拡張機能"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie čipovej karty"
           }
         }
       }
@@ -2838,6 +4018,12 @@
             "state" : "translated",
             "value" : "スマートカード拡張機能は、iOS 14.5以降でのみ使用できます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie inteligentnej karty je k dispozícii len v systéme iOS 14.5 a novších."
+          }
         }
       }
     },
@@ -2853,6 +4039,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "問題が発生しました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niečo sa pokazilo"
           }
         }
       }
@@ -2871,6 +4063,12 @@
             "state" : "translated",
             "value" : "問題が発生し、キーが応答しません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niečo sa pokazilo a kľúč nereaguje"
+          }
         }
       }
     },
@@ -2886,6 +4084,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "文字列からデータへの変換エラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba prevodu reťazca na dáta"
           }
         }
       }
@@ -2904,6 +4108,12 @@
             "state" : "translated",
             "value" : "成功"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotovo"
+          }
         }
       }
     },
@@ -2920,6 +4130,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功しました。\nヒント：下にスワイプして閉じます"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úspech! \nTip: potiahnite prstom nadol pre zrušenie"
           }
         }
       }
@@ -2938,6 +4154,12 @@
             "state" : "translated",
             "value" : "読み取りに成功しました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úspešne prečítané"
+          }
         }
       }
     },
@@ -2954,6 +4176,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "データの署名に成功しました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úspešne podpísané údaje"
+          }
+        }
+      }
+    },
+    "Support" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soutien"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポート"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podpora"
+          }
+        }
+      }
+    },
+    "Terms of use" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions d'utilisation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podmienky používania"
           }
         }
       }
@@ -2972,6 +4244,12 @@
             "state" : "translated",
             "value" : "YubiKeyのFIDOアプリケーションは工場出荷時の状態にリセットされています。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aplikácia FIDO na vašom kľúči YubiKey bola obnovená na predvolené výrobné nastavenia."
+          }
         }
       }
     },
@@ -2988,6 +4266,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キーが応答しません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kľúč nereaguje"
           }
         }
       }
@@ -3007,6 +4291,12 @@
             "state" : "translated",
             "value" : "パスワードが一致しません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heslá sa nezhodujú"
+          }
         }
       }
     },
@@ -3023,6 +4313,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyの秘密鍵が証明書と一致しないか、YubiKeyに秘密鍵が保存されていません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Súkromný kľúč na YubiKey sa nezhoduje s certifikátom alebo na YubiKey nie je uložený žiadny súkromný kľúč."
           }
         }
       }
@@ -3041,6 +4337,12 @@
             "state" : "translated",
             "value" : "YubiKeyの秘密鍵が証明書と一致しません。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Súkromný kľúč na YubiKey sa nezhoduje s certifikátom."
+          }
         }
       }
     },
@@ -3058,6 +4360,12 @@
             "state" : "translated",
             "value" : "スマートカード拡張機能では、Yubico Authenticatorの通知を有効にする必要があります。iOS設定で有効にしてください。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozšírenie čipovej karty vyžaduje, aby boli pre Yubico Authenticator povolené oznámenia. Povoľte ich v nastaveniach iOS."
+          }
         }
       }
     },
@@ -3073,6 +4381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyにはもうOATHアカウント用のストレージはない。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey už nemá miesto na úložisku pre účty OATH."
           }
         }
       }
@@ -3091,6 +4405,12 @@
             "state" : "translated",
             "value" : "という名前のアカウントがすでに存在します"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Už existuje účet s názvom"
+          }
         }
       }
     },
@@ -3108,6 +4428,12 @@
             "state" : "translated",
             "value" : "これらの証明書はこれに追加されています"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tieto certifikáty boli pridané do tohto"
+          }
         }
       }
     },
@@ -3123,6 +4449,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本YubiKeyでは、Lightning経由でのこの操作はサポートされていません。FIDOアプリケーションをリセットするには、Yubico Authenticator for desktopをご利用ください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táto operácia nie je podporovaná cez Lightning na tomto YubiKey. Na obnovenie aplikácie FIDO použite Yubico Authenticator pre počítač."
           }
         }
       }
@@ -3141,6 +4473,34 @@
             "state" : "translated",
             "value" : "このQRコードはサポートされていません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento QR kód nie je podporovaný"
+          }
+        }
+      }
+    },
+    "This translation is a community effort, please visit [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) to contribute." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette traduction est le fruit d'un effort communautaire, veuillez visiter [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) pour y contribuer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この翻訳はコミュニティーの努力の賜物です。[crowdin.com](https://crowdin.com/project/yubico-authenticator-ios)にアクセスして貢献してください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento preklad je výsledkom komunity, ak chcete prispieť, navštívte stránku [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios)."
+          }
         }
       }
     },
@@ -3158,6 +4518,12 @@
             "state" : "translated",
             "value" : "このバージョンのiOSでは、LightningやNFCでのYubiKeyを使用した操作はサポートされていません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táto verzia iOS nepodporuje operácie s YubiKey cez Lightning ani cez NFC"
+          }
         }
       }
     },
@@ -3173,6 +4539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、すべてのOATH TOTP/HOTPアカウントがYubiKeyから削除されます。削除は取り消すことができません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tým sa z vášho YubiKey nenávratne vymažú všetky účty OATH TOTP/HOTP."
           }
         }
       }
@@ -3190,6 +4562,12 @@
             "state" : "translated",
             "value" : "警告！これにより、すべてのU2FおよびFIDO2アカウントがパスキーを含めてYubiKeyから削除されます。削除は取り消すことができません。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tým sa z vášho YubiKey nenávratne odstránia všetky účty U2F a FIDO2 vrátane prístupových kľúčov."
+          }
         }
       }
     },
@@ -3205,6 +4583,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "これにより、YubiKeyからアカウントが完全に削除され、コードを生成できなくなります!"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Týmto sa účet natrvalo odstráni z YubiKey a vaša možnosť generovať preň kódy!"
           }
         }
       }
@@ -3222,6 +4606,12 @@
             "state" : "translated",
             "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tento kľúč YubiKey má aktivovanú funkciu Yubico OTP, vďaka ktorej sa javí ako externá klávesnica pre iPhone. Bohužiaľ to spôsobuje problém s normálnou klávesnicou na obrazovke."
+          }
         }
       }
     },
@@ -3238,6 +4628,12 @@
             "state" : "translated",
             "value" : "不正アクセスを防ぐため、FIDOアプリケーションはPINで保護することができる。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby sa zabránilo neoprávnenému prístupu, aplikácia FIDO môže byť chránená PIN kódom."
+          }
         }
       }
     },
@@ -3253,6 +4649,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不正アクセスを防ぐため、OATHアプリケーションはパスワードで保護することができます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby sa zabránilo neoprávnenému prístupu, aplikácia OATH môže byť chránená heslom."
           }
         }
       }
@@ -3271,6 +4673,12 @@
             "state" : "translated",
             "value" : "不正アクセスを防止するため、このYubiKeyはパスワードで保護されます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aby sa zabránilo neoprávnenému prístupu, je tento kľúč YubiKey chránený heslom."
+          }
         }
       }
     },
@@ -3288,6 +4696,12 @@
             "state" : "translated",
             "value" : "QRコードをスキャンするには、Authenticatorアプリのカメラ権限を有効にする必要があります。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak chcete naskenovať QR kód, musíte zapnúť povolenia kamery pre aplikáciu Authenticator."
+          }
         }
       }
     },
@@ -3303,6 +4717,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ワンタイムパスワードの切り替え"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepnúť jednorazové heslo"
           }
         }
       }
@@ -3321,6 +4741,12 @@
             "state" : "translated",
             "value" : "ここでYubiKeyのボタンをタッチしてください."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teraz sa dotknite tlačidla na YubiKey."
+          }
         }
       }
     },
@@ -3338,6 +4764,12 @@
             "state" : "translated",
             "value" : "タイプ"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typ"
+          }
         }
       }
     },
@@ -3354,6 +4786,12 @@
             "state" : "translated",
             "value" : "未処理エラー"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nespracovaná chyba"
+          }
         }
       }
     },
@@ -3369,6 +4807,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不明なエラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neznáma chyba"
           }
         }
       }
@@ -3387,6 +4831,12 @@
             "state" : "translated",
             "value" : "YubiKeyのロックを解除"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odomknút YubiKey"
+          }
         }
       }
     },
@@ -3403,6 +4853,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ピン解除"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušiť pripnutie"
           }
         }
       }
@@ -3421,6 +4877,12 @@
             "state" : "translated",
             "value" : "YubiKeyを抜いてください."
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odpojte svoj YubiKey."
+          }
         }
       }
     },
@@ -3437,6 +4899,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PUKコードを使用してPINをリセットします。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na obnovenie PIN kódu použite PUK kód."
+          }
+        }
+      }
+    },
+    "User guide" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guide d'utilisation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーザーガイド"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Používateľská príručka"
           }
         }
       }
@@ -3455,11 +4945,17 @@
             "state" : "translated",
             "value" : "ベリファイ"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overiť"
+          }
         }
       }
     },
     "Version history" : {
-      "comment" : "Version history navigation title",
+      "comment" : "About navigation title",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3471,6 +4967,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン履歴"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "História verzie"
           }
         }
       }
@@ -3487,6 +4989,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "警告だ！"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Varovanie!"
           }
         }
       }
@@ -3505,11 +5013,41 @@
             "state" : "translated",
             "value" : "新機能"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "čo je nové"
+          }
+        }
+      }
+    },
+    "What's new" : {
+      "comment" : "About navigation title",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新着情報"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čo je nové"
+          }
         }
       }
     },
     "What's new in\nYubico Authenticator" : {
-      "comment" : "Version history title",
+      "comment" : "About navigation title",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -3521,6 +5059,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico Authenticator\nの新機能"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čo je nové v aplikácii\nYubico Authenticator"
           }
         }
       }
@@ -3537,6 +5081,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kým je YubiKey vložený, klávesnica na obrazovke sa nezobrazí. Ak chcete zobraziť klávesnicu, musíte vybrať YubiKey a potom ho znova vložiť."
           }
         }
       }
@@ -3555,6 +5105,12 @@
             "state" : "translated",
             "value" : "YubiKeyのこのパスワードを保存して、このアプリケーションで次回使用しますか？"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chcete toto heslo pre YubiKey uložiť na ďalšie použitie v tejto aplikácii?"
+          }
         }
       }
     },
@@ -3571,6 +5127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "パスワードが正しくありません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nesprávne heslo"
           }
         }
       }
@@ -3589,6 +5151,12 @@
             "state" : "translated",
             "value" : "PINコードが正しくありません"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nesprávny PIN kód"
+          }
         }
       }
     },
@@ -3606,6 +5174,12 @@
             "state" : "translated",
             "value" : "保存されたパスワードは設定で削除できます。"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložené heslo môžete odstrániť v Nastaveniach."
+          }
         }
       }
     },
@@ -3621,6 +5195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "認証情報とPINセットがこのYubiKeyから削除されます。アカウントからロックアウトされないよう、初めに各Webサイトからこれらを無効にしてください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaše poverovacie údaje, ako aj všetky nastavené PIN kódy budú z tohto kľúča YubiKey odstránené. Uistite sa, že ste ich najprv deaktivovali na príslušných webových stránkach, aby ste sa vyhli vymknutiu zo svojich účtov."
           }
         }
       }
@@ -3639,6 +5219,34 @@
             "state" : "translated",
             "value" : "PINがブロックされました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Váš PIN bol zablokovaný"
+          }
+        }
+      }
+    },
+    "Yubico Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator"
+          }
         }
       }
     },
@@ -3651,6 +5259,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP"
+          }
+        },
+        "sk" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico OTP"
@@ -3672,6 +5286,12 @@
             "state" : "translated",
             "value" : "Yubico OTP有効"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP povolené"
+          }
         }
       }
     },
@@ -3687,6 +5307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yubico OTPが無効になっています"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP bolo vypnuté"
           }
         }
       }
@@ -3705,6 +5331,12 @@
             "state" : "translated",
             "value" : "YubiKeyがリセットされました"
           }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey bol obnovený"
+          }
         }
       }
     },
@@ -3721,6 +5353,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "YubiKeyの情報が読み込まれました"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey informácie prečítané"
           }
         }
       }

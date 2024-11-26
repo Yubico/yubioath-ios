@@ -158,7 +158,7 @@ struct MainView: View {
                 }
         }
         .fullScreenCover(isPresented: $showAbout) {
-            AboutView(showHelp: $showAbout)
+            AboutView()
                 .onAppear {
                     model.stop()
                 }.onDisappear {
