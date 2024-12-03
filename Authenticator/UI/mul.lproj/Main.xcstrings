@@ -578,7 +578,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktivácia funkcie NFC pri OTP prečítaná"
+            "value" : "Aktivovať NFC pri načítaní tagu OTP"
           }
         }
       }

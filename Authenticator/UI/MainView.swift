@@ -248,6 +248,12 @@ struct MainView: View {
                 showAccountDetails = nil
             }
         }
+        .onChange(of: model.isKeyPluggedIn) { isKeyPluggedIn in
+            // If the user removes the YubiKey while adding a new account we dismiss the add account modal.
+            if showAddAccount && !isKeyPluggedIn {
+                showAddAccount = false
+            }
+        }
         .environmentObject(model)
     }
     
