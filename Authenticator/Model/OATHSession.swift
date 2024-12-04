@@ -22,6 +22,7 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     case otpEnabledError
     case connectionCancelled
     case invalidDeviceInfo
+    case nfcNotSupported
     
     public var errorDescription: String? {
         switch self {
@@ -33,6 +34,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
         case .invalidDeviceInfo:
             return String(localized: "Invalid device info received from YubiKey", comment: "Internal error message not to be displayed to the user.")
+        case .nfcNotSupported:
+            return String(localized: "NFC not supported on this device", comment: "Internal error message not to be displayed to the user.")
         }
     }
 }
@@ -213,6 +216,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     var nfcContinuation: CheckedContinuation<OATHSession, Error>?
     func nfcSession() async throws -> OATHSession {
+        guard YubiKitDeviceCapabilities.supportsISO7816NFCTags else { throw OATHSessionError.nfcNotSupported }
         return try await withTaskCancellationHandler {
             return try await withCheckedThrowingContinuation { continuation in
                 self.nfcContinuation = continuation

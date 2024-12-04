@@ -106,7 +106,7 @@
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "%1$@ (build %2$@)"
           }
         },
@@ -1858,6 +1858,29 @@
         }
       }
     },
+    "Invalid device info received from YubiKey" : {
+      "comment" : "Internal error message not to be displayed to the user.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informations invalides sur le dispositif reçues de YubiKey"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey から無効なデバイス情報を受信しました。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invalid device info received from YubiKey"
+          }
+        }
+      }
+    },
     "Invalid signature" : {
       "comment" : "PIV extension NFC invalid signature\nPIV extension invalid signature",
       "localizations" : {
@@ -2125,6 +2148,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ďalej"
+          }
+        }
+      }
+    },
+    "NFC not supported on this device" : {
+      "comment" : "Internal error message not to be displayed to the user.",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La technologie NFC n'est pas prise en charge par cet appareil"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このデバイスではNFCはサポートされていません"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "NFC not supported on this device"
           }
         }
       }
