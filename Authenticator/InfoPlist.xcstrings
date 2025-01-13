@@ -5,6 +5,12 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authenticator"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -35,6 +41,12 @@
       "comment" : "Privacy - NFC Scan Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zur Kommunikation mit dem YubiKey benötigt die Applikation NFC-Leseberechtigung."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -65,6 +77,12 @@
       "comment" : "Privacy - Camera Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Anwendung benötigt Zugriff auf die Kamera, um QR-Codes zu scannen."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -95,6 +113,12 @@
       "comment" : "Privacy - Face ID Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Anwendung benötigt Zugriff auf Face ID, um Deinen Passwortspeicher zu entsperren."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",

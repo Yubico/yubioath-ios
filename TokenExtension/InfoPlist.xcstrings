@@ -5,6 +5,12 @@
       "comment" : "Bundle display name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token Extension"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -35,6 +41,12 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token Extension"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
