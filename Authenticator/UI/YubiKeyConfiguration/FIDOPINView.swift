@@ -175,7 +175,7 @@ struct FIDOSetChangePINView: View {
                 .padding(.horizontal, 15)
                 .padding(.bottom, 5)
 
-                Text("\(model.pincomplexity ? "A PIN must be at least \(model.minPinLength) characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters." : "A PIN must be at least \(model.minPinLength) characters long and may contain letters, numbers and special characters.")")
+                Text( "\(model.pincomplexity ? String(localized: "A PIN must be at least \(model.minPinLength) characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters.") : String(localized: "A PIN must be at least \(model.minPinLength) characters long and may contain letters, numbers and special characters."))")
                     .font(.subheadline)
                     .foregroundStyle(Color(.secondaryLabel))
                     .padding(.horizontal, 25)

@@ -85,24 +85,24 @@ struct TutorialPageModel: Hashable, Identifiable {
 
 extension TutorialView {
     var tutorialPages: [TutorialPageModel] {
-        [TutorialPageModel(title: "How it works",
+        [TutorialPageModel(title: String(localized: "How it works"),
                            image: Image(.authAppImgLight),
-                           text: "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes." + "\n\n" + "You will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started.",
+                           text: String(localized: "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\n\nYou will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started."),
                            link: URL(string: "https://www.yubico.com/")!),
         
-         TutorialPageModel(title: "YubiKey 5Ci authentication",
+         TutorialPageModel(title: String(localized: "YubiKey 5Ci authentication"),
                            image: Image(.authAppIntro2Yk5Ci),
-                            text: "If you have a YubiKey 5Ci, plug it in." + "\n\n" + "Touch the contacts on the sides when prompted.",
+                            text: String(localized: "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted."),
                             link: nil),
         
-         TutorialPageModel(title: "YubiKey 5 Series NFC authentication",
+         TutorialPageModel(title: String(localized: "YubiKey 5 Series NFC authentication"),
                            image: Image(.authAppIntro3YkNfc),
-                            text: "If you have a YubiKey with NFC, pull down the main view to activate NFC." + "\n\n" + "Hold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone.",
+                            text: String(localized: "If you have a YubiKey with NFC, pull down the main view to activate NFC.\n\nHold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone."),
                             link: nil),
          
-         TutorialPageModel(title: "Where to get QR codes",
+         TutorialPageModel(title: String(localized: "Where to get QR codes"),
                            image: Image(.authAppIntro4QrCode),
-                            text: "QR codes are available from the services you wish to secure." + "\n\n" + "Simply scan the QR code when you add your YubiKey and generate your own security codes.",
+                            text: String(localized: "QR codes are available from the services you wish to secure.\n\nSimply scan the QR code when you add your YubiKey and generate your own security codes."),
                             link: nil)
         ]
     }

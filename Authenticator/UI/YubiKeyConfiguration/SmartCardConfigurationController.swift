@@ -53,7 +53,7 @@ struct SmartCardConfigurationView: View {
                     Text("Cancel")
                 }
             }, message: {
-                Text("This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey.")
+                Text("Other applications can use client certificates on your YubiKey for authentication and signing purposes.")
             })
     }
 }
@@ -267,11 +267,11 @@ private class HeaderCell: UITableViewCell {
             case .onYubiKey:
                 icon.image = UIImage(named: "yubikey")?.withConfiguration(configuration)
                 title.text = String(localized: "Certificates on YubiKey", comment: "PIV extension table cell header")
-                text.text = "\(String(localized: "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this", comment: "PIV extension no certs on yubikey message")) \(device)."
+                text.text = String(localized: "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this \(device).", comment: "PIV extension no certs on yubikey message")
             case .onDevice:
                 icon.image = UIImage(systemName: "iphone", withConfiguration: configuration)
-                title.text = "\(String(localized: "Public key certificates on", comment: "PIV extension no certs on device message")) \(device)"
-                text.text = "\(String(localized: "These certificates have been added to this", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'")) \(device) \(String(localized: "and can be used by other applications", comment: "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'"))."
+                title.text = String(localized: "Public key certificates on \(device)", comment: "PIV extension no certs on device")
+                text.text = String(localized: "These certificates have been added to this \(device) and can be used by other applications.", comment: "PIV extension certs on device")
             }
         }
     }

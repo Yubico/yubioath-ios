@@ -37,7 +37,7 @@ struct OATHSavedPasswordsView: View {
                 .multilineTextAlignment(.center)
                 .opacity(passwordsHasBeenCleared ? 0.2 : 1.0)
         } buttons: {
-            SettingsButton("Clear saved passwords") {
+            SettingsButton(String(localized: "Clear saved passwords")) {
                 presentConfirmAlert.toggle()
             }
             .disabled(passwordsHasBeenCleared)

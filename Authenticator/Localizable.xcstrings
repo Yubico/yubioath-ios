@@ -204,6 +204,62 @@
         }
       }
     },
+    "A PIN must be at least %llu characters long and may contain letters, numbers and special characters." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long and may contain letters, numbers and special characters."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long and may contain letters, numbers and special characters."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long and may contain letters, numbers and special characters."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód PIN musí mať aspoň %llu znakov a môže obsahovať písmená, číslice a špeciálne znaky."
+          }
+        }
+      }
+    },
+    "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód PIN musí mať aspoň %llu znakov, musí obsahovať aspoň 2 jedinečné znaky a nesmie byť bežne používaným kódom PIN, ako napríklad \"123456\". Môže obsahovať písmená, číslice a špeciálne znaky."
+          }
+        }
+      }
+    },
     "About" : {
       "comment" : "About navigation title",
       "localizations" : {
@@ -496,6 +552,7 @@
     },
     "and can be used by other applications" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -640,6 +697,7 @@
     },
     "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
       "comment" : "PIV extension no certs on yubikey message",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -666,6 +724,9 @@
           }
         }
       }
+    },
+    "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this %@." : {
+      "comment" : "PIV extension no certs on yubikey message"
     },
     "Certificates on YubiKey" : {
       "comment" : "PIV extension table cell header",
@@ -1033,6 +1094,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nastavenie"
+          }
+        }
+      }
+    },
+    "Configuration read" : {
+      "comment" : "NFC connection stopped message.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration read"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Configuration read"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定読み込み"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čítanie konfigurácie"
           }
         }
       }
@@ -2214,7 +2304,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ALLGEMEINES"
+            "value" : "ALLGEMEINE EINSTELLUNGEN"
           }
         },
         "fr" : {
@@ -2237,12 +2327,15 @@
         }
       }
     },
+    "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\n\nYou will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started." : {
+
+    },
     "How does it work" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wie funktioniert das"
+            "value" : "Einführung"
           }
         },
         "fr" : {
@@ -2264,6 +2357,15 @@
           }
         }
       }
+    },
+    "How it works" : {
+
+    },
+    "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted." : {
+
+    },
+    "If you have a YubiKey with NFC, pull down the main view to activate NFC.\n\nHold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone." : {
+
     },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
@@ -2299,7 +2401,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKey einfügen"
+            "value" : "YubiKey verbinden"
           }
         },
         "fr" : {
@@ -2327,7 +2429,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKey stecken oder nach unten ziehen, um NFC zu aktivieren"
+            "value" : "YubiKey verbinden oder nach unten ziehen, um NFC zu aktivieren"
           }
         },
         "fr" : {
@@ -2378,6 +2480,9 @@
           }
         }
       }
+    },
+    "Invalid session state." : {
+
     },
     "Invalid signature" : {
       "comment" : "PIV extension NFC invalid signature\nPIV extension invalid signature",
@@ -3497,7 +3602,6 @@
     },
     "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
       "comment" : "PIV extension info alert message",
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4154,6 +4258,7 @@
     },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4180,6 +4285,12 @@
           }
         }
       }
+    },
+    "Public key certificates on %@" : {
+      "comment" : "PIV extension no certs on device"
+    },
+    "QR codes are available from the services you wish to secure.\n\nSimply scan the QR code when you add your YubiKey and generate your own security codes." : {
+
     },
     "re-enter password" : {
       "localizations" : {
@@ -4243,7 +4354,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erfahre mehr..."
+            "value" : "Weitere Infos..."
           }
         },
         "fr" : {
@@ -5468,6 +5579,9 @@
         }
       }
     },
+    "The key is busy performing another operation." : {
+
+    },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message",
       "extractionState" : "stale",
@@ -5556,6 +5670,9 @@
         }
       }
     },
+    "The requested functionality is missing or disabled in this YubiKey." : {
+
+    },
     "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings." : {
       "comment" : "PIV extensions notifications alert message",
       "localizations" : {
@@ -5613,6 +5730,9 @@
         }
       }
     },
+    "The YubiKey is not connected." : {
+
+    },
     "There's already an account named" : {
       "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.",
       "localizations" : {
@@ -5644,6 +5764,7 @@
     },
     "These certificates have been added to this" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -5670,6 +5791,9 @@
           }
         }
       }
+    },
+    "These certificates have been added to this %@ and can be used by other applications." : {
+      "comment" : "PIV extension certs on device"
     },
     "This operation is not supported over Lightning on this YubiKey. Please use Yubico Authenticator for desktop to reset the FIDO application." : {
       "localizations" : {
@@ -6016,7 +6140,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "One-Time Passwort zeigen/verbergen"
+            "value" : "One-Time Password Einstellungen"
           }
         },
         "fr" : {
@@ -6038,6 +6162,9 @@
           }
         }
       }
+    },
+    "Touch key time out." : {
+
     },
     "Touch the button on the YubiKey now." : {
       "comment" : "FIDO reset view",
@@ -6389,7 +6516,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Was gibt es Neues?"
+            "value" : "Neuigkeiten"
           }
         },
         "fr" : {
@@ -6418,7 +6545,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Was gibt es Neues?"
+            "value" : "Neuigkeiten"
           }
         },
         "fr" : {
@@ -6471,12 +6598,15 @@
         }
       }
     },
+    "Where to get QR codes" : {
+
+    },
     "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Solange der YubiKey eingesteckt ist, wird die Bildschirmtastatur nicht angezeigt. Um die Tastatur anzuzeigen, musst Du den YubiKey abziehen und dann wieder einstecken."
+            "value" : "Solange der YubiKey verbunden ist, wird die Bildschirmtastatur nicht angezeigt. Um die Tastatur anzuzeigen, musst Du den YubiKey abziehen und erneut verbinden."
           }
         },
         "fr" : {
@@ -6784,6 +6914,18 @@
           }
         }
       }
+    },
+    "YubiKey 5 Series NFC authentication" : {
+
+    },
+    "YubiKey 5Ci authentication" : {
+
+    },
+    "YubiKey connection is not found." : {
+
+    },
+    "YubiKey connection lost." : {
+
     },
     "YubiKey has been reset" : {
       "extractionState" : "stale",

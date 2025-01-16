@@ -37,17 +37,17 @@ struct OATHPasswordView: View {
                 .multilineTextAlignment(.center)
         } buttons: {
             if showSetButton {
-                SettingsButton("Set password") {
+                SettingsButton(String(localized: "Set password")) {
                     presentSetPassword.toggle()
                 }.disabled(areButtonsDisabled())
             }
             if showChangeButton {
-                SettingsButton("Change password") {
+                SettingsButton(String(localized: "Change password")) {
                     presentChangePassword.toggle()
                 }.disabled(areButtonsDisabled())
             }
             if showRemoveButton {
-                SettingsButton("Remove password") {
+                SettingsButton(String(localized: "Remove password")) {
                     presentRemovePassword.toggle()
                 }.disabled(areButtonsDisabled())
             }

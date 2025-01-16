@@ -35,7 +35,7 @@ struct OATHResetView: View {
                 .multilineTextAlignment(.center)
                 .opacity(keyHasBeenReset ? 0.2 : 1.0)
         } buttons: {
-            SettingsButton("Reset OATH") {
+            SettingsButton(String(localized: "Reset OATH")) {
                 presentConfirmAlert.toggle()
             }
             .disabled(keyHasBeenReset)
