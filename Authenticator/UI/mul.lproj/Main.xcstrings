@@ -680,7 +680,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktiviere NFC beim OTP-Tag Lesen"
+            "value" : "Öffne App und starte NFC Scanning bei NFC-Kontakt"
           }
         },
         "en" : {
@@ -1028,7 +1028,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NFC beim Start der Anwendung aktivieren"
+            "value" : "NFC beim Start aktivieren"
           }
         },
         "en" : {
@@ -1298,7 +1298,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aktiviere NFC beim Applikationsstart liest automatisch Deinen YubiKey, sobald die App aktiv wird."
+            "value" : "Diese Einstellung bewirkt dass die App beim aktiv werden automatisch den NFC Scanvorgang startet."
           }
         },
         "en" : {
@@ -1466,7 +1466,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OTP in die Zwischenablage kopieren"
+            "value" : "Yubico OTP in die Zwischenablage kopieren"
           }
         },
         "en" : {
@@ -2276,7 +2276,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kopiere den OTP Code automatisch in die Zwischenablage, sobald ein YubiKey mit der NFC-Tag-Funktionalität gescannt wurde."
+            "value" : "Kopiere den Yubico OTP Code automatisch in die Zwischenablage, sobald ein YubiKey mit der NFC-Tag-Funktionalität gescannt wurde."
           }
         },
         "en" : {
@@ -2636,7 +2636,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bei Konten, die eine Berührung erfordern, ist ein zusätzlicher NFC-Tipp erforderlich, um den Code zu berechnen. Deaktivieren  minimiert die Anzahl der erforderlichen NFC-Tipps."
+            "value" : "Sofern konfiguriert, erfordern (OATH) Konten in dieser App eine zusätzliche Berührung des YubiKeys um den OTP Code zu berechnen. Mit dieser Einstellung kannst Du diese Einstellung deaktivieren und die Anzahl an erforderlichen Berührungen reduzieren."
           }
         },
         "en" : {
