@@ -62,16 +62,7 @@ struct OATHPasswordView: View {
         .sheet(isPresented: $presentRemovePassword) {
             OATHSetChangePasswordView(type: .remove)
         }
-        .alert(error?.localizedDescription ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
-            Button(role: .cancel) {
-                error = nil
-                if model.state.isError() {
-                    dismiss()
-                }
-            } label: {
-                Text("OK")
-            }
-        })
+        .errorAlert(error: $error) { dismiss() }
         .onChange(of: model.state) { state in
             withAnimation {
                 switch state {

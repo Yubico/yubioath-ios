@@ -31,6 +31,11 @@ extension View {
     }
 }
 
+enum UnknownError: LocalizedError {
+    case error
+    var errorDescription: String? { String(localized: "Unknown error.") }
+}
+
 struct LocalizedErrorWrapper: LocalizedError {
     
     enum ErrorType {

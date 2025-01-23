@@ -214,14 +214,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A PIN must be at least %llu characters long and may contain letters, numbers and special characters."
+            "state" : "translated",
+            "value" : "Saisissez votre nouveau PIN. Un PIN doit avoir au moins %llu caractères et peut inclure des lettres, chiffres et caractères spéciaux."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A PIN must be at least %llu characters long and may contain letters, numbers and special characters."
+            "state" : "translated",
+            "value" : "新しいPINを入力してください。PINは%llu文字以上にする必要があり、文字、数字、特殊文字を含めることができます。"
           }
         },
         "sk" : {
@@ -242,14 +242,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters."
+            "state" : "translated",
+            "value" : "Le code PIN doit être composé d'au moins %llu caractères, contenir au moins 2 caractères uniques et ne pas être un code PIN couramment utilisé, comme \"123456\". Il peut contenir des lettres, des chiffres et des caractères spéciaux."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters."
+            "state" : "translated",
+            "value" : "PINは少なくとも %llu 文字以上で、少なくとも2つのユニークな文字を含み、\"123456 \"のような一般的に使用されているPINであってはなりません。文字、数字、特殊文字を含むことができます。"
           }
         },
         "sk" : {
@@ -411,7 +411,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Konten"
+            "value" : "OATH Konten"
           }
         },
         "fr" : {
@@ -736,14 +736,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this %@."
+            "state" : "translated",
+            "value" : "Les certificats de cette YubiKey peuvent être utilisés pour authentifier et signer les demandes d'autres applications si elles sont ajoutées à ce site %@."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this %@."
+            "state" : "translated",
+            "value" : "この YubiKey の証明書は、 %@に追加すれば、他のアプリケーションからのリクエストの認証や署名に使用できる。"
           }
         },
         "sk" : {
@@ -1135,8 +1135,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Configuration read"
+            "state" : "translated",
+            "value" : "Lecture de la configuration"
           }
         },
         "ja" : {
@@ -2363,14 +2363,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\n\nYou will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started."
+            "state" : "translated",
+            "value" : "Obtenez un secret partagé de tout service que vous souhaitez sécuriser, stockez-le sur la YubiKey et utilisez-le pour générer vos codes de sécurité.\n\nVous aurez besoin d'une YubiKey 5Ci ou d'une YubiKey compatible avec NFC pour commencer."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\n\nYou will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started."
+            "state" : "translated",
+            "value" : "セキュリティを確保したいサービスから共有シークレットを取得し、YubiKeyに保存してセキュリティコードの生成に使用します。\n\n利用開始にはYubiKey 5CiまたはNFC搭載の互換性のあるYubiKeyが必要です。"
           }
         },
         "sk" : {
@@ -2419,14 +2419,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How it works"
+            "state" : "translated",
+            "value" : "Comment cela fonctionne-t-il"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "How it works"
+            "state" : "translated",
+            "value" : "仕組み"
           }
         },
         "sk" : {
@@ -2436,6 +2436,12 @@
           }
         }
       }
+    },
+    "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password." : {
+
+    },
+    "If enabled, the YubiKey will output a One-Time Password when touched. Since the YubiKey is detected as a keyboard the built in keyboard in iOS will be disabled." : {
+
     },
     "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted." : {
       "localizations" : {
@@ -2447,14 +2453,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted."
+            "state" : "translated",
+            "value" : "Si vous avez une YubiKey 5Ci, branchez-la.\n\nTouchez les contacts sur les côtés lorsque vous y êtes invité."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted."
+            "state" : "translated",
+            "value" : "YubiKey 5Ciをお持ちの場合は、接続してください。\n\nプロンプトが表示されたら、側面の接点をタッチします。"
           }
         },
         "sk" : {
@@ -2470,19 +2476,19 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Falls Du einen YubiKey mit NFC Funktionalität hast, ziehe bitte in der Hauptansicht der App  nach unten um das NFC Scanning zu aktivieren.\n\nHalte den YubiKey horizontal und neige Dein iPhone in Richtung des YubiKey.\n\nBerühre die Mitte Deines YubiKeys (goldene Kontaktfläche) während Du ihn an weiterhin an den Rand Deines iPhones hälst."
+            "value" : "Falls Du einen YubiKey mit NFC Funktionalität besitzt, ziehe bitte in der Hauptansicht der App nach unten um das NFC Scanning zu aktivieren.\n\nHalte den YubiKey an den NFC Leser Deine iPhones.\n\nBerühre die Mitte Deines YubiKeys (goldene Kontaktfläche) während Du ihn an weiterhin an den Rand Deines iPhones hälst."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you have a YubiKey with NFC, pull down the main view to activate NFC.\n\nHold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone."
+            "state" : "translated",
+            "value" : "Si vous disposez d'une clé YubiKey avec NFC, abaissez la vue principale pour activer la NFC.\n\nTenez la clé horizontalement et inclinez l'iPhone vers la clé.\n\nTouchez le centre de la clé au bord du téléphone."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "If you have a YubiKey with NFC, pull down the main view to activate NFC.\n\nHold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone."
+            "state" : "translated",
+            "value" : "NFC搭載のYubiKeyをお持ちの場合は、メインビューを引き下げてNFCを有効にします。\n\nキーを水平に持ち、iPhoneをキーの方に傾けます。\n\nキーの中央をiPhoneの端にタッチします。"
           }
         },
         "sk" : {
@@ -2617,14 +2623,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Invalid session state."
+            "state" : "translated",
+            "value" : "État de la session non valide."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Invalid session state."
+            "state" : "translated",
+            "value" : "無効なセッション状態です。"
           }
         },
         "sk" : {
@@ -4448,14 +4454,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Public key certificates on %@"
+            "state" : "translated",
+            "value" : "Certificats de clé publique sur %@"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Public key certificates on %@"
+            "state" : "translated",
+            "value" : "%@における公開鍵証明書"
           }
         },
         "sk" : {
@@ -4471,19 +4477,19 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Du erhälst QR Codes direkt bei den Diensten die Du absichern möchtest.\n\nScanne einfach den QR-Code um das shared Secret/Seed Deinem YubiKey hinzuzufügen und Sicherheitscodes zu generieren."
+            "value" : "Du erhälst QR Codes direkt bei den Diensten die Du absichern möchtest.\n\nScanne einfach den QR-Code um das shared Secret/Seed Deinem YubiKey hinzuzufügen und OTP Codes zu generieren."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "QR codes are available from the services you wish to secure.\n\nSimply scan the QR code when you add your YubiKey and generate your own security codes."
+            "state" : "translated",
+            "value" : "Les codes QR sont disponibles auprès des services que vous souhaitez sécuriser.\n\nIl vous suffit de scanner le code QR lorsque vous ajoutez votre YubiKey et de générer vos propres codes de sécurité."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "QR codes are available from the services you wish to secure.\n\nSimply scan the QR code when you add your YubiKey and generate your own security codes."
+            "state" : "translated",
+            "value" : "QRコードは、セキュリティを確保したいサービスから入手できます。\n\nYubiKeyを追加する際にQRコードを読み取るだけで、独自のセキュリティコードを生成できます。"
           }
         },
         "sk" : {
@@ -4814,7 +4820,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lösche alle auf Deinem YubiKey gespeicherten Konten zurück. Stelle bitte unbedingt sicher, dass Du sie nirgendwo verwendest bevor Du fortfährst."
+            "value" : "Lösche alle auf Deinem YubiKey gespeicherten Konten. Stelle bitte unbedingt sicher, dass Du sie nirgendwo verwendest bevor Du fortfährst."
           }
         },
         "fr" : {
@@ -5700,7 +5706,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bedingungen für die Nutzung"
+            "value" : "Nutzungsbedingungen"
           }
         },
         "fr" : {
@@ -5791,14 +5797,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The key is busy performing another operation."
+            "state" : "translated",
+            "value" : "La clé est occupée à effectuer une autre opération."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The key is busy performing another operation."
+            "state" : "translated",
+            "value" : "キーは別の操作で忙しい。"
           }
         },
         "sk" : {
@@ -5902,19 +5908,19 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die gewünschte Funktion ist in diesem YubiKey entweder nicht verfügbar oder deaktiviert."
+            "value" : "Die gewünschte Funktion ist auf diesem YubiKey entweder nicht verfügbar oder deaktiviert."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The requested functionality is missing or disabled in this YubiKey."
+            "state" : "translated",
+            "value" : "La fonctionnalité demandée est absente ou désactivée dans ce YubiKey."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The requested functionality is missing or disabled in this YubiKey."
+            "state" : "translated",
+            "value" : "この YubiKey には、要求された機能がないか、無効になっています。"
           }
         },
         "sk" : {
@@ -5959,7 +5965,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der YubiKey hat keinen Speicherplatz mehr für OATH-Konten."
+            "value" : "Der YubiKey hat keinen weiteren Speicherplatz mehr zusätzliche OATH-Konten."
           }
         },
         "fr" : {
@@ -5992,14 +5998,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The YubiKey is not connected."
+            "state" : "translated",
+            "value" : "Le YubiKey n'est pas connecté."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The YubiKey is not connected."
+            "state" : "translated",
+            "value" : "YubiKeyが接続されていません。"
           }
         },
         "sk" : {
@@ -6075,19 +6081,19 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Zertifikate wurden zu diesem %@ hinzugefügt und können von anderen Applikationen verwendet werden."
+            "value" : "Diese Zertifikate wurden zu Deinem %@ hinzugefügt und können von anderen Applikationen verwendet werden."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These certificates have been added to this %@ and can be used by other applications."
+            "state" : "translated",
+            "value" : "Ces certificats ont été ajoutés à ce site %@ et peuvent être utilisés par d'autres applications."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "These certificates have been added to this %@ and can be used by other applications."
+            "state" : "translated",
+            "value" : "これらの証明書はこの %@ に追加され、他のアプリケーションで使用できる。"
           }
         },
         "sk" : {
@@ -6151,6 +6157,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tento QR kód nie je podporovaný"
+          }
+        }
+      }
+    },
+    "This setting is not supported on your YubiKey." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellung wird von Deinem YubiKey nicht unterstützt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce paramètre n'est pas pris en charge par votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この設定はYubiKeyではサポートされていません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This setting is not supported on your YubiKey."
           }
         }
       }
@@ -6476,14 +6510,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Touch key time out."
+            "state" : "translated",
+            "value" : "Temps d'attente de la touche tactile."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Touch key time out."
+            "state" : "translated",
+            "value" : "タッチキータイムアウト。"
           }
         },
         "sk" : {
@@ -6519,6 +6553,64 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teraz sa dotknite tlačidla na YubiKey."
+          }
+        }
+      }
+    },
+    "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls aktiviert erscheint bei Berührung der Kontaktfläche Deines YubiKeys eine Benachrichtigung. Beim Druck auf die Benachrichtigung wird der Yubico OTP Code in der App angezeigt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lorsque vous scannez la YubiKey NFC."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC YubiKeyをスキャンする際、Safariを開いてワンタイムパスワードをコピーするかどうかを設定します。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."
+          }
+        }
+      }
+    },
+    "Turn on/off output of OTP codes when touching the YubiKey." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls aktiviert, wird bei Berührung der Kontaktfläche Deines YubiKeys ein Yubico OTP ausgegeben."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer/désactiver la sortie des codes OTP lorsque l'on touche la YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyタッチ時のOTPコード出力ON/OFF。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Turn on/off output of OTP codes when touching the YubiKey."
           }
         }
       }
@@ -6604,6 +6696,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Neznáma chyba"
+          }
+        }
+      }
+    },
+    "Unknown error." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbekannter Fehler."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur inconnue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明なエラー。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Unknown error."
           }
         }
       }
@@ -6936,14 +7056,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Where to get QR codes"
+            "state" : "translated",
+            "value" : "Où obtenir des codes QR"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Where to get QR codes"
+            "state" : "translated",
+            "value" : "QRコードの入手先"
           }
         },
         "sk" : {
@@ -7278,14 +7398,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey 5 Series NFC authentication"
+            "state" : "translated",
+            "value" : "Authentification NFC YubiKey 5 Series"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey 5 Series NFC authentication"
+            "state" : "translated",
+            "value" : "YubiKey 5シリーズ NFC認証"
           }
         },
         "sk" : {
@@ -7306,14 +7426,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey 5Ci authentication"
+            "state" : "translated",
+            "value" : "Authentification YubiKey 5Ci"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey 5Ci authentication"
+            "state" : "translated",
+            "value" : "YubiKey 5Ci認証"
           }
         },
         "sk" : {
@@ -7334,14 +7454,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey connection is not found."
+            "state" : "translated",
+            "value" : "La connexion YubiKey est introuvable."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey connection is not found."
+            "state" : "translated",
+            "value" : "YubiKey 接続が見つかりません。"
           }
         },
         "sk" : {
@@ -7362,14 +7482,14 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey connection lost."
+            "state" : "translated",
+            "value" : "Connexion YubiKey perdue."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "YubiKey connection lost."
+            "state" : "translated",
+            "value" : "YubiKeyの接続が切れた。"
           }
         },
         "sk" : {

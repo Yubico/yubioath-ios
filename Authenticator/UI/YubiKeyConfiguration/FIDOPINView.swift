@@ -50,12 +50,12 @@ struct FIDOPINView: View {
             }
         } buttons: {
             if showSetButton {
-                SettingsButton("Set PIN") {
+                SettingsButton(String(localized: "Set PIN")) {
                     presentSetPIN.toggle()
                 }.disabled(areButtonsDisabled())
             }
             if showChangeButton {
-                SettingsButton("Change PIN") {
+                SettingsButton(String(localized: "Change PIN")) {
                     presentChangePIN.toggle()
                 }.disabled(areButtonsDisabled())
             }

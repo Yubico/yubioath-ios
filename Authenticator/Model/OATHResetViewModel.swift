@@ -17,12 +17,25 @@
 import Foundation
 import OSLog
 
-class ResetOATHViewModel: ObservableObject {
+class OATHResetViewModel: ObservableObject {
 
     @Published var state: ResetState = .ready
     
     enum ResetState: Equatable {
-        case ready, success, error(String)
+        case ready, success, error(Error)
+        
+        static func == (lhs: OATHResetViewModel.ResetState, rhs: OATHResetViewModel.ResetState) -> Bool {
+            switch (lhs, rhs) {
+            case (.ready, .ready):
+                return true
+            case (.success, .success):
+                return true
+            case (.error(_), .error(_)):
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     private let connection = Connection()
@@ -35,18 +48,18 @@ class ResetOATHViewModel: ObservableObject {
         connection.startConnection { connection in
             connection.oathSession { session, error in
                 guard let session = session else {
-                    let errorMessage = error?.localizedDescription ?? String(localized: "Unknown error")
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: errorMessage)
+                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                     DispatchQueue.main.async {
-                        self.state = .error(errorMessage)
+                        self.state = .error(error)
                     }
                     return
                 }
                 session.reset { error in
                     DispatchQueue.main.async {
                         if let error = error {
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                            self.state = .error(error.localizedDescription)
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
+                            self.state = .error(error)
                         } else {
                             let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
                             YubiKitManager.shared.stopNFCConnection(withMessage: message)

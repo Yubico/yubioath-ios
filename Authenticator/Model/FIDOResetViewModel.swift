@@ -93,17 +93,20 @@ extension FIDOResetViewModel {
     func resetNFC(connection: YKFNFCConnection) {
         connection.fido2Session { session, error in
             guard let session = session else {
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                guard let error else { return }
+                let localizedError = LocalizedErrorWrapper(error: error)
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: localizedError.localizedDescription)
                 DispatchQueue.main.async {
-                    self.state = .error(error!)
+                    self.state = .error(localizedError)
                 }
                 return
             }
             session.reset { error in
                 DispatchQueue.main.async {
-                    if let error = error {
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                        self.state = .error(error)
+                    if let error {
+                        let localizedError = LocalizedErrorWrapper(error: error)
+                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: localizedError.localizedDescription)
+                        self.state = .error(localizedError)
                     } else {
                         let message = String(localized: "Reset FIDO application", comment: "FIDO reset NFC confirmation message")
                         YubiKitManager.shared.stopNFCConnection(withMessage: message)

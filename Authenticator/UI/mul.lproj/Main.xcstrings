@@ -1748,7 +1748,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Starte NFC und lese die OATH-Konten aus,  sobald die Anwendung durch Lesen des OTP-Tags auf einem YubiKey geöffnet wurde."
+            "value" : "Starte NFC und lese die OATH-Konten aus, sobald die Anwendung durch Lesen des OTP-Tags auf einem YubiKey geöffnet wurde."
           }
         },
         "en" : {
@@ -2768,36 +2768,36 @@
       }
     },
     "vjs-4B-RzZ.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey.\"; ObjectID = \"vjs-4B-RzZ\";",
+      "comment" : "Class = \"UILabel\"; text = \"If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password.\"; ObjectID = \"vjs-4B-RzZ\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "De-/aktiviere das automatische Öffnen von Safari um den OTP Code zu kopieren, sobald Du einen NFC YubiKey liest."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."
+            "value" : "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lors du scan de la YubiKey NFC."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "NFC YubiKeyのスキャン時にOTPをコピーするには、Safariを開く操作のオン/オフを切り替えてください。"
           }
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Zapnutie/vypnutie otvárania Safari na kopírovanie OTP pri skenovaní NFC YubiKey."
           }
         }

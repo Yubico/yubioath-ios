@@ -18,11 +18,11 @@ import SwiftUI
 
 struct OATHResetView: View {
     
-    @StateObject var model = ResetOATHViewModel()
+    @StateObject var model = OATHResetViewModel()
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
     @State var keyHasBeenReset = false
-    @State var errorMessage: String? = nil
+    @State var error: Error? = nil
     @State var image = Image(systemName: "exclamationmark.triangle")
     @State var imageColor = Color(.systemRed)
     
@@ -56,7 +56,7 @@ struct OATHResetView: View {
         }, message: { _ in
             Text("This will irrevocably delete all OATH TOTP/HOTP accounts from your YubiKey.")
         })
-        .alert(errorMessage ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: { })
+        .errorAlert(error: $error)
         .onChange(of: model.state) { state in
             withAnimation {
                 switch state {
@@ -66,9 +66,9 @@ struct OATHResetView: View {
                     self.keyHasBeenReset = true
                     self.image = Image(systemName: "checkmark.circle")
                     self.imageColor = Color(.systemGreen)
-                case .error(let message):
+                case .error(let error):
                     self.presentErrorAlert = true
-                    self.errorMessage = message
+                    self.error = error
                 }
             }
         }
