@@ -2438,10 +2438,60 @@
       }
     },
     "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn aktiviert, wird beim Scannen des YubiKey eine Benachrichtigung angezeigt. Wenn Du auf die Benachrichtigung tippst, wird der Yubico OTP Code angezeigt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si cette option est activée, le balayage de la clé YubiKey affiche une notification. En appuyant sur la notification, le mot de passe à usage unique s'affiche."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効な場合、YubiKeyをスキャンすると通知が表示されます。通知をタップするとワンタイムパスワードが表示されます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak je táto funkcia povolená, pri skenovaní kľúča YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
+          }
+        }
+      }
     },
     "If enabled, the YubiKey will output a One-Time Password when touched. Since the YubiKey is detected as a keyboard the built in keyboard in iOS will be disabled." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn diese Option aktiviert ist, gibt der YubiKey bei Berührung ein Yubico OTP Code aus. Da der YubiKey als Tastatur erkannt wird, wird die iOS Tastatur deaktiviert."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si cette option est activée, le YubiKey émettra un mot de passe à usage unique lorsqu'il sera touché. Puisque le YubiKey est détecté comme un clavier, le clavier intégré dans iOS sera désactivé."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをタッチするとワンタイムパスワードが出力されます。YubiKeyはキーボードとして検出されるため、iOSの内蔵キーボードは無効になります。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak je táto funkcia povolená, YubiKey po dotyku vypíše jednorazové heslo. Keďže YubiKey je rozpoznaný ako klávesnica, vstavaná klávesnica v systéme iOS bude vypnutá."
+          }
+        }
+      }
     },
     "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted." : {
       "localizations" : {
@@ -2476,7 +2526,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Falls Du einen YubiKey mit NFC Funktionalität besitzt, ziehe bitte in der Hauptansicht der App nach unten um das NFC Scanning zu aktivieren.\n\nHalte den YubiKey an den NFC Leser Deine iPhones.\n\nBerühre die Mitte Deines YubiKeys (goldene Kontaktfläche) während Du ihn an weiterhin an den Rand Deines iPhones hälst."
+            "value" : "Falls Du einen YubiKey mit NFC Funktionalität besitzt, ziehe bitte in der Hauptansicht der App nach unten um das NFC Scanning zu aktivieren.\n\nHalte den YubiKey an den NFC Leser Deine iPhones.\n\nBerühre die Mitte Deines YubiKeys (goldene Kontaktfläche) während Du ihn weiterhin an den Rand Deines iPhones hälst."
           }
         },
         "fr" : {
@@ -4495,7 +4545,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "QR kódy sú k dispozícii od službieb, ktoré chcete zabezpečiť.\n\nJednoducho naskenujte QR kód, keď pridáte svoj YubiKey a vygenerujte si vlastné bezpečnostné kódy."
+            "value" : "QR kódy sú k dispozícii od služieb, ktoré chcete zabezpečiť.\n\nJednoducho naskenujte QR kód, keď pridáte svoj YubiKey a vygenerujte si vlastné bezpečnostné kódy."
           }
         }
       }
@@ -5419,7 +5469,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Smartcard extension"
+            "value" : "Smartcard Erweiterung"
           }
         },
         "fr" : {
@@ -5937,7 +5987,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Für die Smartcard-Erweiterung müssen Benachrichtigungen für Yubico Authenticator aktiviert sein. Aktiviere diese bitte in den iOS-Einstellungen."
+            "value" : "Für die Smartcard Erweiterung müssen Benachrichtigungen für Yubico Authenticator aktiviert sein. Aktiviere diese bitte in den iOS-Einstellungen."
           }
         },
         "fr" : {
@@ -6183,8 +6233,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This setting is not supported on your YubiKey."
+            "state" : "translated",
+            "value" : "Toto nastavenie nie je na vašom YubiKey podporované."
           }
         }
       }
@@ -6580,8 +6630,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey."
+            "state" : "translated",
+            "value" : "Zapnúť/vypnúť otváranie Safari na skopírovanie OTP pri skenovaní NFC YubiKey."
           }
         }
       }
@@ -6609,8 +6659,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Turn on/off output of OTP codes when touching the YubiKey."
+            "state" : "translated",
+            "value" : "Zapnúť/vypnúť výstup OTP kódov pri dotyku YubiKey."
           }
         }
       }
@@ -6722,8 +6772,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Unknown error."
+            "state" : "translated",
+            "value" : "Neznáma chyba."
           }
         }
       }

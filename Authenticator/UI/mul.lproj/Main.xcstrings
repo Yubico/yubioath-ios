@@ -2773,8 +2773,8 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "De-/aktiviere das automatische Öffnen von Safari um den OTP Code zu kopieren, sobald Du einen NFC YubiKey liest."
+            "state" : "translated",
+            "value" : "Wenn aktiviert, wird beim Scannen des YubiKey eine Benachrichtigung angezeigt. Wenn Du auf die Benachrichtigung tippst, wird der Yubico OTP Code angezeigt."
           }
         },
         "en" : {
@@ -2785,20 +2785,20 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lors du scan de la YubiKey NFC."
+            "state" : "translated",
+            "value" : "Si cette option est activée, le balayage de la clé YubiKey affiche une notification. En appuyant sur la notification, le mot de passe à usage unique s'affiche."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "NFC YubiKeyのスキャン時にOTPをコピーするには、Safariを開く操作のオン/オフを切り替えてください。"
+            "state" : "translated",
+            "value" : "有効な場合、YubiKeyをスキャンすると通知が表示されます。通知をタップするとワンタイムパスワードが表示されます。"
           }
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zapnutie/vypnutie otvárania Safari na kopírovanie OTP pri skenovaní NFC YubiKey."
+            "state" : "translated",
+            "value" : "Ak je táto funkcia povolená, pri skenovaní kľúča YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
           }
         }
       }
