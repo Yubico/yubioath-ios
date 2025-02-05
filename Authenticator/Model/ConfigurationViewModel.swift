@@ -76,7 +76,7 @@ class ConfigurationViewModel: ObservableObject {
                 session.getDeviceInfo { info, error in
                     DispatchQueue.main.async {
                         self?.deviceInfo = info
-                        YubiKitManager.shared.stopNFCConnection(withMessage: "Configuration read")
+                        YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Configuration read", comment: "NFC connection stopped message."))
                     }
                 }
             }

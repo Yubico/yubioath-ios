@@ -34,7 +34,7 @@
 		5156D05B265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */; };
 		5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */; };
 		5156D05F265D3CEF007A94F8 /* TokenRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */; };
-		5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180974226DE185100A122C1 /* ResetOATHViewModel.swift */; };
+		5180974326DE185100A122C1 /* OATHResetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180974226DE185100A122C1 /* OATHResetViewModel.swift */; };
 		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
 		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
 		51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AFD4D9271D4277008F2630 /* QuartzCore.framework */; };
@@ -185,7 +185,7 @@
 		5156D05A265D0538007A94F8 /* TKTokenAlgorithm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TKTokenAlgorithm+Extensions.swift"; sourceTree = "<group>"; };
 		5156D05C265D2602007A94F8 /* TokenRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestViewController.swift; sourceTree = "<group>"; };
 		5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestViewModel.swift; sourceTree = "<group>"; };
-		5180974226DE185100A122C1 /* ResetOATHViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetOATHViewModel.swift; sourceTree = "<group>"; };
+		5180974226DE185100A122C1 /* OATHResetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHResetViewModel.swift; sourceTree = "<group>"; };
 		51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSettingsController.swift; sourceTree = "<group>"; };
 		51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
 		51AFD4D727196AB6008F2630 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
@@ -539,7 +539,7 @@
 				B4696F402CB6CF2500604F6F /* ConfigurationViewModel.swift */,
 				B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */,
 				B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */,
-				5180974226DE185100A122C1 /* ResetOATHViewModel.swift */,
+				5180974226DE185100A122C1 /* OATHResetViewModel.swift */,
 				B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */,
 				B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */,
 				B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */,
@@ -678,6 +678,7 @@
 				fr,
 				ja,
 				sk,
+				de,
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
@@ -827,7 +828,7 @@
 				B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */,
 				816C685023440D2200209342 /* SecureStoreError.swift in Sources */,
 				515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */,
-				5180974326DE185100A122C1 /* ResetOATHViewModel.swift in Sources */,
+				5180974326DE185100A122C1 /* OATHResetViewModel.swift in Sources */,
 				B4BB02E02C80BEBD00B72904 /* OATHSavedPasswordsView.swift in Sources */,
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
@@ -906,7 +907,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 172;
+				CURRENT_PROJECT_VERSION = 173;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -915,7 +916,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -930,7 +931,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 172;
+				CURRENT_PROJECT_VERSION = 173;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -939,7 +940,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1081,7 +1082,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 172;
+				CURRENT_PROJECT_VERSION = 173;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -1091,7 +1092,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1112,7 +1113,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 172;
+				CURRENT_PROJECT_VERSION = 173;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -1122,7 +1123,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.9.1;
+				MARKETING_VERSION = 1.10;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";

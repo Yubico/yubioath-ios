@@ -37,17 +37,17 @@ struct OATHPasswordView: View {
                 .multilineTextAlignment(.center)
         } buttons: {
             if showSetButton {
-                SettingsButton("Set password") {
+                SettingsButton(String(localized: "Set password")) {
                     presentSetPassword.toggle()
                 }.disabled(areButtonsDisabled())
             }
             if showChangeButton {
-                SettingsButton("Change password") {
+                SettingsButton(String(localized: "Change password")) {
                     presentChangePassword.toggle()
                 }.disabled(areButtonsDisabled())
             }
             if showRemoveButton {
-                SettingsButton("Remove password") {
+                SettingsButton(String(localized: "Remove password")) {
                     presentRemovePassword.toggle()
                 }.disabled(areButtonsDisabled())
             }
@@ -62,16 +62,7 @@ struct OATHPasswordView: View {
         .sheet(isPresented: $presentRemovePassword) {
             OATHSetChangePasswordView(type: .remove)
         }
-        .alert(error?.localizedDescription ?? String(localized: "Unknown error"), isPresented: $presentErrorAlert, actions: {
-            Button(role: .cancel) {
-                error = nil
-                if model.state.isError() {
-                    dismiss()
-                }
-            } label: {
-                Text("OK")
-            }
-        })
+        .errorAlert(error: $error) { dismiss() }
         .onChange(of: model.state) { state in
             withAnimation {
                 switch state {

@@ -3,6 +3,12 @@
   "strings" : {
     " " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " "
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "new",
@@ -26,6 +32,12 @@
     " in this version" : {
       "comment" : "Substring in \"See what's new in this version\"",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " in dieser Version"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -48,6 +60,12 @@
     },
     "*** *** " : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*** *** "
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -70,6 +88,12 @@
     },
     "%@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -92,6 +116,12 @@
     },
     "%@ (build %@)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ (Build %2$@)"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -120,6 +150,12 @@
     },
     "•" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -142,6 +178,12 @@
     },
     "888 888" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "888 888"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -162,9 +204,71 @@
         }
       }
     },
+    "A PIN must be at least %llu characters long and may contain letters, numbers and special characters." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine PIN muss mindestens %llu Zeichen lang sein und darf Buchstaben, Ziffern und Sonderzeichen enthalten."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisissez votre nouveau PIN. Un PIN doit avoir au moins %llu caractères et peut inclure des lettres, chiffres et caractères spéciaux."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいPINを入力してください。PINは%llu文字以上にする必要があり、文字、数字、特殊文字を含めることができます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód PIN musí mať aspoň %llu znakov a môže obsahovať písmená, číslice a špeciálne znaky."
+          }
+        }
+      }
+    },
+    "A PIN must be at least %llu characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine PIN muss mindestens %llu Zeichen lang sein, 2 unterschiedliche Zeichen enthalten und darf nicht eine häufig verwendete PIN wie z.B. \"123456\" sein. Die PIN darf Buchstaben, Ziffern und Sonderzeichen enthalten."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le code PIN doit être composé d'au moins %llu caractères, contenir au moins 2 caractères uniques et ne pas être un code PIN couramment utilisé, comme \"123456\". Il peut contenir des lettres, des chiffres et des caractères spéciaux."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINは少なくとも %llu 文字以上で、少なくとも2つのユニークな文字を含み、\"123456 \"のような一般的に使用されているPINであってはなりません。文字、数字、特殊文字を含むことができます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód PIN musí mať aspoň %llu znakov, musí obsahovať aspoň 2 jedinečné znaky a nesmie byť bežne používaným kódom PIN, ako napríklad \"123456\". Môže obsahovať písmená, číslice a špeciálne znaky."
+          }
+        }
+      }
+    },
     "About" : {
       "comment" : "About navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -188,6 +292,12 @@
     "Account deleted" : {
       "comment" : "OATH NFC account deleted",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto gelöscht"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -211,6 +321,12 @@
     "Account name can not be empty" : {
       "comment" : "Rename credential alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontoname darf nicht leer sein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -234,6 +350,12 @@
     "Account not set" : {
       "comment" : "Rename credential alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto nicht eingerichtet"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -257,6 +379,12 @@
     "Account renamed" : {
       "comment" : "OATH NFC account renamed",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto umbenannt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -280,6 +408,12 @@
     "Accounts" : {
       "comment" : "Navigation title in main view.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH Konten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -303,6 +437,12 @@
     "Activate NFC" : {
       "comment" : "Password save type activate NFC",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC aktivieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -326,6 +466,12 @@
     "Add account" : {
       "comment" : "Scan QR code add account label",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto hinzufügen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -349,6 +495,12 @@
     "Add Credential" : {
       "comment" : "Add account navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentifizierungsdaten hinzufügen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -372,6 +524,12 @@
     "Algorithm" : {
       "comment" : "Add account select algorithm",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algorithmus"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -394,7 +552,14 @@
     },
     "and can be used by other applications" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "und kann von anderen Anwendungen genutzt werden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -417,6 +582,12 @@
     },
     "Application" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Applikation"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -440,6 +611,12 @@
     "Authentication required" : {
       "comment" : "Password Configuration auth required",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentifizierung erforderlich"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -463,6 +640,12 @@
     "Calculate" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generiere"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -486,6 +669,12 @@
     "Cancel" : {
       "comment" : "Password alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -508,7 +697,14 @@
     },
     "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
       "comment" : "PIV extension no certs on yubikey message",
+      "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikate auf diesem YubiKey können dazu verwendet werden, um Anfragen von anderen Anwendungen zu authentifizieren und zu signieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -529,9 +725,44 @@
         }
       }
     },
+    "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this %@." : {
+      "comment" : "PIV extension no certs on yubikey message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikate auf diesem YubiKey können verwendet werden, um Anfragen von anderen Anwendungen zu authentifizieren und zu signieren, wenn sie zu diesem %@ hinzugefügt werden."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les certificats de cette YubiKey peuvent être utilisés pour authentifier et signer les demandes d'autres applications si elles sont ajoutées à ce site %@."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この YubiKey の証明書は、 %@に追加すれば、他のアプリケーションからのリクエストの認証や署名に使用できる。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikáty na tomto YubiKey možno použiť na overovanie a podpisovanie požiadaviek z iných aplikácií, ak sa pridajú do tohto %@."
+          }
+        }
+      }
+    },
     "Certificates on YubiKey" : {
       "comment" : "PIV extension table cell header",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikate auf dem YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -554,6 +785,12 @@
     },
     "Change" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ändern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -576,6 +813,12 @@
     },
     "Change password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort ändern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -598,6 +841,12 @@
     },
     "Change PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN ändern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -620,6 +869,12 @@
     },
     "Clear passwords" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwörter löschen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -642,6 +897,12 @@
     },
     "Clear passwords saved on this device. This will prompt for a password next time a password protected YubiKey is used." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösche die auf diesem Gerät gespeicherten Passwörter. Dadurch wirst Du bei der nächsten Verwendung eines passwortgeschützten YubiKeys nach dem dazugehörigen Passwort gefragt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -664,6 +925,12 @@
     },
     "Clear saved OATH passwords" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte OATH-Passwörter löschen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -686,6 +953,12 @@
     },
     "Clear saved passwords" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Passwörter löschen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -709,6 +982,12 @@
     "Close" : {
       "comment" : "View close button",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -732,6 +1011,12 @@
     "Code calculated" : {
       "comment" : "OATH NFC code calculated",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code berechnet"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -755,6 +1040,12 @@
     "Code expired" : {
       "comment" : "Accessibility label",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code abgelaufen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -778,6 +1069,12 @@
     "Code not calculated" : {
       "comment" : "Accessibility label",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code nicht berechnet"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -801,6 +1098,12 @@
     "Configuration" : {
       "comment" : "Configuration navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -821,9 +1124,44 @@
         }
       }
     },
+    "Configuration read" : {
+      "comment" : "NFC connection stopped message.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konfiguration gelesen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture de la configuration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定読み込み"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čítanie konfigurácie"
+          }
+        }
+      }
+    },
     "Confirm OATH reset" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Reset bestätigen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -847,6 +1185,12 @@
     "Connection cancelled by user" : {
       "comment" : "Internal error message not to be displayed to the user.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung vom Benutzer abgebrochen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -869,6 +1213,12 @@
     },
     "Contact support" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontakt zum Support"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -891,6 +1241,12 @@
     },
     "Continue with limited usability" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter mit eingeschränkter Nutzbarkeit"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -914,6 +1270,12 @@
     "Copied to clipboard" : {
       "comment" : "Toast copied to clipboard message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In die Zwischenablage kopiert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -937,6 +1299,12 @@
     "Copy" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -960,6 +1328,12 @@
     "Current" : {
       "comment" : "Enter current password in secure field to change password.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuell"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -982,6 +1356,12 @@
     },
     "Current PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle PIN"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1004,6 +1384,12 @@
     },
     "Data to String conversion error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler bei der Umwandlung von Daten in Zeichenfolgen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1413,12 @@
     "Delete" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1049,6 +1441,12 @@
     },
     "Delete account?" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto löschen?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1071,6 +1469,12 @@
     },
     "Device type" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerätetyp"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1094,6 +1498,12 @@
     "Digits" : {
       "comment" : "Add account select number of digits",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ziffern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1116,6 +1526,12 @@
     },
     "Disable Yubico OTP (recommended)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP deaktivieren (empfohlen)"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1138,6 +1554,12 @@
     },
     "Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Deaktivierung von Yubico OTP verhindert, dass der YubiKey als Tastatur angezeigt wird. Wenn Du Yubico OTP nicht verwendest, ist dies die empfohlene Lösung. Dies kann auf der Einstellungsseite wieder aktiviert werden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1161,6 +1583,12 @@
     "Dismiss details view" : {
       "comment" : "Accessibility hint",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detailansicht verwerfen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1184,6 +1612,12 @@
     "Duplicate accounts!" : {
       "comment" : "OATH add credential duplicate accounts error",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doppelte Konten!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1207,6 +1641,12 @@
     "Enabled" : {
       "comment" : "PIV extension enabled message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktiviert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1229,6 +1669,12 @@
     },
     "enter current password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aktuelles Passwort eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1251,6 +1697,12 @@
     },
     "enter current PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aktuelle PIN eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1274,6 +1726,12 @@
     "Enter manually" : {
       "comment" : "Scan QR code add manually button",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manuell eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1296,6 +1754,12 @@
     },
     "enter password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1319,6 +1783,12 @@
     "Enter password" : {
       "comment" : "Password alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1341,6 +1811,12 @@
     },
     "enter PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1364,6 +1840,12 @@
     "Enter the PIN to access the certificate." : {
       "comment" : "PIV extension enter PIN message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebe die PIN ein, um auf das Zertifikat zuzugreifen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1387,6 +1869,12 @@
     "Error" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1410,6 +1898,12 @@
     "Error reading YubiKey" : {
       "comment" : "PIV extension error title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler beim Lesen von YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1433,6 +1927,12 @@
     "Error writing configuration" : {
       "comment" : "OTP settings error alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler beim Schreiben der Konfiguration"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1456,6 +1956,12 @@
     "Failed storing certificate" : {
       "comment" : "PIV extension storing error alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern des Zertifikats fehlgeschlagen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1478,6 +1984,12 @@
     },
     "Failed to cast object to Data error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler bei der Umwandlung eines Objekts in Daten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1493,13 +2005,19 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nepodarilo sa previesť objekt na chybu Data"
+            "value" : "Chyba pri prevode objektu na údaje"
           }
         }
       }
     },
     "FIDO" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1523,6 +2041,12 @@
     "FIDO factory reset" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO-Werksreset"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1545,6 +2069,12 @@
     },
     "FIDO management over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die FIDO-Verwaltung über USB-C wird von iOS nicht unterstützt. Verwende stattdessen NFC oder die Desktop Version des Yubico Authenticator."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1568,6 +2098,12 @@
     "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO über USB-C wird von iOS nicht unterstützt. Verwende stattdessen NFC oder die Desktop Version des Yubico Authenticator."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1590,6 +2126,12 @@
     },
     "FIDO PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO-PIN"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1613,6 +2155,12 @@
     "FIDO PIN protection" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO-PIN-Schutz"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1636,6 +2184,12 @@
     "FIDO reset" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1659,6 +2213,12 @@
     "Finished reading certificates" : {
       "comment" : "PIV extension NFC finished reading certs",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lesen der Zertifikate abgeschlossen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1681,6 +2241,12 @@
     },
     "Firmware version" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmware-Version"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1704,6 +2270,12 @@
     "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für zusätzliche Sicherheit und zum Schutz vor unbefugtem Zugriff kann die FIDO-Anwendung durch eine PIN geschützt werden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1727,6 +2299,12 @@
     "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für zusätzliche Sicherheit und um unbefugten Zugriff zu verhindern, kann der YubiKey mit einem Passwort geschützt werden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1749,6 +2327,12 @@
     },
     "GENERAL" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ALLGEMEINE EINSTELLUNGEN"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1769,8 +2353,42 @@
         }
       }
     },
+    "Get a shared secret from any service you wish to secure, store it on the YubiKey and use it to generate your security codes.\n\nYou will need a YubiKey 5Ci or a compatible YubiKey with NFC to get started." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Besorge Dir ein shared Secret/Seed von jedem Dienst, den Du mit Deinem YubiKey absichern möchtest, speichere es auf Deinem YubiKey und verwende es, um OTP Codes zu generieren.\n\nDu benötigst einen YubiKey 5Ci oder einen YubiKey mit NFC Funktionalität um loszulegen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obtenez un secret partagé de tout service que vous souhaitez sécuriser, stockez-le sur la YubiKey et utilisez-le pour générer vos codes de sécurité.\n\nVous aurez besoin d'une YubiKey 5Ci ou d'une YubiKey compatible avec NFC pour commencer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セキュリティを確保したいサービスから共有シークレットを取得し、YubiKeyに保存してセキュリティコードの生成に使用します。\n\n利用開始にはYubiKey 5CiまたはNFC搭載の互換性のあるYubiKeyが必要です。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Získajte zdieľané tajomstvo z akejkoľvek služby, ktorú chcete zabezpečiť, uložte ho do YubiKey a použite ho na generovanie bezpečnostných kódov.\n\nNa začatie budete potrebovať YubiKey 5Ci alebo kompatibilný kľúč YubiKey s funkciou NFC."
+          }
+        }
+      }
+    },
     "How does it work" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einführung"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1791,9 +2409,155 @@
         }
       }
     },
+    "How it works" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wie funktioniert es"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment cela fonctionne-t-il"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "仕組み"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ako to funguje"
+          }
+        }
+      }
+    },
+    "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn aktiviert, wird beim Scannen des YubiKey eine Benachrichtigung angezeigt. Wenn Du auf die Benachrichtigung tippst, wird der Yubico OTP Code angezeigt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si cette option est activée, le balayage de la clé YubiKey affiche une notification. En appuyant sur la notification, le mot de passe à usage unique s'affiche."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効な場合、YubiKeyをスキャンすると通知が表示されます。通知をタップするとワンタイムパスワードが表示されます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak je táto funkcia povolená, pri skenovaní kľúča YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
+          }
+        }
+      }
+    },
+    "If enabled, the YubiKey will output a One-Time Password when touched. Since the YubiKey is detected as a keyboard the built in keyboard in iOS will be disabled." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn diese Option aktiviert ist, gibt der YubiKey bei Berührung ein Yubico OTP Code aus. Da der YubiKey als Tastatur erkannt wird, wird die iOS Tastatur deaktiviert."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si cette option est activée, le YubiKey émettra un mot de passe à usage unique lorsqu'il sera touché. Puisque le YubiKey est détecté comme un clavier, le clavier intégré dans iOS sera désactivé."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyをタッチするとワンタイムパスワードが出力されます。YubiKeyはキーボードとして検出されるため、iOSの内蔵キーボードは無効になります。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak je táto funkcia povolená, YubiKey po dotyku vypíše jednorazové heslo. Keďže YubiKey je rozpoznaný ako klávesnica, vstavaná klávesnica v systéme iOS bude vypnutá."
+          }
+        }
+      }
+    },
+    "If you have a YubiKey 5Ci, plug it in.\n\nTouch the contacts on the sides when prompted." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls Du einen YubiKey 5Ci besitzt schließe ihn jetzt bitte an.\n\nBerühre bitte die Kontakte des YubiKeys sobald Du dazu aufgefordert wirst."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous avez une YubiKey 5Ci, branchez-la.\n\nTouchez les contacts sur les côtés lorsque vous y êtes invité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5Ciをお持ちの場合は、接続してください。\n\nプロンプトが表示されたら、側面の接点をタッチします。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak máte YubiKey 5Ci, pripojte ho.\n\nPo výzve sa dotknite kontaktov po stranách."
+          }
+        }
+      }
+    },
+    "If you have a YubiKey with NFC, pull down the main view to activate NFC.\n\nHold the key horizontally and tilt the iPhone towards the key.\n\nTouch the center of the key to the edge of the phone." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls Du einen YubiKey mit NFC Funktionalität besitzt, ziehe bitte in der Hauptansicht der App nach unten um das NFC Scanning zu aktivieren.\n\nHalte den YubiKey an den NFC Leser Deine iPhones.\n\nBerühre die Mitte Deines YubiKeys (goldene Kontaktfläche) während Du ihn weiterhin an den Rand Deines iPhones hälst."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si vous disposez d'une clé YubiKey avec NFC, abaissez la vue principale pour activer la NFC.\n\nTenez la clé horizontalement et inclinez l'iPhone vers la clé.\n\nTouchez le centre de la clé au bord du téléphone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC搭載のYubiKeyをお持ちの場合は、メインビューを引き下げてNFCを有効にします。\n\nキーを水平に持ち、iPhoneをキーの方に傾けます。\n\nキーの中央をiPhoneの端にタッチします。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak máte YubiKey s funkciou NFC, potiahnutím hlavného zobrazenia aktivujte funkciu NFC.\n\nDržte kľúč vo vodorovnej polohe a nakloňte iPhone smerom ku kľúču.\n\nDotknite sa stredom kľúča okraja telefónu."
+          }
+        }
+      }
+    },
     "Incorrect password. Re-enter password." : {
       "comment" : "OATH password entry retry",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort. Gib das Passwort erneut ein."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1816,6 +2580,12 @@
     },
     "Insert YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey verbinden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1838,6 +2608,12 @@
     },
     "Insert YubiKey or pull down to activate NFC" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey verbinden oder nach unten ziehen, um NFC zu aktivieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1861,6 +2637,12 @@
     "Invalid device info received from YubiKey" : {
       "comment" : "Internal error message not to be displayed to the user.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültige Geräteinformationen von YubiKey empfangen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1875,8 +2657,36 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Invalid device info received from YubiKey"
+            "state" : "translated",
+            "value" : "Neplatné informácie o zariadení prijaté z YubiKey"
+          }
+        }
+      }
+    },
+    "Invalid session state." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitzungsstatus ungültig."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "État de la session non valide."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効なセッション状態です。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatný stav relácie."
           }
         }
       }
@@ -1884,6 +2694,12 @@
     "Invalid signature" : {
       "comment" : "PIV extension NFC invalid signature\nPIV extension invalid signature",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signatur ungültig"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1907,6 +2723,12 @@
     "Invalid URI format" : {
       "comment" : "Invalid Uri, wrong parameters",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültiges URI-Format"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1929,6 +2751,12 @@
     },
     "Item not found in secure storage" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objekt konnte nicht im sicheren Speicher gefunden werden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1952,6 +2780,12 @@
     "Key is password protected" : {
       "comment" : "OATH NFC password protected key",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schlüssel ist passwortgeschützt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1975,6 +2809,12 @@
     "Licensing" : {
       "comment" : "Licensing view navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenz"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1997,6 +2837,12 @@
     },
     "Manage password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort verwalten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2019,6 +2865,12 @@
     },
     "Manage PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN verwalten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2041,6 +2893,12 @@
     },
     "Menu" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menü"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2064,6 +2922,12 @@
     "Never for this YubiKey" : {
       "comment" : "Save password alert.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niemals für diesen YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2087,6 +2951,12 @@
     "New" : {
       "comment" : "Enter new password in secure field.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2110,6 +2980,12 @@
     "New OTP configuration saved" : {
       "comment" : "Settings OTP configuration saved",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue OTP-Konfiguration gespeichert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2132,6 +3008,12 @@
     },
     "Next" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2155,6 +3037,12 @@
     "NFC not supported on this device" : {
       "comment" : "Internal error message not to be displayed to the user.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC wird von diesem Gerät nicht unterstützt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2169,14 +3057,20 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "NFC not supported on this device"
+            "state" : "translated",
+            "value" : "Toto zariadenie nepodporuje technológiu NFC"
           }
         }
       }
     },
     "NFC settings" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC-Einstellungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2200,6 +3094,12 @@
     "No account information found!" : {
       "comment" : "Scan QR code no account error message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Kontoinformationen gefunden!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2222,6 +3122,12 @@
     },
     "No accounts on YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Konten auf diesem YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2245,6 +3151,12 @@
     "No camera permissions" : {
       "comment" : "Scan QR code camera error title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Zugriffsrecht auf Kamera"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2268,6 +3180,12 @@
     "No certificates on YubiKey" : {
       "comment" : "PIV extension no certificates message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Zertifikate auf YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2290,6 +3208,12 @@
     },
     "No matching accounts on YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine passenden Konten auf YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2313,6 +3237,12 @@
     "No name" : {
       "comment" : "PIV extension certificate with no name",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Name"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2336,6 +3266,12 @@
     "No public key certificates in keychain" : {
       "comment" : "PIV extension no certs in keychain",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Zertifikate vorhanden"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2359,6 +3295,12 @@
     "No QR code?" : {
       "comment" : "Scan QR code no QR code message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein QR-Code?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2382,6 +3324,12 @@
     "Not Enabled" : {
       "comment" : "PIV extension not enabled message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht aktiviert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2405,6 +3353,12 @@
     "Not now" : {
       "comment" : "Save passsword alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht jetzt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2428,6 +3382,12 @@
     "Not valid credential information" : {
       "comment" : "Add account error message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ungültige Anmeldeinformationen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2451,6 +3411,12 @@
     "Notifications disabled" : {
       "comment" : "PIV extension notifications alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benachrichtigungen deaktiviert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2473,6 +3439,12 @@
     },
     "OATH" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2496,6 +3468,12 @@
     "OATH accounts deleted and OATH application reset to factory defaults." : {
       "comment" : "OATH reset confirmation message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Konten gelöscht und OATH-Anwendung auf Werkseinstellungen zurückgesetzt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2518,6 +3496,12 @@
     },
     "OATH password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Passwort"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2541,6 +3525,12 @@
     "OATH password protection" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Passwortschutz"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2563,6 +3553,12 @@
     },
     "OATH passwords" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Passwörter"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2586,6 +3582,12 @@
     "Ok" : {
       "comment" : "Password alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2609,6 +3611,12 @@
     "OK" : {
       "comment" : "OK button in error alert.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2632,6 +3640,12 @@
     "on this YubiKey" : {
       "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "auf diesem YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2655,6 +3669,12 @@
     "Open iOS Settings app" : {
       "comment" : "Scan QR code settings button",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Öffne die iOS-Einstellungs-App"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2677,6 +3697,12 @@
     },
     "Operation timed out." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Vorgang wurde abgebrochen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2699,6 +3725,12 @@
     },
     "or pull down to activate NFC" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oder nach unten ziehen, um NFC zu aktivieren"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2721,6 +3753,12 @@
     },
     "or scan a NFC YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oder scanne einen NFC YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2743,6 +3781,12 @@
     },
     "Other" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andere"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2765,8 +3809,13 @@
     },
     "Other applications can use client certificates on your YubiKey for authentication and signing purposes." : {
       "comment" : "PIV extension info alert message",
-      "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andere Anwendungen können Client-Zertifikate auf Deinem YubiKey zur Authentifizierung und Signatur verwenden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2790,6 +3839,12 @@
     "Password" : {
       "comment" : "Enter password in secure field to remove password.\nPassword alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2814,6 +3869,12 @@
       "comment" : "Configuration set password empty password error alert message",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort darf keine leere Zeichenfolge sein."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2837,6 +3898,12 @@
     "Password has been changed" : {
       "comment" : "Password Configuration password changed",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort wurde geändert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2860,6 +3927,12 @@
     "Password has been removed" : {
       "comment" : "Password Configuration password removed",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort wurde entfernt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2883,6 +3956,12 @@
     "Password has been set" : {
       "comment" : "Password Configuration password set",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort wurde gesetzt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2905,6 +3984,12 @@
     },
     "Password state read" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwortstatus gelesen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2927,6 +4012,12 @@
     },
     "Passwords don't match" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwörter stimmen nicht überein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2950,6 +4041,12 @@
     "Period" : {
       "comment" : "Add account select period",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeitraum"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2973,6 +4070,12 @@
     "Pin" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pin"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2995,6 +4098,12 @@
     },
     "PIN has been changed" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die PIN wurde geändert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3017,6 +4126,12 @@
     },
     "PIN has been set" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die PIN wurde gesetzt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3039,6 +4154,12 @@
     },
     "PIN is permanently blocked. Factory reset FIDO application to continue." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN ist dauerhaft gesperrt. Setze die FIDO-Anwendung auf Werkseinstellungen zurück, um fortzufahren."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3061,6 +4182,12 @@
     },
     "PIN is temporary blocked. Remove and reinsert YubiKey to try again." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN ist vorübergehend gesperrt. Entferne und stecke den YubiKey erneut, um es noch einmal zu versuchen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3083,6 +4210,12 @@
     },
     "PIN should be at least %llu characters long." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die PIN sollte mindestens %llu Zeichen lang sein."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3105,6 +4238,12 @@
     },
     "PIN state read" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN-Zustand lesen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3127,6 +4266,12 @@
     },
     "Pinned" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angepinnt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3150,6 +4295,12 @@
     "PINs do not match." : {
       "comment" : "Set PIN view validation error",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die PINs stimmen nicht überein."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3172,6 +4323,12 @@
     },
     "PINs don't match" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINs stimmen nicht überein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3194,6 +4351,12 @@
     },
     "PIV" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIV"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3217,6 +4380,12 @@
     "Plug-in your YubiKey for that operation" : {
       "comment" : "No service found",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließe Deinen YubiKey für diesen Vorgang an"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3240,6 +4409,12 @@
     "Point your camera at a QR code to scan it" : {
       "comment" : "Scan QR code message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Richte Deine Kamera auf einen QR-Code, um ihn zu scannen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3262,6 +4437,12 @@
     },
     "Privacy policy" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutzbestimmungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3284,7 +4465,14 @@
     },
     "Public key certificates on" : {
       "comment" : "PIV extension no certs on device message",
+      "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zertifikate auf"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3305,8 +4493,71 @@
         }
       }
     },
+    "Public key certificates on %@" : {
+      "comment" : "PIV extension no certs on device",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Key Zertifikate auf %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certificats de clé publique sur %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@における公開鍵証明書"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Certifikáty verejného kľúča na %@"
+          }
+        }
+      }
+    },
+    "QR codes are available from the services you wish to secure.\n\nSimply scan the QR code when you add your YubiKey and generate your own security codes." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du erhälst QR Codes direkt bei den Diensten die Du absichern möchtest.\n\nScanne einfach den QR-Code um das shared Secret/Seed Deinem YubiKey hinzuzufügen und OTP Codes zu generieren."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les codes QR sont disponibles auprès des services que vous souhaitez sécuriser.\n\nIl vous suffit de scanner le code QR lorsque vous ajoutez votre YubiKey et de générer vos propres codes de sécurité."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードは、セキュリティを確保したいサービスから入手できます。\n\nYubiKeyを追加する際にQRコードを読み取るだけで、独自のセキュリティコードを生成できます。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR kódy sú k dispozícii od služieb, ktoré chcete zabezpečiť.\n\nJednoducho naskenujte QR kód, keď pridáte svoj YubiKey a vygenerujte si vlastné bezpečnostné kódy."
+          }
+        }
+      }
+    },
     "re-enter password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort erneut eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3329,6 +4580,12 @@
     },
     "re-enter PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN erneut eingeben"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3352,6 +4609,12 @@
     "Read more..." : {
       "comment" : "PIV extension read more alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weitere Infos..."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3375,6 +4638,12 @@
     "Read YubiKey OTP configuration" : {
       "comment" : "Settings OTP configuration read",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey OTP-Konfiguration lesen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3398,6 +4667,12 @@
     "Reinsert your YubiKey." : {
       "comment" : "FIDO reset view",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stecke Deinen YubiKey erneut."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3420,6 +4695,12 @@
     },
     "Remove" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "entfernen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3442,6 +4723,12 @@
     },
     "Remove and re-insert your YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entferne Deinen YubiKey und stecke ihn erneut"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3465,6 +4752,12 @@
     "Remove and reinsert your YubiKey" : {
       "comment" : "PIV extension error reinsert key",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entferne Deinen YubiKey und stecke ihn erneut"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3488,6 +4781,12 @@
     "Remove password" : {
       "comment" : "Remove password alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort entfernen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3511,6 +4810,12 @@
     "Rename" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbenennen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3534,6 +4839,12 @@
     "Reset" : {
       "comment" : "Reset YubiKey alert button",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3556,6 +4867,12 @@
     },
     "Reset all accounts stored on YubiKey, make sure they are not in use anywhere before doing this." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösche alle auf Deinem YubiKey gespeicherten Konten. Stelle bitte unbedingt sicher, dass Du sie nirgendwo verwendest bevor Du fortfährst."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3578,6 +4895,12 @@
     },
     "Reset FIDO" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3601,6 +4924,12 @@
     "Reset FIDO application" : {
       "comment" : "FIDO reset NFC confirmation message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIDO-Anwendung zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3623,6 +4952,12 @@
     },
     "Reset OATH" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3645,6 +4980,12 @@
     },
     "Reset OATH application" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OATH-Anwendung zurücksetzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3668,6 +5009,12 @@
     "Save and protect with" : {
       "comment" : "Password entry save substring in 'Save and protect with [save type]'",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern und schützen mit"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3690,6 +5037,12 @@
     },
     "Save and protect with %@" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern und schützen mit %@"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3713,6 +5066,12 @@
     "Save password" : {
       "comment" : "Save password alert.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3736,6 +5095,12 @@
     "Save Password" : {
       "comment" : "Password entry save password button",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort speichern"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3759,6 +5124,12 @@
     "Save password?" : {
       "comment" : "Save password alert",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort speichern?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3782,6 +5153,12 @@
     "Saved passwords has been cleared" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gespeicherte Passwörter wurden gelöscht"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3804,6 +5181,12 @@
     },
     "Scan NFC YubiKey" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC YubiKey scannen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3827,6 +5210,12 @@
     "Scan your YubiKey" : {
       "comment" : "iOS NFC alert scan",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scanne Deinen YubiKey"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3849,6 +5238,12 @@
     },
     "Search" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3872,6 +5267,12 @@
     "See " : {
       "comment" : "Substring in \"See what's new in this version\"",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siehe "
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3894,6 +5295,12 @@
     },
     "Serial number" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seriennummer"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3916,6 +5323,12 @@
     },
     "Set" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3938,6 +5351,12 @@
     },
     "Set password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort festlegen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3960,6 +5379,12 @@
     },
     "Set PIN" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN setzen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3983,6 +5408,12 @@
     "Settings" : {
       "comment" : "PIV extension settings alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4006,6 +5437,12 @@
     "Signing failed" : {
       "comment" : "PIV extension signing failed error message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signatur fehlgeschlagen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4029,6 +5466,12 @@
     "Smart card extension" : {
       "comment" : "PIV extension info alert title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smartcard Erweiterung"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4053,6 +5496,12 @@
       "comment" : "PIV extension version error",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Smartcard-Erweiterung ist nur unter iOS 14.5 und höher verfügbar."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4075,6 +5524,12 @@
     },
     "Something went wrong" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etwas ist schief gelaufen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4098,6 +5553,12 @@
     "Something went wrong and key doesn't respond" : {
       "comment" : "No response",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etwas ist schief gelaufen und Dein Key reagiert nicht"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4120,6 +5581,12 @@
     },
     "String to Data conversion error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler bei der Umwandlung von Zeichenketten in Daten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4135,7 +5602,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chyba prevodu reťazca na dáta"
+            "value" : "Chyba prevodu reťazca na údaje"
           }
         }
       }
@@ -4143,6 +5610,12 @@
     "Success" : {
       "comment" : "iOS NFC alert default success message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfolgreich"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4166,6 +5639,12 @@
     "Success!\nHint: swipe down to dismiss" : {
       "comment" : "iOS NFC alert success with hint",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfolgreich!\nTipp: Wische zum Verlassen nach unten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4189,6 +5668,12 @@
     "Successfully read" : {
       "comment" : "iOS NFC alert successfully read",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfolgreich gelesen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4212,6 +5697,12 @@
     "Successfully signed data" : {
       "comment" : "PIV extension NFC successfully signed data",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signieren der Daten erfolgreich"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4234,6 +5725,12 @@
     },
     "Support" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unterstützung"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4256,6 +5753,12 @@
     },
     "Terms of use" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzungsbedingungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4279,6 +5782,12 @@
     "The FIDO application of your YubiKey has been reset to factory defaults." : {
       "comment" : "FIDO reset view",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die FIDO-Anwendung Deines YubiKey wurde auf die Werkseinstellungen zurückgesetzt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4302,6 +5811,12 @@
     "The key doesn't respond" : {
       "comment" : "Timeout issue",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Key antwortet nicht"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4322,10 +5837,44 @@
         }
       }
     },
+    "The key is busy performing another operation." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dein YubiKey ist mit der Ausführung eines anderen Vorgangs beschäftigt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La clé est occupée à effectuer une autre opération."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーは別の操作で忙しい。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kľúč je zaneprázdnený vykonávaním inej operácie."
+          }
+        }
+      }
+    },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Kennwörter stimmen nicht überein"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4349,6 +5898,12 @@
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
       "comment" : "PIV extension NFC invalid signature no private key",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der private Schlüssel auf dem YubiKey stimmt nicht mit dem Zertifikat überein oder es ist kein privater Schlüssel auf dem YubiKey gespeichert."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4372,6 +5927,12 @@
     "The private key on the YubiKey does not match the certificate." : {
       "comment" : "PIV extension invalid signature message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der private Schlüssel auf dem YubiKey stimmt nicht mit dem Zertifikat überein."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4392,9 +5953,43 @@
         }
       }
     },
+    "The requested functionality is missing or disabled in this YubiKey." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die gewünschte Funktion ist auf diesem YubiKey entweder nicht verfügbar oder deaktiviert."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La fonctionnalité demandée est absente ou désactivée dans ce YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この YubiKey には、要求された機能がないか、無効になっています。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Požadovaná funkcia v tomto YubiKey chýba alebo je vypnutá."
+          }
+        }
+      }
+    },
     "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings." : {
       "comment" : "PIV extensions notifications alert message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für die Smartcard Erweiterung müssen Benachrichtigungen für Yubico Authenticator aktiviert sein. Aktiviere diese bitte in den iOS-Einstellungen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4417,6 +6012,12 @@
     },
     "The YubiKey has no more storage for OATH accounts." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der YubiKey hat keinen weiteren Speicherplatz mehr zusätzliche OATH-Konten."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4437,9 +6038,43 @@
         }
       }
     },
+    "The YubiKey is not connected." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein YubiKey verbunden."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le YubiKey n'est pas connecté."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyが接続されていません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey nie je pripojený."
+          }
+        }
+      }
+    },
     "There's already an account named" : {
       "comment" : "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es gibt bereits ein Konto namens"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4462,7 +6097,14 @@
     },
     "These certificates have been added to this" : {
       "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
+      "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Zertifikate wurden hinzugefügt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4483,8 +6125,43 @@
         }
       }
     },
+    "These certificates have been added to this %@ and can be used by other applications." : {
+      "comment" : "PIV extension certs on device",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Zertifikate wurden zu Deinem %@ hinzugefügt und können von anderen Applikationen verwendet werden."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ces certificats ont été ajoutés à ce site %@ et peuvent être utilisés par d'autres applications."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これらの証明書はこの %@ に追加され、他のアプリケーションで使用できる。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tieto certifikáty boli pridané na tento %@ a môžu ich používať iné aplikácie."
+          }
+        }
+      }
+    },
     "This operation is not supported over Lightning on this YubiKey. Please use Yubico Authenticator for desktop to reset the FIDO application." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Vorgang wird bei diesem YubiKey nicht über Lightning unterstützt. Bitte verwenden die Desktop Version des Yubico Authenticator, um die FIDO-Anwendung zurückzusetzen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4508,6 +6185,12 @@
     "This QR code is not supported" : {
       "comment" : "Invalid Uri format, not OATH URL",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser QR-Code wird nicht unterstützt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4528,8 +6211,42 @@
         }
       }
     },
+    "This setting is not supported on your YubiKey." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Einstellung wird von Deinem YubiKey nicht unterstützt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce paramètre n'est pas pris en charge par votre YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この設定はYubiKeyではサポートされていません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toto nastavenie nie je na vašom YubiKey podporované."
+          }
+        }
+      }
+    },
     "This translation is a community effort, please visit [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios) to contribute." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Übersetzung ist eine Gemeinschaftsarbeit, bitte besuche [crowdin.com](https://crowdin.com/project/yubico-authenticator-ios), um beizutragen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4553,6 +6270,12 @@
     "This version of iOS does not support operations with the YubiKey for Lightning nor over NFC" : {
       "comment" : "Not supported",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Version von iOS unterstützt keine Operationen mit dem YubiKey über Lightning oder NFC"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4575,6 +6298,12 @@
     },
     "This will irrevocably delete all OATH TOTP/HOTP accounts from your YubiKey." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dadurch werden alle OATH TOTP/HOTP-Konten unwiderruflich von Deinem YubiKey gelöscht."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4597,6 +6326,12 @@
     },
     "This will irrevocably delete all U2F and FIDO2 accounts, including passkeys, from your YubiKey." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dadurch werden alle U2F- und FIDO2-Konten, einschließlich der Passkeys, unwiderruflich von Deinem YubiKey gelöscht."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4619,6 +6354,12 @@
     },
     "This will permanently delete the account from the YubiKey, and your ability to generate codes for it!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dadurch wird das Konto dauerhaft aus dem YubiKey gelöscht. Du wirst keine Codes mehr generieren können!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4641,6 +6382,12 @@
     },
     "This YubiKey has Yubico OTP enabled which makes it appear as an external keyboard to the iPhone. Unfortunately this causes problem with the normal on-screen keyboard." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieses YubiKey hat Yubico OTP aktiviert, was ihn als externe Tastatur für das iPhone erscheinen lässt. Leider verursacht dies Probleme mit der normalen Bildschirmtastatur."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4663,6 +6410,12 @@
     },
     "To prevent unauthorized access the FIDO application can be protected by a PIN." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um unbefugten Zugriff zu verhindern, kann die FIDO-Anwendung durch eine PIN geschützt werden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4685,6 +6438,12 @@
     },
     "To prevent unauthorized access the OATH application can be protected by a password." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um unbefugten Zugriff zu verhindern, kann die OATH-Anwendung durch ein Passwort geschützt werden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4708,6 +6467,12 @@
     "To prevent unauthorized access this YubiKey is protected with a password." : {
       "comment" : "OATH password entry enter password",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um unbefugten Zugriff zu verhindern, ist dieser YubiKey mit einem Passwort geschützt."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4731,6 +6496,12 @@
     "To scan a QR code you need to enable camera permissions for the Authenticator app." : {
       "comment" : "Scan QR code camera error message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um einen QR-Code zu scannen, musst Du Zugriffsrechte zur Kameranutzung für die Authenticator-App aktivieren."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4753,6 +6524,12 @@
     },
     "Toggle One-Time Password" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-Time Password Einstellungen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4773,9 +6550,43 @@
         }
       }
     },
+    "Touch key time out." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeitüberschreitung um Deinen YubiKey zu beühren."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temps d'attente de la touche tactile."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タッチキータイムアウト。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Časový limit dotykového tlačidla."
+          }
+        }
+      }
+    },
     "Touch the button on the YubiKey now." : {
       "comment" : "FIDO reset view",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berühre jetzt die Taste auf dem YubiKey."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4796,9 +6607,73 @@
         }
       }
     },
+    "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls aktiviert erscheint bei Berührung der Kontaktfläche Deines YubiKeys eine Benachrichtigung. Beim Druck auf die Benachrichtigung wird der Yubico OTP Code in der App angezeigt."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lorsque vous scannez la YubiKey NFC."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NFC YubiKeyをスキャンする際、Safariを開いてワンタイムパスワードをコピーするかどうかを設定します。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapnúť/vypnúť otváranie Safari na skopírovanie OTP pri skenovaní NFC YubiKey."
+          }
+        }
+      }
+    },
+    "Turn on/off output of OTP codes when touching the YubiKey." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falls aktiviert, wird bei Berührung der Kontaktfläche Deines YubiKeys ein Yubico OTP ausgegeben."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activer/désactiver la sortie des codes OTP lorsque l'on touche la YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyタッチ時のOTPコード出力ON/OFF。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapnúť/vypnúť výstup OTP kódov pri dotyku YubiKey."
+          }
+        }
+      }
+    },
     "Type" : {
       "comment" : "Add account select type",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Typ"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4821,6 +6696,12 @@
     },
     "Unhandled Error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbehandelter Fehler"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4843,6 +6724,12 @@
     },
     "Unknown error" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbekannter Fehler"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4863,9 +6750,43 @@
         }
       }
     },
+    "Unknown error." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbekannter Fehler."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur inconnue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明なエラー。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neznáma chyba."
+          }
+        }
+      }
+    },
     "Unlock YubiKey" : {
       "comment" : "Password entry unlock message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey freischalten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4889,6 +6810,12 @@
     "Unpin" : {
       "comment" : "Menu",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4912,6 +6839,12 @@
     "Unplug your YubiKey." : {
       "comment" : "FIDO reset view",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entferne bitte Deinen YubiKey."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4935,6 +6868,12 @@
     "Use your PUK code to reset PIN." : {
       "comment" : "PIV extension pin blocked text",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwende Deinen PUK-Code, um die PIN zurückzusetzen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4957,6 +6896,12 @@
     },
     "User guide" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benutzerhandbuch"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4980,6 +6925,12 @@
     "Verify" : {
       "comment" : "Re-enter new password in secure field.",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überprüfen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5003,6 +6954,12 @@
     "Version history" : {
       "comment" : "About navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versionen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5025,6 +6982,12 @@
     },
     "Warning!" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warnung!"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5048,6 +7011,12 @@
     "what's new" : {
       "comment" : "Substring in \"See what's new in this version\"",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuigkeiten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5071,6 +7040,12 @@
     "What's new" : {
       "comment" : "About navigation title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neuigkeiten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5095,6 +7070,12 @@
       "comment" : "About navigation title",
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was ist neu beim \nYubico Authenticator"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5115,8 +7096,42 @@
         }
       }
     },
+    "Where to get QR codes" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wo erhalte ich QR-Codes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Où obtenir des codes QR"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QRコードの入手先"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kde získať QR kódy"
+          }
+        }
+      }
+    },
     "While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solange der YubiKey verbunden ist, wird die Bildschirmtastatur nicht angezeigt. Um die Tastatur anzuzeigen, musst Du den YubiKey abziehen und erneut verbinden."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5140,6 +7155,12 @@
     "Would you like to save this password for YubiKey for next usage in this application?" : {
       "comment" : "Password entry save password title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Möchtest Du das Passwort für Deinen YubiKey für die nächste Verwendung in dieser Anwendung speichern?"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5163,6 +7184,12 @@
     "Wrong password" : {
       "comment" : "Password Configuration wrong password",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsches Passwort"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5186,6 +7213,12 @@
     "Wrong PIN code" : {
       "comment" : "PIV extension wrong pin",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falscher PIN-Code"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5209,6 +7242,12 @@
     "You can remove saved password in Settings." : {
       "comment" : "Password entry save password message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst das gespeicherte Passwort in den Einstellungen entfernen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5231,6 +7270,12 @@
     },
     "Your credentials, as well as any PIN set, will be removed from this YubiKey. Make sure to first disable these from their respective web sites to avoid being locked out of your accounts." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine Anmeldedaten sowie eine eventuell festgelegte PIN werden von diesem YubiKey entfernt. Stelle bitte sicher, dass Du diese Anmeldedaten zunächst auf den jeweiligen Websites deaktivierst, um zu vermeiden, dass Du Dich aus Deinen Konten aussperrst."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5254,6 +7299,12 @@
     "Your PIN has ben blocked" : {
       "comment" : "PIV extension pin blocked title",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deine PIN wurde gesperrt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5276,6 +7327,12 @@
     },
     "Yubico Authenticator" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5298,6 +7355,12 @@
     },
     "Yubico OTP" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5321,6 +7384,12 @@
     "Yubico OTP enabled" : {
       "comment" : "OATH otp enabled error message",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP aktiviert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5343,6 +7412,12 @@
     },
     "Yubico OTP has been disabled" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico OTP wurde deaktiviert"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5363,9 +7438,127 @@
         }
       }
     },
+    "YubiKey 5 Series NFC authentication" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5 Serie NFC-Authentifizierung"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentification NFC YubiKey 5 Series"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5シリーズ NFC認証"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overovanie série YubiKey 5 NFC"
+          }
+        }
+      }
+    },
+    "YubiKey 5Ci authentication" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5Ci Authentifizierung"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentification YubiKey 5Ci"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 5Ci認証"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overovanie YubiKey 5Ci"
+          }
+        }
+      }
+    },
+    "YubiKey connection is not found." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es wurde keine YubiKey Verbindung gefunden."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion YubiKey est introuvable."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey 接続が見つかりません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pripojenie YubiKey sa nenašlo."
+          }
+        }
+      }
+    },
+    "YubiKey connection lost." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindung zum YubiKey verloren."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion YubiKey perdue."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKeyの接続が切れた。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strata spojenia s YubiKey."
+          }
+        }
+      }
+    },
     "YubiKey has been reset" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey wurde zurückgesetzt"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5389,6 +7582,12 @@
     "YubiKey information read" : {
       "comment" : "YubiKey info NFC read",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey Informationen lesen"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",

@@ -112,17 +112,19 @@ class FIDOPINViewModel: ObservableObject {
             }
             connection.managementSession { session, error in
                 guard let session else {
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                     DispatchQueue.main.async {
-                        self.state = .error(error!)
+                        self.state = .error(error)
                     }
                     return
                 }
                 session.getDeviceInfo { deviceInfo, error in
                     guard let deviceInfo else {
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                         DispatchQueue.main.async {
-                            self.state = .error(error!)
+                            self.state = .error(error)
                         }
                         return
                     }
@@ -131,16 +133,18 @@ class FIDOPINViewModel: ObservableObject {
                     }
                     connection.fido2Session { session, error in
                         guard let session else {
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                            let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                             DispatchQueue.main.async {
-                                self.state = .error(error!)
+                                self.state = .error(error)
                             }
                             return
                         }
                         session.getInfoWithCompletion { response, error in
                             guard let response else {
                                 DispatchQueue.main.async {
-                                    self.state = .error(error!)
+                                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                                    self.state = .error(error)
                                 }
                                 return
                             }
@@ -162,7 +166,7 @@ class FIDOPINViewModel: ObservableObject {
                                 session.getPinRetries { retries, error in
                                     if let error {
                                         DispatchQueue.main.async {
-                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
                                             self.state = .error(error)
                                         }
                                         return
@@ -200,7 +204,8 @@ class FIDOPINViewModel: ObservableObject {
                 guard let session else {
                     DispatchQueue.main.async {
                         self.isProcessing = false
-                        self.state = .error(error!) // If there is no error and no session crashing is the best thing.
+                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                        self.state = .error(error)
                     }
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
                     return
@@ -209,7 +214,7 @@ class FIDOPINViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         if let error {
                             self.state = .error(error)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
                         } else {
                             self.state = .didSet
                             YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been set"))
@@ -229,7 +234,8 @@ class FIDOPINViewModel: ObservableObject {
                 guard let session else {
                     DispatchQueue.main.async {
                         self.isProcessing = false
-                        self.state = .error(error!) // If there is no error and no session crashing is the best thing.
+                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                        self.state = .error(error)
                     }
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
                     return
@@ -238,7 +244,7 @@ class FIDOPINViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         if let error {
                             self.state = .error(error)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
                         } else {
                             self.state = .didChange
                             YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been changed"))

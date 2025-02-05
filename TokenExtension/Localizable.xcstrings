@@ -3,6 +3,12 @@
   "strings" : {
     "Launch Yubico Authenticator" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yubico Authenticator starten"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -25,6 +31,12 @@
     },
     "Tap here to complete the request using your YubiKey." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippe hier, um die Anfrage mit Deinem YubiKey abzuschließen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -47,6 +59,12 @@
     },
     "YubiKey required" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YubiKey erforderlich"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",

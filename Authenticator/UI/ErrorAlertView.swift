@@ -31,6 +31,11 @@ extension View {
     }
 }
 
+enum UnknownError: LocalizedError {
+    case error
+    var errorDescription: String? { String(localized: "Unknown error.") }
+}
+
 struct LocalizedErrorWrapper: LocalizedError {
     
     enum ErrorType {
@@ -74,8 +79,25 @@ struct LocalizedErrorWrapper: LocalizedError {
 extension NSError {
     func customDescription() -> String {
         if self.domain == "com.yubico" {
-            if self.code == 0x6a84 {
+            switch self.code {
+            case 0x1, 0x2:
+                return String(localized: "The YubiKey is not connected.")
+            case 0x3:
+                return String(localized: "Touch key time out.")
+            case 0x4:
+                return String(localized: "The key is busy performing another operation.") // This should not happen since YubiKit makes sure to perform one operation at a time.
+            case 0x5:
+                return String(localized: "The requested functionality is missing or disabled in this YubiKey.")
+            case 0x6:
+                return String(localized: "YubiKey connection lost.")
+            case 0x7:
+                return String(localized: "YubiKey connection is not found.")
+            case 0x8:
+                return String(localized: "Invalid session state.")
+            case 0x6a84:
                 return String(localized: "The YubiKey has no more storage for OATH accounts.")
+            default:
+                break
             }
         }
         return localizedDescription
