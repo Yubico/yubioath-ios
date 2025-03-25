@@ -233,7 +233,7 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                 self.nfcContinuation = nil
                                 return
                             }
-                            if deviceInfo.isFips && deviceInfo.version >= YKFVersion(string: "5.7.4") {
+                            if deviceInfo.isFIPSCapable & 0b00001000 == 0b00001000 {
                                 connection.securityDomainSession() { session, error in
                                     guard let session else {
                                         continuation.resume(throwing: error!)
