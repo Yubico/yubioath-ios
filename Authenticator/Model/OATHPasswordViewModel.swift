@@ -90,7 +90,7 @@ class OATHPasswordViewModel: ObservableObject {
     
     init() {
         connection.startConnection { [weak self] connection in
-            connection.scpOATHSession { session, error in
+            connection.oathSession { session, _, error in
                 guard let session else {
                     let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
@@ -137,7 +137,7 @@ class OATHPasswordViewModel: ObservableObject {
             return
         }
         connection.startConnection { connection in
-            connection.scpOATHSession { session, error in
+            connection.oathSession { session, _, error in
                 guard let session else {
                     guard let error else { return }
                     DispatchQueue.main.async {
@@ -174,7 +174,7 @@ class OATHPasswordViewModel: ObservableObject {
             return
         }
         connection.startConnection { connection in
-            connection.scpOATHSession { session, error in
+            connection.oathSession { session, _, error in
                 guard let session else {
                     DispatchQueue.main.async {
                         self.isProcessing = false
@@ -215,51 +215,5 @@ class OATHPasswordViewModel: ObservableObject {
 
     func removePassword(current: String) {
         changePassword(old: current, new: nil, repeated: nil)
-    }
-}
-
-
-extension YKFConnectionProtocol {
-    func scpOATHSession(completion: @escaping (YKFOATHSession?, Error?) -> Void) {
-        if self as? YKFNFCConnection != nil {
-            self.managementSession { managementSession, error in
-                guard let managementSession else {
-                    completion(nil, error)
-                    return
-                }
-                managementSession.getDeviceInfo { deviceInfo, error in
-                    guard let deviceInfo else {
-                        completion(nil, error)
-                        return
-                    }
-                    if deviceInfo.isFIPSCapable & 0b00001000 == 0b00001000 {
-                        self.securityDomainSession { session, error in
-                            guard let session else {
-                                completion(nil, error)
-                                return
-                            }
-                            let scpKeyRef = YKFSCPKeyRef(kid: 0x13, kvn: 0x01)
-                            session.getCertificateBundle(with: scpKeyRef) { certificates, error in
-                                guard let last = certificates?.last else {
-                                    completion(nil, error)
-                                    return
-                                }
-                                let certificate = last as! SecCertificate
-                                let publicKey = SecCertificateCopyKey(certificate)!
-                                let scp11KeyParams = YKFSCP11KeyParams(keyRef: scpKeyRef, pkSdEcka: publicKey)
-                                self.oathSession(scp11KeyParams) { session, error in
-                                    completion(session, error)
-                                    return
-                                }
-                            }
-                        }
-                    } else {
-                        self.oathSession(completion)
-                    }
-                }
-            }
-        } else {
-            self.oathSession(completion)
-        }
     }
 }

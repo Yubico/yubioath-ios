@@ -98,6 +98,7 @@
 		B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */; };
 		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
 		B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */; };
+		B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */; };
 		B4BB02D92C80987B00B72904 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02D82C80987B00B72904 /* SettingsButton.swift */; };
@@ -256,6 +257,7 @@
 		B4901AF22BD7DD350092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/EditCredential.xcstrings; sourceTree = "<group>"; };
 		B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFConnectionProtocol+Extensions.swift"; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		B4BB02D82C80987B00B72904 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			children = (
 				B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */,
 				51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */,
+				B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */,
 				51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */,
 			);
 			path = Extensions;
@@ -829,6 +832,7 @@
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
 				51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */,
+				B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */,
 				B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

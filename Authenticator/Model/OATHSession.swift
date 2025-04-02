@@ -224,60 +224,16 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             return try await withCheckedThrowingContinuation { continuation in
                 self.nfcContinuation = continuation
                 self.nfcConnectionCallback = { connection in
-                    connection.managementSession { managementSession, error in
-                        guard let managementSession else {
-                            continuation.resume(throwing: error!)
-                            self.nfcContinuation = nil
-                            return
+                    connection.oathSession { session, isEncrypted, error in
+                        if let session {
+                            self.currentSession = session
+                            let oathSession = OATHSession(session: session, type: .nfc)
+                            oathSession.isFipsKey = isEncrypted
+                            self.nfcContinuation?.resume(returning: oathSession)
+                        } else {
+                            self.nfcContinuation?.resume(throwing: error!)
                         }
-                        managementSession.getDeviceInfo { deviceInfo, error in
-                            guard let deviceInfo else {
-                                continuation.resume(throwing: error!)
-                                self.nfcContinuation = nil
-                                return
-                            }
-                            if deviceInfo.isFIPSCapable & 0b00001000 == 0b00001000 {
-                                connection.securityDomainSession() { session, error in
-                                    guard let session else {
-                                        continuation.resume(throwing: error!)
-                                        self.nfcContinuation = nil
-                                        return
-                                    }
-                                    let scpKeyRef = YKFSCPKeyRef(kid: 0x13, kvn: 0x01)
-                                    session.getCertificateBundle(with: scpKeyRef) { certificates, error in
-                                        guard let last = certificates?.last else {
-                                            continuation.resume(throwing: error!)
-                                            self.nfcContinuation = nil
-                                            return
-                                        }
-                                        let certificate = last as! SecCertificate
-                                        let publicKey = SecCertificateCopyKey(certificate)!
-                                        let scp11KeyParams = YKFSCP11KeyParams(keyRef: scpKeyRef, pkSdEcka: publicKey)
-                                        connection.oathSession(scp11KeyParams) { session, error in
-                                            if let session {
-                                                self.currentSession = session
-                                                let oathSession = OATHSession(session: session, type: .nfc)
-                                                oathSession.isFipsKey = true
-                                                self.nfcContinuation?.resume(returning: oathSession)
-                                            } else {
-                                                self.nfcContinuation?.resume(throwing: error!)
-                                            }
-                                            self.nfcContinuation = nil
-                                        }
-                                    }
-                                }
-                            } else {
-                                connection.oathSession { session, error in
-                                    if let session {
-                                        self.currentSession = session
-                                        self.nfcContinuation?.resume(returning: OATHSession(session: session, type: .nfc))
-                                    } else {
-                                        self.nfcContinuation?.resume(throwing: error!)
-                                    }
-                                    self.nfcContinuation = nil
-                                }
-                            }
-                        }
+                        self.nfcContinuation = nil
                     }
                 }
                 YubiKitManager.shared.startNFCConnection()
