@@ -35,6 +35,7 @@ class OATHPasswordViewModel: ObservableObject {
     private let connection = Connection()
     @Published var state: PasswordState = .unknown
     @Published var isProcessing: Bool = false
+    @Published var isFipsKey: Bool = false
     
     enum PasswordState: Equatable {
         
@@ -90,26 +91,48 @@ class OATHPasswordViewModel: ObservableObject {
     
     init() {
         connection.startConnection { [weak self] connection in
-            connection.oathSession { session, _, error in
+            connection.managementSession { session, error in
                 guard let session else {
                     let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
                     DispatchQueue.main.async {
                         self?.state = .error(error)
                     }
                     return
                 }
-                session.listCredentials { _, error in
+                session.getDeviceInfo { deviceInfo, error in
+                    guard let deviceInfo else {
+                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                        DispatchQueue.main.async {
+                            self?.state = .error(error)
+                        }
+                        return
+                    }
                     DispatchQueue.main.async {
-                        defer { YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password state read")) }
-                        guard let error = error else {
-                            self?.state = .notSet
+                        self?.isFipsKey = deviceInfo.isFIPSCapable & 0b00001000 == 0b00001000
+                    }
+                    
+                    connection.oathSession { session, _, error in
+                        guard let session else {
+                            let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
+                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+                            DispatchQueue.main.async {
+                                self?.state = .error(error)
+                            }
                             return
                         }
-                        if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
-                            self?.state = .set
-                        } else {
-                            self?.state = .error(error) // If we got this far the error is pretty exotic so bailing out like this is ok.
+                        session.listCredentials { _, error in
+                            DispatchQueue.main.async {
+                                defer { YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password state read")) }
+                                guard let error = error else {
+                                    self?.state = .notSet
+                                    return
+                                }
+                                if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
+                                    self?.state = .set
+                                } else {
+                                    self?.state = .error(error) // If we got this far the error is pretty exotic so bailing out like this is ok.
+                                }
+                            }
                         }
                     }
                 }
