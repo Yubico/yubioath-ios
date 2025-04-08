@@ -227,7 +227,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kód PIN musí mať aspoň %llu znakov a môže obsahovať písmená, číslice a špeciálne znaky."
+            "value" : "PIN kód musí mať aspoň %llu znakov a môže obsahovať písmená, číslice a špeciálne znaky."
           }
         }
       }
@@ -255,7 +255,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kód PIN musí mať aspoň %llu znakov, musí obsahovať aspoň 2 jedinečné znaky a nesmie byť bežne používaným kódom PIN, ako napríklad \"123456\". Môže obsahovať písmená, číslice a špeciálne znaky."
+            "value" : "PIN kód musí mať aspoň %llu znakov, musí obsahovať aspoň 2 jedinečné znaky a nesmie byť bežne používaným PIN kódom ako napríklad „123456“. Môže obsahovať písmená, číslice a špeciálne znaky."
           }
         }
       }
@@ -610,6 +610,7 @@
     },
     "Authentication required" : {
       "comment" : "Password Configuration auth required",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -655,7 +656,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "計算"
+            "value" : "導出"
           }
         },
         "sk" : {
@@ -940,7 +941,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存したパスワードを消去"
+            "value" : "保存した OATH パスワードを消去"
           }
         },
         "sk" : {
@@ -1026,7 +1027,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コードが計算されました"
+            "value" : "コードを導出しました"
           }
         },
         "sk" : {
@@ -1084,7 +1085,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コードが計算されていません"
+            "value" : "コードは導出されていません"
           }
         },
         "sk" : {
@@ -1148,7 +1149,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Čítanie konfigurácie"
+            "value" : "Konfigurácia načítaná"
           }
         }
       }
@@ -2460,7 +2461,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ak je táto funkcia povolená, pri skenovaní kľúča YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
+            "value" : "Ak je táto funkcia povolená, pri naskenovaní YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
           }
         }
       }
@@ -2488,7 +2489,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ak je táto funkcia povolená, YubiKey po dotyku vypíše jednorazové heslo. Keďže YubiKey je rozpoznaný ako klávesnica, vstavaná klávesnica v systéme iOS bude vypnutá."
+            "value" : "Ak je táto funkcia povolená, YubiKey po dotyku zobrazí jednorazové heslo. Keďže YubiKey je rozpoznaný ako klávesnica, vstavaná klávesnica v systéme iOS bude vypnutá."
           }
         }
       }
@@ -4062,7 +4063,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obdobie"
+            "value" : "Perióda"
           }
         }
       }
@@ -4141,7 +4142,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号が設定されている"
+            "value" : "暗証番号が設定されています"
           }
         },
         "sk" : {
@@ -4225,7 +4226,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号は少なくとも %llu。"
+            "value" : "PIN は %llu 文字以上で設定してください。"
           }
         },
         "sk" : {
@@ -4310,7 +4311,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PIN が一致しません."
+            "value" : "PIN が一致しません。"
           }
         },
         "sk" : {
@@ -4395,7 +4396,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyをその操作のために接続してください"
+            "value" : "操作を実行するには YubiKey を接続してください"
           }
         },
         "sk" : {
@@ -4424,7 +4425,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "スキャンするにはカメラをQRコードに向けてください"
+            "value" : "カメラを QR コードに向けてスキャンしてください"
           }
         },
         "sk" : {
@@ -4888,7 +4889,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obnovte všetky účty uložené na YubiKey. Predtým sa uistite, že sa nikde nepoužívajú."
+            "value" : "Odstráni všetky účty uložené na YubiKey. Predtým sa uistite, že sa nikde nepoužívajú."
           }
         }
       }
@@ -6404,6 +6405,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tento kľúč YubiKey má aktivovanú funkciu Yubico OTP, vďaka ktorej sa javí ako externá klávesnica pre iPhone. Bohužiaľ to spôsobuje problém s normálnou klávesnicou na obrazovke."
+          }
+        }
+      }
+    },
+    "To add an account to a FIPS key, you must first set a password for the OATH application." : {
+      "comment" : "Error message when trying to add and OATH account to a FIPS key without a password.",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um ein Konto zu einem FIPS-Schlüssel hinzuzufügen, musst Du zunächst ein Passwort für die OATH-Anwendung festlegen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour ajouter un compte à une clé FIPS, vous devez d'abord définir un mot de passe pour l'application OATH."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FIPS鍵にアカウントを追加するには、まずOATHアプリケーションにパスワードを設定する必要がある。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak chcete pridať účet do kľúča FIPS, musíte najprv nastaviť heslo pre aplikáciu OATH."
           }
         }
       }
