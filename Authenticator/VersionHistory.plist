@@ -4,6 +4,18 @@
 <array>
     <dict>
         <key>version</key>
+        <string>1.11</string>
+        <key>date</key>
+        <date>2025-04-09T09:41:00Z</date>
+        <key>shouldPromptUser</key>
+        <false/>
+        <key>changes</key>
+        <string>
+            This version adds support for FIPS enabled YubiKeys.
+        </string>
+    </dict>
+    <dict>
+        <key>version</key>
         <string>1.10</string>
         <key>date</key>
         <date>2025-01-30T09:41:00Z</date>

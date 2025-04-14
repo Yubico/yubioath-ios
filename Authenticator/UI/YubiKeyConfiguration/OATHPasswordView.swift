@@ -77,7 +77,7 @@ struct OATHPasswordView: View {
                 case .set, .didSet, .didChange:
                     self.showSetButton = false
                     self.showChangeButton = true
-                    self.showRemoveButton = true
+                    self.showRemoveButton = !model.isFipsKey
                 case .error(let error):
                     guard presentSetPassword == false
                             && presentChangePassword == false

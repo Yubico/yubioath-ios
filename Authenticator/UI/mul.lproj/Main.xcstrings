@@ -1772,7 +1772,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Spustiť NFC a čítať účty OATH po otvorení aplikácie načítaním tagu OTP na kľúči YubiKey."
+            "value" : "Spustiť NFC a načítať účty OATH po otvorení aplikácie načítaním tagu OTP na kľúči YubiKey."
           }
         }
       }
@@ -2798,7 +2798,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ak je táto funkcia povolená, pri skenovaní kľúča YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
+            "value" : "Ak je táto funkcia povolená, pri naskenovaní YubiKey sa zobrazí oznámenie. Ťuknutím na oznámenie sa zobrazí jednorazové heslo."
           }
         }
       }

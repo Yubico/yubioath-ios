@@ -18,7 +18,6 @@
 		513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34C72464658F00FCE030 /* SettingsRowView.swift */; };
 		513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513F34DB246B144300FCE030 /* UIViewAdditions.swift */; };
 		515542602649BDDB00B19C59 /* PasswordStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */; };
-		515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */; };
 		515542682654413600B19C59 /* SmartCardConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542672654413600B19C59 /* SmartCardConfigurationController.swift */; };
 		5155426A26554CAB00B19C59 /* SmartCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155426926554CAB00B19C59 /* SmartCardViewModel.swift */; };
 		515542722656706F00B19C59 /* CryptoTokenKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 515542712656706F00B19C59 /* CryptoTokenKit.framework */; };
@@ -99,6 +98,7 @@
 		B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */; };
 		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
 		B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */; };
+		B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */; };
 		B4BB02D92C80987B00B72904 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02D82C80987B00B72904 /* SettingsButton.swift */; };
@@ -165,7 +165,6 @@
 		513F34C72464658F00FCE030 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		513F34DB246B144300FCE030 /* UIViewAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewAdditions.swift; sourceTree = "<group>"; };
 		5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusViewModel.swift; sourceTree = "<group>"; };
-		515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordConfigurationViewModel.swift; sourceTree = "<group>"; };
 		515542672654413600B19C59 /* SmartCardConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardConfigurationController.swift; sourceTree = "<group>"; };
 		5155426926554CAB00B19C59 /* SmartCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardViewModel.swift; sourceTree = "<group>"; };
 		5155426F2656706F00B19C59 /* TokenExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TokenExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +257,7 @@
 		B4901AF22BD7DD350092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/EditCredential.xcstrings; sourceTree = "<group>"; };
 		B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFConnectionProtocol+Extensions.swift"; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		B4BB02D82C80987B00B72904 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
@@ -396,6 +396,7 @@
 			children = (
 				B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */,
 				51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */,
+				B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */,
 				51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */,
 			);
 			path = Extensions;
@@ -526,7 +527,6 @@
 				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
 				51D1E84D26427F7600BDA3FF /* PasswordCache.swift */,
 				B4712B6F28DDB5F6009B270D /* AccessKeyCache.swift */,
-				515542612649C88900B19C59 /* PasswordConfigurationViewModel.swift */,
 				5155425F2649BDDB00B19C59 /* PasswordStatusViewModel.swift */,
 				5155426926554CAB00B19C59 /* SmartCardViewModel.swift */,
 				5156D05E265D3CEF007A94F8 /* TokenRequestViewModel.swift */,
@@ -766,7 +766,6 @@
 				B452EC442A2A06940045E5D9 /* ToastPresenter.swift in Sources */,
 				5156D05D265D2602007A94F8 /* TokenRequestViewController.swift in Sources */,
 				A525965B23A45501006AA3C0 /* UIImageAdditions.swift in Sources */,
-				515542622649C88900B19C59 /* PasswordConfigurationViewModel.swift in Sources */,
 				B40F44452B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift in Sources */,
 				B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */,
 				A591411D23830EB800CCCF67 /* UIApplicationExtension.swift in Sources */,
@@ -833,6 +832,7 @@
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
 				51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */,
+				B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */,
 				B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -907,7 +907,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 173;
+				CURRENT_PROJECT_VERSION = 180;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -916,7 +916,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -931,7 +931,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 173;
+				CURRENT_PROJECT_VERSION = 180;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -940,7 +940,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1082,7 +1082,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 173;
+				CURRENT_PROJECT_VERSION = 180;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -1092,7 +1092,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1113,7 +1113,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 173;
+				CURRENT_PROJECT_VERSION = 180;
 				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
 				INFOPLIST_FILE = Authenticator/Info.plist;
@@ -1123,7 +1123,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1132,7 +1132,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				YKF_ENABLE_VERBOSE_LOGGING = YES;
+				YKF_ENABLE_VERBOSE_LOGGING = NO;
 			};
 			name = Release;
 		};

@@ -23,6 +23,7 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     case connectionCancelled
     case invalidDeviceInfo
     case nfcNotSupported
+    case fipsKeyWithoutPassword
     
     public var errorDescription: String? {
         switch self {
@@ -36,6 +37,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return String(localized: "Invalid device info received from YubiKey", comment: "Internal error message not to be displayed to the user.")
         case .nfcNotSupported:
             return String(localized: "NFC not supported on this device", comment: "Internal error message not to be displayed to the user.")
+        case .fipsKeyWithoutPassword:
+            return String(localized: "To add an account to a FIPS key, you must first set a password for the OATH application.", comment: "Error message when trying to add and OATH account to a FIPS key without a password.")
         }
     }
 }
@@ -221,10 +224,12 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             return try await withCheckedThrowingContinuation { continuation in
                 self.nfcContinuation = continuation
                 self.nfcConnectionCallback = { connection in
-                    connection.oathSession { session, error in
+                    connection.oathSession { session, isEncrypted, error in
                         if let session {
                             self.currentSession = session
-                            self.nfcContinuation?.resume(returning: OATHSession(session: session, type: .nfc))
+                            let oathSession = OATHSession(session: session, type: .nfc)
+                            oathSession.isFipsKey = isEncrypted
+                            self.nfcContinuation?.resume(returning: oathSession)
                         } else {
                             self.nfcContinuation?.resume(throwing: error!)
                         }
@@ -302,6 +307,7 @@ class OATHSession {
     public var deviceId: String {
         session.deviceId
     }
+    public var isFipsKey: Bool = false
     
     fileprivate init(session: YKFOATHSession, type: ConnectionType) {
         self.session = session
@@ -329,7 +335,12 @@ class OATHSession {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             session.put(template, requiresTouch: requiresTouch) { error in
                 if let error {
-                    continuation.resume(throwing: error)
+                    // If yubikey is a fips enabled key a password has to be set before you can add a new account
+                    if self.isFipsKey, let sessionError = error as? YKFSessionError, sessionError.code == 0x6985 {
+                        continuation.resume(throwing: OATHSessionError.fipsKeyWithoutPassword)
+                    } else {
+                        continuation.resume(throwing: error)
+                    }
                     return
                 }
                 continuation.resume(returning: Void())
