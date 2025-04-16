@@ -20,7 +20,10 @@ extension YKFConnectionProtocol {
         if self as? YKFNFCConnection != nil {
             self.managementSession { managementSession, error in
                 guard let managementSession else {
-                    completion(nil, false, error)
+                    // FIX for CRI-667: most likely the key doesn't support the management application
+                    self.oathSession { session, error in
+                        completion(session, false, error)
+                    }
                     return
                 }
                 managementSession.getDeviceInfo { deviceInfo, error in
