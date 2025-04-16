@@ -2,219 +2,230 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-    <dict>
-        <key>version</key>
-        <string>1.11</string>
-        <key>date</key>
-        <date>2025-04-09T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	<dict>
+		<key>version</key>
+		<string>1.11.1</string>
+		<key>date</key>
+		<date>2025-04-17T09:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            Fixes a problem where OATH wasn&apos;t supported for keys missing the management application, like the YubiKey NEO.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.11</string>
+		<key>date</key>
+		<date>2025-04-09T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             This version adds support for FIPS enabled YubiKeys.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.10</string>
-        <key>date</key>
-        <date>2025-01-30T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.10</string>
+		<key>date</key>
+		<date>2025-01-30T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Added support for German and Slovak languages.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.9.1</string>
-        <key>date</key>
-        <date>2024-12-05T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.9.1</string>
+		<key>date</key>
+		<date>2024-12-05T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Stability improvements for users on iPad.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.9</string>
-        <key>date</key>
-        <date>2024-11-28T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.9</string>
+		<key>date</key>
+		<date>2024-11-28T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             About view and its subviews rewritten in SwiftUI.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.8.1</string>
-        <key>date</key>
-        <date>2024-11-22T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.8.1</string>
+		<key>date</key>
+		<date>2024-11-22T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             This version fixes an issue where the app would crash instead of showing an error message.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.8</string>
-        <key>date</key>
-        <date>2024-11-14T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.8</string>
+		<key>date</key>
+		<date>2024-11-14T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             FIDO pin management and reset has been added to the app in this version. While adding new functionality to the configuration view we took the opportunity to give it a refresh with more colors and icons. We also fixed a crash that could occur when switching between the OATH account list and the configuration view. Lastly, trying to add an OATH account to a full YubiKey will now result in a more human readable error message.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.11</string>
-        <key>date</key>
-        <date>2024-09-27T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.11</string>
+		<key>date</key>
+		<date>2024-09-27T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             This version fixes a crash in the NFC settings view.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.10</string>
-        <key>date</key>
-        <date>2024-09-25T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.10</string>
+		<key>date</key>
+		<date>2024-09-25T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Support for French and Japanese added to this version of the Yubico Authenticator.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.9</string>
-        <key>date</key>
-        <date>2023-12-20T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
-            This version solves a bug that caused a "Credential not found" error to be displayed instead of a list of accounts. Improved handling on iPhone 15 with YubiKeys that have Yubico OTP enabled when using the SmartCard extension.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.9</string>
+		<key>date</key>
+		<date>2023-12-20T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            This version solves a bug that caused a &quot;Credential not found&quot; error to be displayed instead of a list of accounts. Improved handling on iPhone 15 with YubiKeys that have Yubico OTP enabled when using the SmartCard extension.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.8</string>
-        <key>date</key>
-        <date>2023-10-31T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
-            Improved accessibility for visually impaired users. Handle iPhone 15 with YubiKeys that have Yubico OTP enabled. Truncate account name and issuer instead of scaling when they don't fit.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.8</string>
+		<key>date</key>
+		<date>2023-10-31T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            Improved accessibility for visually impaired users. Handle iPhone 15 with YubiKeys that have Yubico OTP enabled. Truncate account name and issuer instead of scaling when they don&apos;t fit.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.7</string>
-        <key>date</key>
-        <date>2023-09-28T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.7</string>
+		<key>date</key>
+		<date>2023-09-28T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Make sure to pick up any YubiKeys inserted before the app was started. Fixes a problem with changing advanced settings while manually adding a new account. More lenient parsing of the QR code string when scanning an account.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.6</string>
-        <key>date</key>
-        <date>2023-09-25T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.6</string>
+		<key>date</key>
+		<date>2023-09-25T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Stop iOS from trying to save codes as passwords.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.5</string>
-        <key>date</key>
-        <date>2023-09-21T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.5</string>
+		<key>date</key>
+		<date>2023-09-21T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Parts of user interface rewritten in SwiftUI.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.4</string>
-        <key>date</key>
-        <date>2023-05-24T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.4</string>
+		<key>date</key>
+		<date>2023-05-24T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
             Tapping a YubiKey with OTP over NFC enabled will now open the app if the user taps the notification. The OTP will be displayed by the app and OATH accounts will be scanned. Immediate scanning of OATH accounts can be turned off in settings.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.3</string>
-        <key>date</key>
-        <date>2023-05-10T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
-            In this version we've added support for compressed certificates in the Smart card extension.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.3</string>
+		<key>date</key>
+		<date>2023-05-10T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            In this version we&apos;ve added support for compressed certificates in the Smart card extension.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.2</string>
-        <key>date</key>
-        <date>2023-04-26T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
-            This version adds support for setting up new accounts by opening a otpauth:// link. This feature is enabled in the Password options section in the iOS Settings app. We've also improved the handling of YubiKeys with malformed PIV certificates in the Smart card extension. Error handling when trying to add an already existing account to a YubiKey has also been improved and lastly we fixed a crash that could occur when cancelling the password dialog.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.2</string>
+		<key>date</key>
+		<date>2023-04-26T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            This version adds support for setting up new accounts by opening a otpauth:// link. This feature is enabled in the Password options section in the iOS Settings app. We&apos;ve also improved the handling of YubiKeys with malformed PIV certificates in the Smart card extension. Error handling when trying to add an already existing account to a YubiKey has also been improved and lastly we fixed a crash that could occur when cancelling the password dialog.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.1</string>
-        <key>date</key>
-        <date>2022-12-01T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
-            In this version we've added the Smart card extension to iPads with USB-C port. We've also fixed a bug that could cause the app to crash when pinning an account on a NFC YubiKey.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.1</string>
+		<key>date</key>
+		<date>2022-12-01T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            In this version we&apos;ve added the Smart card extension to iPads with USB-C port. We&apos;ve also fixed a bug that could cause the app to crash when pinning an account on a NFC YubiKey.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.7.0</string>
-        <key>date</key>
-        <date>2022-10-24T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <true/>
-        <key>changes</key>
-        <string>The major update for this version is added USB-C support on iPads running iPadOS 16. We've also made the following changes to the app:
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.7.0</string>
+		<key>date</key>
+		<date>2022-10-24T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<true/>
+		<key>changes</key>
+		<string>The major update for this version is added USB-C support on iPads running iPadOS 16. We&apos;ve also made the following changes to the app:
             - Fixed the bug where the required touch setting was ignored when creating a new account.
             - Fixed the bug in Steam account creation when bypass touch was enabled for NFC keys.
             - Fixed the bug where deleting an account would cause a sync issue between the YubiKey and Yubico Authenticator.
@@ -222,16 +233,16 @@
             - The previous settings for account creation are no longer re-used for the next account.
             - Menu items for account and configuration are now disabled on iPads when no YubiKey is inserted into the device.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.9</string>
-        <key>date</key>
-        <date>2022-06-30T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>This version contains improvements to the QR code scanner and various minor fixes.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.9</string>
+		<key>date</key>
+		<date>2022-06-30T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>This version contains improvements to the QR code scanner and various minor fixes.
         - Added a hint to the NFC prompt that it can be dismissed by swiping it down.
         - Disabled validation of issuer and account name when scanning a QR code. This allows the user to change an invalid issuer or account name before storing the account on a YubiKey.
         - Improved validation and error messages when scanning QR codes.
@@ -239,172 +250,172 @@
         - Solved an issue where NFC might be unresponsive if interrupted during communication with a YubiKey.
         - Fixes issue where the requires touch setting was ignored when addding credential.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.8</string>
-        <key>date</key>
-        <date>2022-05-17T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Lots of user interface and visual improvements in this version.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.8</string>
+		<key>date</key>
+		<date>2022-05-17T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Lots of user interface and visual improvements in this version.
         - The scan QR code view has been rewritten from scratch making it nicer looking and easier to use.
         - Account table cells and detail view got a major visual overhaul that makes the account information easier to read.
         - Pinned accounts are now presented in a separate table section for easier identification.
         </string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.7</string>
-        <key>date</key>
-        <date>2022-01-30T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Previously the app only calculated the first Steam code, this has been fixed now.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.6</string>
-        <key>date</key>
-        <date>2021-12-09T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Fixes an issue where the add/remove cert button in Smart card configuration got pushed out of screen.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.5</string>
-        <key>date</key>
-        <date>2021-12-07T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>In this version we've fixed a crash occurring on iPadOS.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.4</string>
-        <key>date</key>
-        <date>2021-11-10T09:41:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>This version contains a fix to the Steam code generation.</string>
-    </dict>
+	</dict>
 	<dict>
-        <key>version</key>
-        <string>1.6.3</string>
+		<key>version</key>
+		<string>1.6.7</string>
+		<key>date</key>
+		<date>2022-01-30T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Previously the app only calculated the first Steam code, this has been fixed now.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.6</string>
+		<key>date</key>
+		<date>2021-12-09T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Fixes an issue where the add/remove cert button in Smart card configuration got pushed out of screen.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.5</string>
+		<key>date</key>
+		<date>2021-12-07T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>In this version we&apos;ve fixed a crash occurring on iPadOS.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.4</string>
+		<key>date</key>
+		<date>2021-11-10T09:41:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>This version contains a fix to the Steam code generation.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.6.3</string>
 		<key>date</key>
 		<date>2021-10-19T10:00:00Z</date>
 		<key>shouldPromptUser</key>
 		<true/>
 		<key>changes</key>
-		<string>This time we've improved the ease of use of NFC YubiKeys by adding settings to minimize the number of NFC taps needed. These new settings can be found in the configuration menu.
+		<string>This time we&apos;ve improved the ease of use of NFC YubiKeys by adding settings to minimize the number of NFC taps needed. These new settings can be found in the configuration menu.
  - Setting to turn off the extra NFC tap for accounts that require touch.
  - Setting to automatically initiate NFC when the application starts.
  - Version history is now accessible from the application.</string>
 	</dict>
 	<dict>
-        <key>version</key>
-        <string>1.6.2</string>
+		<key>version</key>
+		<string>1.6.2</string>
 		<key>date</key>
 		<date>2021-10-13T10:00:00Z</date>
 		<key>shouldPromptUser</key>
 		<false/>
 		<key>changes</key>
-		<string>In this version we've improved the search functionality based on user feedback:
+		<string>In this version we&apos;ve improved the search functionality based on user feedback:
  - Search is now available before scanning credentials, and the on-screen keyboard will no longer obscure the account details.
- - We've also introduced the ability to quickly copy a code to the clipboard by long-pressing on an account.</string>
+ - We&apos;ve also introduced the ability to quickly copy a code to the clipboard by long-pressing on an account.</string>
 	</dict>
 	<dict>
-        <key>version</key>
-        <string>1.6.1</string>
+		<key>version</key>
+		<string>1.6.1</string>
 		<key>date</key>
 		<date>2021-10-06T10:00:00Z</date>
 		<key>shouldPromptUser</key>
 		<false/>
 		<key>changes</key>
-		<string>In this version we've made more UI improvements, such as better support for different text sizes (Dynamic Type) and general improvements here and there to make the app easier to use. We've also fixed a few minor bugs: one with renaming accounts over NFC and one that initially displayed the wrong codes for Steam accounts.</string>
+		<string>In this version we&apos;ve made more UI improvements, such as better support for different text sizes (Dynamic Type) and general improvements here and there to make the app easier to use. We&apos;ve also fixed a few minor bugs: one with renaming accounts over NFC and one that initially displayed the wrong codes for Steam accounts.</string>
 	</dict>
-    <dict>
-        <key>version</key>
-        <string>1.6.0</string>
-        <key>date</key>
-        <date>2020-09-28T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <true/>
-        <key>changes</key>
-        <string>In this version we have improved the user interface making the app both easier to use and better looking. We have also added support for Apple's new CryptoTokenKit Extension making it possible to use Smart Card certificates stored on your YubiKey to authenticate with other apps and sites.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.5.0</string>
-        <key>date</key>
-        <date>2021-03-08T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>In this version we have made some minor user experience improvements and clarified the messaging in the app regarding support for iPad and iPad Pro.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.4.0</string>
-        <key>date</key>
-        <date>2020-09-28T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Bug fixes and general improvements.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.3.0</string>
-        <key>date</key>
-        <date>2020-06-09T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Now enhancing the fast and easy user experience, with added convenience of biometric support with users leveraging TouchID and FaceID to unlock their YubiKey
+	<dict>
+		<key>version</key>
+		<string>1.6.0</string>
+		<key>date</key>
+		<date>2020-09-28T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<true/>
+		<key>changes</key>
+		<string>In this version we have improved the user interface making the app both easier to use and better looking. We have also added support for Apple&apos;s new CryptoTokenKit Extension making it possible to use Smart Card certificates stored on your YubiKey to authenticate with other apps and sites.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.5.0</string>
+		<key>date</key>
+		<date>2021-03-08T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>In this version we have made some minor user experience improvements and clarified the messaging in the app regarding support for iPad and iPad Pro.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.4.0</string>
+		<key>date</key>
+		<date>2020-09-28T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Bug fixes and general improvements.</string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.3.0</string>
+		<key>date</key>
+		<date>2020-06-09T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Now enhancing the fast and easy user experience, with added convenience of biometric support with users leveraging TouchID and FaceID to unlock their YubiKey
  - Users can view additional YubiKey device info such as model number, serial number and firmware version
  - Users can change their One Time Passcode (OTP) settings by opting in or out of viewing the full OTP code string when interacting with their YubiKey
  - Bug fixes.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.2.0</string>
-        <key>date</key>
-        <date>2020-01-20T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Now you can sort your accounts by marking the most frequently used as favorite.
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.2.0</string>
+		<key>date</key>
+		<date>2020-01-20T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Now you can sort your accounts by marking the most frequently used as favorite.
  - Fixed an issue when failed to change or remove password on YubiKey when it was already set up
  - Fixed an issue that sometimes failed the name change during registration of account</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.1.0</string>
-        <key>date</key>
-        <date>2019-12-09T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.1.0</string>
+		<key>date</key>
+		<date>2019-12-09T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
  - Supports NFC-enabled YubiKeys
  - Allows to store the password to YubiKey on your phone.</string>
-    </dict>
-    <dict>
-        <key>version</key>
-        <string>1.0.0</string>
-        <key>date</key>
-        <date>2019-10-31T10:00:00Z</date>
-        <key>shouldPromptUser</key>
-        <false/>
-        <key>changes</key>
-        <string>Initial release! 🎉</string>
-    </dict>
+	</dict>
+	<dict>
+		<key>version</key>
+		<string>1.0.0</string>
+		<key>date</key>
+		<date>2019-10-31T10:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>Initial release! 🎉</string>
+	</dict>
 </array>
 </plist>
