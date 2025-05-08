@@ -24,7 +24,10 @@ class Account: ObservableObject {
         case countingdown(Double)
         case expired
     }
-    
+
+    private static var timer: Timer? = nil
+    private static var instances = NSHashTable<Account>.weakObjects()
+
     @Published var otp: OATHSession.OTP?
     @Published var title: String
     @Published var subTitle: String?
@@ -39,13 +42,18 @@ class Account: ObservableObject {
     var color: Color = .red
     var enableRefresh: Bool = true
     private var timeLeft: Double?
-    private var timer: Timer? = nil
     private var requestRefresh: PassthroughSubject<Account, Never>
     private var connectionType: OATHSession.ConnectionType
     private var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
-    private var isValid = true
     
     init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
+
+        // Timer handling
+        defer {
+            Account.instances.add(self)
+            Account.startTimer()
+        }
+
         self.credential = credential
         title = credential.title
         subTitle = credential.subTitle
@@ -89,12 +97,10 @@ class Account: ObservableObject {
             // Schedule refresh if connection is wired
             if let timeLeft, connectionType == .wired {
                 DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) {
-                    guard self.isValid else { return }
                     self.requestRefresh.send(self)
                 }
             }
             updateState()
-            startTimer()
         } else {
             self.state = .requiresCalculation
         }
@@ -130,15 +136,6 @@ class Account: ObservableObject {
         return Color(UIColor.colorSetForAccountIcons[value] ?? .primaryText)
     }
 
-    
-    func startTimer() {
-        self.timer?.invalidate()
-        guard otp?.validity != nil else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            self?.updateState()
-        }
-    }
-    
     func updateState() {
         if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
@@ -148,21 +145,34 @@ class Account: ObservableObject {
                 self.enableRefresh = false
             } else if timeLeft < 0 {
                 self.state = .expired
-                self.timer?.invalidate()
-                self.timer = nil
                 self.enableRefresh = true
             } else if connectionType == .nfc {
                 self.state = .expired
-                self.timer?.invalidate()
-                self.timer = nil
                 self.enableRefresh = true
             }
         }
     }
-    
-    func invalidate() {
-        self.timer?.invalidate()
-        self.isValid = false
+
+    private static func startTimer() {
+        guard timer == nil else { return }
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            for account in instances.allObjects {
+                account.updateState()
+            }
+        }
+        RunLoop.main.add(timer!, forMode: .common)
+    }
+
+    private static func stopTimerIfNeeded() {
+        if instances.allObjects.isEmpty {
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+
+    deinit {
+        Account.instances.remove(self)
+        Account.stopTimerIfNeeded()
     }
 }
 

@@ -175,7 +175,7 @@ struct AccountRowView: View {
                 }
             }
             .onDisappear {
-                account.invalidate()
+                //account.invalidate()
             }
             .readFrame($cellFrame)
     }
@@ -189,7 +189,7 @@ struct PieProgressView: View {
     var body: some View {
         PieShape(progress: self.progress)
             .foregroundColor(color)
-            .animation(.linear(duration: self.progress == 1.0 ? 0.0 : 1.0), value: self.progress)
+            .animation(.linear(duration: self.progress >= 1.0 ? 0.0 : 1.0), value: self.progress)
     }
 }
 
