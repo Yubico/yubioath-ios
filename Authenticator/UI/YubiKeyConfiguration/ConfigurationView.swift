@@ -249,7 +249,7 @@ extension YKFManagementDeviceInfo {
             return "Unknown key"
         }
 
-        if (isFIPSCapable & 0b00001000 != 0) || isFips {
+        if (isFIPSCapable != 0) || isFips {
             return deviceName + " FIPS"
         } else {
             return deviceName
