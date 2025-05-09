@@ -4,6 +4,19 @@
 <array>
 	<dict>
 		<key>version</key>
+		<string>1.12</string>
+		<key>date</key>
+		<date>2025-05-14T09:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>
+            Adds support for encryption and decryption through the CryptoTokenKit extension.
+Fixes an issue with TOTP codes not updating after scrolling them out of the screen.
+Improves the naming around FIPS keys.</string>
+	</dict>
+	<dict>
+		<key>version</key>
 		<string>1.11.1</string>
 		<key>date</key>
 		<date>2025-04-17T09:00:00Z</date>
