@@ -227,23 +227,32 @@ struct ListIconView: View {
 
 extension YKFManagementDeviceInfo {
     var deviceName: String {
+
+        let deviceName: String
         switch formFactor {
         case .usbaKeychain:
             let name: String
             if version.major == 5 { name = "5" } else
             if version.major < 4 { name = "NEO" }
             else { name = "" }
-            return "YubiKey \(name) NFC"
+            deviceName = "YubiKey \(name) NFC"
+            break
         case .usbcKeychain:
-            return "YubiKey 5C NFC"
+            deviceName = "YubiKey 5C NFC"
         case .usbcLightning:
-            return "YubiKey 5Ci"
+            deviceName = "YubiKey 5Ci"
         case .usbcBio, .usbaBio:
-            return "YubiKey Bio"
+            deviceName = "YubiKey Bio"
         case .usbcNano:
-            return "YubiKey Nano"
+            deviceName = "YubiKey Nano"
         default:
             return "Unknown key"
+        }
+
+        if (isFIPSCapable & 0b00001000 != 0) || isFips {
+            return deviceName + " FIPS"
+        } else {
+            return deviceName
         }
     }
     
