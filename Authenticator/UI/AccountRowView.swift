@@ -32,6 +32,9 @@ struct AccountRowView: View {
 
     @State private var pillScaling: CGFloat = 1.0
     @State private var pillOpacity: Double
+
+    @State private var animate: Bool = true
+
     private let pillColor = Color(.secondaryLabel)
     
     init(account: Account, showAccountDetails: Binding<AccountDetailsData?>) {
@@ -89,7 +92,9 @@ struct AccountRowView: View {
                                 .accessibilityHidden(true)
                         }
                     case .countingdown(let remaining):
-                        PieProgressView(progress: remaining, color: pillColor)
+                        PieProgressView(progress: remaining,
+                                        color: pillColor,
+                                        animate: animate)
                             .frame(width: 22, height: 22)
                             .padding(1)
                             .readFrame($statusIconFrame)
@@ -174,8 +179,11 @@ struct AccountRowView: View {
                     }
                 }
             }
+            .onAppear() {
+                animate = true
+            }
             .onDisappear {
-                account.invalidate()
+                animate = false
             }
             .readFrame($cellFrame)
     }
@@ -183,13 +191,22 @@ struct AccountRowView: View {
 
 struct PieProgressView: View {
     
-    var progress: Double
-    var color: Color? = nil
-    
+    let progress: Double
+    let color: Color
+    let animate: Bool
+
+    init(progress: Double, color: Color, animate: Bool = true) {
+        self.progress = progress
+        self.color = color
+        self.animate = animate
+    }
+
     var body: some View {
-        PieShape(progress: self.progress)
+        var duration = progress >= 1.0 ? 0.0 : 1.0
+        duration = animate ? duration : 0.0
+        return PieShape(progress: self.progress)
             .foregroundColor(color)
-            .animation(.linear(duration: self.progress == 1.0 ? 0.0 : 1.0), value: self.progress)
+            .animation(.linear(duration: duration), value: self.progress)
     }
 }
 
