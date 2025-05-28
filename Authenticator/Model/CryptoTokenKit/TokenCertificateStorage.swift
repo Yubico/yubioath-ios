@@ -41,8 +41,6 @@ struct TokenCertificateStorage {
         tokenKeychainKey.label = label
         tokenKeychainKey.canSign = true
         tokenKeychainKey.isSuitableForLogin = true
-        tokenKeychainKey.canDecrypt = true
-        tokenKeychainKey.canPerformKeyExchange = true
 
         // TODO: figure out when there might be multiple driverConfigurations and how to handle it
         guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else {

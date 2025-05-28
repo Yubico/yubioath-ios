@@ -1411,9 +1411,6 @@
         }
       }
     },
-    "Decryption failed" : {
-      "comment" : "PIV extension decryption failed error message"
-    },
     "Delete" : {
       "comment" : "Menu",
       "localizations" : {
@@ -2637,9 +2634,6 @@
           }
         }
       }
-    },
-    "Invalid decryption" : {
-      "comment" : "PIV extension NFC invalid decryption"
     },
     "Invalid device info received from YubiKey" : {
       "comment" : "Internal error message not to be displayed to the user.",
@@ -5672,9 +5666,6 @@
         }
       }
     },
-    "Successfully decrypted cipher data" : {
-      "comment" : "PIV extension NFC successfully decrypted cipher data"
-    },
     "Successfully read" : {
       "comment" : "iOS NFC alert successfully read",
       "localizations" : {
@@ -5906,7 +5897,7 @@
       }
     },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
-      "comment" : "PIV extension NFC invalid decryption no private key\nPIV extension NFC invalid signature no private key",
+      "comment" : "PIV extension NFC invalid signature no private key",
       "localizations" : {
         "de" : {
           "stringUnit" : {

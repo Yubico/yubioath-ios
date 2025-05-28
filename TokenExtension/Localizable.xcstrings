@@ -29,9 +29,6 @@
         }
       }
     },
-    "Tap here to complete the decryption request using your YubiKey." : {
-
-    },
     "Tap here to complete the request using your YubiKey." : {
       "localizations" : {
         "de" : {
