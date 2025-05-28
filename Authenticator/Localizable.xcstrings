@@ -131,7 +131,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ (construire %2$@)"
+            "value" : "%1$@ (build %2$@)"
           }
         },
         "ja" : {
@@ -272,7 +272,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Infos"
+            "value" : "A propos"
           }
         },
         "ja" : {
@@ -475,7 +475,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ajouter compte"
+            "value" : "Ajouter un compte"
           }
         },
         "ja" : {
@@ -1410,9 +1410,6 @@
           }
         }
       }
-    },
-    "Decryption failed" : {
-      "comment" : "PIV extension decryption failed error message"
     },
     "Delete" : {
       "comment" : "Menu",
@@ -2396,7 +2393,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comment cela fonctionne-t-il ?"
+            "value" : "Comment ça fonctionne ?"
           }
         },
         "ja" : {
@@ -2424,7 +2421,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Comment cela fonctionne-t-il"
+            "value" : "Comment ça fonctionne"
           }
         },
         "ja" : {
@@ -2593,7 +2590,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Insérez YubiKey"
+            "value" : "Insérez la YubiKey"
           }
         },
         "ja" : {
@@ -2637,9 +2634,6 @@
           }
         }
       }
-    },
-    "Invalid decryption" : {
-      "comment" : "PIV extension NFC invalid decryption"
     },
     "Invalid device info received from YubiKey" : {
       "comment" : "Internal error message not to be displayed to the user.",
@@ -4148,7 +4142,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号が設定されています"
+            "value" : "PIN が設定されています"
           }
         },
         "sk" : {
@@ -5672,9 +5666,6 @@
         }
       }
     },
-    "Successfully decrypted cipher data" : {
-      "comment" : "PIV extension NFC successfully decrypted cipher data"
-    },
     "Successfully read" : {
       "comment" : "iOS NFC alert successfully read",
       "localizations" : {
@@ -5864,7 +5855,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "キーは別の操作で忙しい。"
+            "value" : "キーは別の操作を実行中です。"
           }
         },
         "sk" : {
@@ -5906,7 +5897,7 @@
       }
     },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
-      "comment" : "PIV extension NFC invalid decryption no private key\nPIV extension NFC invalid signature no private key",
+      "comment" : "PIV extension NFC invalid signature no private key",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6436,13 +6427,13 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FIPS鍵にアカウントを追加するには、まずOATHアプリケーションにパスワードを設定する必要がある。"
+            "value" : "FIPS キーにアカウントを追加する場合、先に OATH アプリケーションにパスワードを設定してください。"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ak chcete pridať účet do kľúča FIPS, musíte najprv nastaviť heslo pre aplikáciu OATH."
+            "value" : "Ak chcete pridať účet do FIPS kľúča, musíte najprv nastaviť heslo pre aplikáciu OATH."
           }
         }
       }
@@ -6664,7 +6655,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NFC YubiKeyをスキャンする際、Safariを開いてワンタイムパスワードをコピーするかどうかを設定します。"
+            "value" : "NFC YubiKey をスキャンしたときに、Safari を開いてワンタイムパスワードをコピーするかどうかを設定します。"
           }
         },
         "sk" : {
@@ -6693,7 +6684,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyタッチ時のOTPコード出力ON/OFF。"
+            "value" : "YubiKey をタッチしたときに OTP コードを出力するかどうかを設定します。"
           }
         },
         "sk" : {
@@ -7522,7 +7513,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKey 5Ci認証"
+            "value" : "YubiKey 5Ci 認証"
           }
         },
         "sk" : {
@@ -7550,7 +7541,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKey 接続が見つかりません。"
+            "value" : "YubiKey との接続を確認できません。"
           }
         },
         "sk" : {
@@ -7578,7 +7569,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyの接続が切れた。"
+            "value" : "YubiKey との接続が切断されました。"
           }
         },
         "sk" : {

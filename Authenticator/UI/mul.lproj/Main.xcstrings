@@ -1040,7 +1040,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lancer NFC au démarrage de l'application"
+            "value" : "Activer NFC au démarrage de l'app"
           }
         },
         "ja" : {
@@ -1412,7 +1412,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Infos"
+            "value" : "A propos"
           }
         },
         "ja" : {
@@ -1826,7 +1826,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Continuer avec fonctionnalité limitée"
+            "value" : "Continuer avec une utilisation limitée"
           }
         },
         "ja" : {
