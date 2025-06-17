@@ -125,7 +125,12 @@ class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
+    @MainActor func closeConnections() {
+        OATHSessionHandler.shared.smartCardConnection?.stop()
+        OATHSessionHandler.shared.accessoryConnection?.stop()
+    }
+
     @MainActor func stop() {
         sessionTask?.cancel()
         sessionTask = nil
