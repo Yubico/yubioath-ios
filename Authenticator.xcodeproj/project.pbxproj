@@ -120,6 +120,7 @@
 		B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */; };
 		B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		DD9A45542E118C7C002C7705 /* FIDOCredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D72A443D8400B59170 /* FIDOCredentialsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -277,6 +278,8 @@
 		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestWrapper.swift; sourceTree = "<group>"; };
+		B4FE90D52A443D8400B59170 /* FIDOCredentialsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOCredentialsViewModel.swift; sourceTree = "<group>"; };
+		B4FE90D72A443D8400B59170 /* FIDOCredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIDOCredentialsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,6 +333,7 @@
 				B4BB02DF2C80BEBD00B72904 /* OATHSavedPasswordsView.swift */,
 				B44E5E802C74BE67007ABB79 /* OATHResetView.swift */,
 				B4BB02E32C81B21D00B72904 /* FIDOPINView.swift */,
+				B4FE90D72A443D8400B59170 /* FIDOCredentialsView.swift */,
 				B4BB02E72C81C7A700B72904 /* FIDOResetView.swift */,
 			);
 			path = YubiKeyConfiguration;
@@ -543,6 +547,7 @@
 				B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */,
 				B4BB02DD2C80BC8500B72904 /* OATHSavedPasswordsViewModel.swift */,
 				B4BB02E12C81A82300B72904 /* FIDOPINViewModel.swift */,
+				B4FE90D52A443D8400B59170 /* FIDOCredentialsViewModel.swift */,
 				B4BB02E52C81C75D00B72904 /* FIDOResetViewModel.swift */,
 			);
 			path = Model;
@@ -817,6 +822,7 @@
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */,
+				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
 				B47486622CECC2190031A504 /* TutorialView.swift in Sources */,
 				B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */,

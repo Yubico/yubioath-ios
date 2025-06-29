@@ -2836,6 +2836,9 @@
         }
       }
     },
+    "Manage FIDO application" : {
+
+    },
     "Manage password" : {
       "localizations" : {
         "de" : {

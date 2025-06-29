@@ -136,7 +136,7 @@ struct ConfigurationView: View {
                         Text("Reset OATH application")
                     }
                 }
-                if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags || true {
                     Section("FIDO") {
                         NavigationLink {
                             FIDOPINView()
@@ -146,6 +146,15 @@ struct ConfigurationView: View {
                         } label: {
                             ListIconView(image: Image(systemName: "lock.shield"), color: Color(.systemPurple))
                             Text("Manage PIN")
+                        }
+                        NavigationLink {
+                            FIDOCredentialsView()
+                                .onDisappear {
+                                    model.start()
+                                }
+                        } label: {
+                            ListIconView(image: Image(systemName: "person.badge.key"), color: Color(.systemBlue))
+                            Text("Manage Passkeys")
                         }
                         NavigationLink {
                             FIDOResetView {
