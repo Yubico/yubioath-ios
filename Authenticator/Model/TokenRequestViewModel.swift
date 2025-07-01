@@ -163,7 +163,7 @@ class TokenRequestViewModel: NSObject {
                             } // End signWithKey Session
                         case .decryptData:
                             // Begin Decryption Session
-                            session.decryptWithKey(in: slot, algorithm: algorithm, encrypted: message) { plainText, error in
+                            session.decryptWithKey(in: slot, algorithm: algorithm, encrypted: message) { decryptedData, error in
                                 // Handle any errors
                                 if let error = error, (error as NSError).code == 0x6a80 {
                                     YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid decryption", comment: "PIV extension NFC invalid decryption"))
@@ -176,21 +176,13 @@ class TokenRequestViewModel: NSObject {
                                     return
                                 }
                                 
-                                guard let plainText = plainText else { fatalError() }
+                                guard let decryptedData = decryptedData else { fatalError() }
                                 
                                 YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully decrypted cipher data", comment: "PIV extension NFC successfully decrypted cipher data"))
                                 
                                 if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
                                     Logger.ctk.debug("Save decrypted data to userDefaults...")
-                                    
-                                    if let decryptedRawString = String(data: plainText, encoding: .utf8) {
-                                        // Injecting Yubico Authenticator watermark message for testing to confirm the decrypted message came via YA app
-                                        //let decryptedYAString = "[Decrypted using YA] " + decryptedRawString
-                                        
-                                        if let decryptedYAStringAsData = decryptedRawString.data(using: .utf8) {
-                                            userDefaults.setValue(decryptedYAStringAsData, forKey: "decryptedData")
-                                        }
-                                    }
+                                    userDefaults.setValue(decryptedData, forKey: "decryptedData")
                                     completion(nil)
                                 }
                             } // End Decryption Session
