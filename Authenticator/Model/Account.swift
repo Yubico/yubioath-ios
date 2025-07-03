@@ -53,6 +53,7 @@ class Account: ObservableObject {
         self.requiresTouch = credential.requiresTouch
         
         if code == nil {
+            enableRefresh = true
             state = .requiresCalculation
         } else {
             enableRefresh = false
@@ -128,6 +129,12 @@ class Account: ObservableObject {
     }
 
     func updateState() {
+        guard credential.type == .totp else {
+            self.enableRefresh = true
+            self.state = .requiresCalculation
+            return
+        }
+
         if let validInterval = otp?.validity {
             let timeLeft = validInterval.end.timeIntervalSince(Date())
             self.timeLeft = timeLeft
