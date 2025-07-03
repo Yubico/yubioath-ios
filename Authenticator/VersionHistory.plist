@@ -4,6 +4,17 @@
 <array>
 	<dict>
 		<key>version</key>
+		<string>1.12.2</string>
+		<key>date</key>
+		<date>2025-07-05T09:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>            Fixes issues around codes disappering after a NFC scan.
+		Fix an issue with the re-calculation of HOTP codes.</string>
+	</dict>
+	<dict>
+		<key>version</key>
 		<string>1.12.1</string>
 		<key>date</key>
 		<date>2025-06-25T09:00:00Z</date>
