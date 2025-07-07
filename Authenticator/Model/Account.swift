@@ -25,9 +25,6 @@ class Account: ObservableObject {
         case expired
     }
 
-    private static var timer: Timer? = nil
-    private static var instances = NSHashTable<Account>.weakObjects()
-
     @Published var otp: OATHSession.OTP?
     @Published var title: String
     @Published var subTitle: String?
@@ -47,12 +44,6 @@ class Account: ObservableObject {
     private var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
     
     init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
-
-        // Timer handling
-        defer {
-            Account.instances.add(self)
-            Account.startTimer()
-        }
 
         self.credential = credential
         title = credential.title
@@ -151,28 +142,6 @@ class Account: ObservableObject {
                 self.enableRefresh = true
             }
         }
-    }
-
-    private static func startTimer() {
-        guard timer == nil else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            for account in instances.allObjects {
-                account.updateState()
-            }
-        }
-        RunLoop.main.add(timer!, forMode: .common)
-    }
-
-    private static func stopTimerIfNeeded() {
-        if instances.allObjects.isEmpty {
-            timer?.invalidate()
-            timer = nil
-        }
-    }
-
-    deinit {
-        Account.instances.remove(self)
-        Account.stopTimerIfNeeded()
     }
 }
 

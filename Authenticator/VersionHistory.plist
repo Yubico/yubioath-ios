@@ -4,6 +4,17 @@
 <array>
 	<dict>
 		<key>version</key>
+		<string>1.12.1</string>
+		<key>date</key>
+		<date>2025-06-25T09:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>            Fixes an issue with codes not refreshing after changing views.
+Fixes problems around holding on to the YubiKey connection for too long after becoming inactive or in background.</string>
+	</dict>
+	<dict>
+		<key>version</key>
 		<string>1.12</string>
 		<key>date</key>
 		<date>2025-05-30T09:00:00Z</date>

@@ -48,9 +48,9 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
     
     typealias ClosingCallback = ((_ error: Error?) -> Void)
     
-    private var nfcConnection: YKFNFCConnection?
-    private var smartCardConnection: YKFSmartCardConnection?
-    private var accessoryConnection: YKFAccessoryConnection?
+    var nfcConnection: YKFNFCConnection?
+    var smartCardConnection: YKFSmartCardConnection?
+    var accessoryConnection: YKFAccessoryConnection?
     
     private var currentSession: YKFOATHSession?
     

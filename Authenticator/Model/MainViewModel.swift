@@ -36,7 +36,9 @@ class MainViewModel: ObservableObject {
     @Published var connectionError: Error?
     
     @Published var showTouchToast: Bool = false
-        
+
+    var timer: Timer?
+
     var accessKeyMemoryCache = AccessKeyCache()
     let accessKeySecureStore = SecureStore(secureStoreQueryable: PasswordQueryable(service: "OATH"))
     let passwordPreferences = PasswordPreferences()
@@ -70,6 +72,7 @@ class MainViewModel: ObservableObject {
             }
             .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
             .sink { [weak self] account in
+                guard self?.sessionTask != nil else { return }
                 if self?.refreshRequestCount == 1 {
                     Task { [weak self] in
                         await self?.updateAccount(account)
@@ -85,6 +88,12 @@ class MainViewModel: ObservableObject {
     }
     
     @MainActor func start() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            for account in self?.accounts ?? [] {
+                account.updateState()
+            }
+        }
+
         sessionTask = Task { [weak self] in
             do {
                 for try await session in OATHSessionHandler.shared.wiredSessions() {
@@ -116,10 +125,19 @@ class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
+    @MainActor func closeConnections() {
+        OATHSessionHandler.shared.smartCardConnection?.stop()
+        OATHSessionHandler.shared.accessoryConnection?.stop()
+    }
+
     @MainActor func stop() {
         sessionTask?.cancel()
         sessionTask = nil
+
+        timer?.invalidate()
+        timer = nil
+
         accounts.removeAll()
         pinnedAccounts.removeAll()
         otherAccounts.removeAll()

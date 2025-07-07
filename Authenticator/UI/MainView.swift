@@ -227,12 +227,12 @@ struct MainView: View {
             }
         }
         .onChange(of: scenePhase) { phase in
-            if phase == .active && didEnterBackground {
-                didEnterBackground = false
+            if phase == .active {
                 model.start() // This is called when app becomes active
-            } else if phase == .background {
-                didEnterBackground = true
+            } else if phase == .background || phase == .inactive {
+                let _ = UIApplication.shared.beginBackgroundTask { }
                 model.stop()
+                model.closeConnections()
             }
         }
         .onChange(of: model.showTouchToast) { showToast in
