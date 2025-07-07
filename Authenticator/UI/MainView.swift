@@ -227,9 +227,13 @@ struct MainView: View {
             }
         }
         .onChange(of: scenePhase) { phase in
-            if phase == .active {
+            // The NFC scanning alert makes the app enter the `.inactive` state and in that
+            // situation we don't want to call model.stop() nor model.closeConnections()
+            if phase == .active && didEnterBackground {
                 model.start() // This is called when app becomes active
-            } else if phase == .background || phase == .inactive {
+            } else if phase == .background {
+                didEnterBackground = true
+
                 let _ = UIApplication.shared.beginBackgroundTask { }
                 model.stop()
                 model.closeConnections()
