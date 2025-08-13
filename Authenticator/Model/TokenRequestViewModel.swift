@@ -101,6 +101,7 @@ class TokenRequestViewModel: NSObject {
         connection.startConnection { connection in
             connection.pivSession { session, error in
                 guard let session = session else { Logger.ctk.error("No session: \(error!)"); return }
+                guard let operationType = userInfo.operationType() else { Logger.ctk.error("No OperationType defined"); return }
                 guard let type = userInfo.keyType(),
                       let objectId = userInfo.objectId(),
                       let algorithm = userInfo.algorithm(),
@@ -127,35 +128,64 @@ class TokenRequestViewModel: NSObject {
                                 return
                             }
                         }
-                        session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { signature, error in
-                            // Handle any errors
-                            if let error = error, (error as NSError).code == 0x6a80 {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"))
-                                completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"),
-                                                                            text: String(localized: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.", comment: "PIV extension NFC invalid signature no private key"))))
-                                return
-                            }
-                            if let error = error {
-                                    completion(.communicationError(ErrorMessage(title: String(localized: "Signing failed", comment: "PIV extension signing failed error message"), text: error.localizedDescription)))
-                                return
-                            }
-                            guard let signature = signature else { fatalError() }
-                            // Verify signature
-                            let signatureError = self.verifySignature(signature, data: message, objectId: objectId, algorithm: algorithm)
-                            if signatureError != nil {
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension invalid signature"))
-                                completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension invalid signature"),
-                                                                            text: String(localized: "The private key on the YubiKey does not match the certificate.", comment: "PIV extension invalid signature message"))))
-                                return
-                            }
-                            
-                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully signed data", comment: "PIV extension NFC successfully signed data"))
-                            
-                            if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
-                                Logger.ctk.debug("Save data to userDefaults...")
-                                userDefaults.setValue(signature, forKey: "signedData")
-                                completion(nil)
-                            }
+                        
+                        switch operationType {
+                        case .signData:
+                            session.signWithKey(in: slot, type: type, algorithm: algorithm, message: message) { signature, error in
+                                // Handle any errors
+                                if let error = error, (error as NSError).code == 0x6a80 {
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"))
+                                    completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension NFC invalid signature"),
+                                                                                text: String(localized: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.", comment: "PIV extension NFC invalid signature no private key"))))
+                                    return
+                                }
+                                if let error = error {
+                                        completion(.communicationError(ErrorMessage(title: String(localized: "Signing failed", comment: "PIV extension signing failed error message"), text: error.localizedDescription)))
+                                    return
+                                }
+                                guard let signature = signature else { fatalError() }
+                                // Verify signature
+                                let signatureError = self.verifySignature(signature, data: message, objectId: objectId, algorithm: algorithm)
+                                if signatureError != nil {
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid signature", comment: "PIV extension invalid signature"))
+                                    completion(.communicationError(ErrorMessage(title: String(localized: "Invalid signature", comment: "PIV extension invalid signature"),
+                                                                                text: String(localized: "The private key on the YubiKey does not match the certificate.", comment: "PIV extension invalid signature message"))))
+                                    return
+                                }
+                                
+                                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully signed data", comment: "PIV extension NFC successfully signed data"))
+                                
+                                if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+                                    Logger.ctk.debug("Save data to userDefaults...")
+                                    userDefaults.setValue(signature, forKey: "signedData")
+                                    completion(nil)
+                                }
+                            } // End signWithKey Session
+                        case .decryptData:
+                            // Begin Decryption Session
+                            session.decryptWithKey(in: slot, algorithm: algorithm, encrypted: message) { decryptedData, error in
+                                // Handle any errors
+                                if let error = error, (error as NSError).code == 0x6a80 {
+                                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Invalid decryption", comment: "PIV extension NFC invalid decryption"))
+                                    completion(.communicationError(ErrorMessage(title: String(localized: "Invalid decryption", comment: "PIV extension NFC invalid decryption"),
+                                                                                text: String(localized: "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey.", comment: "PIV extension NFC invalid decryption no private key"))))
+                                    return
+                                }
+                                if let error = error {
+                                    completion(.communicationError(ErrorMessage(title: String(localized: "Decryption failed", comment: "PIV extension decryption failed error message"), text: error.localizedDescription)))
+                                    return
+                                }
+                                
+                                guard let decryptedData = decryptedData else { fatalError() }
+                                
+                                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Successfully decrypted cipher data", comment: "PIV extension NFC successfully decrypted cipher data"))
+                                
+                                if let userDefaults = UserDefaults(suiteName: "group.com.yubico.Authenticator") {
+                                    Logger.ctk.debug("Save decrypted data to userDefaults...")
+                                    userDefaults.setValue(decryptedData, forKey: "decryptedData")
+                                    completion(nil)
+                                }
+                            } // End Decryption Session
                         }
                     }
                 }
@@ -184,6 +214,11 @@ class TokenRequestViewModel: NSObject {
             return nil
         }
     }
+}
+
+enum OperationType: String {
+    case signData = "signData"
+    case decryptData = "decryptData"
 }
 
 
@@ -299,6 +334,11 @@ private extension Dictionary where Key == AnyHashable, Value: Any {
     func algorithm() -> SecKeyAlgorithm? {
         guard let rawValue = self["algorithm"] as? String else { return nil }
         return SecKeyAlgorithm(rawValue: rawValue as CFString)
+    }
+    
+    func operationType() -> OperationType? {
+        guard let rawValue = self["operationType"] as? String else { return nil }
+        return OperationType.init(rawValue: rawValue)
     }
 }
 
