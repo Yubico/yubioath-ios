@@ -1460,7 +1460,7 @@
       }
     },
     "hsz-tV-DPW.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Copy OTP to clipboard\"; ObjectID = \"hsz-tV-DPW\";",
+      "comment" : "Class = \"UILabel\"; text = \"Copy Yubico OTP to clipboard\"; ObjectID = \"hsz-tV-DPW\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -1472,7 +1472,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy OTP to clipboard"
+            "value" : "Copy Yubico OTP to clipboard"
           }
         },
         "fr" : {
@@ -2270,7 +2270,7 @@
       }
     },
     "oy6-QK-Bgw.footerTitle" : {
-      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality.\"; ObjectID = \"oy6-QK-Bgw\";",
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Copy Yubico OTP automatically to clipboard when a YubiKey has been passively scanned using the NFC NDEF tag functionality.\"; ObjectID = \"oy6-QK-Bgw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -2282,7 +2282,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality."
+            "value" : "Copy Yubico OTP automatically to clipboard when a YubiKey has been passively scanned using the NFC NDEF tag functionality."
           }
         },
         "fr" : {
