@@ -4,14 +4,23 @@
 <array>
 	<dict>
 		<key>version</key>
+		<string>1.13.0</string>
+		<key>date</key>
+		<date>2025-11-18T09:00:00Z</date>
+		<key>shouldPromptUser</key>
+		<false/>
+		<key>changes</key>
+		<string>            Added PIV decryption support to CryptoTokenKit extension, enabling mail clients to decrypt encrypted emails using private keys stored on YubiKey; Improved translations and localized strings.</string>
+	</dict>
+	<dict>
+		<key>version</key>
 		<string>1.12.2</string>
 		<key>date</key>
 		<date>2025-07-05T09:00:00Z</date>
 		<key>shouldPromptUser</key>
 		<false/>
 		<key>changes</key>
-		<string>            Fixes issues around codes disappering after a NFC scan.
-		Fix an issue with the re-calculation of HOTP codes.</string>
+		<string>            Fixes issues around codes disappearing after a NFC scan; Fix an issue with the re-calculation of HOTP codes.</string>
 	</dict>
 	<dict>
 		<key>version</key>
