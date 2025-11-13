@@ -30,7 +30,32 @@
       }
     },
     "Tap here to complete the decryption request using your YubiKey." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap here to complete the decryption request using your YubiKey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap here to complete the decryption request using your YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap here to complete the decryption request using your YubiKey."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap here to complete the decryption request using your YubiKey."
+          }
+        }
+      }
     },
     "Tap here to complete the request using your YubiKey." : {
       "localizations" : {
