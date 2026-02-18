@@ -17,9 +17,10 @@
 import Foundation
 
 enum OATHSessionError: Error, LocalizedError, Equatable {
-    
+
     case credentialAlreadyPresent(YKFOATHCredentialTemplate)
     case otpEnabledError
+    case oathDisabledError
     case connectionCancelled
     case invalidDeviceInfo
     case nfcNotSupported
@@ -31,6 +32,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
         case .otpEnabledError:
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
+        case .oathDisabledError:
+            return String(localized: "The OATH application is disabled on this YubiKey.", comment: "OATH disabled error message")
         case .connectionCancelled:
             return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
         case .invalidDeviceInfo:
@@ -184,6 +187,8 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                     if let session {
                                         self.currentSession = session
                                         self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
+                                    } else if let nsError = error as? NSError, nsError.domain == "com.yubico", nsError.code == 0x5 {
+                                        self.wiredContinuation?.resume(throwing: OATHSessionError.oathDisabledError)
                                     } else {
                                         self.wiredContinuation?.resume(throwing: error!)
                                     }
@@ -198,6 +203,8 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                             if let session {
                                 self.currentSession = session
                                 self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
+                            } else if let nsError = error as? NSError, nsError.domain == "com.yubico", nsError.code == 0x5 {
+                                self.wiredContinuation?.resume(throwing: OATHSessionError.oathDisabledError)
                             } else {
                                 self.wiredContinuation?.resume(throwing: error!)
                             }
