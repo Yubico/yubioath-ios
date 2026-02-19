@@ -72,7 +72,7 @@ class SmartCardViewModel: NSObject {
         tokensCallback?(.success(tokens))
         
         guard let connection = connection else { return }
-        connection.pivSession { session, error in
+        connection.pivSession { session, _, error in
             guard let session = session else { self.certificatesCallback?(.failure(error!)); return }
             guard let callback = self.certificatesCallback else { return }
             var certificates = [Certificate]()
