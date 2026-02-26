@@ -48,9 +48,9 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
 
 
 class OATHSessionHandler: NSObject, YKFManagerDelegate {
-    
+
     typealias ClosingCallback = ((_ error: Error?) -> Void)
-    
+
     var nfcConnection: YKFNFCConnection?
     var smartCardConnection: YKFSmartCardConnection?
     var accessoryConnection: YKFAccessoryConnection?

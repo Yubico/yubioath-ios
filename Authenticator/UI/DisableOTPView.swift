@@ -17,10 +17,11 @@
 import SwiftUI
 
 struct DisableOTPView: View {
-    
+
+    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     @EnvironmentObject var mainViewModel: MainViewModel
     @StateObject var model = DisableOTPModel()
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 5) {
@@ -33,7 +34,9 @@ struct DisableOTPView: View {
                     } label: {
                         Text("Disable Yubico OTP (recommended)")
                             .frame(maxWidth: .infinity)
-                    }.buttonStyle(.borderedProminent)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(model.isConfigurationLocked)
                     Text("Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
@@ -60,14 +63,24 @@ struct DisableOTPView: View {
             }
             .padding(30)
             .accentColor(Color(UIColor.yubiBlue))
-            .onChange(of: model.keyRemoved, perform: { value in
-                mainViewModel.start()
-                mainViewModel.presentDisableOTP = false
-            })
-            .onChange(of: model.keyIgnored, perform: { value in
-                mainViewModel.start()
-                mainViewModel.presentDisableOTP = false
-            })
+            .task {
+                while !Task.isCancelled {
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    if OATHSessionHandler.shared.smartCardConnection == nil {
+                        await MainActor.run {
+                            mainViewModel.presentDisableOTP = false
+                            notificationsViewModel.presentDisableOTP = false
+                        }
+                        break
+                    }
+                }
+            }
+            .onChange(of: model.keyIgnored) { value in
+                if value {
+                    mainViewModel.presentDisableOTP = false
+                    notificationsViewModel.presentDisableOTP = false
+                }
+            }
         }
     }
 }
