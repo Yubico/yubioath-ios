@@ -70,25 +70,50 @@ class SmartCardViewModel: NSObject {
     func update() {
         let tokens = tokenStorage.listTokenCertificates()
         tokensCallback?(.success(tokens))
-        
+
         guard let connection = connection else { return }
-        connection.pivSession { session, _, error in
-            guard let session = session else { self.certificatesCallback?(.failure(error!)); return }
-            guard let callback = self.certificatesCallback else { return }
-            var certificates = [Certificate]()
-            session.getCertificateIn(slot: .authentication, callback: callback) { certificate in
-                if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .authentication)) }
-                session.getCertificateIn(slot: .signature, callback: callback) { certificate in
-                    if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .signature)) }
-                    session.getCertificateIn(slot: .keyManagement, callback: callback) { certificate in
-                        if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .keyManagement)) }
-                        session.getCertificateIn(slot: .cardAuth, callback: callback) { certificate in
-                            if let certificate = certificate { certificates.append(Certificate(certificate: certificate, slot: .cardAuth)) }
-                            callback(.success(certificates))
-                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
-                            return
-                        }
+
+        Task {
+            do {
+                let session = try await connection.pivSession()
+                var certificates = [Certificate]()
+
+                for slot in YKFPIVSlot.allSlots {
+                    if let cert = try await session.getCertificate(in: slot) {
+                        certificates.append(Certificate(certificate: cert, slot: slot))
                     }
+                }
+
+                certificatesCallback?(.success(certificates))
+                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
+            } catch {
+                certificatesCallback?(.failure(error))
+                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
+            }
+        }
+    }
+}
+
+@available(iOS 14.0, *)
+extension YKFPIVSlot {
+    static let allSlots: [YKFPIVSlot] = [
+        .authentication, .signature, .keyManagement, .cardAuth,
+        .retired1, .retired2, .retired3, .retired4, .retired5,
+        .retired6, .retired7, .retired8, .retired9, .retired10,
+        .retired11, .retired12, .retired13, .retired14, .retired15,
+        .retired16, .retired17, .retired18, .retired19, .retired20
+    ]
+}
+
+@available(iOS 14.0, *)
+extension YKFConnectionProtocol {
+    func pivSession() async throws -> YKFPIVSession {
+        try await withCheckedThrowingContinuation { continuation in
+            pivSession { session, _, error in
+                if let session {
+                    continuation.resume(returning: session)
+                } else {
+                    continuation.resume(throwing: error!)
                 }
             }
         }
@@ -97,20 +122,19 @@ class SmartCardViewModel: NSObject {
 
 @available(iOS 14.0, *)
 extension YKFPIVSession {
-    func getCertificateIn(slot: YKFPIVSlot,
-                          callback: @escaping (_ result: Result<[SmartCardViewModel.Certificate]?, Error>) -> Void,
-                          completion: @escaping (_ certificate: SecCertificate?) -> Void) {
-        getCertificateIn(slot) { certificate, error in
-            guard let certificate = certificate else {
-                if (error! as NSError).code == 0x6A82 || (error! as NSError).code == YKFPIVErrorCode.dataParseError.rawValue {
-                    completion(nil)
+    func getCertificate(in slot: YKFPIVSlot) async throws -> SecCertificate? {
+        try await withCheckedThrowingContinuation { continuation in
+            getCertificateIn(slot) { certificate, error in
+                if let certificate {
+                    continuation.resume(returning: certificate)
+                } else if let error = error as NSError?,
+                          error.code == 0x6A82 || error.code == YKFPIVErrorCode.dataParseError.rawValue {
+                    // No certificate in slot - not an error
+                    continuation.resume(returning: nil)
                 } else {
-                    callback(.failure(error!))
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+                    continuation.resume(throwing: error!)
                 }
-                return
             }
-            completion(certificate)
         }
     }
 }
