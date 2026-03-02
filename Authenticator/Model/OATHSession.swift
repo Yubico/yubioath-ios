@@ -33,7 +33,7 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
         case .otpEnabledError:
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
         case .oathDisabledError:
-            return String(localized: "The OATH application is disabled on this YubiKey.", comment: "OATH disabled error message")
+            return String(localized: "The OATH application is disabled or not supported on this YubiKey.", comment: "OATH disabled error message")
         case .connectionCancelled:
             return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
         case .invalidDeviceInfo:
