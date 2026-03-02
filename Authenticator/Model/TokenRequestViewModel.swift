@@ -99,7 +99,7 @@ class TokenRequestViewModel: NSObject {
 
     func handleTokenRequest(_ userInfo: [AnyHashable: Any], password: String, completion: @escaping (TokenError?) -> Void) {
         connection.startConnection { connection in
-            connection.pivSession { session, error in
+            connection.pivSession { session, _, error in
                 guard let session = session else { Logger.ctk.error("No session: \(error!)"); return }
                 guard let operationType = userInfo.operationType() else { Logger.ctk.error("No OperationType defined"); return }
                 guard let type = userInfo.keyType(),
