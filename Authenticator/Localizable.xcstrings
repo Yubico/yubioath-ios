@@ -5953,7 +5953,7 @@
         }
       }
     },
-    "The OATH application is disabled on this YubiKey." : {
+    "The OATH application is disabled or not supported on this YubiKey." : {
       "comment" : "OATH disabled error message"
     },
     "The passwords do not match" : {
