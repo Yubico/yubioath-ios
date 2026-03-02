@@ -19,9 +19,10 @@ import OSLog
 
 class DisableOTPModel: ObservableObject {
 
-    @Published var otpDisabled: Bool = false
     @Published var keyIgnored: Bool = false
     @Published var isConfigurationLocked: Bool = false
+    @Published var isDisablingOTP: Bool = false
+    @Published var error: Error?
 
     init() {
         Logger.allocation.debug("DisableOTPModel: init")
@@ -43,14 +44,20 @@ class DisableOTPModel: ObservableObject {
     }
 
     func disableOTP() {
+        guard !isDisablingOTP else { return }
+        isDisablingOTP = true
         Task { @MainActor in
             guard let connection = OATHSessionHandler.shared.smartCardConnection else { return }
             guard let session = try? await connection.managementSession() else { return }
             guard let deviceInfo = try? await session.deviceInfo() else { return }
             guard let configuration = deviceInfo.configuration else { return }
             configuration.setEnabled(false, application: .OTP, overTransport: .USB)
-            try? await session.write(configuration, reboot: false)
-            self.otpDisabled = true
+            do {
+                try await session.write(configuration, reboot: true)
+            } catch {
+                self.error = error
+                isDisablingOTP = false
+            }
         }
     }
 
