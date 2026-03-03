@@ -23,7 +23,7 @@ struct MainView: View {
     @EnvironmentObject var toastPresenter: ToastPresenter
     @EnvironmentObject var notificationsViewModel: NotificationsViewModel
     
-    @StateObject var model = MainViewModel()
+    @EnvironmentObject var model: MainViewModel
     @State var showAccountDetails: AccountDetailsData? = nil
     @State var showAddAccount: Bool = false
     @State var addAccountCancellable: AnyCancellable?
@@ -165,14 +165,6 @@ struct MainView: View {
                     model.start()
                 }
         }
-        .fullScreenCover(isPresented: $model.presentDisableOTP) {
-            DisableOTPView()
-                .onAppear {
-                    model.stop()
-                }.onDisappear {
-                    model.start()
-                }
-        }
         .alert(String(localized: "Enter password", comment: "Password alert"), isPresented: $model.presentPasswordEntry) {
             SecureField(String(localized: "Password", comment: "Password alert"), text: $password)
             Button(String(localized: "Cancel", comment: "Password alert"), role: .cancel) { password = "" }
@@ -252,6 +244,21 @@ struct MainView: View {
                 showConfiguration = false
                 showAbout = false
                 showAccountDetails = nil
+            }
+        }
+        .onChange(of: model.presentDisableOTP) { presentDisableOTP in
+            if presentDisableOTP {
+                showAddAccount = false
+                showConfiguration = false
+                showAbout = false
+                showAccountDetails = nil
+                notificationsViewModel.presentDisableOTP = true
+            }
+        }
+        .onChange(of: notificationsViewModel.presentDisableOTP) { presentDisableOTP in
+            if !presentDisableOTP {
+                model.presentDisableOTP = false
+                model.start()
             }
         }
         .onChange(of: model.isKeyPluggedIn) { isKeyPluggedIn in

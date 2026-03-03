@@ -4781,6 +4781,7 @@
       }
     },
     "Remove and re-insert your YubiKey" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7531,6 +7532,7 @@
       }
     },
     "Yubico OTP has been disabled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
