@@ -285,34 +285,29 @@ extension TokenRequestViewModel {
 @available(iOS 14.0, *)
 private extension YKFPIVSession {
     func slotForObjectId(_ objectId: String, completion: @escaping (YKFPIVSlot?, TokenRequestViewModel.TokenError?) -> Void) {
-        self.getCertificateIn(.authentication) { certificate, error in
+        checkSlots(YKFPIVSlot.allSlots, forObjectId: objectId, completion: completion)
+    }
+
+    private func checkSlots(_ slots: [YKFPIVSlot], forObjectId objectId: String, completion: @escaping (YKFPIVSlot?, TokenRequestViewModel.TokenError?) -> Void) {
+        guard let slot = slots.first else {
+            let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
+            completion(nil, tokenError)
+            return
+        }
+
+        self.getCertificateIn(slot) { certificate, error in
             if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                completion(.authentication, nil)
+                completion(slot, nil)
                 return
             }
-            self.getCertificateIn(.signature) { certificate, error in
-                if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                    completion(.signature, nil)
-                    return
-                }
-                self.getCertificateIn(.keyManagement) { certificate, error in
-                    if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                        completion(.keyManagement, nil)
-                        return
-                    }
-                    self.getCertificateIn(.cardAuth) { certificate, error in
-                        if let certificate = certificate, certificate.tokenObjectId() == objectId {
-                            completion(.cardAuth, nil)
-                        } else if let apduError = error, (apduError as NSError).code != 0x6a82 {
-                            let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))
-                            completion(nil, tokenError)
-                        } else {
-                            let tokenError = TokenRequestViewModel.TokenError.missingCertificate(TokenRequestViewModel.ErrorMessage(title: "Missing certificate", text: "There is no matching certificate on this YubiKey."))
-                            completion(nil, tokenError)
-                        }
-                    }
-                }
+
+            if let apduError = error, (apduError as NSError).code != 0x6a82 {
+                let tokenError = TokenRequestViewModel.TokenError.communicationError(TokenRequestViewModel.ErrorMessage(title: "Communication error", text: apduError.localizedDescription))
+                completion(nil, tokenError)
+                return
             }
+
+            self.checkSlots(Array(slots.dropFirst()), forObjectId: objectId, completion: completion)
         }
     }
 }
