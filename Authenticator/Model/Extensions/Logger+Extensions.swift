@@ -24,4 +24,8 @@ public extension Logger {
     static let connection = Logger(subsystem: subsystem, category: "Connection")
     static let ctk = Logger(subsystem: subsystem, category: "CTK")
     static let system = Logger(subsystem: subsystem, category: "System")
+
+    func yubilog(_ message: String) {
+        self.debug("YUBICO_DEBUG: \(message)")
+    }
 }
