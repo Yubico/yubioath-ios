@@ -75,7 +75,7 @@ class SmartCardViewModel: NSObject {
 
         Task {
             do {
-                let session = try await connection.pivSession()
+                let session = try await connection.pivSessionSCPIfNeeded()
                 var certificates = [Certificate]()
 
                 for slot in YKFPIVSlot.allSlots {
@@ -107,7 +107,7 @@ extension YKFPIVSlot {
 
 @available(iOS 14.0, *)
 extension YKFConnectionProtocol {
-    func pivSession() async throws -> YKFPIVSession {
+    func pivSessionSCPIfNeeded() async throws -> YKFPIVSession {
         try await withCheckedThrowingContinuation { continuation in
             pivSession { session, _, error in
                 if let session {
