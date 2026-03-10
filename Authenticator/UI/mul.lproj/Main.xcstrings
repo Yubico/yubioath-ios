@@ -1490,7 +1490,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skopírovať OTP do schránky"
+            "value" : "Kopírovať Yubico OTP do schránky"
           }
         }
       }
@@ -2300,7 +2300,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Automaticky skopírovať OTP do schránky po naskenovaní kľúča YubiKey pomocou funkcie NFC."
+            "value" : "Automaticky skopírovať Yubico OTP do schránky, keď bol YubiKey pasívne naskenovaný pomocou funkcie NFC NDEF."
           }
         }
       }

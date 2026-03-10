@@ -10,7 +10,9 @@
 		<key>shouldPromptUser</key>
 		<false/>
 		<key>changes</key>
-		<string>            Added PIV decryption support to CryptoTokenKit extension, enabling mail clients to decrypt encrypted emails using private keys stored on YubiKey; Improved translations and localized strings.</string>
+		<string>
+            This version adds support for retired PIV slots and PIV decryption in the Smart card extension, enabling mail clients to decrypt encrypted emails using private keys stored on YubiKey. We've also added SCP11 support for PIV sessions over NFC on FIPS keys and improved PIV certificate display names. Additionally, we've improved how the app handles YubiKeys with the OATH application disabled and improved the reliability of the Yubico OTP disable feature. This version also includes improved translations and localized strings.
+        </string>
 	</dict>
 	<dict>
 		<key>version</key>

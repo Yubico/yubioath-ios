@@ -1434,8 +1434,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Decryption failed"
+            "state" : "translated",
+            "value" : "Dešifrovanie sa nepodarilo"
           }
         }
       }
@@ -2687,8 +2687,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Invalid decryption"
+            "state" : "translated",
+            "value" : "Neplatné dešifrovanie"
           }
         }
       }
@@ -5748,8 +5748,8 @@
         },
         "sk" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Successfully decrypted cipher data"
+            "state" : "translated",
+            "value" : "Šifrované údaje boli úspešne dešifrované"
           }
         }
       }
@@ -5955,7 +5955,33 @@
       }
     },
     "The OATH application is disabled or not supported on this YubiKey." : {
-      "comment" : "OATH disabled error message"
+      "comment" : "OATH disabled error message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        }
+      }
     },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message",
