@@ -224,6 +224,7 @@ struct MainView: View {
             if phase == .active && didEnterBackground {
                 didEnterBackground = false
 
+                guard !notificationsViewModel.showPIVTokenView else { return }
                 model.start() // This is called when app becomes active
             } else if phase == .background {
                 didEnterBackground = true

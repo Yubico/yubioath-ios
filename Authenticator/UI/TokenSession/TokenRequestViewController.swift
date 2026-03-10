@@ -72,7 +72,13 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         passwordTextField.delegate = self
-        
+        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
+            YubiKitManager.shared.startAccessoryConnection()
+        }
+        if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
+            YubiKitManager.shared.startSmartCardConnection()
+        }
+
         viewModel?.isYubiOTPEnabledOverUSBC { yubiOTPEnabled in
             if let yubiOTPEnabled, yubiOTPEnabled == true {
                 DispatchQueue.main.async {
