@@ -24,6 +24,10 @@ extension SecCertificate: Equatable {
         SecCertificateCopyCommonName(self, &name)
         return name as String?
     }
+
+    var subjectSummary: String? {
+        SecCertificateCopySubjectSummary(self) as String?
+    }
     
     func tokenObjectId() -> String {
         let data = SecCertificateCopyData(self) as Data

@@ -47,7 +47,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : " このバージョンの"
+            "value" : " を確認できます"
           }
         },
         "sk" : {
@@ -569,7 +569,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "他のアプリケーションで使用できます"
+            "value" : "これらの証明書はこの"
           }
         },
         "sk" : {
@@ -656,7 +656,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "導出"
+            "value" : "生成"
           }
         },
         "sk" : {
@@ -744,7 +744,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "この YubiKey の証明書は、 %@に追加すれば、他のアプリケーションからのリクエストの認証や署名に使用できる。"
+            "value" : "YubiKey上の証明書をこの%@に追加すると、他のアプリケーションからの認証や署名のリクエストに対して使用できるようになります。"
           }
         },
         "sk" : {
@@ -773,7 +773,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyの証明書"
+            "value" : "YubiKey上の証明書"
           }
         },
         "sk" : {
@@ -829,7 +829,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードを管理"
+            "value" : "パスワードを変更"
           }
         },
         "sk" : {
@@ -885,7 +885,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードを消去する"
+            "value" : "パスワードを消去します"
           }
         },
         "sk" : {
@@ -913,7 +913,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このデバイスに保存されているパスワードを消去します。これにより、次回パスワード保護されたYubiKeyを使用する際にパスワードの入力を求められます。"
+            "value" : "このデバイスに保存しているパスワードを消去します。これにより、パスワードで保護されたYubiKeyを次に使用する際にパスワードの入力を求められます。"
           }
         },
         "sk" : {
@@ -1027,7 +1027,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コードを導出しました"
+            "value" : "コードを生成しました"
           }
         },
         "sk" : {
@@ -1085,7 +1085,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "コードは導出されていません"
+            "value" : "コードは生成されませんでした"
           }
         },
         "sk" : {
@@ -1229,7 +1229,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "サポートへのお問い合わせ"
+            "value" : "サポートに問い合わせる"
           }
         },
         "sk" : {
@@ -1286,7 +1286,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "クリップボードにコピーされました"
+            "value" : "クリップボードにコピーしました"
           }
         },
         "sk" : {
@@ -1344,7 +1344,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在"
+            "value" : "現在のパスワード"
           }
         },
         "sk" : {
@@ -1411,6 +1411,35 @@
         }
       }
     },
+    "Decryption failed" : {
+      "comment" : "PIV extension decryption failed error message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Decryption failed"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Decryption failed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Decryption failed"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dešifrovanie sa nepodarilo"
+          }
+        }
+      }
+    },
     "Delete" : {
       "comment" : "Menu",
       "localizations" : {
@@ -1457,7 +1486,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アカウントを削除しますか？?"
+            "value" : "アカウントを削除しますか？"
           }
         },
         "sk" : {
@@ -1570,7 +1599,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます."
+            "value" : "Yubico OTPを無効にすると、YubiKeyがキーボードとして表示されなくなります。Yubico OTPを使用しない場合は、これが推奨される解決策です。Yubico OTPは、設定ページから再度有効にできます。"
           }
         },
         "sk" : {
@@ -1713,7 +1742,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "現在の暗証番号を入力"
+            "value" : "現在のPINを入力"
           }
         },
         "sk" : {
@@ -1827,7 +1856,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号を入力"
+            "value" : "PINを入力"
           }
         },
         "sk" : {
@@ -2286,7 +2315,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、FIDOアプリケーションはPINで保護することができる。"
+            "value" : "強固なセキュリティと不正なアクセスの防止のため、FIDOアプリケーションをPINで保護できます。"
           }
         },
         "sk" : {
@@ -2315,7 +2344,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "さらにセキュリティを高め、不正アクセスを防ぐために、YubiKeyはパスワードで保護することができます。"
+            "value" : "強固なセキュリティと不正なアクセスの防止のため、YubiKeyをパスワードで保護できます。"
           }
         },
         "sk" : {
@@ -2596,7 +2625,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyを挿入"
+            "value" : "YubiKey を挿入してください"
           }
         },
         "sk" : {
@@ -2631,6 +2660,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vložte kľúč YubiKey alebo potiahnite nadol, aby ste aktivovali NFC"
+          }
+        }
+      }
+    },
+    "Invalid decryption" : {
+      "comment" : "PIV extension NFC invalid decryption",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invalid decryption"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invalid decryption"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Invalid decryption"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neplatné dešifrovanie"
           }
         }
       }
@@ -2938,7 +2996,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このYubiKeyには使用しないでください"
+            "value" : "この YubiKey では保存しない"
           }
         },
         "sk" : {
@@ -2967,7 +3025,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新しい"
+            "value" : "新しいパスワード"
           }
         },
         "sk" : {
@@ -3224,7 +3282,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyに一致するアカウントがありません"
+            "value" : "一致するアカウントがYubiKeyにありません"
           }
         },
         "sk" : {
@@ -3369,7 +3427,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今はできません"
+            "value" : "今は保存しない"
           }
         },
         "sk" : {
@@ -3398,7 +3456,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "有効な資格情報ではありません"
+            "value" : "有効なクレデンシャル情報ではありません"
           }
         },
         "sk" : {
@@ -3512,7 +3570,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OATHパスワード"
+            "value" : "OATHのパスワード"
           }
         },
         "sk" : {
@@ -3541,7 +3599,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "オプションのパスワード保護"
+            "value" : "OATHのパスワード保護"
           }
         },
         "sk" : {
@@ -3569,7 +3627,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OATHパスワード"
+            "value" : "OATHのパスワード"
           }
         },
         "sk" : {
@@ -3656,7 +3714,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このYubiKeyで"
+            "value" : "というアカウント名が既に存在します"
           }
         },
         "sk" : {
@@ -3713,7 +3771,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "オペレーションがタイムアウトしました。"
+            "value" : "操作がタイムアウトしました。"
           }
         },
         "sk" : {
@@ -3914,7 +3972,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードが変更されました"
+            "value" : "パスワードを変更しました"
           }
         },
         "sk" : {
@@ -3943,7 +4001,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードが削除されました"
+            "value" : "パスワードを削除しました"
           }
         },
         "sk" : {
@@ -3972,7 +4030,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードが設定されました"
+            "value" : "パスワードを設定しました"
           }
         },
         "sk" : {
@@ -4028,7 +4086,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードが一致しない"
+            "value" : "パスワードが一致しません"
           }
         },
         "sk" : {
@@ -4114,7 +4172,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号が変更されました"
+            "value" : "PINを変更しました"
           }
         },
         "sk" : {
@@ -4142,7 +4200,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PIN が設定されています"
+            "value" : "PINを設定しました"
           }
         },
         "sk" : {
@@ -4512,7 +4570,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@における公開鍵証明書"
+            "value" : "%@上の公開鍵証明書"
           }
         },
         "sk" : {
@@ -4568,7 +4626,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワード再入力"
+            "value" : "パスワードを再入力してください"
           }
         },
         "sk" : {
@@ -4596,7 +4654,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "暗証番号の再入力"
+            "value" : "PINを再入力してください"
           }
         },
         "sk" : {
@@ -4683,7 +4741,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyを再挿入してください."
+            "value" : "YubiKeyを再挿入してください。"
           }
         },
         "sk" : {
@@ -4723,6 +4781,7 @@
       }
     },
     "Remove and re-insert your YubiKey" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4968,7 +5027,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "誓いのリセット"
+            "value" : "OATHのリセット"
           }
         },
         "sk" : {
@@ -5082,7 +5141,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードを保存"
+            "value" : "パスワードを保存する"
           }
         },
         "sk" : {
@@ -5283,7 +5342,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "参照 "
+            "value" : "このバージョンの "
           }
         },
         "sk" : {
@@ -5666,6 +5725,35 @@
         }
       }
     },
+    "Successfully decrypted cipher data" : {
+      "comment" : "PIV extension NFC successfully decrypted cipher data",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Successfully decrypted cipher data"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Successfully decrypted cipher data"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Successfully decrypted cipher data"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Šifrované údaje boli úspešne dešifrované"
+          }
+        }
+      }
+    },
     "Successfully read" : {
       "comment" : "iOS NFC alert successfully read",
       "localizations" : {
@@ -5866,6 +5954,35 @@
         }
       }
     },
+    "The OATH application is disabled or not supported on this YubiKey." : {
+      "comment" : "OATH disabled error message",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The OATH application is disabled or not supported on this YubiKey."
+          }
+        }
+      }
+    },
     "The passwords do not match" : {
       "comment" : "Configuration set password not matching error alert message",
       "extractionState" : "stale",
@@ -5897,7 +6014,7 @@
       }
     },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
-      "comment" : "PIV extension NFC invalid signature no private key",
+      "comment" : "PIV extension NFC invalid decryption no private key\nPIV extension NFC invalid signature no private key",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6028,7 +6145,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyにはもうOATHアカウント用のストレージはない。"
+            "value" : "\"YubiKeyのOATHアカウント用ストレージに空きがありません。"
           }
         },
         "sk" : {
@@ -6085,7 +6202,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "という名前のアカウントがすでに存在します"
+            "value" : "このYubikeyには"
           }
         },
         "sk" : {
@@ -6115,7 +6232,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これらの証明書はこれに追加されています"
+            "value" : "に追加されていて、他のアプリケーションからも使用できます"
           }
         },
         "sk" : {
@@ -6144,7 +6261,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これらの証明書はこの %@ に追加され、他のアプリケーションで使用できる。"
+            "value" : "これらの証明書はこの%@に追加されていて、他のアプリケーションからも使用できます。"
           }
         },
         "sk" : {
@@ -6398,7 +6515,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します."
+            "value" : "このYubiKeyはYubico OTPが有効になっているため、iPhoneへの外付けキーボードとして表示されます。これが原因で、標準のオンスクリーンキーボードで問題が発生します。"
           }
         },
         "sk" : {
@@ -6455,7 +6572,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不正アクセスを防ぐため、FIDOアプリケーションはPINで保護することができる。"
+            "value" : "FIDOアプリケーションをPINで保護して、不正なアクセスを防ぐことができます。"
           }
         },
         "sk" : {
@@ -6483,7 +6600,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不正アクセスを防ぐため、OATHアプリケーションはパスワードで保護することができます。"
+            "value" : "OATHアプリケーションをパスワードで保護して、不正なアクセスを防ぐことができます。"
           }
         },
         "sk" : {
@@ -6512,7 +6629,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不正アクセスを防止するため、このYubiKeyはパスワードで保護されます。"
+            "value" : "この YubiKey は不正なアクセスからパスワードで保護されています。"
           }
         },
         "sk" : {
@@ -6626,7 +6743,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ここでYubiKeyのボタンをタッチしてください."
+            "value" : "ここでYubiKeyのボタンをタッチしてください。"
           }
         },
         "sk" : {
@@ -6884,7 +7001,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyを抜いてください."
+            "value" : "YubiKeyを抜いてください。"
           }
         },
         "sk" : {
@@ -6970,7 +7087,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ベリファイ"
+            "value" : "パスワードの確認"
           }
         },
         "sk" : {
@@ -7027,7 +7144,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "警告だ！"
+            "value" : "警告！"
           }
         },
         "sk" : {
@@ -7171,7 +7288,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります."
+            "value" : "YubiKeyが挿入されている間は、オンスクリーンキーボードが表示されません。キーボードを表示するにはYubiKeyを取り外し、その後再挿入する必要があります。"
           }
         },
         "sk" : {
@@ -7441,6 +7558,7 @@
       }
     },
     "Yubico OTP has been disabled" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

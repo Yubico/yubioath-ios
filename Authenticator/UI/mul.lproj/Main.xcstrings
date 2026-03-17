@@ -392,7 +392,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます。"
+            "value" : "強固なセキュリティと不正なアクセスの防止のため、YubiKeyをパスワードで保護できます。"
           }
         },
         "sk" : {
@@ -1448,7 +1448,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "セキュリティを強化し、不正アクセスを防止するために、YubiKeyをパスワードで保護できます"
+            "value" : "強固なセキュリティと不正なアクセスの防止のため、YubiKeyをパスワードで保護できます"
           }
         },
         "sk" : {
@@ -1460,7 +1460,7 @@
       }
     },
     "hsz-tV-DPW.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Copy OTP to clipboard\"; ObjectID = \"hsz-tV-DPW\";",
+      "comment" : "Class = \"UILabel\"; text = \"Copy Yubico OTP to clipboard\"; ObjectID = \"hsz-tV-DPW\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -1472,7 +1472,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy OTP to clipboard"
+            "value" : "Copy Yubico OTP to clipboard"
           }
         },
         "fr" : {
@@ -1490,7 +1490,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skopírovať OTP do schránky"
+            "value" : "Kopírovať Yubico OTP do schránky"
           }
         }
       }
@@ -2270,7 +2270,7 @@
       }
     },
     "oy6-QK-Bgw.footerTitle" : {
-      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality.\"; ObjectID = \"oy6-QK-Bgw\";",
+      "comment" : "Class = \"UITableViewSection\"; footerTitle = \"Copy Yubico OTP automatically to clipboard when a YubiKey has been passively scanned using the NFC NDEF tag functionality.\"; ObjectID = \"oy6-QK-Bgw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
@@ -2282,7 +2282,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality."
+            "value" : "Copy Yubico OTP automatically to clipboard when a YubiKey has been passively scanned using the NFC NDEF tag functionality."
           }
         },
         "fr" : {
@@ -2300,7 +2300,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Automaticky skopírovať OTP do schránky po naskenovaní kľúča YubiKey pomocou funkcie NFC."
+            "value" : "Automaticky skopírovať Yubico OTP do schránky, keď bol YubiKey pasívne naskenovaný pomocou funkcie NFC NDEF."
           }
         }
       }

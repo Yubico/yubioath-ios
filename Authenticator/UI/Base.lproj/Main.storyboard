@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24128" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="ApK-64-tef">
-                            <rect key="frame" x="0.0" y="367.33332443237305" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="373.66667556762695" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WaV-Pv-SDy">
@@ -47,19 +47,19 @@
                             <tableViewSection footerTitle="" id="BkP-4C-tUY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Bcv-I5-rpb">
-                                        <rect key="frame" x="16" y="18" width="343" height="282.66665649414062"/>
+                                        <rect key="frame" x="16" y="18" width="343" height="283.33334350585938"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bcv-I5-rpb" id="AZZ-wS-i7w">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="283"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-Time Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6z-Ri-5bh">
-                                                    <rect key="frame" x="10" y="97" width="323" height="25.666666666666671"/>
+                                                    <rect key="frame" x="10" y="97" width="323" height="26.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjs-4B-RzZ">
-                                                    <rect key="frame" x="25" y="132.66666666666666" width="293" height="129.99999999999997"/>
+                                                    <rect key="frame" x="25" y="133.33333333333334" width="293" height="130.00000000000003"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="130" id="gcT-du-bvQ"/>
                                                     </constraints>
@@ -110,23 +110,23 @@
                                         </accessibility>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="f7R-rY-Z1y">
-                                        <rect key="frame" x="16" y="300.66665649414062" width="343" height="44.666667938232422"/>
+                                        <rect key="frame" x="16" y="301.33334350585938" width="343" height="50.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f7R-rY-Z1y" id="cvd-7i-xeA">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tiN-0d-LuM">
-                                                    <rect key="frame" x="16" y="-3" width="311" height="50.666666666666664"/>
+                                                    <rect key="frame" x="16" y="1" width="311" height="48.333333333333336"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-Time Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mC-4P-2g3">
-                                                            <rect key="frame" x="0.0" y="0.0" width="247" height="50.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="235" height="48.333333333333336"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E8d-45-7V7">
-                                                            <rect key="frame" x="262" y="9.6666666666666696" width="51" height="31.333333333333329"/>
+                                                            <rect key="frame" x="250" y="9.6666666666666643" width="63" height="29"/>
                                                             <color key="onTintColor" name="YubiBlue"/>
                                                             <connections>
                                                                 <action selector="changeSetting:" destination="aoN-t0-WPq" eventType="valueChanged" id="GGg-bF-hDH"/>
@@ -178,7 +178,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orh-Ia-acz" userLabel="Accessory View">
-                                <rect key="frame" x="30" y="187" width="315" height="40"/>
+                                <rect key="frame" x="30" y="237" width="315" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insert a YubiKey and enter its PIN to access the certificate." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noy-hK-f0E">
                                         <rect key="frame" x="35" y="0.0" width="280" height="40"/>
@@ -207,7 +207,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhF-Zo-2iR" userLabel="PIN View">
-                                <rect key="frame" x="20" y="403.33333333333331" width="335" height="50"/>
+                                <rect key="frame" x="20" y="453.33333333333331" width="335" height="50"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Smart card (PIV) PIN" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JON-gB-7WG">
                                         <rect key="frame" x="82.666666666666686" y="14" width="170" height="22"/>
@@ -243,13 +243,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock YubiKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2N-dk-eMF">
-                                <rect key="frame" x="113" y="120" width="149" height="27"/>
+                                <rect key="frame" x="113" y="170" width="149" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUC-vU-Hsv">
-                                <rect key="frame" x="30" y="287" width="315" height="56.333333333333314"/>
+                                <rect key="frame" x="30" y="337" width="315" height="56.333333333333314"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the PIN, then tap a NFC enabled YubiKey against the iPhone to access the certificate." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGy-0e-K7w">
                                         <rect key="frame" x="35" y="0.0" width="280" height="57.333333333333336"/>
@@ -275,7 +275,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-pP-paH">
-                                <rect key="frame" x="20" y="242" width="335" height="30"/>
+                                <rect key="frame" x="20" y="292" width="335" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pD5-QU-h4Q">
                                         <rect key="frame" x="0.0" y="14.666666666666686" width="335" height="1"/>
@@ -378,7 +378,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <view key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="wGK-Gb-ggw">
-                            <rect key="frame" x="0.0" y="497.66666412353516" width="375" height="208"/>
+                            <rect key="frame" x="0.0" y="521.9999885559082" width="375" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
@@ -386,23 +386,23 @@
                             <tableViewSection footerTitle="Initiate NFC at application start will automatically read your YubiKey as soon as the app becomes active." id="gQR-ie-6Y0">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="8bq-0Q-S5P">
-                                        <rect key="frame" x="16" y="18" width="343" height="43.666667938232422"/>
+                                        <rect key="frame" x="16" y="18" width="343" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8bq-0Q-S5P" id="pZV-b5-wF2">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="mzD-Gq-DDl">
-                                                    <rect key="frame" x="16.666666666666657" y="6.3333333333333321" width="310.33333333333337" height="30.999999999999996"/>
+                                                    <rect key="frame" x="16.666666666666657" y="11.666666666666664" width="310.33333333333337" height="27.999999999999993"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initiate NFC at application start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Efl-xJ-qER">
-                                                            <rect key="frame" x="0.0" y="5.3333333333333339" width="246.33333333333334" height="20.333333333333329"/>
+                                                            <rect key="frame" x="0.0" y="3.6666666666666679" width="234.33333333333334" height="20.333333333333332"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4u-GU-EoJ">
-                                                            <rect key="frame" x="261.33333333333331" y="0.0" width="51" height="31"/>
+                                                            <rect key="frame" x="249.33333333333337" y="0.0" width="63" height="28"/>
                                                             <color key="onTintColor" name="YubiBlue"/>
                                                             <connections>
                                                                 <action selector="changeNFCOnAppLaunchSetting:" destination="zNg-aX-Qai" eventType="valueChanged" id="4fJ-TW-TU5"/>
@@ -427,23 +427,23 @@
                                 <string key="footerTitle">Accounts that require touch will need an extra NFC tap to calculate its code. Bypassing it minimizes the number of NFC taps needed.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="YeE-yN-d6Q">
-                                        <rect key="frame" x="16" y="141.66666603088379" width="343" height="44.666667938232422"/>
+                                        <rect key="frame" x="16" y="148.99999809265137" width="343" height="50.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YeE-yN-d6Q" id="zfQ-Td-vWJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="HFa-lp-4jd">
-                                                    <rect key="frame" x="16" y="-3" width="311" height="50.666666666666664"/>
+                                                    <rect key="frame" x="16" y="1" width="311" height="48.333333333333336"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bypass touch requirement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frN-Of-d1s">
-                                                            <rect key="frame" x="0.0" y="15.333333333333334" width="247" height="20.333333333333329"/>
+                                                            <rect key="frame" x="0.0" y="13.999999999999998" width="235" height="20.333333333333321"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fuy-PU-CzD">
-                                                            <rect key="frame" x="262" y="9.6666666666666696" width="51" height="31.333333333333329"/>
+                                                            <rect key="frame" x="250" y="9.6666666666666643" width="63" height="29"/>
                                                             <color key="onTintColor" name="YubiBlue"/>
                                                             <connections>
                                                                 <action selector="changeBypassTouchSetting:" destination="zNg-aX-Qai" eventType="valueChanged" id="xDG-VS-RVN"/>
@@ -471,23 +471,23 @@
                             <tableViewSection footerTitle="Start NFC and read OATH accounts when the application has been opened by reading the OTP tag on a YubiKey." id="JSq-rh-zB3">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="xLu-6A-op7">
-                                        <rect key="frame" x="16" y="266.33333206176758" width="343" height="44.666667938232422"/>
+                                        <rect key="frame" x="16" y="279.33332824707031" width="343" height="50.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xLu-6A-op7" id="J6T-hD-CK4">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2fV-hk-Nye">
-                                                    <rect key="frame" x="16" y="-3" width="311" height="50.666666666666664"/>
+                                                    <rect key="frame" x="16" y="1" width="311" height="48.333333333333336"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activate NFC on OTP tag read" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byl-RD-bpD">
-                                                            <rect key="frame" x="0.0" y="15.333333333333334" width="247" height="20.333333333333329"/>
+                                                            <rect key="frame" x="0.0" y="13.999999999999998" width="235" height="20.333333333333321"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c18-iq-7YH">
-                                                            <rect key="frame" x="262" y="9.6666666666666696" width="51" height="31.333333333333329"/>
+                                                            <rect key="frame" x="250" y="9.6666666666666643" width="63" height="29"/>
                                                             <color key="onTintColor" name="YubiBlue"/>
                                                             <connections>
                                                                 <action selector="changeNFCOnOTPLaunchSetting:" destination="zNg-aX-Qai" eventType="valueChanged" id="WBq-KH-VXU"/>
@@ -512,26 +512,26 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection footerTitle="Copy OTP automatically to clipboard when a YubiKey has been scanned using the NFC tag functionality." id="oy6-QK-Bgw">
+                            <tableViewSection footerTitle="Copy Yubico OTP automatically to clipboard when a YubiKey has been passively scanned using the NFC NDEF tag functionality." id="oy6-QK-Bgw">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="Jey-gn-Ds9">
-                                        <rect key="frame" x="16" y="390.99999809265137" width="343" height="44.666667938232422"/>
+                                        <rect key="frame" x="16" y="409.66665840148926" width="343" height="50.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jey-gn-Ds9" id="dq0-Qu-GIJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="50.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="olr-cT-8VC">
-                                                    <rect key="frame" x="16" y="-3" width="311" height="50.666666666666664"/>
+                                                    <rect key="frame" x="16" y="1" width="311" height="48.333333333333336"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy OTP to clipboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsz-tV-DPW">
-                                                            <rect key="frame" x="0.0" y="15.333333333333334" width="247" height="20.333333333333329"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy Yubico OTP to clipboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsz-tV-DPW">
+                                                            <rect key="frame" x="0.0" y="13.999999999999998" width="235" height="20.333333333333321"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jjo-aP-iV6">
-                                                            <rect key="frame" x="262" y="9.6666666666666696" width="51" height="31.333333333333329"/>
+                                                            <rect key="frame" x="250" y="9.6666666666666643" width="63" height="29"/>
                                                             <color key="onTintColor" name="YubiBlue"/>
                                                             <connections>
                                                                 <action selector="changeCopyOTPSetting:" destination="zNg-aX-Qai" eventType="valueChanged" id="95g-Qd-yhw"/>
@@ -579,7 +579,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="8kr-pH-b2j">
-                                <rect key="frame" x="25" y="85" width="325" height="69"/>
+                                <rect key="frame" x="25" y="135" width="325" height="69"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP has been disabled" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-EW-Cgh">
                                         <rect key="frame" x="0.0" y="0.0" width="325" height="33.666666666666664"/>
@@ -596,7 +596,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-GL-iId">
-                                <rect key="frame" x="15" y="50" width="345" height="400.33333333333331"/>
+                                <rect key="frame" x="15" y="99.999999999999972" width="345" height="400.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yubico OTP enabled" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26R-OJ-dML">
                                         <rect key="frame" x="0.0" y="0.0" width="345" height="33.666666666666664"/>
@@ -612,7 +612,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yo4-ef-tkZ">
-                                        <rect key="frame" x="0.0" y="165.33333333333334" width="345" height="34.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="165.33333333333331" width="345" height="34.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Disable Yubico OTP (recommended)"/>
                                         <connections>

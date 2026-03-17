@@ -17,9 +17,10 @@
 import Foundation
 
 enum OATHSessionError: Error, LocalizedError, Equatable {
-    
+
     case credentialAlreadyPresent(YKFOATHCredentialTemplate)
     case otpEnabledError
+    case oathDisabledError
     case connectionCancelled
     case invalidDeviceInfo
     case nfcNotSupported
@@ -31,6 +32,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
             return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
         case .otpEnabledError:
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
+        case .oathDisabledError:
+            return String(localized: "The OATH application is disabled or not supported on this YubiKey.", comment: "OATH disabled error message")
         case .connectionCancelled:
             return String(localized: "Connection cancelled by user", comment: "Internal error message not to be displayed to the user.")
         case .invalidDeviceInfo:
@@ -45,9 +48,9 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
 
 
 class OATHSessionHandler: NSObject, YKFManagerDelegate {
-    
+
     typealias ClosingCallback = ((_ error: Error?) -> Void)
-    
+
     var nfcConnection: YKFNFCConnection?
     var smartCardConnection: YKFSmartCardConnection?
     var accessoryConnection: YKFAccessoryConnection?
@@ -153,25 +156,37 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
             return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
                 self.wiredContinuation = continuation
                 self.wiredConnectionCallback = { connection in
-                    if connection.isKind(of: YKFSmartCardConnection.self) && deviceType == .phone {
-                        connection.managementSession { session, error in
-                            guard let session else {
+                    let connectOATHDirectly = {
+                        connection.oathSession { session, error in
+                            if let session {
+                                self.currentSession = session
+                                self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
+                            } else if let nsError = error as? NSError, nsError.domain == "com.yubico", nsError.code == 0x5 {
+                                self.wiredContinuation?.resume(throwing: OATHSessionError.oathDisabledError)
+                            } else {
                                 self.wiredContinuation?.resume(throwing: error!)
-                                self.wiredContinuation = nil
-                                self.wiredConnectionCallback = nil
+                            }
+                            self.wiredContinuation = nil
+                            self.wiredConnectionCallback = nil
+                        }
+                    }
+                    if connection.isKind(of: YKFSmartCardConnection.self) && deviceType == .phone {
+                        connection.managementSession { managementSession, error in
+                            guard let managementSession else {
+                                connectOATHDirectly()
                                 return
                             }
-                            session.getDeviceInfo { deviceInfo, error in
-                                guard let deviceInfo else {
-                                    self.wiredContinuation?.resume(throwing: error!)
-                                    self.wiredContinuation = nil
-                                    self.wiredConnectionCallback = nil
-                                    return
-                                }
-                                guard let configuration = deviceInfo.configuration else {
-                                    self.wiredContinuation?.resume(throwing: OATHSessionError.invalidDeviceInfo)
-                                    self.wiredContinuation = nil
-                                    self.wiredConnectionCallback = nil
+                            managementSession.getDeviceInfo { deviceInfo, error in
+                                guard let deviceInfo, let configuration = deviceInfo.configuration else {
+                                    // NEO (version 3.x) needs de-select workaround after Management Applet
+                                    // See: https://github.com/Yubico/yubikit-manager/blob/main/yubikit/support.py#L89
+                                    if managementSession.version.major == 3 {
+                                        connection.executeRawCommand(Data([0xa4, 0x04, 0x00, 0x08])) { _, _ in
+                                            connectOATHDirectly()
+                                        }
+                                    } else {
+                                        connectOATHDirectly()
+                                    }
                                     return
                                 }
                                 guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
@@ -180,30 +195,11 @@ class OATHSessionHandler: NSObject, YKFManagerDelegate {
                                     self.wiredConnectionCallback = nil
                                     return
                                 }
-                                connection.oathSession { session, error in
-                                    if let session {
-                                        self.currentSession = session
-                                        self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
-                                    } else {
-                                        self.wiredContinuation?.resume(throwing: error!)
-                                    }
-                                    self.wiredContinuation = nil
-                                    self.wiredConnectionCallback = nil
-                                    return
-                                }
+                                connectOATHDirectly()
                             }
                         }
                     } else {
-                        connection.oathSession { session, error in
-                            if let session {
-                                self.currentSession = session
-                                self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
-                            } else {
-                                self.wiredContinuation?.resume(throwing: error!)
-                            }
-                            self.wiredContinuation = nil
-                            self.wiredConnectionCallback = nil
-                        }
+                        connectOATHDirectly()
                     }
                 }
                 if let connection: YKFConnectionProtocol = self.accessoryConnection ?? self.smartCardConnection {

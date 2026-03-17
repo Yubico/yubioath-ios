@@ -41,7 +41,7 @@ struct SmartCardConfigurationView: View {
             }
             .alert(String(localized: "Smart card extension", comment: "PIV extension info alert title"), isPresented: $presentHelpAlert, actions: {
                 Button(role: .none) {
-                    if let url = URL(string: "https://www.yubico.com/blog/yubico-pioneers-the-simplification-of-smartcard-support-on-mobile-for-ios/") {
+                    if let url = URL(string: "https://docs.yubico.com/software/yubikey/tools/authenticator/auth-guide/smart-card-index.html") {
                         UIApplication.shared.open(url)
                     }
                 } label: {
@@ -211,7 +211,7 @@ class SmartCardConfigurationController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let certificate = certificates[indexPath.row - 1]
-                cell.name = "\(certificate.certificate.commonName ?? String(localized: "No name", comment: "PIV extension certificate with no name"))  (slot \(String(format: "%02X", certificate.slot.rawValue)))"
+                cell.name = "\(certificate.certificate.subjectSummary ?? String(localized: "No name", comment: "PIV extension certificate with no name")) (slot \(String(format: "%02X", certificate.slot.rawValue)))"
                 if !tokens.contains(certificate.certificate) {
                      cell.action = { [weak self] in
                         self?.storeTokenCertificate(certificate: certificate.certificate)
@@ -236,7 +236,7 @@ class SmartCardConfigurationController: UITableViewController {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateCell", for: indexPath) as! CertificateCell
                 let token = tokens[indexPath.row - 1]
-                cell.name = token.commonName
+                cell.name = token.subjectSummary
                 cell.setSymbol(symbol: "minus.circle")
                 cell.action = { [weak self] in
                     self?.removeTokenCertificate(certificate: token)

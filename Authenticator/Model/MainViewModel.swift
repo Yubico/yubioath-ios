@@ -114,7 +114,11 @@ class MainViewModel: ObservableObject {
             } catch {
                 if let sessionError = error as? OATHSessionError {
                     if sessionError == .otpEnabledError {
+                        self?.isKeyPluggedIn = true
                         self?.presentDisableOTP = true
+                    } else if sessionError == .oathDisabledError {
+                        // Don't set connectionError to avoid restart loop - use sessionError instead
+                        self?.sessionError = error
                     } else if sessionError != .connectionCancelled {
                         self?.connectionError = error
                     }
