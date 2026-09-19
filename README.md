@@ -21,7 +21,7 @@ codes.
 
 ## CryptTokenKit extension
 
-Besides the OATH functionality this app also support authetication using the CTK extension
+Besides the OATH functionality this app also support authentication using the CTK extension
 functionality provided by Apple. The authentication is handled using certificates stored 
 in the Smart card application on the YubiKey.
 
