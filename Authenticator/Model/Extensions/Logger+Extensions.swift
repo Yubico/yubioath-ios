@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 
 import OSLog
 
-public extension Logger {
+nonisolated public extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
 
     static let ui = Logger(subsystem: subsystem, category: "UI")

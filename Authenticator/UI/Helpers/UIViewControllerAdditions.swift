@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@ import Foundation
 import LocalAuthentication
 
 extension UIViewController {
-    static let PasswordUserDefaultsKey = "PasswordSaveType"
+    nonisolated static let PasswordUserDefaultsKey = "PasswordSaveType"
  
     /*! Show error dialog to notify if some operation couldn't be executed
      */

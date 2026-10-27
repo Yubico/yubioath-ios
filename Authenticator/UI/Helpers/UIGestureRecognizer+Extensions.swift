@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +20,7 @@ extension UIGestureRecognizer {
     typealias Action = ((UIGestureRecognizer) -> ())
     
     private struct Keys {
-        static var actionKey = "ActionKey"
+        nonisolated(unsafe) static var actionKey: UInt8 = 0
     }
     
     private var block: Action? {

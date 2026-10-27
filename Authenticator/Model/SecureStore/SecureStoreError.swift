@@ -1,4 +1,5 @@
 /// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2026 Kenzi Voyer
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +31,7 @@
 
 import Foundation
 
-public enum SecureStoreError: Error {
+nonisolated public enum SecureStoreError: Error {
     case string2DataConversionError
     case data2StringConversionError
     case dataCastError
@@ -40,7 +41,7 @@ public enum SecureStoreError: Error {
 
 /*! Represents type of errors that happen during communication with SecureStore
  */
-extension SecureStoreError: LocalizedError {
+nonisolated extension SecureStoreError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .string2DataConversionError:

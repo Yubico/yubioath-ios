@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +18,7 @@
 import Foundation
 import CommonCrypto
 
-extension SecCertificate: Equatable {
+nonisolated extension SecCertificate: @retroactive Equatable {
     
     var commonName: String? {
         var name: CFString?

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +18,7 @@
 import Foundation
 import CryptoKit
 
-extension Data {
+nonisolated extension Data {
     func sha256Hash() -> Data {
         let digest = SHA256.hash(data: self)
         let bytes = Array(digest.makeIterator())
@@ -25,7 +26,7 @@ extension Data {
     }
 }
 
-extension Data {
+nonisolated extension Data {
     var uint32: UInt32? {
         guard self.count == MemoryLayout<UInt32>.size else { return nil }
         return withUnsafeBytes { $0.load(as: UInt32.self) }
