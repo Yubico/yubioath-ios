@@ -49,12 +49,12 @@ struct AppIconView: View {
                             .padding(.vertical, 4)
                             .accessibilityHidden(true)
                         Text(icon.title)
-                            .foregroundColor(Color(.label))
+                            .foregroundStyle(Color(.label))
                             .padding(.leading, 8)
                         Spacer()
                         if selected == icon.iconName {
                             Image(systemName: "checkmark")
-                                .foregroundColor(.accentColor)
+                                .foregroundStyle(Color.accentColor)
                         }
                     }
                 }

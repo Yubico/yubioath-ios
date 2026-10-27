@@ -40,7 +40,7 @@ struct ConfigurationView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100, height: 100)
-                            .foregroundColor(Color(.symbol))
+                            .foregroundStyle(Color(.symbol))
                             .padding(15)
                             .accessibilityHidden(true)
                         Text(insertYubiKeyMessage)
@@ -220,9 +220,9 @@ struct ListIconView: View {
             .font(Font.title.weight(.semibold))
             .padding(padding)
             .frame(width: 29, height: 29)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .background(color)
-            .cornerRadius(6.5)
+            .clipShape(.rect(cornerRadius: 6.5))
     }
 }
 

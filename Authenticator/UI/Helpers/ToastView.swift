@@ -28,11 +28,11 @@ struct ToastView: View {
             Text(message)
                 .font(.body)
                 // YubiBlue is a light green in dark mode, so white text would lose its contrast there.
-                .foregroundColor(Color(.systemBackground))
+                .foregroundStyle(Color(.systemBackground))
                 .fixedSize(horizontal: true, vertical: true)
                 .padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                 .background(Color(.yubiBlue))
-                .cornerRadius(20)
+                .clipShape(.rect(cornerRadius: 20))
                 .shadow(radius: 5)
         }
     }

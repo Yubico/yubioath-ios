@@ -28,7 +28,7 @@ struct YubiOtpRowView: View {
             Image("yubikey")
                 .frame(width:40, height: 40)
                 .background(Color.accentColor)
-                .cornerRadius(20)
+                .clipShape(.circle)
                 .padding(.trailing, 5)
             VStack(alignment: .leading) {
                 Text(otp)

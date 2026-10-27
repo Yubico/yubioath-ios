@@ -31,7 +31,7 @@ struct ListStatusView: View {
                 Spacer()
                 image
                     .font(.system(size: 100.0))
-                    .foregroundColor(Color(.symbol))
+                    .foregroundStyle(Color(.symbol))
                     .accessibilityHidden(true)
                 Text(message)
                     .font(.title3)

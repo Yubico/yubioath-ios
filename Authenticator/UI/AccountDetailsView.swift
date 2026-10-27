@@ -48,7 +48,7 @@ struct AccountDetailView: View {
             account.subTitle.map {
                 Text($0)
                     .font(.body)
-                    .foregroundColor(Color(.secondaryLabel))
+                    .foregroundStyle(Color(.secondaryLabel))
                     .multilineTextAlignment(.center)
             }
             Button(action: copyCode) {
@@ -109,19 +109,15 @@ struct AccountDetailView: View {
         .sheet(isPresented: $showEditing) {
             EditView(account: account, viewModel: model, showEditing: $showEditing)
         }
-        .alert(isPresented: $showDeleteConfirmation) {
-            Alert(title: Text("Delete account?"),
-                  message: Text("This will permanently delete the account from the YubiKey, and your ability to generate codes for it!"),
-                  primaryButton: .default(Text("Cancel")),
-                  secondaryButton: .destructive(
-                    Text("Delete"),
-                    action: {
-                        model.deleteAccount(account) {
-                            onDelete()
-                        }
-                    }
-                  )
-            )
+        .alert("Delete account?", isPresented: $showDeleteConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                model.deleteAccount(account) {
+                    onDelete()
+                }
+            }
+        } message: {
+            Text("This will permanently delete the account from the YubiKey, and your ability to generate codes for it!")
         }
     }
 

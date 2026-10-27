@@ -45,7 +45,7 @@ struct AccountRowView: View {
                 Text(String(account.title.first ?? "?"))
                     .frame(width:40, height: 40)
                     .background(account.iconColor)
-                    .cornerRadius(20)
+                    .clipShape(.circle)
                     .padding(.trailing, 5)
                     .accessibilityHidden(true)
                 VStack(alignment: .leading) {
@@ -105,7 +105,7 @@ struct AccountRowView: View {
                         Text("888 888") // reserves the code width so the pill doesn't resize
                             .font(.system(size: 17))
                             .bold()
-                            .foregroundColor(.clear)
+                            .foregroundStyle(.clear)
                             .padding(.trailing, 4)
                     }
                 }
