@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +16,14 @@
  */
 
 import SwiftUI
-import YubiKit
 
 @main
 struct AuthenticatorApp: App {
     
     @Environment(\.scenePhase) var scenePhase
-    @StateObject var toastPresenter = ToastPresenter()
-    @StateObject var notificationsViewModel = NotificationsViewModel()
-    @StateObject var mainViewModel = MainViewModel()
+    @State var toastPresenter = ToastPresenter()
+    @State var notificationsViewModel = NotificationsViewModel()
+    @State var mainViewModel = MainViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -39,13 +39,9 @@ struct AuthenticatorApp: App {
                 transaction.disablesAnimations = notificationsViewModel.showPIVTokenView
             }
             .navigationViewStyle(.stack)
-            .environmentObject(toastPresenter)
-            .environmentObject(notificationsViewModel)
-            .environmentObject(mainViewModel)
-            .onAppear {
-                YubiKitExternalLocalization.nfcScanAlertMessage = String(localized: "Scan your YubiKey", comment: "iOS NFC alert scan")
-                YubiKitExternalLocalization.nfcScanSuccessAlertMessage = String(localized: "Success", comment: "iOS NFC alert default success message")
-            }
+            .environment(toastPresenter)
+            .environment(notificationsViewModel)
+            .environment(mainViewModel)
         }
     }
 }

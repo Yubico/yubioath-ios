@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,8 +86,8 @@ extension TKTokenKeyAlgorithm {
         if self.isAlgorithm(SecKeyAlgorithm.rsaSignatureMessagePSSSHA512) {
             return SecKeyAlgorithm.rsaSignatureMessagePSSSHA512
         }
-        if self.isAlgorithm(SecKeyAlgorithm.ecdsaSignatureRFC4754) {
-            return SecKeyAlgorithm.ecdsaSignatureRFC4754
+        if self.isAlgorithm(SecKeyAlgorithm.ecdsaSignatureDigestRFC4754) {
+            return SecKeyAlgorithm.ecdsaSignatureDigestRFC4754
         }
         if self.isAlgorithm(SecKeyAlgorithm.ecdsaSignatureDigestX962) {
             return SecKeyAlgorithm.ecdsaSignatureDigestX962

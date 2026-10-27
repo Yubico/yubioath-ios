@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,44 +17,41 @@
 
 import Foundation
 import OSLog
+import YubiKit
 
-class DisableOTPModel: ObservableObject {
+@Observable class DisableOTPModel {
 
-    @Published var keyIgnored: Bool = false
-    @Published var isConfigurationLocked: Bool = false
-    @Published var isDisablingOTP: Bool = false
-    @Published var error: Error?
+    var keyIgnored: Bool = false
+    var isConfigurationLocked: Bool = false
+    var isDisablingOTP: Bool = false
+    var error: Error?
 
     init() {
         Logger.allocation.debug("DisableOTPModel: init")
-        checkConfigurationLocked()
     }
 
     deinit {
         Logger.allocation.debug("DisableOTPModel: deinit")
     }
 
-    private func checkConfigurationLocked() {
-        Task { @MainActor in
-            guard let connection = OATHSessionHandler.shared.smartCardConnection else { return }
+    func checkConfigurationLocked() {
+        Task {
+            guard let connection = ConnectionManager.shared.wiredConnection else { return }
             guard let session = try? await connection.managementSession() else { return }
-            guard let deviceInfo = try? await session.deviceInfo() else { return }
-            guard let configuration = deviceInfo.configuration else { return }
-            self.isConfigurationLocked = configuration.isConfigurationLocked
+            guard let deviceInfo = try? await session.getDeviceInfo() else { return }
+            self.isConfigurationLocked = deviceInfo.isConfigLocked
         }
     }
 
     func disableOTP() {
         guard !isDisablingOTP else { return }
         isDisablingOTP = true
-        Task { @MainActor in
-            guard let connection = OATHSessionHandler.shared.smartCardConnection else { return }
+        Task {
+            guard let connection = ConnectionManager.shared.wiredConnection else { return }
             guard let session = try? await connection.managementSession() else { return }
-            guard let deviceInfo = try? await session.deviceInfo() else { return }
-            guard let configuration = deviceInfo.configuration else { return }
-            configuration.setEnabled(false, application: .OTP, overTransport: .USB)
+            guard let deviceInfo = try? await session.getDeviceInfo() else { return }
             do {
-                try await session.write(configuration, reboot: true)
+                try await session.updateDeviceConfig(deviceInfo.config.disable(application: .otp, over: .usb), reboot: true)
             } catch {
                 self.error = error
                 isDisablingOTP = false
@@ -62,10 +60,10 @@ class DisableOTPModel: ObservableObject {
     }
 
     func ignoreThisKey() {
-        Task { @MainActor in
-            guard let connection = OATHSessionHandler.shared.smartCardConnection else { return }
+        Task {
+            guard let connection = ConnectionManager.shared.wiredConnection else { return }
             guard let session = try? await connection.managementSession() else { return }
-            guard let deviceInfo = try? await session.deviceInfo() else { return }
+            guard let deviceInfo = try? await session.getDeviceInfo() else { return }
             SettingsConfig.registerUSBCDeviceToIgnore(deviceId: deviceInfo.serialNumber)
             self.keyIgnored = true
         }

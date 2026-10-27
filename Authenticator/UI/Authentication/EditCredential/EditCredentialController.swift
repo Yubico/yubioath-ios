@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,12 +41,7 @@ class EditCredentialController: UITableViewController {
             showAlertDialog(title: String(localized: "Account not set", comment: "Rename credential alert"), message: String(localized: "Account name can not be empty", comment: "Rename credential alert"))
             return
         }
-        viewModel?.renameAccount(account, issuer: issuer, accountName: accountName) {
-            let credential = account.credential
-            credential.issuer = issuer
-            credential.accountName = accountName
-            account.credential = credential
-        }
+        viewModel?.renameAccount(account, issuer: issuer, accountName: accountName) {}
         self.dismiss(animated: true)
     }
     

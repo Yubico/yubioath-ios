@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +50,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         checkmarkView.alpha = 0
         checkmarkTextView.alpha = 0
         passwordTextField.textContentType = .oneTimeCode
-        if !YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if !DeviceCapabilities.supportsNFC {
             orView.alpha = 0
             nfcView.alpha = 0
         } else {
@@ -58,7 +59,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         }
         
         // We need to tighten the vertical spacing to make room for the keyboard on smaller screens
-        if UIScreen.main.bounds.width <= 320 {
+        if (view.window?.windowScene?.screen.bounds.width ?? view.bounds.width) <= 320 {
             topHeadingConstraint.constant = 40
             headingAccessoryContstraint.constant = 35
             accessoryOrConstraint.constant = 5
@@ -72,22 +73,16 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         viewModel = TokenRequestViewModel()
         passwordTextField.becomeFirstResponder()
         passwordTextField.delegate = self
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            YubiKitManager.shared.startAccessoryConnection()
-        }
-        if YubiKitDeviceCapabilities.supportsSmartCardOverUSBC {
-            YubiKitManager.shared.startSmartCardConnection()
-        }
 
-        viewModel?.isYubiOTPEnabledOverUSBC { yubiOTPEnabled in
+        Task { [weak self] in
+            let yubiOTPEnabled = await self?.viewModel?.isYubiOTPEnabledOverUSBC()
+            guard let self else { return }
             if let yubiOTPEnabled, yubiOTPEnabled == true {
-                DispatchQueue.main.async {
-                    let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc: TokenRequestYubiOTPViewController = storyboard.instantiateViewController(withIdentifier: "TokenRequestYubiOTPViewController") as! TokenRequestYubiOTPViewController
-                    vc.viewModel = self.viewModel
-                    vc.modalPresentationStyle = .fullScreen
-                    self.present(vc, animated: true)
-                }
+                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc: TokenRequestYubiOTPViewController = storyboard.instantiateViewController(withIdentifier: "TokenRequestYubiOTPViewController") as! TokenRequestYubiOTPViewController
+                vc.viewModel = self.viewModel
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
             }
             
             self.viewModel?.isWiredKeyConnected { [weak self] connected in
@@ -103,7 +98,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
                             self?.accessoryLabel.text = String(localized: "Enter the PIN to access the certificate.", comment: "PIV extension enter PIN message")
                         } else {
                             self?.accessoryLabel.text = self?.defaultAccessoryTest
-                            if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                            if DeviceCapabilities.supportsNFC {
                                 self?.orView.alpha = 1
                                 self?.nfcView.alpha = 1
                             }
@@ -114,6 +109,11 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel?.stop()
+    }
+
     @objc func didEnterBackground() {
         self.viewModel?.cancel()
         self.dismiss(animated: true, completion: nil)
@@ -121,31 +121,33 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func submitPIN(_ sender: UITextField) {
         guard let userInfo = userInfo else { dismiss(animated: true, completion: nil); return }
-        viewModel?.handleTokenRequest(userInfo, password: sender.text!) { error in
-            guard error == nil else {
-                DispatchQueue.main.async {
-                    self.passwordTextField.text = nil
-                    switch error! {
-                    case .alreadyHandled:
-                        return
-                    default:
-                        let alert = UIAlertController(title: error?.message.title, message: error?.message.text) { }
-                        self.present(alert, animated: true, completion: nil)
-                    }
+        guard let viewModel else { return }
+        let password = sender.text!
+        Task {
+            do throws(TokenRequestViewModel.TokenError) {
+                try await viewModel.handleTokenRequest(userInfo, password: password)
+            } catch .cancelled {
+                return
+            } catch {
+                self.passwordTextField.text = nil
+                switch error {
+                case .alreadyHandled:
+                    return
+                default:
+                    let alert = UIAlertController(title: error.message.title, message: error.message.text) { }
+                    self.present(alert, animated: true, completion: nil)
                 }
                 return
             }
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.5) {
-                    self.overlayView.alpha = 1
-                }
-                UIView.animate(withDuration: 2) {
-                    self.checkmarkView.alpha = 1
-                    self.checkmarkTextView.alpha = 1
-                }
-                self.animateHint()
-                self.passwordTextField.resignFirstResponder()
+            UIView.animate(withDuration: 0.5) {
+                self.overlayView.alpha = 1
             }
+            UIView.animate(withDuration: 2) {
+                self.checkmarkView.alpha = 1
+                self.checkmarkTextView.alpha = 1
+            }
+            self.animateHint()
+            self.passwordTextField.resignFirstResponder()
         }
     }
 
@@ -207,9 +209,3 @@ extension TokenRequestViewController {
     }
 }
 
-
-extension UIScreen {
-    static var isZoomed: Bool {
-        return self.main.scale < self.main.nativeScale
-    }
-}

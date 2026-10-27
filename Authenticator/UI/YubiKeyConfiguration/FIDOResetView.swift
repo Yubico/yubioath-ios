@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ struct FIDOResetView: View {
     
     var completion: (() -> Void)
     @Environment(\.dismiss) private var dismiss
-    @StateObject var model = FIDOResetViewModel()
+    @State var model = FIDOResetViewModel()
     
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
@@ -71,7 +72,7 @@ struct FIDOResetView: View {
                 Text("OK")
             }
         })        
-        .onChange(of: model.state) { _ in
+        .onChange(of: model.state) { _, _ in
             updateState()
         }
         .onAppear() {

@@ -4,6 +4,7 @@
 //
 //  Created by Jens Utbult on 2023-12-11.
 //  Copyright © 2023 Yubico. All rights reserved.
+//  Copyright © 2026 Kenzi Voyer.
 //
 
 import Foundation
@@ -18,41 +19,42 @@ class TokenRequestYubiOTPViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        self.viewModel?.waitForKeyRemoval { [weak self] in
+        Task { [weak self] in
+            await self?.viewModel?.waitForKeyRemoval()
             self?.dismiss(animated: true)
         }
     }
     
     @IBAction func disableOTP() {
-        viewModel?.disableOTP { error in
-            guard error == nil else {
-                self.presentError(error)
-                return
-            }
-            DispatchQueue.main.async {
+        guard let viewModel else { return }
+        Task {
+            do {
+                try await viewModel.disableOTP()
                 UIView.animate(withDuration: 0.5) {
                     self.optionsView.alpha = 0
                     self.completedView.alpha = 1
                 }
+            } catch {
+                self.presentError(error)
             }
         }
     }
     
     @IBAction func ignoreThisKey() {
-        viewModel?.ignoreThisKey { error in
-            guard error == nil else {
-                self.presentError(error)
-                return
-            }
-            DispatchQueue.main.async {
+        guard let viewModel else { return }
+        Task {
+            do {
+                try await viewModel.ignoreThisKey()
                 self.dismiss(animated: true)
+            } catch {
+                self.presentError(error)
             }
         }
     }
     
     private func presentError(_ error: Error?) {
         guard let error else { return }
-        let alert = UIAlertController(title: String(localized: "Error reading YubiKey", comment: "PIV extension error title"), message: "\(error.localizedDescription)\n\n\(String(localized: "Remove and reinsert your YubiKey", comment: "PIV extension error reinsert key")).") { self.dismiss(animated: true) }
+        let alert = UIAlertController(title: String(localized: "Error reading YubiKey", comment: "PIV extension error title"), message: "\(LocalizedErrorWrapper(error: error).localizedDescription)\n\n\(String(localized: "Remove and reinsert your YubiKey", comment: "PIV extension error reinsert key")).") { self.dismiss(animated: true) }
         self.present(alert, animated: true, completion: nil)
     }
 }

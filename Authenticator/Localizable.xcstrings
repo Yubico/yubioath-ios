@@ -2735,6 +2735,7 @@
       }
     },
     "Invalid session state." : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -6025,6 +6026,9 @@
         }
       }
     },
+    "The PIN doesn't meet the requirements of this YubiKey." : {
+
+    },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
       "comment" : "PIV extension NFC invalid decryption no private key\nPIV extension NFC invalid signature no private key",
       "localizations" : {
@@ -6708,6 +6712,9 @@
           }
         }
       }
+    },
+    "Too many wrong PIN attempts. Remove and reinsert the YubiKey to try again." : {
+
     },
     "Touch key time out." : {
       "localizations" : {
@@ -7398,6 +7405,9 @@
         }
       }
     },
+    "Wrong PIN." : {
+
+    },
     "You can remove saved password in Settings." : {
       "comment" : "Password entry save password message",
       "localizations" : {
@@ -7741,6 +7751,7 @@
     },
     "YubiKey information read" : {
       "comment" : "YubiKey info NFC read",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

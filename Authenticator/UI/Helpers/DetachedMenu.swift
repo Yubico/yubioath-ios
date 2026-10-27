@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 
 import SwiftUI
 
-class DetachedMenuAction: ObservableObject, Identifiable, Equatable {
+@Observable class DetachedMenuAction: Identifiable, Equatable {
     
     static func == (lhs: DetachedMenuAction, rhs: DetachedMenuAction) -> Bool {
         lhs.id == rhs.id
@@ -27,10 +28,10 @@ class DetachedMenuAction: ObservableObject, Identifiable, Equatable {
         case destructive
     }
     
-    @Published var isEnabled: Bool
-    @Published var selected: Bool = false
+    var isEnabled: Bool
+    var selected: Bool = false
     
-    var frame: CGRect = .zero
+    @ObservationIgnored var frame: CGRect = .zero
     
     var id = UUID()
     var style: Style
@@ -51,7 +52,7 @@ class DetachedMenuAction: ObservableObject, Identifiable, Equatable {
 
 fileprivate struct DetachedMenuRow: View {
     
-    @ObservedObject var action: DetachedMenuAction
+    var action: DetachedMenuAction
     
     @State var rowFrame: CGRect = .zero // frame of DetachdeMenuRow is passed to the DetachdeMenuAction and in turn used by the DetachedMenu to figure out if the gesture ended inside the row.
     @State var selected: Bool = false
@@ -71,9 +72,9 @@ fileprivate struct DetachedMenuRow: View {
         }
         .readFrame($rowFrame)
         .background(Color(action.selected ? .secondarySystemBackground : .systemBackground))
-        .onChange(of: rowFrame, perform: { newFrame in
+        .onChange(of: rowFrame) { _, newFrame in
             action.frame = newFrame
-        })
+        }
     }
 }
 

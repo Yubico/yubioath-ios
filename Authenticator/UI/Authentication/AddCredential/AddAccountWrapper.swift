@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +16,17 @@
  */
 
 import SwiftUI
+import YubiKit
 import Combine
 
 struct AddAccountView: View {
     
     @Binding var showAddAccount: Bool
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>
+    var accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>
     var oathURL: URL?
     let navigationBarAppearance = UINavigationBarAppearance()
 
-    init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>, oathURL: URL?) {
+    init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>, oathURL: URL?) {
         _showAddAccount = showAddCredential
         self.oathURL = oathURL
         self.accountSubject = accountSubject
@@ -42,7 +44,7 @@ struct AddAccountView: View {
 
 struct AddCredentialWrapper: UIViewControllerRepresentable {
     
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>
+    var accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>
     var oathURL: URL?
     
     func makeUIViewController(context: Context) -> UINavigationController {
@@ -51,7 +53,7 @@ struct AddCredentialWrapper: UIViewControllerRepresentable {
         
         guard let credentialController = vc.topViewController as? AddCredentialController else { fatalError() }
         if let oathURL {
-            let template = YKFOATHCredentialTemplate(url: oathURL)
+            let template = try? YubiKitOATHSession.CredentialTemplate(otpauthURL: oathURL)
             credentialController.credential = template
         }
         

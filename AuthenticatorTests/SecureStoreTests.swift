@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,132 +15,55 @@
  * limitations under the License.
  */
 
-import XCTest
+import Testing
 
 @testable import Authenticator
 
-class SecureStoreTests: XCTestCase {
-    var secureStoreWithGenericPwd: SecureStore!
-    
-    override func setUp() {
-        super.setUp()
-        
-        let genericPwdQueryable = PasswordQueryable(service: "someService")
-        secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: genericPwdQueryable)
-    }
-    
-    override func tearDown() {
+// The tests share one keychain service, so they must not run in parallel.
+@Suite(.serialized)
+final class SecureStoreTests {
+    let secureStoreWithGenericPwd = SecureStore(secureStoreQueryable: PasswordQueryable(service: "someService"))
+
+    deinit {
         try? secureStoreWithGenericPwd.removeAllValues()
-        
-        super.tearDown()
     }
-    
-    func testSaveGenericPassword() {
-        do {
-            try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
-        } catch let e {
-            XCTFail("Saving generic password failed with \(e.localizedDescription).")
-        }
+
+    private func getPassword(for userAccount: String) async -> String? {
+        try? await secureStoreWithGenericPwd.getValue(for: userAccount, useAuthentication: false)
     }
-    
-    func testReadGenericPassword() {
-        do {
-            var password = ""
-            let expectation = self.expectation(description: "Get password")
-            
-            try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
-            secureStoreWithGenericPwd.getValueAsync(for: "genericPassword", useAuthentication: false, success: { p in
-                password = p
-                expectation.fulfill()
-            }, failure: { _ in
-                expectation.fulfill()
-            })
-            
-            waitForExpectations(timeout: 5.0, handler: nil)
-            XCTAssertEqual("pwd_1234", password)
-            
-        } catch let e {
-            XCTFail("Reading generic password failed with \(e.localizedDescription).")
-        }
+
+    @Test func saveGenericPassword() throws {
+        try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
     }
-    
-    func testUpdateGenericPassword() {
-        do {
-            var password = ""
-            let expectation = self.expectation(description: "Get password")
-            
-            try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
-            try secureStoreWithGenericPwd.setValue("pwd_updated123", useAuthentication: false, for: "genericPassword")
-            secureStoreWithGenericPwd.getValueAsync(for: "genericPassword", useAuthentication: false, success: { p in
-                password = p
-                expectation.fulfill()
-            }, failure: { _ in
-                expectation.fulfill()
-            })
-            
-            waitForExpectations(timeout: 5.0, handler: nil)
-            XCTAssertEqual("pwd_updated123", password)
-        } catch let e {
-            XCTFail("Updating generic password failed with \(e.localizedDescription).")
-        }
+
+    @Test func readGenericPassword() async throws {
+        try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
+        let password = await getPassword(for: "genericPassword")
+        #expect(password == "pwd_1234")
     }
-    
-    func testRemoveGenericPassword() {
-        do {
-            var password: String?
-            let expectation = self.expectation(description: "Get password")
-            
-            try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
-            try secureStoreWithGenericPwd.removeValue(for: "genericPassword")
-            secureStoreWithGenericPwd.getValueAsync(for: "genericPassword", useAuthentication: false, success: { p in
-                password = p
-                expectation.fulfill()
-            }, failure: { _ in
-                password = nil
-                expectation.fulfill()
-            })
-            
-            waitForExpectations(timeout: 5.0, handler: nil)
-            XCTAssertNil(password)
-            
-        } catch let e {
-            XCTFail("Saving generic password failed with \(e.localizedDescription).")
-        }
+
+    @Test func updateGenericPassword() async throws {
+        try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
+        try secureStoreWithGenericPwd.setValue("pwd_updated123", useAuthentication: false, for: "genericPassword")
+        let password = await getPassword(for: "genericPassword")
+        #expect(password == "pwd_updated123")
     }
-    
-    func testRemoveAllGenericPasswords() {
-        do {
-            var password: String?
-            var password2: String?
-            let expectation = self.expectation(description: "Get password")
-            let expectation2 = self.expectation(description: "Get password2")
-            
-            try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
-            try secureStoreWithGenericPwd.setValue("pwd_1235", useAuthentication: false, for: "genericPassword2")
-            try secureStoreWithGenericPwd.removeAllValues()
-            
-            secureStoreWithGenericPwd.getValueAsync(for: "genericPassword", useAuthentication: false, success: { p in
-                password = p
-                expectation.fulfill()
-            }, failure: { _ in
-                password = nil
-                expectation.fulfill()
-            })
-            
-            secureStoreWithGenericPwd.getValueAsync(for: "genericPassword2", useAuthentication: false, success: { p in
-                password2 = p
-                expectation2.fulfill()
-            }, failure: { _ in
-                password2 = nil
-                expectation2.fulfill()
-            })
-            
-            waitForExpectations(timeout: 5.0, handler: nil)
-            XCTAssertNil(password)
-            XCTAssertNil(password2)
-            
-        } catch let e {
-            XCTFail("Removing generic passwords failed with \(e.localizedDescription).")
-        }
+
+    @Test func removeGenericPassword() async throws {
+        try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
+        try secureStoreWithGenericPwd.removeValue(for: "genericPassword")
+        let password = await getPassword(for: "genericPassword")
+        #expect(password == nil)
+    }
+
+    @Test func removeAllGenericPasswords() async throws {
+        try secureStoreWithGenericPwd.setValue("pwd_1234", useAuthentication: false, for: "genericPassword")
+        try secureStoreWithGenericPwd.setValue("pwd_1235", useAuthentication: false, for: "genericPassword2")
+        try secureStoreWithGenericPwd.removeAllValues()
+
+        let password = await getPassword(for: "genericPassword")
+        let password2 = await getPassword(for: "genericPassword2")
+        #expect(password == nil)
+        #expect(password2 == nil)
     }
 }

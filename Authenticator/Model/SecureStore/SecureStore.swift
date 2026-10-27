@@ -1,4 +1,5 @@
 /// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2026 Kenzi Voyer
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +35,7 @@ import LocalAuthentication
 /*! Represents storage for secure information (e.g. user password/pin)
  Uses KeyChain as permanent storage
  */
-class SecureStore {
+nonisolated final class SecureStore: Sendable {
     let secureStoreQueryable: SecureStoreQueryable
     
     public init(secureStoreQueryable: SecureStoreQueryable) {
@@ -68,37 +69,6 @@ class SecureStore {
             
         default:
             throw error(from: status)
-        }
-    }
-    
-    public func getValue(for userAccount: String, completion: @escaping (Result<Data, Error>) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            let useAuthentication = self.hasValueProtected(for: userAccount)
-            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
-            query[String(kSecMatchLimit)] = kSecMatchLimitOne
-            query[String(kSecReturnAttributes)] = kCFBooleanTrue
-            query[String(kSecReturnData)] = kCFBooleanTrue
-            query[String(kSecAttrAccount)] = userAccount
-            
-            var queryResult: AnyObject?
-            let status = withUnsafeMutablePointer(to: &queryResult) {
-                SecItemCopyMatching(query as CFDictionary, $0)
-            }
-            switch status {
-            case errSecSuccess:
-                guard let queriedItem = queryResult as? [String: Any],
-                    let data = queriedItem[String(kSecValueData)] as? Data
-                else {
-                    completion(.failure(SecureStoreError.dataCastError))
-                    return
-                }
-                completion(.success(data))
-            case errSecItemNotFound:
-                completion(.failure(SecureStoreError.itemNotFound))
-            default:
-                completion(.failure(self.error(from: status)))
-            }
         }
     }
     
@@ -139,72 +109,49 @@ class SecureStore {
     /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
     validating password with device's biometric or passcode protection.
     */
-    public func getValue(for userAccount: String, completion: @escaping (Result<String, Error>) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            let useAuthentication = self.hasValueProtected(for: userAccount)
-            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
-            query[String(kSecMatchLimit)] = kSecMatchLimitOne
-            query[String(kSecReturnAttributes)] = kCFBooleanTrue
-            query[String(kSecReturnData)] = kCFBooleanTrue
-            query[String(kSecAttrAccount)] = userAccount
-            
-            var queryResult: AnyObject?
-            let status = withUnsafeMutablePointer(to: &queryResult) {
-                SecItemCopyMatching(query as CFDictionary, $0)
-            }
-            switch status {
-            case errSecSuccess:
-                guard let queriedItem = queryResult as? [String: Any],
-                    let passwordData = queriedItem[String(kSecValueData)] as? Data,
-                    let password = String(data: passwordData, encoding: .utf8)
-                else {
-                    completion(.failure(SecureStoreError.data2StringConversionError))
-                    return
-                }
-                completion(.success(password))
-            case errSecItemNotFound:
-                completion(.failure(SecureStoreError.itemNotFound))
-            default:
-                completion(.failure(self.error(from: status)))
-            }
+    @concurrent public func getValue(for userAccount: String) async throws -> Data {
+        guard let data = try copyValueData(for: userAccount, useAuthentication: hasValueProtected(for: userAccount)) else {
+            throw SecureStoreError.dataCastError
         }
+        return data
     }
     
-    /* getValue is asynchronous to avoid main thread blocking while scanning NFC and
-    validating password with device's biometric or passcode protection.
-    */
-    public func getValueAsync(for userAccount: String, useAuthentication: Bool, success: @escaping (String) -> Void, failure: @escaping (Error) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            var query = self.secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
-            query[String(kSecMatchLimit)] = kSecMatchLimitOne
-            query[String(kSecReturnAttributes)] = kCFBooleanTrue
-            query[String(kSecReturnData)] = kCFBooleanTrue
-            query[String(kSecAttrAccount)] = userAccount
-            
-            var queryResult: AnyObject?
-            let status = withUnsafeMutablePointer(to: &queryResult) {
-                SecItemCopyMatching(query as CFDictionary, $0)
-            }
-            
-            switch status {
-            case errSecSuccess:
-                guard let queriedItem = queryResult as? [String: Any],
-                    let passwordData = queriedItem[String(kSecValueData)] as? Data,
-                    let password = String(data: passwordData, encoding: .utf8)
-                else {
-                    failure(SecureStoreError.data2StringConversionError)
-                    return
-                }
-                success(password)
-                
-            case errSecItemNotFound:
-                failure(SecureStoreError.itemNotFound)
-                
-            default:
-                failure(self.error(from: status))
-            }
+    @concurrent public func getValue(for userAccount: String) async throws -> String {
+        try string(from: copyValueData(for: userAccount, useAuthentication: hasValueProtected(for: userAccount)))
+    }
+    
+    @concurrent public func getValue(for userAccount: String, useAuthentication: Bool) async throws -> String {
+        try string(from: copyValueData(for: userAccount, useAuthentication: useAuthentication))
+    }
+    
+    private func string(from data: Data?) throws -> String {
+        guard let data, let string = String(data: data, encoding: .utf8) else {
+            throw SecureStoreError.data2StringConversionError
+        }
+        return string
+    }
+    
+    /// Blocks while the user authenticates if the item is protected. Returns nil if the item has no data.
+    private func copyValueData(for userAccount: String, useAuthentication: Bool) throws -> Data? {
+        var query = secureStoreQueryable.setUpQuery(useAuthentication: useAuthentication)
+        query[String(kSecMatchLimit)] = kSecMatchLimitOne
+        query[String(kSecReturnAttributes)] = kCFBooleanTrue
+        query[String(kSecReturnData)] = kCFBooleanTrue
+        query[String(kSecAttrAccount)] = userAccount
+        
+        var queryResult: AnyObject?
+        let status = withUnsafeMutablePointer(to: &queryResult) {
+            SecItemCopyMatching(query as CFDictionary, $0)
+        }
+        
+        switch status {
+        case errSecSuccess:
+            let queriedItem = queryResult as? [String: Any]
+            return queriedItem?[String(kSecValueData)] as? Data
+        case errSecItemNotFound:
+            throw SecureStoreError.itemNotFound
+        default:
+            throw error(from: status)
         }
     }
     
@@ -264,7 +211,7 @@ class SecureStore {
 
 /*! Using this hex representation for keys that has format Data, when Store requires only String keys
  */
-extension Data {
+nonisolated extension Data {
     var hex: String {
         return self.map { b in String(format: "%02X", b) }.joined()
     }

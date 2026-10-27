@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +16,12 @@
  */
 
 import Foundation
+import UIKit
+import YubiKit
 
 enum OATHSessionError: Error, LocalizedError, Equatable {
 
-    case credentialAlreadyPresent(YKFOATHCredentialTemplate)
+    case credentialAlreadyPresent(issuer: String, accountName: String)
     case otpEnabledError
     case oathDisabledError
     case connectionCancelled
@@ -28,8 +31,8 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     
     public var errorDescription: String? {
         switch self {
-        case .credentialAlreadyPresent(let credential):
-            return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(credential.issuer.isEmpty == false ? "\(credential.issuer), \(credential.accountName)" : credential.accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
+        case .credentialAlreadyPresent(let issuer, let accountName):
+            return "\(String(localized: "There's already an account named", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey.")) \(issuer.isEmpty == false ? "\(issuer), \(accountName)" : accountName) \(String(localized: "on this YubiKey", comment: "OATH substring in 'There's already an account named [issuer, name] on this YubiKey."))."
         case .otpEnabledError:
             return String(localized: "Yubico OTP enabled", comment: "OATH otp enabled error message")
         case .oathDisabledError:
@@ -46,431 +49,241 @@ enum OATHSessionError: Error, LocalizedError, Equatable {
     }
 }
 
+/// Hands out OATH sessions on the wired or NFC connection.
+///
+/// The current session is reused until its connection closes, so the OATH application stays unlocked.
+final class OATHSessionHandler {
 
-class OATHSessionHandler: NSObject, YKFManagerDelegate {
-
-    typealias ClosingCallback = ((_ error: Error?) -> Void)
-
-    var nfcConnection: YKFNFCConnection?
-    var smartCardConnection: YKFSmartCardConnection?
-    var accessoryConnection: YKFAccessoryConnection?
-    
-    private var currentSession: YKFOATHSession?
-    
-    private var nfcConnectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
-    private var wiredConnectionCallback: ((_ connection: YKFConnectionProtocol) -> Void)?
-    fileprivate var closingCallback: ClosingCallback?
-
-    func didConnectNFC(_ connection: YKFNFCConnection) {
-        nfcConnection = connection
-        nfcConnectionCallback?(connection)
-        nfcConnectionCallback = nil
-    }
-    
-    func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
-        nfcConnection = nil
-        closingCallback?(error)
-        closingCallback = nil
-        currentSession = nil
-    }
-    
-    func didConnectAccessory(_ connection: YKFAccessoryConnection) {
-        accessoryConnection = connection
-        wiredConnectionCallback?(connection)
-        wiredConnectionCallback = nil
-    }
-    
-    func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
-        accessoryConnection = nil
-        closingCallback?(error)
-        closingCallback = nil
-        currentSession = nil
-    }
-    
-    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
-        smartCardConnection = connection
-        wiredConnectionCallback?(connection)
-        wiredConnectionCallback = nil
-    }
-    
-    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
-        smartCardConnection = nil
-        closingCallback?(error)
-        closingCallback = nil
-        currentSession = nil
-    }
-    
-    struct WiredOATHSessions: AsyncSequence {
-        typealias Element = OATHSession
-        struct AsyncIterator: AsyncIteratorProtocol {
-            mutating func next() async throws -> Element? {
-                guard !Task.isCancelled else {
-                    return nil
-                }
-                while true {
-                    return try await OATHSessionHandler.shared.newWiredSession()
-                }
-            }
-        }
-        
-        func makeAsyncIterator() -> AsyncIterator {
-            AsyncIterator()
-        }
-    }
-    
     static let shared = OATHSessionHandler()
-    
-    func wiredSessions() -> OATHSessionHandler.WiredOATHSessions {
-        return WiredOATHSessions()
+
+    private var currentSession: OATHSession?
+
+    /// Yields a new session each time a wired YubiKey is inserted. Throws if the YubiKey can't be used.
+    func wiredSessions() -> AsyncThrowingStream<OATHSession, Error> {
+        AsyncThrowingStream { continuation in
+            let task = Task {
+                for await connection in ConnectionManager.shared.wiredConnections() {
+                    guard let connection else { continue }
+                    do {
+                        continuation.yield(try await self.wiredSession(connection: connection))
+                    } catch {
+                        continuation.finish(throwing: error)
+                        return
+                    }
+                }
+                continuation.finish(throwing: OATHSessionError.connectionCancelled)
+            }
+            continuation.onTermination = { _ in task.cancel() }
+        }
     }
-    
+
     func anySession() async throws -> OATHSession {
         if let currentSession {
-            let type: OATHSession.ConnectionType = accessoryConnection == nil && smartCardConnection == nil ? .nfc : .wired
-            return OATHSession(session: currentSession, type: type)
-        } else if let smartCardConnection {
-            let session = try await smartCardConnection.oathSession()
-            currentSession = session
-            return OATHSession(session: session, type: .wired)
-        } else if let accessoryConnection {
-            let session = try await accessoryConnection.oathSession()
-            currentSession = session
-            return OATHSession(session: session, type: .wired)
+            return currentSession
+        } else if let connection = ConnectionManager.shared.wiredConnection {
+            return try await makeSession(connection: connection, type: .wired)
         } else {
             return try await nfcSession()
         }
     }
-    
-    var wiredContinuation: CheckedContinuation<OATHSession, Error>?
-    private func newWiredSession() async throws -> OATHSession {
-        YubiKitManager.shared.delegate = self
-        if YubiKitDeviceCapabilities.supportsMFIAccessoryKey {
-            YubiKitManager.shared.startAccessoryConnection()
-        }
-        if #available(iOS 16.0, *) {
-            YubiKitManager.shared.startSmartCardConnection()
-        }
 
-        return try await withTaskCancellationHandler {
-            let deviceType = await UIDevice.current.userInterfaceIdiom
-            return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<OATHSession, Error>) in
-                self.wiredContinuation = continuation
-                self.wiredConnectionCallback = { connection in
-                    let connectOATHDirectly = {
-                        connection.oathSession { session, error in
-                            if let session {
-                                self.currentSession = session
-                                self.wiredContinuation?.resume(returning: OATHSession(session: session, type: .wired))
-                            } else if let nsError = error as? NSError, nsError.domain == "com.yubico", nsError.code == 0x5 {
-                                self.wiredContinuation?.resume(throwing: OATHSessionError.oathDisabledError)
-                            } else {
-                                self.wiredContinuation?.resume(throwing: error!)
-                            }
-                            self.wiredContinuation = nil
-                            self.wiredConnectionCallback = nil
-                        }
-                    }
-                    if connection.isKind(of: YKFSmartCardConnection.self) && deviceType == .phone {
-                        connection.managementSession { managementSession, error in
-                            guard let managementSession else {
-                                connectOATHDirectly()
-                                return
-                            }
-                            managementSession.getDeviceInfo { deviceInfo, error in
-                                guard let deviceInfo, let configuration = deviceInfo.configuration else {
-                                    // NEO (version 3.x) needs de-select workaround after Management Applet
-                                    // See: https://github.com/Yubico/yubikit-manager/blob/main/yubikit/support.py#L89
-                                    if managementSession.version.major == 3 {
-                                        connection.executeRawCommand(Data([0xa4, 0x04, 0x00, 0x08])) { _, _ in
-                                            connectOATHDirectly()
-                                        }
-                                    } else {
-                                        connectOATHDirectly()
-                                    }
-                                    return
-                                }
-                                guard !configuration.isEnabled(.OTP, overTransport: .USB) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
-                                    self.wiredContinuation?.resume(throwing: OATHSessionError.otpEnabledError)
-                                    self.wiredContinuation = nil
-                                    self.wiredConnectionCallback = nil
-                                    return
-                                }
-                                connectOATHDirectly()
-                            }
-                        }
-                    } else {
-                        connectOATHDirectly()
-                    }
-                }
-                if let connection: YKFConnectionProtocol = self.accessoryConnection ?? self.smartCardConnection {
-                    self.wiredConnectionCallback?(connection)
-                }
-            }
-        } onCancel: {
-            wiredContinuation?.resume(throwing: OATHSessionError.connectionCancelled)
-            wiredContinuation = nil
-            wiredConnectionCallback = nil
-        }
-    }
-    
-    var nfcContinuation: CheckedContinuation<OATHSession, Error>?
     func nfcSession() async throws -> OATHSession {
-        guard YubiKitDeviceCapabilities.supportsISO7816NFCTags else { throw OATHSessionError.nfcNotSupported }
-        return try await withTaskCancellationHandler {
-            return try await withCheckedThrowingContinuation { continuation in
-                self.nfcContinuation = continuation
-                self.nfcConnectionCallback = { connection in
-                    connection.oathSession { session, isEncrypted, error in
-                        if let session {
-                            self.currentSession = session
-                            let oathSession = OATHSession(session: session, type: .nfc)
-                            oathSession.isFipsKey = isEncrypted
-                            self.nfcContinuation?.resume(returning: oathSession)
-                        } else {
-                            self.nfcContinuation?.resume(throwing: error!)
-                        }
-                        self.nfcContinuation = nil
-                    }
+        guard DeviceCapabilities.supportsNFC else { throw OATHSessionError.nfcNotSupported }
+        let connection = try await ConnectionManager.shared.nfcConnection()
+        return try await makeSession(connection: connection, type: .nfc)
+    }
+
+    private func wiredSession(connection: SmartCardConnection) async throws -> OATHSession {
+        // Yubico OTP over USB makes the YubiKey act as a keyboard, which hides the on-screen keyboard on iPhone.
+        if connection is USBSmartCardConnection && UIDevice.current.userInterfaceIdiom == .phone,
+           let managementSession = try? await connection.managementSession() {
+            if let deviceInfo = try? await managementSession.getDeviceInfo() {
+                guard !deviceInfo.config.isApplicationEnabled(.otp, over: .usb) || SettingsConfig.isOTPOverUSBIgnored(deviceId: deviceInfo.serialNumber) else {
+                    throw OATHSessionError.otpEnabledError
                 }
-                YubiKitManager.shared.startNFCConnection()
+            } else if await managementSession.version.major == 3 {
+                // NEO (version 3.x) needs de-select workaround after Management Applet
+                // See: https://github.com/Yubico/yubikit-manager/blob/main/yubikit/support.py#L89
+                _ = try? await connection.send(data: Data([0xa4, 0x04, 0x00, 0x08]))
             }
-        } onCancel: {
-            nfcContinuation?.resume(throwing: "Connection cancelled")
-            nfcContinuation = nil
-            nfcConnectionCallback = nil
-            YubiKitManager.shared.stopNFCConnection()
+        }
+        do {
+            return try await makeSession(connection: connection, type: .wired)
+        } catch where error.isApplicationNotSupported {
+            throw OATHSessionError.oathDisabledError
         }
     }
-    
+
+    private func makeSession(connection: SmartCardConnection, type: OATHSession.ConnectionType) async throws -> OATHSession {
+        let deviceId = try? await connection.legacyOATHDeviceId()
+        let (session, isEncrypted) = try await connection.oathSession()
+        guard let deviceId else { throw OATHSessionError.invalidDeviceInfo }
+        let oathSession = OATHSession(session: session,
+                                      connection: connection,
+                                      type: type,
+                                      version: await session.version,
+                                      deviceId: deviceId,
+                                      isFipsKey: isEncrypted)
+        currentSession = oathSession
+        Task {
+            _ = await ConnectionManager.shared.waitUntilClosed(connection)
+            if self.currentSession === oathSession {
+                self.currentSession = nil
+            }
+        }
+        return oathSession
+    }
 }
 
-class OATHSession {
-    
-    enum ConnectionType {
+final class OATHSession: Sendable {
+
+    enum ConnectionType: Sendable {
         case nfc
         case wired
     }
-    
-    enum CredentialType {
+
+    enum CredentialType: Sendable {
         case totp, hotp
     }
-    
-    class Credential: Equatable {
+
+    struct Credential: Equatable, Sendable {
         static func == (lhs: OATHSession.Credential, rhs: OATHSession.Credential) -> Bool {
-            return lhs.ykfCredential == rhs.ykfCredential
+            return lhs.id == rhs.id
         }
         let type: CredentialType
         var label: String? {
-            ykfCredential.label
+            if let issuer {
+                return "\(issuer):\(accountName)"
+            } else {
+                return accountName
+            }
         }
-        var issuer: String? {
-            get { ykfCredential.issuer }
-            set { ykfCredential.issuer = newValue }
-        }
-        var accountName: String {
-            get { ykfCredential.accountName }
-            set { ykfCredential.accountName = newValue }
-        }
+        var issuer: String?
+        var accountName: String
         let period: UInt
         let requiresTouch: Bool
         var isSteam: Bool {
-            ykfCredential.type == .TOTP && issuer?.lowercased() == "steam"
+            type == .totp && issuer?.lowercased() == "steam"
         }
-        fileprivate let ykfCredential: YKFOATHCredential
-        
-        init(ykfCredential: YKFOATHCredential) {
-            self.type = ykfCredential.type == .TOTP ? .totp : .hotp
-            self.period = ykfCredential.period
-            self.requiresTouch = ykfCredential.requiresTouch
-            self.ykfCredential = ykfCredential
+        fileprivate let yubiKitCredential: YubiKitOATHSession.Credential
+
+        fileprivate init(yubiKitCredential: YubiKitOATHSession.Credential, requiresTouch: Bool? = nil) {
+            switch yubiKitCredential.type {
+            case .totp(let period):
+                self.type = .totp
+                self.period = UInt(period)
+            case .hotp:
+                self.type = .hotp
+                self.period = 0
+            }
+            self.issuer = yubiKitCredential.issuer
+            self.accountName = yubiKitCredential.name
+            self.requiresTouch = requiresTouch ?? yubiKitCredential.requiresTouch
+            self.yubiKitCredential = yubiKitCredential
         }
     }
-    
+
     struct OTP: Comparable {
         static func < (lhs: OATHSession.OTP, rhs: OATHSession.OTP) -> Bool {
             return lhs.code == rhs.code && lhs.validity == lhs.validity
         }
-        
+
         let code: String
         let validity: DateInterval
     }
-    
-    private let session: YKFOATHSession
-    public let type: ConnectionType
-    public var version: YKFVersion {
-        session.version
-    }
-    public var deviceId: String {
-        session.deviceId
-    }
-    public var isFipsKey: Bool = false
-    
-    fileprivate init(session: YKFOATHSession, type: ConnectionType) {
-        self.session = session
-        self.type = type
-    }
-    
-    func sessionDidEnd() async -> Error? {
-        return await withCheckedContinuation { continuation in
-            OATHSessionHandler.shared.closingCallback = { error in
-                continuation.resume(returning: error)
-            }
-        }
-    }
-    
-    func addCredential(template: YKFOATHCredentialTemplate, requiresTouch: Bool) async throws {
-        
-        let credentials = try await session.listCredentials()
-        let key = YKFOATHCredentialUtils.key(fromAccountName: template.accountName, issuer: template.issuer, period: template.period, type: template.type)
-        let keys = credentials.map { YKFOATHCredentialUtils.key(fromAccountName: $0.accountName, issuer: $0.issuer, period: $0.period, type: $0.type) }
-        guard !keys.contains(key) else {
-            YubiKitManager.shared.stopNFCConnection(withErrorMessage: String(localized: "Duplicate accounts!", comment: "OATH add credential duplicate accounts error"))
-            throw OATHSessionError.credentialAlreadyPresent(template)
-        }
-        
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.put(template, requiresTouch: requiresTouch) { error in
-                if let error {
-                    // If yubikey is a fips enabled key a password has to be set before you can add a new account
-                    if self.isFipsKey, let sessionError = error as? YKFSessionError, sessionError.code == 0x6985 {
-                        continuation.resume(throwing: OATHSessionError.fipsKeyWithoutPassword)
-                    } else {
-                        continuation.resume(throwing: error)
-                    }
-                    return
-                }
-                continuation.resume(returning: Void())
-            }
-        }
-    }
-    
-    func deleteCredential(_ credential: Credential) async throws {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.delete(credential.ykfCredential) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-                continuation.resume(returning: Void())
-            }
-        }
-    }
-    
-    func renameCredential(_ credential: Credential, issuer: String, accountName: String) async throws {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.renameCredential(credential.ykfCredential, newIssuer: issuer, newAccount: accountName) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-                continuation.resume(returning: Void())
-            }
-        }
-    }
-    
-    func list() async throws -> [Credential] {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[Credential], Error>) in
-            session.listCredentials { credentials, error in
-                if let credentials {
-                    continuation.resume(returning: credentials.map { Credential(ykfCredential: $0) })
-                } else if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    fatalError()
-                }
-            }
-        }
-    }
-    
-    func calculateAll(timestamp: Date = Date().addingTimeInterval(10) ) async throws -> [(Credential, OTP?)] {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[(Credential, OTP?)], Error>) in
-            session.calculateAll(withTimestamp: timestamp) { credentials, error in
-                if let credentials {
-                    continuation.resume(returning: credentials.map { (Credential(ykfCredential: $0.credential), $0.code?.otpCode) })
-                } else if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    fatalError()
-                }
-            }
-        }
-    }
-    
-    func calculate(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
-        return try await withCheckedThrowingContinuation { continuation in
-            if credential.isSteam {
-                session.calculateSteamTOTP(credential: credential.ykfCredential) { code, validity, error in
-                    if let code, let validity {
-                        continuation.resume(returning: OTP(code: code, validity: validity))
-                    } else if let error {
-                        continuation.resume(throwing: error)
-                    } else {
-                        fatalError()
-                    }
-                }
-            } else {
-                session.calculate(credential.ykfCredential, timestamp: timestamp) { code, error in
-                    if let code, let otp = code.otp {
-                        continuation.resume(returning: OTP(code: otp, validity: code.validity))
-                    } else if let error {
-                        continuation.resume(throwing: error)
-                    } else {
-                        fatalError()
-                    }
-                }
-            }
-        }
-    }
-    
-    func unlock(password: String) async throws {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.unlock(withPassword: password) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume()
-                }
-            }
-        }
-    }
-    
-    func unlock(withPassword password: String) async throws -> Data {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Data, Error>) in
-            let accessKey = session.deriveAccessKey(password)
-            session.unlock(withAccessKey: accessKey) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(with: .success(accessKey))
-                }
-            }
-        }
-    }
-    
-    func unlock(withAccessKey accessKey: Data) async throws {
-        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            session.unlock(withAccessKey: accessKey) { error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume()
-                }
-            }
-        }
-    }
-    
-    func endNFC(message: String? = nil) {
-        if let message {
-            YubiKitManager.shared.stopNFCConnection(withMessage: message)
-        } else {
-            YubiKitManager.shared.stopNFCConnection()
-        }
-    }
-}
 
-extension YKFOATHCode {
-    var otpCode: OATHSession.OTP? {
-        guard let otp else { return nil }
-        return OATHSession.OTP(code: otp, validity: validity)
+    private let session: YubiKitOATHSession
+    private let connection: SmartCardConnection
+    let type: ConnectionType
+    let version: Version
+    /// Identifies the YubiKey, saved passwords are stored under it.
+    let deviceId: String
+    /// The session is encrypted with SCP11b, which FIPS keys require over NFC.
+    let isFipsKey: Bool
+
+    fileprivate init(session: YubiKitOATHSession, connection: SmartCardConnection, type: ConnectionType, version: Version, deviceId: String, isFipsKey: Bool) {
+        self.session = session
+        self.connection = connection
+        self.type = type
+        self.version = version
+        self.deviceId = deviceId
+        self.isFipsKey = isFipsKey
+    }
+
+    func sessionDidEnd() async -> Error? {
+        await ConnectionManager.shared.waitUntilClosed(connection)
+    }
+
+    func addCredential(template: YubiKitOATHSession.CredentialTemplate, requiresTouch: Bool) async throws {
+        let credentials = try await session.listCredentials()
+        let key = template.identifier
+        let keys = credentials.map { String(data: $0.id, encoding: .utf8) }
+        guard !keys.contains(key) else {
+            ConnectionManager.shared.closeNFC(errorMessage: String(localized: "Duplicate accounts!", comment: "OATH add credential duplicate accounts error"))
+            throw OATHSessionError.credentialAlreadyPresent(issuer: template.issuer ?? "", accountName: template.name)
+        }
+
+        var template = template
+        template.requiresTouch = requiresTouch
+        do {
+            try await session.addCredential(template: template)
+        } catch {
+            // If yubikey is a fips enabled key a password has to be set before you can add a new account
+            if isFipsKey, error.statusCode == 0x6985 {
+                throw OATHSessionError.fipsKeyWithoutPassword
+            }
+            throw error
+        }
+    }
+
+    func deleteCredential(_ credential: Credential) async throws {
+        try await session.deleteCredential(credential.yubiKitCredential)
+    }
+
+    /// Renames the credential and returns it with its new name.
+    func renameCredential(_ credential: Credential, issuer: String, accountName: String) async throws -> Credential {
+        let newIssuer = issuer.isEmpty ? nil : issuer
+        try await session.renameCredential(credential.yubiKitCredential, newName: accountName, newIssuer: newIssuer)
+        let key = OATHCredentialId.key(accountName: accountName, issuer: newIssuer, period: credential.period, isTOTP: credential.type == .totp)
+        guard let renamed = try await session.listCredentials().first(where: { $0.id == Data(key.utf8) }) else {
+            throw OATHSessionError.invalidDeviceInfo
+        }
+        return Credential(yubiKitCredential: renamed, requiresTouch: credential.requiresTouch)
+    }
+
+    func list() async throws -> [Credential] {
+        try await session.listCredentials().map { Credential(yubiKitCredential: $0) }
+    }
+
+    func calculateAll(timestamp: Date = Date().addingTimeInterval(10)) async throws -> [(Credential, OTP?)] {
+        try await session.calculateCredentialCodes(timestamp: timestamp).map { (Credential(yubiKitCredential: $0), $1?.otp) }
+    }
+
+    func calculate(credential: Credential, timestamp: Date = Date().addingTimeInterval(10)) async throws -> OTP {
+        if credential.isSteam {
+            let (code, validity) = try await session.calculateSteamTOTP(credential: credential.yubiKitCredential)
+            return OTP(code: code, validity: validity)
+        } else {
+            return try await session.calculateCredentialCode(for: credential.yubiKitCredential, timestamp: timestamp).otp
+        }
+    }
+
+    func unlock(password: String) async throws {
+        try await session.unlock(password: password)
+    }
+
+    /// Unlocks with the password and returns the access key derived from it.
+    func unlock(withPassword password: String) async throws -> Data {
+        let accessKey = try await session.deriveAccessKey(from: password)
+        try await session.unlock(accessKey: accessKey)
+        return accessKey
+    }
+
+    func unlock(withAccessKey accessKey: Data) async throws {
+        try await session.unlock(accessKey: accessKey)
+    }
+
+    func endNFC(message: String? = nil) {
+        ConnectionManager.shared.closeNFC(message: message)
     }
 }

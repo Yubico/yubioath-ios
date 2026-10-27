@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,88 +16,101 @@
  */
 
 import OSLog
+import YubiKit
 
-@available(iOS 14.0, *)
+final class SmartCardViewModel {
 
-class SmartCardViewModel: NSObject {
-    
     struct Certificate {
         let certificate: SecCertificate
-        let slot: YKFPIVSlot
+        let slot: PIV.Slot
     }
-    
-    private var nfcConnection: YKFNFCConnection?
-    private var accessoryConnection: YKFAccessoryConnection?
-    private var smartCardConnection: YKFSmartCardConnection?
-    
+
     private let tokenStorage = TokenCertificateStorage()
-    
+    private var wiredConnectionsTask: Task<Void, Never>?
+
     var certificatesCallback: ((_ result: Result<[Certificate]?, Error>) -> Void)?
     var tokensCallback: ((_ result: Result<[SecCertificate], Error>) -> Void)?
-    
-    override init() {
-        super.init()
-        YubiKitManager.shared.delegate = self
+
+    init() {
         Logger.allocation.debug("SmartCardViewModel: init")
     }
-    
+
     deinit {
+        wiredConnectionsTask?.cancel()
         Logger.allocation.debug("SmartCardViewModel: deinit")
     }
-    
-    private func didConnect() {
-        update()
-    }
-    
-    private func didDisconnect() {
-        self.certificatesCallback?(.success(nil))
-    }
-    
-    func startNFC() {
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
-            YubiKitManager.shared.startNFCConnection()
+
+    /// Lists the stored tokens and reads the certificates of wired YubiKeys until ``stop()``.
+    func start() {
+        tokensCallback?(.success(tokenStorage.listTokenCertificates()))
+        wiredConnectionsTask?.cancel()
+        wiredConnectionsTask = Task { [weak self] in
+            for await connection in ConnectionManager.shared.wiredConnections() {
+                if let connection {
+                    await self?.readCertificates(connection: connection)
+                } else {
+                    self?.certificatesCallback?(.success(nil))
+                }
+            }
         }
     }
-    
+
+    func stop() {
+        wiredConnectionsTask?.cancel()
+        wiredConnectionsTask = nil
+    }
+
+    func startNFC() {
+        guard DeviceCapabilities.supportsNFC else { return }
+        Task {
+            do {
+                let connection = try await ConnectionManager.shared.nfcConnection()
+                await readCertificates(connection: connection)
+            } catch where error.isNFCCancelledByUser {
+                // The user dismissed the NFC sheet.
+            } catch {
+                certificatesCallback?(.failure(error))
+            }
+        }
+    }
+
     func storeTokenCertificate(certificate: SecCertificate) -> Error? {
         return tokenStorage.storeTokenCertificate(certificate: certificate)
     }
-    
+
     func removeTokenCertificate(certificate: SecCertificate) {
         let result = tokenStorage.removeTokenCertificate(certificate: certificate)
         result ? Logger.ctk.debug("Sucessfully removed certificate from keychain") : Logger.ctk.debug("Failed removing certificate from keychain!")
     }
-    
+
     func update() {
-        let tokens = tokenStorage.listTokenCertificates()
-        tokensCallback?(.success(tokens))
-
-        guard let connection = connection else { return }
-
+        tokensCallback?(.success(tokenStorage.listTokenCertificates()))
+        guard let connection = ConnectionManager.shared.wiredConnection else { return }
         Task {
-            do {
-                let session = try await connection.pivSessionSCPIfNeeded()
-                var certificates = [Certificate]()
+            await readCertificates(connection: connection)
+        }
+    }
 
-                for slot in YKFPIVSlot.allSlots {
-                    if let cert = try await session.getCertificate(in: slot) {
-                        certificates.append(Certificate(certificate: cert, slot: slot))
-                    }
+    private func readCertificates(connection: SmartCardConnection) async {
+        do {
+            let session = try await connection.pivSession()
+            var certificates = [Certificate]()
+            for slot in PIV.Slot.allSlots {
+                if let certificate = try await session.certificate(in: slot) {
+                    certificates.append(Certificate(certificate: certificate, slot: slot))
                 }
-
-                certificatesCallback?(.success(certificates))
-                YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
-            } catch {
-                certificatesCallback?(.failure(error))
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
             }
+            certificatesCallback?(.success(certificates))
+            ConnectionManager.shared.closeNFC(message: String(localized: "Finished reading certificates", comment: "PIV extension NFC finished reading certs"))
+        } catch {
+            certificatesCallback?(.failure(error))
+            ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
         }
     }
 }
 
-@available(iOS 14.0, *)
-extension YKFPIVSlot {
-    static let allSlots: [YKFPIVSlot] = [
+nonisolated extension PIV.Slot {
+    static let allSlots: [PIV.Slot] = [
         .authentication, .signature, .keyManagement, .cardAuth,
         .retired1, .retired2, .retired3, .retired4, .retired5,
         .retired6, .retired7, .retired8, .retired9, .retired10,
@@ -105,79 +119,22 @@ extension YKFPIVSlot {
     ]
 }
 
-@available(iOS 14.0, *)
-extension YKFConnectionProtocol {
-    func pivSessionSCPIfNeeded() async throws -> YKFPIVSession {
-        try await withCheckedThrowingContinuation { continuation in
-            pivSession { session, _, error in
-                if let session {
-                    continuation.resume(returning: session)
-                } else {
-                    continuation.resume(throwing: error!)
-                }
+extension PIVSession {
+    /// The certificate in the slot, or nil if the slot is empty.
+    func certificate(in slot: PIV.Slot) async throws -> SecCertificate? {
+        do {
+            let certificate = try await getCertificate(in: slot)
+            return SecCertificateCreateWithData(nil, certificate.der as CFData)
+        } catch {
+            switch error {
+            case .failedResponse(let response, _) where response.responseStatus.status == .fileNotFound:
+                // No certificate in slot - not an error
+                return nil
+            case .responseParseError:
+                return nil
+            default:
+                throw error
             }
         }
-    }
-}
-
-@available(iOS 14.0, *)
-extension YKFPIVSession {
-    func getCertificate(in slot: YKFPIVSlot) async throws -> SecCertificate? {
-        try await withCheckedThrowingContinuation { continuation in
-            getCertificateIn(slot) { certificate, error in
-                if let certificate {
-                    continuation.resume(returning: certificate)
-                } else if let error = error as NSError?,
-                          error.code == 0x6A82 || error.code == YKFPIVErrorCode.dataParseError.rawValue {
-                    // No certificate in slot - not an error
-                    continuation.resume(returning: nil)
-                } else {
-                    continuation.resume(throwing: error!)
-                }
-            }
-        }
-    }
-}
-
-@available(iOS 14.0, *)
-extension SmartCardViewModel: YKFManagerDelegate {
-    
-    var isKeyConnected: Bool {
-        return connection != nil
-    }
-    
-    var connection: YKFConnectionProtocol? {
-        return accessoryConnection ?? smartCardConnection ?? nfcConnection
-    }
-    
-    func didConnectNFC(_ connection: YKFNFCConnection) {
-        nfcConnection = connection
-        didConnect()
-    }
-    
-    func didDisconnectNFC(_ connection: YKFNFCConnection, error: Error?) {
-        nfcConnection = nil
-    }
-    
-    func didFailConnectingNFC(_ error: Error) {}
-    
-    func didConnectAccessory(_ connection: YKFAccessoryConnection) {
-        accessoryConnection = connection
-        didConnect()
-    }
-    
-    func didDisconnectAccessory(_ connection: YKFAccessoryConnection, error: Error?) {
-        accessoryConnection = nil
-        didDisconnect()
-    }
-    
-    func didConnectSmartCard(_ connection: YKFSmartCardConnection) {
-        smartCardConnection = connection
-        didConnect()
-    }
-    
-    func didDisconnectSmartCard(_ connection: YKFSmartCardConnection, error: Error?) {
-        smartCardConnection = nil
-        didDisconnect()
     }
 }

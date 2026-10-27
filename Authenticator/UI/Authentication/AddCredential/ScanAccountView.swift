@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +17,14 @@
 
 import AVFoundation
 import UIKit
+import YubiKit
 import Combine
 import CloudKit
 
-class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
+class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDelegate {
     
     enum ScanResult {
-        case cancel, manuelEntry, account(YKFOATHCredentialTemplate)
+        case cancel, manuelEntry, account(YubiKitOATHSession.CredentialTemplate)
     }
     
     private static let scanMessage = String(localized: "Point your camera at a QR code to scan it", comment: "Scan QR code message")
@@ -48,31 +50,39 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }()
     
     private let addManuallyButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = String(localized: "Enter manually", comment: "Scan QR code add manually button")
+        configuration.baseForegroundColor = .white
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
+            var attributes = attributes
+            attributes.font = .preferredFont(forTextStyle: .body)
+            return attributes
+        }
+        let button = UIButton(configuration: configuration)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(String(localized: "Enter manually", comment: "Scan QR code add manually button"), for: .normal)
         button.setContentHuggingPriority(.required, for: .horizontal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.layer.cornerRadius = 20
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 2
-        button.contentEdgeInsets =  UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
     
     private let openSettingsButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = String(localized: "Open iOS Settings app", comment: "Scan QR code settings button")
+        configuration.baseForegroundColor = .white
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 15, bottom: 8, trailing: 15)
+        configuration.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { attributes in
+            var attributes = attributes
+            attributes.font = .preferredFont(forTextStyle: .body)
+            return attributes
+        }
+        let button = UIButton(configuration: configuration)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(String(localized: "Open iOS Settings app", comment: "Scan QR code settings button"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.layer.cornerRadius = 20
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 2
-        button.contentEdgeInsets =  UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
-        button.titleLabel?.adjustsFontForContentSizeCategory = true
         return button
     }()
     
@@ -176,7 +186,7 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         })
         
         cancellables.append(openSettingsButton.addHandler(for: .touchUpInside) {
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) else {
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
             UIApplication.shared.open(settingsUrl)
@@ -213,35 +223,37 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     
         previewLayer.backgroundColor = UIColor(white: 0.2, alpha: 1).cgColor
         
-        AVCaptureDevice.requestAccess(for: .video) { result in
-            DispatchQueue.main.async {
-                if result {
-                    guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
-                        self.showPermissionError()
-                        return
-                    }
-                    guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
-                        self.showPermissionError()
-                        return
-                    }
-                    guard self.captureSession.canAddInput(videoInput) else {
-                        self.showPermissionError()
-                        return
-                    }
-                    self.captureSession.addInput(videoInput)
-                    guard self.captureSession.canAddOutput(self.metadataOutput) else { return }
-                    self.captureSession.addOutput(self.metadataOutput)
-                    self.metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-                    self.metadataOutput.metadataObjectTypes = [.qr]
-                    self.updateVideoOrientation()
-                    DispatchQueue.global(qos: .userInitiated).async {
-                        if (self.captureSession.isRunning == false) {
-                            self.captureSession.startRunning()
-                        }
-                    }
-                } else {
+        Task {
+            let result = await AVCaptureDevice.requestAccess(for: .video)
+            if result {
+                guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
                     self.showPermissionError()
+                    return
                 }
+                guard let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
+                    self.showPermissionError()
+                    return
+                }
+                guard self.captureSession.canAddInput(videoInput) else {
+                    self.showPermissionError()
+                    return
+                }
+                self.captureSession.addInput(videoInput)
+                guard self.captureSession.canAddOutput(self.metadataOutput) else { return }
+                self.captureSession.addOutput(self.metadataOutput)
+                // Kept: AVFoundation takes a dispatch queue for delegate callbacks, and the delegate is main actor isolated.
+                self.metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+                self.metadataOutput.metadataObjectTypes = [.qr]
+                self.updateVideoOrientation()
+                // AVCaptureSession is meant to be started off the main thread.
+                nonisolated(unsafe) let captureSession = self.captureSession
+                DispatchQueue.global(qos: .userInitiated).async {
+                    if (captureSession.isRunning == false) {
+                        captureSession.startRunning()
+                    }
+                }
+            } else {
+                self.showPermissionError()
             }
         }
     }
@@ -264,19 +276,25 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }
     
     func updateVideoOrientation() {
+        // Rotation angles matching the former videoOrientation values: portrait 90°, landscapeRight 0°,
+        // landscapeLeft 180°, portraitUpsideDown 270°.
+        let rotationAngle: CGFloat
         switch (UIDevice.current.orientation) {
          case .portrait:
-            self.previewLayer.connection?.videoOrientation = .portrait
+            rotationAngle = 90
          case .landscapeLeft:
-            self.previewLayer.connection?.videoOrientation = .landscapeRight
+            rotationAngle = 0
          case .landscapeRight:
-            self.previewLayer.connection?.videoOrientation = .landscapeLeft
+            rotationAngle = 180
         case .portraitUpsideDown:
-            self.previewLayer.connection?.videoOrientation = .portraitUpsideDown
+            rotationAngle = 270
          default:
              // This will be fallback when device is placed flat on i.e a table
-            self.previewLayer.connection?.videoOrientation = .portrait
+            rotationAngle = 90
          }
+        if let connection = self.previewLayer.connection, connection.isVideoRotationAngleSupported(rotationAngle) {
+            connection.videoRotationAngle = rotationAngle
+        }
         self.metadataOutput.rectOfInterest =  self.previewLayer.metadataOutputRectConverted(fromLayerRect: self.captureRect())
     }
     
@@ -293,9 +311,9 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
-        let credential: YKFOATHCredentialTemplate
+        let credential: YubiKitOATHSession.CredentialTemplate
         do {
-            credential = try YKFOATHCredentialTemplate(url: url, skip: [.issuer, .label])
+            credential = try YubiKitOATHSession.CredentialTemplate(otpauthURL: url, skip: [.issuer, .label])
         } catch {
             showError("\(error.localizedDescription)!")
             return
@@ -316,7 +334,8 @@ class ScanAccountView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             self.alpha = 0
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        Task {
+            try? await Task.sleep(for: .seconds(1))
             self.captureSession.stopRunning()
             self.completionHandler(.account(credential))
             self.removeFromSuperview()

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +16,9 @@
  */
 
 import SwiftUI
-import Combine
+import YubiKit
 
-class Account: ObservableObject {
+@Observable class Account {
     
     enum AccountState: Equatable {
         case requiresCalculation
@@ -25,25 +26,30 @@ class Account: ObservableObject {
         case expired
     }
 
-    @Published var otp: OATHSession.OTP?
-    @Published var title: String
-    @Published var subTitle: String?
-    @Published var state: AccountState
-    @Published var isPinned: Bool
-    @Published var requiresTouch: Bool
+    var otp: OATHSession.OTP?
+    var title: String
+    var subTitle: String?
+    var state: AccountState
+    var isPinned: Bool {
+        didSet { onPinnedChange?(self) }
+    }
+    var requiresTouch: Bool
+    
+    /// Called every time `isPinned` is set.
+    @ObservationIgnored var onPinnedChange: ((Account) -> Void)?
     
     var id = UUID()
     var accountId: String { credential.id }
     var credential: OATHSession.Credential
-    var keyVersion: YKFVersion
+    var keyVersion: Version
     var color: Color = .red
     var enableRefresh: Bool = true
-    private var timeLeft: Double?
-    private var requestRefresh: PassthroughSubject<Account, Never>
-    private var connectionType: OATHSession.ConnectionType
-    private var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
+    @ObservationIgnored private var timeLeft: Double?
+    @ObservationIgnored private var requestRefresh: (Account) -> Void
+    @ObservationIgnored private var connectionType: OATHSession.ConnectionType
+    @ObservationIgnored private var calculateCompletion: ((OATHSession.OTP) -> ())? = nil
     
-    init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: YKFVersion, requestRefresh: PassthroughSubject<Account, Never>, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
+    init(credential: OATHSession.Credential, code: OATHSession.OTP?, keyVersion: Version, requestRefresh: @escaping (Account) -> Void, connectionType: OATHSession.ConnectionType, isPinned: Bool) {
 
         self.credential = credential
         title = credential.title
@@ -66,7 +72,7 @@ class Account: ObservableObject {
     
     func calculate(completion: ((OATHSession.OTP) -> ())? = nil) {
         calculateCompletion = completion
-        requestRefresh.send(self)
+        requestRefresh(self)
     }
     
     func updateTitles() {
@@ -88,8 +94,10 @@ class Account: ObservableObject {
             
             // Schedule refresh if connection is wired
             if let timeLeft, connectionType == .wired {
-                DispatchQueue.main.asyncAfter(deadline: .now() + timeLeft) {
-                    self.requestRefresh.send(self)
+                Task { [weak self] in
+                    try? await Task.sleep(for: .seconds(max(timeLeft, 0)))
+                    guard let self else { return }
+                    self.requestRefresh(self)
                 }
             }
             updateState()

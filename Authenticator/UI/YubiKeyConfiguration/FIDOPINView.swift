@@ -4,13 +4,14 @@
 //
 //  Created by Jens Utbult on 2024-08-22.
 //  Copyright © 2024 Yubico. All rights reserved.
+//  Copyright © 2026 Kenzi Voyer.
 //
 
 import SwiftUI
 
 struct FIDOPINView: View {
     
-    @StateObject var model = FIDOPINViewModel()
+    @State var model = FIDOPINViewModel()
     @Environment(\.dismiss) private var dismiss
 
     @State var presentSetPIN = false
@@ -77,13 +78,14 @@ struct FIDOPINView: View {
                 Text("OK")
             }
         })
-        .onChange(of: model.state) { state in
+        .onChange(of: model.state) { _, state in
             updateState()
         }
         .onAppear {
+            model.load()
             updateState()
         }
-        .environmentObject(model)
+        .environment(model)
     }
     
     func updateState() {
@@ -116,7 +118,7 @@ struct FIDOSetChangePINView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.displayScale) var displayScale
     
-    @EnvironmentObject var model: FIDOPINViewModel
+    @Environment(FIDOPINViewModel.self) var model
     @FocusState private var focusedField: FocusedField?
 
     enum FocusedField {
@@ -193,10 +195,10 @@ struct FIDOSetChangePINView: View {
             .onAppear {
                 focusedField = type == .set ? .newPIN : .currentPIN
             }
-            .onChange(of: model.state) { state in
+            .onChange(of: model.state) { _, state in
                 switch model.state {
                 case .error(let error):
-                    self.errorMessage = error.localizedDescription
+                    self.errorMessage = LocalizedErrorWrapper(error: error).localizedDescription
                     self.currentPIN = ""
                     self.newPIN = ""
                     self.repeatedPIN = ""

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import YubiKit
 
 enum FidoViewModelError: Error, LocalizedError {
     
@@ -34,12 +37,12 @@ enum FidoViewModelError: Error, LocalizedError {
     }
 }
 
-class FIDOPINViewModel: ObservableObject {
+@Observable class FIDOPINViewModel {
     
-    @Published var state: PINState = .unknown
-    @Published var isProcessing: Bool = false
-    @Published var pincomplexity: Bool = false
-    @Published var minPinLength: UInt = 4
+    var state: PINState = .unknown
+    var isProcessing: Bool = false
+    var pincomplexity: Bool = false
+    var minPinLength: UInt = 4
     
     enum PINState: Equatable {
         
@@ -67,17 +70,25 @@ class FIDOPINViewModel: ObservableObject {
         }
         
         func isBlocked() -> Bool {
-            isFIDOErrorOfType(.PIN_AUTH_BLOCKED)
+            if case .pinAuthBlocked = ctapError { return true }
+            return false
         }
-        
+
         func isPermanentlyBlocked() -> Bool {
-            isFIDOErrorOfType(.PIN_BLOCKED)
+            if case .pinBlocked = ctapError { return true }
+            return false
         }
-        
+
         func isFatalError() -> Bool {
-            isError() && !isFIDOErrorOfType(.PIN_AUTH_INVALID) && !isFIDOErrorOfType(.PIN_INVALID)
+            guard isError() else { return false }
+            switch ctapError {
+            case .pinAuthInvalid, .pinInvalid:
+                return false
+            default:
+                return true
+            }
         }
-        
+
         private func isError() -> Bool {
             switch self {
             case .error(_):
@@ -86,173 +97,103 @@ class FIDOPINViewModel: ObservableObject {
                 return false
             }
         }
-        
-        private func isFIDOErrorOfType(_ errorType: YKFFIDO2ErrorCode) -> Bool {
+
+        private var ctapError: CTAP2.Error? {
             switch self {
-            case (.error(let error)):
-                if let fidoError = error as? YKFFIDO2Error, UInt(fidoError.code) == errorType.rawValue {
-                    return true
-                }
-                return false
+            case .error(let error):
+                return error.ctapError
             default:
-                return false
+                return nil
             }
         }
     }
-    
-    private let connection = Connection()
-    
-    init() {
-        connection.startConnection { connection in
-            guard connection as? YKFSmartCardConnection == nil else {
-                DispatchQueue.main.async {
-                    self.state = .error(FidoViewModelError.usbNotSupported)
-                }
-                return
-            }
-            connection.managementSession { session, error in
-                guard let session else {
-                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.state = .error(error)
-                    }
+
+    @ObservationIgnored private var didLoad = false
+
+    /// Reads the PIN state from the YubiKey. Called by the view rather than from `init` since
+    /// SwiftUI may create the model several times before the view appears.
+    func load() {
+        guard !didLoad else { return }
+        didLoad = true
+        Task {
+            do {
+                let connection = try await ConnectionManager.shared.anyConnection()
+                guard !(connection is USBSmartCardConnection) else {
+                    state = .error(FidoViewModelError.usbNotSupported)
                     return
                 }
-                session.getDeviceInfo { deviceInfo, error in
-                    guard let deviceInfo else {
-                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                        DispatchQueue.main.async {
-                            self.state = .error(error)
-                        }
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self.pincomplexity = deviceInfo.pinComplexity
-                    }
-                    connection.fido2Session { session, error in
-                        guard let session else {
-                            let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                            DispatchQueue.main.async {
-                                self.state = .error(error)
-                            }
-                            return
-                        }
-                        session.getInfoWithCompletion { response, error in
-                            guard let response else {
-                                DispatchQueue.main.async {
-                                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                                    self.state = .error(error)
-                                }
-                                return
-                            }
-                            DispatchQueue.main.async {
-                                self.minPinLength = response.minPinLength
-                            }
-                            guard let pinIsSet = response.options?["clientPin"] as? Bool else {
-                                DispatchQueue.main.async {
-                                    self.state = .unknown
-                                }
-                                return
-                            }
-                            if !pinIsSet {
-                                DispatchQueue.main.async {
-                                    self.state = .notSet
-                                    YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN state read"))
-                                }
-                            } else {
-                                session.getPinRetries { retries, error in
-                                    if let error {
-                                        DispatchQueue.main.async {
-                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                                            self.state = .error(error)
-                                        }
-                                        return
-                                    }
-                                    DispatchQueue.main.async {
-                                        if retries <= 0 {
-                                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: FidoViewModelError.locked.localizedDescription)
-                                            self.state = .error(FidoViewModelError.locked)
-                                        } else {
-                                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN state read"))
-                                            self.state = .set
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                watchForRemoval(of: connection)
+                let deviceInfo = try await connection.managementSession().getDeviceInfo()
+                pincomplexity = deviceInfo.pinComplexity
+                let session = try await connection.fido2Session()
+                let info = try await session.getInfo()
+                minPinLength = info.minPinLength ?? 4
+                guard let pinIsSet = info.options.clientPin else {
+                    state = .unknown
+                    return
+                }
+                if !pinIsSet {
+                    state = .notSet
+                    ConnectionManager.shared.closeNFC(message: String(localized: "PIN state read"))
+                } else {
+                    let retries = try await session.getPinRetries().retries
+                    if retries <= 0 {
+                        ConnectionManager.shared.closeNFC(errorMessage: FidoViewModelError.locked.localizedDescription)
+                        state = .error(FidoViewModelError.locked)
+                    } else {
+                        ConnectionManager.shared.closeNFC(message: String(localized: "PIN state read"))
+                        state = .set
                     }
                 }
-            }
-        }
-        
-        connection.didDisconnect { connection, error in
-            if connection as? YKFNFCConnection != nil && error == nil { return }
-            DispatchQueue.main.async {
-                self.state = .keyRemoved
+            } catch where error.isNFCCancelledByUser {
+                // The user dismissed the NFC sheet.
+            } catch {
+                let error = LocalizedErrorWrapper(error: error)
+                ConnectionManager.shared.closeNFC(errorMessage: error.localizedDescription)
+                state = .error(error)
             }
         }
     }
-    
+
+    private func watchForRemoval(of connection: SmartCardConnection) {
+        Task { [weak self] in
+            let error = await ConnectionManager.shared.waitUntilClosed(connection)
+            if connection.isNFC && error == nil { return }
+            self?.state = .keyRemoved
+        }
+    }
+
     func setPIN(_ pin: String) {
         self.isProcessing = true
         self.state = .unknown
-        connection.startConnection { connection in
-            connection.fido2Session { session, error in
-                guard let session else {
-                    DispatchQueue.main.async {
-                        self.isProcessing = false
-                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                        self.state = .error(error)
-                    }
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
-                    return
-                }
-                session.setPin(pin) { error in
-                    DispatchQueue.main.async {
-                        if let error {
-                            self.state = .error(error)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                        } else {
-                            self.state = .didSet
-                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been set"))
-                        }
-                        self.isProcessing = false
-                    }
-                }
+        Task {
+            do {
+                let session = try await ConnectionManager.shared.anyConnection().fido2Session()
+                try await session.setPin(pin)
+                self.state = .didSet
+                ConnectionManager.shared.closeNFC(message: String(localized: "PIN has been set"))
+            } catch {
+                self.state = .error(error)
+                ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
             }
+            self.isProcessing = false
         }
     }
-    
+
     func changePIN(old oldPIN: String, new newPIN: String) {
         self.isProcessing = true
         self.state = .unknown
-        connection.startConnection { connection in
-            connection.fido2Session { session, error in
-                guard let session else {
-                    DispatchQueue.main.async {
-                        self.isProcessing = false
-                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                        self.state = .error(error)
-                    }
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
-                    return
-                }
-                session.changePin(oldPIN, to: newPIN) { error in
-                    DispatchQueue.main.async {
-                        if let error {
-                            self.state = .error(error)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                        } else {
-                            self.state = .didChange
-                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "PIN has been changed"))
-                        }
-                        self.isProcessing = false
-                    }
-                }
+        Task {
+            do {
+                let session = try await ConnectionManager.shared.anyConnection().fido2Session()
+                try await session.changePin(from: oldPIN, to: newPIN)
+                self.state = .didChange
+                ConnectionManager.shared.closeNFC(message: String(localized: "PIN has been changed"))
+            } catch {
+                self.state = .error(error)
+                ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
             }
+            self.isProcessing = false
         }
     }
 }

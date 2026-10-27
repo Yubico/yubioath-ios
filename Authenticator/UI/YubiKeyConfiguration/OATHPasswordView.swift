@@ -4,6 +4,7 @@
 //
 //  Created by Jens Utbult on 2024-08-22.
 //  Copyright © 2024 Yubico. All rights reserved.
+//  Copyright © 2026 Kenzi Voyer.
 //
 
 
@@ -11,7 +12,7 @@ import SwiftUI
 
 struct OATHPasswordView: View {
     
-    @StateObject var model = OATHPasswordViewModel()
+    @State var model = OATHPasswordViewModel()
     @Environment(\.dismiss) private var dismiss
 
     @State var presentSetPassword = false
@@ -63,7 +64,7 @@ struct OATHPasswordView: View {
             OATHSetChangePasswordView(type: .remove)
         }
         .errorAlert(error: $error) { dismiss() }
-        .onChange(of: model.state) { state in
+        .onChange(of: model.state) { _, state in
             withAnimation {
                 switch state {
                 case .unknown:
@@ -90,7 +91,10 @@ struct OATHPasswordView: View {
                 }
             }
         }
-        .environmentObject(model)
+        .onAppear {
+            model.load()
+        }
+        .environment(model)
     }
 }
 
@@ -103,7 +107,7 @@ struct OATHSetChangePasswordView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.displayScale) var displayScale
     
-    @EnvironmentObject var model: OATHPasswordViewModel
+    @Environment(OATHPasswordViewModel.self) var model
     @FocusState private var focusedField: FocusedField?
 
     enum FocusedField {
@@ -200,7 +204,7 @@ struct OATHSetChangePasswordView: View {
             .onAppear {
                 focusedField = type == .set ? .newPassword : .currentPassword
             }
-            .onChange(of: model.state) { state in
+            .onChange(of: model.state) { _, state in
                 switch model.state {
                 case .error(let error):
                     self.errorMessage = error.localizedDescription

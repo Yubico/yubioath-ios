@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +17,10 @@
 
 import SwiftUI
 
-class NotificationsViewModel: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
+@Observable class NotificationsViewModel: NSObject, UNUserNotificationCenterDelegate {
 
-    @Published var showPIVTokenView: Bool = false
-    @Published var presentDisableOTP: Bool = false
+    var showPIVTokenView: Bool = false
+    var presentDisableOTP: Bool = false
     var userInfo: [AnyHashable: Any]?
     
     override init() {

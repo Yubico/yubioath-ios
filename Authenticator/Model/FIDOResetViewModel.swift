@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +17,11 @@
 
 import Foundation
 import OSLog
+import YubiKit
 
-class FIDOResetViewModel: ObservableObject {
+@Observable class FIDOResetViewModel {
 
-    @Published var state: ResetState = .ready
+    var state: ResetState = .ready
     
     enum ResetState: Equatable {
         case ready, waitingForKeyRemove, waitingForKeyReinsert, waitingForKeyTouch, success, error(Error)
@@ -53,30 +55,45 @@ class FIDOResetViewModel: ObservableObject {
         }
     }
     
-    private let connection = Connection()
+    @ObservationIgnored private var resetTask: Task<Void, Never>?
+    @ObservationIgnored private var timeoutTask: Task<Void, Never>?
 
     func reset() {
-        connection.startConnection { connection in
-            guard connection as? YKFSmartCardConnection == nil else {
-                DispatchQueue.main.async {
-                    self.state = .error(FidoViewModelError.usbNotSupported)
+        resetTask = Task {
+            do {
+                let connection = try await ConnectionManager.shared.anyConnection()
+                switch connection {
+                case is USBSmartCardConnection:
+                    state = .error(FidoViewModelError.usbNotSupported)
+                case let connection as NFCSmartCardConnection:
+                    await resetNFC(connection: connection)
+                case is LightningSmartCardConnection:
+                    await resetLightning(connection: connection)
+                default:
+                    state = .error(String(localized: "Unknown error"))
                 }
-                return
+            } catch where error.isNFCCancelledByUser || error is CancellationError {
+                // The user dismissed the NFC sheet or cancelled the reset.
+            } catch {
+                state = .error(LocalizedErrorWrapper(error: error))
             }
-            if let connection = connection as? YKFNFCConnection {
-                self.resetNFC(connection: connection)
-                return
-            }
-            if let connection = connection as? YKFAccessoryConnection {
-                self.resetAccessory(connection: connection)
-                return
-            }
-            self.state = .error(String(localized: "Unknown error"))
         }
     }
-    
+
     func cancelReset() {
-        connection.stop()
+        resetTask?.cancel()
+        timeoutTask?.cancel()
+        ConnectionManager.shared.restartWiredConnection()
+    }
+
+    private func restartTimeout() {
+        timeoutTask?.cancel()
+        timeoutTask = Task {
+            try? await Task.sleep(for: .seconds(10))
+            guard !Task.isCancelled else { return }
+            resetTask?.cancel()
+            state = .error(FidoViewModelError.timeout)
+        }
     }
 
     init() {
@@ -90,105 +107,67 @@ class FIDOResetViewModel: ObservableObject {
 
 
 extension FIDOResetViewModel {
-    func resetNFC(connection: YKFNFCConnection) {
-        connection.fido2Session { session, error in
-            guard let session = session else {
-                guard let error else { return }
-                let localizedError = LocalizedErrorWrapper(error: error)
-                YubiKitManager.shared.stopNFCConnection(withErrorMessage: localizedError.localizedDescription)
-                DispatchQueue.main.async {
-                    self.state = .error(localizedError)
-                }
-                return
-            }
-            session.reset { error in
-                DispatchQueue.main.async {
-                    if let error {
-                        let localizedError = LocalizedErrorWrapper(error: error)
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: localizedError.localizedDescription)
-                        self.state = .error(localizedError)
-                    } else {
-                        let message = String(localized: "Reset FIDO application", comment: "FIDO reset NFC confirmation message")
-                        YubiKitManager.shared.stopNFCConnection(withMessage: message)
-                        self.state = .success
-                    }
-                }
-            }
+    private func resetNFC(connection: NFCSmartCardConnection) async {
+        do {
+            let session = try await connection.fido2Session()
+            try await session.reset().value
+            let message = String(localized: "Reset FIDO application", comment: "FIDO reset NFC confirmation message")
+            ConnectionManager.shared.closeNFC(message: message)
+            state = .success
+        } catch {
+            let localizedError = LocalizedErrorWrapper(error: error)
+            ConnectionManager.shared.closeNFC(errorMessage: localizedError.localizedDescription)
+            state = .error(localizedError)
         }
     }
 }
 
 
 extension FIDOResetViewModel {
-    func resetAccessory(connection: YKFAccessoryConnection) {
-        connection.managementSession() { session, error in
-            guard let session else { self.state = .error(error!); return }
-            
-            let version = session.version
-            guard version < YKFVersion(string: "5.7.0") || version > YKFVersion(string: "5.7.2") else {
-                DispatchQueue.main.async {
-                    self.state = .error(FidoViewModelError.notSupportedOverLightning)
-                }
+    /// Over Lightning the reset has to be sent within a few seconds of the YubiKey being inserted, so the user
+    /// removes and reinserts it first.
+    private func resetLightning(connection: SmartCardConnection) async {
+        do {
+            let version = try await connection.managementSession().version
+            guard version < Version("5.7.0")! || version > Version("5.7.2")! else {
+                state = .error(FidoViewModelError.notSupportedOverLightning)
                 return
             }
-            
-            connection.fido2Session { _, error in
-                if let error {
-                    DispatchQueue.main.async {
-                        self.state = .error(error)
-                    }
-                    return
-                }
-                
-                var cancellation = Task {
-                    try await Task.sleep(for: .seconds(10))
-                    if !Task.isCancelled {
-                        DispatchQueue.main.async {
-                            self.state = .error(FidoViewModelError.timeout)
-                        }
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    self.state = .waitingForKeyRemove
-                }
-                self.connection.didDisconnect { _, _ in
-                    cancellation.cancel()
-                    cancellation = Task {
-                        try await Task.sleep(for: .seconds(10))
-                        if !Task.isCancelled {
-                            DispatchQueue.main.async {
-                                self.state = .error(FidoViewModelError.timeout)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        self.state = .waitingForKeyReinsert
-                    }
-                    self.connection.startWiredConnection { connection in
-                        connection.fido2Session { session, error in
-                            cancellation.cancel()
-                            cancellation = Task {
-                                try await Task.sleep(for: .seconds(10))
-                                if !Task.isCancelled {
-                                    DispatchQueue.main.async {
-                                        self.state = .error(FidoViewModelError.timeout)
-                                    }
-                                }
-                            }
-                            DispatchQueue.main.async {
-                                self.state = .waitingForKeyTouch
-                            }
-                            session?.reset { error in
-                                cancellation.cancel()
-                                DispatchQueue.main.async {
-                                    self.state = .success
-                                }
-                            }
-                        }
-                    }
-                }
+            _ = try await connection.fido2Session()
+        } catch {
+            state = .error(error)
+            return
+        }
+
+        restartTimeout()
+        state = .waitingForKeyRemove
+
+        // Subscribing keeps other screens from using the YubiKey when it's reinserted.
+        var wasRemoved = ConnectionManager.shared.wiredConnection == nil
+        if wasRemoved {
+            state = .waitingForKeyReinsert
+        }
+        for await connection in ConnectionManager.shared.wiredConnections() {
+            guard let connection else {
+                wasRemoved = true
+                restartTimeout()
+                state = .waitingForKeyReinsert
+                continue
             }
+            guard wasRemoved else { continue }
+            do {
+                let session = try await connection.fido2Session()
+                restartTimeout()
+                state = .waitingForKeyTouch
+                try await session.reset().value
+                timeoutTask?.cancel()
+                state = .success
+            } catch {
+                guard !Task.isCancelled else { return }
+                timeoutTask?.cancel()
+                state = .error(error)
+            }
+            return
         }
     }
 }

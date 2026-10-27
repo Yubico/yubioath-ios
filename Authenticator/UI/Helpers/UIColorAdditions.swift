@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,24 +45,6 @@ extension UIColor {
             } else {
                 return UIColor.white
             }
-        }
-    }
-    
-    static var yubiBlue: UIColor {
-        get {
-            guard let color = UIColor(named: "YubiBlue") else {
-                return UIColor.gray
-            }
-            return color
-        }
-    }
-    
-    static var yubiGreen: UIColor {
-        get {
-            guard let color = UIColor(named: "YubiGreen") else {
-                return UIColor.gray
-            }
-            return color
         }
     }
     

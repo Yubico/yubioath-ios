@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +16,14 @@
  */
 
 import SwiftUI
+import YubiKit
 
 struct AccountDetailsData: Equatable {
     static func == (lhs: AccountDetailsData, rhs: AccountDetailsData) -> Bool {
         lhs.account.accountId == rhs.account.accountId
     }
     
-    @ObservedObject var account: Account
+    let account: Account
     let estimatedCodeFrame: CGRect
     let codeFrame: CGRect
     let statusIconFrame: CGRect
@@ -35,10 +37,10 @@ struct AccountDetailsView: View {
     private let initialCodeFontSize = 17.0
     private let finalCodeFontSize = 30.0
 
-    @EnvironmentObject var model: MainViewModel
-    @EnvironmentObject var toastPresenter: ToastPresenter
+    @Environment(MainViewModel.self) var model
+    @Environment(ToastPresenter.self) var toastPresenter
     @Binding var data: AccountDetailsData?
-    @ObservedObject var account: Account
+    var account: Account
     @State private var backgroundAlpha = 0.0
     @State private var titleOrigin: CGPoint
     @State private var subTitleOrigin: CGPoint
@@ -105,7 +107,8 @@ struct AccountDetailsView: View {
                                 menuAlpha = 0.0
                             }
                             
-                            Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
+                            Task {
+                                try? await Task.sleep(for: .milliseconds(200))
                                 self.data = nil
                             }
                         }
@@ -222,7 +225,7 @@ struct AccountDetailsView: View {
                         DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? String(localized: "Unpin", comment: "Menu") : String(localized: "Pin", comment: "Menu"), systemImage: "pin", action: {
                             account.isPinned.toggle()
                         }),
-                        account.keyVersion >= YKFVersion(string: "5.3.0") ? DetachedMenuAction(style: .default, isEnabled: true, title: String(localized: "Rename", comment: "Menu"), systemImage: "square.and.pencil", action: {
+                        account.keyVersion >= Version("5.3.0")! ? DetachedMenuAction(style: .default, isEnabled: true, title: String(localized: "Rename", comment: "Menu"), systemImage: "square.and.pencil", action: {
                             showEditing.toggle()
                         }) : nil,
                         DetachedMenuAction(style: .destructive, isEnabled: true, title: String(localized: "Delete", comment: "Menu"), systemImage: "trash", action: {
@@ -253,11 +256,11 @@ struct AccountDetailsView: View {
                           )
                     )
                 }
-                .onChange(of: model.accountsLoaded) { newValue in
+                .onChange(of: model.accountsLoaded) { _, newValue in
                     self.data = nil
                 }
-                .onChange(of: account.state) { state in
-                    DispatchQueue.main.async {
+                .onChange(of: account.state) { _, state in
+                    Task {
                         withAnimation {
                             if state == .expired {
                                 codeOpacity = 0.4
@@ -269,7 +272,7 @@ struct AccountDetailsView: View {
                 }
                 .onAppear {
                     let codeWidth = max(self.data?.codeFrame.size.width ?? 0, self.data?.estimatedCodeFrame.size.width ?? 0)
-                    DispatchQueue.main.asyncAfter(deadline: .now()) { // we need to wait one runloop for the frames to be set
+                    Task { // we need to wait one runloop for the frames to be set
                         withAnimation(.easeInOut(duration: 0.2)) {
                             backgroundAlpha = 1.0
                             codeFontSize = finalCodeFontSize

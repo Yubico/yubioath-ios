@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,74 +17,70 @@
 
 import SwiftUI
 import OSLog
+import YubiKit
 
-class ConfigurationViewModel: ObservableObject {
+@Observable class ConfigurationViewModel {
 
-    let connection = Connection()
-    
-    @Published var deviceInfo: YKFManagementDeviceInfo? {
+    var deviceInfo: DeviceInfo? {
         didSet {
             resetDeviceInfoTask?.cancel()
             resetDeviceInfoTask = nil
         }
     }
-    
-    var resetDeviceInfoTask: Task<Void, Error>?
-    
+
+    @ObservationIgnored var resetDeviceInfoTask: Task<Void, Never>?
+    @ObservationIgnored private var wiredConnectionsTask: Task<Void, Never>?
+
     init() {
         Logger.allocation.debug("ConfigurationViewModel: init")
     }
-    
+
     func waitForConnection() {
         Logger.connection.debug("ConfigurationViewModel: waitForConnection")
-        connection.startWiredConnection { [weak self] connection in
-            Logger.connection.debug("ConfigurationViewModel: got wired connection")
-            connection.managementSession { session, error in
-                guard let session else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
-                session.getDeviceInfo { info, error in
-                    guard let info else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
-                    DispatchQueue.main.async {
-                        self?.deviceInfo = info
-                    }
+        wiredConnectionsTask?.cancel()
+        wiredConnectionsTask = Task { [weak self] in
+            for await connection in ConnectionManager.shared.wiredConnections() {
+                guard let self else { return }
+                guard let connection else {
+                    self.deviceInfo = nil
+                    continue
                 }
-            }
-            
-            self?.connection.didDisconnect { [weak self] connection, error in
-                DispatchQueue.main.async {
-                    self?.deviceInfo = nil
+                Logger.connection.debug("ConfigurationViewModel: got wired connection")
+                do {
+                    self.deviceInfo = try await connection.managementSession().getDeviceInfo()
+                } catch {
+                    Logger.connection.error("ConfigurationviewModel: got error: \(error)")
                 }
-                self?.waitForConnection()
             }
         }
-
     }
-    
+
     func start() {
-        resetDeviceInfoTask = Task.detached {
+        resetDeviceInfoTask = Task {
             try? await Task.sleep(for: .seconds(1))
             guard !Task.isCancelled else { return }
-            Task.detached { @MainActor in
-                self.deviceInfo = nil
-            }
+            self.deviceInfo = nil
         }
         waitForConnection()
     }
-    
+
     func scanNFC() {
-        connection.startConnection { [weak self] connection in
-            connection.managementSession() { session, error in
-                guard let session else { Logger.connection.error("ConfigurationviewModel: got error: \(error)"); return }
-                session.getDeviceInfo { info, error in
-                    DispatchQueue.main.async {
-                        self?.deviceInfo = info
-                        YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Configuration read", comment: "NFC connection stopped message."))
-                    }
-                }
+        Task {
+            do {
+                let connection = try await ConnectionManager.shared.anyConnection()
+                self.deviceInfo = try await connection.managementSession().getDeviceInfo()
+                ConnectionManager.shared.closeNFC(message: String(localized: "Configuration read", comment: "NFC connection stopped message."))
+            } catch where error.isNFCCancelledByUser {
+                // The user dismissed the NFC sheet.
+            } catch {
+                Logger.connection.error("ConfigurationviewModel: got error: \(error)")
+                ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
             }
         }
     }
-    
+
     deinit {
+        wiredConnectionsTask?.cancel()
         Logger.allocation.debug("ConfigurationViewModel: deinit")
     }
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +18,14 @@
 
 import OSLog
 
-class OATHSavedPasswordsViewModel: ObservableObject {
+@Observable class OATHSavedPasswordsViewModel {
 
-    @Published var state: ResetState = .ready
+    var state: ResetState = .ready
     
     enum ResetState: Equatable {
         case ready, success, error(String)
     }
     
-    private let connection = Connection()
-
     func clearPasswords() {
         
         let passwordPreferences = PasswordPreferences()

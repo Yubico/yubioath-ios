@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,7 @@ import SwiftUI
 
 struct OATHResetView: View {
     
-    @StateObject var model = OATHResetViewModel()
+    @State var model = OATHResetViewModel()
     @State var presentConfirmAlert = false
     @State var presentErrorAlert = false
     @State var keyHasBeenReset = false
@@ -57,7 +58,7 @@ struct OATHResetView: View {
             Text("This will irrevocably delete all OATH TOTP/HOTP accounts from your YubiKey.")
         })
         .errorAlert(error: $error)
-        .onChange(of: model.state) { state in
+        .onChange(of: model.state) { _, state in
             withAnimation {
                 switch state {
                 case .ready:

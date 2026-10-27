@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +17,19 @@
 
 import SwiftUI
 import Combine
+import YubiKit
 
 struct MainView: View {
     
     @Environment(\.scenePhase) var scenePhase
-    @EnvironmentObject var toastPresenter: ToastPresenter
-    @EnvironmentObject var notificationsViewModel: NotificationsViewModel
+    @Environment(ToastPresenter.self) var toastPresenter
+    @Environment(NotificationsViewModel.self) var notificationsViewModel
     
-    @EnvironmentObject var model: MainViewModel
+    @Environment(MainViewModel.self) var model
     @State var showAccountDetails: AccountDetailsData? = nil
     @State var showAddAccount: Bool = false
     @State var addAccountCancellable: AnyCancellable?
-    @State var addAccountSubject = PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>()
+    @State var addAccountSubject = PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>()
     @State var showConfiguration: Bool = false
     @State var showAbout: Bool = false
     @State var password: String = ""
@@ -37,7 +39,7 @@ struct MainView: View {
     @State var oathURL: URL? = nil
     
     var insertYubiKeyMessage = {
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if DeviceCapabilities.supportsNFC {
             String(localized: "Insert YubiKey") + " " + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
         } else {
             String(localized: "Insert YubiKey")
@@ -45,6 +47,7 @@ struct MainView: View {
     }()
     
     var body: some View {
+        @Bindable var model = model
         NavigationView {
             GeometryReader { reader in
                 List {
@@ -96,7 +99,7 @@ struct MainView: View {
             .autocorrectionDisabled(true)
             .keyboardType(.asciiCapable)
             .listStyle(.inset)
-            .refreshable(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+            .refreshable(enabled: DeviceCapabilities.supportsNFC) {
                 otp = nil
                 model.updateAccountsOverNFC()
             }
@@ -125,11 +128,11 @@ struct MainView: View {
                         Button(action: { showAddAccount.toggle() }) {
                             Label("Add account", systemImage: "qrcode")
                         }
-                        .disabled(!YubiKitDeviceCapabilities.supportsISO7816NFCTags && !model.isKeyPluggedIn)
+                        .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
                         Button(action: { showConfiguration.toggle() }) {
                             Label("Configuration", systemImage: "switch.2")
                         }
-                        .disabled(!YubiKitDeviceCapabilities.supportsISO7816NFCTags && !model.isKeyPluggedIn)
+                        .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
                         Button(action: { showAbout.toggle() }) {
                             Label("About", systemImage: "questionmark.circle")
                         }
@@ -169,20 +172,20 @@ struct MainView: View {
             SecureField(String(localized: "Password", comment: "Password alert"), text: $password)
             Button(String(localized: "Cancel", comment: "Password alert"), role: .cancel) { password = "" }
             Button(String(localized: "Ok", comment: "Password alert")) {
-                model.password.send(password)
+                model.submitPassword(password)
                 password = ""
             }
         } message: {
             Text(model.passwordEntryMessage)
         }
         .alertOrConfirmationDialog(String(localized: "Save password?", comment: "Save password alert"), isPresented: $model.presentPasswordSaveType) {
-            Button(String(localized: "Save password", comment: "Save password alert.")) { model.passwordSaveType.send(.some(.save)) }
+            Button(String(localized: "Save password", comment: "Save password alert.")) { model.selectPasswordSaveType(.save) }
             let authenticationType = PasswordPreferences.evaluatedAuthenticationType()
             if authenticationType != .none {
-                Button(String(localized: "Save and protect with \(authenticationType.title)")) { model.passwordSaveType.send(.some(.lock)) }
+                Button(String(localized: "Save and protect with \(authenticationType.title)")) { model.selectPasswordSaveType(.lock) }
             }
-            Button(String(localized: "Never for this YubiKey", comment: "Save password alert.")) { model.passwordSaveType.send(.some(.never)) }
-            Button(String(localized: "Not now", comment: "Save passsword alert"), role: .cancel) { model.passwordSaveType.send(nil) }
+            Button(String(localized: "Never for this YubiKey", comment: "Save password alert.")) { model.selectPasswordSaveType(.never) }
+            Button(String(localized: "Not now", comment: "Save passsword alert"), role: .cancel) { model.selectPasswordSaveType(nil) }
         }
         .errorAlert(error: $model.sessionError)
         .errorAlert(error: $model.connectionError) { model.start() }
@@ -213,16 +216,17 @@ struct MainView: View {
                 model.updateAccountsOverNFC()
             }
         })
-        .onChange(of: otp) { otp in
+        .onChange(of: otp) { _, otp in
             if let otp, SettingsConfig.isCopyOTPEnabled {
                 toastPresenter.copyToClipboard(otp)
             }
         }
-        .onChange(of: scenePhase) { phase in
+        .onChange(of: scenePhase) { _, phase in
             // Both the NFC and the Face ID scanning alerts make the app enter the `.inactive` state
             // and in that situation we don't want to call model.stop() nor model.closeConnections()
             if phase == .active && didEnterBackground {
                 didEnterBackground = false
+                ConnectionManager.shared.resumeWiredConnections()
 
                 guard !notificationsViewModel.showPIVTokenView else { return }
                 model.start() // This is called when app becomes active
@@ -234,12 +238,12 @@ struct MainView: View {
                 model.closeConnections()
             }
         }
-        .onChange(of: model.showTouchToast) { showToast in
+        .onChange(of: model.showTouchToast) { _, showToast in
             if showToast {
                 toastPresenter.toast(message: "Touch your YubiKey")
             }
         }
-        .onChange(of: notificationsViewModel.showPIVTokenView) { showPIVTokenview in
+        .onChange(of: notificationsViewModel.showPIVTokenView) { _, showPIVTokenview in
             if showPIVTokenview {
                 showAddAccount = false
                 showConfiguration = false
@@ -247,7 +251,7 @@ struct MainView: View {
                 showAccountDetails = nil
             }
         }
-        .onChange(of: model.presentDisableOTP) { presentDisableOTP in
+        .onChange(of: model.presentDisableOTP) { _, presentDisableOTP in
             if presentDisableOTP {
                 showAddAccount = false
                 showConfiguration = false
@@ -256,19 +260,18 @@ struct MainView: View {
                 notificationsViewModel.presentDisableOTP = true
             }
         }
-        .onChange(of: notificationsViewModel.presentDisableOTP) { presentDisableOTP in
+        .onChange(of: notificationsViewModel.presentDisableOTP) { _, presentDisableOTP in
             if !presentDisableOTP {
                 model.presentDisableOTP = false
                 model.start()
             }
         }
-        .onChange(of: model.isKeyPluggedIn) { isKeyPluggedIn in
+        .onChange(of: model.isKeyPluggedIn) { _, isKeyPluggedIn in
             // If the user removes the YubiKey while adding a new account we dismiss the add account modal.
             if showAddAccount && !isKeyPluggedIn {
                 showAddAccount = false
             }
         }
-        .environmentObject(model)
     }
     
     var searchResults: [Account] {
@@ -284,9 +287,9 @@ struct MainView: View {
 extension View {
     func alertOrConfirmationDialog<A>(_ title: String, isPresented: Binding<Bool>, @ViewBuilder actions: () -> A) -> some View where A : View {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return AnyView(erasing: self.alert<A>(title, isPresented: isPresented, actions: actions))
+            return AnyView(erasing: self.alert(title, isPresented: isPresented, actions: actions))
         } else {
-            return AnyView(erasing: self.confirmationDialog<A>(title, isPresented: isPresented, titleVisibility: .visible, actions: actions))
+            return AnyView(erasing: self.confirmationDialog(title, isPresented: isPresented, titleVisibility: .visible, actions: actions))
         }
     }
 }

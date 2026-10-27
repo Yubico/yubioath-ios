@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +18,11 @@
 import UIKit
 import SwiftUI
 import OSLog
+import YubiKit
 
 struct OTPConfigurationView: UIViewControllerRepresentable {
     typealias UIViewControllerType = OTPConfigurationController
     @Environment(\.dismiss) private var dismiss
-    @State var coordinator: OTPConfigurationView.Coordinator?
     
     func makeUIViewController(context: Context) -> OTPConfigurationController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -36,11 +37,7 @@ struct OTPConfigurationView: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = Coordinator()
-        DispatchQueue.main.async {
-            self.coordinator = coordinator
-        }
-        return coordinator
+        Coordinator()
     }
     
     class Coordinator: NSObject {
@@ -73,82 +70,66 @@ class OTPConfigurationController: UITableViewController {
     }
     
     @IBAction func changeSetting(_ sender: UISwitch) {
-        viewModel.setOTPEnabled(enabled: sender.isOn) { error in
-            DispatchQueue.main.async {
-                guard error == nil else {
-                    let alert = UIAlertController(title: String(localized: "Error writing configuration", comment: "OTP settings error alert title"), message: error?.localizedDescription, preferredStyle: .alert)
-                    let action = UIAlertAction(title: String(localized: "Ok"), style: .default) { _ in
-                        self.dismiss()
-                    }
-                    alert.addAction(action)
-                    DispatchQueue.main.async {
-                        self.present(alert, animated: true, completion: nil)
-                    }
-                    return
+        let enabled = sender.isOn
+        Task {
+            do {
+                try await viewModel.setOTPEnabled(enabled: enabled)
+            } catch {
+                let alert = UIAlertController(title: String(localized: "Error writing configuration", comment: "OTP settings error alert title"), message: LocalizedErrorWrapper(error: error).localizedDescription, preferredStyle: .alert)
+                let action = UIAlertAction(title: String(localized: "Ok"), style: .default) { _ in
+                    self.dismiss()
                 }
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.isOTPEnabled { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let configuration):
-                    self.configuration = configuration
-                    self.tagSwitch.isOn = configuration.isEnabled
-                    self.tagSwitch.isEnabled = configuration.isSupported && !configuration.isConfigurationLocked
-                    if self.tagSwitch.isEnabled {
-                        if configuration.transport == .USB {
-                            self.descriptionLabel.text = String(localized: "If enabled, the YubiKey will output a One-Time Password when touched. Since the YubiKey is detected as a keyboard the built in keyboard in iOS will be disabled.")
-                        }
-                        if configuration.transport == .NFC {
-                            self.descriptionLabel.text = String(localized: "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password.")
-                        }
-                    } else {
-                        self.descriptionLabel.text = String(localized: "This setting is not supported on your YubiKey.")
+        Task {
+            do {
+                let configuration = try await viewModel.isOTPEnabled()
+                self.configuration = configuration
+                self.tagSwitch.isOn = configuration.isEnabled
+                self.tagSwitch.isEnabled = configuration.isSupported && !configuration.isConfigurationLocked
+                if self.tagSwitch.isEnabled {
+                    if configuration.transport == .usb {
+                        self.descriptionLabel.text = String(localized: "If enabled, the YubiKey will output a One-Time Password when touched. Since the YubiKey is detected as a keyboard the built in keyboard in iOS will be disabled.")
                     }
-                    self.descriptionLabel.sizeToFit()
-                case .failure(let error):
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.dismiss()
+                    if configuration.transport == .nfc {
+                        self.descriptionLabel.text = String(localized: "If enabled, scanning the YubiKey will display a notification. Tapping the notification will reveal the One-Time Password.")
                     }
-                    alert.addAction(action)
+                } else {
+                    self.descriptionLabel.text = String(localized: "This setting is not supported on your YubiKey.")
+                }
+                self.descriptionLabel.sizeToFit()
+            } catch {
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default) { _ in
                     self.dismiss()
                 }
+                alert.addAction(action)
+                self.dismiss()
             }
         }
         
-        viewModel.didDisconnect { [weak self] connection, error in
-            if error == nil && (connection as? YKFNFCConnection) != nil { return }
-            
-            // Handle disconnect caused by key being removed
-            if error == nil {
-                DispatchQueue.main.async {
-                    self?.dismiss()
-                }
+        viewModel.didDisconnect { [weak self] isNFC, error in
+            if error == nil && isNFC { return }
+
+            // Handle disconnect caused by key being removed, or by the user cancelling NFC, NFC timing out
+            // or the NFC sheet being closed with an error message
+            if error == nil || isNFC {
+                self?.dismiss()
                 return
             }
-            // Handle disconnect caused by user cancelling nfc or nfc timeout
-            if let nfcError = error as? NSError {
-                if nfcError.domain == NFCErrorDomain && (nfcError.code == 200 || nfcError.code == 201) {
-                    DispatchQueue.main.async {
-                        self?.dismiss()
-                    }
-                    return
-                }
-            }
             // Handle error
-            let alert = UIAlertController(title: error?.localizedDescription ?? String(localized: "Unknown error"), message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: error.map { LocalizedErrorWrapper(error: $0).localizedDescription } ?? String(localized: "Unknown error"), message: nil, preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default) { _ in
                 self?.dismiss()
             }
             alert.addAction(action)
-            DispatchQueue.main.async {
-                self?.present(alert, animated: true, completion: nil)
-            }
+            self?.present(alert, animated: true, completion: nil)
         }
     }
 

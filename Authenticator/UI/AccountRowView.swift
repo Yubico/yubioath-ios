@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +20,8 @@ import SwiftUI
 
 struct AccountRowView: View {
 
-    @EnvironmentObject var toastPresenter: ToastPresenter
-    @ObservedObject var account: Account
+    @Environment(ToastPresenter.self) var toastPresenter
+    var account: Account
     @Binding var showAccountDetails: AccountDetailsData?
     @State private var contentSize: CGSize = .zero
     @State private var estimatedCodeFrame: CGRect = .zero
@@ -147,9 +148,9 @@ struct AccountRowView: View {
                                               subTitleFrame: subTitleFrame)
                 showAccountDetails = data
             }
-            .onChange(of: account.state) { state in
+            .onChange(of: account.state) { _, state in
                 // Not sure why we have to schedule this in the next runloop
-                DispatchQueue.main.async {
+                Task {
                     withAnimation {
                         if state == .expired || account.otp == nil {
                             pillOpacity = 0.5
@@ -160,14 +161,13 @@ struct AccountRowView: View {
                 }
             }
             .onLongPressGesture {
-                DispatchQueue.main.async {
+                Task {
                     withAnimation(.easeOut(duration: 0.1)) {
                         pillScaling = 1.4
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            pillScaling = 1.0
-                        }
+                    try? await Task.sleep(for: .milliseconds(100))
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        pillScaling = 1.0
                     }
                 }
 
@@ -210,7 +210,7 @@ struct PieProgressView: View {
     }
 }
 
-private struct PieShape: Shape {
+nonisolated private struct PieShape: Shape {
 
     var animatableData: Double {
         get { self.progress }

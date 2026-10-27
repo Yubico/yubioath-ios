@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +31,7 @@ struct LicensingView: View {
 extension LicensingView {
     private func licensingText() -> AttributedString {
         guard let filepath = Bundle.main.path(forResource: "Licensing", ofType: "md"),
-              let licensingMarkdown = try? String(contentsOfFile: filepath) else { fatalError() }
+              let licensingMarkdown = try? String(contentsOfFile: filepath, encoding: .utf8) else { fatalError() }
         return try! AttributedString(markdown: licensingMarkdown, options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace))
     }
 }

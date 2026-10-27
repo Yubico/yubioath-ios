@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,7 +90,7 @@ class SmartCardConfigurationController: UITableViewController {
         tableView.register(MessageCell.self, forCellReuseIdentifier: "MessageCell")
         tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
 
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if DeviceCapabilities.supportsNFC {
             let refreshControl = UIRefreshControl()
             // setting background to refresh control changes behavior of spinner
             // and it gets dragged with pull rather than sticks to the top of the view
@@ -108,32 +109,30 @@ class SmartCardConfigurationController: UITableViewController {
         ])
         
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+        Task {
+            let granted = (try? await center.requestAuthorization(options: [.alert, .badge, .sound])) ?? false
             if !granted {
-                DispatchQueue.main.async {
-                    let alertController = UIAlertController (title: String(localized: "Notifications disabled", comment: "PIV extension notifications alert title"),
-                                                             message: String(localized: "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings.", comment: "PIV extensions notifications alert message"),
-                                                             preferredStyle: .alert)
-                    
-                    let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {_ in
-                        self.dismiss(animated: true)
-                    }
-                    alertController.addAction(cancelAction)
-                    
-                    let settingsAction = UIAlertAction(title: String(localized: "Settings", comment: "PIV extension settings alert title"), style: .default) { (_) -> Void in
-                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                            return
-                        }
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                                self.dismiss(animated: true)
-                            })
-                        }
-                    }
-                    alertController.addAction(settingsAction)
-                    
-                    self.present(alertController, animated: true, completion: nil)
+                let alertController = UIAlertController (title: String(localized: "Notifications disabled", comment: "PIV extension notifications alert title"),
+                                                         message: String(localized: "The smart card extension requires notifications to be enabled for Yubico Authenticator. Enable it in the iOS Settings.", comment: "PIV extensions notifications alert message"),
+                                                         preferredStyle: .alert)
+                
+                let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {_ in
+                    self.dismiss(animated: true)
                 }
+                alertController.addAction(cancelAction)
+                
+                let settingsAction = UIAlertAction(title: String(localized: "Settings", comment: "PIV extension settings alert title"), style: .default) { (_) -> Void in
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                        return
+                    }
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        guard success else { return }
+                        self.dismiss(animated: true)
+                    })
+                }
+                alertController.addAction(settingsAction)
+                
+                self.present(alertController, animated: true, completion: nil)
             }
         }
         
@@ -141,9 +140,7 @@ class SmartCardConfigurationController: UITableViewController {
             switch result {
             case .success(let certificates):
                 self.certificates = certificates
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.tableView.reloadData()
             case .failure(let error):
                 Logger.ctk.error("SmartCardConfigurationController: failed to fetch certificates: \(error)")
             }
@@ -152,19 +149,18 @@ class SmartCardConfigurationController: UITableViewController {
             switch result {
             case .success(let tokens):
                 self.tokens = tokens
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.headerView.status = tokens.count > 0 ? .enabled : .notEnabled
-                }
+                self.tableView.reloadData()
+                self.headerView.status = tokens.count > 0 ? .enabled : .notEnabled
             case .failure(let error):
                 Logger.ctk.error("SmartCardConfigurationController: failed to fetch tokens: \(error)")
             }
         }
-        viewModel.update()
+        viewModel.start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        viewModel.stop()
         viewModel.certificatesCallback = nil
         viewModel.tokensCallback = nil
     }

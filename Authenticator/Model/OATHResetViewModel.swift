@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +17,11 @@
 
 import Foundation
 import OSLog
+import YubiKit
 
-class OATHResetViewModel: ObservableObject {
+@Observable class OATHResetViewModel {
 
-    @Published var state: ResetState = .ready
+    var state: ResetState = .ready
     
     enum ResetState: Equatable {
         case ready, success, error(Error)
@@ -38,35 +40,23 @@ class OATHResetViewModel: ObservableObject {
         }
     }
     
-    private let connection = Connection()
-    
     init() {
         Logger.allocation.debug("ResetOATHViewModel: init")
     }
 
     func reset() {
-        connection.startConnection { connection in
-            connection.oathSession { session, error in
-                guard let session = session else {
-                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.state = .error(error)
-                    }
-                    return
-                }
-                session.reset { error in
-                    DispatchQueue.main.async {
-                        if let error = error {
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                            self.state = .error(error)
-                        } else {
-                            let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
-                            YubiKitManager.shared.stopNFCConnection(withMessage: message)
-                            self.state = .success
-                        }
-                    }
-                }
+        Task {
+            do {
+                let connection = try await ConnectionManager.shared.anyConnection()
+                let session = try await YubiKitOATHSession.makeSession(connection: connection)
+                try await session.reset()
+                let message = String(localized: "OATH accounts deleted and OATH application reset to factory defaults.", comment: "OATH reset confirmation message")
+                ConnectionManager.shared.closeNFC(message: message)
+                self.state = .success
+            } catch {
+                let error = LocalizedErrorWrapper(error: error)
+                ConnectionManager.shared.closeNFC(errorMessage: error.localizedDescription)
+                self.state = .error(error)
             }
         }
     }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +16,12 @@
  */
 
 import UIKit
+import YubiKit
 import Combine
 
 class AddCredentialController: UITableViewController {
     
-    var accountSubject: PassthroughSubject<(YKFOATHCredentialTemplate?, Bool), Never>?
+    var accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>?
     
     enum EntryMode {
         case manual, prefilled
@@ -47,16 +49,16 @@ class AddCredentialController: UITableViewController {
      This value is either passed by `MainViewController` in `prepare(for:sender:)`
      or constructed as part of scanning/manual input operation.
      */
-    var credential: YKFOATHCredentialTemplate? {
+    var credential: YubiKitOATHSession.CredentialTemplate? {
         didSet {
             updateWith(credential: credential)
         }
     }
     
-    private func updateWith(credential: YKFOATHCredentialTemplate?) {
+    private func updateWith(credential: YubiKitOATHSession.CredentialTemplate?) {
         if let credential, let issuerManualText, let accountManualText {
             issuerManualText.text = credential.issuer
-            accountManualText.text = credential.accountName
+            accountManualText.text = credential.name
             accountManualText.returnKeyType = mode == .manual ? .next : .done
         }
     }
@@ -126,30 +128,24 @@ class AddCredentialController: UITableViewController {
         do {
             switch mode {
             case .manual:
-                let secret = NSData.ykf_data(withBase32String: self.secretManualText.text?.replacingOccurrences(of: " ", with: "") ?? "") ?? Data()
-                let credentialType = YKFOATHCredentialType.typeFromString(advancedSettings[0][typeIndex])
-                let algorithm = YKFOATHCredentialAlgorithm.algorithmFromString(advancedSettings[1][algorithmIndex])
-                
-                self.credential = try YKFOATHCredentialTemplate(type: credentialType,
-                                                                algorithm: algorithm,
-                                                                secret: secret,
-                                                                issuer: self.issuerManualText.text ?? "",
-                                                                accountName: self.accountManualText.text ?? "",
-                                                                digits: UInt(advancedSettings[2][digitsIndex]) ?? 6,
-                                                                period: UInt(advancedSettings[3][periodIndex]) ?? 30,
-                                                                counter: 0,
-                                                                skip: [])
+                let secret = Data(base32Encoded: self.secretManualText.text?.replacingOccurrences(of: " ", with: "") ?? "") ?? Data()
+                let algorithm = YubiKitOATHSession.HashAlgorithm.algorithmFromString(advancedSettings[1][algorithmIndex])
+                let period = TimeInterval(advancedSettings[3][periodIndex]) ?? 30
+                let credentialType = advancedSettings[0][typeIndex] == "HOTP" ? YubiKitOATHSession.CredentialType.hotp(counter: 0) : .totp(period: period)
+                self.credential = try YubiKitOATHSession.CredentialTemplate(type: credentialType,
+                                                                            algorithm: algorithm,
+                                                                            secret: secret,
+                                                                            issuer: self.issuerManualText.text ?? "",
+                                                                            accountName: self.accountManualText.text ?? "",
+                                                                            digits: Int(advancedSettings[2][digitsIndex]) ?? 6)
             case .prefilled:
                 guard let credential = credential else { return }
-                self.credential = try YKFOATHCredentialTemplate(type: credential.type,
-                                                                algorithm: credential.algorithm,
-                                                                secret: credential.secret,
-                                                                issuer: self.issuerManualText.text ?? "",
-                                                                accountName: self.accountManualText.text ?? "",
-                                                                digits: credential.digits,
-                                                                period: credential.period,
-                                                                counter: credential.counter,
-                                                                skip: [])
+                self.credential = try YubiKitOATHSession.CredentialTemplate(type: credential.type,
+                                                                            algorithm: credential.algorithm,
+                                                                            secret: credential.secret,
+                                                                            issuer: self.issuerManualText.text ?? "",
+                                                                            accountName: self.accountManualText.text ?? "",
+                                                                            digits: Int(credential.digits))
             }
         } catch {
             showAlertDialog(title: String(localized: "Not valid credential information", comment: "Add account error message"), message: error.localizedDescription)
@@ -275,31 +271,16 @@ extension AddCredentialController: UITextFieldDelegate {
     }
 }
 
-extension YKFOATHCredentialType {
-    static func typeFromString(_ string: String) -> YKFOATHCredentialType {
-        switch string {
-        case "TOTP":
-            return .TOTP
-        case "HOTP":
-            return .HOTP
-        default:
-            return .unknown
-        }
-    }
-}
+extension YubiKitOATHSession.HashAlgorithm {
 
-extension YKFOATHCredentialAlgorithm {
-    
-    static func algorithmFromString(_ string: String) -> YKFOATHCredentialAlgorithm {
+    static func algorithmFromString(_ string: String) -> YubiKitOATHSession.HashAlgorithm {
         switch string {
-        case "SHA1":
-            return .SHA1
         case "SHA256":
-            return .SHA256
+            return .sha256
         case "SHA512":
-            return .SHA512
+            return .sha512
         default:
-            return .unknown
+            return .sha1
         }
     }
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,38 +18,36 @@
 import SwiftUI
 
 
-class ToastPresenter: ObservableObject {
-    @Published var isPresenting = false
-    @Published var message = "No message"
+@Observable class ToastPresenter {
+    var isPresenting = false
+    var message = "No message"
     
-    private var presentWorkItem: DispatchWorkItem?
-    private var dismissWorkItem: DispatchWorkItem?
-    
+    @ObservationIgnored private var presentTask: Task<Void, any Error>?
+    @ObservationIgnored private var dismissTask: Task<Void, any Error>?
+
     func toast(message: String) {
-        presentWorkItem?.cancel()
-        dismissWorkItem?.cancel()
-        
+        presentTask?.cancel()
+        dismissTask?.cancel()
+
         if isPresenting {
             isPresenting = false
-            let task = DispatchWorkItem {
-                self.present(message)
+            presentTask = Task { [weak self] in
+                try await Task.sleep(for: .milliseconds(300))
+                self?.present(message)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: task)
-            dismissWorkItem = task
         } else {
             present(message)
         }
     }
-    
+
     private func present(_ message: String) {
         self.message = message
         isPresenting = true
-        let task = DispatchWorkItem {
-            self.isPresenting = false
-            self.presentWorkItem = nil
+        dismissTask = Task { [weak self] in
+            try await Task.sleep(for: .seconds(4))
+            self?.isPresenting = false
+            self?.dismissTask = nil
         }
-        presentWorkItem = task
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: task)
     }
 }
 

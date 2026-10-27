@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +16,7 @@
  */
 
 import OSLog
+import YubiKit
 
 enum OATHViewModelError: Error, LocalizedError {
     
@@ -30,12 +32,11 @@ enum OATHViewModelError: Error, LocalizedError {
     }
 }
 
-class OATHPasswordViewModel: ObservableObject {
+@Observable class OATHPasswordViewModel {
     
-    private let connection = Connection()
-    @Published var state: PasswordState = .unknown
-    @Published var isProcessing: Bool = false
-    @Published var isFipsKey: Bool = false
+    var state: PasswordState = .unknown
+    var isProcessing: Bool = false
+    var isFipsKey: Bool = false
     
     enum PasswordState: Equatable {
         
@@ -90,68 +91,61 @@ class OATHPasswordViewModel: ObservableObject {
     }
     
     init() {
-        connection.startConnection { [weak self] connection in
-            connection.managementSession { session, error in
-                guard let session else {
-                    let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                    DispatchQueue.main.async {
-                        self?.state = .error(error)
-                    }
-                    return
-                }
-                session.getDeviceInfo { deviceInfo, error in
-                    guard let deviceInfo else {
-                        let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                        DispatchQueue.main.async {
-                            self?.state = .error(error)
-                        }
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.isFipsKey = deviceInfo.isFIPSCapable & 0b00001000 == 0b00001000
-                    }
-                    
-                    connection.oathSession { session, _, error in
-                        guard let session else {
-                            let error: LocalizedError = error.map { LocalizedErrorWrapper(error: $0) } ?? UnknownError.error
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                            DispatchQueue.main.async {
-                                self?.state = .error(error)
-                            }
-                            return
-                        }
-                        session.listCredentials { _, error in
-                            DispatchQueue.main.async {
-                                defer { YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password state read")) }
-                                guard let error = error else {
-                                    self?.state = .notSet
-                                    return
-                                }
-                                if let oathError = error as? YKFOATHError, oathError.code == YKFOATHErrorCode.authenticationRequired.rawValue {
-                                    self?.state = .set
-                                } else {
-                                    self?.state = .error(error) // If we got this far the error is pretty exotic so bailing out like this is ok.
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        connection.didDisconnect { [weak self] connection, error in
-            if connection as? YKFNFCConnection != nil && error == nil { return }
-            DispatchQueue.main.async {
-                self?.state = .keyRemoved
-            }
-        }
         Logger.allocation.debug("OATHPasswordViewModel: init")
     }
-    
+
+    @ObservationIgnored private var didLoad = false
+
+    /// Reads the password state from the YubiKey. Called by the view rather than from `init` since
+    /// SwiftUI may create the model several times before the view appears.
+    func load() {
+        guard !didLoad else { return }
+        didLoad = true
+        Task {
+            do {
+                let connection = try await ConnectionManager.shared.anyConnection()
+                watchForRemoval(of: connection)
+                do {
+                    let deviceInfo = try await connection.managementSession().getDeviceInfo()
+                    isFipsKey = deviceInfo.fipsCapabilityFlags & FIPSCapability.oath == FIPSCapability.oath
+                } catch {
+                    let error = LocalizedErrorWrapper(error: error)
+                    ConnectionManager.shared.closeNFC(errorMessage: error.localizedDescription)
+                    state = .error(error)
+                    return
+                }
+                let session = try await connection.oathSession().session
+                defer { ConnectionManager.shared.closeNFC(message: String(localized: "Password state read")) }
+                do {
+                    _ = try await session.listCredentials()
+                    state = .notSet
+                } catch where error.isOATHAuthenticationRequired {
+                    state = .set
+                } catch {
+                    state = .error(error) // If we got this far the error is pretty exotic so bailing out like this is ok.
+                }
+            } catch where error.isNFCCancelledByUser {
+                // The user dismissed the NFC sheet.
+            } catch {
+                let error = LocalizedErrorWrapper(error: error)
+                ConnectionManager.shared.closeNFC(errorMessage: error.localizedDescription)
+                state = .error(error)
+            }
+        }
+    }
+
     deinit {
         Logger.allocation.debug("OATHPasswordViewModel: deinit")
     }
-    
+
+    private func watchForRemoval(of connection: SmartCardConnection) {
+        Task { [weak self] in
+            let error = await ConnectionManager.shared.waitUntilClosed(connection)
+            if connection.isNFC && error == nil { return }
+            self?.state = .keyRemoved
+        }
+    }
+
     func setPassword(_ newPassword: String, repeated repeatedPassword: String) {
         self.isProcessing = true
         self.state = .unknown
@@ -159,80 +153,54 @@ class OATHPasswordViewModel: ObservableObject {
             self.state = .error(OATHViewModelError.passwordsDoNotMatch)
             return
         }
-        connection.startConnection { connection in
-            connection.oathSession { session, _, error in
-                guard let session else {
-                    guard let error else { return }
-                    DispatchQueue.main.async {
-                        self.isProcessing = false
-                        self.state = .error(error) // If there is no error and no session crashing is the best thing.
-                    }
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                    return
-                }
-                session.setPassword(newPassword) { error in
-                    DispatchQueue.main.async {
-                        if let error {
-                            self.state = .error(error)
-                            YubiKitManager.shared.stopNFCConnection(withErrorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
-                        } else {
-                            self.state = .didSet
-                            YubiKitManager.shared.stopNFCConnection(withMessage: String(localized: "Password has been set"))
-                        }
-                        self.isProcessing = false
-                    }
-                }
+        Task {
+            do {
+                let session = try await ConnectionManager.shared.anyConnection().oathSession().session
+                try await session.setPassword(newPassword)
+                self.state = .didSet
+                ConnectionManager.shared.closeNFC(message: String(localized: "Password has been set"))
+            } catch {
+                self.state = .error(error)
+                ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
             }
+            self.isProcessing = false
         }
     }
-    
+
     func changePassword(old oldPassword: String, new newPassword: String?, repeated repeatedPassword: String?) {
         self.isProcessing = true
         self.state = .unknown
         guard newPassword == repeatedPassword else {
             // Wait until the next runloop to change the state so SwiftUI picks it up
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            Task {
+                try? await Task.sleep(for: .milliseconds(10))
                 self.state = .error(OATHViewModelError.passwordsDoNotMatch)
             }
             return
         }
-        connection.startConnection { connection in
-            connection.oathSession { session, _, error in
-                guard let session else {
-                    DispatchQueue.main.async {
-                        self.isProcessing = false
-                        self.state = .error(error!) // If there is no error and no session crashing is the best thing.
-                    }
-                    YubiKitManager.shared.stopNFCConnection(withErrorMessage: error!.localizedDescription)
+        Task {
+            do {
+                let session = try await ConnectionManager.shared.anyConnection().oathSession().session
+                do {
+                    try await session.unlock(password: oldPassword)
+                } catch {
+                    self.state = .error(error.isOATHWrongPassword ? OATHViewModelError.wrongPassword : error)
+                    self.isProcessing = false
+                    ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
                     return
                 }
-                session.unlock(withPassword: oldPassword) { error in
-                    if let error {
-                        DispatchQueue.main.async {
-                            if let oathError = error as? YKFOATHError, UInt(oathError.code) == YKFOATHErrorCode.wrongPassword.rawValue {
-                                self.state = .error(OATHViewModelError.wrongPassword)
-                            } else {
-                                self.state = .error(error)
-                            }
-                            self.isProcessing = false
-                        }
-                        YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                        return
-                    }
-                    session.setPassword(newPassword ?? "") { error in
-                        DispatchQueue.main.async {
-                            if let error {
-                                self.state = .error(error)
-                                YubiKitManager.shared.stopNFCConnection(withErrorMessage: error.localizedDescription)
-                            } else {
-                                self.state = newPassword != nil ? .didSet : .didRemove
-                                YubiKitManager.shared.stopNFCConnection(withMessage: newPassword != nil ? String(localized: "Password has been changed") : String(localized: "Password has been removed"))
-                            }
-                            self.isProcessing = false
-                        }
-                    }
+                if let newPassword {
+                    try await session.setPassword(newPassword)
+                } else {
+                    try await session.deleteAccessKey()
                 }
+                self.state = newPassword != nil ? .didSet : .didRemove
+                ConnectionManager.shared.closeNFC(message: newPassword != nil ? String(localized: "Password has been changed") : String(localized: "Password has been removed"))
+            } catch {
+                self.state = .error(error)
+                ConnectionManager.shared.closeNFC(errorMessage: LocalizedErrorWrapper(error: error).localizedDescription)
             }
+            self.isProcessing = false
         }
     }
 

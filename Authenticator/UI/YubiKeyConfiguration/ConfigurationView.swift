@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +16,15 @@
  */
 
 import SwiftUI
+import YubiKit
 
 struct ConfigurationView: View {
-    @StateObject var model = ConfigurationViewModel()
+    @State var model = ConfigurationViewModel()
     @Binding var showConfiguration: Bool
     @State var showInsertYubiKey: Bool = false
     
     var insertYubiKeyMessage = {
-        if YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+        if DeviceCapabilities.supportsNFC {
             String(localized: "Insert YubiKey") + " " + "\(!UIAccessibility.isVoiceOverRunning ? String(localized: "or pull down to activate NFC") : String(localized: "or scan a NFC YubiKey"))"
         } else {
             String(localized: "Insert YubiKey")
@@ -96,7 +98,7 @@ struct ConfigurationView: View {
                         ListIconView(image: Image(systemName: "ellipsis.rectangle"), color: Color(.systemBlue))
                         Text("Toggle One-Time Password")
                     }
-                    if YubiKitDeviceCapabilities.supportsNFCScanning {
+                    if DeviceCapabilities.supportsNFCScanning {
                         NavigationLink {
                             NFCSettingsView()
                                 .navigationBarTitleDisplayMode(.inline)
@@ -136,7 +138,7 @@ struct ConfigurationView: View {
                         Text("Reset OATH application")
                     }
                 }
-                if YubiKitDeviceCapabilities.supportsMFIAccessoryKey || YubiKitDeviceCapabilities.supportsISO7816NFCTags {
+                if DeviceCapabilities.supportsLightning || DeviceCapabilities.supportsNFC {
                     Section("FIDO") {
                         NavigationLink {
                             FIDOPINView()
@@ -149,7 +151,7 @@ struct ConfigurationView: View {
                         }
                         NavigationLink {
                             FIDOResetView {
-                                Task.detached { @MainActor in
+                                Task {
                                     model.start()
                                 }
                             }
@@ -187,7 +189,7 @@ struct ConfigurationView: View {
                 }
             }
         }
-        .onChange(of: model.deviceInfo) { _ in
+        .onChange(of: model.deviceInfo == nil) { _, _ in
             withAnimation {
                 showInsertYubiKey = model.deviceInfo == nil
             }
@@ -199,7 +201,7 @@ struct ConfigurationView: View {
 
             model.start()
         }
-        .refreshable(enabled: YubiKitDeviceCapabilities.supportsISO7816NFCTags) {
+        .refreshable(enabled: DeviceCapabilities.supportsNFC) {
             model.scanNFC()
         }
     }
@@ -225,31 +227,31 @@ struct ListIconView: View {
     }
 }
 
-extension YKFManagementDeviceInfo {
+extension DeviceInfo {
     var deviceName: String {
 
         let deviceName: String
         switch formFactor {
-        case .usbaKeychain:
+        case .usbAKeychain:
             let name: String
             if version.major == 5 { name = "5" } else
             if version.major < 4 { name = "NEO" }
             else { name = "" }
             deviceName = "YubiKey \(name) NFC"
             break
-        case .usbcKeychain:
+        case .usbCKeychain:
             deviceName = "YubiKey 5C NFC"
-        case .usbcLightning:
+        case .usbCLightning:
             deviceName = "YubiKey 5Ci"
-        case .usbcBio, .usbaBio:
+        case .usbCBio, .usbABio:
             deviceName = "YubiKey Bio"
-        case .usbcNano:
+        case .usbCNano:
             deviceName = "YubiKey Nano"
         default:
             return "Unknown key"
         }
 
-        if (isFIPSCapable != 0) || isFips {
+        if (fipsCapabilityFlags != 0) || isFIPS {
             return deviceName + " FIPS"
         } else {
             return deviceName
@@ -258,15 +260,15 @@ extension YKFManagementDeviceInfo {
     
     var deviceImage: Image? {
         switch formFactor {
-        case .usbaKeychain:
+        case .usbAKeychain:
             return Image("yk5nfc")
-        case .usbcKeychain:
+        case .usbCKeychain:
             return Image("yk5cnfc")
-        case .usbcLightning:
+        case .usbCLightning:
             return Image("yk5ci")
-        case .usbcBio:
+        case .usbCBio:
             return Image("ykbioc")
-        case .usbaBio:
+        case .usbABio:
             return Image("ykbioa")
         default:
             return nil

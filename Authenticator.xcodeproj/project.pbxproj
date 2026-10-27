@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,7 @@
 		515542752656706F00B19C59 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542742656706F00B19C59 /* Token.swift */; };
 		515542772656707000B19C59 /* TokenDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542762656707000B19C59 /* TokenDriver.swift */; };
 		515542792656707000B19C59 /* TokenSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542782656707000B19C59 /* TokenSession.swift */; };
-		5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5155426F2656706F00B19C59 /* TokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5155427D2656707000B19C59 /* TokenExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5155426F2656706F00B19C59 /* TokenExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5155428326569ADD00B19C59 /* UIControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155428226569ADC00B19C59 /* UIControl+Extensions.swift */; };
 		515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542842656A30B00B19C59 /* UIButton+Extensions.swift */; };
 		515542882656F64100B19C59 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515542872656F64100B19C59 /* Data+Extensions.swift */; };
@@ -35,13 +35,13 @@
 		51AFD4D62716FCDB008F2630 /* ApplicationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */; };
 		51AFD4D827196AB6008F2630 /* VersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51AFD4D727196AB6008F2630 /* VersionHistory.plist */; };
 		51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51AFD4D9271D4277008F2630 /* QuartzCore.framework */; };
-		51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */; };
+		51BBE37F273982D700DA47CC /* OATHSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BBE37E273982D700DA47CC /* OATHSession+Extensions.swift */; };
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
-		51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */; };
-		51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */; };
+		51EEC532246D34ED00061A8F /* DeviceCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* DeviceCapabilities.swift */; };
+		51EEC536246D38B700061A8F /* YubiKitExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */; };
 		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
-		51F8E3BF263848E30010686B /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* Connection.swift */; };
+		51F8E3BF263848E30010686B /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* ConnectionManager.swift */; };
 		816C684623430E0700209342 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684523430E0700209342 /* SecureStore.swift */; };
 		816C684823430F8E00209342 /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684723430F8E00209342 /* SecureStoreQueryable.swift */; };
 		816C685023440D2200209342 /* SecureStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C684F23440D2200209342 /* SecureStoreError.swift */; };
@@ -68,11 +68,9 @@
 		B40D61A22AE7F89500467AE9 /* DisableOTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40D61A12AE7F89500467AE9 /* DisableOTPModel.swift */; };
 		B40F44452B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40F44442B27033A000D5E02 /* TokenRequestYubiOTPViewController.swift */; };
 		B411242F29D423A300D58001 /* ListStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B411242E29D423A300D58001 /* ListStatusView.swift */; };
-		B42A39332B2A03D20039DB26 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B42A39322B2A03D20039DB26 /* YubiKit */; };
 		B43751972C9AD7D8004017A4 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B43751962C9AD7D8004017A4 /* InfoPlist.xcstrings */; };
 		B43751A42CA440E7004017A4 /* NFCSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFD4D32716FC78008F2630 /* NFCSettingsController.swift */; };
 		B44E5E812C74BE67007ABB79 /* OATHResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5E802C74BE67007ABB79 /* OATHResetView.swift */; };
-		B44E5E842C74C8CC007ABB79 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B44E5E832C74C8CC007ABB79 /* YubiKit */; };
 		B44E5EB32C777F22007ABB79 /* OATHPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5EB22C777F22007ABB79 /* OATHPasswordViewModel.swift */; };
 		B44E5EBB2C778802007ABB79 /* OATHPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44E5EBA2C778802007ABB79 /* OATHPasswordView.swift */; };
 		B452EC1F2A1E4F460045E5D9 /* YubiOtpRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B452EC1E2A1E4F460045E5D9 /* YubiOtpRowView.swift */; };
@@ -91,14 +89,13 @@
 		B47486602CEC83F90031A504 /* VersionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474865F2CEC83F50031A504 /* VersionHistoryView.swift */; };
 		B47486622CECC2190031A504 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486612CECC2150031A504 /* TutorialView.swift */; };
 		B47486642CECC2F50031A504 /* LicensingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486632CECC2F00031A504 /* LicensingView.swift */; };
-		C1A0000000000000000000B7 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000A7 /* AppIconView.swift */; };
 		B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486652CECE3640031A504 /* UIFont+Extensions.swift */; };
 		B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE32BD697620092E7A2 /* Localizable.xcstrings */; };
 		B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */; };
 		B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF02BD7DD350092E7A2 /* EditCredential.storyboard */; };
 		B4901AF42BD7DF960092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */; };
 		B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */; };
-		B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */; };
+		B4A597BA2D9D7BFE00444D97 /* SmartCardConnection+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A597B92D9D7BF000444D97 /* SmartCardConnection+Extensions.swift */; };
 		B4B1711827DF8C48002A62DE /* ScanAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B1711727DF8C48002A62DE /* ScanAccountView.swift */; };
 		B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */; };
 		B4BB02D92C80987B00B72904 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BB02D82C80987B00B72904 /* SettingsButton.swift */; };
@@ -119,6 +116,7 @@
 		B4FE90D22A4431AB00B59170 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */; };
 		B4FE90D42A443D8400B59170 /* TokenRequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */; };
 		B9F0FF11F842A39183974083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		C1A0000000000000000000B7 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000A7 /* AppIconView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,15 +137,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		515542812656707000B19C59 /* Embed App Extensions */ = {
+		515542812656707000B19C59 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5155427D2656707000B19C59 /* TokenExtension.appex in Embed App Extensions */,
+				5155427D2656707000B19C59 /* TokenExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -186,13 +184,13 @@
 		51AFD4D52716FCDB008F2630 /* ApplicationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationSettingsViewModel.swift; sourceTree = "<group>"; };
 		51AFD4D727196AB6008F2630 /* VersionHistory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VersionHistory.plist; sourceTree = "<group>"; };
 		51AFD4D9271D4277008F2630 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFOATHSession+Extensions.swift"; sourceTree = "<group>"; };
+		51BBE37E273982D700DA47CC /* OATHSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OATHSession+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
-		51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFKeyVersion+Extensions.swift"; sourceTree = "<group>"; };
-		51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YKFKeyVersionExtensionsTests.swift; sourceTree = "<group>"; };
+		51EEC531246D34ED00061A8F /* DeviceCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCapabilities.swift; sourceTree = "<group>"; };
+		51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKitExtensionsTests.swift; sourceTree = "<group>"; };
 		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
-		51F8E3BE263848E30010686B /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		51F8E3BE263848E30010686B /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		816C684523430E0700209342 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		816C684723430F8E00209342 /* SecureStoreQueryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreQueryable.swift; sourceTree = "<group>"; };
 		816C684F23440D2200209342 /* SecureStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreError.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 		B474865F2CEC83F50031A504 /* VersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryView.swift; sourceTree = "<group>"; };
 		B47486612CECC2150031A504 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		B47486632CECC2F00031A504 /* LicensingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingView.swift; sourceTree = "<group>"; };
-		C1A0000000000000000000A7 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		B47486652CECE3640031A504 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		B4901AE32BD697620092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Authenticator/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
 		B4901AEB2BD7DD160092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddCredential.storyboard; sourceTree = "<group>"; };
@@ -256,7 +253,7 @@
 		B4901AF22BD7DD350092E7A2 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/EditCredential.xcstrings; sourceTree = "<group>"; };
 		B4901AF32BD7DF960092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
-		B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "YKFConnectionProtocol+Extensions.swift"; sourceTree = "<group>"; };
+		B4A597B92D9D7BF000444D97 /* SmartCardConnection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartCardConnection+Extensions.swift"; sourceTree = "<group>"; };
 		B4B1711727DF8C48002A62DE /* ScanAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAccountView.swift; sourceTree = "<group>"; };
 		B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extensions.swift"; sourceTree = "<group>"; };
 		B4BB02D82C80987B00B72904 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
@@ -273,9 +270,9 @@
 		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
 		B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
-		B4E9D46228B65B5100D51FFC /* yubikit-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "yubikit-ios"; path = "../yubikit-ios"; sourceTree = "<group>"; };
 		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		B4FE90D32A443D8400B59170 /* TokenRequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRequestWrapper.swift; sourceTree = "<group>"; };
+		C1A0000000000000000000A7 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,9 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B44E5E842C74C8CC007ABB79 /* YubiKit in Frameworks */,
 				B4D71E812CE4E6E6004D4C29 /* YubiKit in Frameworks */,
-				B42A39332B2A03D20039DB26 /* YubiKit in Frameworks */,
 				B9F0FF11F842A39183974083 /* (null) in Frameworks */,
 				51AFD4DA271D4278008F2630 /* QuartzCore.framework in Frameworks */,
 			);
@@ -394,9 +389,9 @@
 			isa = PBXGroup;
 			children = (
 				B4B83B692CBE8D3A00B33C47 /* Logger+Extensions.swift */,
-				51EEC531246D34ED00061A8F /* YKFKeyVersion+Extensions.swift */,
-				B4A597B92D9D7BF000444D97 /* YKFConnectionProtocol+Extensions.swift */,
-				51BBE37E273982D700DA47CC /* YKFOATHSession+Extensions.swift */,
+				51EEC531246D34ED00061A8F /* DeviceCapabilities.swift */,
+				B4A597B92D9D7BF000444D97 /* SmartCardConnection+Extensions.swift */,
+				51BBE37E273982D700DA47CC /* OATHSession+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -486,7 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				816C685123440EF900209342 /* SecureStoreTests.swift */,
-				51EEC535246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift */,
+				51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */,
 				818866CF22DFD72C006BC0A8 /* Info.plist */,
 			);
 			path = AuthenticatorTests;
@@ -521,7 +516,7 @@
 				51EEC530246D34D800061A8F /* Extensions */,
 				816C684423430DC000209342 /* SecureStore */,
 				81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */,
-				51F8E3BE263848E30010686B /* Connection.swift */,
+				51F8E3BE263848E30010686B /* ConnectionManager.swift */,
 				A5588BF8239B0A7F003E4CA5 /* FavoritesStorage.swift */,
 				81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */,
 				51F8E3BC263847BD0010686B /* ManagementViewModel.swift */,
@@ -562,10 +557,10 @@
 			isa = PBXGroup;
 			children = (
 				B474865B2CEB79FD0031A504 /* AboutView.swift */,
+				C1A0000000000000000000A7 /* AppIconView.swift */,
 				B47486612CECC2150031A504 /* TutorialView.swift */,
 				B474865F2CEC83F50031A504 /* VersionHistoryView.swift */,
 				B47486632CECC2F00031A504 /* LicensingView.swift */,
-				C1A0000000000000000000A7 /* AppIconView.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -573,7 +568,6 @@
 		B4E9D45928B65A6E00D51FFC /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				B4E9D46228B65B5100D51FFC /* yubikit-ios */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -605,7 +599,7 @@
 				818866AF22DFD729006BC0A8 /* Sources */,
 				818866B022DFD729006BC0A8 /* Frameworks */,
 				818866B122DFD729006BC0A8 /* Resources */,
-				515542812656707000B19C59 /* Embed App Extensions */,
+				515542812656707000B19C59 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -614,8 +608,6 @@
 			);
 			name = Authenticator;
 			packageProductDependencies = (
-				B42A39322B2A03D20039DB26 /* YubiKit */,
-				B44E5E832C74C8CC007ABB79 /* YubiKit */,
 				B4D71E802CE4E6E6004D4C29 /* YubiKit */,
 			);
 			productName = Authenticator;
@@ -646,8 +638,9 @@
 		818866AB22DFD729006BC0A8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1240;
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
 				ORGANIZATIONNAME = Yubico;
 				TargetAttributes = {
 					5155426E2656706F00B19C59 = {
@@ -668,7 +661,6 @@
 				};
 			};
 			buildConfigurationList = 818866AE22DFD729006BC0A8 /* Build configuration list for PBXProject "Authenticator" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -681,8 +673,9 @@
 			);
 			mainGroup = 818866AA22DFD729006BC0A8;
 			packageReferences = (
-				B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-ios" */,
+				B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-swift" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 818866B422DFD729006BC0A8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -752,7 +745,7 @@
 				B4BB02E42C81B21D00B72904 /* FIDOPINView.swift in Sources */,
 				A591412123835F4600CCCF67 /* Constants.swift in Sources */,
 				515542852656A30B00B19C59 /* UIButton+Extensions.swift in Sources */,
-				51BBE37F273982D700DA47CC /* YKFOATHSession+Extensions.swift in Sources */,
+				51BBE37F273982D700DA47CC /* OATHSession+Extensions.swift in Sources */,
 				B44E5EB32C777F22007ABB79 /* OATHPasswordViewModel.swift in Sources */,
 				B4B83B6A2CBE8D4200B33C47 /* Logger+Extensions.swift in Sources */,
 				B4BB02DC2C80A09500B72904 /* SettingsView.swift in Sources */,
@@ -773,16 +766,16 @@
 				B47486602CEC83F90031A504 /* VersionHistoryView.swift in Sources */,
 				817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */,
 				513F34C82464658F00FCE030 /* SettingsRowView.swift in Sources */,
-				51F8E3BF263848E30010686B /* Connection.swift in Sources */,
+				51F8E3BF263848E30010686B /* ConnectionManager.swift in Sources */,
 				B46E378729C348F100CA0B67 /* EditAccountWrapper.swift in Sources */,
 				B4696F3F2CB6CE5800604F6F /* ConfigurationView.swift in Sources */,
 				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
 				B47486642CECC2F50031A504 /* LicensingView.swift in Sources */,
-				C1A0000000000000000000B7 /* AppIconView.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
 				B4719B2C29914051006CDAEA /* AccountRowView.swift in Sources */,
+				C1A0000000000000000000B7 /* AppIconView.swift in Sources */,
 				B4BB02E82C81C7A700B72904 /* FIDOResetView.swift in Sources */,
 				B4DB228A299BC373003110ED /* OATHSession.swift in Sources */,
 				B4719B322993EFEE006CDAEA /* AccountDetailsView.swift in Sources */,
@@ -818,7 +811,7 @@
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */,
-				51EEC532246D34ED00061A8F /* YKFKeyVersion+Extensions.swift in Sources */,
+				51EEC532246D34ED00061A8F /* DeviceCapabilities.swift in Sources */,
 				B47486622CECC2190031A504 /* TutorialView.swift in Sources */,
 				B4BB02E22C81A82300B72904 /* FIDOPINViewModel.swift in Sources */,
 				B4696F412CB6CF2B00604F6F /* ConfigurationViewModel.swift in Sources */,
@@ -831,7 +824,7 @@
 				81FA3C39231AF4F0009C22AB /* UIViewControllerAdditions.swift in Sources */,
 				816C684623430E0700209342 /* SecureStore.swift in Sources */,
 				51394C5A26D40E64009F366D /* UIGestureRecognizer+Extensions.swift in Sources */,
-				B4A597BA2D9D7BFE00444D97 /* YKFConnectionProtocol+Extensions.swift in Sources */,
+				B4A597BA2D9D7BFE00444D97 /* SmartCardConnection+Extensions.swift in Sources */,
 				B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -841,7 +834,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				816C685223440EF900209342 /* SecureStoreTests.swift in Sources */,
-				51EEC536246D38B700061A8F /* YKFKeyVersionExtensionsTests.swift in Sources */,
+				51EEC536246D38B700061A8F /* YubiKitExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,9 +899,9 @@
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 204;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				DEVELOPMENT_TEAM = XW69FY82W3;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -918,8 +911,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -930,9 +925,9 @@
 				CODE_SIGN_ENTITLEMENTS = TokenExtension/TokenExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 204;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
+				DEVELOPMENT_TEAM = XW69FY82W3;
 				INFOPLIST_FILE = TokenExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -942,8 +937,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator.TokenExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -952,10 +949,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -985,9 +983,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1001,12 +1001,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1017,10 +1018,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1050,9 +1052,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1060,11 +1064,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1075,17 +1080,15 @@
 		818866DE22DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 204;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
-				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
+				DEVELOPMENT_TEAM = XW69FY82W3;
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1096,9 +1099,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				YKF_ENABLE_VERBOSE_LOGGING = YES;
 			};
@@ -1107,17 +1112,15 @@
 		818866DF22DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 204;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
-				HEADER_SEARCH_PATHS = "../Submodules/YubiKit/**";
+				DEVELOPMENT_TEAM = XW69FY82W3;
 				INFOPLIST_FILE = Authenticator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1128,9 +1131,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.Authenticator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Authenticator/Authenticator-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				YKF_ENABLE_VERBOSE_LOGGING = NO;
 			};
@@ -1139,12 +1144,10 @@
 		818866E122DFD72C006BC0A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1152,8 +1155,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "$(AVAILABLE_PLATFORMS)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4,6,7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Authenticator.app/Authenticator";
 			};
 			name = Debug;
@@ -1161,12 +1170,10 @@
 		818866E222DFD72C006BC0A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LQA3CS5MM7;
 				INFOPLIST_FILE = AuthenticatorTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1174,8 +1181,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yubico.AuthenticatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTED_PLATFORMS = "$(AVAILABLE_PLATFORMS)";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2,3,4,6,7";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Authenticator.app/Authenticator";
 			};
 			name = Release;
@@ -1222,28 +1235,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-ios" */ = {
+		B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Yubico/yubikit-ios";
+			repositoryURL = "https://github.com/Yubico/yubikit-swift";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B42A39322B2A03D20039DB26 /* YubiKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = YubiKit;
-		};
-		B44E5E832C74C8CC007ABB79 /* YubiKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = YubiKit;
-		};
 		B4D71E802CE4E6E6004D4C29 /* YubiKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-ios" */;
+			package = B4D71E7F2CE4E6E6004D4C29 /* XCRemoteSwiftPackageReference "yubikit-swift" */;
 			productName = YubiKit;
 		};
 /* End XCSwiftPackageProductDependency section */
