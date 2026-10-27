@@ -1,11 +1,16 @@
 name: AuthenticatorTests
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Test on emulator
-        run: xcodebuild clean test -disablePackageRepositoryCache -sdk iphonesimulator -project Authenticator.xcodeproj -scheme Authenticator -destination "platform=iOS Simulator,OS=latest,name=iPhone 11" | xcpretty --test --color && exit ${PIPESTATUS[0]}
+      - uses: actions/checkout@v5
+      - name: Test on simulator
+        run: |
+          set -o pipefail
+          # Hardcoded device names go stale as runner images update, so use whatever iPhone is installed.
+          DEVICE_ID=$(xcrun simctl list devices available -j | jq -r '[.devices | to_entries[] | select(.key | contains("iOS")) | .value[] | select(.name | startswith("iPhone"))][0].udid')
+          echo "Testing on simulator $DEVICE_ID"
+          xcodebuild clean test -disablePackageRepositoryCache -project Authenticator.xcodeproj -scheme Authenticator -destination "id=$DEVICE_ID" | xcpretty --test --color
