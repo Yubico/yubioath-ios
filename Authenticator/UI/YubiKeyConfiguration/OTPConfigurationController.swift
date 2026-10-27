@@ -105,12 +105,12 @@ class OTPConfigurationController: UITableViewController {
                 }
                 self.descriptionLabel.sizeToFit()
             } catch {
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                let action = UIAlertAction(title: "Ok", style: .default) { _ in
+                let alert = UIAlertController(title: String(localized: "Error", comment: "OTP settings read error alert title"), message: LocalizedErrorWrapper(error: error).localizedDescription, preferredStyle: .alert)
+                let action = UIAlertAction(title: String(localized: "Ok"), style: .default) { _ in
                     self.dismiss()
                 }
                 alert.addAction(action)
-                self.dismiss()
+                self.present(alert, animated: true, completion: nil)
             }
         }
         

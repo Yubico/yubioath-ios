@@ -1835,6 +1835,35 @@
         }
       }
     },
+    "Error" : {
+      "comment" : "OTP settings read error alert title",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chyba"
+          }
+        }
+      }
+    },
     "Error reading YubiKey" : {
       "comment" : "PIV extension error title",
       "localizations" : {
