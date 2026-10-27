@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022 Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +27,15 @@ struct TokenCertificateStorage {
         case missingDriverConfigurartion
     }
 
+    // There is one driver configuration for each token extension the app ships, keyed by the
+    // com.apple.ctk.class-id in the extension's Info.plist. The app only ships TokenExtension.
+    private static let driverClassID = "com.yubico.Authenticator.TokenExtension"
+
+    private static var driverConfiguration: TKTokenDriver.Configuration? {
+        let configurations = TKTokenDriver.Configuration.driverConfigurations
+        return configurations[driverClassID] ?? configurations.first?.value
+    }
+
     func storeTokenCertificate(certificate: SecCertificate) -> Error? {
 
         let label = certificate.tokenObjectId()
@@ -44,8 +54,7 @@ struct TokenCertificateStorage {
         tokenKeychainKey.canDecrypt = true
         tokenKeychainKey.canPerformKeyExchange = true
 
-        // TODO: figure out when there might be multiple driverConfigurations and how to handle it
-        guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else {
+        guard let tokenDriverConfiguration = Self.driverConfiguration else {
             return TokenCertificateStorageError.missingDriverConfigurartion
         }
         let tokenConfiguration = tokenDriverConfiguration.addTokenConfiguration(for: label)
@@ -61,7 +70,7 @@ struct TokenCertificateStorage {
     }
     
     func listTokenCertificates() -> [SecCertificate] {
-        guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return [SecCertificate]() }
+        guard let tokenDriverConfiguration = Self.driverConfiguration else { return [SecCertificate]() }
         let certificates = tokenDriverConfiguration.tokenConfigurations
             .map { $0.value }
             .flatMap { $0.keychainItems }
@@ -73,7 +82,7 @@ struct TokenCertificateStorage {
     }
 
     func removeTokenCertificate(certificate: SecCertificate) -> Bool {
-        guard let tokenDriverConfiguration = TKTokenDriver.Configuration.driverConfigurations.first?.value else { return false }
+        guard let tokenDriverConfiguration = Self.driverConfiguration else { return false }
         tokenDriverConfiguration.removeTokenConfiguration(for: certificate.tokenObjectId() )
         return true
     }
