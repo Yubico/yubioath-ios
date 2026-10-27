@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,6 +59,12 @@ struct AboutView: View {
                     } label: {
                         ListIconView(image: Image(systemName: "list.clipboard"), color: Color(.systemGreen))
                         Text("Version history")
+                    }
+                    NavigationLink {
+                        AppIconView()
+                    } label: {
+                        ListIconView(image: Image(systemName: "app.badge"), color: Color(.systemGreen), padding: 5)
+                        Text("App icon")
                     }
                     Button {
                         UIApplication.shared.open(URL(string: "https://www.yubico.com/support/terms-conditions/yubico-license-agreement/")!)

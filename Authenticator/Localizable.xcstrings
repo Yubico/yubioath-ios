@@ -580,6 +580,9 @@
         }
       }
     },
+    "App icon" : {
+      "comment" : "App icon navigation title"
+    },
     "Application" : {
       "localizations" : {
         "de" : {
@@ -1383,6 +1386,9 @@
         }
       }
     },
+    "Dark" : {
+      "comment" : "App icon name"
+    },
     "Data to String conversion error" : {
       "localizations" : {
         "de" : {
@@ -2040,6 +2046,9 @@
         }
       }
     },
+    "Failed to change app icon" : {
+
+    },
     "FIDO" : {
       "localizations" : {
         "de" : {
@@ -2410,6 +2419,9 @@
           }
         }
       }
+    },
+    "Green" : {
+      "comment" : "App icon name"
     },
     "How does it work" : {
       "localizations" : {

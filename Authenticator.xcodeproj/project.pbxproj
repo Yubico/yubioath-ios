@@ -50,6 +50,8 @@
 		817DBA0D2368B7B7001FC18D /* UIColorAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817DBA0C2368B7B7001FC18D /* UIColorAdditions.swift */; };
 		818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866BC22DFD729006BC0A8 /* Main.storyboard */; };
 		818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818866BF22DFD72C006BC0A8 /* Assets.xcassets */; };
+		C1A0000000000000000000D1 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000C1 /* AppIcon.icon */; };
+		C1A0000000000000000000D2 /* AppIcon-Dark.icon in Resources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000C2 /* AppIcon-Dark.icon */; };
 		818866C322DFD72C006BC0A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818866C122DFD72C006BC0A8 /* LaunchScreen.storyboard */; };
 		81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C4E43C22F94B7B003AFBB8 /* KeySessionError.swift */; };
 		81DF8FD3237A090A00737268 /* ApplicationSessionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8FD2237A090A00737268 /* ApplicationSessionObserver.swift */; };
@@ -89,6 +91,7 @@
 		B47486602CEC83F90031A504 /* VersionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B474865F2CEC83F50031A504 /* VersionHistoryView.swift */; };
 		B47486622CECC2190031A504 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486612CECC2150031A504 /* TutorialView.swift */; };
 		B47486642CECC2F50031A504 /* LicensingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486632CECC2F00031A504 /* LicensingView.swift */; };
+		C1A0000000000000000000B7 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0000000000000000000A7 /* AppIconView.swift */; };
 		B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B47486652CECE3640031A504 /* UIFont+Extensions.swift */; };
 		B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B4901AE32BD697620092E7A2 /* Localizable.xcstrings */; };
 		B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4901AEC2BD7DD160092E7A2 /* AddCredential.storyboard */; };
@@ -199,6 +202,8 @@
 		818866B322DFD729006BC0A8 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818866BD22DFD729006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		818866BF22DFD72C006BC0A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C1A0000000000000000000C1 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		C1A0000000000000000000C2 /* AppIcon-Dark.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "AppIcon-Dark.icon"; sourceTree = "<group>"; };
 		818866C222DFD72C006BC0A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		818866C422DFD72C006BC0A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818866C922DFD72C006BC0A8 /* AuthenticatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -242,6 +247,7 @@
 		B474865F2CEC83F50031A504 /* VersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryView.swift; sourceTree = "<group>"; };
 		B47486612CECC2150031A504 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		B47486632CECC2F00031A504 /* LicensingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensingView.swift; sourceTree = "<group>"; };
+		C1A0000000000000000000A7 /* AppIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		B47486652CECE3640031A504 /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		B4901AE32BD697620092E7A2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = Authenticator/Localizable.xcstrings; sourceTree = SOURCE_ROOT; };
 		B4901AEB2BD7DD160092E7A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AddCredential.storyboard; sourceTree = "<group>"; };
@@ -466,6 +472,8 @@
 				818866F122E18804006BC0A8 /* Authenticator-Bridging-Header.h */,
 				B4719B18298AA757006CDAEA /* AuthenticatorApp.swift */,
 				818866BF22DFD72C006BC0A8 /* Assets.xcassets */,
+				C1A0000000000000000000C1 /* AppIcon.icon */,
+				C1A0000000000000000000C2 /* AppIcon-Dark.icon */,
 				818866C422DFD72C006BC0A8 /* Info.plist */,
 				B4901B072BD91DA60092E7A2 /* InfoPlist.xcstrings */,
 				51AFD4D727196AB6008F2630 /* VersionHistory.plist */,
@@ -557,6 +565,7 @@
 				B47486612CECC2150031A504 /* TutorialView.swift */,
 				B474865F2CEC83F50031A504 /* VersionHistoryView.swift */,
 				B47486632CECC2F00031A504 /* LicensingView.swift */,
+				C1A0000000000000000000A7 /* AppIconView.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -704,6 +713,8 @@
 				B4901AF12BD7DD350092E7A2 /* EditCredential.storyboard in Resources */,
 				B4901AED2BD7DD160092E7A2 /* AddCredential.storyboard in Resources */,
 				818866C022DFD72C006BC0A8 /* Assets.xcassets in Resources */,
+				C1A0000000000000000000D1 /* AppIcon.icon in Resources */,
+				C1A0000000000000000000D2 /* AppIcon-Dark.icon in Resources */,
 				B4901B082BD91DA60092E7A2 /* InfoPlist.xcstrings in Resources */,
 				B4901AE42BD697620092E7A2 /* Localizable.xcstrings in Resources */,
 				818866BE22DFD729006BC0A8 /* Main.storyboard in Resources */,
@@ -767,6 +778,7 @@
 				B4696F3F2CB6CE5800604F6F /* ConfigurationView.swift in Sources */,
 				B4712B7028DDB5F6009B270D /* AccessKeyCache.swift in Sources */,
 				B47486642CECC2F50031A504 /* LicensingView.swift in Sources */,
+				C1A0000000000000000000B7 /* AppIconView.swift in Sources */,
 				513F34DC246B144300FCE030 /* UIViewAdditions.swift in Sources */,
 				B47486662CECE36A0031A504 /* UIFont+Extensions.swift in Sources */,
 				A5E9DEB0237DE1660011FBF4 /* SettingsConfig.swift in Sources */,
@@ -1064,6 +1076,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
@@ -1095,6 +1108,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Authenticator/Authenticator.entitlements;
