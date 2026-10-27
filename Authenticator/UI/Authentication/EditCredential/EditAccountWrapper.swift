@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,16 +24,11 @@ struct EditView: View {
     
     let viewModel: MainViewModel
     let account: Account
-    
-    let navigationBarAppearance = UINavigationBarAppearance()
 
     init(account: Account, viewModel: MainViewModel, showEditing: Binding<Bool> ) {
         self.account = account
         self.viewModel = viewModel
         _showEditing = showEditing
-        navigationBarAppearance.shadowColor = .secondarySystemBackground
-        navigationBarAppearance.backgroundColor = .secondarySystemBackground
-        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
     }
     
     var body: some View {

@@ -24,7 +24,6 @@ struct AddAccountView: View {
     @Binding var showAddAccount: Bool
     var accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>
     var oathURL: URL?
-    let navigationBarAppearance = UINavigationBarAppearance()
 
     init(showAddCredential: Binding<Bool>, accountSubject: PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>, oathURL: URL?) {
         _showAddAccount = showAddCredential
@@ -32,12 +31,9 @@ struct AddAccountView: View {
         self.accountSubject = accountSubject
     }
     
+    // The wrapped storyboard navigation controller owns the bar and its Cancel and Save items.
     var body: some View {
         AddCredentialWrapper(accountSubject: accountSubject, oathURL: oathURL)
-            .navigationTitle(String(localized: "Add Credential", comment: "Add account navigation title"))
-            .navigationBarItems(trailing: Button(String(localized: "Close", comment: "View close button")) {
-                showAddAccount.toggle()
-            })
             .ignoresSafeArea(.all, edges: .bottom)
     }
 }

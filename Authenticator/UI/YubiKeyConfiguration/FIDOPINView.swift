@@ -61,7 +61,8 @@ struct FIDOPINView: View {
                 }.disabled(areButtonsDisabled())
             }
         }
-        .navigationBarTitle(Text("FIDO PIN"), displayMode: .inline)
+        .navigationTitle(Text("FIDO PIN"))
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $presentSetPIN) {
             FIDOSetChangePINView(type: .set)
         }
@@ -116,7 +117,6 @@ struct FIDOSetChangePINView: View {
     var type: Action
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.displayScale) var displayScale
     
     @Environment(FIDOPINViewModel.self) var model
     @FocusState private var focusedField: FocusedField?
@@ -134,32 +134,39 @@ struct FIDOSetChangePINView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                VStack(spacing: 0) {
+            Form {
+                Section {
                     if type == .change {
-                        HStack {
-                            Text("Current PIN").frame(maxWidth: 100, alignment: .leading).padding()
-                            SecureField("enter current PIN", text: $currentPIN).submitLabel(.next).focused($focusedField, equals: .currentPIN)
-                            
+                        LabeledContent {
+                            SecureField(text: $currentPIN, prompt: Text("enter current PIN")) {
+                                Text("Current PIN")
+                            }
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .currentPIN)
+                        } label: {
+                            Text("Current PIN")
                         }
-                        Color(.separator)
-                            .frame(height: 1.0 / displayScale)
-                            .frame(maxWidth: .infinity)
-                            .padding(0)
                     }
-                    HStack {
-                        Text("New").frame(maxWidth: 100, alignment: .leading).padding()
-                        SecureField("enter PIN", text: $newPIN).submitLabel(.next).focused($focusedField, equals: .newPIN)
-
+                    LabeledContent {
+                        SecureField(text: $newPIN, prompt: Text("enter PIN")) {
+                            Text("New")
+                        }
+                        .submitLabel(.next)
+                        .focused($focusedField, equals: .newPIN)
+                    } label: {
+                        Text("New")
                     }
-                    Color(.separator)
-                        .frame(height: 1.0 / displayScale)
-                        .frame(maxWidth: .infinity)
-                        .padding(0)
-                    HStack {
-                        Text("Verify").frame(maxWidth: 100, alignment: .leading).padding()
-                        SecureField("re-enter PIN", text: $repeatedPIN).submitLabel(.return).focused($focusedField, equals: .repeatedPIN)
+                    LabeledContent {
+                        SecureField(text: $repeatedPIN, prompt: Text("re-enter PIN")) {
+                            Text("Verify")
+                        }
+                        .submitLabel(.return)
+                        .focused($focusedField, equals: .repeatedPIN)
+                    } label: {
+                        Text("Verify")
                     }
+                } footer: {
+                    Text( "\(model.pincomplexity ? String(localized: "A PIN must be at least \(model.minPinLength) characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters.") : String(localized: "A PIN must be at least \(model.minPinLength) characters long and may contain letters, numbers and special characters."))")
                 }
                 .onSubmit {
                     if focusedField == .currentPIN {
@@ -171,30 +178,16 @@ struct FIDOSetChangePINView: View {
                         setNewPin()
                     }
                 }
-                .background(Color(.secondarySystemGroupedBackground))
-                .cornerRadius(10)
-                .padding(.top, 25)
-                .padding(.horizontal, 15)
-                .padding(.bottom, 5)
-
-                Text( "\(model.pincomplexity ? String(localized: "A PIN must be at least \(model.minPinLength) characters long, contain at least 2 unique characters, and not be a commonly used PIN, like \"123456\". It may contain letters, numbers and special characters.") : String(localized: "A PIN must be at least \(model.minPinLength) characters long and may contain letters, numbers and special characters."))")
-                    .font(.subheadline)
-                    .foregroundStyle(Color(.secondaryLabel))
-                    .padding(.horizontal, 25)
-                
-                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.systemGroupedBackground))
-            .navigationBarTitle(type == .set ? String(localized: "Set PIN") : String(localized: "Change PIN"), displayMode: .inline)
+            .formStyle(.grouped)
+            .navigationTitle(type == .set ? String(localized: "Set PIN") : String(localized: "Change PIN"))
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { dismiss() }, label: { Text("Cancel") })
+                    CancelButton { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(action: {
-                        setNewPin()
-                    }, label: { Text("Set") })
+                    ConfirmButton(String(localized: "Set")) { setNewPin() }
                 }
             }
             .onAppear {

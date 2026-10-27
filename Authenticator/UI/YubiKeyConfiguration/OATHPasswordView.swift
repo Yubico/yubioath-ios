@@ -53,7 +53,8 @@ struct OATHPasswordView: View {
                 }.disabled(areButtonsDisabled())
             }
         }
-        .navigationBarTitle(Text("OATH passwords"), displayMode: .inline)
+        .navigationTitle(Text("OATH passwords"))
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $presentSetPassword) {
             OATHSetChangePasswordView(type: .set)
         }
@@ -105,7 +106,6 @@ struct OATHSetChangePasswordView: View {
     let type: Action
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.displayScale) var displayScale
     
     @Environment(OATHPasswordViewModel.self) var model
     @FocusState private var focusedField: FocusedField?
@@ -132,6 +132,10 @@ struct OATHSetChangePasswordView: View {
         }
     }
     
+    var currentPasswordLabel: String {
+        type == .remove ? String(localized: "Password", comment: "Enter password in secure field to remove password.") : String(localized: "Current", comment: "Enter current password in secure field to change password.")
+    }
+    
     var buttonTitle: String {
         switch self.type {
         case .set:
@@ -145,30 +149,37 @@ struct OATHSetChangePasswordView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                VStack(spacing: 0) {
+            Form {
+                Section {
                     if type == .change || type == .remove {
-                        HStack {
-                            Text(type == .remove ? String(localized: "Password", comment: "Enter password in secure field to remove password.") : String(localized: "Current", comment: "Enter current password in secure field to change password.")).frame(maxWidth: 100, alignment: .leading).padding()
-                            SecureField("enter current password", text: $currentPassword).submitLabel(.next).focused($focusedField, equals: .currentPassword)
+                        LabeledContent {
+                            SecureField(text: $currentPassword, prompt: Text("enter current password")) {
+                                Text(currentPasswordLabel)
+                            }
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .currentPassword)
+                        } label: {
+                            Text(currentPasswordLabel)
                         }
-                        Color(.separator)
-                            .frame(height: 1.0 / displayScale)
-                            .frame(maxWidth: .infinity)
-                            .padding(0)
                     }
                     if type != .remove {
-                        HStack {
-                            Text(String(localized: "New", comment: "Enter new password in secure field.")).frame(maxWidth: 100, alignment: .leading).padding()
-                            SecureField("enter password", text: $newPassword).submitLabel(.next).focused($focusedField, equals: .newPassword)
+                        LabeledContent {
+                            SecureField(text: $newPassword, prompt: Text("enter password")) {
+                                Text(String(localized: "New", comment: "Enter new password in secure field."))
+                            }
+                            .submitLabel(.next)
+                            .focused($focusedField, equals: .newPassword)
+                        } label: {
+                            Text(String(localized: "New", comment: "Enter new password in secure field."))
                         }
-                        Color(.separator)
-                            .frame(height: 1.0 / displayScale)
-                            .frame(maxWidth: .infinity)
-                            .padding(0)
-                        HStack {
-                            Text(String(localized: "Verify", comment: "Re-enter new password in secure field.")).frame(maxWidth: 100, alignment: .leading).padding()
-                            SecureField("re-enter password", text: $repeatedPassword).submitLabel(.return).focused($focusedField, equals: .repeatedPassword)
+                        LabeledContent {
+                            SecureField(text: $repeatedPassword, prompt: Text("re-enter password")) {
+                                Text(String(localized: "Verify", comment: "Re-enter new password in secure field."))
+                            }
+                            .submitLabel(.return)
+                            .focused($focusedField, equals: .repeatedPassword)
+                        } label: {
+                            Text(String(localized: "Verify", comment: "Re-enter new password in secure field."))
                         }
                     }
                 }
@@ -186,24 +197,16 @@ struct OATHSetChangePasswordView: View {
                         }
                     }
                 }
-                .background(Color(.secondarySystemGroupedBackground))
-                .cornerRadius(10)
-                .padding(.top, 25)
-                .padding(.horizontal, 15)
-                .padding(.bottom, 5)
-                Spacer()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(.systemGroupedBackground))
-            .navigationBarTitle(self.navBarTitle, displayMode: .inline)
+            .formStyle(.grouped)
+            .navigationTitle(self.navBarTitle)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { dismiss() }, label: { Text("Cancel") })
+                    CancelButton { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(action: {
-                        handleInput()
-                    }, label: { Text(self.buttonTitle) })
+                    ConfirmButton(self.buttonTitle) { handleInput() }
                 }
             }
             .onAppear {

@@ -46,7 +46,8 @@ struct FIDOResetView: View {
             }
             .disabled(!enableResetButton)
         }
-        .navigationBarTitle(Text("Reset FIDO"), displayMode: .inline)
+        .navigationTitle(Text("Reset FIDO"))
+        .navigationBarTitleDisplayMode(.inline)
         .alert("Warning!", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()

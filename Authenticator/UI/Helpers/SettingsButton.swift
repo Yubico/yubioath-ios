@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +18,9 @@
 
 import SwiftUI
 
+// A plain button row for the actions section of a SettingsView. The grouped Form supplies the row height,
+// separators, tint and disabled appearance.
 public struct SettingsButton: View {
-    @Environment(\.isEnabled) var isEnabled
-    @Environment(\.displayScale) var displayScale
-    
     private let text: String
     private let action: () -> Void
     
@@ -30,32 +30,6 @@ public struct SettingsButton: View {
     }
     
     public var body: some View {
-        Button {
-            action()
-        } label: {
-            VStack(alignment: .leading, spacing: 0) {
-                Color(.separator)
-                    .frame(height: 1.0 / displayScale)
-                    .frame(maxWidth: .infinity)
-                    .padding(0)
-                    .padding(.leading, 20)
-                Text(text)
-                    .font(.body)
-                    .padding(12)
-                    .padding(.leading, 7)
-            }
-        }
-        .buttonStyle(SettingsButtonStyle(isEnabled: isEnabled))
-    }
-}
-
-private struct SettingsButtonStyle: ButtonStyle {
-    let isEnabled: Bool
-
-    @ViewBuilder
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(configuration.isPressed ? Color(UIColor.systemGray4) : Color(.secondarySystemGroupedBackground))
-            .foregroundStyle(isEnabled ? .blue : Color(.secondaryText))
+        Button(text, action: action)
     }
 }

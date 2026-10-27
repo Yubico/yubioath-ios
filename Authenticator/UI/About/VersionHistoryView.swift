@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,10 +52,8 @@ struct VersionHistoryView: View {
         }
         .toolbar {
             if presentedFromMainView {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Close") {
-                        dismiss()
-                    }
+                ToolbarItem(placement: .cancellationAction) {
+                    CloseButton { dismiss() }
                 }
             }
         }

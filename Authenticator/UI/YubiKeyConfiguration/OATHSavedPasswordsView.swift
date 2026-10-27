@@ -43,7 +43,8 @@ struct OATHSavedPasswordsView: View {
             }
             .disabled(passwordsHasBeenCleared)
         }
-        .navigationBarTitle(Text("Clear saved passwords"), displayMode: .inline)
+        .navigationTitle(Text("Clear saved passwords"))
+        .navigationBarTitleDisplayMode(.inline)
         .alert("Clear passwords", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()

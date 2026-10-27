@@ -112,10 +112,8 @@ struct AboutView: View {
             }
             .navigationTitle(String(localized: "About", comment: "About navigation title"))
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Close") {
-                        dismiss()
-                    }
+                ToolbarItem(placement: .cancellationAction) {
+                    CloseButton { dismiss() }
                 }
             }
         }

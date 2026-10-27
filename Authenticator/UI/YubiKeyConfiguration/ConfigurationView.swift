@@ -86,7 +86,7 @@ struct ConfigurationView: View {
                         }
                     }
                 }
-                Section("GENERAL") {
+                Section("General") {
                     NavigationLink {
                         OTPConfigurationView()
                             .navigationBarTitleDisplayMode(.inline)
@@ -175,16 +175,16 @@ struct ConfigurationView: View {
             }
             .navigationTitle(String(localized: "Configuration", comment: "Configuration navigation title"))
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if UIAccessibility.isVoiceOverRunning {
-                        Button("Scan NFC YubiKey") {
-                            model.scanNFC()
-                        }
-                    }
+                ToolbarItem(placement: .cancellationAction) {
+                    CloseButton { showConfiguration.toggle() }
                 }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Close") {
-                        showConfiguration.toggle()
+                if UIAccessibility.isVoiceOverRunning {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button {
+                            model.scanNFC()
+                        } label: {
+                            Label(String(localized: "Scan NFC YubiKey"), systemImage: "wave.3.right")
+                        }
                     }
                 }
             }

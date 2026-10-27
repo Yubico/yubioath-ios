@@ -2148,18 +2148,18 @@
         }
       }
     },
-    "GENERAL" : {
+    "General" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ALLGEMEINE EINSTELLUNGEN"
+            "value" : "Allgemein"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "GÉNÉRALITÉS"
+            "value" : "Général"
           }
         },
         "ja" : {
@@ -2171,7 +2171,7 @@
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "VŠEOBECNÉ"
+            "value" : "Všeobecné"
           }
         }
       }

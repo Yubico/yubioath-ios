@@ -41,7 +41,8 @@ struct OATHResetView: View {
             }
             .disabled(keyHasBeenReset)
         }
-        .navigationBarTitle(Text("Reset OATH"), displayMode: .inline)
+        .navigationTitle(Text("Reset OATH"))
+        .navigationBarTitleDisplayMode(.inline)
         .alert("Warning!", isPresented: $presentConfirmAlert, presenting: model, actions: { model in
             Button(role: .destructive) {
                 presentConfirmAlert.toggle()

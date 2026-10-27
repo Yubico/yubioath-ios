@@ -52,7 +52,7 @@ struct MainView: View {
             GeometryReader { reader in
                 List(selection: $selectedAccountID) {
                     if let otp {
-                        Section(header: Text("Yubico OTP").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                        Section("Yubico OTP") {
                             YubiOtpRowView(otp: otp)
                         }
                     }
@@ -70,7 +70,7 @@ struct MainView: View {
                             ListStatusView(image: Image(systemName: "person.crop.circle.badge.questionmark"), message: String(localized: "No matching accounts on YubiKey"), height: reader.size.height)
                         }
                     } else if model.pinnedAccounts.count > 0 {
-                        Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                        Section("Pinned") {
                             ForEach(model.pinnedAccounts, id: \.id) { account in
                                 NavigationLink(value: account.accountId) {
                                     AccountRowView(account: account)
@@ -79,7 +79,7 @@ struct MainView: View {
                             }
                         }
                         if model.otherAccounts.count > 0 {
-                            Section(header: Text("Other").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                            Section("Other") {
                                 ForEach(model.otherAccounts, id: \.id) { account in
                                     NavigationLink(value: account.accountId) {
                                         AccountRowView(account: account)
@@ -89,7 +89,7 @@ struct MainView: View {
                             }
                         }
                     } else if model.accounts.count > 0 && otp != nil {
-                        Section(header: Text("Accounts").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
+                        Section("Accounts") {
                             ForEach(model.otherAccounts, id: \.id) { account in
                                 NavigationLink(value: account.accountId) {
                                     AccountRowView(account: account)
@@ -118,40 +118,45 @@ struct MainView: View {
                 model.updateAccountsOverNFC()
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    if UIAccessibility.isVoiceOverRunning {
-                        Button("Scan NFC YubiKey") { otp = nil
-                            model.updateAccountsOverNFC() }
+                if UIAccessibility.isVoiceOverRunning {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            otp = nil
+                            model.updateAccountsOverNFC()
+                        } label: {
+                            Label(String(localized: "Scan NFC YubiKey"), systemImage: "wave.3.right")
+                        }
                     }
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    if !model.accountsLoaded && !UIAccessibility.isVoiceOverRunning {
+
+                if !model.accountsLoaded && !UIAccessibility.isVoiceOverRunning {
+                    ToolbarItem(placement: .principal) {
+                        // Shrinks rather than crowding out the bar items when the bar is narrow or laid out vertically.
                         Image("NavbarLogo")
                             .renderingMode(.template)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 200, height: 20)
+                            .frame(minWidth: 0, maxWidth: 200, maxHeight: 20)
                             .foregroundColor(Color("YubiGreen"))
                             .accessibilityHidden(true)
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: { showAddAccount.toggle() }) {
-                            Label("Add account", systemImage: "qrcode")
-                        }
-                        .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
-                        Button(action: { showConfiguration.toggle() }) {
-                            Label("Configuration", systemImage: "switch.2")
-                        }
-                        .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
-                        Button(action: { showAbout.toggle() }) {
-                            Label("About", systemImage: "questionmark.circle")
-                        }
-                    } label: {
-                        Label("Menu", systemImage: "ellipsis.circle")
+
+                if #available(iOS 27.0, *) {
+                    addAccountToolbarItem
+                        .visibilityPriority(.high)
+                } else {
+                    addAccountToolbarItem
+                }
+
+                // Secondary actions collapse into the system overflow menu.
+                ToolbarItemGroup(placement: .secondaryAction) {
+                    Button(action: { showConfiguration.toggle() }) {
+                        Label("Configuration", systemImage: "switch.2")
+                    }
+                    .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
+                    Button(action: { showAbout.toggle() }) {
+                        Label("About", systemImage: "questionmark.circle")
                     }
                 }
             }
@@ -301,6 +306,15 @@ struct MainView: View {
         }
     }
     
+    private var addAccountToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Button(action: { showAddAccount.toggle() }) {
+                Label("Add account", systemImage: "qrcode")
+            }
+            .disabled(!DeviceCapabilities.supportsNFC && !model.isKeyPluggedIn)
+        }
+    }
+
     var selectedAccount: Account? {
         guard let selectedAccountID else { return nil }
         return model.accounts.first { $0.accountId == selectedAccountID }

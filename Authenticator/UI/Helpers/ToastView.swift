@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +27,8 @@ struct ToastView: View {
         ZStack(alignment: .leading) {
             Text(message)
                 .font(.body)
-                .foregroundColor(Color(.white))
+                // YubiBlue is a light green in dark mode, so white text would lose its contrast there.
+                .foregroundColor(Color(.systemBackground))
                 .fixedSize(horizontal: true, vertical: true)
                 .padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                 .background(Color(.yubiBlue))

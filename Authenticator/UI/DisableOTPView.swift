@@ -32,10 +32,12 @@ struct DisableOTPView: View {
                 Button {
                     model.disableOTP()
                 } label: {
+                    // YubiBlue is a light green in dark mode, so the label takes the background color to keep its contrast.
                     Text("Disable Yubico OTP (recommended)")
                         .frame(maxWidth: .infinity)
+                        .foregroundStyle(Color(.systemBackground))
                 }
-                .buttonStyle(.borderedProminent)
+                .prominentActionButtonStyle()
                 .disabled(model.isConfigurationLocked || model.isDisablingOTP)
                 Text("Disabling Yubico OTP will prevent the YubiKey from appearing as a keyboard. If you don’t use Yubico OTP this is the recommended solution. This can be re-enabled from the settings page.")
                     .font(.footnote)
@@ -47,7 +49,7 @@ struct DisableOTPView: View {
                     Text("Continue with limited usability")
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .secondaryActionButtonStyle()
                 Text("While the YubiKey is inserted the on-screen keyboard will not appear. To show the keyboard you will have to remove the YubiKey and then re-insert it.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -73,6 +75,24 @@ struct DisableOTPView: View {
                 }
             }
             .errorAlert(error: $model.error)
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder func prominentActionButtonStyle() -> some View {
+        if #available(iOS 26.0, *) {
+            buttonStyle(.glassProminent)
+        } else {
+            buttonStyle(.borderedProminent)
+        }
+    }
+
+    @ViewBuilder func secondaryActionButtonStyle() -> some View {
+        if #available(iOS 26.0, *) {
+            buttonStyle(.glass)
+        } else {
+            buttonStyle(.bordered)
         }
     }
 }
