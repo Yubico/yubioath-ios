@@ -223,7 +223,6 @@ struct ListIconView: View {
             .foregroundColor(.white)
             .background(color)
             .cornerRadius(6.5)
-            .padding(.leading, -10)
     }
 }
 
