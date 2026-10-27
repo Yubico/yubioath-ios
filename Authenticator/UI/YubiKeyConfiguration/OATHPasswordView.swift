@@ -144,7 +144,7 @@ struct OATHSetChangePasswordView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 VStack(spacing: 0) {
                     if type == .change || type == .remove {
@@ -196,11 +196,16 @@ struct OATHSetChangePasswordView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemGroupedBackground))
             .navigationBarTitle(self.navBarTitle, displayMode: .inline)
-            .navigationBarItems(leading: Button(action: { dismiss() }, label: { Text("Cancel") }))
-            .navigationBarItems(trailing: Button(action: {
-                handleInput()
-            }, label: { Text(self.buttonTitle) })
-            )
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { dismiss() }, label: { Text("Cancel") })
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: {
+                        handleInput()
+                    }, label: { Text(self.buttonTitle) })
+                }
+            }
             .onAppear {
                 focusedField = type == .set ? .newPassword : .currentPassword
             }

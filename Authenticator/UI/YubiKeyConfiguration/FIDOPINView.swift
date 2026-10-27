@@ -133,7 +133,7 @@ struct FIDOSetChangePINView: View {
     @State private var errorMessage: String? = nil
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 VStack(spacing: 0) {
                     if type == .change {
@@ -187,11 +187,16 @@ struct FIDOSetChangePINView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(.systemGroupedBackground))
             .navigationBarTitle(type == .set ? String(localized: "Set PIN") : String(localized: "Change PIN"), displayMode: .inline)
-            .navigationBarItems(leading: Button(action: { dismiss() }, label: { Text("Cancel") }))
-            .navigationBarItems(trailing: Button(action: {
-                setNewPin()
-            }, label: { Text("Set") })
-            )
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { dismiss() }, label: { Text("Cancel") })
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(action: {
+                        setNewPin()
+                    }, label: { Text("Set") })
+                }
+            }
             .onAppear {
                 focusedField = type == .set ? .newPIN : .currentPIN
             }

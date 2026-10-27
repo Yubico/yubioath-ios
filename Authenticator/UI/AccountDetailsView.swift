@@ -18,290 +18,129 @@
 import SwiftUI
 import YubiKit
 
-struct AccountDetailsData: Equatable {
-    static func == (lhs: AccountDetailsData, rhs: AccountDetailsData) -> Bool {
-        lhs.account.accountId == rhs.account.accountId
-    }
-    
-    let account: Account
-    let estimatedCodeFrame: CGRect
-    let codeFrame: CGRect
-    let statusIconFrame: CGRect
-    let cellFrame: CGRect
-    let titleFrame: CGRect
-    let subTitleFrame: CGRect
-}
-
-struct AccountDetailsView: View {
-    
-    private let initialCodeFontSize = 17.0
-    private let finalCodeFontSize = 30.0
+// Detail column of the main split view. Shown beside the account list in regular width
+// (iPad, iPhone Duo inner display) and pushed on top of it in compact width.
+struct AccountDetailView: View {
 
     @Environment(MainViewModel.self) var model
     @Environment(ToastPresenter.self) var toastPresenter
-    @Binding var data: AccountDetailsData?
-    var account: Account
-    @State private var backgroundAlpha = 0.0
-    @State private var titleOrigin: CGPoint
-    @State private var subTitleOrigin: CGPoint
-    @State private var codeOrigin: CGPoint
-    @State private var codeBackgroundOrigin: CGPoint
-    @State private var statusIconOrigin: CGPoint
-    @State private var modalAlpha: CGFloat
-    @State private var modalRect: CGRect
-    @State private var codeFontSize: CGFloat
-    @State private var menuAlpha: CGFloat = 0.0
-    @State private var menuScale: CGFloat = 0.3
-    
+    let account: Account
+    let onDelete: () -> Void
+
     @State private var showEditing = false
     @State private var showDeleteConfirmation = false
 
-    @State private var codeFrame: CGRect = .zero
-    @State private var statusIconFrame: CGRect = .zero
-    @State private var menuFrame: CGRect = .zero
-    
-    @State private var codeOpacity: Double
     private let codeColor = Color(.secondaryLabel)
-    
-    init(data: Binding<AccountDetailsData?>) {
-        guard let detailsData = data.wrappedValue else { fatalError("Initializing AccountDetailsView while AccountDetailsData is nil is a fatal error.") }
-        self._data = data
-        account = detailsData.account
-        titleOrigin = CGRect.adjustedPosition(from: detailsData.titleFrame)
-        subTitleOrigin = CGRect.adjustedPosition(from: detailsData.subTitleFrame)
-        codeOrigin = CGRect.adjustedPosition(from: detailsData.estimatedCodeFrame)
-        codeBackgroundOrigin = CGRect.adjustedPosition(from: detailsData.cellFrame)
-        codeFontSize = initialCodeFontSize
-        statusIconOrigin = CGRect.adjustedPosition(from: detailsData.statusIconFrame)
-        modalRect = CGRect(origin: CGRect.adjustedPosition(from: detailsData.cellFrame), size: detailsData.cellFrame.size)
-        modalAlpha = 0.1
-        if detailsData.account.state == .expired {
-            codeOpacity = 0.4
-        } else {
-            codeOpacity = 1.0
-        }
-    }
-    
+    @ScaledMetric(relativeTo: .largeTitle) private var codeFontSize: CGFloat = 44
+
     var body: some View {
-        if let data {
-            GeometryReader { reader in
-                ZStack {
-                    Color.clear // full screen cover
-                        .background(.ultraThinMaterial.opacity(backgroundAlpha))
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                backgroundAlpha = 0.0
-                                codeFontSize = initialCodeFontSize
-                                titleOrigin = CGRect.adjustedPosition(from: data.titleFrame)
-                                subTitleOrigin = CGRect.adjustedPosition(from: data.subTitleFrame)
-                                // I have no idea where these two points are coming from but a guess is the scale change has something to do with it
-                                codeOrigin = CGRect.adjustedPosition(from: data.estimatedCodeFrame, xAdjustment: -2.0)
-                                codeBackgroundOrigin = CGRect.adjustedPosition(from: data.cellFrame)
-                                statusIconOrigin = CGRect.adjustedPosition(from: data.statusIconFrame)
-                                modalAlpha = 0.1
-                                modalRect = CGRect(origin: CGRect.adjustedPosition(from: data.cellFrame), size: data.cellFrame.size)
-                            }
-                            withAnimation(.easeInOut(duration: 0.1)) {
-                                menuScale = 0.3
-                                menuAlpha = 0.0
-                            }
-                            
-                            Task {
-                                try? await Task.sleep(for: .milliseconds(200))
-                                self.data = nil
-                            }
-                        }
-                        .accessibilityElement()
-                        .accessibilityHint(String(localized: "Dismiss details view", comment: "Accessibility hint"))
-                        .accessibilityAction {
-                            self.data = nil
-                        }
-                    Color(.systemBackground) // details view background
-                        .cornerRadius(15.0)
-                        .shadow(color: .black.opacity(0.07), radius: 3.0)
-                        .opacity(modalAlpha)
-                        .frame(width: modalRect.size.width, height: modalRect.size.height)
-                        .position(modalRect.origin)
-                        .ignoresSafeArea()
-                    Text(data.account.title) // Title
-                        .font(.subheadline.weight(.medium))
+        VStack(spacing: 12) {
+            Spacer()
+            Text(String(account.title.first ?? "?"))
+                .font(.largeTitle)
+                .frame(width: 80, height: 80)
+                .background(account.iconColor)
+                .clipShape(Circle())
+                .accessibilityHidden(true)
+            Text(account.title)
+                .font(.title2.weight(.medium))
+                .multilineTextAlignment(.center)
+            account.subTitle.map {
+                Text($0)
+                    .font(.body)
+                    .foregroundColor(Color(.secondaryLabel))
+                    .multilineTextAlignment(.center)
+            }
+            Button(action: copyCode) {
+                HStack(spacing: 10) {
+                    statusIcon
+                        .frame(width: 28, height: 28)
+                        .accessibilityHidden(true)
+                    // Scales with Dynamic Type, and shrinks rather than truncating or wrapping in a narrow column such as
+                    // Slide Over or half of a folded iPhone Duo.
+                    Text(account.formattedCode ?? "*** ***")
+                        .font(.system(size: codeFontSize, weight: .bold))
+                        .monospacedDigit()
                         .lineLimit(1)
-                        .minimumScaleFactor(0.9)
-                        .truncationMode(.tail)
-                        .position(titleOrigin)
-                        .ignoresSafeArea()
-                    data.account.subTitle.map { // Subtitle
-                        Text($0)
-                            .font(.footnote)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.9)
-                            .truncationMode(.tail)
-                            .foregroundColor(Color(.secondaryLabel))
-                            .position(subTitleOrigin)
-                            .ignoresSafeArea()
-                    }
-                    Color(.secondarySystemBackground) // Code background
-                        .cornerRadius(10.0)
-                        .opacity(modalAlpha)
-                        .frame(width:modalRect.size.width - 30.0, height: 50.0)
-                        .position(codeBackgroundOrigin)
-                        .ignoresSafeArea()
-                        .accessibilityAction {
-                            account.calculate()
-                        }
-                        .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel(account.state == .expired ? String(localized: "Code expired", comment: "Accessibility label") : account.formattedCode ?? String(localized: "Code not calculated", comment: "Accessibility label"))
-                    
-                    ZStack {
-                        if let otp = data.account.formattedCode {
-                            Text(otp) // code
-                                .font(Font.system(size: codeFontSize))
-                                .bold()
-                                .foregroundColor(codeColor)
-                                .opacity(codeOpacity)
-                                .position(codeOrigin)
-                                .ignoresSafeArea()
-                        } else {
-                            Text("*** *** ")
-                                .font(Font.system(size: codeFontSize))
-                                .bold()
-                                .foregroundColor(codeColor)
-                                .opacity(codeOpacity)
-                                .position(codeOrigin)
-                                .padding(.top, 4)
-                                .ignoresSafeArea()
-                        }
-                        Text("888 888")
-                            .font(Font.system(size: codeFontSize))
-                            .bold()
-                            .foregroundColor(.clear)
-                            .readFrame($codeFrame)
-                            .position(codeOrigin)
-                            .ignoresSafeArea()
-                    }
-                    .accessibilityHidden(true)
-                    switch(account.state) {
-                    case .requiresCalculation, .expired:
-                        if !account.requiresTouch {
-                            Image(systemName: "arrow.clockwise.circle.fill")
-                                .font(.system(size: 22.0))
-                                .foregroundStyle(codeColor)
-                                .opacity(codeOpacity)
-                                .frame(width: 22.0, height: 22.0)
-                                .readFrame($statusIconFrame)
-                                .position(statusIconOrigin)
-                                .ignoresSafeArea()
-                                .accessibilityHidden(true)
-                        } else {
-                            Image(systemName: "hand.tap.fill")
-                                .font(.system(size: 18.0))
-                                .foregroundStyle(codeColor)
-                                .opacity(codeOpacity)
-                                .frame(width: 22.0, height: 22.0)
-                                .readFrame($statusIconFrame)
-                                .position(statusIconOrigin)
-                                .ignoresSafeArea()
-                                .accessibilityHidden(true)
-                        }
-                    case .countingdown(let remaining):
-                        PieProgressView(progress: remaining, color: codeColor)
-                            .frame(width: 22.0, height: 22.0)
-                            .readFrame($statusIconFrame)
-                            .position(statusIconOrigin)
-                            .opacity(codeOpacity)
-                            .ignoresSafeArea()
-                            .accessibilityHidden(true)
-                    }
-                    
-                    DetachedMenu(menuActions: [
-                        DetachedMenuAction(style: .default, isEnabled: account.enableRefresh, title: String(localized: "Calculate", comment: "Menu"), systemImage: "arrow.clockwise", action: {
-                            self.account.calculate()
-                        }),
-                        DetachedMenuAction(style: .default, isEnabled: account.state != .expired && account.otp != nil, title: String(localized: "Copy", comment: "Menu"), systemImage: "square.and.arrow.up", action: {
-                            guard let otp = account.otp?.code else { return }
-                            toastPresenter.copyToClipboard(otp)
-                        }),
-                        DetachedMenuAction(style: .default, isEnabled: true, title: account.isPinned ? String(localized: "Unpin", comment: "Menu") : String(localized: "Pin", comment: "Menu"), systemImage: "pin", action: {
-                            account.isPinned.toggle()
-                        }),
-                        account.keyVersion >= Version("5.3.0")! ? DetachedMenuAction(style: .default, isEnabled: true, title: String(localized: "Rename", comment: "Menu"), systemImage: "square.and.pencil", action: {
-                            showEditing.toggle()
-                        }) : nil,
-                        DetachedMenuAction(style: .destructive, isEnabled: true, title: String(localized: "Delete", comment: "Menu"), systemImage: "trash", action: {
-                            showDeleteConfirmation = true
-                        })
-                    ].compactMap { $0 } )
-                    .readFrame($menuFrame)
-                    .position(CGPoint(x: reader.size.width / 2.0,
-                                      y: reader.size.height / 2.0 + 2.0 + menuFrame.size.height / 2.0 + (UIDevice.current.userInterfaceIdiom == .pad ? 70.0 : 40.0)))
-                    .opacity(menuAlpha)
-                    .scaleEffect(menuScale, anchor: UnitPoint(x: 0.5, y: 0.5))
-                    
+                        .minimumScaleFactor(0.4)
+                        .opacity(account.state == .expired ? 0.4 : 1.0)
                 }
-                .sheet(isPresented: $showEditing) {
-                    EditView(account: account, viewModel: model, showEditing: $showEditing)
+                .foregroundStyle(codeColor)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 24)
+                .background(Color(.secondarySystemBackground), in: Capsule())
+            }
+            .buttonStyle(.plain)
+            .padding(.top, 12)
+            .accessibilityLabel(account.state == .expired ? String(localized: "Code expired", comment: "Accessibility label") : account.formattedCode ?? String(localized: "Code not calculated", comment: "Accessibility label"))
+            Spacer()
+            Spacer()
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button(action: copyCode) {
+                    Label(String(localized: "Copy", comment: "Menu"), systemImage: "doc.on.doc")
                 }
-                .alert(isPresented: $showDeleteConfirmation) {
-                    Alert(title: Text("Delete account?"),
-                          message: Text("This will permanently delete the account from the YubiKey, and your ability to generate codes for it!"),
-                          primaryButton: .default(Text("Cancel")),
-                          secondaryButton: .destructive(
-                            Text("Delete"),
-                            action: {
-                                model.deleteAccount(account) {
-                                    self.data = nil
-                                }
-                            }
-                          )
-                    )
+                .disabled(account.state == .expired || account.otp == nil)
+                Button(action: { account.calculate() }) {
+                    Label(String(localized: "Calculate", comment: "Menu"), systemImage: "arrow.clockwise")
                 }
-                .onChange(of: model.accountsLoaded) { _, newValue in
-                    self.data = nil
+                .disabled(!account.enableRefresh)
+                Button(action: { account.isPinned.toggle() }) {
+                    Label(account.isPinned ? String(localized: "Unpin", comment: "Menu") : String(localized: "Pin", comment: "Menu"),
+                          systemImage: account.isPinned ? "pin.slash" : "pin")
                 }
-                .onChange(of: account.state) { _, state in
-                    Task {
-                        withAnimation {
-                            if state == .expired {
-                                codeOpacity = 0.4
-                            } else {
-                                codeOpacity = 1.0
-                            }
-                        }
+            }
+            ToolbarItemGroup(placement: .secondaryAction) {
+                if account.keyVersion >= Version("5.3.0")! {
+                    Button(action: { showEditing.toggle() }) {
+                        Label(String(localized: "Rename", comment: "Menu"), systemImage: "square.and.pencil")
                     }
                 }
-                .onAppear {
-                    let codeWidth = max(self.data?.codeFrame.size.width ?? 0, self.data?.estimatedCodeFrame.size.width ?? 0)
-                    Task { // we need to wait one runloop for the frames to be set
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            backgroundAlpha = 1.0
-                            codeFontSize = finalCodeFontSize
-                            modalAlpha = 1.0
-                            titleOrigin = CGPoint(x: reader.size.width / 2.0,
-                                                  y: reader.size.height / 2.0 - (self.account.subTitle == nil ? 25.0 : 40.0))
-                            subTitleOrigin = CGPoint(x: reader.size.width / 2.0,
-                                                     y: reader.size.height / 2.0 - 15.0)
-                            codeOrigin = CGPoint(x: reader.size.width / 2.0 + 5.0 + statusIconFrame.width / 2.0,
-                                                 y: reader.size.height / 2.0 + 35.0)
-                            codeBackgroundOrigin = CGPoint(x: reader.size.width / 2.0,
-                                                           y: reader.size.height / 2.0 + 35.0)
-                            statusIconOrigin = CGPoint(x: (reader.size.width / 2.0) - (codeWidth * finalCodeFontSize / initialCodeFontSize) / 2.0 - 5.0,
-                                                       y: reader.size.height / 2.0 + 35.0)
-                            modalRect = CGRect(x: reader.size.width / 2.0, y: reader.size.height / 2.0, width: 300.0, height: 150.0)
-                        }
-                    }
-                    withAnimation(.easeInOut(duration: 0.15).delay(0.15)) {
-                        menuAlpha = 1.0
-                        menuScale = 1.0
-                    }
+                Button(role: .destructive, action: { showDeleteConfirmation = true }) {
+                    Label(String(localized: "Delete", comment: "Menu"), systemImage: "trash")
                 }
             }
         }
+        .sheet(isPresented: $showEditing) {
+            EditView(account: account, viewModel: model, showEditing: $showEditing)
+        }
+        .alert(isPresented: $showDeleteConfirmation) {
+            Alert(title: Text("Delete account?"),
+                  message: Text("This will permanently delete the account from the YubiKey, and your ability to generate codes for it!"),
+                  primaryButton: .default(Text("Cancel")),
+                  secondaryButton: .destructive(
+                    Text("Delete"),
+                    action: {
+                        model.deleteAccount(account) {
+                            onDelete()
+                        }
+                    }
+                  )
+            )
+        }
     }
-}
 
-extension CGRect {
-    static func adjustedPosition(from rect: CGRect, xAdjustment: CGFloat = 0.0) -> CGPoint {
-        return CGPoint(x: rect.origin.x + rect.size.width / 2.0 + xAdjustment, y: rect.origin.y + rect.size.height / 2.0)
+    @ViewBuilder private var statusIcon: some View {
+        switch account.state {
+        case .requiresCalculation, .expired:
+            Image(systemName: account.requiresTouch ? "hand.tap.fill" : "arrow.clockwise.circle.fill")
+                .font(.system(size: 26))
+        case .countingdown(let remaining):
+            PieProgressView(progress: remaining, color: codeColor)
+        }
+    }
+
+    private func copyCode() {
+        if account.state != .expired, let otp = account.otp?.code {
+            toastPresenter.copyToClipboard(otp)
+        } else {
+            account.calculate { otp in
+                toastPresenter.copyToClipboard(otp.code)
+            }
+        }
     }
 }

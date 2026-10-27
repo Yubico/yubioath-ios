@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,10 +44,12 @@ struct ListStatusView: View {
             }
             Spacer()
         }
-        .frame(height: height - 100)
+        // A minimum rather than a fixed height, so the content isn't clipped when the list is short, e.g. in landscape on
+        // a small iPhone or with the keyboard up, and never negative while the list is first laid out.
+        .frame(minHeight: max(0, height - 100))
         .listRowSeparator(.hidden)
         .sheet(isPresented: $showWhatsNew) {
-            NavigationView {
+            NavigationStack {
                 VersionHistoryView(presentedFromMainView: true)
                     .navigationTitle(String(localized: "What's new", comment: "About navigation title"))
 

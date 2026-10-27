@@ -1,5 +1,6 @@
 /*
  * Copyright (C) Yubico.
+ * Copyright (C) 2026 Kenzi Voyer.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ struct TutorialView: View {
     @State var page: Int = 0
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $page) {
                 ForEach(Array(self.tutorialPages.enumerated()), id: \.element) { index, tutorialPage in
                     ScrollView {

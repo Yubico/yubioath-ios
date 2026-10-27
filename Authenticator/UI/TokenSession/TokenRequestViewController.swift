@@ -59,7 +59,7 @@ class TokenRequestViewController: UIViewController, UITextFieldDelegate {
         }
         
         // We need to tighten the vertical spacing to make room for the keyboard on smaller screens
-        if (view.window?.windowScene?.screen.bounds.width ?? view.bounds.width) <= 320 {
+        if view.bounds.width <= 320 {
             topHeadingConstraint.constant = 40
             headingAccessoryContstraint.constant = 35
             accessoryOrConstraint.constant = 5

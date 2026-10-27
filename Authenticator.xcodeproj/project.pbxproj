@@ -109,7 +109,6 @@
 		B4C93E60299D156C00C2A8B8 /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */; };
 		B4C93E63299FB51A00C2A8B8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E62299FB51A00C2A8B8 /* Account.swift */; };
 		B4C93E65299FC67800C2A8B8 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */; };
-		B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */; };
 		B4C93E9529C1B90900C2A8B8 /* AddAccountWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */; };
 		B4D71E812CE4E6E6004D4C29 /* YubiKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4D71E802CE4E6E6004D4C29 /* YubiKit */; };
 		B4DB228A299BC373003110ED /* OATHSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB2289299BC373003110ED /* OATHSession.swift */; };
@@ -267,7 +266,6 @@
 		B4C93E5F299D156C00C2A8B8 /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		B4C93E62299FB51A00C2A8B8 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetachedMenu.swift; sourceTree = "<group>"; };
 		B4C93E9429C1B90900C2A8B8 /* AddAccountWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountWrapper.swift; sourceTree = "<group>"; };
 		B4DB2289299BC373003110ED /* OATHSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OATHSession.swift; sourceTree = "<group>"; };
 		B4FE90D12A4431AB00B59170 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -426,7 +424,6 @@
 				51394C5926D40E64009F366D /* UIGestureRecognizer+Extensions.swift */,
 				51394C5B26D4D460009F366D /* MenuGestureRecognizer.swift */,
 				B4C93E64299FC67800C2A8B8 /* View+Extensions.swift */,
-				B4C93E8829B89DE300C2A8B8 /* DetachedMenu.swift */,
 				B452EC3C2A264A620045E5D9 /* ToastView.swift */,
 				B452EC432A2A06940045E5D9 /* ToastPresenter.swift */,
 				B4BB02D82C80987B00B72904 /* SettingsButton.swift */,
@@ -807,7 +804,6 @@
 				B44E5EBB2C778802007ABB79 /* OATHPasswordView.swift in Sources */,
 				B452EC3D2A264A620045E5D9 /* ToastView.swift in Sources */,
 				513D4DF7266634280022C53D /* ShowTime.swift in Sources */,
-				B4C93E8929B89DE300C2A8B8 /* DetachedMenu.swift in Sources */,
 				81C4E43D22F94B7B003AFBB8 /* KeySessionError.swift in Sources */,
 				51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */,
 				B4BB02E62C81C75E00B72904 /* FIDOResetViewModel.swift in Sources */,

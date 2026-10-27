@@ -100,7 +100,7 @@ class AddCredentialController: UITableViewController {
             }
             self.scanAccountView = scanAccountView
             self.navigationController?.view.addSubview(scanAccountView)
-            scanAccountView.autoresizingMask = .flexibleHeight
+            scanAccountView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.navigationController?.navigationBar.layer.zPosition = -1 // Move buttons behind scanview
         } else {
             updateWith(credential: credential)

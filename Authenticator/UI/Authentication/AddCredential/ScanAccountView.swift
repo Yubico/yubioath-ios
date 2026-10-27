@@ -157,8 +157,11 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
         return view
     }()
     
+    private var overlay: UIView?
     private var errorOverlay: UIView?
-    
+    private var textLabelTopConstraint: NSLayoutConstraint?
+    private var lastLayoutSize: CGSize = .zero
+
     init(frame: CGRect, completionHandler: @escaping (ScanResult) -> ()) {
         self.completionHandler = completionHandler
         super.init(frame: frame)
@@ -168,14 +171,8 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
         previewLayer.frame = layer.bounds
         layer.addSublayer(previewLayer)
         
-        addSubview(createOverlay())
-        
-        errorOverlay = createOverlay(frameColor: .red, background: .clear)
-        errorOverlay?.alpha = 0
-        if let errorOverlay = errorOverlay {
-            addSubview(errorOverlay)
-        }
-        
+        layoutOverlays()
+
         cancellables.append(closeButton.addHandler(for: .touchUpInside) { [weak self] in
             self?.completionHandler(.cancel)
         })
@@ -199,6 +196,9 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
         addSubview(addManuallyButton)
         addSubview(permissionView)
         
+        let textLabelTopConstraint = textLabel.topAnchor.constraint(equalTo: topAnchor, constant: captureRect().maxY + 16)
+        self.textLabelTopConstraint = textLabelTopConstraint
+
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             closeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
@@ -210,7 +210,7 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
             addManuallyButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -55),
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: UIDevice.current.userInterfaceIdiom == .pad ? 540.0 : frame.height / 1.55),
+            textLabelTopConstraint,
             permissionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             permissionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             permissionView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -50)
@@ -258,6 +258,42 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard bounds.size != lastLayoutSize else { return }
+        layoutOverlays()
+    }
+
+    // Rebuilds the capture overlays for the current size so the scan area stays inside the view on every display, orientation and pose.
+    private func layoutOverlays() {
+        lastLayoutSize = bounds.size
+        previewLayer.frame = layer.bounds
+
+        let errorAlpha = errorOverlay?.alpha ?? 0
+        overlay?.removeFromSuperview()
+        errorOverlay?.removeFromSuperview()
+
+        let overlay = createOverlay()
+        insertSubview(overlay, at: 0)
+        self.overlay = overlay
+
+        let errorOverlay = createOverlay(frameColor: .red, background: .clear)
+        errorOverlay.alpha = errorAlpha
+        insertSubview(errorOverlay, aboveSubview: overlay)
+        self.errorOverlay = errorOverlay
+
+        // Inserting a subview at index 0 can put its layer under the preview layer, which is a plain sublayer,
+        // so move the preview back to the bottom or it hides the overlays.
+        layer.insertSublayer(previewLayer, at: 0)
+
+        let rect = captureRect()
+        textLabelTopConstraint?.constant = rect.maxY + 16
+        checkboxImageView.center = CGPoint(x: rect.midX, y: rect.midY)
+        if previewLayer.connection != nil {
+            metadataOutput.rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: rect)
+        }
+    }
+
     func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(
             alongsideTransition: { _ in
@@ -376,19 +412,20 @@ class ScanAccountView: UIView, @preconcurrency AVCaptureMetadataOutputObjectsDel
 
 extension ScanAccountView {
     
+    // Sized from the view's own bounds rather than the device idiom, so the scan area fits compact and regular widths in any orientation.
     private func captureRect() -> CGRect {
-        let margin = UIDevice.current.userInterfaceIdiom == .pad  ? 150.0 : 50.0
-        let size = frame.width - margin * 2
-        let result = CGRect(x: margin,
-                            y: UIDevice.current.userInterfaceIdiom == .pad ? 120.0 : center.y - size / 1.5,
+        let size = max(0, min(bounds.width - 100, bounds.height * 0.5, 500))
+        let result = CGRect(x: bounds.midX - size / 2,
+                            y: bounds.midY - size / 1.5,
                             width: size,
                             height: size)
         return result
     }
-    
+
     private func createOverlay(frameColor: UIColor = .systemGreen, background: UIColor = UIColor.black.withAlphaComponent(0.6)) -> UIView {
-        
-        let overlayView = UIView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.height * 1.5)) // make size 50% larger than needed to handle orientation changes from landscape to portrait
+
+        let overlayView = UIView(frame: bounds)
+        overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         overlayView.backgroundColor = background
         
         let path = CGMutablePath()

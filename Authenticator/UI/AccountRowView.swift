@@ -22,25 +22,17 @@ struct AccountRowView: View {
 
     @Environment(ToastPresenter.self) var toastPresenter
     var account: Account
-    @Binding var showAccountDetails: AccountDetailsData?
-    @State private var contentSize: CGSize = .zero
-    @State private var estimatedCodeFrame: CGRect = .zero
-    @State private var codeFrame: CGRect = .zero
-    @State private var statusIconFrame: CGRect = .zero
-    @State private var cellFrame: CGRect = .zero
-    @State private var titleFrame: CGRect = .zero
-    @State private var subTitleFrame: CGRect = .zero
 
     @State private var pillScaling: CGFloat = 1.0
     @State private var pillOpacity: Double
 
     @State private var animate: Bool = true
 
-    private let pillColor = Color(.secondaryLabel)
+    // Hierarchical so the row stays legible when the list highlights it as selected.
+    private let pillColor = HierarchicalShapeStyle.secondary
     
-    init(account: Account, showAccountDetails: Binding<AccountDetailsData?>) {
+    init(account: Account) {
         self.account = account
-        self._showAccountDetails = showAccountDetails
         if account.state == .expired || account.otp == nil {
             self.pillOpacity = 0.5
         } else {
@@ -62,15 +54,13 @@ struct AccountRowView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.9)
                         .truncationMode(.tail)
-                        .readFrame($titleFrame)
                     account.subTitle.map {
                         Text($0)
                             .font(.footnote)
                             .lineLimit(1)
                             .minimumScaleFactor(0.9)
                             .truncationMode(.tail)
-                            .foregroundColor(Color(.secondaryLabel))
-                            .readFrame($subTitleFrame)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 Spacer()
@@ -82,14 +72,12 @@ struct AccountRowView: View {
                                 .font(.system(size: 22))
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
-                                .readFrame($statusIconFrame)
                                 .accessibilityHidden(true)
                         } else {
                             Image(systemName: "hand.tap.fill")
                                 .font(.system(size: 18))
                                 .frame(width: 22.0, height: 22.0)
                                 .padding(1)
-                                .readFrame($statusIconFrame)
                                 .accessibilityHidden(true)
                         }
                     case .countingdown(let remaining):
@@ -98,7 +86,6 @@ struct AccountRowView: View {
                                         animate: animate)
                             .frame(width: 22, height: 22)
                             .padding(1)
-                            .readFrame($statusIconFrame)
                             .accessibilityHidden(true)
                     }
                     ZStack {
@@ -107,7 +94,6 @@ struct AccountRowView: View {
                                 .font(.system(size: 17))
                                 .bold()
                                 .padding(.trailing, 4)
-                                .readFrame($codeFrame)
                         } else {
                             Text("*** *** ")
                                 .font(.system(size: 17))
@@ -116,16 +102,16 @@ struct AccountRowView: View {
                                 .padding(.top, 3.5)
                                 .padding(.bottom, -3.5)
                         }
-                        Text("888 888")
+                        Text("888 888") // reserves the code width so the pill doesn't resize
                             .font(.system(size: 17))
                             .bold()
                             .foregroundColor(.clear)
                             .padding(.trailing, 4)
-                            .readFrame($estimatedCodeFrame)
                     }
                 }
                 .padding(.all, 4)
-                .foregroundColor(pillColor)
+                .fixedSize() // keep the code on one line in a narrow sidebar; the title truncates instead
+                .foregroundStyle(pillColor)
                 .accessibilityAddTraits(.isButton)
                 .overlay {
                     Capsule()
@@ -136,18 +122,7 @@ struct AccountRowView: View {
                 .opacity(pillOpacity)
                 .scaleEffect(pillScaling)
             }
-            .listRowSeparator(.hidden)
-            .background(Color(.systemBackground)) // without the background set, taps outside the Texts will be ignored
-            .onTapGesture {
-                let data = AccountDetailsData(account: account,
-                                              estimatedCodeFrame: estimatedCodeFrame,
-                                              codeFrame: codeFrame,
-                                              statusIconFrame: statusIconFrame,
-                                              cellFrame: cellFrame,
-                                              titleFrame: titleFrame,
-                                              subTitleFrame: subTitleFrame)
-                showAccountDetails = data
-            }
+            .contentShape(Rectangle())
             .onChange(of: account.state) { _, state in
                 // Not sure why we have to schedule this in the next runloop
                 Task {
@@ -160,7 +135,8 @@ struct AccountRowView: View {
                     }
                 }
             }
-            .onLongPressGesture {
+            // Simultaneous so a tap still reaches the list and selects the row.
+            .simultaneousGesture(LongPressGesture().onEnded { _ in
                 Task {
                     withAnimation(.easeOut(duration: 0.1)) {
                         pillScaling = 1.4
@@ -178,24 +154,23 @@ struct AccountRowView: View {
                         toastPresenter.copyToClipboard(otp.code)
                     }
                 }
-            }
+            })
             .onAppear() {
                 animate = true
             }
             .onDisappear {
                 animate = false
             }
-            .readFrame($cellFrame)
     }
 }
 
-struct PieProgressView: View {
+struct PieProgressView<Style: ShapeStyle>: View {
     
     let progress: Double
-    let color: Color
+    let color: Style
     let animate: Bool
 
-    init(progress: Double, color: Color, animate: Bool = true) {
+    init(progress: Double, color: Style, animate: Bool = true) {
         self.progress = progress
         self.color = color
         self.animate = animate
@@ -205,7 +180,7 @@ struct PieProgressView: View {
         var duration = progress >= 1.0 ? 0.0 : 1.0
         duration = animate ? duration : 0.0
         return PieShape(progress: self.progress)
-            .foregroundColor(color)
+            .foregroundStyle(color)
             .animation(.linear(duration: duration), value: self.progress)
     }
 }

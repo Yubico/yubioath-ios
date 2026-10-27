@@ -32,7 +32,7 @@ struct ConfigurationView: View {
     }()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 if model.deviceInfo == nil {
                     VStack(alignment: .center) {

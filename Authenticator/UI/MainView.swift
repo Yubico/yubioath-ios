@@ -26,7 +26,7 @@ struct MainView: View {
     @Environment(NotificationsViewModel.self) var notificationsViewModel
     
     @Environment(MainViewModel.self) var model
-    @State var showAccountDetails: AccountDetailsData? = nil
+    @State var selectedAccountID: String? = nil
     @State var showAddAccount: Bool = false
     @State var addAccountCancellable: AnyCancellable?
     @State var addAccountSubject = PassthroughSubject<(YubiKitOATHSession.CredentialTemplate?, Bool), Never>()
@@ -48,9 +48,9 @@ struct MainView: View {
     
     var body: some View {
         @Bindable var model = model
-        NavigationView {
+        NavigationSplitView {
             GeometryReader { reader in
-                List {
+                List(selection: $selectedAccountID) {
                     if let otp {
                         Section(header: Text("Yubico OTP").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                             YubiOtpRowView(otp: otp)
@@ -61,7 +61,10 @@ struct MainView: View {
                     } else if !searchText.isEmpty {
                         if searchResults.count > 0 {
                             ForEach(searchResults, id: \.id) { account in
-                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                                NavigationLink(value: account.accountId) {
+                                    AccountRowView(account: account)
+                                }
+                                .listRowSeparator(.hidden)
                             }
                         } else {
                             ListStatusView(image: Image(systemName: "person.crop.circle.badge.questionmark"), message: String(localized: "No matching accounts on YubiKey"), height: reader.size.height)
@@ -69,32 +72,43 @@ struct MainView: View {
                     } else if model.pinnedAccounts.count > 0 {
                         Section(header: Text("Pinned").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                             ForEach(model.pinnedAccounts, id: \.id) { account in
-                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                                NavigationLink(value: account.accountId) {
+                                    AccountRowView(account: account)
+                                }
+                                .listRowSeparator(.hidden)
                             }
                         }
                         if model.otherAccounts.count > 0 {
                             Section(header: Text("Other").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                                 ForEach(model.otherAccounts, id: \.id) { account in
-                                    AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                                    NavigationLink(value: account.accountId) {
+                                        AccountRowView(account: account)
+                                    }
+                                    .listRowSeparator(.hidden)
                                 }
                             }
                         }
                     } else if model.accounts.count > 0 && otp != nil {
                         Section(header: Text("Accounts").frame(maxWidth: .infinity, alignment: .leading).font(.title3.bold()).foregroundColor(Color("ListSectionHeaderColor"))) {
                             ForEach(model.otherAccounts, id: \.id) { account in
-                                AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                                NavigationLink(value: account.accountId) {
+                                    AccountRowView(account: account)
+                                }
+                                .listRowSeparator(.hidden)
                             }
                         }
                     } else if model.accounts.count > 0 {
                         ForEach(model.accounts, id: \.id) { account in
-                            AccountRowView(account: account, showAccountDetails: $showAccountDetails)
+                            NavigationLink(value: account.accountId) {
+                                AccountRowView(account: account)
+                            }
+                            .listRowSeparator(.hidden)
                         }
                     } else {
                         ListStatusView(image: Image(systemName: "person.crop.circle"), message: String(localized: "No accounts on YubiKey"), height: reader.size.height)
                     }
                 }
             }
-            .accessibilityHidden(showAccountDetails != nil)
             .searchable(text: $searchText, prompt: String(localized: "Search"))
             .autocorrectionDisabled(true)
             .keyboardType(.asciiCapable)
@@ -142,11 +156,24 @@ struct MainView: View {
                 }
             }
             .navigationTitle(model.accountsLoaded ? String(localized: "Accounts", comment: "Navigation title in main view.") : "")
+            .navigationSplitViewColumnWidth(min: 320, ideal: 360)
+        } detail: {
+            if let selectedAccount {
+                AccountDetailView(account: selectedAccount) {
+                    selectedAccountID = nil
+                }
+                .id(selectedAccount.accountId)
+            } else {
+                Image(systemName: "person.crop.circle")
+                    .font(.system(size: 64))
+                    .foregroundStyle(Color(.tertiaryLabel))
+                    .accessibilityHidden(true)
+            }
         }
-        .accessibilityHidden(showAccountDetails != nil)
-        .overlay {
-            if showAccountDetails != nil {
-                AccountDetailsView(data: $showAccountDetails)
+        .onChange(of: model.accounts.map(\.accountId)) { _, accountIDs in
+            // Drop the selection when the account goes away, e.g. the YubiKey was removed or the account deleted.
+            if let selectedAccountID, !accountIDs.contains(selectedAccountID) {
+                self.selectedAccountID = nil
             }
         }
         .sheet(isPresented: $showAddAccount) {
@@ -248,7 +275,7 @@ struct MainView: View {
                 showAddAccount = false
                 showConfiguration = false
                 showAbout = false
-                showAccountDetails = nil
+                selectedAccountID = nil
             }
         }
         .onChange(of: model.presentDisableOTP) { _, presentDisableOTP in
@@ -256,7 +283,7 @@ struct MainView: View {
                 showAddAccount = false
                 showConfiguration = false
                 showAbout = false
-                showAccountDetails = nil
+                selectedAccountID = nil
                 notificationsViewModel.presentDisableOTP = true
             }
         }
@@ -274,6 +301,11 @@ struct MainView: View {
         }
     }
     
+    var selectedAccount: Account? {
+        guard let selectedAccountID else { return nil }
+        return model.accounts.first { $0.accountId == selectedAccountID }
+    }
+
     var searchResults: [Account] {
         if searchText.isEmpty {
             return [Account]()
@@ -286,11 +318,46 @@ struct MainView: View {
 
 extension View {
     func alertOrConfirmationDialog<A>(_ title: String, isPresented: Binding<Bool>, @ViewBuilder actions: () -> A) -> some View where A : View {
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            return AnyView(erasing: self.alert(title, isPresented: isPresented, actions: actions))
-        } else {
-            return AnyView(erasing: self.confirmationDialog(title, isPresented: isPresented, titleVisibility: .visible, actions: actions))
-        }
+        modifier(AlertOrConfirmationDialog(title: title, isPresented: isPresented, actions: actions()))
+    }
+}
+
+// Shows an alert in regular width and a confirmation dialog in compact width, so the presentation follows the
+// space the scene has (iPad, iPhone Duo inner display, Split View) rather than the device type.
+private struct AlertOrConfirmationDialog<A: View>: ViewModifier {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    let title: String
+    @Binding var isPresented: Bool
+    let actions: A
+
+    // Read by the bindings when a presentation writes back, which can happen after the size class has changed.
+    private final class SizeClassBox {
+        var isRegular = false
+    }
+    @State private var sizeClass = SizeClassBox()
+
+    // Both presentations stay attached rather than switching between them with if/else, which would give the content
+    // a new identity whenever the size class changes, e.g. when an iPhone Duo opens, and reset its state and sheets.
+    func body(content: Content) -> some View {
+        let isRegular = horizontalSizeClass == .regular
+        sizeClass.isRegular = isRegular
+        return content
+            .alert(title, isPresented: presentation(asAlert: true, isRegular: isRegular)) { actions }
+            .confirmationDialog(title, isPresented: presentation(asAlert: false, isRegular: isRegular), titleVisibility: .visible) { actions }
+    }
+
+    // When the size class changes while presented, the outgoing presentation is dismissed and the other one shown.
+    // Only the presentation that matches the current size class may dismiss, so the outgoing one can't clear isPresented.
+    private func presentation(asAlert: Bool, isRegular: Bool) -> Binding<Bool> {
+        let sizeClass = self.sizeClass
+        let isPresented = $isPresented
+        return Binding(
+            get: { isPresented.wrappedValue && isRegular == asAlert },
+            set: { newValue in
+                guard newValue || sizeClass.isRegular == asAlert else { return }
+                isPresented.wrappedValue = newValue
+            }
+        )
     }
 }
 
