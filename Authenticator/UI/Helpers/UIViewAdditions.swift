@@ -39,6 +39,8 @@ extension CGRect {
         for obstacle in obstacles where obstacle.intersects(self) {
             candidates = candidates.flatMap { candidate -> [CGRect] in
                 guard candidate.intersects(obstacle) else { return [candidate] }
+                // CGRect reports negative sizes as positive, so clip the obstacle first or pieces past its edges flip outside.
+                let obstacle = obstacle.intersection(candidate)
                 return [
                     CGRect(x: candidate.minX, y: candidate.minY, width: obstacle.minX - candidate.minX, height: candidate.height),
                     CGRect(x: obstacle.maxX, y: candidate.minY, width: candidate.maxX - obstacle.maxX, height: candidate.height),

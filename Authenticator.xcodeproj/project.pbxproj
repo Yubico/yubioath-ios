@@ -39,6 +39,7 @@
 		51D1E84C264134F300BDA3FF /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */; };
 		51D1E84E26427F7600BDA3FF /* PasswordCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D1E84D26427F7600BDA3FF /* PasswordCache.swift */; };
 		51EEC532246D34ED00061A8F /* DeviceCapabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC531246D34ED00061A8F /* DeviceCapabilities.swift */; };
+		A1C1EA0000000000000000B1 /* LargestClearRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C1EA0000000000000000F1 /* LargestClearRectTests.swift */; };
 		51EEC536246D38B700061A8F /* YubiKitExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */; };
 		51F8E3BD263847BD0010686B /* ManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BC263847BD0010686B /* ManagementViewModel.swift */; };
 		51F8E3BF263848E30010686B /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F8E3BE263848E30010686B /* ConnectionManager.swift */; };
@@ -187,6 +188,7 @@
 		51D1E84B264134F300BDA3FF /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		51D1E84D26427F7600BDA3FF /* PasswordCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCache.swift; sourceTree = "<group>"; };
 		51EEC531246D34ED00061A8F /* DeviceCapabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCapabilities.swift; sourceTree = "<group>"; };
+		A1C1EA0000000000000000F1 /* LargestClearRectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargestClearRectTests.swift; sourceTree = "<group>"; };
 		51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YubiKitExtensionsTests.swift; sourceTree = "<group>"; };
 		51F8E3BC263847BD0010686B /* ManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementViewModel.swift; sourceTree = "<group>"; };
 		51F8E3BE263848E30010686B /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				816C685123440EF900209342 /* SecureStoreTests.swift */,
+				A1C1EA0000000000000000F1 /* LargestClearRectTests.swift */,
 				51EEC535246D38B700061A8F /* YubiKitExtensionsTests.swift */,
 				818866CF22DFD72C006BC0A8 /* Info.plist */,
 			);
@@ -830,6 +833,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				816C685223440EF900209342 /* SecureStoreTests.swift in Sources */,
+				A1C1EA0000000000000000B1 /* LargestClearRectTests.swift in Sources */,
 				51EEC536246D38B700061A8F /* YubiKitExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
