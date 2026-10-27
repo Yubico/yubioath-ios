@@ -550,38 +550,34 @@
         }
       }
     },
-    "and can be used by other applications" : {
-      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
-      "extractionState" : "stale",
+    "App icon" : {
+      "comment" : "App icon navigation title",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "und kann von anderen Anwendungen genutzt werden"
+            "value" : "App-Symbol"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "et peut être utilisé par d'autres applications"
+            "value" : "Icône de l'app"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "これらの証明書はこの"
+            "value" : "アプリアイコン"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "a môžu ich používať aj iné aplikácie"
+            "value" : "Ikona aplikácie"
           }
         }
       }
-    },
-    "App icon" : {
-      "comment" : "App icon navigation title"
     },
     "Application" : {
       "localizations" : {
@@ -607,36 +603,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aplikácia"
-          }
-        }
-      }
-    },
-    "Authentication required" : {
-      "comment" : "Password Configuration auth required",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Authentifizierung erforderlich"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Authentification requise"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "認証が必要です"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vyžaduje sa overenie"
           }
         }
       }
@@ -695,36 +661,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zrušiť"
-          }
-        }
-      }
-    },
-    "Certificates on this YubiKey can be used to authenticate and sign requests from other applications if added to this" : {
-      "comment" : "PIV extension no certs on yubikey message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zertifikate auf diesem YubiKey können dazu verwendet werden, um Anfragen von anderen Anwendungen zu authentifizieren und zu signieren"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les certificats sur cette YubiKey peuvent être utilisés pour authentifier et signer des requêtes provenant d'autres applications s'ils sont ajoutés à celle-ci"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このYubiKeyの証明書を使用して、他のアプリケーションからのリクエストが追加された場合に認証して署名することができます"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Certifikáty na tomto kľúči YubiKey možno použiť na overovanie a podpisovanie požiadaviek z iných aplikácií, ak sa pridajú do tohto"
           }
         }
       }
@@ -1157,35 +1093,6 @@
         }
       }
     },
-    "Confirm OATH reset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OATH-Reset bestätigen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmer la réinitialisation de l'OATH"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OATHリセットの確認"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Potvrdiť obnovenie OATH"
-          }
-        }
-      }
-    },
     "Connection cancelled by user" : {
       "comment" : "Internal error message not to be displayed to the user.",
       "localizations" : {
@@ -1387,7 +1294,33 @@
       }
     },
     "Dark" : {
-      "comment" : "App icon name"
+      "comment" : "App icon name",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dunkel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sombre"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ダーク"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tmavá"
+          }
+        }
+      }
     },
     "Data to String conversion error" : {
       "localizations" : {
@@ -1902,35 +1835,6 @@
         }
       }
     },
-    "Error" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fehler"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erreur"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "エラー"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chyba"
-          }
-        }
-      }
-    },
     "Error reading YubiKey" : {
       "comment" : "PIV extension error title",
       "localizations" : {
@@ -2047,7 +1951,32 @@
       }
     },
     "Failed to change app icon" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App-Symbol konnte nicht geändert werden"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de modifier l'icône de l'app"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリアイコンを変更できませんでした"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikonu aplikácie sa nepodarilo zmeniť"
+          }
+        }
+      }
     },
     "FIDO" : {
       "localizations" : {
@@ -2073,35 +2002,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FIDO"
-          }
-        }
-      }
-    },
-    "FIDO factory reset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO-Werksreset"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réinitialisation d'usine FIDO"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工場出荷時の状態にリセット"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Obnoviť výrobné nastavenia FIDO"
           }
         }
       }
@@ -2134,35 +2034,6 @@
         }
       }
     },
-    "FIDO over USB-C is not supported by iOS. Use NFC or the desktop Yubico Authenticator instead." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO über USB-C wird von iOS nicht unterstützt. Verwende stattdessen NFC oder die Desktop Version des Yubico Authenticator."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO sur USB-C n'est pas pris en charge par iOS. Utilisez plutôt la NFC ou l'authentificateur de bureau Yubico."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "USB-C経由のFIDOはiOSではサポートされていません。代わりにNFCまたはデスクトップのYubico Authenticatorをご利用ください。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Systém iOS nepodporuje FIDO cez USB-C. Namiesto toho použite NFC alebo Yubico Authenticator na počítači."
-          }
-        }
-      }
-    },
     "FIDO PIN" : {
       "localizations" : {
         "de" : {
@@ -2187,64 +2058,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PIN kód FIDO"
-          }
-        }
-      }
-    },
-    "FIDO PIN protection" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO-PIN-Schutz"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Protection PIN FIDO"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO PIN保護"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ochrana FIDO PIN kódom"
-          }
-        }
-      }
-    },
-    "FIDO reset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDO zurücksetzen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réinitialisation FIDO"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "FIDOリセット"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Obnoviť FIDO"
           }
         }
       }
@@ -2306,64 +2119,6 @@
         }
       }
     },
-    "For additional security and to prevent unauthorized access the FIDO application can be protected by a PIN." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Für zusätzliche Sicherheit und zum Schutz vor unbefugtem Zugriff kann die FIDO-Anwendung durch eine PIN geschützt werden."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pour plus de sécurité et pour empêcher tout accès non autorisé, l'application FIDO peut être protégée par un code PIN."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "強固なセキュリティと不正なアクセスの防止のため、FIDOアプリケーションをPINで保護できます。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť aplikácia FIDO chránená PIN kódom."
-          }
-        }
-      }
-    },
-    "For additional security and to prevent unauthorized access the YubiKey can be password protected." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Für zusätzliche Sicherheit und um unbefugten Zugriff zu verhindern, kann der YubiKey mit einem Passwort geschützt werden."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pour plus de sécurité et pour empêcher tout accès non autorisé, le YubiKey peut être protégé par un mot de passe."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "強固なセキュリティと不正なアクセスの防止のため、YubiKeyをパスワードで保護できます。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Na dodatočné zabezpečenie a zabránenie neoprávnenému prístupu môže byť YubiKey chránený heslom."
-          }
-        }
-      }
-    },
     "GENERAL" : {
       "localizations" : {
         "de" : {
@@ -2421,7 +2176,33 @@
       }
     },
     "Green" : {
-      "comment" : "App icon name"
+      "comment" : "App icon name",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grün"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vert"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グリーン"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zelená"
+          }
+        }
+      }
     },
     "How does it work" : {
       "localizations" : {
@@ -2730,35 +2511,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Neplatné informácie o zariadení prijaté z YubiKey"
-          }
-        }
-      }
-    },
-    "Invalid session state." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sitzungsstatus ungültig."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "État de la session non valide."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無効なセッション状態です。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neplatný stav relácie."
           }
         }
       }
@@ -3594,35 +3346,6 @@
         }
       }
     },
-    "OATH password protection" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OATH-Passwortschutz"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Protection par mot de passe OATH"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OATHのパスワード保護"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ochrana OATH heslom"
-          }
-        }
-      }
-    },
     "OATH passwords" : {
       "localizations" : {
         "de" : {
@@ -3933,36 +3656,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Heslo"
-          }
-        }
-      }
-    },
-    "Password can not be an empty string" : {
-      "comment" : "Configuration set password empty password error alert message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Das Passwort darf keine leere Zeichenfolge sein."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le mot de passe ne peut pas être une chaîne vide"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "パスワードの文字列は空白にできません"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Heslo nemôže byť prázdny reťazec"
           }
         }
       }
@@ -4535,36 +4228,6 @@
         }
       }
     },
-    "Public key certificates on" : {
-      "comment" : "PIV extension no certs on device message",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zertifikate auf"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Certificats de clé publique activés"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "公開鍵証明書の対象"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Certifikáty verejného kľúča na"
-          }
-        }
-      }
-    },
     "Public key certificates on %@" : {
       "comment" : "PIV extension no certs on device",
       "localizations" : {
@@ -4789,35 +4452,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Odstrániť"
-          }
-        }
-      }
-    },
-    "Remove and re-insert your YubiKey" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Entferne Deinen YubiKey und stecke ihn erneut"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retirez et réinsérez votre YubiKey"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKeyを取り外して再挿入してください"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Odstráňte a znovu vložte váš YubiKey"
           }
         }
       }
@@ -5223,35 +4857,6 @@
         }
       }
     },
-    "Saved passwords has been cleared" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gespeicherte Passwörter wurden gelöscht"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les mots de passe enregistrés ont été effacés"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "保存されたパスワードがクリアされました"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uložené heslá boli vymazané"
-          }
-        }
-      }
-    },
     "Scan NFC YubiKey" : {
       "localizations" : {
         "de" : {
@@ -5561,36 +5166,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rozšírenie čipovej karty"
-          }
-        }
-      }
-    },
-    "Smart card extension is only available on iOS 14.5 and forward." : {
-      "comment" : "PIV extension version error",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Smartcard-Erweiterung ist nur unter iOS 14.5 und höher verfügbar."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'extension de carte à puce n'est disponible que sur iOS 14.5 et versions ultérieures."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "スマートカード拡張機能は、iOS 14.5以降でのみ使用できます。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rozšírenie inteligentnej karty je k dispozícii len v systéme iOS 14.5 a novších."
           }
         }
       }
@@ -5996,38 +5571,33 @@
         }
       }
     },
-    "The passwords do not match" : {
-      "comment" : "Configuration set password not matching error alert message",
-      "extractionState" : "stale",
+    "The PIN doesn't meet the requirements of this YubiKey." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Kennwörter stimmen nicht überein"
+            "value" : "Die PIN erfüllt nicht die Anforderungen dieses YubiKey."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Les mots de passe ne correspondent pas"
+            "value" : "Le code PIN ne respecte pas les exigences de cette YubiKey."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "パスワードが一致しません"
+            "value" : "PINがこのYubiKeyの要件を満たしていません。"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Heslá sa nezhodujú"
+            "value" : "PIN kód nespĺňa požiadavky tohto kľúča YubiKey."
           }
         }
       }
-    },
-    "The PIN doesn't meet the requirements of this YubiKey." : {
-
     },
     "The private key on the YubiKey does not match the certificate or there is no private key stored on the YubiKey." : {
       "comment" : "PIV extension NFC invalid decryption no private key\nPIV extension NFC invalid signature no private key",
@@ -6225,36 +5795,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Už existuje účet s názvom"
-          }
-        }
-      }
-    },
-    "These certificates have been added to this" : {
-      "comment" : "PIV extension substring in 'These certificates have been added to this [iPad/iPhone] and can be used by other applications'",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Zertifikate wurden hinzugefügt"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ces certificats ont été ajoutés à cette clé"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "に追加されていて、他のアプリケーションからも使用できます"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tieto certifikáty boli pridané do tohto"
           }
         }
       }
@@ -6714,7 +6254,32 @@
       }
     },
     "Too many wrong PIN attempts. Remove and reinsert the YubiKey to try again." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zu viele falsche PIN-Eingaben. Entferne den YubiKey und stecke ihn erneut, um es noch einmal zu versuchen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trop de tentatives de code PIN incorrectes. Retirez et réinsérez la YubiKey pour réessayer."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINの誤入力が多すぎます。YubiKeyを取り外して再度挿入してから、もう一度お試しください。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Príliš veľa nesprávnych pokusov o zadanie PIN kódu. Vyberte a znovu vložte kľúč YubiKey a skúste to znova."
+          }
+        }
+      }
     },
     "Touch key time out." : {
       "localizations" : {
@@ -6769,64 +6334,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teraz sa dotknite tlačidla na YubiKey."
-          }
-        }
-      }
-    },
-    "Turn on/off opening Safari to copy your OTP when scanning the NFC YubiKey." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Falls aktiviert erscheint bei Berührung der Kontaktfläche Deines YubiKeys eine Benachrichtigung. Beim Druck auf die Benachrichtigung wird der Yubico OTP Code in der App angezeigt."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activez/désactivez l'ouverture de Safari pour copier votre OTP lorsque vous scannez la YubiKey NFC."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "NFC YubiKey をスキャンしたときに、Safari を開いてワンタイムパスワードをコピーするかどうかを設定します。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zapnúť/vypnúť otváranie Safari na skopírovanie OTP pri skenovaní NFC YubiKey."
-          }
-        }
-      }
-    },
-    "Turn on/off output of OTP codes when touching the YubiKey." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Falls aktiviert, wird bei Berührung der Kontaktfläche Deines YubiKeys ein Yubico OTP ausgegeben."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activer/désactiver la sortie des codes OTP lorsque l'on touche la YubiKey."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey をタッチしたときに OTP コードを出力するかどうかを設定します。"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zapnúť/vypnúť výstup OTP kódov pri dotyku YubiKey."
           }
         }
       }
@@ -7232,36 +6739,6 @@
         }
       }
     },
-    "What's new in\nYubico Authenticator" : {
-      "comment" : "About navigation title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Was ist neu beim \nYubico Authenticator"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nouveautés de\nYubico Authenticator"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yubico Authenticator\nの新機能"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Čo je nové v aplikácii\nYubico Authenticator"
-          }
-        }
-      }
-    },
     "Where to get QR codes" : {
       "localizations" : {
         "de" : {
@@ -7406,7 +6883,32 @@
       }
     },
     "Wrong PIN." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falsche PIN."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code PIN incorrect."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINが正しくありません。"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nesprávny PIN kód."
+          }
+        }
+      }
     },
     "You can remove saved password in Settings." : {
       "comment" : "Password entry save password message",
@@ -7579,35 +7081,6 @@
         }
       }
     },
-    "Yubico OTP has been disabled" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yubico OTP wurde deaktiviert"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yubico OTP désactivé"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yubico OTPが無効になっています"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Yubico OTP bolo vypnuté"
-          }
-        }
-      }
-    },
     "YubiKey 5 Series NFC authentication" : {
       "localizations" : {
         "de" : {
@@ -7716,65 +7189,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Strata spojenia s YubiKey."
-          }
-        }
-      }
-    },
-    "YubiKey has been reset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey wurde zurückgesetzt"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey a été réinitialisé"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKeyがリセットされました"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey bol obnovený"
-          }
-        }
-      }
-    },
-    "YubiKey information read" : {
-      "comment" : "YubiKey info NFC read",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey Informationen lesen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Informations YubiKey lues"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKeyの情報が読み込まれました"
-          }
-        },
-        "sk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "YubiKey informácie prečítané"
           }
         }
       }
